@@ -1,0 +1,6 @@
+[submodule "xar"]
+	path = xar
+	url = https://github.com/packagesdev/xar
+[submodule "goldin"]
+	path = goldin
+	url = https://github.com/packagesdev/goldin
