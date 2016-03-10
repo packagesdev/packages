@@ -1,0 +1,22 @@
+// Shared Configuration Settings for Packages Xcode Projects
+
+#include "CodeSigningConfigurationSettings.xcconfig"
+
+// Intel 32-bit and 64-bit
+
+ARCHS = $(ARCHS_STANDARD_64_BIT)
+
+// Use Latest OS X SDK
+
+SDKROOT = macosx
+
+// Deployment Target
+
+MACOSX_DEPLOYMENT_TARGET = 10.8
+
+//
+
+COPY_PHASE_STRIP[config=Debug] = NO
+COPY_PHASE_STRIP = YES
+
+

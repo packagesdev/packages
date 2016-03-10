@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>478E0B7B-5FE1-46E4-BC9A-6B62239C5863</string>
+	<key>IDESourceControlProjectName</key>
+	<string>JavaScriptEditor</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CD7A408CA83536308A11B1BEA8BBBC1ADD29C805</key>
+		<string>https://github.com/packagesdev/packages.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>JavaScriptEditor/JavaScriptEditor.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>CD7A408CA83536308A11B1BEA8BBBC1ADD29C805</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/packagesdev/packages.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CD7A408CA83536308A11B1BEA8BBBC1ADD29C805</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CD7A408CA83536308A11B1BEA8BBBC1ADD29C805</string>
+			<key>IDESourceControlWCCName</key>
+			<string>packages</string>
+		</dict>
+	</array>
+</dict>
+</plist>

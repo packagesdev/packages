@@ -1,0 +1,300 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F44BF01B1C8B927E009321AF /* SharedConfigurationSettings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F44BF01A1C8B927E009321AF /* SharedConfigurationSettings.xcconfig */; };
+		F44BF01D1C8B92CB009321AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44BF01C1C8B92CB009321AF /* Cocoa.framework */; };
+		F44BF0281C8B9308009321AF /* ICSourceTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF0271C8B9308009321AF /* ICSourceTextViewDelegate.m */; };
+		F44BF02B1C8B9311009321AF /* ICSourceTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF02A1C8B9311009321AF /* ICSourceTextView.m */; };
+		F44BF02E1C8B9319009321AF /* ICSourceTextView+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF02D1C8B9319009321AF /* ICSourceTextView+Constants.m */; };
+		F44BF0311C8B9320009321AF /* ICGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF0301C8B9320009321AF /* ICGutterView.m */; };
+		F44BF0341C8B9327009321AF /* ICJavaScriptFunctionPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF0331C8B9327009321AF /* ICJavaScriptFunctionPopUpButton.m */; };
+		F44BF0371C8B932E009321AF /* ICSourceTextTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF0361C8B932E009321AF /* ICSourceTextTopView.m */; };
+		F44BF03A1C8B9336009321AF /* NSRangeUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF0391C8B9336009321AF /* NSRangeUtilities.m */; };
+		F44BF03D1C8B933C009321AF /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF03C1C8B933C009321AF /* NSString+Ranges.m */; };
+		F44BF0421C8B97C3009321AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF0411C8B97C3009321AF /* main.m */; };
+		F44BF0451C8B9FBC009321AF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44BF0431C8B9FBC009321AF /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D1107320486CEB800E47090 /* JavaScriptEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaScriptEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44BF01A1C8B927E009321AF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F44BF01C1C8B92CB009321AF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F44BF01E1C8B92D7009321AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F44BF0201C8B92DC009321AF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F44BF0221C8B92EC009321AF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = JavaScriptEditor/Info.plist; sourceTree = "<group>"; };
+		F44BF0261C8B9308009321AF /* ICSourceTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextViewDelegate.h; path = JavaScriptEditor/ICSourceTextViewDelegate.h; sourceTree = "<group>"; };
+		F44BF0271C8B9308009321AF /* ICSourceTextViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextViewDelegate.m; path = JavaScriptEditor/ICSourceTextViewDelegate.m; sourceTree = "<group>"; };
+		F44BF0291C8B9311009321AF /* ICSourceTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextView.h; path = JavaScriptEditor/ICSourceTextView.h; sourceTree = "<group>"; };
+		F44BF02A1C8B9311009321AF /* ICSourceTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextView.m; path = JavaScriptEditor/ICSourceTextView.m; sourceTree = "<group>"; };
+		F44BF02C1C8B9319009321AF /* ICSourceTextView+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ICSourceTextView+Constants.h"; path = "JavaScriptEditor/ICSourceTextView+Constants.h"; sourceTree = "<group>"; };
+		F44BF02D1C8B9319009321AF /* ICSourceTextView+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ICSourceTextView+Constants.m"; path = "JavaScriptEditor/ICSourceTextView+Constants.m"; sourceTree = "<group>"; };
+		F44BF02F1C8B9320009321AF /* ICGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICGutterView.h; path = JavaScriptEditor/ICGutterView.h; sourceTree = "<group>"; };
+		F44BF0301C8B9320009321AF /* ICGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICGutterView.m; path = JavaScriptEditor/ICGutterView.m; sourceTree = "<group>"; };
+		F44BF0321C8B9327009321AF /* ICJavaScriptFunctionPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICJavaScriptFunctionPopUpButton.h; path = JavaScriptEditor/ICJavaScriptFunctionPopUpButton.h; sourceTree = "<group>"; };
+		F44BF0331C8B9327009321AF /* ICJavaScriptFunctionPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICJavaScriptFunctionPopUpButton.m; path = JavaScriptEditor/ICJavaScriptFunctionPopUpButton.m; sourceTree = "<group>"; };
+		F44BF0351C8B932E009321AF /* ICSourceTextTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextTopView.h; path = JavaScriptEditor/ICSourceTextTopView.h; sourceTree = "<group>"; };
+		F44BF0361C8B932E009321AF /* ICSourceTextTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextTopView.m; path = JavaScriptEditor/ICSourceTextTopView.m; sourceTree = "<group>"; };
+		F44BF0381C8B9336009321AF /* NSRangeUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSRangeUtilities.h; path = JavaScriptEditor/NSRangeUtilities.h; sourceTree = "<group>"; };
+		F44BF0391C8B9336009321AF /* NSRangeUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSRangeUtilities.m; path = JavaScriptEditor/NSRangeUtilities.m; sourceTree = "<group>"; };
+		F44BF03B1C8B933C009321AF /* NSString+Ranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Ranges.h"; path = "JavaScriptEditor/NSString+Ranges.h"; sourceTree = "<group>"; };
+		F44BF03C1C8B933C009321AF /* NSString+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Ranges.m"; path = "JavaScriptEditor/NSString+Ranges.m"; sourceTree = "<group>"; };
+		F44BF0411C8B97C3009321AF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JavaScriptEditor/main.m; sourceTree = "<group>"; };
+		F44BF0441C8B9FBC009321AF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = JavaScriptEditor/en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F44BF01D1C8B92CB009321AF /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F44BF03B1C8B933C009321AF /* NSString+Ranges.h */,
+				F44BF03C1C8B933C009321AF /* NSString+Ranges.m */,
+				F44BF0381C8B9336009321AF /* NSRangeUtilities.h */,
+				F44BF0391C8B9336009321AF /* NSRangeUtilities.m */,
+				F44BF0351C8B932E009321AF /* ICSourceTextTopView.h */,
+				F44BF0361C8B932E009321AF /* ICSourceTextTopView.m */,
+				F44BF0321C8B9327009321AF /* ICJavaScriptFunctionPopUpButton.h */,
+				F44BF0331C8B9327009321AF /* ICJavaScriptFunctionPopUpButton.m */,
+				F44BF02F1C8B9320009321AF /* ICGutterView.h */,
+				F44BF0301C8B9320009321AF /* ICGutterView.m */,
+				F44BF02C1C8B9319009321AF /* ICSourceTextView+Constants.h */,
+				F44BF02D1C8B9319009321AF /* ICSourceTextView+Constants.m */,
+				F44BF0291C8B9311009321AF /* ICSourceTextView.h */,
+				F44BF02A1C8B9311009321AF /* ICSourceTextView.m */,
+				F44BF0261C8B9308009321AF /* ICSourceTextViewDelegate.h */,
+				F44BF0271C8B9308009321AF /* ICSourceTextViewDelegate.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F44BF01C1C8B92CB009321AF /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F44BF0201C8B92DC009321AF /* AppKit.framework */,
+				F44BF01E1C8B92D7009321AF /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* JavaScriptEditor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* JavaScriptEditor */ = {
+			isa = PBXGroup;
+			children = (
+				F44BF01A1C8B927E009321AF /* SharedConfigurationSettings.xcconfig */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				F44BF0411C8B97C3009321AF /* main.m */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = JavaScriptEditor;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F44BF0431C8B9FBC009321AF /* MainMenu.xib */,
+				F44BF0221C8B92EC009321AF /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* JavaScriptEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "JavaScriptEditor" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JavaScriptEditor;
+			productInstallPath = "$(HOME)/Applications";
+			productName = JavaScriptEditor;
+			productReference = 8D1107320486CEB800E47090 /* JavaScriptEditor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "JavaScriptEditor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+				English,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* JavaScriptEditor */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* JavaScriptEditor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F44BF01B1C8B927E009321AF /* SharedConfigurationSettings.xcconfig in Resources */,
+				F44BF0451C8B9FBC009321AF /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F44BF02B1C8B9311009321AF /* ICSourceTextView.m in Sources */,
+				F44BF03A1C8B9336009321AF /* NSRangeUtilities.m in Sources */,
+				F44BF0341C8B9327009321AF /* ICJavaScriptFunctionPopUpButton.m in Sources */,
+				F44BF02E1C8B9319009321AF /* ICSourceTextView+Constants.m in Sources */,
+				F44BF0371C8B932E009321AF /* ICSourceTextTopView.m in Sources */,
+				F44BF0281C8B9308009321AF /* ICSourceTextViewDelegate.m in Sources */,
+				F44BF0311C8B9320009321AF /* ICGutterView.m in Sources */,
+				F44BF0421C8B97C3009321AF /* main.m in Sources */,
+				F44BF03D1C8B933C009321AF /* NSString+Ranges.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F44BF0431C8B9FBC009321AF /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F44BF0441C8B9FBC009321AF /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = JavaScriptEditor/Info.plist;
+				PRODUCT_NAME = JavaScriptEditor;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = JavaScriptEditor/Info.plist;
+				PRODUCT_NAME = JavaScriptEditor;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F44BF01A1C8B927E009321AF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F44BF01A1C8B927E009321AF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "JavaScriptEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "JavaScriptEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
