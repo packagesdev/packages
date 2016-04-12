@@ -95,6 +95,8 @@ int32_t ixar_extract_tobuffersz(xar_t x, xar_file_t f, char **buffer, size_t *si
 	
 	if (tArchive==NULL)
 	{
+		if (outError!=NULL)
+			;// A COMPLETER
 		
 		return NO;
 	}
@@ -103,6 +105,10 @@ int32_t ixar_extract_tobuffersz(xar_t x, xar_file_t f, char **buffer, size_t *si
 	
 	if (tIterator==NULL)
 	{
+		xar_close(tArchive);
+		
+		if (outError!=NULL)
+			;// A COMPLETER
 		
 		return NO;
 	}
