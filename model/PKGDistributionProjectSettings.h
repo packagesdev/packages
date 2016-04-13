@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger, PKGProjectBuildFormat)
 
 	@property PKGProjectBuildFormat buildFormat;
 
+	@property BOOL treatMissingPresentationDocumentsAsWarnings;
+
 	@property NSMutableDictionary * advancedOptions;
 
 @end

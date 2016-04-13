@@ -27,7 +27,7 @@ NSString * const IPKGPackagePayloadHierarchyShowInvisibleFilesKey=@"SHOW_INVISIB
 
 NSString * const IPKGPackagePayloadHierarchyKey=@"HIERARCHY";
 
-NSString * const IPKGPackagePayloadOnlyWarnAboutMissingFilesKey=@"WARN_ONLY_MISSING_FILES";
+NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING_FILES_AS_WARNING";
 
 @interface PKGPackagePayload ()
 {
@@ -54,7 +54,7 @@ NSString * const IPKGPackagePayloadOnlyWarnAboutMissingFilesKey=@"WARN_ONLY_MISS
 		
 		// A COMPLETER
 		
-		_onlyWarnAboutMissingPayloadFiles=NO;
+		_treatMissingPayloadFilesAsWarnings=NO;
 	}
 	
 	return self;
@@ -120,7 +120,7 @@ NSString * const IPKGPackagePayloadOnlyWarnAboutMissingFilesKey=@"WARN_ONLY_MISS
 		
 		// A COMPLETER
 		
-		self.onlyWarnAboutMissingPayloadFiles=[inRepresentation[IPKGPackagePayloadOnlyWarnAboutMissingFilesKey] boolValue];
+		self.treatMissingPayloadFilesAsWarnings=[inRepresentation[IPKGPackagePayloadTreatMissingFilesAsWarningsKey] boolValue];
 	}
 	
 	return self;
@@ -144,7 +144,7 @@ NSString * const IPKGPackagePayloadOnlyWarnAboutMissingFilesKey=@"WARN_ONLY_MISS
 	
 	// A COMPLETER
 	
-	tRepresentation[IPKGPackagePayloadOnlyWarnAboutMissingFilesKey]=@(self.onlyWarnAboutMissingPayloadFiles);
+	tRepresentation[IPKGPackagePayloadTreatMissingFilesAsWarningsKey]=@(self.treatMissingPayloadFilesAsWarnings);
 	
 	return tRepresentation;
 }

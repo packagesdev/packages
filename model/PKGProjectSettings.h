@@ -30,7 +30,7 @@
 
 	@property (copy) NSString * certificateName;
 
-	@property (copy) NSString * keychainPath;
+	@property (copy) NSString * certificateKeychainPath;
 
 
 	@property NSMutableArray * filesFilters;

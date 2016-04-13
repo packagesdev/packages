@@ -115,7 +115,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 			
 			_certificateName=tCertificateDictionary[PKGProjectSettingsCertificateNameKey];
 			
-			_keychainPath=tCertificateDictionary[PKGProjectSettingsCertificateKeyChainPathKey];
+			_certificateKeychainPath=tCertificateDictionary[PKGProjectSettingsCertificateKeyChainPathKey];
 		}
 		
 		// Files Filters
@@ -188,8 +188,8 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	if (self.certificateName!=nil)
 		tCertificateRepresentation[PKGProjectSettingsCertificateNameKey]=self.certificateName;
 	
-	if (self.keychainPath!=nil)
-		tCertificateRepresentation[PKGProjectSettingsCertificateKeyChainPathKey]=self.keychainPath;
+	if (self.certificateKeychainPath!=nil)
+		tCertificateRepresentation[PKGProjectSettingsCertificateKeyChainPathKey]=self.certificateKeychainPath;
 		
 	if ([tCertificateRepresentation count]>0)
 		tRepresentation[PKGProjectSettingsCertificateKey]=tCertificateRepresentation;
@@ -221,7 +221,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	{
 		[tDescription appendFormat:@"  Certificate Identifier: %@\n",self.certificateName];
 	
-		[tDescription appendFormat:@"  Certificate KeyChain Path: %@\n\n",(self.keychainPath!=nil)? self.keychainPath : PKGProjectSettingsDefaultKeyChainPath];
+		[tDescription appendFormat:@"  Certificate KeyChain Path: %@\n\n",(self.certificateKeychainPath!=nil)? self.certificateKeychainPath : PKGProjectSettingsDefaultKeyChainPath];
 	}
 	
 	[tDescription appendFormat:@"  Exclusions(%lu):\n\n",(unsigned long) [self.filesFilters count]];

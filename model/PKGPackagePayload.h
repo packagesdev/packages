@@ -37,6 +37,6 @@ typedef NS_ENUM(NSUInteger, PKGPayloadType)
 
 	@property (nonatomic) PKGPayloadTree * filesTree;
 
-	@property BOOL onlyWarnAboutMissingPayloadFiles;
+	@property BOOL treatMissingPayloadFilesAsWarnings;
 
 @end

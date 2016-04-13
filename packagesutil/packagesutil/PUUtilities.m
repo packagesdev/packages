@@ -154,7 +154,6 @@
 	if ([[NSFileManager defaultManager] fileExistsAtPath:tAbsolutePath]==NO)
 	{
 		(void)fprintf(stderr, "%s: %s: missing imported package.\n",__PACKAGESUTIL_NAME__,[tAbsolutePath UTF8String]);
-		
 		return nil;
 	}
 	
@@ -210,7 +209,6 @@
 		if ([tNewPath length]==0)
 		{
 			(void)fprintf(stderr, "%s: Empty path not allowed\n",__PACKAGESUTIL_NAME__);
-		
 			return NO;
 		}
 		
@@ -234,7 +232,6 @@
 		if ([tCommand isEqualToString:@"path-type"]==NO && [tCommand isEqualToString:@"path"]==NO)
 		{
 			(void)fprintf(stderr, "%s: %s: not recognized.\n",__PACKAGESUTIL_NAME__,[tCommand UTF8String]);
-		
 			return NO;
 		}
 		
@@ -261,7 +258,6 @@
 				// Invalid arguments
 				
 				(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tPathTypeString UTF8String]);
-				
 				return NO;
 			}
 			
@@ -299,14 +295,12 @@
 			if ([tNewPath length]==0)
 			{
 				(void)fprintf(stderr, "%s: Empty path not allowed\n",__PACKAGESUTIL_NAME__);
-			
 				return NO;
 			}
 			
 			if ([tNewPath rangeOfString:@":"].location!=NSNotFound)
 			{
 				(void)fprintf(stderr, "%s: Invalid characters in path.\n",__PACKAGESUTIL_NAME__);
-				
 				return NO;
 			}
 			
@@ -324,7 +318,6 @@
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
 		(void)fprintf(stderr, "%s: Can not set the package name. Set project name instead.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -333,7 +326,6 @@
 		// Package name can not be modified
 			
 		(void)fprintf(stderr, "%s: Can not modify the name of an imported package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -355,7 +347,6 @@
 	if ([tNewName length]==0)
 	{
 		(void)fprintf(stderr, "%s: Empty name not allowed\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -400,7 +391,6 @@
 		// Package identifier can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the identifier of an imported package.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -422,7 +412,6 @@
 	if ([tNewIdentifier length]==0)
 	{
 		(void)fprintf(stderr, "%s: Empty identifier not allowed\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -430,28 +419,28 @@
 	
 	if (tFormatter!=nil)
 	{
-		if ([tFormatter isPartialStringValid:tNewIdentifier newEditingString:NULL errorDescription:NULL]==YES)
-		{
-			PKGPackageSettings * tPackageSettings=((id<PKGPackageObjectProtocol>) _currentObject).packageSettings;
-			
-			if (tPackageSettings!=nil)
-			{
-				tPackageSettings.identifier=tNewIdentifier;
-				
-				return YES;
-			}
-		}
-		else
-		{
-			(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tNewIdentifier UTF8String]);
-		}
-	}
-	else
-	{
 		(void)fprintf(stderr, "%s: Low memory\n",__PACKAGESUTIL_NAME__);
+		return NO;
 	}
 	
-	return NO;
+		
+	if ([tFormatter isPartialStringValid:tNewIdentifier newEditingString:NULL errorDescription:NULL]==NO)
+	{
+		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tNewIdentifier UTF8String]);
+		return NO;
+	}
+	
+	PKGPackageSettings * tPackageSettings=((id<PKGPackageObjectProtocol>) _currentObject).packageSettings;
+		
+	if (tPackageSettings==nil)
+	{
+		return NO;
+	}
+	
+	
+	tPackageSettings.identifier=tNewIdentifier;
+		
+	return YES;
 }
 
 - (BOOL) setPackageVersion:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
@@ -461,7 +450,6 @@
 		// Package version can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the version of an imported package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -483,7 +471,6 @@
 	if ([tNewVersion length]==0)
 	{
 		(void)fprintf(stderr, "%s: Empty version not allowed\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -506,7 +493,6 @@
 		// Package version can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the version of an imported package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -547,7 +533,6 @@
 	if (tConclusionAction==NSNotFound)
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tConclusion UTF8String]);
-		
 		return NO;
 	}
 	
@@ -568,7 +553,6 @@
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
 		(void)fprintf(stderr, "%s: Can not set the location type of a raw package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -609,7 +593,6 @@
 	if (tLocationType==NSNotFound)
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tLocationTypeString UTF8String]);
-		
 		return NO;
 	}
 	
@@ -630,7 +613,6 @@
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
 		(void)fprintf(stderr, "%s: Can not set the location path of a raw package.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -666,7 +648,6 @@
 		// Package authentication can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the require admin password behavior of an imported package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -699,7 +680,6 @@
 	if (tAuthenticationMode==NSNotFound)
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tState UTF8String]);
-		
 		return NO;
 	}
 	
@@ -722,7 +702,6 @@
 		// Package relocatable can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the relocatable option of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -753,7 +732,6 @@
 	else
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tState UTF8String]);
-		
 		return NO;
 	}
 
@@ -777,7 +755,6 @@
 		// Package overwrite directory permission can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the overwrite directory permission option of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -808,7 +785,6 @@
 	else
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tState UTF8String]);
-		
 		return NO;
 	}
 	
@@ -831,7 +807,6 @@
 		// Package overwrite directory permission can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the follow symbolic links option of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -862,7 +837,6 @@
 	else
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tState UTF8String]);
-		
 		return NO;
 	}
 	
@@ -886,7 +860,6 @@
 		// Package overwrite directory permission can not be modified
 		
 		(void)fprintf(stderr, "%s: Can not modify the hfs compression option of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -917,7 +890,6 @@
 	else
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tState UTF8String]);
-		
 		return NO;
 	}
 	
@@ -940,8 +912,7 @@
 	{
 		// Package pre-installation script can not be modified
 		
-		(void)fprintf(stderr, "%s: Can not set information about the pre-installation script of an imported or referenced package..\n",__PACKAGESUTIL_NAME__);
-		
+		(void)fprintf(stderr, "%s: Can not set information about the pre-installation script of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -950,7 +921,17 @@
 	PKGPackageScriptsAndResources * tPackageScriptsAndResources=tPackageProject.scriptsAndResources;
 	
 	if (tPackageScriptsAndResources==nil)
-		tPackageProject.scriptsAndResources=[[PKGPackageScriptsAndResources alloc] init];
+	{
+		tPackageScriptsAndResources=[[PKGPackageScriptsAndResources alloc] init];
+		
+		if (tPackageScriptsAndResources==nil)
+		{
+			(void)fprintf(stderr, "%s: Low memory\n",__PACKAGESUTIL_NAME__);
+			return NO;
+		}
+		
+		tPackageProject.scriptsAndResources=tPackageScriptsAndResources;
+	}
 	
 	PKGFilePath * tFilePath=tPackageScriptsAndResources.preInstallationScriptPath;
 	
@@ -974,8 +955,7 @@
 	{
 		// Package post-installation script can not be modified
 		
-		(void)fprintf(stderr, "%s: Can not set information about the post-installation script of an imported or referenced package..\n",__PACKAGESUTIL_NAME__);
-		
+		(void)fprintf(stderr, "%s: Can not set information about the post-installation script of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -984,7 +964,17 @@
 	PKGPackageScriptsAndResources * tPackageScriptsAndResources=tPackageProject.scriptsAndResources;
 	
 	if (tPackageScriptsAndResources==nil)
-		tPackageProject.scriptsAndResources=[[PKGPackageScriptsAndResources alloc] init];
+	{
+		tPackageScriptsAndResources=[[PKGPackageScriptsAndResources alloc] init];
+		
+		if (tPackageScriptsAndResources==nil)
+		{
+			(void)fprintf(stderr, "%s: Low memory\n",__PACKAGESUTIL_NAME__);
+			return NO;
+		}
+		
+		tPackageProject.scriptsAndResources=tPackageScriptsAndResources;
+	}
 	
 	PKGFilePath * tFilePath=tPackageScriptsAndResources.postInstallationScriptPath;
 	
@@ -1110,7 +1100,6 @@
 		// A Project Name can not be empty
 		
 		(void)fprintf(stderr, "%s: A project name can not be empty.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 
@@ -1118,7 +1107,7 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -1132,7 +1121,6 @@
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
 		(void)fprintf(stderr, "%s: Can not change the build format of a raw package project.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -1163,7 +1151,6 @@
 	else
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tFormat UTF8String]);
-		
 		return NO;
 	}
 	
@@ -1171,7 +1158,7 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -1186,7 +1173,7 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -1218,7 +1205,7 @@
 		
 		if (tProjectSettings==nil)
 		{
-			
+			(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 			return NO;
 		}
 		
@@ -1227,7 +1214,6 @@
 			// Bundle
 			
 			(void)fprintf(stderr, "%s: Bundle distributions can not be signed with a certificate.\n",__PACKAGESUTIL_NAME__);
-			
 			return NO;
 		}
 	}
@@ -1236,7 +1222,7 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -1247,11 +1233,10 @@
 		// A Keychain path can not be empty
 		
 		(void)fprintf(stderr, "%s: A keychain path can not be empty.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
-	tProjectSettings.keychainPath=tPath;
+	tProjectSettings.certificateKeychainPath=tPath;
 	
 	return YES;
 }
@@ -1275,7 +1260,7 @@
 		
 		if (tProjectSettings==nil)
 		{
-			
+			(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 			return NO;
 		}
 		
@@ -1284,7 +1269,6 @@
 			// Bundle
 			
 			(void)fprintf(stderr, "%s: Bundle distributions can not be signed with a certificate.\n",__PACKAGESUTIL_NAME__);
-			
 			return NO;
 		}
 	}
@@ -1293,7 +1277,7 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -1304,7 +1288,6 @@
 		// A Certificate Identity can not be empty
 		
 		(void)fprintf(stderr, "%s: A signing identity can not be empty.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -1343,20 +1326,63 @@
 	else
 	{
 		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tState UTF8String]);
-		
 		return NO;
 	}
 	
-	PKGProjectSettings * tProjectSettings=_project.settings;
-	
-	if (tProjectSettings==nil)
+	if (_projectType==PKGProjectTypeDistribution)
 	{
+		PKGDistributionProjectSettings * tProjectSettings=(PKGDistributionProjectSettings *)_project.settings;
 		
-		return NO;
+		if (tProjectSettings==nil)
+		{
+			(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
+			return NO;
+		}
+		
+		tProjectSettings.treatMissingPresentationDocumentsAsWarnings=tStateBool;
+		
+		for(PKGPackageComponent * tPackageComponent in ((PKGDistributionProject *) _project).packageComponents)
+		{
+			PKGPackagePayload * tPackagePayload=tPackageComponent.payload;
+			
+			if (tPackagePayload==nil)
+			{
+				tPackagePayload=[[PKGPackagePayload alloc] init];
+				
+				if (tPackagePayload==nil)
+				{
+					(void)fprintf(stderr, "%s: Low memory\n",__PACKAGESUTIL_NAME__);
+					return NO;
+				}
+				
+				tPackageComponent.payload=tPackagePayload;
+			}
+			
+			tPackagePayload.treatMissingPayloadFilesAsWarnings=tStateBool;
+		}
+	}
+	else
+	{
+		PKGPackageProject * tPackageProject=(PKGPackageProject *)_project;
+		
+		PKGPackagePayload * tPackagePayload=tPackageProject.payload;
+		
+		if (tPackagePayload==nil)
+		{
+			tPackagePayload=[[PKGPackagePayload alloc] init];
+			
+			if (tPackagePayload==nil)
+			{
+				(void)fprintf(stderr, "%s: Low memory\n",__PACKAGESUTIL_NAME__);
+				return NO;
+			}
+			
+			tPackageProject.payload=tPackagePayload;
+		}
+		
+		tPackagePayload.treatMissingPayloadFilesAsWarnings=tStateBool;
 	}
 	
-	//[tProjectSettingsDictionary setObject:[NSNumber numberWithBool:tStateBool] forKey:ICDOCUMENT_PROJECT_SETTINGS_ADVANCED_TREAT_MISSING_DOCUMENTS_AND_PAYLOADFILES_AS_WARNING];
-		
 	return YES;
 }
 
@@ -1528,7 +1554,6 @@
 						if ([tPackageComponents count]<tIndex)
 						{
 							(void)fprintf(stderr, "%s: %s: No package at index %d\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],(int) tIndex);
-							
 							return NO;
 						}
 						
@@ -1556,7 +1581,6 @@
 					if (_currentObject==nil)
 					{
 						(void)fprintf(stderr, "%s: %s: No package with identifier \"%s\" found\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],[tComponent UTF8String]);
-						
 						return NO;
 					}
 					
@@ -1616,7 +1640,6 @@
 	if (inFilePath==nil || inFilePath.string==nil)
 	{
 		(void)fprintf(stderr, "%s: No path set.\n",__PACKAGESUTIL_NAME__);
-		
 		return YES;
 	}
 	
@@ -1665,7 +1688,6 @@
 				default:
 					
 					(void)fprintf(stderr, "%s: Unknown type of path.\n",__PACKAGESUTIL_NAME__);
-					
 					return NO;
 			}
 			
@@ -1677,7 +1699,7 @@
 			NSString * tPath=inFilePath.string;
 			
 			(void)fprintf(stdout, "%s\n",[tPath fileSystemRepresentation]);
-				
+			
 			return YES;
 		}
 		
@@ -1705,7 +1727,6 @@
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
 		(void)fprintf(stderr, "%s: Can not get package name. Get project name instead.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -1828,7 +1849,6 @@
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
 		(void)fprintf(stderr, "%s: Can not get the location type of a raw package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -1874,7 +1894,6 @@
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
 		(void)fprintf(stderr, "%s: Can not get the location path of a raw package.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -1935,7 +1954,6 @@
 		// Package relocatable can not be obtained
 		
 		(void)fprintf(stderr, "%s: Can not get the relocatable option of a referenced package.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -1967,7 +1985,6 @@
 		// Package overwrite directory permissions can not be obtained
 		
 		(void)fprintf(stderr, "%s: Can not get the overwrite directory option of a referenced package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -1999,7 +2016,6 @@
 		// Package follow symbolic links can not be obtained
 		
 		(void)fprintf(stderr, "%s: Can not get the follow symbolic links option of a referenced package.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -2031,7 +2047,6 @@
 		// Package HFS+ Compression Option can not be obtained
 		
 		(void)fprintf(stderr, "%s: Can not get the hfs+ compression option of a referenced package.\n",__PACKAGESUTIL_NAME__);
-	
 		return NO;
 	}
 	
@@ -2063,8 +2078,7 @@
 	{
 		// Package pre-installation script can not be obtained
 		
-		(void)fprintf(stderr, "%s: Can not get information about the pre-installation script of an imported or referenced package..\n",__PACKAGESUTIL_NAME__);
-	
+		(void)fprintf(stderr, "%s: Can not get information about the pre-installation script of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -2072,8 +2086,8 @@
 	
 	if (tScriptsAndResources==nil)
 	{
-		
-		return NO;	// A VOIR
+		(void)fprintf(stderr, "%s: No path set.\n",__PACKAGESUTIL_NAME__);
+		return YES;
 	}
 	
 	if ([self getPathWithArguments:inArguments
@@ -2102,8 +2116,7 @@
 	{
 		// Package post-installation script can not be obtained
 		
-		(void)fprintf(stderr, "%s: Can not get information about the post-installation script of an imported or referenced package..\n",__PACKAGESUTIL_NAME__);
-		
+		(void)fprintf(stderr, "%s: Can not get information about the post-installation script of an imported or referenced package.\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -2111,8 +2124,8 @@
 	
 	if (tScriptsAndResources==nil)
 	{
-		
-		return NO;	// A VOIR
+		(void)fprintf(stderr, "%s: No path set.\n",__PACKAGESUTIL_NAME__);
+		return YES;
 	}
 	
 	if ([self getPathWithArguments:inArguments
@@ -2150,9 +2163,7 @@
 			if (tMutableComponents!=nil)
 			{
 				for(NSString * tComponent in tComponents)
-				{
 					[tMutableComponents addObject:[tComponent capitalizedString]];
-				}
 				
 				tObject=[tMutableComponents componentsJoinedByString:@"_"];
 			}
@@ -2234,7 +2245,7 @@
 	
 	if (tProjectSettings==nil)
 	{
-	
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -2243,7 +2254,6 @@
 	if (tProjectName==nil)
 	{
 		(void)fprintf(stderr, "%s: Missing project name\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
@@ -2278,7 +2288,7 @@
 			
 			if (tProjectSettings==nil)
 			{
-				
+				(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 				return NO;
 			}
 			
@@ -2287,13 +2297,11 @@
 				case PKGProjectBuildFormatFlat:
 					
 					(void)fprintf(stdout, "flat\n");
-					
 					return YES;
 					
 				case PKGProjectBuildFormatBundle:
 					
 					(void)fprintf(stdout, "bundle\n");
-					
 					return YES;
 			}
 		}
@@ -2319,7 +2327,7 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
@@ -2351,7 +2359,7 @@
 		
 		if (tProjectSettings==nil)
 		{
-			
+			(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 			return NO;
 		}
 		
@@ -2369,18 +2377,17 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
-	if ([tProjectSettings.keychainPath length]==0)
+	if ([tProjectSettings.certificateKeychainPath length]==0)
 	{
 		(void)fprintf(stderr, "No keychain path set for this project.\n");
-		
 		return YES;
 	}
 	
-	(void)fprintf(stdout, "%s\n",[tProjectSettings.keychainPath UTF8String]);
+	(void)fprintf(stdout, "%s\n",[tProjectSettings.certificateKeychainPath UTF8String]);
 
 	return YES;
 }
@@ -2404,7 +2411,7 @@
 		
 		if (tProjectSettings==nil)
 		{
-			
+			(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 			return NO;
 		}
 		
@@ -2413,7 +2420,6 @@
 			// Bundle
 			
 			(void)fprintf(stderr, "%s: Bundle distributions can not be signed with a certificate.\n",__PACKAGESUTIL_NAME__);
-			
 			return NO;
 		}
 	}
@@ -2422,14 +2428,13 @@
 	
 	if (tProjectSettings==nil)
 	{
-		
+		(void)fprintf(stderr, "%s: Missing project settings\n",__PACKAGESUTIL_NAME__);
 		return NO;
 	}
 	
 	if ([tProjectSettings.certificateName length]==0)
 	{
 		(void)fprintf(stderr, "No signing identity set for this project.\n");
-		
 		return YES;
 	}
 	
@@ -2443,57 +2448,54 @@
 	if (_projectType==PKGProjectTypePackage)
 	{
 		(void)fprintf(stderr, "%s: Raw package projects do not embed packages.\n",__PACKAGESUTIL_NAME__);
-		
 		return NO;
 	}
 	
-	if ([inArguments count]==1)
-	{
-		NSArray * tPackageComponents=((PKGDistributionProject *)_project).packageComponents;
-		
-		NSString * tArgument=[inArguments objectAtIndex:0];
-		
-		if ([tArgument isEqualToString:@"count"]==YES)
-		{
-			(void)fprintf(stdout, "%lu\n",(unsigned long)[tPackageComponents count]);
-		}
-		else if ([tArgument isEqualToString:@"list"]==YES)
-		{
-			for(PKGPackageComponent * tPackageComponent in tPackageComponents)
-			{
-				PKGPackageSettings * tPackageSettings=tPackageComponent.packageSettings;
-				NSString * tPackageName=nil;
-				
-				if (tPackageSettings!=nil)
-					tPackageName=tPackageSettings.name;
-				
-				if ([tPackageName length]>0)
-				{
-					(void)fprintf(stdout, "%s\n",[tPackageName UTF8String]);
-				}
-				else
-				{
-					(void)fprintf(stdout, "\n");
-				}
-			}
-		}
-		else
-		{
-			return NO;
-		}
-		
-		return YES;
-	}
-	else
+	if ([inArguments count]!=1)
 	{
 		// Too many arguments
 		
 		(void)fprintf(stderr, "%s: Invalid number of arguments.\n",__PACKAGESUTIL_NAME__);
 		
 		usage_get_project();
+	
+		return NO;
 	}
 	
-	return NO;
+	NSArray * tPackageComponents=((PKGDistributionProject *)_project).packageComponents;
+	
+	NSString * tArgument=[inArguments objectAtIndex:0];
+	
+	if ([tArgument isEqualToString:@"count"]==YES)
+	{
+		(void)fprintf(stdout, "%lu\n",(unsigned long)[tPackageComponents count]);
+	}
+	else if ([tArgument isEqualToString:@"list"]==YES)
+	{
+		for(PKGPackageComponent * tPackageComponent in tPackageComponents)
+		{
+			PKGPackageSettings * tPackageSettings=tPackageComponent.packageSettings;
+			NSString * tPackageName=nil;
+			
+			if (tPackageSettings!=nil)
+				tPackageName=tPackageSettings.name;
+			
+			if ([tPackageName length]>0)
+			{
+				(void)fprintf(stdout, "%s\n",[tPackageName UTF8String]);
+			}
+			else
+			{
+				(void)fprintf(stdout, "\n");
+			}
+		}
+	}
+	else
+	{
+		return NO;
+	}
+	
+	return YES;
 }
 
 - (BOOL) getProjectValue:(NSMutableArray *) inArguments
@@ -2595,13 +2597,11 @@
 					case PKGRepresentationInvalidTypeOfValueError:
 						
 						(void)fprintf(stderr, "%s: %s: Invalid type for value: %s\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],[tError.userInfo[PKGKeyPathErrorKey] UTF8String]);
-						
 						break;
 						
 					case PKGRepresentationInvalidValue:
 						
 						(void)fprintf(stderr, "%s: %s: Invalid value for %s\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],[tError.userInfo[PKGKeyPathErrorKey] UTF8String]);
-						
 						break;
 				}
 			}
@@ -2662,7 +2662,6 @@
 						if ([tPackageComponents count]<tIndex)
 						{
 							(void)fprintf(stderr, "%s: %s: No package at index %d\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],(int) tIndex);
-							
 							return NO;
 						}
 						
@@ -2690,7 +2689,6 @@
 					if (_currentObject==nil)
 					{
 						(void)fprintf(stderr, "%s: %s: No package with identifier \"%s\" found\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],[tComponent UTF8String]);
-						
 						return NO;
 					}
 					

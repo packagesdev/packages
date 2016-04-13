@@ -15,7 +15,7 @@
 
 NSString * const PKGDistributionProjectBuildFormatKey=@"BUILD_FORMAT";
 
-NSString * const ICDOCUMENT_PROJECT_SETTINGS_ADVANCED_TREAT_MISSING_DOCUMENTS_AND_PAYLOADFILES_AS_WARNING=@"TREAT_MISSING_DOCUMENTS_AND_PAYLOADFILES_AS_WARNING";	// A COMPLETER
+NSString * const PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey=@"TREAT_MISSING_PRESENTATION_DOCUMENTS_AS_WARNING";
 
 NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 
@@ -32,6 +32,8 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 		// Build Format
 		
 		_buildFormat=[inRepresentation[PKGDistributionProjectBuildFormatKey] unsignedIntegerValue];
+		
+		_treatMissingPresentationDocumentsAsWarnings=[inRepresentation[PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey] boolValue];
 		
 		// Advanced Options
 		
@@ -51,6 +53,8 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 	NSMutableDictionary * tRepresentation=[super representation];
 	
 	tRepresentation[PKGDistributionProjectBuildFormatKey]=@(self.buildFormat);
+	
+	tRepresentation[PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey]=@(self.treatMissingPresentationDocumentsAsWarnings);
 	
 	// Advanced Options
 	
