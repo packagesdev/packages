@@ -48,9 +48,38 @@
 	return [tMutableArray copy];
 }
 
+- (NSArray *)WBfilterObjectsUsingBlock:(BOOL (^)(id bObject, NSUInteger bIndex))inBlock
+{
+	if (inBlock==nil)
+		return self;
+	
+	__block NSMutableArray * tMutableArray=[NSMutableArray array];
+	
+	[self enumerateObjectsUsingBlock:^(id bOject,NSUInteger bIndex,BOOL * bOutStop){
+		
+		if (inBlock(bOject,bIndex)==YES)
+			[tMutableArray addObject:bOject];
+	}];
+	
+	return [tMutableArray copy];
+}
+
 @end
 
 @implementation NSMutableArray (WBMapping)
+
+- (void)WBmergeWithArray:(NSArray *)inArray
+{
+	if (inArray==nil)
+		return;
+	
+	[inArray enumerateObjectsUsingBlock:^(id bObject,NSUInteger bIndex,BOOL * bOutStop){
+	
+		if ([self containsObject:bObject]==NO)
+			[self addObject:bObject];
+		
+	}];
+}
 
 - (NSMutableArray *)WBmapObjectsUsingBlock:(id (^)(id bObject, NSUInteger bIndex))inBlock
 {

@@ -25,15 +25,18 @@ NSString * const PKGDistributionProjectRequirementsAndResourcesKey=@"PROJECT_REQ
 
 NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
 
+NSString * const PKGDistributionProjectSharedProjectDataKey=@"PACKAGES";
+
+
 @interface PKGDistributionProject ()
-{
-}
+
+	@property (readwrite) NSMutableArray * packageComponents;
 
 @end
 
 @implementation PKGDistributionProject
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	__block NSError * tError=nil;
 	
@@ -186,6 +189,25 @@ NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
 				return nil;
 			}
 		}
+		
+		if (inRepresentation[PKGDistributionProjectSharedProjectDataKey]==nil)
+		{
+			_sharedProjectData=[NSMutableDictionary dictionary];
+		}
+		else
+		{
+			if ([inRepresentation[PKGDistributionProjectSharedProjectDataKey] isKindOfClass:[NSDictionary class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGDistributionProjectSharedProjectDataKey}];
+				
+				return nil;
+			}
+			
+			_sharedProjectData=[inRepresentation[PKGDistributionProjectSharedProjectDataKey] mutableCopy];
+		}
 	}
 	else
 	{
@@ -196,7 +218,7 @@ NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[super representation];
 	
@@ -216,6 +238,9 @@ NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
 		tRepresentation[PKGDistributionProjectPackagesComponentsKey]=[self.packageComponents WBmapObjectsUsingBlock:^id(PKGPackageComponent * bPackageComponent, NSUInteger bIndex){
 			return [bPackageComponent representation];
 		}];
+		
+		if ([self.sharedProjectData count]>0)
+			tRepresentation[PKGDistributionProjectSharedProjectDataKey]=[self.sharedProjectData copy];
 	}
 	
 	return tRepresentation;
@@ -223,7 +248,7 @@ NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
 
 #pragma mark -
 
-- (PKGProjectType) type
+- (PKGProjectType)type
 {
 	return PKGProjectTypeDistribution;
 }
@@ -268,6 +293,16 @@ NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
 }
 
 #pragma mark -
+
+- (BOOL)isFlat
+{
+	PKGDistributionProjectSettings * tDistributionProjectSettings=(PKGDistributionProjectSettings *)self.settings;
+	
+	if (tDistributionProjectSettings==nil)
+		return NO;
+	
+	return (tDistributionProjectSettings.buildFormat==PKGProjectBuildFormatFlat);
+}
 
 - (PKGPackageComponent *)packageComponentWithUUID:(NSString *)inUUID
 {

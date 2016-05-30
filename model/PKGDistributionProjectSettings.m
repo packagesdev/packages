@@ -13,11 +13,19 @@
 
 #import "PKGDistributionProjectSettings.h"
 
+#import "PKGPackagesError.h"
+
 NSString * const PKGDistributionProjectBuildFormatKey=@"BUILD_FORMAT";
 
 NSString * const PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey=@"TREAT_MISSING_PRESENTATION_DOCUMENTS_AS_WARNING";
 
 NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
+
+@interface PKGDistributionProjectSettings ()
+
+	@property (readwrite) NSMutableDictionary * advancedOptions;
+
+@end
 
 @implementation PKGDistributionProjectSettings
 
@@ -27,22 +35,39 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 	
 	self=[super initWithRepresentation:inRepresentation error:&tError];
 	
-	if (self!=nil)
-	{
-		// Build Format
-		
-		_buildFormat=[inRepresentation[PKGDistributionProjectBuildFormatKey] unsignedIntegerValue];
-		
-		_treatMissingPresentationDocumentsAsWarnings=[inRepresentation[PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey] boolValue];
-		
-		// Advanced Options
-		
-		_advancedOptions=inRepresentation[PKGDistributionProjectBuildFormatKey];
-	}
-	else
+	if (self==nil)
 	{
 		if (outError!=NULL)
 			*outError=tError;
+		
+		return nil;
+	}
+	
+	// Build Format
+		
+	_buildFormat=[inRepresentation[PKGDistributionProjectBuildFormatKey] unsignedIntegerValue];
+	
+	_treatMissingPresentationDocumentsAsWarnings=[inRepresentation[PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey] boolValue];
+	
+	// Advanced Options
+	
+	if (inRepresentation[PKGDistributionProjectBuildFormatKey]==nil)
+	{
+		_advancedOptions=[NSMutableDictionary dictionary];
+	}
+	else
+	{
+		if ([inRepresentation[PKGDistributionProjectBuildFormatKey] isKindOfClass:[NSDictionary class]]==NO)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGDistributionProjectBuildFormatKey}];
+			
+			return nil;
+		}
+		
+		_advancedOptions=[inRepresentation[PKGDistributionProjectBuildFormatKey] mutableCopy];
 	}
 	
 	return self;
@@ -58,8 +83,8 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 	
 	// Advanced Options
 	
-	if (self.advancedOptions!=nil)
-		tRepresentation[PKGDistributionProjectAdvancedOptionsKey]=self.advancedOptions;
+	if ([self.advancedOptions count]>0)
+		tRepresentation[PKGDistributionProjectAdvancedOptionsKey]=[self.advancedOptions copy];
 	
 	return tRepresentation;
 }

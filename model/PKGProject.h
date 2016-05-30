@@ -34,13 +34,13 @@ extern NSString * const PKGProjectCommentsKey;
 
 @interface PKGProject : NSObject <PKGObjectProtocol>
 
-@property (readonly) PKGProjectType type;
+	@property (readonly) PKGProjectType type;
 
-@property (readonly) NSUInteger formatVersion;
+	@property (readonly) NSUInteger formatVersion;
 
-@property PKGProjectSettings * settings;
+	@property PKGProjectSettings * settings;
 
-@property PKGProjectComments * comments;
+	@property PKGProjectComments * comments;
 
 + (id)projectWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError;
 + (id)projectWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError;

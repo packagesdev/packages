@@ -64,10 +64,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void) drawRect:(NSRect) inRect
 {
-	CGFloat tWidth;
-	NSRect tBounds;
-	
-	tBounds=[self bounds];
+	NSRect tBounds=[self bounds];
 	
 	// Draw Background
 	
@@ -93,24 +90,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Draw line numbers
 	
-	tWidth = NSWidth(tBounds);
+	CGFloat tWidth = NSWidth(tBounds);
 	
 	if ([_lineNumberRects count]>0)
 	{
-		NSUInteger tCount;
-		NSSize tMaxSize;
-		NSUInteger tIndex;
+		NSSize tMaxSize=NSMakeSize(800,400);
 		
-		tMaxSize=NSMakeSize(800,400);
+		NSUInteger tCount = _startLineNumber + [_lineNumberRects count];
 		
-		tCount = _startLineNumber + [_lineNumberRects count];
-		
-		for (tIndex=_startLineNumber ; tIndex < tCount; tIndex++)
+		for (NSUInteger tIndex=_startLineNumber ; tIndex < tCount; tIndex++)
 		{
-			NSRect tRect;
-			NSString * tString;
-			
-			tRect = [[_lineNumberRects objectAtIndex:(tIndex - _startLineNumber)] rectValue];
+			NSRect tRect = [[_lineNumberRects objectAtIndex:(tIndex - _startLineNumber)] rectValue];
 			
 			// set the x origin of the number according to the number of digits it contains
 			
@@ -118,7 +108,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			tRect.origin.y += NSHeight(tRect)*0.5 - 6.;
 			
-			tString = [NSString stringWithFormat:@"%lu",(unsigned long)tIndex+1];
+			NSString * tString = [NSString stringWithFormat:@"%lu",(unsigned long)tIndex+1];
 			
 			tRect.origin.x=tWidth-NSWidth([tString boundingRectWithSize:tMaxSize options:0 attributes:_attributes])-2.0f;
 			

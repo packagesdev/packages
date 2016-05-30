@@ -21,6 +21,16 @@ NSString * const PKGFilePathStringKey=@"PATH";
 
 @implementation PKGFilePath
 
++(instancetype)filePath
+{
+    return [[PKGFilePath alloc] init];
+}
+
++(instancetype)filePathWithString:(NSString *)inString type:(PKGFilePathType)inType
+{
+    return [[PKGFilePath alloc] initWithString:inString type:inType];
+}
+
 - (instancetype)init
 {
 	self=[super init];
@@ -30,6 +40,20 @@ NSString * const PKGFilePathStringKey=@"PATH";
 		_type=PKGFilePathTypeAbsolute;
 		
 		_string=nil;
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithString:(NSString *)inString type:(PKGFilePathType)inType
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_type=inType;
+		
+		_string=[inString copy];
 	}
 	
 	return self;
@@ -59,7 +83,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	{
 		_type=[inRepresentation[PKGFilePathTypeKey] unsignedIntegerValue];
 		
-		_string=inRepresentation[PKGFilePathStringKey];
+		_string=[inRepresentation[PKGFilePathStringKey] copy];
 	}
 	
 	return self;
@@ -74,9 +98,16 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	
 	tRepresentation[PKGFilePathTypeKey]=@(self.type);
 	
-	tRepresentation[PKGFilePathStringKey]=self.string;
+	tRepresentation[PKGFilePathStringKey]=[self.string copy];
 	
 	return tRepresentation;
+}
+
+#pragma mark -
+
+- (id)copy
+{
+	return [[PKGFilePath alloc] initWithString:self.string type:self.type];
 }
 
 #pragma mark -
@@ -119,6 +150,25 @@ NSString * const PKGFilePathStringKey=@"PATH";
 		return nil;
 	
 	return [self.string lastPathComponent];
+}
+
+#pragma mark -
+
+- (BOOL)isEqualToFilePath:(PKGFilePath *)inFilePath
+{
+	if (inFilePath==nil)
+		return NO;
+	
+	if ([inFilePath isKindOfClass:[PKGFilePath class]]==NO)
+		return NO;
+	
+	if (self.type!=inFilePath.type)
+		return NO;
+	
+	if (inFilePath.string==nil)
+		return (self.string==nil);
+	
+	return [self.string isEqualToString:inFilePath.string];
 }
 
 @end

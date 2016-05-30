@@ -59,13 +59,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		for(;i<tReferenceCount;i++)
 		{
 			if (tRelativePath==nil)
-			{
 				tRelativePath=@"..";
-			}
 			else
-			{
 				tRelativePath=[tRelativePath stringByAppendingPathComponent:@".."];
-			}
 		}
 		
 		i=savedI;
@@ -79,13 +75,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	for(;i<tCount;i++)
 	{
 		if (tRelativePath==nil)
-		{
 			tRelativePath=[NSString stringWithString:tComponents[i]];
-		}
 		else
-		{
 			tRelativePath=[tRelativePath stringByAppendingPathComponent:tComponents[i]];
-		}
 	}
     
     return tRelativePath;

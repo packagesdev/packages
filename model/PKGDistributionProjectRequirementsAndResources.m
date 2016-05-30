@@ -45,7 +45,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -143,7 +143,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
@@ -161,7 +161,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 
 #pragma mark -
 
-- (NSString *) description
+- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	

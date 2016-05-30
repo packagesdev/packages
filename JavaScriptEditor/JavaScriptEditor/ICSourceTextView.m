@@ -83,6 +83,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSUInteger) lineNumberForIndex:(NSUInteger) inIndex;
 
+// Notification
+
+- (void) viewBoundsDidChange:(NSNotification *) inNotification;
+
 @end
 
 @implementation ICSourceTextView
@@ -92,7 +96,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) awakeFromNib
+- (void)awakeFromNib
 {
 	_numberOfSpaceForTab=4;
 	
@@ -135,23 +139,23 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	else
 	{
 		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(textDidChange:)
+												 selector:@selector(IC_textDidChange:)
 													 name:NSTextDidChangeNotification
 												   object:self];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(viewBoundsChanged:)
+												 selector:@selector(viewBoundsDidChange:)
 													 name:NSViewBoundsDidChangeNotification
 												   object:[_scrollView contentView]];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(viewBoundsChanged:)
+												 selector:@selector(viewBoundsDidChange:)
 													 name:NSWindowDidResizeNotification
 												   object:[self window]];
 	}
 }
 
-- (void) updateTabStyle
+- (void)updateTabStyle
 {
 	NSMutableAttributedString * tMutableAttributedString=[self textStorage];
 	
@@ -357,7 +361,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (void) changeFont:(id) sender
+- (void)changeFont:(id) sender
 {	
 	[super changeFont:sender];
 	
@@ -370,7 +374,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (void) mouseDown:(NSEvent *) inEvent
+- (void)mouseDown:(NSEvent *) inEvent
 {
 	[super mouseDown:inEvent];
 	
@@ -393,7 +397,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (void) insertNewline:(id) sender
+- (void)insertNewline:(id) sender
 {
 	NSRange tRange=[self rangeForUserTextChange];
 	
@@ -446,7 +450,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 }
 
-- (BOOL) performKeyEquivalent:(NSEvent *) inEvent
+- (BOOL)performKeyEquivalent:(NSEvent *) inEvent
 {
 	unichar tChar=[[inEvent charactersIgnoringModifiers] characterAtIndex:0];
 	
@@ -470,7 +474,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return [super performKeyEquivalent:inEvent];
 }
 
-- (IBAction) _shiftRight:(NSArray *) inSelectionRanges
+- (IBAction)_shiftRight:(NSArray *) inSelectionRanges
 {
 	if (inSelectionRanges!=nil)
 	{
@@ -549,12 +553,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 }
 
-- (IBAction) shiftRight:(id) sender
+- (IBAction)shiftRight:(id) sender
 {
 	[self _shiftRight:[self selectedRanges]];
 }
 
-- (IBAction) _shiftLeft:(NSArray *) inSelectionRanges
+- (IBAction)_shiftLeft:(NSArray *) inSelectionRanges
 {
 	if (inSelectionRanges!=nil)
 	{
@@ -566,39 +570,32 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			if (tMutableString!=nil)
 			{
-				NSUInteger tIndex;
-				NSMutableArray * tNewSelectionArray;
-				NSUInteger i,tCount;
-				NSUInteger tLength;
-				NSMutableArray * tRangesList;
-				NSMutableArray * tStringsList;
+				//NSUInteger i;
 				
-				tRangesList=[NSMutableArray array];
-				tStringsList=[NSMutableArray array];
+				NSMutableArray * tRangesList=[NSMutableArray array];
+				NSMutableArray * tStringsList=[NSMutableArray array];
 				
-				tIndex=[tIndexSet lastIndex];
+				NSUInteger tIndex=[tIndexSet lastIndex];
 				
-				tNewSelectionArray=[inSelectionRanges mutableCopy];
+				NSMutableArray *tNewSelectionArray=[inSelectionRanges mutableCopy];
 				
-				tCount=[tNewSelectionArray count];
+				NSUInteger tCount=[tNewSelectionArray count];
 				
-				tLength=[tMutableString length];
+				NSUInteger tLength=[tMutableString length];
 				
 				while (tIndex!=NSNotFound)
 				{
-					NSUInteger tWorkIndex;
-					NSUInteger tSearchIndex;
-					NSUInteger tRemovedLength=0;
-					BOOL tRemoved=NO;
-					
-					tWorkIndex=tIndex;
+					NSUInteger tWorkIndex=tIndex;
 					
 					if (tWorkIndex!=0)
 						tWorkIndex++;
 					
-					tSearchIndex=tWorkIndex;
+					NSUInteger tSearchIndex=tWorkIndex;
 					
 					// Find the first tab or series of space
+					
+					NSUInteger tRemovedLength=0;
+					BOOL tRemoved=NO;
 					
 					for(;tSearchIndex<tLength;tSearchIndex++)
 					{
@@ -632,9 +629,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 								tRemovedLength++;
 								
 								if (tRemovedLength==4)
-								{
 									break;
-								}
 							}
 							else
 							{
@@ -653,7 +648,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 						// Update Selection
 						
-						for(i=tCount;i>0;i--)
+						for(NSUInteger i=tCount;i>0;i--)
 						{
 							NSValue * tValue=[tNewSelectionArray objectAtIndex:i-1];
 							
@@ -674,13 +669,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 										tRange.location=tSearchIndex;
 										
 										if (tRange.length>tOffsetLength)
-										{
 											tRange.length-=tOffsetLength;
-										}
 										else
-										{
 											tRange.length=0;
-										}
 									}
 								}
 								else 
@@ -719,13 +710,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						}
 						
 						if ([tNewSelectionArray count]>0)
-						{
 							[self setSelectedRanges: tNewSelectionArray];
-						}
 						else
-						{
 							[self setSelectedRange:NSMakeRange(0,0)];
-						}
 						
 						[self didChangeText];
 					}
@@ -735,19 +722,21 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 }
 
-- (IBAction) shiftLeft:(id) sender
+- (IBAction)shiftLeft:(id) sender
 {
 	[self _shiftLeft:[self selectedRanges]];
 }
 
-- (void) textDidChange:(NSNotification *) inNotification
+#pragma mark - Notification
+
+- (void)IC_textDidChange:(NSNotification *)inNotification
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateFunctionPopup:) object:nil];
     
 	[self renderGutter];
 }
 
-- (void) viewBoundsChanged:(NSNotification *) inNotification
+- (void)viewBoundsDidChange:(NSNotification *) inNotification
 {
     [self renderGutter];
 }

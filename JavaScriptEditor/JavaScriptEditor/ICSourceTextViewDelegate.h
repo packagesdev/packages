@@ -15,12 +15,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 extern NSString * ICJavaScriptFunctionsListDidChangeNotification;
 
-@interface ICSourceTextViewDelegate : NSObject
+@interface ICSourceTextViewDelegate : NSObject <NSTextDelegate>
 
-- (NSArray *) parametersForFunctionNamed:(NSString *) inFunctionName;
+- (NSArray *)parametersForFunctionNamed:(NSString *) inFunctionName;
 
-- (NSArray *) sortedFunctionsList;
+- (NSArray *)sortedFunctionsList;
 
-- (IBAction) showFunction:(id) sender;
+- (IBAction)showFunction:(id) sender;
 
 @end

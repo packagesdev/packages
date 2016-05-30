@@ -58,19 +58,19 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	NSMutableArray * _functions;
 }
 
-+ (NSMutableDictionary *) functionDictionaryForString:(NSString *) inString;
++ (NSMutableDictionary *)functionDictionaryForString:(NSString *) inString;
 
-- (void) delayedParseFunctions;
-- (void) updateFunctionsMenuSelectedItem;
-- (void) parseSourceCode;
+- (void)delayedParseFunctions;
+- (void)updateFunctionsMenuSelectedItem;
+- (void)parseSourceCode;
 
-- (void) highlightKeywords:(NSArray *) inKeywordsArray inRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes;
-- (void) highlightNumbersInRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes;
+- (void)highlightKeywords:(NSArray *) inKeywordsArray inRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes;
+- (void)highlightNumbersInRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes;
 
-- (NSUInteger) findForwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex;
-- (NSUInteger) findBackwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex;
+- (NSUInteger)findForwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex;
+- (NSUInteger)findBackwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex;
 
-- (NSArray *) functionsRanges;
+- (NSArray *)functionsRanges;
 
 @end
 
@@ -190,14 +190,14 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	return self;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark -
 
-- (void) awakeFromNib
+- (void)awakeFromNib
 {
 	NSString * tDefaultFontName;
 	CGFloat tDefaultFontSize;
@@ -266,7 +266,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 #pragma mark -
 
-+ (NSMutableDictionary *) functionDictionaryForString:(NSString *) inString
++ (NSMutableDictionary *)functionDictionaryForString:(NSString *) inString
 {
 	NSMutableDictionary * tFunctionDictionary=nil;
 	
@@ -478,7 +478,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	return tFunctionDictionary;
 }
 
-- (void) delayedParseFunctions
+- (void)delayedParseFunctions
 {
 	NSUInteger tRangeCount=[_searchableRangesArray count];
 	
@@ -666,7 +666,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	[[NSNotificationCenter defaultCenter] postNotificationName:ICJavaScriptFunctionsListDidChangeNotification object:self];
 }
 
-- (void) updateFunctionsMenuSelectedItem
+- (void)updateFunctionsMenuSelectedItem
 {
 	NSUInteger tSelectedFunctionIndex=NSNotFound;
 	
@@ -694,7 +694,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	[[_functionsPopupButton superview] setNeedsDisplay:YES];
 }
 
-- (void) parseSourceCode
+- (void)parseSourceCode
 {
 	NSString * tSourceCode=[_textView string];
 	NSUInteger tLength=[tSourceCode length];
@@ -1068,7 +1068,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	}
 }
 
-- (void) highlightNumbersInRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes
+- (void)highlightNumbersInRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes
 {
 	if (inAttributes!=nil)
 	{
@@ -1122,9 +1122,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 						tDotsCount++;
 						
 						if (tDotsCount>1 || isHexaDecimal==YES)
-						{
 							break;
-						}
 					}
 					else if (tChar=='e' || tChar=='E')
 					{
@@ -1143,13 +1141,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 									tChar=[tSourceCode characterAtIndex:tLastDigitIndex+1];
 						
 									if ((tChar<'0' || tChar>'9'))
-									{
 										break;
-									}
 									else
-									{
 										tLastDigitIndex++;
-									}
 								}
 								else
 								{
@@ -1172,9 +1166,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 					else if (tChar<'0' || tChar>'9')
 					{
 						if (isHexaDecimal==NO || ((tChar<'a' || tChar>'f') && (tChar<'A' || tChar>'F')))
-						{
 							break;
-						}
 					}
 					
 					tLastDigitIndex++;
@@ -1192,7 +1184,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	}
 }
 
-- (void) highlightKeywords:(NSArray *) inKeywordsArray inRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes
+- (void)highlightKeywords:(NSArray *) inKeywordsArray inRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes
 {
 	if (inKeywordsArray!=nil && inRange.length>0)
 	{
@@ -1203,7 +1195,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 			NSString * tKeyword;
 			
 			NSTextStorage * tTextStorage=[_textView textStorage];
-	NSLayoutManager * tLayoutManager = [[tTextStorage layoutManagers] objectAtIndex: 0];
+			NSLayoutManager * tLayoutManager = [[tTextStorage layoutManagers] objectAtIndex: 0];
 			
 			
 			NSString * tSourceCode=[_textView string];
@@ -1247,7 +1239,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	}
 }
 
-- (NSUInteger) findForwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex
+- (NSUInteger)findForwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex
 {
 	NSUInteger tRangeIndex=[NSRangeUtilities indexOfRangeIncludingLocation:inStartingIndex withinRanges:inRangesArray];
 	
@@ -1369,7 +1361,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	return NSNotFound;
 }
 
-- (NSUInteger) findBackwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex
+- (NSUInteger)findBackwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex
 {
 	NSUInteger tRangeIndex=[NSRangeUtilities indexOfRangeIncludingLocation:inStartingIndex withinRanges:inRangesArray];
 	
@@ -1472,13 +1464,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 					}
 					
 					if (tFoundRange.location==tPartialLookRange.location)
-					{
 						tContinue=NO;
-					}
 					else
-					{
 						tPartialLookRange.length=tFoundRange.location-tPartialLookRange.location;
-					}
 				}
 			}
 			
@@ -1498,7 +1486,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 #pragma mark -
 
-- (void) textViewDidChangeFont:(NSNotification *) inNotification
+- (void)textViewDidChangeFont:(NSNotification *) inNotification
 {
 	if ([inNotification object]==_textView)
 	{
@@ -1511,7 +1499,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	}
 }
 
-- (void) textDidChange:(NSNotification *) inNotification
+- (void)textDidChange:(NSNotification *) inNotification
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayedParseFunctions) object:nil];
 	
@@ -1520,7 +1508,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	[self performSelector:@selector(delayedParseFunctions) withObject:nil afterDelay:0.5f];
 }
 
-- (void) textViewDidChangeSelection:(NSNotification *) inNotification
+- (void)textViewDidChangeSelection:(NSNotification *) inNotification
 {
 	if ([inNotification object]==_textView)
 	{
@@ -1580,13 +1568,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 						
 						if (tOppositeCharacter=='}' ||
 							tOppositeCharacter==')')
-						{
 							tMatchedLocation=[self findForwardMatchingCharacter:tOppositeCharacter inRanges:_searchableRangesArray startingAt:tLocation];
-						}
 						else
-						{
 							tMatchedLocation=[self findBackwardMatchingCharacter:tOppositeCharacter inRanges:_searchableRangesArray startingAt:tLocation];
-						}
 						
 						if (tMatchedLocation!=NSNotFound)
 						{
@@ -1625,7 +1609,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 #pragma mark -
 
-- (IBAction) showFunction:(id) sender
+- (IBAction)showFunction:(id) sender
 {
 	NSInteger tIndex=[sender indexOfSelectedItem];
 	
@@ -1637,19 +1621,10 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		
 		if ([tFunctionDictionary[ICJavaScriptFunctionNameKey] isEqualToString:tFunctionName]==NO)
 		{
-			NSEnumerator * tEnumerator=[_functions objectEnumerator];
-			
-			if (tEnumerator!=nil)
+			for(tFunctionDictionary in _functions)
 			{
-				while (tFunctionDictionary=[tEnumerator nextObject])
-				{
-					NSString * tTitle=tFunctionDictionary[ICJavaScriptFunctionNameKey];
-					
-					if ([tTitle isEqualToString:tFunctionName]==YES)
-					{
-						break;
-					}
-				}
+				if ([tFunctionDictionary[ICJavaScriptFunctionNameKey] isEqualToString:tFunctionName]==YES)
+					break;
 			}
 		}
 		
@@ -1679,20 +1654,18 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	}
 }
 
-- (NSArray *) parametersForFunctionNamed:(NSString *) inFunctionName
+- (NSArray *)parametersForFunctionNamed:(NSString *) inFunctionName
 {
 	for (NSDictionary * tFunctionDictionary in _functions)
 	{
-		NSString * tTitle=tFunctionDictionary[ICJavaScriptFunctionNameKey];
-		
-		if ([tTitle isEqualToString:inFunctionName]==YES)
+		if ([tFunctionDictionary[ICJavaScriptFunctionNameKey] isEqualToString:inFunctionName]==YES)
 			return tFunctionDictionary[ICJavaScriptFunctionParametersKey];
 	}
 	
 	return [NSArray array];
 }
 
-- (NSArray *) functionsRanges
+- (NSArray *)functionsRanges
 {
 	NSMutableArray * tMutableArray=[NSMutableArray array];
 	
@@ -1705,7 +1678,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	return [tMutableArray copy];
 }
 
-- (NSArray *) sortedFunctionsList
+- (NSArray *)sortedFunctionsList
 {
 	NSMutableArray * tMutableArray=[NSMutableArray array];
 	

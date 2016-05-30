@@ -33,7 +33,6 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 {
 }
 
-
 @end
 
 @implementation PKGPackagePayload

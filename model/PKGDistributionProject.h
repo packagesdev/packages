@@ -29,8 +29,12 @@
 
 	@property PKGDistributionProjectRequirementsAndResources * requirementsAndResources;
 
-	@property NSMutableArray * packageComponents;
+	@property (readonly) NSMutableArray * packageComponents;
 
+	@property (readonly) NSMutableDictionary * sharedProjectData;
+
+
+- (BOOL)isFlat;
 
 - (PKGPackageComponent *)packageComponentWithUUID:(NSString *)inUUID;
 
