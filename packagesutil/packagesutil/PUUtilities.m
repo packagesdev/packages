@@ -14,7 +14,7 @@
 
 #define __PACKAGESUTIL_NAME__	"packagesutil"
 
-@interface PUUtilities ()
+@interface PUUtilities () <PKGFilePathConverter>
 {
 	NSString * _filePath;
 	
@@ -27,21 +27,17 @@
 	BOOL _helpRequired;
 }
 
-- (PKGPackageSettings *) getPackageSettingsDictionaryForPackageType:(PKGPackageComponentType) inPackageType;
+- (PKGPackageSettings *)getPackageSettingsDictionaryForPackageType:(PKGPackageComponentType) inPackageType;
 
-- (NSString *) convertAbsolutePath:(NSString *) inPath toPathOfType:(PKGFilePathType) inPathType;
+- (BOOL)getPathWithArguments:(NSArray *) inArguments fromFilePath:(PKGFilePath *) inFilePath;
 
-- (NSString *) absolutePathForFilePath:(PKGFilePath *) inFilePath;
-
-- (BOOL) getPathWithArguments:(NSArray *) inArguments fromFilePath:(PKGFilePath *) inFilePath;
-
-- (BOOL) updateFilePath:(PKGFilePath *) inFilePath withArguments:(NSArray *) inArguments usage:(usage_callback) inUsageCallback;
+- (BOOL)updateFilePath:(PKGFilePath *) inFilePath withArguments:(NSArray *) inArguments usage:(usage_callback) inUsageCallback;
 
 @end
 
 @implementation PUUtilities
 
-+ (PUUtilities *) sharedUtilities
++ (PUUtilities *)sharedUtilities
 {
 	static PUUtilities * sUtilities=nil;
 	
@@ -55,78 +51,12 @@
 
 #pragma mark -
 
-- (void) setHelpRequired:(BOOL) inBool
+- (void)setHelpRequired:(BOOL) inBool
 {
 	_helpRequired=inBool;
 }
 
-- (NSString *) convertAbsolutePath:(NSString *) inPath toPathOfType:(PKGFilePathType) inPathType
-{
-	if (inPath==nil)
-		return nil;
-	
-	switch(inPathType)
-	{
-		case PKGFilePathTypeAbsolute:
-			
-			return inPath;
-			
-		case PKGFilePathTypeRelativeToProject:
-	
-			return [inPath PKG_stringByRelativizingToPath:[_filePath stringByDeletingLastPathComponent]];
-			
-		case PKGFilePathTypeRelativeToReferenceFolder:
-		{
-			NSString * tReferenceFolderPath=_project.settings.referenceFolderPath;
-			
-			if (tReferenceFolderPath==nil)
-				tReferenceFolderPath=[_filePath stringByDeletingLastPathComponent];
-			
-			return [inPath PKG_stringByRelativizingToPath:tReferenceFolderPath];
-		}
-			
-		default:
-			
-			break;
-	}
-	
-	return nil;
-}
-
-- (NSString *) absolutePathForFilePath:(PKGFilePath *) inFilePath
-{
-	if (inFilePath==nil)
-		return nil;
-	
-	switch(inFilePath.type)
-	{
-		case PKGFilePathTypeAbsolute:
-			
-			return inFilePath.string;
-		
-		case PKGFilePathTypeRelativeToProject:
-			
-			return [inFilePath.string PKG_stringByAbsolutingWithPath:[_filePath stringByDeletingLastPathComponent]];
-					
-		case PKGFilePathTypeRelativeToReferenceFolder:
-		{
-			NSString * tReferenceFolderPath=_project.settings.referenceFolderPath;
-			
-			if (tReferenceFolderPath==nil)
-				tReferenceFolderPath=[_filePath stringByDeletingLastPathComponent];
-			
-			return [inFilePath.string PKG_stringByAbsolutingWithPath:tReferenceFolderPath];
-		}
-			
-		default:
-			
-			break;
-	}
-	
-	return nil;
-}
-
-- (PKGPackageSettings *) getPackageSettingsDictionaryForPackageType:(PKGPackageComponentType) inPackageType
+- (PKGPackageSettings *)getPackageSettingsDictionaryForPackageType:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType!=PKGPackageComponentTypeImported)
 		return ((id<PKGPackageObjectProtocol>)_currentObject).packageSettings;
@@ -180,9 +110,111 @@
 	return tPackageSettings;
 }
 
+#pragma mark - PKGFilePathConverter
+
+- (NSString *)absolutePathForFilePath:(PKGFilePath *)inFilePath
+{
+	if (inFilePath==nil)
+		return nil;
+	
+	switch(inFilePath.type)
+	{
+		case PKGFilePathTypeAbsolute:
+			
+			return inFilePath.string;
+			
+		case PKGFilePathTypeRelativeToProject:
+			
+			return [inFilePath.string PKG_stringByAbsolutingWithPath:[_filePath stringByDeletingLastPathComponent]];
+			
+		case PKGFilePathTypeRelativeToReferenceFolder:
+		{
+			NSString * tReferenceFolderPath=_project.settings.referenceFolderPath;
+			
+			if (tReferenceFolderPath==nil)
+				tReferenceFolderPath=[_filePath stringByDeletingLastPathComponent];
+			
+			return [inFilePath.string PKG_stringByAbsolutingWithPath:tReferenceFolderPath];
+		}
+			
+		default:
+			
+			break;
+	}
+	
+	return nil;
+}
+
+- (PKGFilePath *)filePathForAbsolutePath:(NSString *)inAbsolutePath type:(PKGFilePathType)inType
+{
+	if (inAbsolutePath==nil)
+		return nil;
+	
+	if (inType==PKGFilePathTypeAbsolute)
+		return [[PKGFilePath alloc] initWithString:inAbsolutePath type:PKGFilePathTypeAbsolute];
+	
+	NSString * tReferencePath=nil;
+	
+	if (inType==PKGFilePathTypeRelativeToProject)
+	{
+		tReferencePath=[_filePath stringByDeletingLastPathComponent];
+	}
+	else if (inType==PKGFilePathTypeRelativeToReferenceFolder)
+	{
+		tReferencePath=_project.settings.referenceFolderPath;
+		
+		if (tReferencePath==nil)
+			tReferencePath=[_filePath stringByDeletingLastPathComponent];
+	}
+	
+	if (tReferencePath==nil)
+	{
+		
+		return nil;
+	}
+	
+	NSString * tConvertedPath=[inAbsolutePath PKG_stringByRelativizingToPath:tReferencePath];
+	
+	if (tConvertedPath==nil)
+	{
+		// A COMPLETER
+		return nil;
+	}
+	
+	return [[PKGFilePath alloc] initWithString:tConvertedPath type:inType];
+}
+
+- (BOOL)shiftTypeOfFilePath:(PKGFilePath *)inFilePath toType:(PKGFilePathType)inType
+{
+	if (inFilePath==nil)
+		return NO;
+	
+	if (inFilePath.type==inType)
+		return YES;
+	
+	if (inFilePath.string!=nil)
+	{
+		NSString * tAbsolutePath=[self absolutePathForFilePath:inFilePath];
+		
+		if (tAbsolutePath==nil)
+			return NO;
+		
+		PKGFilePath * tFilePath=[self filePathForAbsolutePath:tAbsolutePath type:inType];
+		
+		if (tFilePath==nil)
+			return NO;
+		
+		inFilePath.string=tFilePath.string;
+	}
+	
+	inFilePath.type=inType;
+	
+	return YES;
+}
+
 #pragma mark - Package Setters -
 
-- (BOOL) updateFilePath:(PKGFilePath *) inFilePath withArguments:(NSArray *) inArguments usage:(usage_callback) inUsageCallback
+- (BOOL)updateFilePath:(PKGFilePath *) inFilePath withArguments:(NSArray *) inArguments usage:(usage_callback) inUsageCallback
 {
 	if (inFilePath==nil)
 		return NO;
@@ -212,15 +244,15 @@
 			return NO;
 		}
 		
-		NSString * tConvertedPath=[self convertAbsolutePath:tNewPath toPathOfType:inFilePath.type];
+		PKGFilePath * tFilePath=[self filePathForAbsolutePath:tNewPath type:inFilePath.type];
 		
-		if (tConvertedPath==nil)
+		if (tFilePath==nil)
 		{
-			
+			// A COMPLETER
 			return NO;
 		}
 		
-		inFilePath.string=tConvertedPath;
+		inFilePath.string=tFilePath.string;
 		
 		return YES;
 	}
@@ -261,29 +293,12 @@
 				return NO;
 			}
 			
-			if (tNewPathType==inFilePath.type)
+			if ([self shiftTypeOfFilePath:inFilePath toType:tNewPathType]==NO)
 			{
-				// Nothing to do
+				// A COMPLETER
 				
-				return YES;
+				return NO;
 			}
-
-			if (inFilePath.string!=nil)
-			{
-				NSString * tAbsolutePath=[self absolutePathForFilePath:inFilePath];
-				
-				NSString * tNewPath=[self convertAbsolutePath:tAbsolutePath toPathOfType:tNewPathType];
-				
-				if (tNewPath==nil)
-				{
-					
-					return NO;
-				}
-				
-				inFilePath.string=tNewPath;
-			}
-			
-			inFilePath.type=tNewPathType;
 			
 			return YES;
 		}
@@ -313,7 +328,7 @@
 	return NO;
 }
 
-- (BOOL) setPackageName:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageName:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
@@ -384,7 +399,7 @@
 	return YES;
 }
 
-- (BOOL) setPackageIdentifier:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageIdentifier:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType==PKGPackageComponentTypeImported)
 	{
@@ -443,7 +458,7 @@
 	return YES;
 }
 
-- (BOOL) setPackageVersion:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageVersion:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType==PKGPackageComponentTypeImported)
 	{
@@ -486,7 +501,7 @@
 	return NO;
 }
 
-- (BOOL) setPackagePost_Installation_Behavior:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackagePost_Installation_Behavior:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType==PKGPackageComponentTypeImported)
 	{
@@ -507,7 +522,7 @@
 		return NO;
 	}
 	
-	PKGPackageConclusionAction tConclusionAction=NSNotFound;
+	NSUInteger tConclusionAction=NSNotFound;
 	
 	NSString * tConclusion=[inArguments lastObject];
 	
@@ -548,7 +563,7 @@
 	return NO;
 }
 
-- (BOOL) setPackageLocation_Type:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageLocation_Type:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
@@ -569,7 +584,7 @@
 	
 	NSString * tLocationTypeString=[inArguments lastObject];
 	
-	PKGPackageLocationType tLocationType=NSNotFound;
+	NSUInteger tLocationType=NSNotFound;
 	
 	// Set the new behavior
 	
@@ -608,7 +623,7 @@
 	return NO;
 }
 
-- (BOOL) setPackageLocation_Path:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageLocation_Path:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
@@ -641,7 +656,7 @@
 	return NO;
 }
 
-- (BOOL) setPackageRequire_Admin_Password:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageRequire_Admin_Password:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType==PKGPackageComponentTypeImported)
 	{
@@ -664,7 +679,7 @@
 	
 	NSString * tState=[inArguments lastObject];
 	
-	PKGPackageAuthentication tAuthenticationMode=NSNotFound;
+	NSUInteger tAuthenticationMode=NSNotFound;
 	
 	// Set the new behavior
 	
@@ -695,7 +710,7 @@
 	return NO;
 }
 
-- (BOOL) setPackageRelocatable:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageRelocatable:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType!=PKGPackageComponentTypeProject)
 	{
@@ -748,7 +763,7 @@
 	return YES;
 }
 
-- (BOOL) setPackageOverwrite_Directory_Permission:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageOverwrite_Directory_Permission:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType!=PKGPackageComponentTypeProject)
 	{
@@ -795,12 +810,13 @@
 		
 		return NO;
 	}
+	
 	tPackageSettings.overwriteDirectoryPermissions=tStateBool;
 		
 	return YES;
 }
 
-- (BOOL) setPackageFollow_Symbolic_Links:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageFollow_Symbolic_Links:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType!=PKGPackageComponentTypeProject)
 	{
@@ -853,7 +869,7 @@
 	return YES;
 }
 
-- (BOOL) setPackageUse_Hfs_Compression:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackageUse_Hfs_Compression:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType!=PKGPackageComponentTypeProject)
 	{
@@ -906,7 +922,7 @@
 	return YES;
 }
 
-- (BOOL) setPackagePre_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackagePre_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType!=PKGPackageComponentTypeProject)
 	{
@@ -949,7 +965,7 @@
 	return YES;
 }
 
-- (BOOL) setPackagePost_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)setPackagePost_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (inPackageType!=PKGPackageComponentTypeProject)
 	{
@@ -993,7 +1009,7 @@
 }
 
 
-- (BOOL) setPackageValue:(NSMutableArray *) inArguments
+- (BOOL)setPackageValue:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]<2)
 	{
@@ -1080,7 +1096,7 @@
 
 #pragma mark - Project Setters -
 
-- (BOOL) setProjectName:(NSMutableArray *) inArguments
+- (BOOL)setProjectName:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=1)
 	{
@@ -1116,7 +1132,7 @@
 	return YES;
 }
 
-- (BOOL) setProjectBuild_Format:(NSMutableArray *) inArguments
+- (BOOL)setProjectBuild_Format:(NSMutableArray *) inArguments
 {
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
@@ -1167,7 +1183,7 @@
 	return YES;
 }
 
-- (BOOL) setProjectBuild_Folder:(NSMutableArray *) inArguments
+- (BOOL)setProjectBuild_Folder:(NSMutableArray *) inArguments
 {
 	PKGProjectSettings * tProjectSettings=_project.settings;
 	
@@ -1186,7 +1202,7 @@
 	return YES;
 }
 
-- (BOOL) setProjectCertificate_Keychain:(NSMutableArray *) inArguments
+- (BOOL)setProjectCertificate_Keychain:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=1)
 	{
@@ -1241,7 +1257,7 @@
 	return YES;
 }
 
-- (BOOL) setProjectCertificate_Identity:(NSMutableArray *) inArguments
+- (BOOL)setProjectCertificate_Identity:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=1)
 	{
@@ -1297,7 +1313,7 @@
 	return YES;
 }
 
-- (BOOL) setProjectTreat_Missing_Items_As_Warnings:(NSMutableArray *) inArguments
+- (BOOL)setProjectTreat_Missing_Items_As_Warnings:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=1)
 	{
@@ -1386,7 +1402,7 @@
 	return YES;
 }
 
-- (BOOL) setProjectValue:(NSMutableArray *) inArguments
+- (BOOL)setProjectValue:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]<2)
 	{
@@ -1464,7 +1480,7 @@
 	return NO;
 }
 
-- (BOOL) setValue:(NSMutableArray *) inArguments forFileAtPath:(NSString *) inPath
+- (BOOL)setValue:(NSMutableArray *) inArguments forFileAtPath:(NSString *) inPath
 {
 	BOOL tResult=NO;
 	
@@ -1635,7 +1651,7 @@
 
 #pragma mark - Package Getters -
 
-- (BOOL) getPathWithArguments:(NSArray *) inArguments fromFilePath:(PKGFilePath *) inFilePath
+- (BOOL)getPathWithArguments:(NSArray *) inArguments fromFilePath:(PKGFilePath *) inFilePath
 {
 	if (inFilePath==nil || inFilePath.string==nil)
 	{
@@ -1711,7 +1727,7 @@
 
 #pragma mark -
 
-- (BOOL) getPackageName:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageName:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -1744,7 +1760,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageIdentifier:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageIdentifier:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -1769,7 +1785,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageVersion:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageVersion:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -1794,7 +1810,7 @@
 	return YES;
 }
 
-- (BOOL) getPackagePost_Installation_Behavior:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackagePost_Installation_Behavior:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -1844,7 +1860,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageLocation_Type:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageLocation_Type:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
@@ -1889,7 +1905,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageLocation_Path:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageLocation_Path:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if (_projectType!=PKGProjectTypeDistribution)
 	{
@@ -1913,7 +1929,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageRequire_Admin_Password:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageRequire_Admin_Password:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -1936,7 +1952,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageRelocatable:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageRelocatable:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -1967,7 +1983,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageOverwrite_Directory_Permission:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageOverwrite_Directory_Permission:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -1998,7 +2014,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageFollow_Symbolic_Links:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageFollow_Symbolic_Links:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -2029,7 +2045,7 @@
 	return YES;
 }
 
-- (BOOL) getPackageUse_Hfs_Compression:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackageUse_Hfs_Compression:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]!=0)
 	{
@@ -2061,7 +2077,7 @@
 }
 
 
-- (BOOL) getPackagePre_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackagePre_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]>=2)
 	{
@@ -2099,7 +2115,7 @@
 	return NO;
 }
 
-- (BOOL) getPackagePost_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
+- (BOOL)getPackagePost_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
 	if ([inArguments count]>=2)
 	{
@@ -2138,7 +2154,7 @@
 }
 
 
-- (BOOL) getPackageValue:(NSMutableArray *) inArguments
+- (BOOL)getPackageValue:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]>0)
 	{
@@ -2228,7 +2244,7 @@
 
 #pragma mark - Project Getters -
 
-- (BOOL) getProjectName:(NSMutableArray *) inArguments
+- (BOOL)getProjectName:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=0)
 	{
@@ -2262,7 +2278,7 @@
 	return YES;
 }
 	
-- (BOOL) getProjectBuild_Format:(NSMutableArray *) inArguments
+- (BOOL)getProjectBuild_Format:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=0)
 	{
@@ -2310,7 +2326,7 @@
 	return NO;
 }
 
-- (BOOL) getProjectBuild_Folder:(NSMutableArray *) inArguments
+- (BOOL)getProjectBuild_Folder:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]>=2)
 	{
@@ -2340,7 +2356,7 @@
 	return NO;
 }
 
-- (BOOL) getProjectCertificate_Keychain:(NSMutableArray *) inArguments
+- (BOOL)getProjectCertificate_Keychain:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=0)
 	{
@@ -2392,7 +2408,7 @@
 	return YES;
 }
 
-- (BOOL) getProjectCertificate_Identity:(NSMutableArray *) inArguments
+- (BOOL)getProjectCertificate_Identity:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]!=0)
 	{
@@ -2443,7 +2459,7 @@
 	return YES;
 }
 
-- (BOOL) getProjectPackages:(NSMutableArray *) inArguments
+- (BOOL)getProjectPackages:(NSMutableArray *) inArguments
 {
 	if (_projectType==PKGProjectTypePackage)
 	{
@@ -2498,7 +2514,7 @@
 	return YES;
 }
 
-- (BOOL) getProjectValue:(NSMutableArray *) inArguments
+- (BOOL)getProjectValue:(NSMutableArray *) inArguments
 {
 	if ([inArguments count]==0)
 	{
@@ -2576,7 +2592,7 @@
 	return NO;
 }
 
-- (BOOL) getValue:(NSMutableArray *) inArguments forFileAtPath:(NSString *) inPath
+- (BOOL)getValue:(NSMutableArray *) inArguments forFileAtPath:(NSString *) inPath
 {
 	BOOL tResult=NO;
 	
