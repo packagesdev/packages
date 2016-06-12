@@ -20,7 +20,7 @@
 
 @interface PKGPresentationSection : NSObject <PKGObjectProtocol>
 
-	@property (nonatomic,readonly) NSString * name;
+	@property (nonatomic,readonly,copy) NSString * name;
 
 	@property PKGFilePath * pluginPath;
 

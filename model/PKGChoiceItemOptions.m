@@ -26,6 +26,18 @@ NSString * const PKGChoiceItemOptionHideChildrenKey=@"HIDE_CHILDREN";
 
 @implementation PKGChoiceItemOptions
 
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_state=PKGSelectedChoiceState;
+	}
+	
+	return self;
+}
+
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)

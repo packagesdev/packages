@@ -15,6 +15,21 @@
 
 #import "PKGObjectProtocol.h"
 
+typedef NS_ENUM(NSInteger, PKGRequirementType)
+{
+	PKGRequirementTypeUndefined=-1,
+	PKGRequirementTypeInstallation=0,
+	PKGRequirementTypeTarget=1
+};
+
+typedef NS_ENUM(NSInteger, PKGRequirementComparator)
+{
+	PKGRequirementComparatorIsLess=-1,
+	PKGRequirementComparatorIsEqual=0,
+	PKGRequirementComparatorisGreater=1,
+	PKGRequirementComparatorIsNotEqual=2
+};
+
 typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
 {
 	PKGRequirementOnFailureBehaviorDeselectAndHideChoice=0,
@@ -31,10 +46,14 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
 
 	@property (copy) NSString * identifier;
 
+	@property PKGRequirementType type;
+
 	@property PKGRequirementOnFailureBehavior behavior;
 
-	@property NSArray * messages;
+	@property (readonly)NSMutableArray * messages;
 
 	@property NSDictionary * settingsRepresentation;
+
+- (NSComparisonResult)compareBehavior:(PKGRequirement *)inOtherRequirement;
 
 @end

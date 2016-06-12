@@ -51,5 +51,7 @@
 - (void)removeChildren;
 - (void)removeFromParent;
 
+- (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block;
+
 @end
 

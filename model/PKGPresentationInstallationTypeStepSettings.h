@@ -15,6 +15,8 @@
 
 #import "PKGInstallationHierarchy.h"
 
+#import "PKGPackageComponent.h"
+
 typedef NS_ENUM(NSUInteger, PKGPresentationInstallationTypeMode)
 {
 	PKGPresentationInstallationTypeStandardOrCustomInstall=0,
@@ -26,9 +28,13 @@ typedef NS_ENUM(NSUInteger, PKGPresentationInstallationTypeMode)
 
 	@property PKGPresentationInstallationTypeMode mode;
 
-	@property (nonatomic) NSMutableDictionary * hierarchies;
+	@property (nonatomic,readonly) NSMutableDictionary * hierarchies;
 
+
+- (instancetype)initWithPackagesComponents:(NSArray *)inPackagesComponents;
 
 - (PKGInstallationHierarchy *)installerHierarchy;
+
+- (NSSet *) allPackagesUUIDs;
 
 @end

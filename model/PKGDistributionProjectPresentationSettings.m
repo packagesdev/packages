@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSArray+WBMapping.h"
+#import "NSArray+WBExtensions.h"
 
 NSString * const PKGPresentationInstallationStepsKey=@"INSTALLATION_STEPS";
 
@@ -32,6 +32,12 @@ NSString * const PKGPresentationLicenseKey=@"LICENSE";
 NSString * const PKGPresentationInstallationTypeKey=@"INSTALLATION TYPE";
 
 NSString * const PKGPresentationSummaryKey=@"SUMMARY";
+
+@interface PKGDistributionProjectPresentationSettings()
+
+	@property (readwrite)NSMutableArray * sections;
+
+@end
 
 @implementation PKGDistributionProjectPresentationSettings
 
@@ -98,6 +104,12 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 				
 				return nil;
 			}
+		}
+		else
+		{
+			// Build the defaults
+			
+			// A COMPLETER
 		}
 		
 		// Title

@@ -14,8 +14,7 @@
 #import "PKGDistributionProject.h"
 
 #import "PKGPackagesError.h"
-
-#import "NSArray+WBMapping.h"
+#import "NSArray+WBExtensions.h"
 
 NSString * const PKGDistributionProjectProjectSettingsKey=@"PROJECT_SETTINGS";
 
@@ -81,6 +80,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"PACKAGES";
 		}
 			
 		_presentationSettings=[[PKGDistributionProjectPresentationSettings alloc] initWithRepresentation:tProjectDictionary[PKGDistributionProjectPresentationSettingsKey] error:&tError];
+		
 		if (_presentationSettings==nil)
 		{
 			if (outError!=NULL)

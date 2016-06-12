@@ -13,6 +13,8 @@
 
 #import "PKGPresentationInstallationTypeStepSettings.h"
 
+#import "PKGPackagesError.h"
+
 NSString * const PKGPresentationInstallationTypeModeKey=@"MODE";
 
 NSString * const PKGPresentationInstallationTypeInstallerHierarchyKey=@"INSTALLER";
@@ -28,9 +30,35 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 	NSDictionary * _cachedHierarchiesRepresentation;
 }
 
+	@property (nonatomic,readwrite) NSMutableDictionary * hierarchies;
+
 @end
 
 @implementation PKGPresentationInstallationTypeStepSettings
+
+- (instancetype)initWithPackagesComponents:(NSArray *)inPackagesComponents
+{
+	if (inPackagesComponents==nil)
+		return nil;
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_mode=PKGPresentationInstallationTypeStandardOrCustomInstall;
+		
+		_hierarchies=[NSMutableDictionary dictionary];
+		
+		PKGInstallationHierarchy * tInstallationHierarchy=[[PKGInstallationHierarchy alloc] initWithPackagesComponents:inPackagesComponents];
+		
+		if (tInstallationHierarchy==nil)
+			return nil;
+		
+		_hierarchies[PKGPresentationInstallationTypeInstallerHierarchyKey]=tInstallationHierarchy;
+	}
+	
+	return self;
+}
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
@@ -41,11 +69,26 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 	if (self!=nil)
 	{
 		if (inRepresentation[PKGPresentationInstallationTypeModeKey]!=nil)
+		{
 			_mode=[inRepresentation[PKGPresentationInstallationTypeModeKey] unsignedIntegerValue];
+			
+			if (_mode>PKGPresentationInstallationTypeCustomInstallOnly)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValue userInfo:nil];
+
+				return nil;
+			}
+		}
 		else
+		{
 			_mode=PKGPresentationInstallationTypeStandardOrCustomInstall;
+		}
 		
 		_cachedHierarchiesRepresentation=inRepresentation[PKGPresentationInstallationTypeHierarchiesKey];
+		
+		if (_cachedHierarchiesRepresentation==nil)
+			_cachedHierarchiesRepresentation=[NSMutableDictionary dictionary];
 	}
 	else
 	{
@@ -156,6 +199,23 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 - (PKGInstallationHierarchy *)installerHierarchy
 {
 	return self.hierarchies[PKGPresentationInstallationTypeInstallerHierarchyKey];
+}
+
+#pragma mark -
+
+- (NSSet *)allPackagesUUIDs
+{
+	NSMutableSet * tMutableSet=[NSMutableSet set];
+	
+	[self.hierarchies enumerateKeysAndObjectsUsingBlock:^(NSString * bHierarchyIdentifier,PKGInstallationHierarchy * bHierarchy,BOOL * bOutStop){
+	
+		NSSet * tSet=[bHierarchy allPackagesUUIDs];
+		
+		if(tSet!=nil)
+			[tMutableSet unionSet:tSet];
+	}];
+	
+	return [tMutableSet copy];
 }
 
 @end

@@ -21,6 +21,8 @@ NSString * const PKGRequirementNameKey=@"NAME";
 
 NSString * const PKGRequirementIdentifierKey=@"IDENTIFIER";
 
+NSString * const PKGRequirementTypeKey=@"IC_REQUIREMENT_CHECK_TYPE";
+
 NSString * const PKGRequirementSettingsRepresentationKey=@"DICTIONARY";
 
 NSString * const PKGRequirementOnFailureBehaviorKey=@"BEHAVIOR";
@@ -28,9 +30,40 @@ NSString * const PKGRequirementOnFailureBehaviorKey=@"BEHAVIOR";
 NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 
 
+@interface PKGRequirement ()
+
+	@property (readwrite)NSMutableArray * messages;
+
+@end
+
+
 @implementation PKGRequirement
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_enabled=YES;
+		
+		_name=@"";
+		
+		_identifier=@"";
+		
+		_type=PKGRequirementTypeUndefined;
+		
+		_behavior=PKGRequirementOnFailureBehaviorInstallationStop;
+		
+		_settingsRepresentation=[NSDictionary dictionary];
+		
+		_messages=[NSMutableArray array];
+	}
+	
+	return self;
+}
+
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -58,11 +91,39 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 		
 		_identifier=inRepresentation[PKGRequirementIdentifierKey];
 		
+		if (_identifier==nil)
+		{
+			if (outError!=NULL)
+			//	*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+			
+			// A COMPLETER
+			
+			return nil;
+		}
+		
+		if (inRepresentation[PKGRequirementTypeKey]==nil)
+			_type=PKGRequirementTypeUndefined;
+		else
+			_type=[inRepresentation[PKGRequirementTypeKey] unsignedIntegerValue];
+		
 		_settingsRepresentation=inRepresentation[PKGRequirementSettingsRepresentationKey];
+		
+		if (_settingsRepresentation==nil)
+		{
+			if (outError!=NULL)
+				//	*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+				
+			// A COMPLETER
+			
+			return nil;
+		}
 		
 		_behavior=[inRepresentation[PKGRequirementOnFailureBehaviorKey] unsignedIntegerValue];
 		
 		_messages=inRepresentation[PKGRequirementFailureMessagesKey];
+		
+		if (_messages==nil)
+			_messages=[NSMutableArray array];
 	}
 	
 	return self;
@@ -78,6 +139,8 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 	
 	tRepresentation[PKGRequirementIdentifierKey]=self.identifier;
 	
+	tRepresentation[PKGRequirementTypeKey]=@(self.type);
+	
 	tRepresentation[PKGRequirementSettingsRepresentationKey]=self.settingsRepresentation;
 	
 	tRepresentation[PKGRequirementOnFailureBehaviorKey]=@(self.behavior);
@@ -85,6 +148,21 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 	tRepresentation[PKGRequirementFailureMessagesKey]=self.messages;
 	
 	return tRepresentation;
+}
+
+#pragma mark -
+
+- (NSComparisonResult)compareBehavior:(PKGRequirement *)inOtherRequirement
+{
+	PKGRequirementOnFailureBehavior tOtherBehavior=inOtherRequirement.behavior;
+	
+	if (self.behavior<tOtherBehavior)
+		return NSOrderedDescending;
+	
+	if (self.behavior>tOtherBehavior)
+		return NSOrderedAscending;
+	
+	return NSOrderedSame;
 }
 
 #pragma mark -

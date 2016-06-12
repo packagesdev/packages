@@ -3,8 +3,8 @@
 
 @interface NSDictionary (WBMapping)
 
-- (NSDictionary *)WBmapObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock;
+- (instancetype)WBmapObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock;
 
-- (NSDictionary *)WBmapObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock;
+- (instancetype)WBmapObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock;
 
 @end

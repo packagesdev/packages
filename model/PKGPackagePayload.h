@@ -39,4 +39,6 @@ typedef NS_ENUM(NSUInteger, PKGPayloadType)
 
 	@property BOOL treatMissingPayloadFilesAsWarnings;
 
++ (instancetype)emptyPayload;
+
 @end

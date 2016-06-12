@@ -42,7 +42,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 
 @interface PKGPackageSettings ()
 
-	@property (readwrite) NSUInteger payloadSize;
+	@property (readwrite) NSInteger payloadSize;
 
 @end
 
@@ -70,7 +70,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		_followSymbolicLinks=NO;
 		_useHFSPlusCompression=NO;
 		
-		_payloadSize=0;
+		_payloadSize=-1;
 	}
 	
 	return self;
@@ -203,11 +203,13 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 			}
 		}
 		
+		_payloadSize=-1;
+		
 		tNodes=[tXMLDocument nodesForXPath:@"pkg-info/payload" error:&tError];
 		
 		if ([tNodes count]>0)
 		{
-			tElement=(NSXMLElement *) [tNodes objectAtIndex:0];
+			tElement=(NSXMLElement *) tNodes[0];
 			
 			if (tElement!=nil)
 			{
@@ -215,13 +217,9 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 				
 				for (NSXMLNode * tAttributeNode in tAttributes)
 				{
-					NSString * tAttributeName=[tAttributeNode name];
-					NSString * tStringValue=[tAttributeNode stringValue];
-					
-					if ([tAttributeName isEqualToString:@"installKBytes"]==YES)
+					if ([tAttributeNode.name isEqualToString:@"installKBytes"]==YES)
 					{
-						_payloadSize=[tStringValue integerValue];
-						
+						_payloadSize=tAttributeNode.stringValue.integerValue;
 						break;
 					}
 				}
@@ -230,25 +228,6 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	}
 	
 	return self;
-	
-		/*tPackageSettingsDictionary=[NSMutableDictionary dictionaryWithObjectsAndKeys:[[inPath lastPathComponent] stringByDeletingPathExtension],ICDOCUMENT_PACKAGE_SETTINGS_NAME,
-									@"",ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER,
-									@"",ICDOCUMENT_PACKAGE_SETTINGS_VERSION,
-									[NSNumber numberWithInt:ICDOCUMENT_PACKAGES_SETTINGS_AUTHENTICATION_NONE],ICDOCUMENT_PACKAGE_SETTINGS_AUTHENTICATION,
-									[NSNumber numberWithBool:NO],ICDOCUMENT_PACKAGE_SETTINGS_RELOCATABLE,
-									[NSNumber numberWithBool:NO],ICDOCUMENT_PACKAGE_SETTINGS_OVERWRITE_PERMISSIONS,
-									[NSNumber numberWithBool:NO],ICDOCUMENT_PACKAGE_SETTINGS_FOLLOW_SYMBOLIC_LINKS,
-									[NSNumber numberWithBool:NO],ICDOCUMENT_PACKAGE_SETTINGS_USE_HFSPLUS_COMPRESSION,
-									[NSNumber numberWithInt:ICDOCUMENT_PACKAGES_SETTINGS_CONCLUSION_ACTION_NONE],ICDOCUMENT_PACKAGE_SETTINGS_CONCLUSION_ACTION,
-									[NSNumber numberWithInt:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_EMBEDDED],ICDOCUMENT_PACKAGE_SETTINGS_LOCATION,
-									[NSNumber numberWithInt:0],ICDOCUMENT_PACKAGE_SETTINGS_PAYLOAD_SIZE,
-									nil];
-		
-		
-	
-	}
-	
-	return nil;*/
 }
 
 - (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
@@ -274,18 +253,27 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	if (self!=nil)
 	{
 		_name=inRepresentation[PKGPackageSettingsNameKey];
+		if (_name==nil)
+			_name=@"";
 		
 		_locationType=[inRepresentation[PKGPackageSettingsLocationTypeKey] unsignedIntegerValue];
 		
 		if (_locationType!=PKGPackageLocationEmbedded)
 			_locationPath=inRepresentation[PKGPackageSettingsLocationPathKey];
-		else
+		
+		if (_locationPath==nil)
 			_locationPath=@"";
+			
 		
 		// Only available to project and referenced packages
 		
 		_identifier=inRepresentation[PKGPackageSettingsIdentifierKey];
+		if (_identifier==nil)
+			_identifier=@"";
+		
 		_version=inRepresentation[PKGPackageSettingsVersionKey];
+		if (_version==nil)
+			_version=@"";
 		
 		_conclusionAction=[inRepresentation[PKGPackageSettingsConclusionActionKey] unsignedIntegerValue];
 		
@@ -295,7 +283,10 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		_followSymbolicLinks=[inRepresentation[PKGPackageSettingsFollowSymbolicLinksKey] boolValue];
 		_useHFSPlusCompression=[inRepresentation[PKGPackageSettingsUseHFSPlusCompressionKey] boolValue];
 		
-		_payloadSize=[inRepresentation[PKGPackageSettingsPayloadSizeKey] unsignedIntegerValue];
+		_payloadSize=-1;
+		
+		if (inRepresentation[PKGPackageSettingsPayloadSizeKey]!=nil)
+			_payloadSize=[inRepresentation[PKGPackageSettingsPayloadSizeKey] integerValue];
 	}
 	
 	return self;

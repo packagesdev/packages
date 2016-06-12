@@ -34,7 +34,7 @@
 
 @interface PKGDistributionProjectPresentationSettings : NSObject <PKGObjectProtocol>
 
-	@property NSMutableArray * sections;
+	@property (readonly)NSMutableArray * sections;
 
 	@property PKGPresentationTitleSettings * titleSettings;
 

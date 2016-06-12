@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSArray+WBMapping.h"
+#import "NSArray+WBExtensions.h"
 
 NSString * const PKGDistributionProjectRequirementsRootVolumeOnlyKey=@"ROOT_VOLUME_ONLY";
 
@@ -24,6 +24,8 @@ NSString * const PKGDistributionProjectRequirementsListKey=@"LIST";
 NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 
 @interface PKGDistributionProjectRequirementsAndResources ()
+
+	@property (readwrite) NSMutableArray * requirements;
 
 @end
 

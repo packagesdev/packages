@@ -18,7 +18,7 @@
 
 #import "NSMutableDictionary+PKGLocalizedValues.h"
 
-#import "NSArray+WBMapping.h"
+#import "NSArray+WBExtensions.h"
 
 
 NSString * const PKGChoiceItemUUIDKey=@"UUID";
@@ -33,6 +33,24 @@ NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 
 
 @implementation PKGChoiceItem
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_UUID=[[NSUUID UUID] UUIDString];
+		
+		_localizedTitles=[NSMutableDictionary dictionary];
+		
+		_localizedDescriptions=[NSMutableDictionary dictionary];
+		
+		_options=[[PKGChoiceItemOptions alloc] init];
+	}
+	
+	return self;
+}
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
@@ -230,6 +248,10 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 				return nil;
 			}
 		}
+		else
+		{
+			self.requirements=[NSMutableArray array];
+		}
 	}
 	else
 	{
@@ -242,13 +264,30 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	return self;
 }
 
+- (instancetype)initWithPackageComponent:(PKGPackageComponent *)inPackageComponent
+{
+	if (inPackageComponent==nil)
+		return nil;
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		self.packageUUUID=inPackageComponent.UUID;
+		
+		self.requirements=[NSMutableArray array];
+	}
+	
+	return self;
+}
+
 - (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[super representation];
 	
 	tRepresentation[PKGChoicePackageItemPackageUUIDKey]=self.packageUUUID;
 	
-	if (self.requirements!=nil)
+	if ([self.requirements count]>0)
 	{
 		tRepresentation[PKGChoicePackageItemRequirementsKey]=[self.requirements WBmapObjectsUsingBlock:^id(PKGRequirement * bRequirement,NSUInteger bIndex){
 		

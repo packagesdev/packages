@@ -3,7 +3,7 @@
 
 @implementation NSDictionary (WBMapping)
 
-- (NSDictionary *)WBmapObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock
+- (instancetype)WBmapObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock
 {
 	if (inBlock==nil)
 		return self;
@@ -24,10 +24,13 @@
 		}
 	}];
 	
+	if ([[self class] isKindOfClass:[NSMutableDictionary class]]==YES)
+		return tMutableDictionary;
+	
 	return [tMutableDictionary copy];
 }
 
-- (NSDictionary *)WBmapObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock
+- (instancetype)WBmapObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock
 {
 	if (inBlock==nil)
 		return self;
@@ -40,6 +43,9 @@
 		if (tObject!=nil)
 			[tMutableDictionary setObject:tObject forKey:bKey];
 	}];
+	
+	if ([[self class] isKindOfClass:[NSMutableDictionary class]]==YES)
+		return tMutableDictionary;
 	
 	return [tMutableDictionary copy];
 }

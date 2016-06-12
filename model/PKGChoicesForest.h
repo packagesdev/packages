@@ -17,13 +17,17 @@
 
 #import "PKGChoiceItem.h"
 
+#import "PKGPackageComponent.h"
+
 @interface PKGChoicesTreeNode : PKGTreeNode
 
 @end
 
 @interface PKGChoicesForest: NSObject
 
-	@property (nonatomic) NSMutableArray * rootNodes;
+	@property (nonatomic,readonly) NSMutableArray * rootNodes;
+
+- (id)initWithPackagesComponents:(NSArray *)inArray;
 
 - (id)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError;
 

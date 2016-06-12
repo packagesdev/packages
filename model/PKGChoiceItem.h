@@ -19,6 +19,8 @@
 
 #import "PKGRequirement.h"
 
+#import "PKGPackageComponent.h"
+
 typedef NS_ENUM(NSUInteger, PKGChoiceItemType)
 {
 	PKGChoiceItemTypeUnknown=-1,
@@ -55,5 +57,7 @@ typedef NS_ENUM(NSUInteger, PKGChoiceItemType)
 	/* Package Choice item merged into one choice do not support requirements */
 
 	@property NSMutableArray * requirements;
+
+- (instancetype)initWithPackageComponent:(PKGPackageComponent *)inPackageComponent;
 
 @end

@@ -17,13 +17,13 @@
 
 typedef NS_ENUM(NSUInteger, PKGPackageAuthentication)
 {
-	PKGPackageAuthenticationNone,
+	PKGPackageAuthenticationNone=0,
 	PKGPackageAuthenticationRoot,
 };
 
 typedef NS_ENUM(NSUInteger, PKGPackageConclusionAction)
 {
-	PKGPackageConclusionActionNone,
+	PKGPackageConclusionActionNone=0,
 	PKGPackageConclusionActionRecommendRestart,
 	PKGPackageConclusionActionRequireRestart,
 	PKGPackageConclusionActionRequireShutdown,
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, PKGPackageConclusionAction)
 
 typedef NS_ENUM(NSUInteger, PKGPackageLocationType)
 {
-	PKGPackageLocationEmbedded,
+	PKGPackageLocationEmbedded=0,
 	PKGPackageLocationCustomPath,
 	PKGPackageLocationHTTPURL,
 	PKGPackageLocationRemovableMedia
@@ -67,7 +67,7 @@ typedef NS_ENUM(NSUInteger, PKGPackageLocationType)
 	@property BOOL useHFSPlusCompression;
 
 
-	@property (readonly) NSUInteger payloadSize;
+	@property (readonly) NSInteger payloadSize;		// -1: Unknown
 
 - (instancetype)initWithXMLData:(NSData *)inData;
 

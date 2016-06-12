@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSArray+WBMapping.h"
+#import "NSArray+WBExtensions.h"
 
 NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
@@ -29,6 +29,8 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 }
 
 - (void)setParent:(PKGTreeNode *)inParent;
+
+- (BOOL)_enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block;
 
 @end
 
@@ -66,9 +68,16 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	{
 		_representedObject=inRepresentedObject;
 		
-		_children=[inTreeNodes copy];
+		if (inTreeNodes!=nil)
+		{
+			_children=[inTreeNodes mutableCopy];
 		
-		[_children makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+			[_children makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+		}
+		else
+		{
+			_children=[NSMutableArray array];
+		}
 	}
 	
 	return self;
@@ -289,6 +298,8 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return nil;
 }
 
+#pragma mark -
+
 - (void)addChild:(PKGTreeNode *)inTreeNode
 {
 	[inTreeNode setParent:self];
@@ -349,6 +360,30 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 - (void)removeFromParent
 {
 	[[self parent] removeChild:self];
+}
+
+#pragma mark -
+
+- (BOOL)_enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block
+{
+	BOOL tBlockDidStop=NO;
+
+	(void)block(self.representedObject,&tBlockDidStop);
+	if (tBlockDidStop==YES)
+		return NO;
+
+	for(PKGTreeNode * tTreeNode in self.children)
+	{
+		if ([tTreeNode _enumerateRepresentedObjectsRecursivelyUsingBlock:block]==NO)
+			return NO;
+	}
+	
+	return YES;
+}
+																													  																																												
+- (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block
+{
+	[self _enumerateRepresentedObjectsRecursivelyUsingBlock:block];
 }
 
 @end

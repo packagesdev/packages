@@ -18,10 +18,16 @@
 #import "PKGChoicesForest.h"
 #import "PKGChoiceItem.h"
 
+#import "PKGPackageComponent.h"
+
 @interface PKGInstallationHierarchy : NSObject <PKGObjectProtocol>
 
-@property PKGChoicesForest * choicesForest;
+	@property (readonly) PKGChoicesForest * choicesForest;
 
-@property NSMutableDictionary * removedPackagesChoices;
+	@property (readonly) NSMutableDictionary * removedPackagesChoices;
+
+- (instancetype)initWithPackagesComponents:(NSArray *)inPackagesComponents;
+
+- (NSSet *)allPackagesUUIDs;
 
 @end

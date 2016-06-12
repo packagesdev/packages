@@ -37,6 +37,16 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 
 @implementation PKGPackagePayload
 
++ (instancetype)emptyPayload
+{
+	PKGPackagePayload * nPackagePayload=[[PKGPackagePayload alloc] init];
+	
+	// A COMPLETER
+	
+	
+	return nPackagePayload;
+}
+
 - (instancetype) init
 {
 	self=[super init];

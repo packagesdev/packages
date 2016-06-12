@@ -21,7 +21,35 @@ NSString * const PKGInstallationHierarchyChoicesListKey=@"LIST";
 
 NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 
+@interface PKGInstallationHierarchy ()
+
+	@property (readwrite) PKGChoicesForest * choicesForest;
+
+	@property (readwrite) NSMutableDictionary * removedPackagesChoices;
+
+@end
+
 @implementation PKGInstallationHierarchy
+
+- (instancetype)initWithPackagesComponents:(NSArray *)inPackagesComponents
+{
+	if (inPackagesComponents==nil)
+		return nil;
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_choicesForest=[[PKGChoicesForest alloc] initWithPackagesComponents:inPackagesComponents];
+		
+		if (_choicesForest==nil)
+			return nil;
+		
+		_removedPackagesChoices=[NSMutableDictionary dictionary];
+	}
+	
+	return self;
+}
 
 - (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
@@ -156,6 +184,29 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 	}];
 	
 	return tDescription;
+}
+
+#pragma mark -
+
+- (NSSet *)allPackagesUUIDs
+{
+	NSMutableSet * tMutableSet=[NSMutableSet set];
+	
+	[self.choicesForest.rootNodes enumerateObjectsUsingBlock:^(PKGChoicesTreeNode * bChoicesTreeNode,NSUInteger bIndex,BOOL *bOutStop){
+		
+		[bChoicesTreeNode enumerateRepresentedObjectsRecursivelyUsingBlock:^(PKGChoiceItem *bChoiceItem,BOOL * bTreeOutStop){
+			
+			if ([bChoiceItem type]==PKGChoiceItemTypePackage)
+			{
+				NSString * tUUID=((PKGChoicePackageItem *)bChoiceItem).packageUUUID;
+				
+				if ([tMutableSet containsObject:tUUID]==NO)
+					[tMutableSet addObject:tUUID];
+			}
+		}];
+	}];
+	
+	return [tMutableSet copy];
 }
 
 @end

@@ -115,7 +115,6 @@ NSString * checkFile(const char * inFilePath)
 
 int main (int argc, const char * argv[])
 {
-	
 	char * tCFilePath=NULL;
 	int tExitResult=1;
 	int tHelpOption=0;

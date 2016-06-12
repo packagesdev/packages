@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSArray+WBMapping.h"
+#import "NSArray+WBExtensions.h"
 
 NSString * const PKGProjectSettingsNameKey=@"NAME";
 
@@ -65,6 +65,16 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		
 		_name=inRepresentation[PKGProjectSettingsNameKey];
 		
+		if (_name!=nil && [_name isKindOfClass:[NSString class]]==NO)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGProjectSettingsNameKey}];
+			
+			return nil;
+		}
+		
 		__block NSError * tError=nil;
 		
 		// Build Path
@@ -97,13 +107,23 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		
 		_referenceFolderPath=inRepresentation[PKGProjectSettingsReferenceFolderPathKey];	// nil -> project folder
 		
+		if (_referenceFolderPath!=nil && [_referenceFolderPath isKindOfClass:[NSString class]]==NO)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGProjectSettingsNameKey}];
+			
+			return nil;
+		}
+		
 		// Certificate
 		
-		NSDictionary * tCertificateDictionary=inRepresentation[PKGProjectSettingsCertificateKey];
+		NSDictionary * tCertificateRepresentation=inRepresentation[PKGProjectSettingsCertificateKey];
 		
-		if (tCertificateDictionary!=nil)
+		if (tCertificateRepresentation!=nil)
 		{
-			if ([tCertificateDictionary isKindOfClass:[NSDictionary class]]==NO)
+			if ([tCertificateRepresentation isKindOfClass:[NSDictionary class]]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -113,14 +133,36 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 				return nil;
 			}
 			
-			_certificateName=tCertificateDictionary[PKGProjectSettingsCertificateNameKey];
+			_certificateName=tCertificateRepresentation[PKGProjectSettingsCertificateNameKey];
 			
-			_certificateKeychainPath=tCertificateDictionary[PKGProjectSettingsCertificateKeyChainPathKey];
+			if (_certificateName!=nil && [_certificateName isKindOfClass:[NSString class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGProjectSettingsNameKey}];
+				
+				return nil;
+			}
+			
+			_certificateKeychainPath=tCertificateRepresentation[PKGProjectSettingsCertificateKeyChainPathKey];
+			
+			if (_certificateKeychainPath!=nil && [_certificateKeychainPath isKindOfClass:[NSString class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGProjectSettingsNameKey}];
+				
+				return nil;
+			}
 		}
 		
 		// Files Filters
 		
-		if (inRepresentation[PKGProjectSettingsFilesFiltersKey]==nil)
+		NSArray * tFilesFiltersRepresentation=inRepresentation[PKGProjectSettingsFilesFiltersKey];
+		
+		if (tFilesFiltersRepresentation==nil)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -130,7 +172,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 			return nil;
 		}
 		
-		if ([inRepresentation[PKGProjectSettingsFilesFiltersKey] isKindOfClass:[NSArray class]]==NO)
+		if ([tFilesFiltersRepresentation isKindOfClass:[NSArray class]]==NO)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -140,7 +182,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 			return nil;
 		}
 		
-		_filesFilters=[[inRepresentation[PKGProjectSettingsFilesFiltersKey] WBmapObjectsUsingBlock:^id(NSDictionary * bFileFilterRepresentation, NSUInteger bIndex){
+		_filesFilters=[[tFilesFiltersRepresentation WBmapObjectsUsingBlock:^id(NSDictionary * bFileFilterRepresentation, NSUInteger bIndex){
 			return [PKGFileFilterFactory filterWithRepresentation:bFileFilterRepresentation error:&tError];
 		}] mutableCopy];
 		

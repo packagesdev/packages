@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSArray+WBMapping.h"
+#import "NSArray+WBExtensions.h"
 
 @implementation PKGChoicesTreeNode
 
@@ -49,9 +49,32 @@
 	NSArray * _cachedRepresentation;
 }
 
+	@property (nonatomic,readwrite) NSMutableArray * rootNodes;
+
 @end
 
 @implementation PKGChoicesForest
+
+- (id)initWithPackagesComponents:(NSArray *)inArray
+{
+	if (inArray==nil)
+		return nil;
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_rootNodes=[[inArray WBmapObjectsUsingBlock:^PKGChoicesTreeNode *(PKGPackageComponent * bComponent, NSUInteger bIndex) {
+			
+			PKGChoicePackageItem * tChoicePackageItem=[[PKGChoicePackageItem alloc] initWithPackageComponent:bComponent];
+			
+			return [[PKGChoicesTreeNode alloc] initWithRepresentedObject:tChoicePackageItem children:nil];
+			
+		}] mutableCopy];
+	}
+	
+	return self;
+}
 
 - (id)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError
 {
@@ -102,7 +125,7 @@
 		{
 			__block NSError * tError=nil;
 			
-			_rootNodes=[[_cachedRepresentation WBmapObjectsUsingBlock:^id(NSDictionary * bNodeRepresentation,NSUInteger bIndex){
+			_rootNodes=[[_cachedRepresentation WBmapObjectsUsingBlock:^PKGChoicesTreeNode *(NSDictionary * bNodeRepresentation,NSUInteger bIndex){
 				
 				return [[PKGChoicesTreeNode alloc] initWithRepresentation:bNodeRepresentation error:&tError];
 				
@@ -119,5 +142,6 @@
 	
 	return _rootNodes;
 }
+
 
 @end

@@ -19,7 +19,7 @@ NSString * const PKGPackageComponentUUIDKey=@"UUID";
 
 NSString * const PKGPackageComponentTypeKey=@"TYPE";
 
-NSString * const PKGPackageComponentReferencePathKey=@"PATH";
+NSString * const PKGPackageComponentImportPathKey=@"PATH";
 
 NSString * const PKGPackageComponentSettingsKey=@"PACKAGE_SETTINGS";
 
@@ -34,7 +34,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 
 	@property (readwrite) PKGPackageComponentType type;
 
-	@property (readwrite) PKGFilePath * referencePath;
+	@property (readwrite) PKGFilePath * importPath;
 
 @end
 
@@ -65,21 +65,17 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	
 	if (self!=nil)
 	{
-		_UUID=inRepresentation[PKGPackageComponentUUIDKey];
-		
-		_type=[inRepresentation[PKGPackageComponentTypeKey] unsignedIntegerValue];
-		
 		NSError * tError=nil;
 		
-		_importPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPackageComponentReferencePathKey] error:&tError];
+		_UUID=inRepresentation[PKGPackageComponentUUIDKey];
 		
-		if (_referencePath==nil)
+		if (_UUID==nil)
 		{
 			if (tError.code!=PKGRepresentationNilRepresentationError)
 			{
 				if (outError!=NULL)
 				{
-					NSString * tPathError=PKGPackageComponentReferencePathKey;
+					NSString * tPathError=PKGPackageComponentUUIDKey;
 					
 					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
 						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
@@ -93,9 +89,35 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 			}
 		}
 		
+		_type=[inRepresentation[PKGPackageComponentTypeKey] unsignedIntegerValue];
+		
+		_importPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPackageComponentImportPathKey] error:&tError];
+		
+		if (_importPath==nil)
+		{
+			if (outError!=NULL)
+			{
+				NSInteger tCode=tError.code;
+				
+				if (tCode==PKGRepresentationNilRepresentationError)
+					tCode=PKGRepresentationInvalidValue;
+				
+				NSString * tPathError=PKGPackageComponentImportPathKey;
+				
+				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+				
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:tCode
+										  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+			}
+			
+			return nil;
+		}
+		
 		_packageSettings=[[PKGPackageSettings alloc] initWithRepresentation:inRepresentation[PKGPackageComponentSettingsKey] error:&tError];
 		
-		if (_packageSettings==nil)
+		if (_packageSettings==nil)	// A VOIR (cas d'un import)
 		{
 			if (outError!=NULL)
 			{
@@ -174,7 +196,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	tRepresentation[PKGPackageComponentTypeKey]=@(self.type);
 	
 	if (self.importPath!=nil)
-		tRepresentation[PKGPackageComponentReferencePathKey]=[self.importPath representation];
+		tRepresentation[PKGPackageComponentImportPathKey]=[self.importPath representation];
 	
 	tRepresentation[PKGPackageComponentSettingsKey]=[self.packageSettings representation];
 	

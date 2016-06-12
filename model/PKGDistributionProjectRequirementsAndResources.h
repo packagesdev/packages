@@ -23,7 +23,7 @@
 
 	@property BOOL rootVolumeOnlyRequirement;
 
-	@property NSMutableArray * requirements;
+	@property (readonly) NSMutableArray * requirements;
 
 	@property PKGResourcesForest * resourcesForest;
 
