@@ -13,6 +13,46 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PKGPackagesError.h"
+
+#define PKGFullCheckObjectValueForKey(class,object,key) if ((object)!=nil)\
+{\
+	if (outError!=NULL)\
+		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain\
+									  code:PKGRepresentationInvalidValue\
+								  userInfo:@{PKGKeyPathErrorKey:(key)}];\
+\
+	return nil;\
+}\
+\
+if ([(object) isKindOfClass:class]==NO)\
+{\
+	if (outError!=NULL)\
+		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain\
+									  code:PKGRepresentationInvalidTypeOfValueError\
+								  userInfo:@{PKGKeyPathErrorKey:(key)}];\
+\
+	return nil;\
+}\
+
+
+#define PKGFullCheckStringValueForKey(string,key) PKGFullCheckObjectValueForKey([NSString class],string,key)
+#define PKGFullCheckNumberValueForKey(number,key) PKGFullCheckObjectValueForKey([NSNumber class],number,key)
+#define PKGFullCheckArrayValueForKey(array,key) PKGFullCheckObjectValueForKey([NSArray class],array,key)
+#define PKGFullCheckDictionaryValueForKey(dictionary,key) PKGFullCheckObjectValueForKey([NSDictionary class],dictionary,key)
+
+
+#define PKGClassCheckStringValueForKey(string,key) if ((string)!=nil && [(string) isKindOfClass:[NSString class]]==NO)\
+{\
+	if (outError!=NULL)\
+		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain\
+									  code:PKGRepresentationInvalidTypeOfValueError\
+								  userInfo:@{PKGKeyPathErrorKey:(key)}];\
+\
+	return nil;\
+}\
+
+
 @protocol PKGObjectProtocol
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError;

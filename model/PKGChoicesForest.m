@@ -17,7 +17,7 @@
 
 #import "NSArray+WBExtensions.h"
 
-@implementation PKGChoicesTreeNode
+@implementation PKGChoiceTreeNode
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
 {
@@ -33,7 +33,7 @@
 	
 	[tDescription appendFormat:@"%@",[(NSObject *)self.representedObject description]];
 	
-	[self.children enumerateObjectsUsingBlock:^(PKGChoicesTreeNode * bChildTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	[self.children enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChildTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 	
 		[tDescription appendFormat:@"%@\n",[bChildTreeNode description]];
 	}];
@@ -64,11 +64,11 @@
 	
 	if (self!=nil)
 	{
-		_rootNodes=[[inArray WBmapObjectsUsingBlock:^PKGChoicesTreeNode *(PKGPackageComponent * bComponent, NSUInteger bIndex) {
+		_rootNodes=[[inArray WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(PKGPackageComponent * bComponent, NSUInteger bIndex) {
 			
 			PKGChoicePackageItem * tChoicePackageItem=[[PKGChoicePackageItem alloc] initWithPackageComponent:bComponent];
 			
-			return [[PKGChoicesTreeNode alloc] initWithRepresentedObject:tChoicePackageItem children:nil];
+			return [[PKGChoiceTreeNode alloc] initWithRepresentedObject:tChoicePackageItem children:nil];
 			
 		}] mutableCopy];
 	}
@@ -109,7 +109,7 @@
 	if (_cachedRepresentation!=nil)
 		return [_cachedRepresentation mutableCopy];
 	
-	return [_rootNodes WBmapObjectsUsingBlock:^id(PKGChoicesTreeNode * bTreeNode,NSUInteger bIndex){
+	return [_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGChoiceTreeNode * bTreeNode,NSUInteger bIndex){
 		
 		return [bTreeNode representation];
 	}];
@@ -125,9 +125,9 @@
 		{
 			__block NSError * tError=nil;
 			
-			_rootNodes=[[_cachedRepresentation WBmapObjectsUsingBlock:^PKGChoicesTreeNode *(NSDictionary * bNodeRepresentation,NSUInteger bIndex){
+			_rootNodes=[[_cachedRepresentation WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(NSDictionary * bNodeRepresentation,NSUInteger bIndex){
 				
-				return [[PKGChoicesTreeNode alloc] initWithRepresentation:bNodeRepresentation error:&tError];
+				return [[PKGChoiceTreeNode alloc] initWithRepresentation:bNodeRepresentation error:&tError];
 				
 			}] mutableCopy];
 			

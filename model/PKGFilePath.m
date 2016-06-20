@@ -26,6 +26,11 @@ NSString * const PKGFilePathStringKey=@"PATH";
     return [[PKGFilePath alloc] init];
 }
 
++(instancetype)filePathWithAbsolutePath:(NSString *)inPath
+{
+	return [PKGFilePath filePathWithString:inPath type:PKGFilePathTypeAbsolute];
+}
+
 +(instancetype)filePathWithString:(NSString *)inString type:(PKGFilePathType)inType
 {
     return [[PKGFilePath alloc] initWithString:inString type:inType];
@@ -82,6 +87,16 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	if (self!=nil)
 	{
 		_type=[inRepresentation[PKGFilePathTypeKey] unsignedIntegerValue];
+		
+		if (_type>PKGFilePathTypeMixed)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGFilePathTypeKey}];
+			
+			return nil;
+		}
 		
 		_string=[inRepresentation[PKGFilePathStringKey] copy];
 	}

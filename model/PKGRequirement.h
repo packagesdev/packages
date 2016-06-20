@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
 
 	@property PKGRequirementOnFailureBehavior behavior;
 
-	@property (readonly)NSMutableArray * messages;
+	@property (readonly)NSMutableDictionary * messages;
 
 	@property NSDictionary * settingsRepresentation;
 

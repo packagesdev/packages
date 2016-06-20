@@ -24,37 +24,33 @@
 
 typedef NS_ENUM(NSUInteger, PKGLogicOperatorType)
 {
-	PKGConjunctionLogicOperatorType,
-	PKGDisjunctionLogicOperatorType
+	PKGLogicOperatorTypeConjunction=0,
+	PKGLogicOperatorTypeDisjunction
 };
 
 @interface PKGChoiceDependencyTreeLogicNode : PKGChoiceDependencyTreeNode
 
-@property PKGChoiceDependencyTreeNode * topChildNode;
+	@property PKGChoiceDependencyTreeNode * topChildNode;
 
-@property PKGLogicOperatorType operatorType;
+	@property PKGLogicOperatorType operatorType;
 
-@property PKGChoiceDependencyTreeNode * bottomChildNode;
+	@property PKGChoiceDependencyTreeNode * bottomChildNode;
 
 @end
 
-typedef NS_ENUM(NSUInteger, PKGChoiceState)
-{
-	PKGRequiredChoiceState=0,
-	PKGSelectedChoiceState,
-	PKGUnselectedChoiceState,
-	PKGDependentChoiceState,
-	
-	PKGEnabledChoiceGroupState,
-	PKGDisabledChoiceGroupState,
-	PKGDependentChoiceGroupState
-};
 
 typedef NS_ENUM(NSUInteger, PKGPredicateOperatorType)
 {
-	PKGEqualToPredicateOperatorType=0,
-	PKGNotEqualToPredicateOperatorType
+	PKGPredicateOperatorTypeEqualTo=0,
+	PKGPredicateOperatorTypeNotEqualTo
 };
+
+typedef NS_ENUM(NSUInteger, PKGPredicateReferenceState)
+{
+	PKGPredicateReferenceStateEnabled=0,
+	PKGPredicateReferenceStateSelected,
+};
+
 
 @interface PKGChoiceDependencyTreePredicateNode : PKGChoiceDependencyTreeNode
 
@@ -62,6 +58,6 @@ typedef NS_ENUM(NSUInteger, PKGPredicateOperatorType)
 
 	@property PKGPredicateOperatorType operatorType;
 
-	@property PKGChoiceState choiceState;
+	@property PKGPredicateReferenceState referenceState;
 
 @end

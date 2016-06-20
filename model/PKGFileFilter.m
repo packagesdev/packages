@@ -68,9 +68,29 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 	{
 		_fileType=[inRepresentation[PKGFilePredicateFileTypeKey] unsignedIntegerValue];
 		
+		if (_fileType>PKGFileSystemTypeFileorFolder)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGFilePredicateFileTypeKey}];
+			
+			return nil;
+		}
+		
 		_regularExpression=[inRepresentation[PKGFilePredicateRegularExpressionKey] boolValue];
 		
-		_pattern=inRepresentation[PKGFilePredicatePatternKey];
+		if ([inRepresentation[PKGFilePredicatePatternKey] isKindOfClass:[NSString class]]==NO)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGFilePredicatePatternKey}];
+			
+			return nil;
+		}
+		
+		_pattern=[inRepresentation[PKGFilePredicatePatternKey] copy];
 	}
 	
 	return self;
@@ -291,12 +311,14 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 		if ([inRepresentation[PKGFileFilterPredicatesKey] isKindOfClass:[NSArray class]]==NO)
 		{
 			if (outError!=NULL)
-				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGFileFilterPredicatesKey}];
 			
 			return nil;
 		}
 		
-		_predicates=[inRepresentation[PKGFileFilterPredicatesKey] WBmapObjectsUsingBlock:^id(NSDictionary * bPredicateRepresentation, NSUInteger bIndex){
+		_predicates=[inRepresentation[PKGFileFilterPredicatesKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bPredicateRepresentation, NSUInteger bIndex){
 			return [[PKGFilePredicate alloc] initWithRepresentation:bPredicateRepresentation error:&tError];
 		}];
 		
@@ -320,7 +342,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 	
 	tRepresentation[PKGFileFilterEnabledKey]=@(self.enabled);
 	
-	tRepresentation[PKGFileFilterPredicatesKey]=[self.predicates WBmapObjectsUsingBlock:^id(PKGFilePredicate * bPredicate, NSUInteger bIndex){
+	tRepresentation[PKGFileFilterPredicatesKey]=[self.predicates WB_arrayByMappingObjectsUsingBlock:^id(PKGFilePredicate * bPredicate, NSUInteger bIndex){
 		return [bPredicate representation];
 	}];
 	
@@ -419,8 +441,8 @@ NSString * const PKGFileFilterToolTipKey=@"PROXY_TOOLTIP";
 	
 	if (self!=nil)
 	{
-		_displayName=nil;
-		_tooltip=nil;
+		_displayName=@"";
+		_tooltip=@"";
 	}
 	
 	return self;
@@ -434,8 +456,18 @@ NSString * const PKGFileFilterToolTipKey=@"PROXY_TOOLTIP";
 	
 	if (self!=nil)
 	{
-		_displayName=inRepresentation[PKGFileFilterDisplayNameKey];
-		_tooltip=inRepresentation[PKGFileFilterToolTipKey];
+		NSString * tString=inRepresentation[PKGFileFilterDisplayNameKey];
+		
+		PKGFullCheckStringValueForKey(tString,PKGFileFilterDisplayNameKey);
+		
+		_displayName=[tString copy];
+		
+		
+		tString=inRepresentation[PKGFileFilterToolTipKey];
+		
+		PKGFullCheckStringValueForKey(tString,PKGFileFilterToolTipKey);
+		
+		_tooltip=[tString copy];
 	}
 	else
 	{
@@ -453,7 +485,9 @@ NSString * const PKGFileFilterToolTipKey=@"PROXY_TOOLTIP";
 	tRepresentation[PKGFileFilterProtectedKey]=@(YES);
 	
 	tRepresentation[PKGFileFilterDisplayNameKey]=self.displayName;
-	tRepresentation[PKGFileFilterToolTipKey]=self.tooltip;
+	
+	if (self.tooltip!=nil)
+		tRepresentation[PKGFileFilterToolTipKey]=self.tooltip;
 	
 	return tRepresentation;
 }

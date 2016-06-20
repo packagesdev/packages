@@ -13,6 +13,10 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const PKGLanguageKey;
+
+extern NSString * const PKGValueKey;
+
 @interface NSMutableDictionary (PKGLocalizedValues)
 
 + (NSMutableDictionary *)PKG_dictionaryWithRepresentations:(NSArray *) inArray ofLocalizationsOfValueOfClass:(Class)inClass error:(out NSError **)outError;

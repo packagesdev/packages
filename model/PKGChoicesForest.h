@@ -19,7 +19,7 @@
 
 #import "PKGPackageComponent.h"
 
-@interface PKGChoicesTreeNode : PKGTreeNode
+@interface PKGChoiceTreeNode : PKGTreeNode
 
 @end
 

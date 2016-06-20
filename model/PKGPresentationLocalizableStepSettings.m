@@ -37,17 +37,11 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 	
 	if (self!=nil)
 	{
-		if ([inRepresentation[PKGPresentationLocalizationsKey] isKindOfClass:[NSArray class]]==NO)
-		{
-			if (outError!=NULL)
-				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidTypeOfValueError
-										  userInfo:@{PKGKeyPathErrorKey:PKGPresentationLocalizationsKey}];
-			
-			return nil;
-		}
+		NSArray * tArray=inRepresentation[PKGPresentationLocalizationsKey];
 		
-		_localizations=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGPresentationLocalizationsKey] ofLocalizationsOfValueOfClass:[[self class] valueClass] error:&tError];
+		PKGFullCheckArrayValueForKey(tArray,PKGPresentationLocalizationsKey);
+		
+		_localizations=[NSMutableDictionary PKG_dictionaryWithRepresentations:tArray ofLocalizationsOfValueOfClass:[[self class] valueClass] error:&tError];
 		
 		if (_localizations==nil)
 		{

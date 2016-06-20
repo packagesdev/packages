@@ -89,6 +89,21 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 		
 		if (_cachedHierarchiesRepresentation==nil)
 			_cachedHierarchiesRepresentation=[NSMutableDictionary dictionary];
+		
+		for(NSString * tHierarchyKey in _cachedHierarchiesRepresentation)
+		{
+			if ([tHierarchyKey isEqualToString:PKGPresentationInstallationTypeInstallerHierarchyKey]==NO &&
+				[tHierarchyKey isEqualToString:PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey]==NO &
+				[tHierarchyKey isEqualToString:PKGPresentationInstallationTypeInvisibleHierarchyKey]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidValue
+											  userInfo:@{PKGKeyPathErrorKey:[PKGPresentationInstallationTypeHierarchiesKey stringByAppendingPathComponent:tHierarchyKey]}];
+				
+				return nil;
+			}
+		}
 	}
 	else
 	{

@@ -48,13 +48,25 @@ NSString * const PKGChoiceItemOptionsSelectedDependenciesTreeKey=@"SELECTED_DEPE
 	{
 		_enabledStateDependencyType=[inRepresentation[PKGChoiceItemOptionsEnabledStateDependencyTypeKey] unsignedIntegerValue];
 		
+		if (_enabledStateDependencyType>PKGEnabledStateDependencyTypeDependent)
+		{
+			if (outError!=NULL)
+			{
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceItemOptionsEnabledStateDependencyTypeKey}];
+			}
+			
+			return nil;
+		}
+		
 		NSError * tError=nil;
 		
 		_enabledStateDependenciesTree=[[PKGChoiceDependencyTree alloc] initWithRepresentation:inRepresentation[PKGChoiceItemOptionsEnabledDependenciesTreeKey] error:&tError];
 		
 		if (_enabledStateDependenciesTree==nil)
 		{
-			if (tError.code!=PKGRepresentationNilRepresentationError)
+			if (tError.code!=PKGRepresentationNilRepresentationError)	// can be nil
 			{
 				if (outError!=NULL)
 				{
@@ -76,7 +88,7 @@ NSString * const PKGChoiceItemOptionsSelectedDependenciesTreeKey=@"SELECTED_DEPE
 		
 		if (_selectedStateDependenciesTree==nil)
 		{
-			if (tError.code!=PKGRepresentationNilRepresentationError)
+			if (tError.code!=PKGRepresentationNilRepresentationError)	// can be nil
 			{
 				if (outError!=NULL)
 				{

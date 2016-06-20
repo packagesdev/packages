@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, PKGChoiceItemType)
 
 @interface PKGChoiceItem : NSObject <PKGObjectProtocol>
 
-	@property (copy) NSString * UUID;
+	@property (readonly,copy) NSString * UUID;
 
 	@property NSMutableDictionary * localizedTitles;
 

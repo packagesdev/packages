@@ -146,7 +146,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 				return nil;
 			}
 			
-			_children=[[tChildrenRepresentation WBmapObjectsUsingBlock:^id(NSDictionary * bChildRepresentation, NSUInteger bIndex){
+			_children=[[tChildrenRepresentation WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bChildRepresentation, NSUInteger bIndex){
 				PKGTreeNode * tChild=[[[self class] alloc] initWithRepresentation:bChildRepresentation error:&tError];
 				
 				[tChild setParent:self];
@@ -190,7 +190,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if (tRepresentedObjectRepresentation!=nil)
 		[tRepresentation addEntriesFromDictionary:tRepresentedObjectRepresentation];
 	
-	NSArray * tChildrenRepresentation=[_children WBmapObjectsUsingBlock:^id(PKGTreeNode * bTreeNode, NSUInteger bIndex){
+	NSArray * tChildrenRepresentation=[_children WB_arrayByMappingObjectsUsingBlock:^id(PKGTreeNode * bTreeNode, NSUInteger bIndex){
 		return [bTreeNode representation];
 	}];
 	

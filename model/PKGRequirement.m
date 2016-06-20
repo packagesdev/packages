@@ -15,6 +15,8 @@
 
 #import "PKGPackagesError.h"
 
+#import "NSMutableDictionary+PKGLocalizedValues.h"
+
 NSString * const PKGRequirementEnabledKey=@"STATE";
 
 NSString * const PKGRequirementNameKey=@"NAME";
@@ -32,7 +34,7 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 
 @interface PKGRequirement ()
 
-	@property (readwrite)NSMutableArray * messages;
+	@property (readwrite)NSMutableDictionary * messages;
 
 @end
 
@@ -57,7 +59,7 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 		
 		_settingsRepresentation=[NSDictionary dictionary];
 		
-		_messages=[NSMutableArray array];
+		_messages=[NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -87,31 +89,49 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 	{
 		_enabled=[inRepresentation[PKGRequirementEnabledKey] boolValue];
 		
-		_name=inRepresentation[PKGRequirementNameKey];
+		NSString * tString=inRepresentation[PKGRequirementNameKey];
 		
-		_identifier=inRepresentation[PKGRequirementIdentifierKey];
+		PKGClassCheckStringValueForKey(tString,PKGRequirementNameKey);
 		
-		if (_identifier==nil)
-		{
-			if (outError!=NULL)
-			//	*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
-			
-			// A COMPLETER
-			
-			return nil;
-		}
+		_name=[tString copy];
+		
+		if (_name==nil)
+			_name=@"";
+		
+		tString=inRepresentation[PKGRequirementIdentifierKey];
+		
+		PKGFullCheckStringValueForKey(tString,PKGRequirementIdentifierKey);
+		
+		_identifier=[tString copy];
+		
 		
 		if (inRepresentation[PKGRequirementTypeKey]==nil)
+		{
 			_type=PKGRequirementTypeUndefined;
+		}
 		else
+		{
 			_type=[inRepresentation[PKGRequirementTypeKey] unsignedIntegerValue];
+		
+			if (_type>PKGRequirementTypeTarget)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidValue
+											  userInfo:@{PKGKeyPathErrorKey:PKGRequirementTypeKey}];
+				
+				return nil;
+			}
+		}
 		
 		_settingsRepresentation=inRepresentation[PKGRequirementSettingsRepresentationKey];
 		
 		if (_settingsRepresentation==nil)
 		{
 			if (outError!=NULL)
-				//	*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGRequirementSettingsRepresentationKey}];
 				
 			// A COMPLETER
 			
@@ -120,10 +140,58 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 		
 		_behavior=[inRepresentation[PKGRequirementOnFailureBehaviorKey] unsignedIntegerValue];
 		
-		_messages=inRepresentation[PKGRequirementFailureMessagesKey];
+		if (_behavior>PKGRequirementOnFailureBehaviorInstallationStop)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGRequirementOnFailureBehaviorKey}];
+			
+			return nil;
+		}
 		
-		if (_messages==nil)
-			_messages=[NSMutableArray array];
+		NSArray * tArray=inRepresentation[PKGRequirementFailureMessagesKey];
+		
+		if (tArray==nil)
+		{
+			_messages=[NSMutableDictionary dictionary];
+		}
+		else
+		{
+			if ([tArray isKindOfClass:[NSArray class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+				
+				return nil;
+			}
+			
+			NSError * tError=nil;
+			
+			_messages=[NSMutableDictionary PKG_dictionaryWithRepresentations:tArray ofLocalizationsOfValueOfClass:[NSString class] error:&tError];
+			
+			if (_messages==nil)
+			{
+				if (outError!=NULL)
+				{
+					NSInteger tCode=tError.code;
+					
+					if (tCode==PKGRepresentationNilRepresentationError)
+						tCode=PKGRepresentationInvalidValue;
+					
+					NSString * tPathError=PKGRequirementFailureMessagesKey;
+					
+					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+					
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:tCode
+											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+				}
+				
+				return nil;
+			}
+		}
 	}
 	
 	return self;
@@ -145,7 +213,7 @@ NSString * const PKGRequirementFailureMessagesKey=@"MESSAGE";
 	
 	tRepresentation[PKGRequirementOnFailureBehaviorKey]=@(self.behavior);
 	
-	tRepresentation[PKGRequirementFailureMessagesKey]=self.messages;
+	tRepresentation[PKGRequirementFailureMessagesKey]=[self.messages PKG_representationsOfLocalizations];
 	
 	return tRepresentation;
 }

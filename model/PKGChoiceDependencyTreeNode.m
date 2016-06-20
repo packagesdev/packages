@@ -88,7 +88,23 @@ NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
 			return nil;
 		}
 		
-		_operatorType=[inRepresentation[PKGChoiceDependencyTreeLogicNodeOperatorKey] unsignedIntegerValue];
+		NSNumber * tNumber=inRepresentation[PKGChoiceDependencyTreeLogicNodeOperatorKey];
+		
+		PKGFullCheckNumberValueForKey(tNumber,PKGChoiceDependencyTreeLogicNodeOperatorKey);
+		
+		_operatorType=[tNumber unsignedIntegerValue];
+		
+		if (_operatorType>PKGLogicOperatorTypeDisjunction)
+		{
+			if (outError!=NULL)
+			{
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceDependencyTreeLogicNodeOperatorKey}];
+			}
+			
+			return nil;
+		}
 		
 		_bottomChildNode=[[PKGChoiceDependencyTreeNode alloc] initWithRepresentation:inRepresentation[PKGChoiceDependencyTreeLogicNodeBottomChildKey] error:&tError];
 		
@@ -156,11 +172,49 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 	
 	if (self!=nil)
 	{
-		self.choiceUUID=inRepresentation[PKGChoiceDependencyTreePredicateNodeChoiceUUIDKey];
+		NSString * tString=inRepresentation[PKGChoiceDependencyTreePredicateNodeChoiceUUIDKey];
 		
-		self.operatorType=[inRepresentation[PKGChoiceDependencyTreePredicateNodeOperatorKey] unsignedIntegerValue];
+		PKGFullCheckStringValueForKey(tString, PKGChoiceDependencyTreePredicateNodeChoiceUUIDKey);
 		
-		self.choiceState=[inRepresentation[PKGChoiceDependencyTreePredicateNodeStateKey] unsignedIntegerValue];
+		_choiceUUID=[tString copy];
+		
+		
+		NSNumber * tNumber=inRepresentation[PKGChoiceDependencyTreePredicateNodeOperatorKey];
+		
+		PKGFullCheckNumberValueForKey(tNumber,PKGChoiceDependencyTreePredicateNodeOperatorKey);
+		
+		_operatorType=[tNumber unsignedIntegerValue];
+		
+		if (_operatorType>PKGPredicateOperatorTypeNotEqualTo)
+		{
+			if (outError!=NULL)
+			{
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceDependencyTreePredicateNodeOperatorKey}];
+			}
+			
+			return nil;
+		}
+		
+		
+		tNumber=inRepresentation[PKGChoiceDependencyTreePredicateNodeStateKey];
+		
+		PKGFullCheckNumberValueForKey(tNumber,PKGChoiceDependencyTreePredicateNodeStateKey);
+		
+		_referenceState=[tNumber unsignedIntegerValue];
+		
+		if (_referenceState>PKGPredicateReferenceStateSelected)
+		{
+			if (outError!=NULL)
+			{
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceDependencyTreePredicateNodeStateKey}];
+			}
+			
+			return nil;
+		}
 	}
 	else
 	{
@@ -179,7 +233,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 	
 	tRepresentation[PKGChoiceDependencyTreePredicateNodeOperatorKey]=@(self.operatorType);
 	
-	tRepresentation[PKGChoiceDependencyTreePredicateNodeStateKey]=@(self.choiceState);
+	tRepresentation[PKGChoiceDependencyTreePredicateNodeStateKey]=@(self.referenceState);
 	
 	return tRepresentation;
 }

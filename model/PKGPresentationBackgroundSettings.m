@@ -50,9 +50,28 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 	
 	if (self!=nil)
 	{
-		_showCustomImage=[inRepresentation[PKGPresentationBackgroundShowCustomImageKey] boolValue];
+		NSNumber * tNumber=inRepresentation[PKGPresentationBackgroundShowCustomImageKey];
 		
-		_imagePath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPresentationBackgroundImagePathKey] error:&tError];
+		if (tNumber==nil)
+		{
+			_showCustomImage=NO;
+		}
+		else
+		{
+			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundShowCustomImageKey}];
+				
+				return nil;
+			}
+			
+			_showCustomImage=[tNumber boolValue];
+		}
+		
+		_imagePath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPresentationBackgroundImagePathKey] error:&tError];	// can be nil
 		
 		if (_imagePath==nil)
 		{
@@ -74,19 +93,67 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 			}
 		}
 		
-		NSNumber * tNumber=inRepresentation[PKGPresentationBackgroundImageAlignmentKey];
+		tNumber=inRepresentation[PKGPresentationBackgroundImageAlignmentKey];
 		
-		if (tNumber==nil || [tNumber isKindOfClass:[NSNumber class]]==NO)
+		if (tNumber==nil)
+		{
 			_imageAlignment=PKGImageAlignmentleft;
+		}
 		else
+		{
+			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImageAlignmentKey}];
+				
+				return nil;
+			}
+
 			_imageAlignment=[tNumber unsignedIntegerValue];
+		
+			if (_imageAlignment>PKGImageAlignmentRight)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidValue
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImagePathKey}];
+				
+				return nil;
+			}
+		}
 		
 		tNumber=inRepresentation[PKGPresentationBackgroundImageScalingKey];
 		
-		if (tNumber==nil || [tNumber isKindOfClass:[NSNumber class]]==NO)
+		if (tNumber==nil)
+		{
 			_imageScaling=PKGImageScalingProportionnaly;
+		}
 		else
+		{
+			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImageScalingKey}];
+				
+				return nil;
+			}
+			
 			_imageScaling=[tNumber unsignedIntegerValue];
+		
+			if (_imageScaling>PKGImageScalingNone)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidValue
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImageScalingKey}];
+				
+				return nil;
+			}
+		}
 	}
 	else
 	{

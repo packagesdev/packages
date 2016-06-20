@@ -149,8 +149,7 @@ NSString * const PKGPackageScriptsAndResourcesResourcesHierarchyKey=@"RESOURCES"
 	if (self.postInstallationScriptPath!=nil)
 		tRepresentation[PKGPackageScriptsAndResourcesPostInstallationScriptKey]=[self.postInstallationScriptPath representation];
 	
-	if (self.resourcesForest!=nil)
-		tRepresentation[PKGPackageScriptsAndResourcesResourcesHierarchyKey]=[self.resourcesForest arrayRepresentation];
+	tRepresentation[PKGPackageScriptsAndResourcesResourcesHierarchyKey]=[self.resourcesForest arrayRepresentation];
 	
 	return tRepresentation;
 }

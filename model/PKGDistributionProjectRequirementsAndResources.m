@@ -87,7 +87,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 			
 			__block NSError * tError=nil;
 			
-			_requirements=[[inRepresentation[PKGDistributionProjectRequirementsListKey] WBmapObjectsUsingBlock:^id(NSDictionary * bRequirementRepresentation,NSUInteger bIndex){
+			_requirements=[[inRepresentation[PKGDistributionProjectRequirementsListKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bRequirementRepresentation,NSUInteger bIndex){
 			
 				return [[PKGRequirement alloc] initWithRepresentation:bRequirementRepresentation error:&tError];
 			}] mutableCopy];
@@ -151,7 +151,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 	
 	tRepresentation[PKGDistributionProjectRequirementsRootVolumeOnlyKey]=@(self.rootVolumeOnlyRequirement);
 	
-	tRepresentation[PKGDistributionProjectRequirementsListKey]=[self.requirements WBmapObjectsUsingBlock:^id(PKGRequirement * bRequirement,NSUInteger bIndex){
+	tRepresentation[PKGDistributionProjectRequirementsListKey]=[self.requirements WB_arrayByMappingObjectsUsingBlock:^id(PKGRequirement * bRequirement,NSUInteger bIndex){
 	
 		return [bRequirement representation];
 	}];

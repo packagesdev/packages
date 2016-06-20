@@ -1,10 +1,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary (WBMapping)
+@interface NSDictionary (WBExtensions)
 
-- (instancetype)WBmapObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock;
+- (instancetype)WB_dictionaryByMappingObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock;
 
-- (instancetype)WBmapObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock;
+- (instancetype)WB_dictionaryByMappingObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock;
 
 @end

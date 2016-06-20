@@ -1,9 +1,9 @@
 
 #import "NSDictionary+WBMapping.h"
 
-@implementation NSDictionary (WBMapping)
+@implementation NSDictionary (WBExtensions)
 
-- (instancetype)WBmapObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock
+- (instancetype)WB_dictionaryByMappingObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock
 {
 	if (inBlock==nil)
 		return self;
@@ -20,17 +20,17 @@
 		}
 		else
 		{
-			[tMutableDictionary setObject:tObject forKey:bKey];
+			tMutableDictionary[bKey]=tObject;
 		}
 	}];
 	
-	if ([[self class] isKindOfClass:[NSMutableDictionary class]]==YES)
+	if ([self isKindOfClass:[NSMutableDictionary class]]==YES)
 		return tMutableDictionary;
 	
 	return [tMutableDictionary copy];
 }
 
-- (instancetype)WBmapObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock
+- (instancetype)WB_dictionaryByMappingObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock
 {
 	if (inBlock==nil)
 		return self;
@@ -41,10 +41,10 @@
 		id tObject=inBlock(bKey,bObject);
 		
 		if (tObject!=nil)
-			[tMutableDictionary setObject:tObject forKey:bKey];
+			tMutableDictionary[bKey]=tObject;
 	}];
 	
-	if ([[self class] isKindOfClass:[NSMutableDictionary class]]==YES)
+	if ([self isKindOfClass:[NSMutableDictionary class]]==YES)
 		return tMutableDictionary;
 	
 	return [tMutableDictionary copy];

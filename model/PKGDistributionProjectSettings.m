@@ -47,17 +47,29 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 		
 	_buildFormat=[inRepresentation[PKGDistributionProjectBuildFormatKey] unsignedIntegerValue];
 	
+	if (_buildFormat>PKGProjectBuildFormatBundle)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+										  code:PKGRepresentationInvalidValue
+									  userInfo:@{PKGKeyPathErrorKey:PKGDistributionProjectBuildFormatKey}];
+		
+		return nil;
+	}
+	
 	_treatMissingPresentationDocumentsAsWarnings=[inRepresentation[PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey] boolValue];
 	
 	// Advanced Options
 	
-	if (inRepresentation[PKGDistributionProjectBuildFormatKey]==nil)
+	NSDictionary * tDictionary=inRepresentation[PKGDistributionProjectBuildFormatKey];
+	
+	if (tDictionary==nil)
 	{
 		_advancedOptions=[NSMutableDictionary dictionary];
 	}
 	else
 	{
-		if ([inRepresentation[PKGDistributionProjectBuildFormatKey] isKindOfClass:[NSDictionary class]]==NO)
+		if ([tDictionary isKindOfClass:[NSDictionary class]]==NO)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -67,7 +79,7 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 			return nil;
 		}
 		
-		_advancedOptions=[inRepresentation[PKGDistributionProjectBuildFormatKey] mutableCopy];
+		_advancedOptions=[tDictionary mutableCopy];
 	}
 	
 	return self;

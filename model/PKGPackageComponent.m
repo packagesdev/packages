@@ -67,29 +67,25 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	{
 		NSError * tError=nil;
 		
-		_UUID=inRepresentation[PKGPackageComponentUUIDKey];
+		NSString * tString=inRepresentation[PKGPackageComponentUUIDKey];
 		
-		if (_UUID==nil)
-		{
-			if (tError.code!=PKGRepresentationNilRepresentationError)
-			{
-				if (outError!=NULL)
-				{
-					NSString * tPathError=PKGPackageComponentUUIDKey;
-					
-					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
-						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
-					
-					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:tError.code
-											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
-				}
-				
-				return nil;
-			}
-		}
+		PKGFullCheckStringValueForKey(tString,PKGPackageComponentUUIDKey);
+		
+		_UUID=[tString copy];
+		
 		
 		_type=[inRepresentation[PKGPackageComponentTypeKey] unsignedIntegerValue];
+		
+		if (_type>PKGPackageComponentTypeReference)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGPackageComponentTypeKey}];
+			
+			return nil;
+		}
+		
 		
 		_importPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPackageComponentImportPathKey] error:&tError];
 		

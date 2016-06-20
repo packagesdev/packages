@@ -252,14 +252,34 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	
 	if (self!=nil)
 	{
-		_name=inRepresentation[PKGPackageSettingsNameKey];
+		NSString * tString=inRepresentation[PKGPackageSettingsNameKey];
+		
+		PKGClassCheckStringValueForKey(tString,PKGPackageSettingsNameKey);
+		
+		_name=[tString copy];
 		if (_name==nil)
 			_name=@"";
 		
 		_locationType=[inRepresentation[PKGPackageSettingsLocationTypeKey] unsignedIntegerValue];
 		
+		if (_locationType>PKGPackageLocationRemovableMedia)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGPackageSettingsLocationTypeKey}];
+			
+			return nil;
+		}
+		
 		if (_locationType!=PKGPackageLocationEmbedded)
-			_locationPath=inRepresentation[PKGPackageSettingsLocationPathKey];
+		{
+			tString=inRepresentation[PKGPackageSettingsLocationPathKey];
+			
+			PKGClassCheckStringValueForKey(tString,PKGPackageSettingsLocationPathKey);
+			
+			_locationPath=[tString copy];
+		}
 		
 		if (_locationPath==nil)
 			_locationPath=@"";
@@ -267,17 +287,47 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		
 		// Only available to project and referenced packages
 		
-		_identifier=inRepresentation[PKGPackageSettingsIdentifierKey];
+		tString=inRepresentation[PKGPackageSettingsIdentifierKey];
+		
+		PKGClassCheckStringValueForKey(tString,PKGPackageSettingsIdentifierKey);
+		
+		_identifier=[tString copy];
 		if (_identifier==nil)
 			_identifier=@"";
 		
-		_version=inRepresentation[PKGPackageSettingsVersionKey];
+		
+		tString=inRepresentation[PKGPackageSettingsVersionKey];
+		
+		PKGClassCheckStringValueForKey(tString,PKGPackageSettingsVersionKey);
+		
+		_version=[tString copy];
 		if (_version==nil)
 			_version=@"";
 		
 		_conclusionAction=[inRepresentation[PKGPackageSettingsConclusionActionKey] unsignedIntegerValue];
 		
+		if (_conclusionAction>PKGPackageConclusionActionRequireLogout)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGPackageSettingsConclusionActionKey}];
+			
+			return nil;
+		}
+		
 		_authenticationMode=[inRepresentation[PKGPackageSettingsAuthenticationModeKey] unsignedIntegerValue];
+		
+		if (_authenticationMode>PKGPackageAuthenticationRoot)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGPackageSettingsAuthenticationModeKey}];
+			
+			return nil;
+		}
+		
 		_relocatable=[inRepresentation[PKGPackageSettingsRelocatableKey] boolValue];
 		_overwriteDirectoryPermissions=[inRepresentation[PKGPackageSettingsOverwriteDirectoryPermissionsKey] boolValue];
 		_followSymbolicLinks=[inRepresentation[PKGPackageSettingsFollowSymbolicLinksKey] boolValue];

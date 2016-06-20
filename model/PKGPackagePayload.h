@@ -19,7 +19,7 @@
 
 typedef NS_ENUM(NSUInteger, PKGPayloadType)
 {
-	PKGPayloadInternal,
+	PKGPayloadInternal=0,
 	PKGPayloadExternal,
 };
 

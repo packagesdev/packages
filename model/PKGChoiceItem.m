@@ -31,6 +31,12 @@ NSString * const PKGChoiceItemLocalizationsOfDescriptionKey=@"DESCRIPTION";
 
 NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 
+@interface PKGChoiceItem ()
+
+	@property (readwrite,copy) NSString * UUID;
+
+@end
+
 
 @implementation PKGChoiceItem
 
@@ -74,20 +80,65 @@ NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 	
 	if (self!=nil)
 	{
-		_UUID=inRepresentation[PKGChoiceItemUUIDKey];
+		NSString * tString=inRepresentation[PKGChoiceItemUUIDKey];
+		
+		PKGFullCheckStringValueForKey(tString, PKGChoiceItemUUIDKey);
+		
+		_UUID=[tString copy];
+		
 		
 		NSError * tError=nil;
 		
-		_localizedTitles=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfTitleKey] ofLocalizationsOfValueOfClass:[NSString class] error:&tError];
-		
-		if (_localizedTitles==nil)
+		if (inRepresentation[PKGChoiceItemLocalizationsOfTitleKey]==nil)
 		{
+			_localizedTitles=[NSMutableDictionary dictionary];
+		}
+		else
+		{
+			_localizedTitles=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfTitleKey] ofLocalizationsOfValueOfClass:[NSString class] error:&tError];
+		
+			if (_localizedTitles==nil)
+			{
+				if (outError!=NULL)
+				{
+					NSString * tPathError=PKGChoiceItemLocalizationsOfTitleKey;
+					
+					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+					
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:tError.code
+											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+				}
+				
+				return nil;
+			}
 		}
 		
-		_localizedDescriptions=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfDescriptionKey] ofLocalizationsOfValueOfClass:[NSString class] error:&tError];
-		
-		if (_localizedDescriptions==nil)
+		if (inRepresentation[PKGChoiceItemLocalizationsOfTitleKey]==nil)
 		{
+			_localizedDescriptions=[NSMutableDictionary dictionary];
+		}
+		else
+		{
+			_localizedDescriptions=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfDescriptionKey] ofLocalizationsOfValueOfClass:[NSString class] error:&tError];
+		
+			if (_localizedDescriptions==nil)
+			{
+				if (outError!=NULL)
+				{
+					NSString * tPathError=PKGChoiceItemLocalizationsOfDescriptionKey;
+					
+					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+					
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:tError.code
+											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+				}
+				
+				return nil;
+			}
 		}
 		
 		_options=[[PKGChoiceItemOptions alloc] initWithRepresentation:inRepresentation[PKGChoiceItemOptionsKey] error:&tError];
@@ -207,7 +258,27 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	if (self!=nil)
 	{
-		self.packageUUUID=inRepresentation[PKGChoicePackageItemPackageUUIDKey];
+		_packageUUUID=inRepresentation[PKGChoicePackageItemPackageUUIDKey];
+		
+		if (_packageUUUID==nil)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGChoicePackageItemPackageUUIDKey}];
+			
+			return nil;
+		}
+		
+		if ([_packageUUUID length]==0)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGChoicePackageItemPackageUUIDKey}];
+			
+			return nil;
+		}
 		
 		if (inRepresentation[PKGChoicePackageItemRequirementsKey]!=nil)
 		{
@@ -221,12 +292,12 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 				return nil;
 			}
 			
-			self.requirements=[[inRepresentation[PKGChoicePackageItemRequirementsKey] WBmapObjectsUsingBlock:^id(NSDictionary * bRequirementRepresentation,NSUInteger bIndex){
+			_requirements=[[inRepresentation[PKGChoicePackageItemRequirementsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bRequirementRepresentation,NSUInteger bIndex){
 				
 				return [[PKGRequirement alloc] initWithRepresentation:bRequirementRepresentation error:&tError];
 			}] mutableCopy];
 			
-			if (self.requirements==nil)
+			if (_requirements==nil)
 			{
 				if (outError!=NULL)
 				{
@@ -250,7 +321,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 		}
 		else
 		{
-			self.requirements=[NSMutableArray array];
+			_requirements=[NSMutableArray array];
 		}
 	}
 	else
@@ -273,9 +344,9 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	if (self!=nil)
 	{
-		self.packageUUUID=inPackageComponent.UUID;
+		_packageUUUID=inPackageComponent.UUID;
 		
-		self.requirements=[NSMutableArray array];
+		_requirements=[NSMutableArray array];
 	}
 	
 	return self;
@@ -289,7 +360,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	if ([self.requirements count]>0)
 	{
-		tRepresentation[PKGChoicePackageItemRequirementsKey]=[self.requirements WBmapObjectsUsingBlock:^id(PKGRequirement * bRequirement,NSUInteger bIndex){
+		tRepresentation[PKGChoicePackageItemRequirementsKey]=[self.requirements WB_arrayByMappingObjectsUsingBlock:^id(PKGRequirement * bRequirement,NSUInteger bIndex){
 		
 			return [bRequirement representation];
 		}];

@@ -13,8 +13,6 @@
 
 #import "PKGPayloadBundleItem.h"
 
-#import "PKGPackagesError.h"
-
 #import "NSArray+WBExtensions.h"
 
 NSString * const PKGPayloadBundleItemAllowDowngradeKey=@"BUNDLE_CAN_DOWNGRADE";
@@ -46,101 +44,103 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	
 	self=[super initWithRepresentation:inRepresentation error:&tError];
 	
-	if (self!=nil)
-	{
-		_allowDowngrade=[inRepresentation[PKGPayloadBundleItemAllowDowngradeKey] boolValue];
-		
-		_preInstallationScriptPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPayloadBundleItemPreInstallationScriptKey] error:&tError];
-		
-		if (_preInstallationScriptPath==nil)
-		{
-			if (tError.code!=PKGRepresentationNilRepresentationError)
-			{
-				if (outError!=NULL)
-				{
-					NSString * tPathError=PKGPayloadBundleItemPreInstallationScriptKey;
-					
-					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
-						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
-					
-					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:tError.code
-											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
-				}
-				
-				return nil;
-			}
-		}
-		
-		_postInstallationScriptPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPayloadBundleItemPostInstallationScriptKey] error:&tError];
-		
-		if (_postInstallationScriptPath==nil)
-		{
-			if (tError.code!=PKGRepresentationNilRepresentationError)
-			{
-				if (outError!=NULL)
-				{
-					NSString * tPathError=PKGPayloadBundleItemPostInstallationScriptKey;
-					
-					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
-						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
-					
-					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:tError.code
-											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
-				}
-				
-				return nil;
-			}
-		}
-		
-		if (inRepresentation[PKGPayloadBundleItemLocatorsKey]==nil)
-		{
-			_locators=[NSMutableArray array];
-		}
-		else
-		{
-			if ([inRepresentation[PKGPayloadBundleItemLocatorsKey] isKindOfClass:[NSArray class]]==NO)
-			{
-				if (outError!=NULL)
-					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
-				
-				return nil;
-			}
-			
-			_locators=[[inRepresentation[PKGPayloadBundleItemLocatorsKey] WBmapObjectsUsingBlock:^id(NSDictionary * bLocatorRepresentation,NSUInteger bIndex){
-			
-				return [[PKGLocator alloc] initWithRepresentation:bLocatorRepresentation error:&tError];
-
-			}] mutableCopy];
-			
-			if (_locators==nil)
-			{
-				if (outError!=NULL)
-				{
-					NSInteger tCode=tError.code;
-					
-					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
-					
-					NSString * tPathError=PKGPayloadBundleItemLocatorsKey;
-					
-					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
-						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
-					
-					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:tCode
-											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
-				}
-				
-				return nil;
-			}
-		}
-	}
-	else
+	if (self==nil)
 	{
 		if (outError!=NULL)
 			*outError=tError;
+		
+		return nil;
+	}
+	
+	_allowDowngrade=[inRepresentation[PKGPayloadBundleItemAllowDowngradeKey] boolValue];
+	
+	_preInstallationScriptPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPayloadBundleItemPreInstallationScriptKey] error:&tError];
+	
+	if (_preInstallationScriptPath==nil)
+	{
+		if (tError.code!=PKGRepresentationNilRepresentationError)
+		{
+			if (outError!=NULL)
+			{
+				NSString * tPathError=PKGPayloadBundleItemPreInstallationScriptKey;
+				
+				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+				
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:tError.code
+										  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+			}
+			
+			return nil;
+		}
+	}
+	
+	_postInstallationScriptPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPayloadBundleItemPostInstallationScriptKey] error:&tError];
+	
+	if (_postInstallationScriptPath==nil)
+	{
+		if (tError.code!=PKGRepresentationNilRepresentationError)
+		{
+			if (outError!=NULL)
+			{
+				NSString * tPathError=PKGPayloadBundleItemPostInstallationScriptKey;
+				
+				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+				
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:tError.code
+										  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+			}
+			
+			return nil;
+		}
+	}
+	
+	if (inRepresentation[PKGPayloadBundleItemLocatorsKey]==nil)
+	{
+		_locators=[NSMutableArray array];
+	}
+	else
+	{
+		if ([inRepresentation[PKGPayloadBundleItemLocatorsKey] isKindOfClass:[NSArray class]]==NO)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGPayloadBundleItemLocatorsKey}];
+			
+			return nil;
+		}
+		
+		_locators=[[inRepresentation[PKGPayloadBundleItemLocatorsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bLocatorRepresentation,NSUInteger bIndex){
+		
+			return [[PKGLocator alloc] initWithRepresentation:bLocatorRepresentation error:&tError];
+
+		}] mutableCopy];
+		
+		if (_locators==nil)
+		{
+			if (outError!=NULL)
+			{
+				NSInteger tCode=tError.code;
+				
+				if (tCode==PKGRepresentationNilRepresentationError)
+					tCode=PKGRepresentationInvalidValue;
+				
+				NSString * tPathError=PKGPayloadBundleItemLocatorsKey;
+				
+				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+				
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:tCode
+										  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+			}
+			
+			return nil;
+		}
 	}
 	
 	return self;
@@ -162,7 +162,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	if (tPathRepresentation!=nil)
 		tRepresentation[PKGPayloadBundleItemPostInstallationScriptKey]=tPathRepresentation;
 	
-	NSMutableArray * tLocatorsRepresentation=[self.locators WBmapObjectsUsingBlock:^id(PKGLocator * bLocator,NSUInteger bIndex){
+	NSMutableArray * tLocatorsRepresentation=[self.locators WB_arrayByMappingObjectsUsingBlock:^id(PKGLocator * bLocator,NSUInteger bIndex){
 		
 		return [bLocator representation];
 	}];

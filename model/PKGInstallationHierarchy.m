@@ -99,27 +99,12 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 			return nil;
 		}
 		
-		if (inRepresentation[PKGInstallationHierarchyRemovedPackagesKey]==nil)
-		{
-			if (outError!=NULL)
-				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
-										  userInfo:@{PKGKeyPathErrorKey:PKGInstallationHierarchyRemovedPackagesKey}];
-			
-			return nil;
-		}
 		
-		if ([inRepresentation[PKGInstallationHierarchyRemovedPackagesKey] isKindOfClass:[NSArray class]]==NO)
-		{
-			if (outError!=NULL)
-				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidTypeOfValueError
-										  userInfo:@{PKGKeyPathErrorKey:PKGInstallationHierarchyRemovedPackagesKey}];
-			
-			return nil;
-		}
+		NSDictionary * tDictionary=inRepresentation[PKGInstallationHierarchyRemovedPackagesKey];
 		
-		_removedPackagesChoices=[[inRepresentation[PKGInstallationHierarchyRemovedPackagesKey] WBmapObjectsUsingBlock:^id(NSString * bPackageUUID,NSDictionary * bChoiceItemRepresentation){
+		PKGFullCheckDictionaryValueForKey(tDictionary,PKGInstallationHierarchyRemovedPackagesKey);
+		
+		_removedPackagesChoices=[[tDictionary WB_dictionaryByMappingObjectsUsingBlock:^id(NSString * bPackageUUID,NSDictionary * bChoiceItemRepresentation){
 			
 			return [[PKGChoiceItem alloc] initWithRepresentation:bChoiceItemRepresentation error:&tError];
 		}] mutableCopy];
@@ -156,7 +141,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 	
 	tRepresentation[PKGInstallationHierarchyChoicesListKey]=[self.choicesForest arrayRepresentation];
 	
-	tRepresentation[PKGInstallationHierarchyRemovedPackagesKey]=[self.removedPackagesChoices WBmapObjectsUsingBlock:^id(NSString * bPackageUUID,PKGChoiceItem * bChoiceItem){
+	tRepresentation[PKGInstallationHierarchyRemovedPackagesKey]=[self.removedPackagesChoices WB_dictionaryByMappingObjectsUsingBlock:^id(NSString * bPackageUUID,PKGChoiceItem * bChoiceItem){
 		
 		return [bChoiceItem representation];
 	}];
@@ -170,7 +155,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	
-	[self.choicesForest.rootNodes enumerateObjectsUsingBlock:^(PKGChoicesTreeNode * bChoiceTreeNode, NSUInteger bIndex, BOOL *outStop) {
+	[self.choicesForest.rootNodes enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChoiceTreeNode, NSUInteger bIndex, BOOL *outStop) {
 		
 		[tDescription appendFormat:@"    %@\n",[bChoiceTreeNode description]];
 		
@@ -192,7 +177,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 {
 	NSMutableSet * tMutableSet=[NSMutableSet set];
 	
-	[self.choicesForest.rootNodes enumerateObjectsUsingBlock:^(PKGChoicesTreeNode * bChoicesTreeNode,NSUInteger bIndex,BOOL *bOutStop){
+	[self.choicesForest.rootNodes enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChoicesTreeNode,NSUInteger bIndex,BOOL *bOutStop){
 		
 		[bChoicesTreeNode enumerateRepresentedObjectsRecursivelyUsingBlock:^(PKGChoiceItem *bChoiceItem,BOOL * bTreeOutStop){
 			

@@ -61,8 +61,8 @@
 		F4A7864D1CB4674600FC07B8 /* PKGRequirement.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786231CB4674600FC07B8 /* PKGRequirement.m */; };
 		F4A7864E1CB4674600FC07B8 /* PKGResourcesForest.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786251CB4674600FC07B8 /* PKGResourcesForest.m */; };
 		F4A7864F1CB4674600FC07B8 /* PKGTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786271CB4674600FC07B8 /* PKGTreeNode.m */; };
-		F4A786551CB4676500FC07B8 /* NSArray+WBMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786521CB4676500FC07B8 /* NSArray+WBMapping.m */; };
 		F4A786561CB4676500FC07B8 /* NSDictionary+WBMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786541CB4676500FC07B8 /* NSDictionary+WBMapping.m */; };
+		F4B3CC3B1D0D5F6A000B5F5F /* NSArray+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */; };
 		F4B3FF001CB5A72900A605F1 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3FEFF1CB5A72900A605F1 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -221,12 +221,12 @@
 		F4A786251CB4674600FC07B8 /* PKGResourcesForest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGResourcesForest.m; path = ../model/PKGResourcesForest.m; sourceTree = "<group>"; };
 		F4A786261CB4674600FC07B8 /* PKGTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGTreeNode.h; path = ../model/PKGTreeNode.h; sourceTree = "<group>"; };
 		F4A786271CB4674600FC07B8 /* PKGTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGTreeNode.m; path = ../model/PKGTreeNode.m; sourceTree = "<group>"; };
-		F4A786511CB4676500FC07B8 /* NSArray+WBMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WBMapping.h"; path = "../Foundation + Extensions/NSArray+WBMapping.h"; sourceTree = "<group>"; };
-		F4A786521CB4676500FC07B8 /* NSArray+WBMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WBMapping.m"; path = "../Foundation + Extensions/NSArray+WBMapping.m"; sourceTree = "<group>"; };
 		F4A786531CB4676500FC07B8 /* NSDictionary+WBMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBMapping.h"; path = "../Foundation + Extensions/NSDictionary+WBMapping.h"; sourceTree = "<group>"; };
 		F4A786541CB4676500FC07B8 /* NSDictionary+WBMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WBMapping.m"; path = "../Foundation + Extensions/NSDictionary+WBMapping.m"; sourceTree = "<group>"; };
 		F4A7866A1CB4750E00FC07B8 /* PKGPackageObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackageObjectProtocol.h; path = ../model/PKGPackageObjectProtocol.h; sourceTree = "<group>"; };
 		F4A8A4A61C7E6B8D00DC77C2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4B3CC391D0D5F6A000B5F5F /* NSArray+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WBExtensions.h"; path = "../Foundation + Extensions/NSArray+WBExtensions.h"; sourceTree = "<group>"; };
+		F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WBExtensions.m"; path = "../Foundation + Extensions/NSArray+WBExtensions.m"; sourceTree = "<group>"; };
 		F4B3FEFE1CB5A72900A605F1 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = "../RegexKitLite-1.2/RegexKitLite.h"; sourceTree = "<group>"; };
 		F4B3FEFF1CB5A72900A605F1 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = "../RegexKitLite-1.2/RegexKitLite.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -432,8 +432,8 @@
 		F4A786501CB4675100FC07B8 /* Foundation Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F4A786511CB4676500FC07B8 /* NSArray+WBMapping.h */,
-				F4A786521CB4676500FC07B8 /* NSArray+WBMapping.m */,
+				F4B3CC391D0D5F6A000B5F5F /* NSArray+WBExtensions.h */,
+				F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */,
 				F4A786531CB4676500FC07B8 /* NSDictionary+WBMapping.h */,
 				F4A786541CB4676500FC07B8 /* NSDictionary+WBMapping.m */,
 				F481B3791CBD8ACF0063F4CD /* NSString+Packages.h */,
@@ -548,6 +548,7 @@
 				F49E06A81C7FB6C30044D067 /* usage.c in Sources */,
 				F4A786301CB4674600FC07B8 /* PKGDistributionProjectSettings.m in Sources */,
 				F4A786431CB4674600FC07B8 /* PKGPresentationSection.m in Sources */,
+				F4B3CC3B1D0D5F6A000B5F5F /* NSArray+WBExtensions.m in Sources */,
 				F4A7862E1CB4674600FC07B8 /* PKGChoicesForest.m in Sources */,
 				F4A7863E1CB4674600FC07B8 /* PKGPresentationBackgroundSettings.m in Sources */,
 				F4A7864B1CB4674600FC07B8 /* PKGDistributionProjectRequirementsAndResources.m in Sources */,
@@ -573,7 +574,6 @@
 				F4A786491CB4674600FC07B8 /* PKGProjectComments.m in Sources */,
 				F4A7864C1CB4674600FC07B8 /* PKGProjectSettings.m in Sources */,
 				F4A7863A1CB4674600FC07B8 /* PKGPackageScriptsAndResources.m in Sources */,
-				F4A786551CB4676500FC07B8 /* NSArray+WBMapping.m in Sources */,
 				F4A786451CB4674600FC07B8 /* PKGPresentationSummaryStepSettings.m in Sources */,
 				F4A786371CB4674600FC07B8 /* PKGPackagePayload.m in Sources */,
 				F4081C6D1CBBB1270031FADC /* PKGArchive.m in Sources */,

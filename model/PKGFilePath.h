@@ -17,7 +17,7 @@
 
 typedef NS_ENUM(NSUInteger, PKGFilePathType)
 {
-	PKGFilePathTypeAbsolute,
+	PKGFilePathTypeAbsolute=0,
 	PKGFilePathTypeRelativeToProject,
 	PKGFilePathTypeName,
 	PKGFilePathTypeRelativeToReferenceFolder,
@@ -31,6 +31,8 @@ typedef NS_ENUM(NSUInteger, PKGFilePathType)
 	@property (copy) NSString * string;
 
 +(instancetype)filePath;
+
++(instancetype)filePathWithAbsolutePath:(NSString *)inPath;
 
 +(instancetype)filePathWithString:(NSString *)inString type:(PKGFilePathType)inType;
 

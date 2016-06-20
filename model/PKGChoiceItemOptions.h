@@ -17,6 +17,18 @@
 
 #import "PKGChoiceItemOptionsDependencies.h"
 
+typedef NS_ENUM(NSUInteger, PKGChoiceState)
+{
+	PKGRequiredChoiceState=0,
+	PKGSelectedChoiceState,
+	PKGUnselectedChoiceState,
+	PKGDependentChoiceState,
+	
+	PKGEnabledChoiceGroupState,
+	PKGDisabledChoiceGroupState,
+	PKGDependentChoiceGroupState
+};
+
 @interface PKGChoiceItemOptions : NSObject <PKGObjectProtocol>
 
 	@property PKGChoiceState state;

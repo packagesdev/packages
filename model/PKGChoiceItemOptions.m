@@ -70,8 +70,22 @@ NSString * const PKGChoiceItemOptionHideChildrenKey=@"HIDE_CHILDREN";
 		
 			if (_stateDependencies==nil)
 			{
-				if (*outError!=nil)
-					*outError=tError;
+				if (outError!=NULL)
+				{
+					NSInteger tCode=tError.code;
+					
+					if (tCode==PKGRepresentationNilRepresentationError)
+						tCode=PKGRepresentationInvalidValue;
+					
+					NSString * tPathError=PKGChoiceItemOptionStateDependenciesKey;
+					
+					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+					
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:tCode
+											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+				}
 				
 				return nil;
 			}

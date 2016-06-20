@@ -19,9 +19,9 @@
 
 typedef NS_ENUM(NSUInteger, PKGEnabledStateDependencyType)
 {
-	PKGAlwaysEnabledStateDependencyType,
-	PKGNeverEnabledStateDependencyType,
-	PKGDependentEnabledStateDependencyType
+	PKGEnabledStateDependencyTypeAlways=0,
+	PKGEnabledStateDependencyTypeNever,
+	PKGEnabledStateDependencyTypeDependent
 };
 
 @interface PKGChoiceItemOptionsDependencies : NSObject <PKGObjectProtocol>

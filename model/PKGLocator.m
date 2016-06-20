@@ -25,6 +25,24 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 
 @implementation PKGLocator
 
+- (id)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_enabled=YES;
+		
+		_name=@"";
+		
+		// A COMPLETER
+		
+		_settingsRepresentation=nil;
+	}
+	
+	return self;
+}
+
 - (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
@@ -49,9 +67,22 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 	{
 		_enabled=[inRepresentation[PKGLocatorEnabledKey] boolValue];
 		
-		_name=inRepresentation[PKGLocatorNameKey];
+		NSString * tString=inRepresentation[PKGLocatorNameKey];
 		
-		_identifier=inRepresentation[PKGLocatorIdentifierKey];
+		PKGClassCheckStringValueForKey(tString,PKGLocatorNameKey);
+		
+		_name=[tString copy];
+		
+		if (_name==nil)
+			_name=@"";
+		
+		
+		tString=inRepresentation[PKGLocatorIdentifierKey];
+		
+		PKGFullCheckStringValueForKey(tString,PKGLocatorIdentifierKey);
+		
+		_identifier=[tString copy];
+		
 		
 		_settingsRepresentation=inRepresentation[PKGLocatorSettingsRepresentationKey];
 	}

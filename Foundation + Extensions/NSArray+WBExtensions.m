@@ -3,7 +3,7 @@
 
 @implementation NSArray (WBExtensions)
 
-- (instancetype)WBmapObjectsUsingBlock:(id (^)(id bObject, NSUInteger bIndex))inBlock
+- (instancetype)WB_arrayByMappingObjectsUsingBlock:(id (^)(id bObject, NSUInteger bIndex))inBlock
 {
 	if (inBlock==nil)
 		return self;
@@ -26,13 +26,13 @@
 	
 	}];
 	
-	if ([[self class] isKindOfClass:[NSMutableArray class]]==YES)
+	if ([self isKindOfClass:[NSMutableArray class]]==YES)
 		return tMutableArray;
 		
 	return [tMutableArray copy];
 }
 
-- (instancetype)WBmapObjectsLenientlyUsingBlock:(id (^)(id bObject, NSUInteger bIndex))inBlock
+- (instancetype)WB_arrayByMappingObjectsLenientlyUsingBlock:(id (^)(id bObject, NSUInteger bIndex))inBlock
 {
 	if (inBlock==nil)
 		return self;
@@ -48,13 +48,13 @@
 		
 	}];
 	
-	if ([[self class] isKindOfClass:[NSMutableArray class]]==YES)
+	if ([self isKindOfClass:[NSMutableArray class]]==YES)
 		return tMutableArray;
 	
 	return [tMutableArray copy];
 }
 
-- (instancetype)WBfilterObjectsUsingBlock:(BOOL (^)(id bObject, NSUInteger bIndex))inBlock
+- (instancetype)WB_filteredArrayUsingBlock:(BOOL (^)(id bObject, NSUInteger bIndex))inBlock
 {
 	if (inBlock==nil)
 		return self;
@@ -67,7 +67,7 @@
 			[tMutableArray addObject:bOject];
 	}];
 	
-	if ([[self class] isKindOfClass:[NSMutableArray class]]==YES)
+	if ([self isKindOfClass:[NSMutableArray class]]==YES)
 		return tMutableArray;
 	
 	return [tMutableArray copy];
@@ -77,7 +77,7 @@
 
 @implementation NSMutableArray (WBExtensions)
 
-- (void)WBmergeWithArray:(NSArray *)inArray
+- (void)WB_mergeWithArray:(NSArray *)inArray
 {
 	if (inArray==nil)
 		return;

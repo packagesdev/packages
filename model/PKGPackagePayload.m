@@ -95,6 +95,23 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		_defaultInstallLocation=inRepresentation[IPKGPackagePayloadDefaultInstallLocationKey];
 		
+		if (_defaultInstallLocation==nil)
+		{
+			_defaultInstallLocation=@"/";
+		}
+		else
+		{
+			if ([_defaultInstallLocation isKindOfClass:[NSString class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:IPKGPackagePayloadDefaultInstallLocationKey}];
+				
+				return nil;
+			}
+		}
+		
 		_splitForksIfNeeded=[inRepresentation[IPKGPackagePayloadSplitForkIfNeededKey] boolValue];
 		
 		_templateVersion=[inRepresentation[IPKGPackagePayloadHierarchyBaseVersion] unsignedIntegerValue];

@@ -51,6 +51,16 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	{
 		_type=[inRepresentation[PKGFileItemTypeKey] unsignedIntegerValue];
 		
+		if (_type>PKGFileSystemFileItemType)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:PKGFileItemTypeKey}];
+			
+			return nil;
+		}
+		
 		NSError * tError=nil;
 		
 		_filePath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation error:&tError];

@@ -48,40 +48,52 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	
 	self=[super initWithRepresentation:inRepresentation error:&tError];
 	
-	if (self!=nil)
-	{
-		_licenseType=[inRepresentation[PKGPresentationLicenseTypeKey] unsignedIntegerValue];
-		
-		if (_licenseType==PKGLicenseTypeTemplate)
-		{
-			if (inRepresentation[PKGPresentationLicenseTemplateNameKey]!=nil)
-				_templateName=inRepresentation[PKGPresentationLicenseTemplateNameKey];
-			
-			if (inRepresentation[PKGPresentationLicenseTemplateKeywordsKey]!=nil)
-			{
-				if ([inRepresentation[PKGPresentationLicenseTemplateKeywordsKey] isKindOfClass:[NSDictionary class]]==NO)
-				{
-					if (outError!=NULL)
-					{
-						*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-													  code:PKGRepresentationInvalidTypeOfValueError
-												  userInfo:@{PKGKeyPathErrorKey:PKGPresentationLicenseTemplateKeywordsKey}];
-					}
-					
-					return nil;
-				}
-				
-				_templateValues=[inRepresentation[PKGPresentationLicenseTemplateKeywordsKey] mutableCopy];
-			}
-		}
-	}
-	else
+	if (self==nil)
 	{
 		if (outError!=NULL)
 			*outError=tError;
+		
+		return nil;
 	}
 	
-	return self;;
+	_licenseType=[inRepresentation[PKGPresentationLicenseTypeKey] unsignedIntegerValue];
+	
+	if (_licenseType>PKGLicenseTypeTemplate)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+										  code:PKGRepresentationInvalidValue
+									  userInfo:@{PKGKeyPathErrorKey:PKGPresentationLicenseTypeKey}];
+		
+		return nil;
+	}
+	
+	if (_licenseType==PKGLicenseTypeTemplate)
+	{
+		NSString * tString=inRepresentation[PKGPresentationLicenseTemplateNameKey];
+		
+		PKGFullCheckStringValueForKey(tString,PKGPresentationLicenseTemplateNameKey);
+		
+		_templateName=[tString copy];
+		
+		
+		if (inRepresentation[PKGPresentationLicenseTemplateKeywordsKey]!=nil)
+		{
+			if ([inRepresentation[PKGPresentationLicenseTemplateKeywordsKey] isKindOfClass:[NSDictionary class]]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationLicenseTemplateKeywordsKey}];
+				
+				return nil;
+			}
+			
+			_templateValues=[inRepresentation[PKGPresentationLicenseTemplateKeywordsKey] mutableCopy];
+		}
+	}
+	
+	return self;
 }
 
 - (NSMutableDictionary *)representation
@@ -94,7 +106,8 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	{
 		tRepresentation[PKGPresentationLicenseTemplateNameKey]=self.templateName;
 		
-		tRepresentation[PKGPresentationLicenseTemplateKeywordsKey]=self.templateValues;
+		if (self.templateValues!=nil)
+			tRepresentation[PKGPresentationLicenseTemplateKeywordsKey]=self.templateValues;
 	}
 	
 	return tRepresentation;

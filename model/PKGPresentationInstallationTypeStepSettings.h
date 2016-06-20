@@ -24,6 +24,10 @@ typedef NS_ENUM(NSUInteger, PKGPresentationInstallationTypeMode)
 	PKGPresentationInstallationTypeCustomInstallOnly,
 };
 
+extern NSString * const PKGPresentationInstallationTypeInstallerHierarchyKey;
+extern NSString * const PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey;
+extern NSString * const PKGPresentationInstallationTypeInvisibleHierarchyKey;
+
 @interface PKGPresentationInstallationTypeStepSettings : PKGPresentationStepSettings
 
 	@property PKGPresentationInstallationTypeMode mode;

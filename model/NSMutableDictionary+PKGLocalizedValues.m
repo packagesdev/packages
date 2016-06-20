@@ -18,9 +18,7 @@
 #import "PKGObjectProtocol.h"
 
 NSString * const PKGLanguageKey=@"LANGUAGE";
-
 NSString * const PKGValueKey=@"VALUE";
-
 
 @implementation NSMutableDictionary (PKGLocalizedValues)
 
@@ -58,6 +56,18 @@ NSString * const PKGValueKey=@"VALUE";
 		{
 			tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 									   code:PKGRepresentationInvalidTypeOfValueError
+								   userInfo:@{PKGKeyPathErrorKey:PKGLanguageKey}];
+			
+			tMutableDictionary=nil;
+			*bOutStop=YES;
+			
+			return;
+		}
+		
+		if ([tLanguageName length]==0)		// Language can not be empty
+		{
+			tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+									   code:PKGRepresentationInvalidValue
 								   userInfo:@{PKGKeyPathErrorKey:PKGLanguageKey}];
 			
 			tMutableDictionary=nil;

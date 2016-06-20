@@ -36,7 +36,7 @@
 
 typedef NS_ENUM(NSUInteger, PKGFileSystemType)
 {
-	PKGFileSystemTypeFile,
+	PKGFileSystemTypeFile=0,
 	PKGFileSystemTypeFolder,
 	PKGFileSystemTypeFileorFolder
 };
@@ -66,9 +66,9 @@ typedef NS_ENUM(NSUInteger, PKGFileSystemType)
 
 @interface PKGDefaultFileFilter : PKGFileFilter
 
-	@property (readonly) NSString * displayName;
+	@property (readonly,copy) NSString * displayName;
 
-	@property (readonly) NSString * tooltip;
+	@property (readonly,copy) NSString * tooltip;
 
 	@property (readonly) NSArray * predicates;
 
