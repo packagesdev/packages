@@ -167,6 +167,11 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	return [self.string lastPathComponent];
 }
 
+- (BOOL)isSet
+{
+	return (self.string!=nil);
+}
+
 #pragma mark -
 
 - (BOOL)isEqualToFilePath:(PKGFilePath *)inFilePath

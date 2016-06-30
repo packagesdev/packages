@@ -24,8 +24,8 @@
 
 typedef NS_ENUM(NSUInteger, PKGLogicOperatorType)
 {
-	PKGLogicOperatorTypeConjunction=0,
-	PKGLogicOperatorTypeDisjunction
+	PKGLogicOperatorTypeConjunction=0,		// And
+	PKGLogicOperatorTypeDisjunction			// Or
 };
 
 @interface PKGChoiceDependencyTreeLogicNode : PKGChoiceDependencyTreeNode

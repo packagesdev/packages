@@ -316,6 +316,9 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 			return nil;
 		}
 		
+		if (_conclusionAction==PKGPackageConclusionActionRecommendRestart)		// Recommend restart is not supported by Installer.app in recent versions
+			_conclusionAction=PKGPackageConclusionActionRequireRestart;
+		
 		_authenticationMode=[inRepresentation[PKGPackageSettingsAuthenticationModeKey] unsignedIntegerValue];
 		
 		if (_authenticationMode>PKGPackageAuthenticationRoot)

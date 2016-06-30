@@ -30,15 +30,17 @@ typedef NS_ENUM(NSUInteger, PKGFilePathType)
 
 	@property (copy) NSString * string;
 
-+(instancetype)filePath;
++ (instancetype)filePath;
 
-+(instancetype)filePathWithAbsolutePath:(NSString *)inPath;
++ (instancetype)filePathWithAbsolutePath:(NSString *)inPath;
 
-+(instancetype)filePathWithString:(NSString *)inString type:(PKGFilePathType)inType;
++ (instancetype)filePathWithString:(NSString *)inString type:(PKGFilePathType)inType;
 
--(instancetype)initWithString:(NSString *)inString type:(PKGFilePathType)inType;
+- (instancetype)initWithString:(NSString *)inString type:(PKGFilePathType)inType;
 
--(NSString *)lastPathComponent;
+- (NSString *)lastPathComponent;
+
+- (BOOL)isSet;
 
 -(BOOL)isEqualToFilePath:(PKGFilePath *)inObject;
 

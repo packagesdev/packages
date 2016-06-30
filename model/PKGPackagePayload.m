@@ -93,7 +93,17 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 	{
 		_type=[inRepresentation[IPKGPackagePayloadTypeKey] unsignedIntegerValue];
 		
-		_defaultInstallLocation=inRepresentation[IPKGPackagePayloadDefaultInstallLocationKey];
+		if (_type>PKGPayloadExternal)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidValue
+										  userInfo:@{PKGKeyPathErrorKey:IPKGPackagePayloadTypeKey}];
+			
+			return nil;
+		}
+		
+		_defaultInstallLocation=[inRepresentation[IPKGPackagePayloadDefaultInstallLocationKey] copy];
 		
 		if (_defaultInstallLocation==nil)
 		{
