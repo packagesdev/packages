@@ -15,47 +15,10 @@
 
 #import "PKGObjectProtocol.h"
 
-#import "PKGRequirementFailureMessage.h"
+@interface PKGRequirementFailureMessage : NSObject <PKGObjectProtocol>
 
-typedef NS_ENUM(NSInteger, PKGRequirementType)
-{
-	PKGRequirementTypeUndefined=-1,
-	PKGRequirementTypeInstallation=0,
-	PKGRequirementTypeTarget=1
-};
+	@property (copy) NSString * messageTitle;
 
-typedef NS_ENUM(NSInteger, PKGRequirementComparator)
-{
-	PKGRequirementComparatorIsLess=-1,
-	PKGRequirementComparatorIsEqual=0,
-	PKGRequirementComparatorisGreater=1,
-	PKGRequirementComparatorIsNotEqual=2
-};
-
-typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
-{
-	PKGRequirementOnFailureBehaviorDeselectAndHideChoice=0,
-	PKGRequirementOnFailureBehaviorDeselectAndDisableChoice,
-	PKGRequirementOnFailureBehaviorInstallationWarning,
-	PKGRequirementOnFailureBehaviorInstallationStop
-};
-
-@interface PKGRequirement : NSObject <PKGObjectProtocol>
-
-	@property (getter=isEnabled) BOOL enabled;
-
-	@property (copy) NSString * name;
-
-	@property (copy) NSString * identifier;
-
-	@property PKGRequirementType type;
-
-	@property PKGRequirementOnFailureBehavior behavior;
-
-	@property (readonly)NSMutableDictionary * messages;
-
-	@property NSDictionary * settingsRepresentation;
-
-- (NSComparisonResult)compareBehavior:(PKGRequirement *)inOtherRequirement;
+	@property (copy) NSString * messageDescription;	// can be nil
 
 @end

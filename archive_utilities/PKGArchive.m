@@ -285,4 +285,11 @@ int32_t ixar_extract_tobuffersz(xar_t x, xar_file_t f, char **buffer, size_t *si
 	return YES;
 }
 
+- (BOOL)createArchiveWithContentsAtPath:(NSString *)inContentsPath error:(NSError **)outError
+{
+	// A COMPLETER
+	
+	return NO;
+}
+
 @end

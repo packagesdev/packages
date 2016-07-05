@@ -64,6 +64,7 @@
 		F4A786561CB4676500FC07B8 /* NSDictionary+WBMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786541CB4676500FC07B8 /* NSDictionary+WBMapping.m */; };
 		F4B3CC3B1D0D5F6A000B5F5F /* NSArray+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */; };
 		F4B3FF001CB5A72900A605F1 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3FEFF1CB5A72900A605F1 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4D1F94A1D2B101300890A21 /* PKGRequirementFailureMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D1F9491D2B101300890A21 /* PKGRequirementFailureMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +230,8 @@
 		F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WBExtensions.m"; path = "../Foundation + Extensions/NSArray+WBExtensions.m"; sourceTree = "<group>"; };
 		F4B3FEFE1CB5A72900A605F1 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = "../RegexKitLite-1.2/RegexKitLite.h"; sourceTree = "<group>"; };
 		F4B3FEFF1CB5A72900A605F1 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = "../RegexKitLite-1.2/RegexKitLite.m"; sourceTree = "<group>"; };
+		F4D1F9481D2B101300890A21 /* PKGRequirementFailureMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementFailureMessage.h; path = ../model/PKGRequirementFailureMessage.h; sourceTree = "<group>"; };
+		F4D1F9491D2B101300890A21 /* PKGRequirementFailureMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementFailureMessage.m; path = ../model/PKGRequirementFailureMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +354,8 @@
 				F4A785ED1CB4674600FC07B8 /* PKGFilePath.m */,
 				F4A786221CB4674600FC07B8 /* PKGRequirement.h */,
 				F4A786231CB4674600FC07B8 /* PKGRequirement.m */,
+				F4D1F9481D2B101300890A21 /* PKGRequirementFailureMessage.h */,
+				F4D1F9491D2B101300890A21 /* PKGRequirementFailureMessage.m */,
 				F4A786261CB4674600FC07B8 /* PKGTreeNode.h */,
 				F4A786271CB4674600FC07B8 /* PKGTreeNode.m */,
 				F4A785EA1CB4674600FC07B8 /* PKGFileItem.h */,
@@ -584,6 +589,7 @@
 				F4A7862C1CB4674600FC07B8 /* PKGChoiceItemOptions.m in Sources */,
 				F4A786391CB4674600FC07B8 /* PKGPackageProjectSettings.m in Sources */,
 				F4A786471CB4674600FC07B8 /* PKGPresentationWelcomeStepSettings.m in Sources */,
+				F4D1F94A1D2B101300890A21 /* PKGRequirementFailureMessage.m in Sources */,
 				F4A7862A1CB4674600FC07B8 /* PKGChoiceDependencyTreeNode.m in Sources */,
 				F4A7863D1CB4674600FC07B8 /* PKGPayloadTree.m in Sources */,
 				F4A7864A1CB4674600FC07B8 /* PKGDistributionProjectPresentationSettings.m in Sources */,
