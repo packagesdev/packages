@@ -19,11 +19,11 @@
 
 typedef NS_ENUM(NSUInteger, PKGFileItemType)
 {
-	PKGInvisibleFileItemType,
-	PKGRootFileItemType,
-	PKGFolderTemplateFileItemType,
-	PKGNewFolderFileItemType,
-	PKGFileSystemFileItemType
+	PKGFileItemTypeInvisible,
+	PKGFileItemTypeRoot,
+	PKGFileItemTypeFolderTemplate,
+	PKGFileItemTypeNewFolder,
+	PKGFileItemTypeFileSystemItem
 };
 
 @interface PKGFileItem : NSObject <PKGObjectProtocol>

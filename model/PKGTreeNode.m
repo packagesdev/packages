@@ -342,6 +342,19 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	[_children removeObjectAtIndex:inIndex];
 }
 
+- (void)removeChildrenAtIndexes:(NSIndexSet *)inIndexSet
+{
+	if (inIndexSet==nil || [inIndexSet lastIndex]>=[_children count])
+		return;
+	
+	[_children enumerateObjectsAtIndexes:inIndexSet options:0 usingBlock:^(PKGTreeNode *bTreeNode,NSUInteger bIndex,BOOL * boutStop){
+	
+		[bTreeNode setParent:nil];
+	}];
+	
+	[_children removeObjectsAtIndexes:inIndexSet];
+}
+
 - (void)removeChild:(PKGTreeNode *)inTreeNode
 {
 	if (inTreeNode==nil)

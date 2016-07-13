@@ -51,7 +51,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	{
 		_type=[inRepresentation[PKGFileItemTypeKey] unsignedIntegerValue];
 		
-		if (_type>PKGFileSystemFileItemType)
+		if (_type>PKGFileItemTypeFileSystemItem)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -80,15 +80,15 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 		
 		switch(_type)
 		{
-			case PKGInvisibleFileItemType:
-			case PKGRootFileItemType:
-			case PKGFolderTemplateFileItemType:
-			case PKGNewFolderFileItemType:
+			case PKGFileItemTypeInvisible:
+			case PKGFileItemTypeRoot:
+			case PKGFileItemTypeFolderTemplate:
+			case PKGFileItemTypeNewFolder:
 				
 				_contentsDisclosed=YES;
 				break;
 				
-			case PKGFileSystemFileItemType:
+			case PKGFileItemTypeFileSystemItem:
 				
 				_contentsDisclosed=[inRepresentation[PKGFileItemExpandedKey] boolValue];
 				break;
@@ -111,7 +111,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	
 	tRepresentation[PKGFileItemPermissionsKey]=@(self.permissions);
 	
-	if (self.type==PKGFileSystemFileItemType && self.contentsDisclosed==YES)
+	if (self.type==PKGFileItemTypeFileSystemItem && self.contentsDisclosed==YES)
 		tRepresentation[PKGFileItemExpandedKey]=@(YES);
 	
 	return tRepresentation;

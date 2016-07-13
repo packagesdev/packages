@@ -22,6 +22,10 @@
 
 @interface PKGPayloadTreeNode : PKGTreeNode
 
+- (PKGPayloadTreeNode *)descendantNodeAtPath:(NSString *)inPath;
+
+- (NSUInteger)optimizePayloadHierarchy;	// Return the number of children
+
 @end
 
 

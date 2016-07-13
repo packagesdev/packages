@@ -28,6 +28,66 @@
 	return [PKGFileItem class];
 }
 
+#pragma mark -
+
+- (PKGPayloadTreeNode *)descendantNodeAtPath:(NSString *)inPath
+{
+	if (inPath==nil)
+		return nil;
+	
+	PKGPayloadTreeNode * tPayloadTreeNode=self;
+	
+	NSArray * tPathComponents=[inPath componentsSeparatedByString:@"/"];
+	
+	for(NSString * tComponent in tPathComponents)
+	{
+		if (tComponent.length==0)
+			continue;
+		
+		for(PKGPayloadTreeNode * tChildTreeNode in tPayloadTreeNode.children)
+		{
+			PKGFileItem * tFileItem=(PKGFileItem *)tChildTreeNode.representedObject;
+			
+			if ([[tFileItem.filePath lastPathComponent] isEqualToString:tComponent]==YES)
+			{
+				tPayloadTreeNode=tChildTreeNode;
+				break;
+			}
+		}
+	}
+	
+	return tPayloadTreeNode;
+}
+
+- (NSUInteger)optimizePayloadHierarchy
+{
+	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	
+	if (tFileItem.type==PKGFileItemTypeFileSystemItem ||
+		tFileItem.type==PKGFileItemTypeNewFolder)
+		return 1;
+	
+	NSMutableIndexSet * tIndexSet=[NSMutableIndexSet indexSet];
+	
+	[[self children] enumerateObjectsUsingBlock:^(PKGPayloadTreeNode * bChildNode,NSUInteger bIndex,BOOL * bOutStop){
+	
+		if ([bChildNode optimizePayloadHierarchy]==0)
+			[tIndexSet addIndex:bIndex];
+	}];
+	
+	[self removeChildrenAtIndexes:tIndexSet];
+	
+	NSUInteger tNumberOfChildren=[self numberOfChildren];
+	
+	if (tNumberOfChildren>0)
+		return tNumberOfChildren;
+	
+	if (tFileItem.type!=PKGFileItemTypeRoot)
+		return 0;
+	
+	return 1;
+}
+
 @end
 
 

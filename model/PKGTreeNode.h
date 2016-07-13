@@ -47,6 +47,7 @@
 - (void)insertChildren:(NSArray *)inTreeNodes atIndex:(NSUInteger)inIndex;
 
 - (void)removeChildAtIndex:(NSUInteger)inIndex;
+- (void)removeChildrenAtIndexes:(NSIndexSet *)inIndexSet;
 - (void)removeChild:(PKGTreeNode *)inTreeNode;
 - (void)removeChildren;
 - (void)removeFromParent;
