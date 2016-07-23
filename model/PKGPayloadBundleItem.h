@@ -25,7 +25,7 @@
 
 	@property PKGFilePath * postInstallationScriptPath;
 
-	@property NSMutableArray * locators;
+	@property (readonly) NSMutableArray * locators;
 
 + (BOOL) isRepresentationOfBundleItem:(NSDictionary *)inRepresentation;
 

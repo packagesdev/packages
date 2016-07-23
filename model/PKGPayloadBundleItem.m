@@ -23,9 +23,16 @@ NSString * const PKGPayloadBundleItemPostInstallationScriptKey=@"BUNDLE_POSTINST
 
 NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 
+@interface PKGPayloadBundleItem ()
+
+	@property (readwrite) NSMutableArray * locators;
+
+@end
+
+
 @implementation PKGPayloadBundleItem
 
-+ (BOOL) isRepresentationOfBundleItem:(NSDictionary *)inRepresentation
++ (BOOL)isRepresentationOfBundleItem:(NSDictionary *)inRepresentation
 {
 	if (inRepresentation[PKGPayloadBundleItemAllowDowngradeKey]!=nil ||
 		inRepresentation[PKGPayloadBundleItemPreInstallationScriptKey]!=nil ||

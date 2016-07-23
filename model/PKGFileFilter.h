@@ -15,7 +15,7 @@
 
 #import "PKGObjectProtocol.h"
 
-@protocol PKGFileFilterProtocol
+@protocol PKGFileFilterProtocol <NSObject>
 
 - (BOOL)isSeparator;
 

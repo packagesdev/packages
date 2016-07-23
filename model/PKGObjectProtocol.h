@@ -53,7 +53,7 @@ if ([(object) isKindOfClass:class]==NO)\
 }\
 
 
-@protocol PKGObjectProtocol
+@protocol PKGObjectProtocol <NSObject>
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError;
 

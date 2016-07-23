@@ -25,9 +25,17 @@ NSString * const PKGFileItemPermissionsKey=@"PERMISSIONS";
 
 NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the contents of a real folder has been disclosed in the hierarchy
 
+
+@interface PKGFileItem ()
+
+	@property (readwrite) PKGFileItemType type;
+
+@end
+
+
 @implementation PKGFileItem
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -85,7 +93,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 			case PKGFileItemTypeFolderTemplate:
 			case PKGFileItemTypeNewFolder:
 				
-				_contentsDisclosed=YES;
+				_contentsDisclosed=NO;	// A VERIFIER
 				break;
 				
 			case PKGFileItemTypeFileSystemItem:

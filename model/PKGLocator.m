@@ -35,7 +35,7 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 		
 		_name=@"";
 		
-		// A COMPLETER
+		_identifier=@""; // A COMPLETER
 		
 		_settingsRepresentation=nil;
 	}

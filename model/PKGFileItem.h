@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, PKGFileItemType)
 
 @interface PKGFileItem : NSObject <PKGObjectProtocol>
 
-	@property PKGFileItemType type;
+	@property (readonly) PKGFileItemType type;
 
 	@property PKGFilePath * filePath;
 
