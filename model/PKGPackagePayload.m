@@ -39,12 +39,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 
 + (instancetype)emptyPayload
 {
-	PKGPackagePayload * nPackagePayload=[[PKGPackagePayload alloc] init];
-	
-	// A COMPLETER
-	
-	
-	return nPackagePayload;
+	return [[PKGPackagePayload alloc] init];
 }
 
 - (instancetype) init
@@ -61,7 +56,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		_invisibleHierarchyIncluded=NO;
 		
-		// A COMPLETER
+		_filesTree=[[PKGPayloadTree alloc] init];
 		
 		_treatMissingPayloadFilesAsWarnings=NO;
 	}

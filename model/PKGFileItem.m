@@ -30,10 +30,54 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 
 	@property (readwrite) PKGFileItemType type;
 
+- (instancetype)initWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
+
 @end
 
 
 @implementation PKGFileItem
+
++ (instancetype)folderTemplateWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
+{
+	if (inName==nil)
+		return nil;
+	
+	PKGFileItem * nFileItem=[[PKGFileItem alloc] init];
+	
+	if (nFileItem!=nil)
+	{
+		nFileItem.type=PKGFileItemTypeFolderTemplate;
+		
+		nFileItem.filePath=[PKGFilePath filePathWithName:inName];
+		
+		nFileItem.uid=inUid;
+		nFileItem.gid=inGid;
+		nFileItem.permissions=inPermissions;
+	}
+	
+	return nFileItem;
+}
+
+- (instancetype)initWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions
+{
+	if (inFilePath==nil)
+		return nil;
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_type=PKGFileItemTypeFolderTemplate;
+		
+		_filePath=inFilePath;
+		
+		_uid=inUid;
+		_gid=inGid;
+		_permissions=inPermissions;
+	}
+	
+	return self;
+}
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {

@@ -40,4 +40,6 @@ typedef NS_ENUM(NSUInteger, PKGFileItemType)
 
 	@property (getter=isContentsDisclosed) BOOL contentsDisclosed;
 
++ (instancetype)folderTemplateWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
+
 @end

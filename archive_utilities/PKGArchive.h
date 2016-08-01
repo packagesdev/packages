@@ -64,6 +64,7 @@ extern NSString * const PKGArchiveErrorFilePath;
 
 - (BOOL)isFlatPackage;
 
+- (int)preflightContentsAtPath:(NSString *) inPath;
 
 - (BOOL)extractToPath:(NSString *) inFolderPath error:(NSError **)outError;
 

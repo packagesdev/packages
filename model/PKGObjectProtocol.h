@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#define PKGFullCheckObjectValueForKey(class,object,key) if ((object)!=nil)\
+#define PKGFullCheckObjectValueForKey(class,object,key) if ((object)==nil)\
 {\
 	if (outError!=NULL)\
 		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain\

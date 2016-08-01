@@ -28,7 +28,18 @@ NSString * const PKGFilePathStringKey=@"PATH";
 
 +(instancetype)filePathWithAbsolutePath:(NSString *)inPath
 {
+	if (inPath==nil)
+		return nil;
+	
 	return [PKGFilePath filePathWithString:inPath type:PKGFilePathTypeAbsolute];
+}
+
++ (instancetype)filePathWithName:(NSString *)inName
+{
+	if (inName==nil)
+		return nil;
+	
+	return [PKGFilePath filePathWithString:inName type:PKGFilePathTypeName];
 }
 
 +(instancetype)filePathWithString:(NSString *)inString type:(PKGFilePathType)inType

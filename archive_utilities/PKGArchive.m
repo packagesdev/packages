@@ -87,8 +87,6 @@ int32_t ixar_extract_tobuffersz(xar_t x, xar_file_t f, char **buffer, size_t *si
 
 	@property (copy,readwrite) NSString * path;
 
-- (int)_preflightContentsAtPath:(NSString *) inPath;
-
 @end
 
 
@@ -237,7 +235,7 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 
 #pragma mark -
 
-- (int)_preflightContentsAtPath:(NSString *) inPath
+- (int)preflightContentsAtPath:(NSString *) inPath
 {
 	char * tPath[2]={(char *) [inPath fileSystemRepresentation],NULL};
 	
@@ -269,8 +267,6 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 				
 				return errno;
 			default:				// At least 0644
-				
-				tMode=0;
 				
 				if ((tFile->fts_statp->st_mode & 0700) < (S_IRUSR+S_IWUSR))
 				{
@@ -309,11 +305,6 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 			if (chmod(tFile->fts_accpath, tMode) == -1)
 				return errno;
 		}
-		
-		// Set Owner:Group
-		
-		if (chown(tFile->fts_accpath, 0, 0) == -1)
-			return errno;
 	}
 	
 	fts_close(ftsp);
@@ -528,7 +519,7 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 	
 	BOOL tisDirectory;
 	
-	if ([tFileManager fileExistsAtPath:self.path isDirectory:&tisDirectory]==NO)
+	if ([tFileManager fileExistsAtPath:inContentsPath isDirectory:&tisDirectory]==NO)
 	{
 		if (outError!=NULL)
 			;// A COMPLETER
@@ -537,18 +528,6 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 	}
 	
 	if (tisDirectory==NO)
-	{
-		if (outError!=NULL)
-			;// A COMPLETER
-		
-		return NO;
-	}
-	
-	// Preflight folder contents
-	
-	int tPreflightError=[self _preflightContentsAtPath:inContentsPath];
-	
-	if (tPreflightError!=0)
 	{
 		if (outError!=NULL)
 			;// A COMPLETER
@@ -595,7 +574,21 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 	
 	if (self.delegate!=nil && [self.delegate archiveShouldSign:self]==YES)
 	{
-		xar_signature_t tSignature=xar_signature_new(tArchive,"RSA", [self.delegate signatureSizeForArchive:self],PKGArchiveSignatureCallback,(__bridge void *)self);
+		int32_t tSignatureSize=[self.delegate signatureSizeForArchive:self];
+		
+		if (tSignatureSize==0)
+		{
+			if (outError!=NULL)
+				/**outError=[NSError errorWithDomain:PKGArchiveErrorDomain
+											  code:PKGArchiveErrorMemoryAllocationFailed
+										  userInfo:nil]*/;
+			
+			xar_close(tArchive);
+			
+			return NO;
+		}
+		
+		xar_signature_t tSignature=xar_signature_new(tArchive,"RSA", tSignatureSize,PKGArchiveSignatureCallback,(__bridge void *)self);
 		
 		if (tSignature==NULL)
 		{

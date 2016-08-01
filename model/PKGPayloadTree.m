@@ -15,7 +15,24 @@
 
 #import "PKGPackagesError.h"
 
+@interface PKGPayloadTreeNode ()
+
++ (instancetype)emptyRootTreeNode;
+
+@end
+
 @implementation PKGPayloadTreeNode
+
++ (instancetype)emptyRootTreeNode
+{
+	PKGPayloadTreeNode * tRootTreeNode=[[PKGPayloadTreeNode alloc] initWithRepresentedObject:[PKGFileItem folderTemplateWithName:@"/"
+																															 uid:0
+																															 gid:0
+																													 permissions:0755]
+																					children:nil];
+	
+	return tRootTreeNode;
+}
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
 {
@@ -99,6 +116,18 @@
 @end
 
 @implementation PKGPayloadTree
+
+- (id)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_rootNode=[PKGPayloadTreeNode emptyRootTreeNode];
+	}
+	
+	return self;
+}
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
