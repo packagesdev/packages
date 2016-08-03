@@ -642,13 +642,13 @@
 		return NO;
 	}
 		
-	NSString * tLocationPath=[inArguments lastObject];
+	NSString * tLocationURL=[inArguments lastObject];
 	
 	PKGPackageSettings * tPackageSettings=((id<PKGPackageObjectProtocol>) _currentObject).packageSettings;
 	
 	if (tPackageSettings!=nil)
 	{
-		tPackageSettings.locationPath=tLocationPath;
+		tPackageSettings.locationURL=tLocationURL;
 		
 		return YES;
 	}

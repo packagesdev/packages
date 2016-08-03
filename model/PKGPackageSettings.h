@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, PKGPackageLocationType)
 
 	@property PKGPackageLocationType locationType;
 
-	@property (copy) NSString * locationPath;
+	@property (copy) NSString * locationURL;
 
 
 	@property PKGPackageAuthentication authenticationMode;
@@ -70,5 +70,9 @@ typedef NS_ENUM(NSUInteger, PKGPackageLocationType)
 	@property (readonly) NSInteger payloadSize;		// -1: Unknown
 
 - (instancetype)initWithXMLData:(NSData *)inData;
+
+- (NSString *)locationScheme;
+
+- (NSString *)locationPath;
 
 @end

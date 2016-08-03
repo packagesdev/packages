@@ -62,7 +62,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		_conclusionAction=PKGPackageConclusionActionNone;
 		
 		_locationType=PKGPackageLocationEmbedded;
-		_locationPath=@"";
+		_locationURL=@"";
 		
 		_authenticationMode=PKGPackageAuthenticationRoot;
 		_relocatable=NO;
@@ -130,7 +130,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		_conclusionAction=PKGPackageConclusionActionNone;
 		
 		_locationType=PKGPackageLocationEmbedded;
-		_locationPath=@"";
+		_locationURL=@"";
 		
 		_authenticationMode=PKGPackageAuthenticationNone;
 		_relocatable=NO;
@@ -278,11 +278,11 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 			
 			PKGClassCheckStringValueForKey(tString,PKGPackageSettingsLocationPathKey);
 			
-			_locationPath=[tString copy];
+			_locationURL=[tString copy];
 		}
 		
-		if (_locationPath==nil)
-			_locationPath=@"";
+		if (_locationURL==nil)
+			_locationURL=@"";
 			
 		
 		// Only available to project and referenced packages
@@ -378,6 +378,73 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 
 #pragma mark -
 
+- (NSString *)locationScheme
+{
+	switch(self.locationType)
+	{
+		case PKGPackageLocationEmbedded:
+			
+			return @"file:";
+			
+		case PKGPackageLocationCustomPath:
+			
+			return @"file:";
+			
+		case PKGPackageLocationHTTPURL:
+			
+			return @"http://";
+			
+		case PKGPackageLocationRemovableMedia:
+		
+			return @"x-disc://";
+	}
+	
+	return nil;
+}
+
+- (NSString *)locationPath
+{
+	if (self.locationURL==nil)
+		return nil;
+	
+	NSString * tLocationPath=[self.locationURL copy];
+	
+	switch(self.locationType)
+	{
+		case PKGPackageLocationEmbedded:
+			
+			return nil;
+			
+		case PKGPackageLocationCustomPath:
+			
+			if ([tLocationPath hasPrefix:@"file:"]==YES)
+				tLocationPath=[tLocationPath substringFromIndex:5];
+			
+			break;
+			
+		case PKGPackageLocationHTTPURL:
+		case PKGPackageLocationRemovableMedia:
+		{
+			NSString * tURLPrefix=[self locationScheme];
+			
+			if ([tLocationPath hasPrefix:tURLPrefix]==YES)
+				tLocationPath=[tLocationPath substringFromIndex:[tURLPrefix length]];
+			
+			if ([tLocationPath hasPrefix:@"/"]==YES)
+				tLocationPath=[tLocationPath substringFromIndex:1];
+			
+			break;
+		}
+	}
+	
+	if ([tLocationPath length]==0)
+		return nil;
+	
+	return tLocationPath;
+}
+
+#pragma mark -
+
 - (NSString *) description
 {
 	NSMutableString * tDescription=[NSMutableString string];
@@ -449,7 +516,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	[tDescription appendString:@"\n"];
 	
 	if (self.locationType!=PKGPackageLocationEmbedded)
-		[tDescription appendFormat:@"  Location Path: %@\n",self.locationPath];
+		[tDescription appendFormat:@"  Location Path: %@\n",self.locationURL];
 	
 	[tDescription appendString:@"\n"];
 	
