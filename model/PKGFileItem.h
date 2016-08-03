@@ -19,8 +19,8 @@
 
 typedef NS_ENUM(NSUInteger, PKGFileItemType)
 {
-	PKGFileItemTypeInvisible,
-	PKGFileItemTypeRoot,
+	PKGFileItemTypeInvisible=-1,
+	PKGFileItemTypeRoot=0,
 	PKGFileItemTypeFolderTemplate,
 	PKGFileItemTypeNewFolder,
 	PKGFileItemTypeFileSystemItem
