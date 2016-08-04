@@ -61,7 +61,7 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 	
 	// Advanced Options
 	
-	NSDictionary * tDictionary=inRepresentation[PKGDistributionProjectBuildFormatKey];
+	NSDictionary * tDictionary=inRepresentation[PKGDistributionProjectAdvancedOptionsKey];
 	
 	if (tDictionary==nil)
 	{
@@ -74,7 +74,7 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 											  code:PKGRepresentationInvalidTypeOfValueError
-										  userInfo:@{PKGKeyPathErrorKey:PKGDistributionProjectBuildFormatKey}];
+										  userInfo:@{PKGKeyPathErrorKey:PKGDistributionProjectAdvancedOptionsKey}];
 			
 			return nil;
 		}

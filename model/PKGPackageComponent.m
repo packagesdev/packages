@@ -87,28 +87,31 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 		}
 		
 		
-		_importPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPackageComponentImportPathKey] error:&tError];
-		
-		if (_importPath==nil)
+		if (inRepresentation[PKGPackageComponentImportPathKey]!=nil)
 		{
-			if (outError!=NULL)
-			{
-				NSInteger tCode=tError.code;
-				
-				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
-				
-				NSString * tPathError=PKGPackageComponentImportPathKey;
-				
-				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
-					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
-				
-				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:tCode
-										  userInfo:@{PKGKeyPathErrorKey:tPathError}];
-			}
+			_importPath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPackageComponentImportPathKey] error:&tError];
 			
-			return nil;
+			if (_importPath==nil)
+			{
+				if (outError!=NULL)
+				{
+					NSInteger tCode=tError.code;
+					
+					if (tCode==PKGRepresentationNilRepresentationError)
+						tCode=PKGRepresentationInvalidValue;
+					
+					NSString * tPathError=PKGPackageComponentImportPathKey;
+					
+					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+					
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:tCode
+											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+				}
+				
+				return nil;
+			}
 		}
 		
 		_packageSettings=[[PKGPackageSettings alloc] initWithRepresentation:inRepresentation[PKGPackageComponentSettingsKey] error:&tError];

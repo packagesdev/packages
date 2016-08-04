@@ -24,7 +24,7 @@ NSString * const PKGDistributionProjectRequirementsAndResourcesKey=@"PROJECT_REQ
 
 NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
 
-NSString * const PKGDistributionProjectSharedProjectDataKey=@"PACKAGES";
+NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA";
 
 
 @interface PKGDistributionProject ()
