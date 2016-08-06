@@ -604,7 +604,7 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 		
 		for(NSData * tCertificateData in [self.delegate certificatesDataForArchive:self])
 		{
-			xar_signature_add_x509certificate(tSignature,tCertificateData.length,tCertificateData.bytes);
+			xar_signature_add_x509certificate(tSignature,tCertificateData.bytes,(uint32_t)tCertificateData.length);
 		}
 	}
 
