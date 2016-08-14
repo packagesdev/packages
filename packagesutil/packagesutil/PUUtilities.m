@@ -1215,7 +1215,7 @@
 		return NO;
 	}
 	
-	if (_project==PKGProjectTypeDistribution)
+	if (_projectType==PKGProjectTypeDistribution)
 	{
 		PKGDistributionProjectSettings * tProjectSettings=(PKGDistributionProjectSettings *)((PKGDistributionProject *)_project).settings;
 		
@@ -1270,7 +1270,7 @@
 		return NO;
 	}
 	
-	if (_project==PKGProjectTypeDistribution)
+	if (_projectType==PKGProjectTypeDistribution)
 	{
 		PKGDistributionProjectSettings * tProjectSettings=(PKGDistributionProjectSettings *)((PKGDistributionProject *)_project).settings;
 		
@@ -1561,7 +1561,7 @@
 					
 					NSString * tIndexString=[tComponent substringFromIndex:8];
 					
-					NSInteger tIndex=[tIndexString integerValue];
+					NSUInteger tIndex=[tIndexString integerValue];
 					
 					if (tIndex>0)
 					{
@@ -2369,7 +2369,7 @@
 		return NO;
 	}
 
-	if (_project==PKGProjectTypeDistribution)
+	if (_projectType==PKGProjectTypeDistribution)
 	{
 		PKGDistributionProjectSettings * tProjectSettings=(PKGDistributionProjectSettings *)((PKGDistributionProject *)_project).settings;
 		
@@ -2421,7 +2421,7 @@
 		return NO;
 	}
 	
-	if (_project==PKGProjectTypeDistribution)
+	if (_projectType==PKGProjectTypeDistribution)
 	{
 		PKGDistributionProjectSettings * tProjectSettings=(PKGDistributionProjectSettings *)((PKGDistributionProject *)_project).settings;
 		
@@ -2669,7 +2669,7 @@
 					
 					NSString * tIndexString=[tComponent substringFromIndex:8];
 					
-					NSInteger tIndex=[tIndexString integerValue];
+					NSUInteger tIndex=[tIndexString integerValue];
 					
 					if (tIndex>0)
 					{
