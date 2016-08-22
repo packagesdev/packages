@@ -1,0 +1,257 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F452AB521D607D8F00941DB2 /* PKGBuildDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F452AB501D607D8F00941DB2 /* PKGBuildDispatcher.h */; };
+		F452AB531D607D8F00941DB2 /* PKGBuildDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F452AB511D607D8F00941DB2 /* PKGBuildDispatcher.m */; };
+		F48DD9B71D686AFF00F59638 /* PKGBuildDispatcher+Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = F48DD9B51D686AFF00F59638 /* PKGBuildDispatcher+Constants.h */; };
+		F48DD9B81D686AFF00F59638 /* PKGBuildDispatcher+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F48DD9B61D686AFF00F59638 /* PKGBuildDispatcher+Constants.m */; };
+		F48DD9BA1D686B0600F59638 /* PKGBuildDispatcherInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = F48DD9B91D686B0600F59638 /* PKGBuildDispatcherInterface.h */; };
+		F4A8A4AD1C7E6F1500DC77C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A8A4AC1C7E6F1500DC77C2 /* Foundation.framework */; };
+		F4A8A4B41C7E6F5D00DC77C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A8A4B01C7E6F5D00DC77C2 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F47365D90A28F9B7004F34C6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F452AB501D607D8F00941DB2 /* PKGBuildDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBuildDispatcher.h; path = packages_dispatcher/PKGBuildDispatcher.h; sourceTree = "<group>"; };
+		F452AB511D607D8F00941DB2 /* PKGBuildDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBuildDispatcher.m; path = packages_dispatcher/PKGBuildDispatcher.m; sourceTree = "<group>"; };
+		F47365DF0A28F9B7004F34C6 /* packages_dispatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = packages_dispatcher; sourceTree = BUILT_PRODUCTS_DIR; };
+		F48DD9B51D686AFF00F59638 /* PKGBuildDispatcher+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGBuildDispatcher+Constants.h"; path = "../shared/PKGBuildDispatcher+Constants.h"; sourceTree = "<group>"; };
+		F48DD9B61D686AFF00F59638 /* PKGBuildDispatcher+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGBuildDispatcher+Constants.m"; path = "../shared/PKGBuildDispatcher+Constants.m"; sourceTree = "<group>"; };
+		F48DD9B91D686B0600F59638 /* PKGBuildDispatcherInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBuildDispatcherInterface.h; path = ../shared/PKGBuildDispatcherInterface.h; sourceTree = "<group>"; };
+		F4A8A4A41C7E6A8B00DC77C2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4A8A4AC1C7E6F1500DC77C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4A8A4B01C7E6F5D00DC77C2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = packages_dispatcher/main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F47365D50A28F9B7004F34C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4A8A4AD1C7E6F1500DC77C2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* IcebergControlTower */ = {
+			isa = PBXGroup;
+			children = (
+				F4A8A4A41C7E6A8B00DC77C2 /* SharedConfigurationSettings.xcconfig */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = IcebergControlTower;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4E8436A1D6B6D39006E6811 /* Shared */,
+				F452AB501D607D8F00941DB2 /* PKGBuildDispatcher.h */,
+				F452AB511D607D8F00941DB2 /* PKGBuildDispatcher.m */,
+				F4A8A4B01C7E6F5D00DC77C2 /* main.m */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F4A8A4AC1C7E6F1500DC77C2 /* Foundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F47365DF0A28F9B7004F34C6 /* packages_dispatcher */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4E8436A1D6B6D39006E6811 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F48DD9B51D686AFF00F59638 /* PKGBuildDispatcher+Constants.h */,
+				F48DD9B61D686AFF00F59638 /* PKGBuildDispatcher+Constants.m */,
+				F48DD9B91D686B0600F59638 /* PKGBuildDispatcherInterface.h */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F47365D10A28F9B7004F34C6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F48DD9B71D686AFF00F59638 /* PKGBuildDispatcher+Constants.h in Headers */,
+				F452AB521D607D8F00941DB2 /* PKGBuildDispatcher.h in Headers */,
+				F48DD9BA1D686B0600F59638 /* PKGBuildDispatcherInterface.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F47365D00A28F9B7004F34C6 /* packages_dispatcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F47365DB0A28F9B7004F34C6 /* Build configuration list for PBXNativeTarget "packages_dispatcher" */;
+			buildPhases = (
+				F47365D10A28F9B7004F34C6 /* Headers */,
+				F47365D30A28F9B7004F34C6 /* Sources */,
+				F47365D50A28F9B7004F34C6 /* Frameworks */,
+				F47365D90A28F9B7004F34C6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = packages_dispatcher;
+			productInstallPath = "$(HOME)/bin";
+			productName = IcebergControlTower;
+			productReference = F47365DF0A28F9B7004F34C6 /* packages_dispatcher */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = F47365E20A28F9C1004F34C6 /* Build configuration list for PBXProject "packages_dispatcher" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* IcebergControlTower */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F47365D00A28F9B7004F34C6 /* packages_dispatcher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F47365D30A28F9B7004F34C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F452AB531D607D8F00941DB2 /* PKGBuildDispatcher.m in Sources */,
+				F4A8A4B41C7E6F5D00DC77C2 /* main.m in Sources */,
+				F48DD9B81D686AFF00F59638 /* PKGBuildDispatcher+Constants.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F47365DC0A28F9B7004F34C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = packages_dispatcher;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		F47365DD0A28F9B7004F34C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/;
+				PRODUCT_NAME = packages_dispatcher;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		F47365E30A28F9C1004F34C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4A8A4A41C7E6A8B00DC77C2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_OPTIMIZATION_LEVEL = 0;
+			};
+			name = Debug;
+		};
+		F47365E40A28F9C1004F34C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4A8A4A41C7E6A8B00DC77C2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F47365DB0A28F9B7004F34C6 /* Build configuration list for PBXNativeTarget "packages_dispatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F47365DC0A28F9B7004F34C6 /* Debug */,
+				F47365DD0A28F9B7004F34C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F47365E20A28F9C1004F34C6 /* Build configuration list for PBXProject "packages_dispatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F47365E30A28F9C1004F34C6 /* Debug */,
+				F47365E40A28F9C1004F34C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

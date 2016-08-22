@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>fr.whitebox.packages.build.dispatcher</string>
+	<key>MachServices</key>
+	<dict>
+		<key>fr.whitebox.packages.build.dispatcher</key>
+		<true/>
+	</dict>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Library/PrivilegedHelperTools/fr.whitebox.packages/packages_dispatcher</string>
+	</array>
+</dict>
+</plist>
