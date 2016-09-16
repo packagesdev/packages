@@ -94,7 +94,7 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 {
 	PKGArchive * tArchive=(__bridge PKGArchive *) context;
 	
-	NSData * tSignedData=[tArchive.delegate archive:tArchive signedDataForData:[NSData dataWithBytesNoCopy:inData length:inLength]];
+	NSData * tSignedData=[tArchive.delegate archive:tArchive signatureForData:[NSData dataWithBytes:inData length:inLength]];
 	
 	if (tSignedData==nil)
 		return -1;

@@ -76,11 +76,11 @@ NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.
 
 - (void)lookForHandshakeEndpointForBuilderWithIdentifier:(NSString *)inUUID replyHandler:(void(^)(NSXPCListenerEndpoint *bHandshakeEndpoint))inReply;
 {
+	if (inUUID==nil)
+		inReply(nil);
+	
 	dispatch_async(dispatch_get_main_queue(),^{
 		
-		if (inUUID==nil)
-			inReply(nil);
-	
 		NSXPCListenerEndpoint * tEndpoint=_endPointsRegistry[inUUID];
 		
 		if (tEndpoint==nil)
@@ -94,11 +94,11 @@ NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.
 
 - (void)launchBuilderWithIdentifier:(NSString *)inUUID handshakeEndpoint:(NSXPCListenerEndpoint *)inHandshakeEndpoint
 {
+	if (inHandshakeEndpoint==nil || inUUID==nil)
+		return;
+	
 	dispatch_async(dispatch_get_main_queue(),^{
 	
-		if (inHandshakeEndpoint==nil || inUUID==nil)
-			return;
-		
 		// Check the command line tool is still there
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath:PKGPackagesBuilderToolPath]==NO)

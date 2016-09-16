@@ -121,14 +121,14 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 				return nil;
 			}
 			
-			tString=inRepresentation[PKGProjectSettingsCertificateNameKey];
+			tString=tCertificateRepresentation[PKGProjectSettingsCertificateNameKey];
 			
 			PKGClassCheckStringValueForKey(tString,PKGProjectSettingsCertificateNameKey);
 			
 			_certificateName=[tString copy];
 			
 			
-			tString=inRepresentation[PKGProjectSettingsCertificateKeyChainPathKey];
+			tString=tCertificateRepresentation[PKGProjectSettingsCertificateKeyChainPathKey];
 			
 			PKGClassCheckStringValueForKey(tString,PKGProjectSettingsCertificateKeyChainPathKey);
 			

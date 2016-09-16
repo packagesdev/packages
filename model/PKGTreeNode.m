@@ -232,9 +232,19 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (NSIndexPath *)indexPath
 {
-	// A COMPLETER
+	PKGTreeNode * tParent=[self parent];
 	
-	return nil;
+	if (tParent==nil)
+		return nil;
+	
+	NSIndexPath * tParentIndexPath=[tParent indexPath];
+	
+	NSUInteger tIndex=[[tParent children] indexOfObject:self];
+	
+	if (tParentIndexPath==nil)
+		return [NSIndexPath indexPathWithIndex:tIndex];
+	
+	return [tParentIndexPath indexPathByAddingIndex:tIndex];
 }
 
 - (PKGTreeNode *)parent

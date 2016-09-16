@@ -202,7 +202,7 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 				return;
 			}
 			
-			_hierarchies[bHierarchyIdentifier]=tHierarchy;
+			self->_hierarchies[bHierarchyIdentifier]=tHierarchy;
 		}];
 		
 		_cachedHierarchiesRepresentation=nil;

@@ -40,7 +40,7 @@ extern NSString * const PKGArchiveErrorFilePath;
 
 - (NSArray *)certificatesDataForArchive:(PKGArchive *)inArchive;
 
-- (NSData *)archive:(PKGArchive *)inArchive signedDataForData:(NSData *)inData;
+- (NSData *)archive:(PKGArchive *)inArchive signatureForData:(NSData *)inData;
 
 @end
 
