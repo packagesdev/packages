@@ -68,9 +68,7 @@ int32_t ixar_extract_tobuffersz(xar_t x, xar_file_t f, char **buffer, size_t *si
 	const char *sizestring = NULL;
 	
 	if(0 != xar_prop_get(f,"data/size",&sizestring))
-	{
 		return -1;
-	}
 	
 	*size = (size_t)strtoull(sizestring, (char **)NULL, 10);
 	
@@ -522,7 +520,9 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 	if ([tFileManager fileExistsAtPath:inContentsPath isDirectory:&tisDirectory]==NO)
 	{
 		if (outError!=NULL)
-			;// A COMPLETER
+			*outError=[NSError errorWithDomain:PKGArchiveErrorDomain
+										  code:PKGArchiveErrorSourceNotFound
+									  userInfo:nil];
 		
 		return NO;
 	}
@@ -602,10 +602,22 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 			return NO;
 		}
 		
-		for(NSData * tCertificateData in [self.delegate certificatesDataForArchive:self])
+		NSArray * tCertificatesDataArray=[self.delegate certificatesDataForArchive:self];
+		
+		if (tCertificatesDataArray==nil)
 		{
-			xar_signature_add_x509certificate(tSignature,tCertificateData.bytes,(uint32_t)tCertificateData.length);
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGArchiveErrorDomain
+											  code:PKGArchiveErrorCertificatesCanNotBeRetrieved
+										  userInfo:nil];
+			
+			xar_close(tArchive);
+			
+			return NO;
 		}
+		
+		for(NSData * tCertificateData in tCertificatesDataArray)
+			xar_signature_add_x509certificate(tSignature,tCertificateData.bytes,(uint32_t)tCertificateData.length);
 	}
 
 	NSDirectoryEnumerator * tDirectoryEnumerator=[tFileManager enumeratorAtPath:inContentsPath];

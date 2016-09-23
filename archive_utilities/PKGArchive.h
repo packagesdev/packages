@@ -24,6 +24,9 @@ enum
 	PKGArchiveErrorFileNotReadable,
 	PKGArchiveErrorFileCanNotBeCreated,
 	PKGArchiveErrorFileCanNotBeExtracted,
+	PKGArchiveErrorSourceNotFound,
+	
+	PKGArchiveErrorCertificatesCanNotBeRetrieved,
 	
 	PKGArchiveErrorMemoryAllocationFailed=40
 };
