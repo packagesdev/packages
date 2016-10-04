@@ -89,7 +89,7 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	
-	[self.localizations enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguageKey,id bValue,BOOL * bOutStop){
+	[self.localizations enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguageKey,id bValue,__attribute__((unused))BOOL * bOutStop){
 		
 		[tDescription appendFormat:@"  %@: ",bLanguageKey];
 		

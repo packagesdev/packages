@@ -22,7 +22,7 @@ NSString * const PKGBuildDebugNotification=@"PKGBuildDebugNotification";
 NSString * const PKGBuildStepKey=@"PKGBuildStep";
 NSString * const PKGBuildStepPathKey=@"PKGBuildStepPath";
 NSString * const PKGBuildStateKey=@"PKGBuildState";
-NSString * const PKGBuildStepMetadataKey=@"PKGBuildStepMetadata";
+NSString * const PKGBuildStepEventRepresentationKey=@"PKGBuildStepEventRepresentationKey";
 
 @interface PKGBuildNotificationCenter () 
 
@@ -49,7 +49,7 @@ NSString * const PKGBuildStepMetadataKey=@"PKGBuildStepMetadata";
 	tUserInfo[PKGBuildStateKey]=@(inState);
 	
 	if (inUserInfo!=nil)
-		tUserInfo[PKGBuildStepMetadataKey]=inUserInfo;
+		tUserInfo[PKGBuildStepEventRepresentationKey]=inUserInfo;
 	
 	NSNotification * tNotification=[[NSNotification alloc] initWithName:PKGBuildEventNotification
 																 object:nil

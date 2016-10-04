@@ -198,7 +198,7 @@ NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 	
 	[tDescription appendString:@"    Title:\n"];
 	
-	[self.localizedTitles enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,NSString * bTitle,BOOL * bOutStop){
+	[self.localizedTitles enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,NSString * bTitle,__attribute__((unused))BOOL * bOutStop){
 	
 		[tDescription appendFormat:@"      %@: %@\n",bLanguage,bTitle];
 	}];
@@ -207,7 +207,7 @@ NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 	
 	[tDescription appendString:@"    Description:\n"];
 	
-	[self.localizedDescriptions enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,NSString * bDescription,BOOL * bOutStop){
+	[self.localizedDescriptions enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,NSString * bDescription,__attribute__((unused))BOOL * bOutStop){
 		
 		[tDescription appendFormat:@"      %@: %@\n",bLanguage,bDescription];
 	}];
@@ -292,7 +292,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 				return nil;
 			}
 			
-			_requirements=[[inRepresentation[PKGChoicePackageItemRequirementsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bRequirementRepresentation,NSUInteger bIndex){
+			_requirements=[[inRepresentation[PKGChoicePackageItemRequirementsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bRequirementRepresentation,__attribute__((unused))NSUInteger bIndex){
 				
 				return [[PKGRequirement alloc] initWithRepresentation:bRequirementRepresentation error:&tError];
 			}] mutableCopy];
@@ -360,7 +360,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	if ([self.requirements count]>0)
 	{
-		tRepresentation[PKGChoicePackageItemRequirementsKey]=[self.requirements WB_arrayByMappingObjectsUsingBlock:^id(PKGRequirement * bRequirement,NSUInteger bIndex){
+		tRepresentation[PKGChoicePackageItemRequirementsKey]=[self.requirements WB_arrayByMappingObjectsUsingBlock:^id(PKGRequirement * bRequirement,__attribute__((unused))NSUInteger bIndex){
 		
 			return [bRequirement representation];
 		}];

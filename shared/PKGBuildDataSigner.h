@@ -13,32 +13,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGBuildNotificationCenterInterface.h"
+#import "PKGBuildSignatureCreatorInterface.h"
 
-extern NSString * const PKGBuildEventNotification;
-extern NSString * const PKGBuildDebugNotification;
+@interface PKGBuildDataSigner : NSObject <PKGBuildSignatureCreatorInterface>
 
-
-extern NSString * const PKGBuildStepKey;
-extern NSString * const PKGBuildStepPathKey;
-extern NSString * const PKGBuildStateKey;
-extern NSString * const PKGBuildStepEventRepresentationKey;
-
-
-
-typedef NS_ENUM(NSUInteger, PKGBuildResult)
-{
-	PKGBuildResultSuccessful,
-	PKGBuildResultAborted,
-	PKGBuildResultFailed,
-	PKGBuildResultFailedXPCConnectionInterrupted
-};
-
-typedef void (^PKGBuildCompletionHandler)(PKGBuildResult);
-
-
-@interface PKGBuildNotificationCenter : NSNotificationCenter <PKGBuildNotificationCenterInterface>
-
-	@property (nonatomic, copy) PKGBuildCompletionHandler completionHandler;
++ (PKGBuildDataSigner *)sharedSigner;
 
 @end

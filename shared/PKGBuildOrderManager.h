@@ -13,32 +13,15 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGBuildNotificationCenterInterface.h"
+#import "PKGBuildOrder.h"
+#import "PKGBuildNotificationCenter.h"
 
-extern NSString * const PKGBuildEventNotification;
-extern NSString * const PKGBuildDebugNotification;
+@interface PKGBuildOrderManager : NSObject
 
++(PKGBuildOrderManager *)defaultManager;
 
-extern NSString * const PKGBuildStepKey;
-extern NSString * const PKGBuildStepPathKey;
-extern NSString * const PKGBuildStateKey;
-extern NSString * const PKGBuildStepEventRepresentationKey;
+- (BOOL)executeBuildOrder:(PKGBuildOrder *)inBuildOrder setupHandler:(void(^)(PKGBuildNotificationCenter *))inConfirmationHandler completionHandler:(void(^)(PKGBuildResult))inCompletionHandler communicationErrorHandler:(void(^)(NSError *))inCommunicationErrorHandler;
 
-
-
-typedef NS_ENUM(NSUInteger, PKGBuildResult)
-{
-	PKGBuildResultSuccessful,
-	PKGBuildResultAborted,
-	PKGBuildResultFailed,
-	PKGBuildResultFailedXPCConnectionInterrupted
-};
-
-typedef void (^PKGBuildCompletionHandler)(PKGBuildResult);
-
-
-@interface PKGBuildNotificationCenter : NSNotificationCenter <PKGBuildNotificationCenterInterface>
-
-	@property (nonatomic, copy) PKGBuildCompletionHandler completionHandler;
+- (BOOL)abortBuildOrder:(PKGBuildOrder *)inBuildOrder;
 
 @end

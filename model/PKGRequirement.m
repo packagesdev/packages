@@ -162,7 +162,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 			
 			__block NSError * tError=nil;
 			
-			[tArray enumerateObjectsUsingBlock:^(NSDictionary * bLocalizationDictionary,NSUInteger bIndex,BOOL * bOutStop){
+			[tArray enumerateObjectsUsingBlock:^(NSDictionary * bLocalizationDictionary,__attribute__((unused))NSUInteger bIndex,BOOL * bOutStop){
 			
 				NSString * tLanguageName=bLocalizationDictionary[PKGRequirementFailureMessageLanguageKey];
 				
@@ -248,7 +248,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 	
 	NSMutableArray * tMutableArray=[NSMutableArray array];
 	
-	[self.messages enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,PKGRequirementFailureMessage * bMessage,BOOL * bOutStop){
+	[self.messages enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,PKGRequirementFailureMessage * bMessage,__attribute__((unused))BOOL * bOutStop){
 	
 		NSMutableDictionary * tLocalizationDictionary=[bMessage representation];
 		

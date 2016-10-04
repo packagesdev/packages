@@ -82,7 +82,7 @@
 	if (_cachedRepresentation!=nil)
 		return [_cachedRepresentation mutableCopy];
 	
-	return [_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGResourcesTreeNode * bTreeNode,NSUInteger bIndex){
+	return [_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGResourcesTreeNode * bTreeNode,__attribute__((unused))NSUInteger bIndex){
 		
 		return [bTreeNode representation];
 	}];
@@ -98,7 +98,7 @@
 		{
 			__block NSError * tError=nil;
 			
-			_rootNodes=[[_cachedRepresentation WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bNodeRepresentation,NSUInteger bIndex){
+			_rootNodes=[[_cachedRepresentation WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bNodeRepresentation,__attribute__((unused))NSUInteger bIndex){
 				
 				return [[PKGResourcesTreeNode alloc] initWithRepresentation:bNodeRepresentation error:&tError];
 				

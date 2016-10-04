@@ -121,7 +121,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 			return nil;
 		}
 		
-		_locators=[[inRepresentation[PKGPayloadBundleItemLocatorsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bLocatorRepresentation,NSUInteger bIndex){
+		_locators=[[inRepresentation[PKGPayloadBundleItemLocatorsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bLocatorRepresentation,__attribute__((unused))NSUInteger bIndex){
 		
 			return [[PKGLocator alloc] initWithRepresentation:bLocatorRepresentation error:&tError];
 
@@ -169,7 +169,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	if (tPathRepresentation!=nil)
 		tRepresentation[PKGPayloadBundleItemPostInstallationScriptKey]=tPathRepresentation;
 	
-	NSMutableArray * tLocatorsRepresentation=[self.locators WB_arrayByMappingObjectsUsingBlock:^id(PKGLocator * bLocator,NSUInteger bIndex){
+	NSMutableArray * tLocatorsRepresentation=[self.locators WB_arrayByMappingObjectsUsingBlock:^id(PKGLocator * bLocator,__attribute__((unused))NSUInteger bIndex){
 		
 		return [bLocator representation];
 	}];

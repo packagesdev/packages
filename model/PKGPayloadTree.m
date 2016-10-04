@@ -86,7 +86,7 @@
 	
 	NSMutableIndexSet * tIndexSet=[NSMutableIndexSet indexSet];
 	
-	[[self children] enumerateObjectsUsingBlock:^(PKGPayloadTreeNode * bChildNode,NSUInteger bIndex,BOOL * bOutStop){
+	[[self children] enumerateObjectsUsingBlock:^(PKGPayloadTreeNode * bChildNode,NSUInteger bIndex,__attribute__((unused))BOOL * bOutStop){
 	
 		if ([bChildNode optimizePayloadHierarchy]==0)
 			[tIndexSet addIndex:bIndex];

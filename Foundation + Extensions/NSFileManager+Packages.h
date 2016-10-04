@@ -9,4 +9,6 @@ typedef NS_OPTIONS(NSUInteger, PKG_NSFileManagerCopyOptions) {
 
 - (BOOL)PKG_copyItemAtPath:(NSString *)srcPath toPath:(NSString *)dstPath options:(PKG_NSFileManagerCopyOptions)inOptions error:(NSError *__autoreleasing *)error;
 
+- (BOOL)PKG_isEmptyDirectoryAtPath:(NSString *)inPath;
+
 @end

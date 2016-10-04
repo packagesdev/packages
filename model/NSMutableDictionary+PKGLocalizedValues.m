@@ -36,7 +36,7 @@ NSString * const PKGValueKey=@"VALUE";
 	
 	__block NSError * tError=nil;
 	
-	[inArray enumerateObjectsUsingBlock:^(id bLocalizationDictionary,NSUInteger bIndex,BOOL * bOutStop){
+	[inArray enumerateObjectsUsingBlock:^(id bLocalizationDictionary,__attribute__((unused))NSUInteger bIndex,BOOL * bOutStop){
 		
 		NSString * tLanguageName=bLocalizationDictionary[PKGLanguageKey];
 		
@@ -168,7 +168,7 @@ NSString * const PKGValueKey=@"VALUE";
 {
 	NSMutableArray * tMutableArray=[NSMutableArray array];
 	
-	[self enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguageKey,id bValue,BOOL * bOutStop){
+	[self enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguageKey,id bValue,__attribute__((unused))BOOL * bOutStop){
 		
 		id tValueRepresentation=nil;
 		

@@ -128,7 +128,7 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 	{
 		NSMutableDictionary * tHierarchiesRepresentation=[NSMutableDictionary dictionary];
 		
-		[_hierarchies enumerateKeysAndObjectsUsingBlock:^(NSString * bHierarchyIdentifier,PKGInstallationHierarchy * bHierarchy,BOOL * bOutStop){
+		[_hierarchies enumerateKeysAndObjectsUsingBlock:^(NSString * bHierarchyIdentifier,PKGInstallationHierarchy * bHierarchy,__attribute__((unused))BOOL * bOutStop){
 		
 			NSDictionary * tHierarchyRepresentation=[bHierarchy representation];
 			
@@ -171,7 +171,7 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 	
 	[tDescription appendString:@"\n"];
 	
-	[self.hierarchies enumerateKeysAndObjectsUsingBlock:^(NSString * bHierarchyIdentifier,PKGInstallationHierarchy * bHierarchy,BOOL * bOutStop){
+	[self.hierarchies enumerateKeysAndObjectsUsingBlock:^(NSString * bHierarchyIdentifier,PKGInstallationHierarchy * bHierarchy,__attribute__((unused))BOOL * bOutStop){
 	
 		[tDescription appendFormat:@"  \"%@\" Choices Hierarchy:\n\n",bHierarchyIdentifier];
 		
@@ -222,7 +222,7 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 {
 	NSMutableSet * tMutableSet=[NSMutableSet set];
 	
-	[self.hierarchies enumerateKeysAndObjectsUsingBlock:^(NSString * bHierarchyIdentifier,PKGInstallationHierarchy * bHierarchy,BOOL * bOutStop){
+	[self.hierarchies enumerateKeysAndObjectsUsingBlock:^(__attribute__((unused))NSString * bHierarchyIdentifier,PKGInstallationHierarchy * bHierarchy,__attribute__((unused))BOOL * bOutStop){
 	
 		NSSet * tSet=[bHierarchy allPackagesUUIDs];
 		

@@ -13,32 +13,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGBuildNotificationCenterInterface.h"
-
-extern NSString * const PKGBuildEventNotification;
-extern NSString * const PKGBuildDebugNotification;
-
-
-extern NSString * const PKGBuildStepKey;
-extern NSString * const PKGBuildStepPathKey;
-extern NSString * const PKGBuildStateKey;
-extern NSString * const PKGBuildStepEventRepresentationKey;
-
-
-
-typedef NS_ENUM(NSUInteger, PKGBuildResult)
+typedef NS_ENUM(NSUInteger, PKGSignatureStatus)
 {
-	PKGBuildResultSuccessful,
-	PKGBuildResultAborted,
-	PKGBuildResultFailed,
-	PKGBuildResultFailedXPCConnectionInterrupted
+	PKGSignatureStatusSuccess,
+	PKGSignatureStatusErrorUnknown,
+	PKGSignatureStatusIdentityNotFound,
+	PKGSignatureStatusKeychainAccessDenied
 };
 
-typedef void (^PKGBuildCompletionHandler)(PKGBuildResult);
+@protocol PKGBuildSignatureCreatorInterface <NSObject>
 
-
-@interface PKGBuildNotificationCenter : NSNotificationCenter <PKGBuildNotificationCenterInterface>
-
-	@property (nonatomic, copy) PKGBuildCompletionHandler completionHandler;
+- (void)createSignatureForData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
 
 @end

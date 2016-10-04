@@ -318,7 +318,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 			return nil;
 		}
 		
-		_predicates=[inRepresentation[PKGFileFilterPredicatesKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bPredicateRepresentation, NSUInteger bIndex){
+		_predicates=[inRepresentation[PKGFileFilterPredicatesKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bPredicateRepresentation, __attribute__((unused))NSUInteger bIndex){
 			return [[PKGFilePredicate alloc] initWithRepresentation:bPredicateRepresentation error:&tError];
 		}];
 		
@@ -342,7 +342,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 	
 	tRepresentation[PKGFileFilterEnabledKey]=@(self.enabled);
 	
-	tRepresentation[PKGFileFilterPredicatesKey]=[self.predicates WB_arrayByMappingObjectsUsingBlock:^id(PKGFilePredicate * bPredicate, NSUInteger bIndex){
+	tRepresentation[PKGFileFilterPredicatesKey]=[self.predicates WB_arrayByMappingObjectsUsingBlock:^id(PKGFilePredicate * bPredicate,__attribute__((unused))NSUInteger bIndex){
 		return [bPredicate representation];
 	}];
 	

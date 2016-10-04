@@ -79,7 +79,7 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 				return nil;
 			}
 			
-			_sections=[[inRepresentation[PKGPresentationInstallationStepsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bSectionRepresentation, NSUInteger bIndex){
+			_sections=[[inRepresentation[PKGPresentationInstallationStepsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bSectionRepresentation,__attribute__((unused))NSUInteger bIndex){
 				return [[PKGPresentationSection alloc] initWithRepresentation:bSectionRepresentation error:&tError];
 			}] mutableCopy];
 			
@@ -290,7 +290,7 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 	
 	if (self.sections!=nil)
 	{
-		tRepresentation[PKGPresentationInstallationStepsKey]=[self.sections WB_arrayByMappingObjectsUsingBlock:^id(PKGPresentationSection * bSection, NSUInteger bIndex){
+		tRepresentation[PKGPresentationInstallationStepsKey]=[self.sections WB_arrayByMappingObjectsUsingBlock:^id(PKGPresentationSection * bSection,__attribute__((unused))NSUInteger bIndex){
 			return [bSection representation];
 		}];
 	}

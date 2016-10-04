@@ -13,32 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGBuildNotificationCenterInterface.h"
+@protocol PKGBuildHandshakeInterface <NSObject>
 
-extern NSString * const PKGBuildEventNotification;
-extern NSString * const PKGBuildDebugNotification;
-
-
-extern NSString * const PKGBuildStepKey;
-extern NSString * const PKGBuildStepPathKey;
-extern NSString * const PKGBuildStateKey;
-extern NSString * const PKGBuildStepEventRepresentationKey;
-
-
-
-typedef NS_ENUM(NSUInteger, PKGBuildResult)
-{
-	PKGBuildResultSuccessful,
-	PKGBuildResultAborted,
-	PKGBuildResultFailed,
-	PKGBuildResultFailedXPCConnectionInterrupted
-};
-
-typedef void (^PKGBuildCompletionHandler)(PKGBuildResult);
-
-
-@interface PKGBuildNotificationCenter : NSNotificationCenter <PKGBuildNotificationCenterInterface>
-
-	@property (nonatomic, copy) PKGBuildCompletionHandler completionHandler;
+- (void)builder:(NSString *)inUUID didCreateEndPoint:(NSXPCListenerEndpoint *)inEndpoint;
 
 @end

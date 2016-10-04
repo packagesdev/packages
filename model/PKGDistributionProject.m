@@ -163,7 +163,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 				return nil;
 			}
 			
-			_packageComponents=[[inRepresentation[PKGDistributionProjectPackagesComponentsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bPackageComponentRepresentation, NSUInteger bIndex){
+			_packageComponents=[[inRepresentation[PKGDistributionProjectPackagesComponentsKey] WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bPackageComponentRepresentation,__attribute__((unused))NSUInteger bIndex){
 				return [[PKGPackageComponent alloc] initWithRepresentation:bPackageComponentRepresentation error:&tError];
 			}] mutableCopy];
 			
@@ -235,7 +235,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 		if (self.comments!=nil)
 			tRepresentation[PKGProjectKey][PKGProjectCommentsKey]=[self.comments representation];
 		
-		tRepresentation[PKGDistributionProjectPackagesComponentsKey]=[self.packageComponents WB_arrayByMappingObjectsUsingBlock:^id(PKGPackageComponent * bPackageComponent, NSUInteger bIndex){
+		tRepresentation[PKGDistributionProjectPackagesComponentsKey]=[self.packageComponents WB_arrayByMappingObjectsUsingBlock:^id(PKGPackageComponent * bPackageComponent,__attribute__((unused))NSUInteger bIndex){
 			return [bPackageComponent representation];
 		}];
 		

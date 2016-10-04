@@ -13,32 +13,60 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGBuildNotificationCenterInterface.h"
-
-extern NSString * const PKGBuildEventNotification;
-extern NSString * const PKGBuildDebugNotification;
-
-
-extern NSString * const PKGBuildStepKey;
-extern NSString * const PKGBuildStepPathKey;
-extern NSString * const PKGBuildStateKey;
-extern NSString * const PKGBuildStepEventRepresentationKey;
-
-
-
-typedef NS_ENUM(NSUInteger, PKGBuildResult)
+typedef NS_ENUM(NSUInteger, PKGBuildStep)
 {
-	PKGBuildResultSuccessful,
-	PKGBuildResultAborted,
-	PKGBuildResultFailed,
-	PKGBuildResultFailedXPCConnectionInterrupted
+	PKGBuildStepProject=0,
+	PKGBuildStepDistribution=1,
+	PKGBuildStepPackage=2,
+	
+	PKGBuildStepProjectBuildFolder=100,
+	PKGBuildStepProjectClean=102,
+	
+	PKGBuildStepDistributionBackgroundImage=200,
+	PKGBuildStepDistributionWelcomeMessage=202,
+	PKGBuildStepDistributionReadMeMessage=204,
+	PKGBuildStepDistributionLicenseMessage=206,
+	PKGBuildStepDistributionConclusionMessage=208,
+	
+	PKGBuildStepDistributionScript=210,
+	PKGBuildStepDistributionChoicesHierarchies=211,
+	PKGBuildStepDistributionInstallationRequirements=212,
+	PKGBuildStepDistributionJavaScript=214,
+	
+	PKGBuildStepDistributionResources=220,
+	PKGBuildStepDistributionScripts=221,
+	
+	PKGBuildStepDistributionInstallerPlugins=230,
+	
+	PKGBuildStepPackageCreate=400,
+	PKGBuildStepPackageReference=402,
+	PKGBuildStepPackageImport=404,
+	
+	PKGBuildStepPackageInfo=500,
+	PKGBuildStepPackagePayload=502,
+	
+	PKGBuildStepScriptsPayload=600,
+	
+	PKGBuildStepPayloadAssemble=750,
+	PKGBuildStepPayloadSplit=752,
+	PKGBuildStepPayloadBom=754,
+	PKGBuildStepPayloadPax=756,
+	
+	PKGBuildStepClean=12500,
+	
+	PKGBuildStepCleanObject=12501,
+	
+	PKGBuildStepCurrent=16384
 };
 
-typedef void (^PKGBuildCompletionHandler)(PKGBuildResult);
+typedef NS_ENUM(NSUInteger, PKGBuildStepState)
+{
+	PKGBuildStepStateBegin=0,
+	PKGBuildStepStateInfo,
+	PKGBuildStepStateSuccess,
+	PKGBuildStepStateFailure,
+	PKGBuildStepStateWarning
+};
 
 
-@interface PKGBuildNotificationCenter : NSNotificationCenter <PKGBuildNotificationCenterInterface>
 
-	@property (nonatomic, copy) PKGBuildCompletionHandler completionHandler;
-
-@end

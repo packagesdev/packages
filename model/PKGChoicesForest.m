@@ -33,7 +33,7 @@
 	
 	[tDescription appendFormat:@"%@",[(NSObject *)self.representedObject description]];
 	
-	[self.children enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChildTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	[self.children enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChildTreeNode,__attribute__((unused))NSUInteger bIndex,__attribute__((unused))BOOL * bOutStop){
 	
 		[tDescription appendFormat:@"%@\n",[bChildTreeNode description]];
 	}];
@@ -64,7 +64,7 @@
 	
 	if (self!=nil)
 	{
-		_rootNodes=[[inArray WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(PKGPackageComponent * bComponent, NSUInteger bIndex) {
+		_rootNodes=[[inArray WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(PKGPackageComponent * bComponent, __attribute__((unused))NSUInteger bIndex) {
 			
 			PKGChoicePackageItem * tChoicePackageItem=[[PKGChoicePackageItem alloc] initWithPackageComponent:bComponent];
 			
@@ -109,7 +109,7 @@
 	if (_cachedRepresentation!=nil)
 		return [_cachedRepresentation mutableCopy];
 	
-	return [_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGChoiceTreeNode * bTreeNode,NSUInteger bIndex){
+	return [_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGChoiceTreeNode * bTreeNode,__attribute__((unused))NSUInteger bIndex){
 		
 		return [bTreeNode representation];
 	}];
@@ -125,7 +125,7 @@
 		{
 			__block NSError * tError=nil;
 			
-			_rootNodes=[[_cachedRepresentation WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(NSDictionary * bNodeRepresentation,NSUInteger bIndex){
+			_rootNodes=[[_cachedRepresentation WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(NSDictionary * bNodeRepresentation,__attribute__((unused))NSUInteger bIndex){
 				
 				return [[PKGChoiceTreeNode alloc] initWithRepresentation:bNodeRepresentation error:&tError];
 				
