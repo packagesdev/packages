@@ -75,6 +75,7 @@ NSString * const PKGBuildErrorEventSubCodeKey=@"SubCode";
 
 NSString * const PKGBuildErrorEventFileKindKey=@"FileKind";
 
+NSString * const PKGBuildErrorEventOtherFileKey=@"OtherFile";
 
 NSString * const PKGBuildErrorEventTagKey=@"Tag";
 
@@ -131,6 +132,18 @@ NSString * const PKGBuildErrorEventTagKey=@"Tag";
 				return nil;
 			
 			_tag=[tString copy];
+		}
+		
+		// otherFilePath
+		
+		tString=inRepresentation[PKGBuildErrorEventOtherFileKey];
+		
+		if (tString!=nil)
+		{
+			if ([tString isKindOfClass:[NSString class]]==NO)
+				return nil;
+			
+			_otherFilePath=[tString copy];
 		}
 	}
 	
@@ -196,6 +209,9 @@ NSString * const PKGBuildErrorEventTagKey=@"Tag";
 	
 	if (self.tag!=nil)
 		tRepresentation[PKGBuildErrorEventTagKey]=[self.tag copy];
+	
+	if (self.otherFilePath!=nil)
+		tRepresentation[PKGBuildErrorEventOtherFileKey]=[self.otherFilePath copy];
 	
 	return [tRepresentation copy];
 }

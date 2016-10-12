@@ -51,12 +51,14 @@ NSString * const PKGBuildStepEventRepresentationKey=@"PKGBuildStepEventRepresent
 	if (inUserInfo!=nil)
 		tUserInfo[PKGBuildStepEventRepresentationKey]=inUserInfo;
 	
-	NSNotification * tNotification=[[NSNotification alloc] initWithName:PKGBuildEventNotification
-																 object:nil
-															   userInfo:tUserInfo];
+	dispatch_async(dispatch_get_main_queue(), ^{
 	
+		NSNotification * tNotification=[[NSNotification alloc] initWithName:PKGBuildEventNotification
+																	 object:nil
+																   userInfo:tUserInfo];
 	
-	[self postNotification:tNotification];
+		[self postNotification:tNotification];
+	});
 }
 
 @end

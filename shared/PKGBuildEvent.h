@@ -34,6 +34,8 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	
 	PKGBuildErrorFileIncorrectType=30,
 	
+	PKGBuildErrorBuildFolderNotWritable=40,
+	
 	
 	PKGBuildErrorExternalToolFailure=50,
 	PKGBuildErrorExternalToolFailureSplitForkNonHFSVolume=51,

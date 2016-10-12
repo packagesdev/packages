@@ -17,7 +17,7 @@
 
 #import "PKGFilePath.h"
 
-typedef NS_ENUM(NSUInteger, PKGFileItemType)
+typedef NS_ENUM(NSInteger, PKGFileItemType)
 {
 	PKGFileItemTypeInvisible=-1,
 	PKGFileItemTypeRoot=0,

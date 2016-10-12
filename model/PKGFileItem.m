@@ -101,7 +101,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	
 	if (self!=nil)
 	{
-		_type=[inRepresentation[PKGFileItemTypeKey] unsignedIntegerValue];
+		_type=[inRepresentation[PKGFileItemTypeKey] integerValue];
 		
 		if (_type>PKGFileItemTypeFileSystemItem)
 		{
