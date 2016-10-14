@@ -3,8 +3,292 @@
 
 #include <fts.h>
 #include <sys/stat.h>
+#include <sys/xattr.h>
 
-@implementation NSFileManager (Packages)
+NSString * const PKGFileFinderInfoKey=@XATTR_FINDERINFO_NAME;
+NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
+
+@interface NSFileManager (PackagesInternal)
+
++ (id)PKG_objectFromData:(NSData *)inData extendedAttributeName:(NSString *)inAttributeName;
+
++ (NSData *)PKG_dataFromObject:(id)inObject extendedAttributeName:(NSString *)inAttributeName;
+
+@end
+
+@implementation NSFileManager (PackagesInternal)
+
++ (id)PKG_objectFromData:(NSData *)inData extendedAttributeName:(NSString *)inAttributeName
+{
+	// A COMPLETER
+	
+	return inData;
+}
+
++ (NSData *)PKG_dataFromObject:(id)inObject extendedAttributeName:(NSString *)inAttributeName
+{
+	if ([inAttributeName isEqualToString:PKGFileFinderInfoKey]==YES)
+	{
+		if ([inObject isKindOfClass:[NSData class]]==NO)
+			return nil;
+	}
+	else if ([inAttributeName isEqualToString:PKGFileResourceForkKey]==YES)
+	{
+		if ([inObject isKindOfClass:[NSData class]]==NO)
+			return nil;
+	}
+	
+	// A COMPLETER
+	
+	return inObject;
+}
+
+- (NSDictionary *)PKG_extendedAttributesOfItemAtPath:(NSString *)inPath error:(NSError *__autoreleasing *)outError
+{
+	if (inPath==nil)
+		return nil;
+	
+	const char * tCPath=[inPath fileSystemRepresentation];
+	
+	if (tCPath==NULL)
+	{
+		// A COMPLETER
+		
+		return nil;
+	}
+	
+	int tFileDescriptor=open(tCPath,O_RDONLY|O_NOFOLLOW);
+	
+	if (tFileDescriptor==-1)
+	{
+		if (errno==ELOOP)	// Symbolic link
+			return [NSDictionary dictionary];
+		
+		if (outError!=NULL)
+		{
+			switch(errno)
+			{
+				case EACCES:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoPermissionError userInfo:nil];
+					return nil;
+					
+				case ENOENT:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError userInfo:nil];
+					return nil;
+				
+				default:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+					return nil;
+			}
+		}
+		
+		return nil;
+	}
+	
+	ssize_t tBufferSize=flistxattr(tFileDescriptor,NULL,0,0);
+	
+	if (tBufferSize==-1)
+	{
+		// A COMPLETER
+		
+		close(tFileDescriptor);
+		
+		return nil;
+	}
+	
+	if (tBufferSize==0)
+		return [NSDictionary dictionary];
+	
+	char * tBuffer=(char *)malloc(tBufferSize*sizeof(char));
+	
+	if (tBuffer==NULL)
+	{
+		// A COMPLETER
+		
+		close(tFileDescriptor);
+		
+		return nil;
+	}
+	
+	ssize_t tReadBufferSize=flistxattr(tFileDescriptor, tBuffer, tBufferSize, 0);
+	
+	if (tReadBufferSize==-1)
+	{
+		if (errno==ENOTSUP)
+			return [NSDictionary dictionary];
+		
+		if (outError!=NULL)
+		{
+			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+			return nil;
+		}
+		
+		free(tBuffer);
+		
+		close(tFileDescriptor);
+		
+		return nil;
+	}
+	
+	char * tBufferEnd=tBuffer+tReadBufferSize;
+	
+	NSMutableDictionary * tExtendedAttributes=[NSMutableDictionary dictionary];
+	
+	for(char * tAttributeNamePtr=tBuffer;tAttributeNamePtr<tBufferEnd;tAttributeNamePtr+=strlen(tAttributeNamePtr)+1)
+	{
+		NSString * tAttributeName=[NSString stringWithUTF8String:tAttributeNamePtr];
+		
+		if (tAttributeName==nil)
+		{
+			// A COMPLETER
+			
+			tExtendedAttributes=nil;
+			goto extended_attributes_bail;
+		}
+		
+		ssize_t tAttributeBufferSize=fgetxattr(tFileDescriptor,tAttributeNamePtr, NULL, 0, 0, 0);
+		
+		if (tAttributeBufferSize==-1)
+		{
+			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+			
+			tExtendedAttributes=nil;
+			goto extended_attributes_bail;
+		}
+		
+		void * tAttributeBuffer=malloc(tAttributeBufferSize*sizeof(uint8_t));
+			
+		if (tAttributeBuffer==NULL)
+		{
+			// A COMPLETER
+			
+			tExtendedAttributes=nil;
+			goto extended_attributes_bail;
+		}
+		
+		ssize_t tReadAttributeBufferSize=fgetxattr(tFileDescriptor,tAttributeNamePtr, tAttributeBuffer,tAttributeBufferSize, 0, 0);
+		
+		if (tReadAttributeBufferSize==-1)
+		{
+			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+			
+			tExtendedAttributes=nil;
+			goto extended_attributes_bail;
+		}
+		
+		NSData * tData=[NSData dataWithBytesNoCopy:tAttributeBuffer length:tReadAttributeBufferSize];
+		
+		if (tData==nil)
+		{
+			// A COMPLETER
+			
+			tExtendedAttributes=nil;
+			goto extended_attributes_bail;
+		}
+		
+		id tObject=[NSFileManager PKG_objectFromData:tData extendedAttributeName:tAttributeName];
+		
+		if (tObject==nil)
+		{
+			// A COMPLETER
+			
+			tExtendedAttributes=nil;
+			goto extended_attributes_bail;
+		}
+		
+		tExtendedAttributes[tAttributeName]=tObject;
+	}
+	
+extended_attributes_bail:
+	
+	free(tBuffer);
+
+	close(tFileDescriptor);
+	
+	return [tExtendedAttributes copy];
+}
+
+- (BOOL)PKG_setExtendedAttributes:(NSDictionary *)inExtendedAttributes ofItemAtPath:(NSString *)inPath error:(NSError *__autoreleasing *)outError
+{
+	if ([inExtendedAttributes count]==0)
+		return YES;
+	
+	if (inPath==nil)
+		return NO;
+	
+	const char * tCPath=[inPath fileSystemRepresentation];
+	
+	if (tCPath==NULL)
+	{
+		// A COMPLETER
+		
+		return nil;
+	}
+	
+	int tFileDescriptor=open(tCPath,O_WRONLY|O_NOFOLLOW);
+	
+	if (tFileDescriptor==-1)
+	{
+		if (errno==ELOOP)	// Symbolic link
+			return [NSDictionary dictionary];
+		
+		if (outError!=NULL)
+		{
+			switch(errno)
+			{
+				case EACCES:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteNoPermissionError userInfo:nil];
+					return NO;
+					
+				default:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:nil];
+					return NO;
+			}
+		}
+		
+		return nil;
+	}
+	
+	__block BOOL tSucceeded=YES;
+	
+	[inExtendedAttributes enumerateKeysAndObjectsUsingBlock:^(NSString * bAttributeName,id bAttributeObject,BOOL * bOutStop){
+	
+		NSData * tData=[NSFileManager PKG_dataFromObject:bAttributeObject extendedAttributeName:bAttributeName];
+		
+		if (tData==nil)
+		{
+			if (outError!=NULL)
+				;	// A COMPLETER
+			
+			tSucceeded=NO;
+			
+			*bOutStop=YES;
+			
+			return;
+		}
+		
+		if (fsetxattr(tFileDescriptor, [bAttributeName UTF8String], [tData bytes], [tData length],0,0)==-1)
+		{
+			if (outError!=NULL)
+				;		// A COMPLETER
+			
+			tSucceeded=NO;
+			
+			*bOutStop=YES;
+			
+			return;
+		}
+	}];
+	
+	close(tFileDescriptor);
+	
+	return tSucceeded;
+}
 
 - (BOOL)PKG_copyItemAtPath:(NSString *)srcPath toPath:(NSString *)dstPath options:(PKG_NSFileManagerCopyOptions)inOptions error:(NSError *__autoreleasing *)outError
 {

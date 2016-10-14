@@ -37,11 +37,31 @@
 	
 	NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
 	
-	[self enumerateKeysAndObjectsUsingBlock:^(id bKey, id bObject, BOOL *bOutStop) {
+	[self enumerateKeysAndObjectsUsingBlock:^(id bKey, id bObject,__attribute__((unused))BOOL *bOutStop) {
 		id tObject=inBlock(bKey,bObject);
 		
 		if (tObject!=nil)
 			tMutableDictionary[bKey]=tObject;
+	}];
+	
+	if ([self isKindOfClass:[NSMutableDictionary class]]==YES)
+		return tMutableDictionary;
+	
+	return [tMutableDictionary copy];
+}
+
+- (instancetype)WB_filteredDictionaryUsingBlock:(BOOL (^)(id bKey,id bObject))inBlock
+{
+	if (inBlock==nil)
+		return self;
+	
+	NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
+	
+	[self enumerateKeysAndObjectsUsingBlock:^(id bKey, id bObject,__attribute__((unused))BOOL *bOutStop) {
+		BOOL tDoNotFilter=inBlock(bKey,bObject);
+		
+		if (tDoNotFilter==YES)
+			tMutableDictionary[bKey]=bObject;
 	}];
 	
 	if ([self isKindOfClass:[NSMutableDictionary class]]==YES)

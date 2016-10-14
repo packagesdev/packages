@@ -7,4 +7,6 @@
 
 - (instancetype)WB_dictionaryByMappingObjectsLenientlyUsingBlock:(id (^)(id bKey,id bObject))inBlock;
 
+- (instancetype)WB_filteredDictionaryUsingBlock:(BOOL (^)(id bKey,id bObject))inBlock;
+
 @end
