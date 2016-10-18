@@ -42,4 +42,6 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 
 + (instancetype)folderTemplateWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
 
+- (instancetype)initWithFileItem:(PKGFileItem *)inFileItem;
+
 @end

@@ -27,6 +27,12 @@
 
 	@property (readonly) NSMutableArray * locators;
 
-+ (BOOL) isRepresentationOfBundleItem:(NSDictionary *)inRepresentation;
+
++ (BOOL)isRepresentationOfBundleItem:(NSDictionary *)inRepresentation;
+
+
+- (instancetype)initWithFileItem:(PKGFileItem *)inFileItem;
+
+- (PKGFileItem *)fileItem;
 
 @end

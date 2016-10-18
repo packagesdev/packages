@@ -15,6 +15,14 @@
 
 #import "NSArray+WBExtensions.h"
 
+extern NSString * const PKGFilePathStringKey;
+
+extern NSString * const PKGFileItemTypeKey;
+extern NSString * const PKGFileItemUserIDKey;
+extern NSString * const PKGFileItemGroupIDKey;
+extern NSString * const PKGFileItemPermissionsKey;
+extern NSString * const PKGFileItemExpandedKey;
+
 NSString * const PKGPayloadBundleItemAllowDowngradeKey=@"BUNDLE_CAN_DOWNGRADE";
 
 NSString * const PKGPayloadBundleItemPreInstallationScriptKey=@"BUNDLE_PREINSTALL_PATH";
@@ -34,16 +42,38 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 
 + (BOOL)isRepresentationOfBundleItem:(NSDictionary *)inRepresentation
 {
+	// Code is simple as we don't need bundle items in the builder if no specific keys are set. And we will dynamically update the item in the .app if needed.
+	
+	// If some bundle keys are set, then it's a bundle
+	
 	if (inRepresentation[PKGPayloadBundleItemAllowDowngradeKey]!=nil ||
 		inRepresentation[PKGPayloadBundleItemPreInstallationScriptKey]!=nil ||
 		inRepresentation[PKGPayloadBundleItemPostInstallationScriptKey]!=nil ||
 		inRepresentation[PKGPayloadBundleItemLocatorsKey]!=nil)
 		return YES;
 	
-	// A COMPLETER (it's probably more complex)
-	
 	return NO;
 }
+
+#pragma mark -
+
+- (instancetype)initWithFileItem:(PKGFileItem *)inFileItem
+{
+	if (inFileItem==nil)
+		return nil;
+	
+	self=[super initWithFileItem:inFileItem];
+	
+	return self;
+}
+
+- (PKGFileItem *)fileItem
+{
+	return [[PKGFileItem alloc] initWithFileItem:self];
+}
+
+#pragma mark -
+
 
 - (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
