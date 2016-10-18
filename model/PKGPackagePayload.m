@@ -52,7 +52,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		_defaultInstallLocation=@"/";
 		
-		_splitForksIfNeeded=NO;
+		_splitForksIfNeeded=YES;
 		
 		_invisibleHierarchyIncluded=NO;
 		
@@ -117,7 +117,10 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 			}
 		}
 		
-		_splitForksIfNeeded=[inRepresentation[IPKGPackagePayloadSplitForkIfNeededKey] boolValue];
+		if (inRepresentation[IPKGPackagePayloadSplitForkIfNeededKey]==nil)
+			_splitForksIfNeeded=YES;
+		else
+			_splitForksIfNeeded=[inRepresentation[IPKGPackagePayloadSplitForkIfNeededKey] boolValue];
 		
 		_templateVersion=[inRepresentation[IPKGPackagePayloadHierarchyBaseVersion] unsignedIntegerValue];
 		
