@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F46FA1771DB94280001D3FA8 /* NSString+Packages.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1761DB94280001D3FA8 /* NSString+Packages.m */; };
+		F46FA1781DB94280001D3FA8 /* NSString+Packages.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1761DB94280001D3FA8 /* NSString+Packages.m */; };
+		F46FA17A1DB9433E001D3FA8 /* unit_tests_NSString.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1791DB9433E001D3FA8 /* unit_tests_NSString.m */; };
 		F47C70191DB18FC900624BC4 /* NSDictionary+WBMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C70171DB18FC900624BC4 /* NSDictionary+WBMapping.m */; };
 		F47C701A1DB18FD300624BC4 /* NSDictionary+WBMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C70171DB18FC900624BC4 /* NSDictionary+WBMapping.m */; };
 		F47C701D1DB18FDE00624BC4 /* NSArray+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C701B1DB18FDE00624BC4 /* NSArray+WBExtensions.m */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F46FA1751DB94280001D3FA8 /* NSString+Packages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Packages.h"; path = "../../Foundation + Extensions/NSString+Packages.h"; sourceTree = "<group>"; };
+		F46FA1761DB94280001D3FA8 /* NSString+Packages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Packages.m"; path = "../../Foundation + Extensions/NSString+Packages.m"; sourceTree = "<group>"; };
+		F46FA1791DB9433E001D3FA8 /* unit_tests_NSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = unit_tests_NSString.m; sourceTree = "<group>"; };
 		F47C70171DB18FC900624BC4 /* NSDictionary+WBMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WBMapping.m"; path = "../../Foundation + Extensions/NSDictionary+WBMapping.m"; sourceTree = "<group>"; };
 		F47C70181DB18FC900624BC4 /* NSDictionary+WBMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBMapping.h"; path = "../../Foundation + Extensions/NSDictionary+WBMapping.h"; sourceTree = "<group>"; };
 		F47C701B1DB18FDE00624BC4 /* NSArray+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WBExtensions.m"; path = "../../Foundation + Extensions/NSArray+WBExtensions.m"; sourceTree = "<group>"; };
@@ -93,6 +99,7 @@
 				F4C41E941DB6B1A200B5B89C /* unit_tests_NSArray.m */,
 				F47C701F1DB1901000624BC4 /* unit_tests_NSDictionary.m */,
 				F4948C511D6FA7D900FCAB23 /* unit_tests_NSIndexPath.m */,
+				F46FA1791DB9433E001D3FA8 /* unit_tests_NSString.m */,
 				F4948C4F1D6FA7D900FCAB23 /* Supporting Files */,
 			);
 			path = unit_tests;
@@ -115,6 +122,8 @@
 				F47C70171DB18FC900624BC4 /* NSDictionary+WBMapping.m */,
 				F4948C571D6FA81400FCAB23 /* NSIndexPath+Packages.h */,
 				F4948C581D6FA81400FCAB23 /* NSIndexPath+Packages.m */,
+				F46FA1751DB94280001D3FA8 /* NSString+Packages.h */,
+				F46FA1761DB94280001D3FA8 /* NSString+Packages.m */,
 			);
 			name = "Foundation Extensions";
 			sourceTree = "<group>";
@@ -213,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F46FA1771DB94280001D3FA8 /* NSString+Packages.m in Sources */,
 				F47C701D1DB18FDE00624BC4 /* NSArray+WBExtensions.m in Sources */,
 				F47C70191DB18FC900624BC4 /* NSDictionary+WBMapping.m in Sources */,
 				F4948C591D6FA81400FCAB23 /* NSIndexPath+Packages.m in Sources */,
@@ -224,7 +234,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F47C701A1DB18FD300624BC4 /* NSDictionary+WBMapping.m in Sources */,
+				F46FA17A1DB9433E001D3FA8 /* unit_tests_NSString.m in Sources */,
 				F47C70201DB1901000624BC4 /* unit_tests_NSDictionary.m in Sources */,
+				F46FA1781DB94280001D3FA8 /* NSString+Packages.m in Sources */,
 				F4C41E951DB6B1A200B5B89C /* unit_tests_NSArray.m in Sources */,
 				F47C701E1DB18FDE00624BC4 /* NSArray+WBExtensions.m in Sources */,
 				F4948C521D6FA7D900FCAB23 /* unit_tests_NSIndexPath.m in Sources */,

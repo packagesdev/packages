@@ -27,8 +27,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *) PKG_stringByRelativizingToPath:(NSString *) inReferencePath
 {
+	if ([inReferencePath length]==0)
+		return [self copy];
+	
 	if ([self length]==0)
 		return @"";
+	
+	if ([inReferencePath isEqualToString:@"/"]==YES)
+		return [self copy];
 	
 	if ([self characterAtIndex:0]!='/' || [inReferencePath characterAtIndex:0]!='/')
 		return [self copy];
@@ -85,6 +91,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *) PKG_stringByAbsolutingWithPath:(NSString *) inReferencePath
 {
+	if ([inReferencePath length]==0)
+		return [self copy];
+	
 	if ([self length]==0)
 		return @"";
 	
@@ -106,7 +115,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		{
 			if ([tComponents[i] isEqualToString:@".."]==YES)
 			{
+				if ([tAbsolutePath isEqualToString:@"/"]==YES)
+					return nil;
+				
 				tAbsolutePath=[tAbsolutePath stringByDeletingLastPathComponent];
+			}
+			else if ([tComponents[i] isEqualToString:@"."]==YES)
+			{
+				continue;
 			}
 			else
 			{
