@@ -2,7 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 
-#import "NSDictionary+WBMapping.h"
+#import "NSDictionary+WBExtensions.h"
 
 @interface unit_tests_NSDictionary : XCTestCase
 

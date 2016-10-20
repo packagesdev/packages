@@ -1,5 +1,5 @@
 
-#import "NSDictionary+WBMapping.h"
+#import "NSDictionary+WBExtensions.h"
 
 @implementation NSDictionary (WBExtensions)
 
