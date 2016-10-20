@@ -13,6 +13,7 @@
 		F40BCAC01C7CDB2800713F23 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCABF1C7CDB2800713F23 /* libz.dylib */; };
 		F40BCAC21C7CDB2D00713F23 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */; };
 		F40BCAC41C7CDB4000713F23 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCAC31C7CDB4000713F23 /* libcrypto.dylib */; };
+		F46FA1951DB97407001D3FA8 /* NSDictionary+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */; };
 		F481B3741CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F481B3731CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m */; };
 		F481B37A1CBD8ACF0063F4CD /* NSString+Packages.m in Sources */ = {isa = PBXBuildFile; fileRef = F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */; };
 		F481B3941CBD8C9C0063F4CD /* libxar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F481B38E1CBD8C530063F4CD /* libxar.a */; };
@@ -61,7 +62,6 @@
 		F4A7864D1CB4674600FC07B8 /* PKGRequirement.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786231CB4674600FC07B8 /* PKGRequirement.m */; };
 		F4A7864E1CB4674600FC07B8 /* PKGResourcesForest.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786251CB4674600FC07B8 /* PKGResourcesForest.m */; };
 		F4A7864F1CB4674600FC07B8 /* PKGTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786271CB4674600FC07B8 /* PKGTreeNode.m */; };
-		F4A786561CB4676500FC07B8 /* NSDictionary+WBMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A786541CB4676500FC07B8 /* NSDictionary+WBMapping.m */; };
 		F4B3CC3B1D0D5F6A000B5F5F /* NSArray+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */; };
 		F4B3FF001CB5A72900A605F1 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3FEFF1CB5A72900A605F1 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F4D1F94A1D2B101300890A21 /* PKGRequirementFailureMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D1F9491D2B101300890A21 /* PKGRequirementFailureMessage.m */; };
@@ -126,6 +126,8 @@
 		F40BCABF1C7CDB2800713F23 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		F40BCAC31C7CDB4000713F23 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
+		F46FA1931DB97407001D3FA8 /* NSDictionary+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBExtensions.h"; path = "../Foundation + Extensions/NSDictionary+WBExtensions.h"; sourceTree = "<group>"; };
+		F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WBExtensions.m"; path = "../Foundation + Extensions/NSDictionary+WBExtensions.m"; sourceTree = "<group>"; };
 		F481B3721CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBundleIdentifierFormatter.h; path = ../shared/PKGBundleIdentifierFormatter.h; sourceTree = "<group>"; };
 		F481B3731CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBundleIdentifierFormatter.m; path = ../shared/PKGBundleIdentifierFormatter.m; sourceTree = "<group>"; };
 		F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Packages.m"; path = "../Foundation + Extensions/NSString+Packages.m"; sourceTree = "<group>"; };
@@ -222,8 +224,6 @@
 		F4A786251CB4674600FC07B8 /* PKGResourcesForest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGResourcesForest.m; path = ../model/PKGResourcesForest.m; sourceTree = "<group>"; };
 		F4A786261CB4674600FC07B8 /* PKGTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGTreeNode.h; path = ../model/PKGTreeNode.h; sourceTree = "<group>"; };
 		F4A786271CB4674600FC07B8 /* PKGTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGTreeNode.m; path = ../model/PKGTreeNode.m; sourceTree = "<group>"; };
-		F4A786531CB4676500FC07B8 /* NSDictionary+WBMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBMapping.h"; path = "../Foundation + Extensions/NSDictionary+WBMapping.h"; sourceTree = "<group>"; };
-		F4A786541CB4676500FC07B8 /* NSDictionary+WBMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WBMapping.m"; path = "../Foundation + Extensions/NSDictionary+WBMapping.m"; sourceTree = "<group>"; };
 		F4A7866A1CB4750E00FC07B8 /* PKGPackageObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackageObjectProtocol.h; path = ../model/PKGPackageObjectProtocol.h; sourceTree = "<group>"; };
 		F4A8A4A61C7E6B8D00DC77C2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4B3CC391D0D5F6A000B5F5F /* NSArray+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WBExtensions.h"; path = "../Foundation + Extensions/NSArray+WBExtensions.h"; sourceTree = "<group>"; };
@@ -262,7 +262,6 @@
 				F4A786501CB4675100FC07B8 /* Foundation Extensions */,
 				F4A785CD1CB4671600FC07B8 /* models */,
 				F481B3711CBD89960063F4CD /* shared */,
-				F42DCC64154CA24300990444 /* Utilities */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
@@ -311,13 +310,6 @@
 				F4081C6C1CBBB1270031FADC /* PKGArchive.m */,
 			);
 			name = xar_wrapper;
-			sourceTree = "<group>";
-		};
-		F42DCC64154CA24300990444 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Utilities;
 			sourceTree = "<group>";
 		};
 		F481B3711CBD89960063F4CD /* shared */ = {
@@ -439,8 +431,8 @@
 			children = (
 				F4B3CC391D0D5F6A000B5F5F /* NSArray+WBExtensions.h */,
 				F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */,
-				F4A786531CB4676500FC07B8 /* NSDictionary+WBMapping.h */,
-				F4A786541CB4676500FC07B8 /* NSDictionary+WBMapping.m */,
+				F46FA1931DB97407001D3FA8 /* NSDictionary+WBExtensions.h */,
+				F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */,
 				F481B3791CBD8ACF0063F4CD /* NSString+Packages.h */,
 				F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */,
 			);
@@ -564,6 +556,7 @@
 				F49E06A61C7FB6C30044D067 /* packagesutil.m in Sources */,
 				F483B53D1CBC3F9E00BFDA6A /* PKGPackagesError.m in Sources */,
 				F4A786341CB4674600FC07B8 /* PKGInstallationHierarchy.m in Sources */,
+				F46FA1951DB97407001D3FA8 /* NSDictionary+WBExtensions.m in Sources */,
 				F4A786361CB4674600FC07B8 /* PKGPackageComponent.m in Sources */,
 				F4A786401CB4674600FC07B8 /* PKGPresentationLicenseStepSettings.m in Sources */,
 				F4A7864F1CB4674600FC07B8 /* PKGTreeNode.m in Sources */,
@@ -583,7 +576,6 @@
 				F4A786371CB4674600FC07B8 /* PKGPackagePayload.m in Sources */,
 				F4081C6D1CBBB1270031FADC /* PKGArchive.m in Sources */,
 				F49E06A71C7FB6C30044D067 /* PUUtilities.m in Sources */,
-				F4A786561CB4676500FC07B8 /* NSDictionary+WBMapping.m in Sources */,
 				F4A7864D1CB4674600FC07B8 /* PKGRequirement.m in Sources */,
 				F4A786321CB4674600FC07B8 /* PKGFileItem.m in Sources */,
 				F4A7862C1CB4674600FC07B8 /* PKGChoiceItemOptions.m in Sources */,
@@ -616,11 +608,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packagesutil/packagesutil_Prefix.pch;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
@@ -637,9 +637,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packagesutil/packagesutil_Prefix.pch;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
