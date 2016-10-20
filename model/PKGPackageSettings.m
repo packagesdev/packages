@@ -353,8 +353,10 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		tMutableDictionary[PKGPackageSettingsNameKey]=self.name;
 	
 	tMutableDictionary[PKGPackageSettingsLocationTypeKey]=@(self.locationType);
-	if (self.locationPath!=nil)
-		tMutableDictionary[PKGPackageSettingsLocationPathKey]=self.locationPath;
+	
+	NSString * tLocationPath=self.locationPath;
+	if (tLocationPath!=nil)
+		tMutableDictionary[PKGPackageSettingsLocationPathKey]=tLocationPath;
 	
 	// Only available to project and referenced packages
 	
