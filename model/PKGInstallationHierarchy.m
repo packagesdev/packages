@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSDictionary+WBMapping.h"
+#import "NSDictionary+WBExtensions.h"
 
 NSString * const PKGInstallationHierarchyChoicesListKey=@"LIST";
 
