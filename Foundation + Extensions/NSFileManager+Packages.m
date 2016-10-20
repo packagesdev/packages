@@ -137,7 +137,11 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 	if (tReadBufferSize==-1)
 	{
 		if (errno==ENOTSUP)
+		{
+			free(tBuffer);
+			close(tFileDescriptor);
 			return [NSDictionary dictionary];
+		}
 		
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
@@ -194,6 +198,7 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
 			
+			free(tAttributeBuffer);
 			tExtendedAttributes=nil;
 			goto extended_attributes_bail;
 		}
@@ -204,6 +209,7 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 		{
 			// A COMPLETER
 			
+			free(tAttributeBuffer);
 			tExtendedAttributes=nil;
 			goto extended_attributes_bail;
 		}
