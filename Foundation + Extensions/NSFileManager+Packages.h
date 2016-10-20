@@ -33,6 +33,8 @@ typedef NS_OPTIONS(NSUInteger, PKG_NSFileManagerCopyOptions) {
 
 - (BOOL)PKG_setOwnerAccountID:(uid_t)inOwnerAccountID groupAccountID:(gid_t)inGroupAccountID ofItemAndDescendantsAtPath:(NSString *)inPath error:(NSError *__autoreleasing *)outError;
 
+- (NSInteger)PKG_numberOfItemsInDirectoryAtPath:(NSString *)inPath sizeOnDisk:(off_t *)outSize;
+
 @end
 
 

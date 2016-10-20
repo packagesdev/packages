@@ -648,4 +648,57 @@ extended_attributes_bail:
 	return YES;
 }
 
+- (NSInteger)PKG_numberOfItemsInDirectoryAtPath:(NSString *)inPath sizeOnDisk:(off_t *)outSize
+{
+	if (inPath==nil)
+		return -1;
+	
+	const char * tCPath=[inPath fileSystemRepresentation];
+	char * const tPath[2]={(char * const)tCPath,NULL};
+	
+	FTS * ftsp = fts_open(tPath, FTS_PHYSICAL, NULL);
+	
+	if (ftsp == NULL)
+		return -1;
+	
+	FTSENT * tFile;
+	off_t tSizeOnDisk=0;
+	NSInteger tNumberOfItems=0;
+	
+	while ((tFile = fts_read(ftsp)) != NULL)
+	{
+		switch (tFile->fts_info)
+		{
+			case FTS_SL:
+				
+				tNumberOfItems++;		// A VOIR (taille)
+				
+				continue;
+				
+			case FTS_D:		// Pre-order directory
+			case FTS_SLNONE:
+				continue;
+			case FTS_DNR:
+			case FTS_ERR:
+			case FTS_NS:
+				fts_close(ftsp);
+				
+				return -1;
+			default:
+				break;
+		}
+		
+		tSizeOnDisk+=tFile->fts_statp->st_size;
+		
+		tNumberOfItems++;
+	}
+	
+	fts_close(ftsp);
+	
+	if (outSize!=NULL)
+		*outSize=tSizeOnDisk;
+	
+	return tNumberOfItems;
+}
+
 @end
