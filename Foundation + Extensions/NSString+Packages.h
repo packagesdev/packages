@@ -15,10 +15,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface NSString (Packages)
 
-- (NSString *) PKG_stringByDeletingPathPkgExtension;
+- (NSString *)PKG_stringByDeletingPathPkgExtension;
 
-- (NSString *) PKG_stringByRelativizingToPath:(NSString *) inReferencePath;
+- (NSString *)PKG_stringByRelativizingToPath:(NSString *)inReferencePath;
 
-- (NSString *) PKG_stringByAbsolutingWithPath:(NSString *) inReferencePath;
+- (NSString *)PKG_stringByAbsolutingWithPath:(NSString *)inReferencePath;
 
 @end

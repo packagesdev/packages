@@ -15,7 +15,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation NSString (Packages)
 
-- (NSString *) PKG_stringByDeletingPathPkgExtension
+- (NSString *)PKG_stringByDeletingPathPkgExtension
 {
 	NSString * tPathExtension=[self pathExtension];
 	
@@ -25,7 +25,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return [self copy];
 }
 
-- (NSString *) PKG_stringByRelativizingToPath:(NSString *) inReferencePath
+- (NSString *)PKG_stringByRelativizingToPath:(NSString *)inReferencePath
 {
 	if ([inReferencePath length]==0)
 		return [self copy];
@@ -89,7 +89,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     return tRelativePath;
 }
 
-- (NSString *) PKG_stringByAbsolutingWithPath:(NSString *) inReferencePath
+- (NSString *)PKG_stringByAbsolutingWithPath:(NSString *)inReferencePath
 {
 	if ([inReferencePath length]==0)
 		return [self copy];
