@@ -1,10 +1,9 @@
 #import "PUUtilities.h"
 
 #import "PKGPackages.h"
+#import "PKGPackagesError.h"
 
 #import "PKGArchive.h"
-
-#import "PKGPackagesError.h"
 
 #import "PKGBundleIdentifierFormatter.h"
 
