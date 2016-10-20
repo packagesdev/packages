@@ -20,7 +20,7 @@
 	[super tearDown];
 }
 
-#pragma mark - NSIndexPath + Packages
+#pragma mark - PKG_stringRepresentation
 
 - (void)test_string_representation_empty
 {
@@ -69,6 +69,8 @@
 	XCTAssertEqualObjects(@"1:2", tStringRepresentation);
 }
 
+#pragma mark - PKG_lastIndex
+
 - (void)test_last_index_empty
 {
 	// Given
@@ -115,6 +117,8 @@
 	
 	XCTAssertEqual(2,tIndex);
 }
+
+#pragma mark - PKG_initWithStringRepresentation
 
 - (void)test_init_with_string_representation_empty
 {

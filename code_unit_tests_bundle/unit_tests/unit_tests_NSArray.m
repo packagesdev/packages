@@ -20,7 +20,7 @@
     [super tearDown];
 }
 
-#pragma mark - NSArray + WBExtensions
+#pragma mark - WB_arrayByMappingObjectsUsingBlock
 
 - (void)test_array_by_mapping_objects_using_block_nil_block
 {
@@ -108,6 +108,8 @@
     
     XCTAssertNil(tMappedArray);
 }
+
+#pragma mark - WB_arrayByMappingObjectsLenientlyUsingBlock
 
 - (void)test_array_by_mapping_objects_leniently_using_block_nil_block
 {
@@ -198,7 +200,7 @@
     XCTAssertEqualObjects(tLengthsArray, tMappedArray);
 }
 
-
+#pragma mark - WB_filteredArrayUsingBlock
 
 - (void)test_filtered_array_using_block_nil_block
 {
