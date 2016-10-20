@@ -1,9 +1,23 @@
+/*
+ Copyright (c) 2016, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "NSFileManager+Packages.h"
 
 #include <fts.h>
 #include <sys/stat.h>
 #include <sys/xattr.h>
+
+NSString * const PKGPackagesFileManagerErrorDomain=@"fr.whitebox.packages.filemanager";
 
 NSString * const PKGFileFinderInfoKey=@XATTR_FINDERINFO_NAME;
 NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
@@ -92,7 +106,11 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 	
 	if (tBufferSize==-1)
 	{
-		// A COMPLETER
+		if (errno==ENOTSUP)
+			return [NSDictionary dictionary];
+		
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
 		
 		close(tFileDescriptor);
 		
@@ -106,8 +124,9 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 	
 	if (tBuffer==NULL)
 	{
-		// A COMPLETER
-		
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesFileManagerErrorDomain code:PKGFileManagerMemoryCanNotBeAllocated userInfo:nil];
+
 		close(tFileDescriptor);
 		
 		return nil;
@@ -121,10 +140,7 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 			return [NSDictionary dictionary];
 		
 		if (outError!=NULL)
-		{
 			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
-			return nil;
-		}
 		
 		free(tBuffer);
 		
@@ -153,7 +169,8 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 		
 		if (tAttributeBufferSize==-1)
 		{
-			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
 			
 			tExtendedAttributes=nil;
 			goto extended_attributes_bail;
@@ -163,7 +180,8 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 			
 		if (tAttributeBuffer==NULL)
 		{
-			// A COMPLETER
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesFileManagerErrorDomain code:PKGFileManagerMemoryCanNotBeAllocated userInfo:nil];
 			
 			tExtendedAttributes=nil;
 			goto extended_attributes_bail;
@@ -173,7 +191,8 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 		
 		if (tReadAttributeBufferSize==-1)
 		{
-			*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
 			
 			tExtendedAttributes=nil;
 			goto extended_attributes_bail;
@@ -193,7 +212,8 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 		
 		if (tObject==nil)
 		{
-			// A COMPLETER
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesFileManagerErrorDomain code:PKGFileManagerObjectConversionError userInfo:nil];
 			
 			tExtendedAttributes=nil;
 			goto extended_attributes_bail;
@@ -228,16 +248,18 @@ extended_attributes_bail:
 		return nil;
 	}
 	
-	int tFileDescriptor=open(tCPath,O_WRONLY|O_NOFOLLOW);
+	int tFileDescriptor=open(tCPath,O_RDONLY|O_NOFOLLOW);
 	
 	if (tFileDescriptor==-1)
 	{
-		if (errno==ELOOP)	// Symbolic link
+		int tError=errno;
+		
+		if (tError==ELOOP)	// Symbolic link
 			return [NSDictionary dictionary];
 		
 		if (outError!=NULL)
 		{
-			switch(errno)
+			switch(tError)
 			{
 				case EACCES:
 					
@@ -263,10 +285,9 @@ extended_attributes_bail:
 		if (tData==nil)
 		{
 			if (outError!=NULL)
-				;	// A COMPLETER
+				*outError=[NSError errorWithDomain:PKGPackagesFileManagerErrorDomain code:PKGFileManagerObjectConversionError userInfo:nil];
 			
 			tSucceeded=NO;
-			
 			*bOutStop=YES;
 			
 			return;
@@ -275,10 +296,32 @@ extended_attributes_bail:
 		if (fsetxattr(tFileDescriptor, [bAttributeName UTF8String], [tData bytes], [tData length],0,0)==-1)
 		{
 			if (outError!=NULL)
-				;		// A COMPLETER
+			{
+				switch(errno)
+				{
+					case EACCES:
+						
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteNoPermissionError userInfo:nil];
+						break;
+						
+					case EROFS:
+						
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteVolumeReadOnlyError userInfo:nil];
+						break;
+						
+					case ENOSPC:
+						
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteOutOfSpaceError userInfo:nil];
+						break;
+						
+					default:
+						
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:nil];
+						break;
+				}
+			}
 			
 			tSucceeded=NO;
-			
 			*bOutStop=YES;
 			
 			return;
@@ -434,7 +477,23 @@ extended_attributes_bail:
 	{
 		if (outError!=NULL)
 		{
-			// A COMPLETER
+			switch(errno)
+			{
+				case EACCES:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoPermissionError userInfo:nil];
+					break;
+					
+				case ENOENT:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError userInfo:nil];
+					break;
+					
+				default:
+					
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+					break;
+			}
 		}
 		
 		return NO;
@@ -466,12 +525,28 @@ extended_attributes_bail:
 		
 		if (chmod(tFile->fts_accpath, inPosixPermisions) == -1)
 		{
-			fts_close(ftsp);
-			
 			if (outError!=NULL)
 			{
-				// A COMPLETER
+				switch(errno)
+				{
+					case EPERM:
+						
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteNoPermissionError userInfo:nil];
+						break;
+						
+					case ENOENT:
+						
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:nil];
+						break;
+						
+					default:
+						
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:nil];
+						break;
+				}
 			}
+			
+			fts_close(ftsp);
 			
 			return NO;
 		}
