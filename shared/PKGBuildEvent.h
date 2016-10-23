@@ -30,7 +30,15 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	PKGBuildErrorFileCanNotBeRead=16,
 	PKGBuildErrorFileAlreadyExists=17,
 	
-	PKGBuildErrorFilePermissionsCanNotBeSet=25,
+	PKGBuildErrorFileAbsolutePathCanNotBeComputed=19,
+	
+	PKGBuildErrorFilePosixPermissionsCanNotBeSet=20,
+	PKGBuildErrorFileAccountsCanNotBeSet=21,
+	
+	PKGBuildErrorFileAttributesCanNotBeRead=25,
+	PKGBuildErrorFileAttributesCanNotBeSet=26,
+	PKGBuildErrorFileExtendedAttributesCanNotBeRead=27,
+	PKGBuildErrorFileExtendedAttributesCanNotBeSet=28,
 	
 	PKGBuildErrorFileIncorrectType=30,
 	

@@ -329,10 +329,40 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "Insufficient privileges to write at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
 					break;*/
+				
+				case PKGBuildErrorFileAbsolutePathCanNotBeComputed:
 					
-				case PKGBuildErrorFilePermissionsCanNotBeSet:
+					(void)fprintf(stdout, "An absolute path can not be computed from path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					break;
+					
+				case PKGBuildErrorFilePosixPermissionsCanNotBeSet:
 					
 					(void)fprintf(stdout, "Insufficient privileges to set permissions for path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					break;
+				
+				case PKGBuildErrorFileAccountsCanNotBeSet:
+					
+					(void)fprintf(stdout, "Insufficient privileges to set accounts for path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					break;
+				
+				case PKGBuildErrorFileAttributesCanNotBeRead:
+					
+					(void)fprintf(stdout, "Unable to read attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					break;
+					
+				case PKGBuildErrorFileAttributesCanNotBeSet:
+					
+					(void)fprintf(stdout, "Unable to set attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					break;
+					
+				case PKGBuildErrorFileExtendedAttributesCanNotBeRead:
+					
+					(void)fprintf(stdout, "Unable to read exteneded attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					break;
+				
+				case PKGBuildErrorFileExtendedAttributesCanNotBeSet:
+					
+					(void)fprintf(stdout, "Unable to set extended attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
 					break;
 					
 				case PKGBuildErrorExternalToolFailure:
@@ -444,6 +474,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				case PKGBuildErrorFileCanNotBeCopied:
 					
 					(void)fprintf(stdout, "Unable to copy item at path '%s'",[tFilePath UTF8String]);
+					
+					if (tErrorEvent.otherFilePath!=nil)
+						(void)fprintf(stdout, " to '%s'",[tErrorEvent.otherFilePath UTF8String]);
 					
 					if (tErrorEvent.subcode==PKGBuildErrorFileNotFound)
 						(void)fprintf(stdout, " because the item could not be found");
@@ -724,7 +757,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			case PKGBuildStepDistributionChoicesHierarchies:
 				
 				if (tState==PKGBuildStepStateBegin)
-					(void)fprintf(stdout, "\n\t\tChoices hierarchies");
+					(void)fprintf(stdout, "\t\tChoices hierarchies");
 				else
 					(void)fprintf(stdout, " (done)\n");
 				
