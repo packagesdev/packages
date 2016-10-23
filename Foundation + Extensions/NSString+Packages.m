@@ -113,14 +113,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		for(NSUInteger i=0;i<tCount;i++)
 		{
-			if ([tComponents[i] isEqualToString:@".."]==YES)
+			NSString * tComponent=tComponents[i];
+			
+			if ([tComponent isEqualToString:@".."]==YES)
 			{
 				if ([tAbsolutePath isEqualToString:@"/"]==YES)
 					return nil;
 				
 				tAbsolutePath=[tAbsolutePath stringByDeletingLastPathComponent];
 			}
-			else if ([tComponents[i] isEqualToString:@"."]==YES)
+			else if ([tComponent isEqualToString:@"."]==YES)
 			{
 				continue;
 			}
