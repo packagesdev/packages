@@ -80,6 +80,8 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 		
 		if (outError!=NULL)
 		{
+			NSError * tUnderlyingError;
+			
 			switch(errno)
 			{
 				case EACCES:
@@ -89,7 +91,9 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 					
 				case ENOENT:
 					
-					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError userInfo:nil];
+					tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:nil];
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError userInfo:@{NSFilePathErrorKey:inPath,
+																													NSUnderlyingErrorKey:tUnderlyingError}];
 					return nil;
 				
 				default:
@@ -303,21 +307,29 @@ extended_attributes_bail:
 		{
 			if (outError!=NULL)
 			{
+				NSError * tUnderlyingError;
+				
 				switch(errno)
 				{
 					case EACCES:
 						
-						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteNoPermissionError userInfo:nil];
+						tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:EACCES userInfo:nil];
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteNoPermissionError userInfo:@{NSFilePathErrorKey:inPath,
+																														   NSUnderlyingErrorKey:tUnderlyingError}];
 						break;
 						
 					case EROFS:
 						
-						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteVolumeReadOnlyError userInfo:nil];
+						tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:EROFS userInfo:nil];
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteVolumeReadOnlyError userInfo:@{NSFilePathErrorKey:inPath,
+																															 NSUnderlyingErrorKey:tUnderlyingError}];
 						break;
 						
 					case ENOSPC:
 						
-						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteOutOfSpaceError userInfo:nil];
+						tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:ENOSPC userInfo:nil];
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteOutOfSpaceError userInfo:@{NSFilePathErrorKey:inPath,
+																														 NSUnderlyingErrorKey:tUnderlyingError}];
 						break;
 						
 					default:
@@ -483,6 +495,8 @@ extended_attributes_bail:
 	{
 		if (outError!=NULL)
 		{
+			NSError * tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:nil];
+			
 			switch(errno)
 			{
 				case EACCES:
@@ -492,7 +506,9 @@ extended_attributes_bail:
 					
 				case ENOENT:
 					
-					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError userInfo:nil];
+					tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:nil];
+					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError userInfo:@{NSFilePathErrorKey:inPath,
+																													NSUnderlyingErrorKey:tUnderlyingError}];
 					break;
 					
 				default:
@@ -533,11 +549,15 @@ extended_attributes_bail:
 		{
 			if (outError!=NULL)
 			{
+				NSError * tUnderlyingError;
+				
 				switch(errno)
 				{
 					case EPERM:
 						
-						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteNoPermissionError userInfo:nil];
+						tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:EACCES userInfo:nil];
+						*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteNoPermissionError userInfo:@{NSFilePathErrorKey:inPath,
+																														   NSUnderlyingErrorKey:tUnderlyingError}];
 						break;
 						
 					case ENOENT:
