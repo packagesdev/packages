@@ -51,7 +51,8 @@ NSString * const PKGProjectCommentsHTMLDataKey=@"NOTES";
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
-	tRepresentation[PKGProjectCommentsHTMLDataKey]=self.htmlData;
+	if (self.htmlData!=nil)
+		tRepresentation[PKGProjectCommentsHTMLDataKey]=self.htmlData;
 	
 	return tRepresentation;
 }
