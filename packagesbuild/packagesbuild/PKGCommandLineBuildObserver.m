@@ -324,11 +324,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "Incorrect type for file at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
 					break;
-					
-				/*case IC_BUILDER_FAILURE_REASON_FILE_INSUFFICIENT_PERMISSIONS_WRITE:
-					
-					(void)fprintf(stdout, "Insufficient privileges to write at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
-					break;*/
 				
 				case PKGBuildErrorFileAbsolutePathCanNotBeComputed:
 					
@@ -467,7 +462,39 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileCanNotBeCreated:
 					
-					(void)fprintf(stdout, "Unable to create %s at path '%s'\n",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+					if ([tFilePath isEqualToString:@"Scratch_Location"]==NO)
+						(void)fprintf(stdout, "Unable to create %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+					else
+						(void)fprintf(stdout, "Unable to create scratch location folder");
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorNoMoreSpaceOnVolume:
+							
+							(void)fprintf(stdout, " because there's no space left on disk");
+							break;
+							
+						case PKGBuildErrorReadOnlyVolume:
+							
+							(void)fprintf(stdout, " because the disk is full");
+							break;
+							
+						case PKGBuildErrorWriteNoPermission:
+							
+							(void)fprintf(stdout, " because you don't have permission to create it in the folder ");
+							
+							if ([tFilePath isEqualToString:@"Scratch_Location"]==YES)
+								(void)fprintf(stdout, "\'/tmp/private/\'");
+							else
+								(void)fprintf(stdout, "\'%s\'",[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]);
+							
+							break;
+						
+						default:
+							break;
+					}
+					
+					(void)fprintf(stdout, "\n");
 					
 					break;
 					
@@ -478,8 +505,30 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					if (tErrorEvent.otherFilePath!=nil)
 						(void)fprintf(stdout, " to '%s'",[tErrorEvent.otherFilePath UTF8String]);
 					
-					if (tErrorEvent.subcode==PKGBuildErrorFileNotFound)
-						(void)fprintf(stdout, " because the item could not be found");
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorFileNotFound:
+							(void)fprintf(stdout, " because the item could not be found");
+							break;
+						
+						case PKGBuildErrorNoMoreSpaceOnVolume:
+						
+							(void)fprintf(stdout, " because there's no space left on disk");
+							break;
+						
+						case PKGBuildErrorReadOnlyVolume:
+						
+							(void)fprintf(stdout, " because the disk is full");
+							break;
+						
+						case PKGBuildErrorWriteNoPermission:
+							
+							(void)fprintf(stdout, " because you don't have permission to create it to the folder \'%s\'",[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]);
+							break;
+							
+						default:
+							break;
+					}
 					
 					(void)fprintf(stdout, "\n");
 					
