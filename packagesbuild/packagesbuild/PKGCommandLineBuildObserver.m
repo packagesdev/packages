@@ -374,6 +374,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "License template for \"%s\" can not be found",[tTag UTF8String]);
 					break;
+				
+				case PKGBuildErrorBundleIdentifierNotFound:
+					
+					(void)fprintf(stdout, "No identifier could be found for bundle at path '%s'",[[tFilePath lastPathComponent] UTF8String]);
+					break;
 					
 				case  PKGBuildErrorUnknownLanguage:
 					

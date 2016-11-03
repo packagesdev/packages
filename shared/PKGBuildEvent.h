@@ -58,6 +58,7 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	
 	PKGBuildErrorLicenseTemplateNotFound=200,
 	
+	PKGBuildErrorBundleIdentifierNotFound=250,
 	
 	PKGBuildErrorEmptyString=400,
 	
@@ -85,7 +86,8 @@ typedef NS_ENUM(NSUInteger, PKGBuildErrorFileKind)
 	PKGFileKindFolder,
 	PKGFileKindPlugin,
 	PKGFileKindTool,
-	PKGFileKindPackage
+	PKGFileKindPackage,
+	PKGFileKindBundle
 };
 
 @interface PKGBuildEvent : NSObject
