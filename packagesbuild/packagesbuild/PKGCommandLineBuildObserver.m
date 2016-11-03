@@ -476,7 +476,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 							
 						case PKGBuildErrorReadOnlyVolume:
 							
-							(void)fprintf(stdout, " because the disk is full");
+							(void)fprintf(stdout, " because the disk is read only");
 							break;
 							
 						case PKGBuildErrorWriteNoPermission:
@@ -518,7 +518,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						
 						case PKGBuildErrorReadOnlyVolume:
 						
-							(void)fprintf(stdout, " because the disk is full");
+							(void)fprintf(stdout, " because the disk is read only");
 							break;
 						
 						case PKGBuildErrorWriteNoPermission:
@@ -536,7 +536,25 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileCanNotBeDeleted:
 					
-					(void)fprintf(stdout, "Unable to delete %s at path '%s'\n",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+					(void)fprintf(stdout, "Unable to remove %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorReadOnlyVolume:
+							
+							(void)fprintf(stdout, " because the disk is read only");
+							break;
+							
+						case PKGBuildErrorWriteNoPermission:
+							
+							(void)fprintf(stdout, " because you don't have permission to access it");
+							break;
+							
+						default:
+							break;
+					}
+					
+					(void)fprintf(stdout, "\n");
 					
 					break;
 					
@@ -601,6 +619,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			NSString * tTag=tErrorEvent.tag;
 			
 			NSString * tFilePath=tErrorEvent.filePath;
+			PKGBuildErrorFileKind tFileKind=tErrorEvent.fileKind;
 			
 			NSString * tTitle=nil;
 			
@@ -627,8 +646,40 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "Unable to copy item at path '%s'",[tFilePath UTF8String]);
 					
-					if (tErrorEvent.subcode==PKGBuildErrorFileNotFound)
-						(void)fprintf(stdout, " because the item could not be found");
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorFileNotFound:
+							
+							(void)fprintf(stdout, " because the item could not be found");
+							break;
+							
+						default:
+							break;
+					}
+					
+					(void)fprintf(stdout, "\n");
+					
+					break;
+					
+				case PKGBuildErrorFileCanNotBeDeleted:
+					
+					(void)fprintf(stdout, "Unable to remove %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorReadOnlyVolume:
+							
+							(void)fprintf(stdout, " because the disk is read only");
+							break;
+							
+						case PKGBuildErrorWriteNoPermission:
+							
+							(void)fprintf(stdout, " because you don't have permission to access it");
+							break;
+							
+						default:
+							break;
+					}
 					
 					(void)fprintf(stdout, "\n");
 					
