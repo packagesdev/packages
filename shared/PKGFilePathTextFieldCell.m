@@ -1,0 +1,191 @@
+/*
+Copyright (c) 2004-2016, Stéphane Sudre
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+- Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+- Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+- Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#import "PKGFilePathTextFieldCell.h"
+
+#import "PKGFilePathTypeMenu.h"
+
+@interface PKGFilePathTextFieldCell ()
+
+- (void)convertCellFrame:(NSRect)inCellFrame toImageFrame:(NSRect *)outImageFrame textFrame:(NSRect *)outTextFrame;
+
+@end
+
+@implementation PKGFilePathTextFieldCell
+
+- (void)convertCellFrame:(NSRect)inCellFrame toImageFrame:(NSRect *)outImageFrame textFrame:(NSRect *)outTextFrame
+{
+	NSRect tTextFrame, tImageFrame;
+	
+	NSDivideRect (inCellFrame, &tImageFrame, &tTextFrame, [PKGFilePathTypeMenu sizeOfPullDownImageForControlSize:self.controlSize].width, NSMinXEdge);
+	
+	if (outImageFrame!=NULL)
+		*outImageFrame=tImageFrame;
+	
+	if (outTextFrame!=NULL)
+		*outTextFrame=tTextFrame;
+}
+
+- (NSSize) cellSize
+{
+	NSSize cellSize = [super cellSize];
+	
+	cellSize.width += [PKGFilePathTypeMenu sizeOfPullDownImageForControlSize:self.controlSize].width;
+	
+	return cellSize;
+}
+
+#pragma mark -
+
+- (void)editWithFrame:(NSRect) inCellFrame inView:(NSView *) inControlView editor:(NSText *) inEditor delegate:(id) inDelegate event:(NSEvent *) inEvent
+{
+    NSRect tTextFrame;
+    
+	[self convertCellFrame:inCellFrame toImageFrame:NULL textFrame:&tTextFrame];
+	
+    [super editWithFrame: tTextFrame
+                  inView: inControlView
+                  editor: inEditor
+                delegate: inDelegate
+                   event: inEvent];
+}
+
+- (void)selectWithFrame:(NSRect) inCellFrame inView:(NSView *) inControlView editor:(NSText *) inEditor delegate:(id) inDelegate start:(NSInteger) inStart length:(NSInteger) inLength
+{
+	NSRect tTextFrame;
+	
+	[self convertCellFrame:inCellFrame toImageFrame:NULL textFrame:&tTextFrame];
+	
+    [super selectWithFrame: tTextFrame
+                    inView: inControlView
+                    editor: inEditor
+                  delegate: inDelegate
+                     start: inStart
+                    length: inLength];
+}
+
+- (BOOL)trackMouse:(NSEvent *)inEvent inRect:(NSRect)inCellFrame ofView:(NSView *)inControlView untilMouseUp:(BOOL)flag
+{
+	if (inEvent.type==NSLeftMouseDown)
+	{
+		// Check where the even occur
+	
+		NSRect tImageFrame;
+		
+		[self convertCellFrame:inCellFrame toImageFrame:&tImageFrame textFrame:NULL];
+		
+		if (NSPointInRect([inControlView convertPoint:inEvent.locationInWindow fromView:nil], tImageFrame)==YES)
+		{
+			// Pop up the menu
+		
+			NSMenu * tMenu=[PKGFilePathTypeMenu menuForAction:@selector(switchPathType:) target:inControlView controlSize:self.controlSize];
+		
+			tMenu.font=self.font;
+		
+			NSMenuItem * tMenuItem=[tMenu itemWithTag:self.pathType];
+		
+			tMenuItem.state=NSOnState;
+		
+			[tMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(0., NSMaxY(inCellFrame)+4.) inView:inControlView];
+			
+			return NO;
+		}
+	}
+	
+	return [super trackMouse:inEvent inRect:inCellFrame ofView:inControlView untilMouseUp:flag];
+}
+
+- (NSCellHitResult)hitTestForEvent:(NSEvent *)inEvent inRect:(NSRect)inCellFrame ofView:(NSView *)inControlView
+{
+    NSRect tTextFrame;
+    
+    [self convertCellFrame:inCellFrame toImageFrame:NULL textFrame:&tTextFrame];
+    
+    return [super hitTestForEvent:inEvent inRect:inCellFrame ofView:inControlView];
+}
+
+#pragma mark -
+
+- (void)drawInteriorWithFrame:(NSRect) inCellFrame inView:(NSView *) inControlView
+{
+	NSRect tTextFrame,tImageFrame;
+	
+	[self convertCellFrame:inCellFrame toImageFrame:&tImageFrame textFrame:&tTextFrame];
+	
+	// Draw the text
+	
+	if (self.fileNotFound==YES)
+	{
+        NSMutableAttributedString * tMutableAttributedString=[[self attributedStringValue] mutableCopy];
+		
+		[tMutableAttributedString addAttribute:NSForegroundColorAttributeName value:[NSColor redColor] range:NSMakeRange(0, [tMutableAttributedString length])];
+		
+		[super setAttributedStringValue:tMutableAttributedString];
+	}
+	
+	[super drawInteriorWithFrame:tTextFrame inView: inControlView];
+	
+	if (self.fileNotFound==YES)
+	{
+        //[self setTextColor:[NSColor blackColor]];
+                            
+        NSMutableAttributedString * tMutableAttributedString=[[self attributedStringValue] mutableCopy];
+		
+		[tMutableAttributedString addAttribute:NSForegroundColorAttributeName value:[NSColor blackColor] range:NSMakeRange(0, [tMutableAttributedString length])];
+		
+		[super setAttributedStringValue:tMutableAttributedString];
+	}
+	
+	// Draw the popup menu icon
+	
+	NSImage * tImage=[PKGFilePathTypeMenu pullDownImageForPathType:self.pathType controlSize:self.controlSize];
+	
+	switch(self.controlSize)
+	{
+		case NSRegularControlSize:
+			
+			tImageFrame.size=tImage.size;
+			tImageFrame.origin.x+=1.;
+			tImageFrame.origin.y=round(NSMidY(tImageFrame)-NSHeight(tImageFrame)*0.5)+1.;
+			
+			[tImage drawInRect:tImageFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1 respectFlipped:YES hints:nil];
+			
+			break;
+		
+		case NSSmallControlSize:
+		case NSMiniControlSize:
+			
+			NSLog(@"Control Size not supported");
+			
+			break;
+			
+		default:
+			
+			break;
+	}
+}
+
+- (void)resetCursorRect:(NSRect)inCellFrame inView:(NSView *)inControlView
+{
+	NSRect tTextFrame,tImageFrame;
+	
+	[self convertCellFrame:inCellFrame toImageFrame:&tImageFrame textFrame:&tTextFrame];
+	
+	[inControlView addCursorRect:tImageFrame
+						  cursor:[NSCursor arrowCursor]];
+	
+	[inControlView addCursorRect:tTextFrame
+						  cursor:[NSCursor IBeamCursor]];
+}
+
+@end

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IC_CheckScriptReturnValue</key>
+	<string>	function IC_CheckScriptReturnValue(inScriptPath,inArguments,inComparator,inReturnValue)
+	{
+		var tReturnValue;
+	
+		if (inScriptPath.charAt(0)=='/')
+		{
+			/* Check Absolute Path Existence */
+			
+			if (system.files.fileExistsAtPath(inScriptPath)==false)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (__IC_FLAT_DISTRIBUTION__==true &amp;&amp; system.compareVersions(system.version.ProductVersion, '10.6.0')&lt;0)
+			{
+				system.log("[WARNING] Embedded scripts are not supported in Flat distribution format on Mac OS X 10.5");
+          
+				return true;
+			}
+		}
+		
+		if (inArguments.length&gt;0)
+		{
+			var tMethodCall;
+			var tStringArguments=[];
+			
+			for(var i=0;i&lt;inArguments.length;i++)
+			{
+				tStringArguments[i]='inArguments['+i+']';
+			}
+			
+			tMethodCall='system.run(inScriptPath,'+tStringArguments.join(',')+');';
+			
+			tReturnValue=eval(tMethodCall);
+		}
+		else
+		{
+			tReturnValue=system.run(inScriptPath);
+		}
+		
+		if (tReturnValue==undefined)
+		{
+			return false;
+		}
+		
+		if (inComparator==IC_COMPARATOR_IS_EQUAL)
+		{
+			return (tReturnValue==inReturnValue);
+		}
+		else if (inComparator==IC_COMPARATOR_IS_GREATER)
+		{
+			return (tReturnValue&gt;inReturnValue);
+		}
+		else if (inComparator==IC_COMPARATOR_IS_LESS)
+		{
+			return (tReturnValue&lt;inReturnValue);
+		}
+		else if (inComparator==IC_COMPARATOR_IS_NOT_EQUAL)
+		{
+			return (tReturnValue!=inReturnValue);
+		}
+		
+		return false;
+	}</string>
+</dict>
+</plist>

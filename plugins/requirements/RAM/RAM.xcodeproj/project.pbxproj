@@ -1,0 +1,355 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4ABD0991CC823BA00C69CA2 /* converter.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4ABD0951CC8239B00C69CA2 /* converter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4F5D0CC1CC97FA90075C2EF /* ui.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4F5D0C91CC97F9F0075C2EF /* ui.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F4ABD0941CC8239B00C69CA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4ABD0901CC8239B00C69CA2 /* PKGRequirementConverterRAM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = PKGRequirementConverterRAM;
+		};
+		F4ABD0971CC823B500C69CA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4ABD0901CC8239B00C69CA2 /* PKGRequirementConverterRAM.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = PKGRequirementConverterRAM;
+		};
+		F4F5D0C81CC97F9F0075C2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F5D0C41CC97F9F0075C2EF /* PKGRequirementViewControllerRAM.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = PKGRequirementViewControllerRAM;
+		};
+		F4F5D0CA1CC97FA50075C2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F5D0C41CC97F9F0075C2EF /* PKGRequirementViewControllerRAM.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = PKGRequirementViewControllerRAM;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F4679F731C7CED540077A3D7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				F4F5D0CC1CC97FA90075C2EF /* ui.bundle in CopyFiles */,
+				F4ABD0991CC823BA00C69CA2 /* converter.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F4428F911C7BBA8800B261B5 /* RAM.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RAM.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4428F951C7BBA8800B261B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4ABD0901CC8239B00C69CA2 /* PKGRequirementConverterRAM.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKGRequirementConverterRAM.xcodeproj; path = PKGRequirementConverterRAM/PKGRequirementConverterRAM.xcodeproj; sourceTree = "<group>"; };
+		F4ABD0961CC823A700C69CA2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4F5D0C41CC97F9F0075C2EF /* PKGRequirementViewControllerRAM.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKGRequirementViewControllerRAM.xcodeproj; path = PKGRequirementViewControllerRAM/PKGRequirementViewControllerRAM.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		F4428F881C7BBA8800B261B5 = {
+			isa = PBXGroup;
+			children = (
+				F4ABD0961CC823A700C69CA2 /* SharedConfigurationSettings.xcconfig */,
+				F4ABD0901CC8239B00C69CA2 /* PKGRequirementConverterRAM.xcodeproj */,
+				F4F5D0C41CC97F9F0075C2EF /* PKGRequirementViewControllerRAM.xcodeproj */,
+				F4428F931C7BBA8800B261B5 /* RAM */,
+				F4428F921C7BBA8800B261B5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F4428F921C7BBA8800B261B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4428F911C7BBA8800B261B5 /* RAM.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4428F931C7BBA8800B261B5 /* RAM */ = {
+			isa = PBXGroup;
+			children = (
+				F4428F941C7BBA8800B261B5 /* Supporting Files */,
+			);
+			path = RAM;
+			sourceTree = "<group>";
+		};
+		F4428F941C7BBA8800B261B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4428F951C7BBA8800B261B5 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F4ABD0911CC8239B00C69CA2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4ABD0951CC8239B00C69CA2 /* converter.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4F5D0C51CC97F9F0075C2EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4F5D0C91CC97F9F0075C2EF /* ui.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F4428F901C7BBA8800B261B5 /* RAM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4428F981C7BBA8800B261B5 /* Build configuration list for PBXNativeTarget "RAM" */;
+			buildPhases = (
+				F4428F8F1C7BBA8800B261B5 /* Resources */,
+				F4679F731C7CED540077A3D7 /* CopyFiles */,
+				F47216481C7D1498006673ED /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4F5D0CB1CC97FA50075C2EF /* PBXTargetDependency */,
+				F4ABD0981CC823B500C69CA2 /* PBXTargetDependency */,
+			);
+			name = RAM;
+			productName = RAM;
+			productReference = F4428F911C7BBA8800B261B5 /* RAM.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F4428F891C7BBA8800B261B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = WhiteBox;
+				TargetAttributes = {
+					F4428F901C7BBA8800B261B5 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+				};
+			};
+			buildConfigurationList = F4428F8C1C7BBA8800B261B5 /* Build configuration list for PBXProject "RAM" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F4428F881C7BBA8800B261B5;
+			productRefGroup = F4428F921C7BBA8800B261B5 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F4ABD0911CC8239B00C69CA2 /* Products */;
+					ProjectRef = F4ABD0901CC8239B00C69CA2 /* PKGRequirementConverterRAM.xcodeproj */;
+				},
+				{
+					ProductGroup = F4F5D0C51CC97F9F0075C2EF /* Products */;
+					ProjectRef = F4F5D0C41CC97F9F0075C2EF /* PKGRequirementViewControllerRAM.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F4428F901C7BBA8800B261B5 /* RAM */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F4ABD0951CC8239B00C69CA2 /* converter.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = converter.bundle;
+			remoteRef = F4ABD0941CC8239B00C69CA2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F4F5D0C91CC97F9F0075C2EF /* ui.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ui.bundle;
+			remoteRef = F4F5D0C81CC97F9F0075C2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F4428F8F1C7BBA8800B261B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F47216481C7D1498006673ED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/rm -rf $CONFIGURATION_BUILD_DIR/converter.bundle\n/bin/rm -rf $CONFIGURATION_BUILD_DIR/ui.bundle\n\nexit 0";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F4ABD0981CC823B500C69CA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PKGRequirementConverterRAM;
+			targetProxy = F4ABD0971CC823B500C69CA2 /* PBXContainerItemProxy */;
+		};
+		F4F5D0CB1CC97FA50075C2EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PKGRequirementViewControllerRAM;
+			targetProxy = F4F5D0CA1CC97FA50075C2EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F4428F961C7BBA8800B261B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4ABD0961CC823A700C69CA2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Debug;
+		};
+		F4428F971C7BBA8800B261B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4ABD0961CC823A700C69CA2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Release;
+		};
+		F4428F991C7BBA8800B261B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/Requirements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+		F4428F9A1C7BBA8800B261B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/Requirements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F4428F8C1C7BBA8800B261B5 /* Build configuration list for PBXProject "RAM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4428F961C7BBA8800B261B5 /* Debug */,
+				F4428F971C7BBA8800B261B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4428F981C7BBA8800B261B5 /* Build configuration list for PBXNativeTarget "RAM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4428F991C7BBA8800B261B5 /* Debug */,
+				F4428F9A1C7BBA8800B261B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4428F891C7BBA8800B261B5 /* Project object */;
+}

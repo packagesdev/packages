@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Names</key>
+	<array>
+		<string>IC_COMPARATOR_IS_LESS</string>
+		<string>IC_COMPARATOR_IS_EQUAL</string>
+		<string>IC_COMPARATOR_IS_GREATER</string>
+		<string>IC_COMPARATOR_IS_NOT_EQUAL</string>
+    </array>
+    <key>Definitions</key>
+    <dict>
+		<key>IC_COMPARATOR_IS_LESS</key>
+        <string>-1</string>
+        <key>IC_COMPARATOR_IS_EQUAL</key>
+        <string>0</string>
+        <key>IC_COMPARATOR_IS_GREATER</key>
+        <string>1</string>
+        <key>IC_COMPARATOR_IS_NOT_EQUAL</key>
+        <string>2</string>
+    </dict>
+</dict>
+</plist>

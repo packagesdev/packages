@@ -1,0 +1,303 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4451B3D1C7BBC0100516075 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B3C1C7BBC0100516075 /* AppKit.framework */; };
+		F4451B3F1C7BBC0800516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B3E1C7BBC0800516075 /* Foundation.framework */; };
+		F4B1AAD01C8A504B006EE235 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACE1C8A504B006EE235 /* Icon_32.png */; };
+		F4B1AAD11C8A504B006EE235 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */; };
+		F4B1AAD41C8A5054006EE235 /* PKGRequirementViewControllerOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */; };
+		F4F5D0B01CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m */; };
+		F4F5D0B61CC97D470075C2EF /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F5D0B41CC97D470075C2EF /* MainView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4451B3C1C7BBC0100516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F4451B3E1C7BBC0800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4451B401C7BBC1300516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F48DDE2B1CE3D9FB004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4B1AACD1C8A5044006EE235 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerOS/Info.plist; sourceTree = "<group>"; };
+		F4B1AACE1C8A504B006EE235 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerOS/Icon_32.png; sourceTree = "<group>"; };
+		F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerOS/Icon_32@2x.png"; sourceTree = "<group>"; };
+		F4B1AAD21C8A5054006EE235 /* PKGRequirementViewControllerOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerOS.h; path = PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.h; sourceTree = "<group>"; };
+		F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerOS.m; path = PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.m; sourceTree = "<group>"; };
+		F4F5D0AE1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_OS+Constants.h"; path = "../PKGRequirement_OS+Constants.h"; sourceTree = "<group>"; };
+		F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_OS+Constants.m"; path = "../PKGRequirement_OS+Constants.m"; sourceTree = "<group>"; };
+		F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4F5D0B21CC97AB60075C2EF /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
+		F4F5D0B31CC97CB00075C2EF /* PKGRequirementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewController.h; path = ../../PKGRequirementViewController.h; sourceTree = "<group>"; };
+		F4F5D0B51CC97D470075C2EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGRequirementViewControllerOS/en.lproj/MainView.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4451B3F1C7BBC0800516075 /* Foundation.framework in Frameworks */,
+				F4451B3D1C7BBC0100516075 /* AppKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* PKGRequirementViewControllerOS */ = {
+			isa = PBXGroup;
+			children = (
+				F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */,
+				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
+				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = PKGRequirementViewControllerOS;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4B1AACE1C8A504B006EE235 /* Icon_32.png */,
+				F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */,
+				F4F5D0B41CC97D470075C2EF /* MainView.xib */,
+				F4B1AACD1C8A5044006EE235 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F4B1AAD21C8A5054006EE235 /* PKGRequirementViewControllerOS.h */,
+				F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4451B3E1C7BBC0800516075 /* Foundation.framework */,
+				F4451B3C1C7BBC0100516075 /* AppKit.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4451B401C7BBC1300516075 /* Cocoa.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* ui.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F409B0C70E8C4BCD005D9E86 /* Shared Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4F5D0AE1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.h */,
+				F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m */,
+			);
+			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
+			isa = PBXGroup;
+			children = (
+				F48DDE2A1CE3D9F2004B9A29 /* Model */,
+				F4F5D0B21CC97AB60075C2EF /* PKGViewController.h */,
+				F4F5D0B31CC97CB00075C2EF /* PKGRequirementViewController.h */,
+			);
+			name = "Common Source";
+			sourceTree = "<group>";
+		};
+		F48DDE2A1CE3D9F2004B9A29 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F48DDE2B1CE3D9FB004B9A29 /* PKGPackages.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* PKGRequirementViewControllerOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementViewControllerOS" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKGRequirementViewControllerOS;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = PKGRequirementViewControllerOS;
+			productReference = 8D5B49B6048680CD000E48DA /* ui.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementViewControllerOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+				English,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerOS */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* PKGRequirementViewControllerOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F5D0B61CC97D470075C2EF /* MainView.xib in Resources */,
+				F4B1AAD11C8A504B006EE235 /* Icon_32@2x.png in Resources */,
+				F4B1AAD01C8A504B006EE235 /* Icon_32.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4B1AAD41C8A5054006EE235 /* PKGRequirementViewControllerOS.m in Sources */,
+				F4F5D0B01CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F4F5D0B41CC97D470075C2EF /* MainView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4F5D0B51CC97D470075C2EF /* en */,
+			);
+			name = MainView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = PKGRequirementViewControllerOS/Info.plist;
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = PKGRequirementViewControllerOS/Info.plist;
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementViewControllerOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementViewControllerOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

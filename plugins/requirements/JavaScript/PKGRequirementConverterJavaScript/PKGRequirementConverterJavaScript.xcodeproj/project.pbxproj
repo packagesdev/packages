@@ -1,0 +1,269 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F407CCCE106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F407CCCC106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.m */; };
+		F4451B6E1C7BBDDD00516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B6D1C7BBDDD00516075 /* Foundation.framework */; };
+		F4E878B71C862863000EB552 /* Code.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4E878B61C862863000EB552 /* Code.strings */; };
+		F4E878BD1C862876000EB552 /* PKGRequirementConverterJavaScript.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E878BC1C862876000EB552 /* PKGRequirementConverterJavaScript.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D5B49B6048680CD000E48DA /* converter.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = converter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F40314A11CFA002300A23A4A /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F407CCCC106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_JavaScript+Constants.m"; path = "../PKGRequirement_JavaScript+Constants.m"; sourceTree = SOURCE_ROOT; };
+		F407CCCD106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_JavaScript+Constants.h"; path = "../PKGRequirement_JavaScript+Constants.h"; sourceTree = SOURCE_ROOT; };
+		F4451B6D1C7BBDDD00516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F48C21AE1CFCF6F900B5A8CD /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
+		F4E878B61C862863000EB552 /* Code.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Code.strings; path = PKGRequirementConverterJavaScript/Code.strings; sourceTree = "<group>"; };
+		F4E878B81C862869000EB552 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementConverterJavaScript/Info.plist; sourceTree = "<group>"; };
+		F4E878BB1C862876000EB552 /* PKGRequirementConverterJavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverterJavaScript.h; path = PKGRequirementConverterJavaScript/PKGRequirementConverterJavaScript.h; sourceTree = "<group>"; };
+		F4E878BC1C862876000EB552 /* PKGRequirementConverterJavaScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementConverterJavaScript.m; path = PKGRequirementConverterJavaScript/PKGRequirementConverterJavaScript.m; sourceTree = "<group>"; };
+		F4F5D0761CC973840075C2EF /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
+		F4F5D0791CC9748F0075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4451B6E1C7BBDDD00516075 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* PKGRequirementConverterJavaScript */ = {
+			isa = PBXGroup;
+			children = (
+				F4F5D0791CC9748F0075C2EF /* SharedConfigurationSettings.xcconfig */,
+				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
+				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = PKGRequirementConverterJavaScript;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4E878B61C862863000EB552 /* Code.strings */,
+				F4E878B81C862869000EB552 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F4E878BB1C862876000EB552 /* PKGRequirementConverterJavaScript.h */,
+				F4E878BC1C862876000EB552 /* PKGRequirementConverterJavaScript.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4451B6D1C7BBDDD00516075 /* Foundation.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* converter.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F40314A01CFA001500A23A4A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F40314A11CFA002300A23A4A /* PKGPackages.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F409B0C70E8C4BCD005D9E86 /* Shared Source */ = {
+			isa = PBXGroup;
+			children = (
+				F407CCCD106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.h */,
+				F407CCCC106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.m */,
+			);
+			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
+			isa = PBXGroup;
+			children = (
+				F40314A01CFA001500A23A4A /* Model */,
+				F48C21AE1CFCF6F900B5A8CD /* PKGConverter.h */,
+				F4F5D0761CC973840075C2EF /* PKGRequirementConverter.h */,
+			);
+			name = "Common Source";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* PKGRequirementConverterJavaScript */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementConverterJavaScript" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKGRequirementConverterJavaScript;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = PKGRequirementConverterJavaScript;
+			productReference = 8D5B49B6048680CD000E48DA /* converter.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementConverterJavaScript" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementConverterJavaScript */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* PKGRequirementConverterJavaScript */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4E878B71C862863000EB552 /* Code.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F407CCCE106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.m in Sources */,
+				F4E878BD1C862876000EB552 /* PKGRequirementConverterJavaScript.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = PKGRequirementConverterJavaScript/Info.plist;
+				PRODUCT_NAME = converter;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = PKGRequirementConverterJavaScript/Info.plist;
+				PRODUCT_NAME = converter;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F5D0791CC9748F0075C2EF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F5D0791CC9748F0075C2EF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementConverterJavaScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementConverterJavaScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

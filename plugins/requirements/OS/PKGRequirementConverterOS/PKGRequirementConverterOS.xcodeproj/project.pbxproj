@@ -1,0 +1,277 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F407A3BE0E9EC12900183611 /* PKGRequirement_OS+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F407A3BC0E9EC12900183611 /* PKGRequirement_OS+Constants.m */; };
+		F416E6111C810F5A0026C02C /* Code.strings in Resources */ = {isa = PBXBuildFile; fileRef = F416E6101C810F5A0026C02C /* Code.strings */; };
+		F416E6131C810F5F0026C02C /* Constants.plist in Resources */ = {isa = PBXBuildFile; fileRef = F416E6121C810F5F0026C02C /* Constants.plist */; };
+		F416E6161C810F6A0026C02C /* Functions.plist in Resources */ = {isa = PBXBuildFile; fileRef = F416E6151C810F6A0026C02C /* Functions.plist */; };
+		F416E61A1C810F790026C02C /* PKGRequirementConverterOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F416E6191C810F790026C02C /* PKGRequirementConverterOS.m */; };
+		F4451B3B1C7BBBD300516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B3A1C7BBBD300516075 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D5B49B6048680CD000E48DA /* converter.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = converter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F407A3BC0E9EC12900183611 /* PKGRequirement_OS+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_OS+Constants.m"; path = "../PKGRequirement_OS+Constants.m"; sourceTree = SOURCE_ROOT; };
+		F407A3BD0E9EC12900183611 /* PKGRequirement_OS+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_OS+Constants.h"; path = "../PKGRequirement_OS+Constants.h"; sourceTree = SOURCE_ROOT; };
+		F416E6101C810F5A0026C02C /* Code.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Code.strings; path = PKGRequirementConverterOS/Code.strings; sourceTree = "<group>"; };
+		F416E6121C810F5F0026C02C /* Constants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Constants.plist; path = PKGRequirementConverterOS/Constants.plist; sourceTree = "<group>"; };
+		F416E6141C810F650026C02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementConverterOS/Info.plist; sourceTree = "<group>"; };
+		F416E6151C810F6A0026C02C /* Functions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Functions.plist; path = PKGRequirementConverterOS/Functions.plist; sourceTree = "<group>"; };
+		F416E6181C810F750026C02C /* PKGRequirementConverterOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverterOS.h; path = PKGRequirementConverterOS/PKGRequirementConverterOS.h; sourceTree = "<group>"; };
+		F416E6191C810F790026C02C /* PKGRequirementConverterOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementConverterOS.m; path = PKGRequirementConverterOS/PKGRequirementConverterOS.m; sourceTree = "<group>"; };
+		F4451B3A1C7BBBD300516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F48C21BC1CFCF96800B5A8CD /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
+		F48C21BE1CFCF9A000B5A8CD /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4ABD07E1CC8208400C69CA2 /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
+		F4ABD07F1CC8209F00C69CA2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4451B3B1C7BBBD300516075 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* PKGRequirementConverterOS */ = {
+			isa = PBXGroup;
+			children = (
+				F4ABD07F1CC8209F00C69CA2 /* SharedConfigurationSettings.xcconfig */,
+				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
+				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = PKGRequirementConverterOS;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F416E6151C810F6A0026C02C /* Functions.plist */,
+				F416E6121C810F5F0026C02C /* Constants.plist */,
+				F416E6101C810F5A0026C02C /* Code.strings */,
+				F416E6141C810F650026C02C /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F416E6181C810F750026C02C /* PKGRequirementConverterOS.h */,
+				F416E6191C810F790026C02C /* PKGRequirementConverterOS.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4451B3A1C7BBBD300516075 /* Foundation.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* converter.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F409B0C70E8C4BCD005D9E86 /* Shared Source */ = {
+			isa = PBXGroup;
+			children = (
+				F407A3BD0E9EC12900183611 /* PKGRequirement_OS+Constants.h */,
+				F407A3BC0E9EC12900183611 /* PKGRequirement_OS+Constants.m */,
+			);
+			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
+			isa = PBXGroup;
+			children = (
+				F48C21BD1CFCF99A00B5A8CD /* Model */,
+				F48C21BC1CFCF96800B5A8CD /* PKGConverter.h */,
+				F4ABD07E1CC8208400C69CA2 /* PKGRequirementConverter.h */,
+			);
+			name = "Common Source";
+			sourceTree = "<group>";
+		};
+		F48C21BD1CFCF99A00B5A8CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F48C21BE1CFCF9A000B5A8CD /* PKGPackages.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* PKGRequirementConverterOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementConverterOS" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKGRequirementConverterOS;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = PKGRequirementConverterOS;
+			productReference = 8D5B49B6048680CD000E48DA /* converter.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementConverterOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementConverterOS */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* PKGRequirementConverterOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F416E6131C810F5F0026C02C /* Constants.plist in Resources */,
+				F416E6111C810F5A0026C02C /* Code.strings in Resources */,
+				F416E6161C810F6A0026C02C /* Functions.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F407A3BE0E9EC12900183611 /* PKGRequirement_OS+Constants.m in Sources */,
+				F416E61A1C810F790026C02C /* PKGRequirementConverterOS.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = PKGRequirementConverterOS/Info.plist;
+				PRODUCT_NAME = converter;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = PKGRequirementConverterOS/Info.plist;
+				PRODUCT_NAME = converter;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4ABD07F1CC8209F00C69CA2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4ABD07F1CC8209F00C69CA2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementConverterOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementConverterOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

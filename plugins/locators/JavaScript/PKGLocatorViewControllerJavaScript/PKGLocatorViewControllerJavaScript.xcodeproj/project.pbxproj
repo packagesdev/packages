@@ -1,0 +1,351 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4035DB21CC6D5F200184576 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4035DB01CC6D5F200184576 /* Icon_32.png */; };
+		F4035DB31CC6D5F200184576 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4035DB11CC6D5F200184576 /* Icon_32@2x.png */; };
+		F498F7AD1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.m in Sources */ = {isa = PBXBuildFile; fileRef = F498F7AC1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.m */; };
+		F498F7B31CC2A54F00B82A52 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F498F7B01CC2A54F00B82A52 /* MainView.xib */; };
+		F4AA48601CC23072006CC13E /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA485F1CC23072006CC13E /* NSString+Ranges.m */; };
+		F4AA48631CC23079006CC13E /* NSRangeUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA48621CC23079006CC13E /* NSRangeUtilities.m */; };
+		F4AA48661CC2308C006CC13E /* ICSourceTextTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA48651CC2308C006CC13E /* ICSourceTextTopView.m */; };
+		F4AA48691CC230D6006CC13E /* ICGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA48681CC230D6006CC13E /* ICGutterView.m */; };
+		F4AA486C1CC230E0006CC13E /* ICSourceTextView+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA486B1CC230E0006CC13E /* ICSourceTextView+Constants.m */; };
+		F4AA486F1CC230E8006CC13E /* ICSourceTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA486E1CC230E8006CC13E /* ICSourceTextView.m */; };
+		F4AA48721CC230EF006CC13E /* ICSourceTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA48711CC230EF006CC13E /* ICSourceTextViewDelegate.m */; };
+		F4AA48751CC230F7006CC13E /* ICJavaScriptFunctionPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA48741CC230F7006CC13E /* ICJavaScriptFunctionPopUpButton.m */; };
+		F4AA48791CC231A3006CC13E /* PKGLocator_JavaScript+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA48781CC231A3006CC13E /* PKGLocator_JavaScript+Constants.m */; };
+		F4F449D21CC2CFE0000D053A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F449D11CC2CFE0000D053A /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4035DB01CC6D5F200184576 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGLocatorViewControllerJavaScript/Icon_32.png; sourceTree = "<group>"; };
+		F4035DB11CC6D5F200184576 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGLocatorViewControllerJavaScript/Icon_32@2x.png"; sourceTree = "<group>"; };
+		F498F7AB1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewControllerJavaScript.h; path = PKGLocatorViewControllerJavaScript/PKGLocatorViewControllerJavaScript.h; sourceTree = "<group>"; };
+		F498F7AC1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLocatorViewControllerJavaScript.m; path = PKGLocatorViewControllerJavaScript/PKGLocatorViewControllerJavaScript.m; sourceTree = "<group>"; };
+		F498F7B11CC2A54F00B82A52 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGLocatorViewControllerJavaScript/en.lproj/MainView.xib; sourceTree = "<group>"; };
+		F498F7B21CC2A54F00B82A52 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGLocatorViewControllerJavaScript/Info.plist; sourceTree = "<group>"; };
+		F4A20CC31CC2612F004D9CC1 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4A20CC41CC26245004D9CC1 /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
+		F4AA485E1CC23072006CC13E /* NSString+Ranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Ranges.h"; path = "../../../../JavaScriptEditor/JavaScriptEditor/NSString+Ranges.h"; sourceTree = "<group>"; };
+		F4AA485F1CC23072006CC13E /* NSString+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Ranges.m"; path = "../../../../JavaScriptEditor/JavaScriptEditor/NSString+Ranges.m"; sourceTree = "<group>"; };
+		F4AA48611CC23079006CC13E /* NSRangeUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSRangeUtilities.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/NSRangeUtilities.h; sourceTree = "<group>"; };
+		F4AA48621CC23079006CC13E /* NSRangeUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSRangeUtilities.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/NSRangeUtilities.m; sourceTree = "<group>"; };
+		F4AA48641CC2308C006CC13E /* ICSourceTextTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextTopView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h; sourceTree = "<group>"; };
+		F4AA48651CC2308C006CC13E /* ICSourceTextTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextTopView.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.m; sourceTree = "<group>"; };
+		F4AA48671CC230D6006CC13E /* ICGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICGutterView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICGutterView.h; sourceTree = "<group>"; };
+		F4AA48681CC230D6006CC13E /* ICGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICGutterView.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICGutterView.m; sourceTree = "<group>"; };
+		F4AA486A1CC230E0006CC13E /* ICSourceTextView+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ICSourceTextView+Constants.h"; path = "../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView+Constants.h"; sourceTree = "<group>"; };
+		F4AA486B1CC230E0006CC13E /* ICSourceTextView+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ICSourceTextView+Constants.m"; path = "../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView+Constants.m"; sourceTree = "<group>"; };
+		F4AA486D1CC230E8006CC13E /* ICSourceTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView.h; sourceTree = "<group>"; };
+		F4AA486E1CC230E8006CC13E /* ICSourceTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextView.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView.m; sourceTree = "<group>"; };
+		F4AA48701CC230EF006CC13E /* ICSourceTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextViewDelegate.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.h; sourceTree = "<group>"; };
+		F4AA48711CC230EF006CC13E /* ICSourceTextViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextViewDelegate.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.m; sourceTree = "<group>"; };
+		F4AA48731CC230F7006CC13E /* ICJavaScriptFunctionPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICJavaScriptFunctionPopUpButton.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICJavaScriptFunctionPopUpButton.h; sourceTree = "<group>"; };
+		F4AA48741CC230F7006CC13E /* ICJavaScriptFunctionPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICJavaScriptFunctionPopUpButton.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICJavaScriptFunctionPopUpButton.m; sourceTree = "<group>"; };
+		F4AA48761CC23127006CC13E /* PKGLocatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewController.h; path = ../../PKGLocatorViewController.h; sourceTree = "<group>"; };
+		F4AA48771CC231A3006CC13E /* PKGLocator_JavaScript+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGLocator_JavaScript+Constants.h"; path = "../PKGLocator_JavaScript+Constants.h"; sourceTree = "<group>"; };
+		F4AA48781CC231A3006CC13E /* PKGLocator_JavaScript+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGLocator_JavaScript+Constants.m"; path = "../PKGLocator_JavaScript+Constants.m"; sourceTree = "<group>"; };
+		F4AA487A1CC231BD006CC13E /* PKGLocator+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGLocator+Constants.h"; path = "../../PKGLocator+Constants.h"; sourceTree = "<group>"; };
+		F4F449D11CC2CFE0000D053A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F4F449D31CC2CFE4000D053A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4F449D51CC2CFE9000D053A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F449D21CC2CFE0000D053A /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* ICRequirementCPU */ = {
+			isa = PBXGroup;
+			children = (
+				F4A20CC31CC2612F004D9CC1 /* SharedConfigurationSettings.xcconfig */,
+				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
+				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
+				F4AA485D1CC2304D006CC13E /* JavaScript Editor */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = ICRequirementCPU;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4035DB01CC6D5F200184576 /* Icon_32.png */,
+				F4035DB11CC6D5F200184576 /* Icon_32@2x.png */,
+				F498F7B01CC2A54F00B82A52 /* MainView.xib */,
+				F498F7B21CC2A54F00B82A52 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F498F7AB1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.h */,
+				F498F7AC1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449D11CC2CFE0000D053A /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449D51CC2CFE9000D053A /* AppKit.framework */,
+				F4F449D31CC2CFE4000D053A /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* ui.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F409B0C70E8C4BCD005D9E86 /* Shared Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4AA48771CC231A3006CC13E /* PKGLocator_JavaScript+Constants.h */,
+				F4AA48781CC231A3006CC13E /* PKGLocator_JavaScript+Constants.m */,
+			);
+			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4A20CC41CC26245004D9CC1 /* PKGViewController.h */,
+				F4AA487A1CC231BD006CC13E /* PKGLocator+Constants.h */,
+				F4AA48761CC23127006CC13E /* PKGLocatorViewController.h */,
+			);
+			name = "Common Source";
+			sourceTree = "<group>";
+		};
+		F4AA485D1CC2304D006CC13E /* JavaScript Editor */ = {
+			isa = PBXGroup;
+			children = (
+				F4AA485E1CC23072006CC13E /* NSString+Ranges.h */,
+				F4AA485F1CC23072006CC13E /* NSString+Ranges.m */,
+				F4AA48611CC23079006CC13E /* NSRangeUtilities.h */,
+				F4AA48621CC23079006CC13E /* NSRangeUtilities.m */,
+				F4AA48641CC2308C006CC13E /* ICSourceTextTopView.h */,
+				F4AA48651CC2308C006CC13E /* ICSourceTextTopView.m */,
+				F4AA48671CC230D6006CC13E /* ICGutterView.h */,
+				F4AA48681CC230D6006CC13E /* ICGutterView.m */,
+				F4AA486A1CC230E0006CC13E /* ICSourceTextView+Constants.h */,
+				F4AA486B1CC230E0006CC13E /* ICSourceTextView+Constants.m */,
+				F4AA486D1CC230E8006CC13E /* ICSourceTextView.h */,
+				F4AA486E1CC230E8006CC13E /* ICSourceTextView.m */,
+				F4AA48701CC230EF006CC13E /* ICSourceTextViewDelegate.h */,
+				F4AA48711CC230EF006CC13E /* ICSourceTextViewDelegate.m */,
+				F4AA48731CC230F7006CC13E /* ICJavaScriptFunctionPopUpButton.h */,
+				F4AA48741CC230F7006CC13E /* ICJavaScriptFunctionPopUpButton.m */,
+			);
+			name = "JavaScript Editor";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* PKGLocatorViewControllerJavaScript */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGLocatorViewControllerJavaScript" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKGLocatorViewControllerJavaScript;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = ICRequirementCPU;
+			productReference = 8D5B49B6048680CD000E48DA /* ui.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGLocatorViewControllerJavaScript" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* ICRequirementCPU */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* PKGLocatorViewControllerJavaScript */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4035DB31CC6D5F200184576 /* Icon_32@2x.png in Resources */,
+				F4035DB21CC6D5F200184576 /* Icon_32.png in Resources */,
+				F498F7B31CC2A54F00B82A52 /* MainView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4AA48721CC230EF006CC13E /* ICSourceTextViewDelegate.m in Sources */,
+				F4AA48751CC230F7006CC13E /* ICJavaScriptFunctionPopUpButton.m in Sources */,
+				F4AA48791CC231A3006CC13E /* PKGLocator_JavaScript+Constants.m in Sources */,
+				F4AA48631CC23079006CC13E /* NSRangeUtilities.m in Sources */,
+				F4AA486C1CC230E0006CC13E /* ICSourceTextView+Constants.m in Sources */,
+				F498F7AD1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.m in Sources */,
+				F4AA486F1CC230E8006CC13E /* ICSourceTextView.m in Sources */,
+				F4AA48661CC2308C006CC13E /* ICSourceTextTopView.m in Sources */,
+				F4AA48601CC23072006CC13E /* NSString+Ranges.m in Sources */,
+				F4AA48691CC230D6006CC13E /* ICGutterView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F498F7B01CC2A54F00B82A52 /* MainView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F498F7B11CC2A54F00B82A52 /* en */,
+			);
+			name = MainView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = PKGLocatorViewControllerJavaScript/Info.plist;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = PKGLocatorViewControllerJavaScript/Info.plist;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4A20CC31CC2612F004D9CC1 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4A20CC31CC2612F004D9CC1 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGLocatorViewControllerJavaScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGLocatorViewControllerJavaScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

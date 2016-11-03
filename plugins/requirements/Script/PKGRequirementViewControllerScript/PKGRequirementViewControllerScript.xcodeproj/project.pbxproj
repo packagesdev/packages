@@ -1,0 +1,317 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F409328A1CE29BD8002DBDF8 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F40932881CE29BD8002DBDF8 /* MainView.xib */; };
+		F43479AF1C8A55760091B2D7 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F43479AD1C8A55760091B2D7 /* Icon_32.png */; };
+		F43479B01C8A55760091B2D7 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43479AE1C8A55760091B2D7 /* Icon_32@2x.png */; };
+		F43479B31C8A557D0091B2D7 /* PKGIntegerFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F43479B21C8A557D0091B2D7 /* PKGIntegerFormatter.m */; };
+		F43479B61C8A55840091B2D7 /* PKGRequirementViewControllerScript.m in Sources */ = {isa = PBXBuildFile; fileRef = F43479B51C8A55840091B2D7 /* PKGRequirementViewControllerScript.m */; };
+		F44314E01CCABFB1009C6E82 /* PKGRequirement_Script+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F44314DF1CCABFB1009C6E82 /* PKGRequirement_Script+Constants.m */; };
+		F4BCF2451CE2A223005C3501 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E017E1C7BC66D002E3641 /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F40932891CE29BD8002DBDF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGRequirementViewControllerScript/en.lproj/MainView.xib; sourceTree = "<group>"; };
+		F43479AC1C8A556E0091B2D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerScript/Info.plist; sourceTree = "<group>"; };
+		F43479AD1C8A55760091B2D7 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerScript/Icon_32.png; sourceTree = "<group>"; };
+		F43479AE1C8A55760091B2D7 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerScript/Icon_32@2x.png"; sourceTree = "<group>"; };
+		F43479B11C8A557D0091B2D7 /* PKGIntegerFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGIntegerFormatter.h; path = PKGRequirementViewControllerScript/PKGIntegerFormatter.h; sourceTree = "<group>"; };
+		F43479B21C8A557D0091B2D7 /* PKGIntegerFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGIntegerFormatter.m; path = PKGRequirementViewControllerScript/PKGIntegerFormatter.m; sourceTree = "<group>"; };
+		F43479B41C8A55840091B2D7 /* PKGRequirementViewControllerScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerScript.h; path = PKGRequirementViewControllerScript/PKGRequirementViewControllerScript.h; sourceTree = "<group>"; };
+		F43479B51C8A55840091B2D7 /* PKGRequirementViewControllerScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerScript.m; path = PKGRequirementViewControllerScript/PKGRequirementViewControllerScript.m; sourceTree = "<group>"; };
+		F44314DD1CCABF8C009C6E82 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F44314DE1CCABFB1009C6E82 /* PKGRequirement_Script+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_Script+Constants.h"; path = "../PKGRequirement_Script+Constants.h"; sourceTree = "<group>"; };
+		F44314DF1CCABFB1009C6E82 /* PKGRequirement_Script+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_Script+Constants.m"; path = "../PKGRequirement_Script+Constants.m"; sourceTree = "<group>"; };
+		F44314E11CCABFCB009C6E82 /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
+		F44314E21CCABFD6009C6E82 /* PKGRequirementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewController.h; path = ../../PKGRequirementViewController.h; sourceTree = "<group>"; };
+		F44E017C1C7BC668002E3641 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F44E017E1C7BC66D002E3641 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F44E01801C7BC673002E3641 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4970BDE1CD01B2B007CF76F /* PKGFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGFilePath.h; path = ../../../../model/PKGFilePath.h; sourceTree = "<group>"; };
+		F4BCF2441CE2A0EA005C3501 /* PKGObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGObjectProtocol.h; path = ../../../../model/PKGObjectProtocol.h; sourceTree = "<group>"; };
+		F4C829D61CCECD7A008FB226 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4E7D27A11EDE4AE00D54D7C /* PKGFilePathTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGFilePathTextField.h; path = ../../../../shared/PKGFilePathTextField.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4BCF2451CE2A223005C3501 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* PKGRequirementViewControllerScript */ = {
+			isa = PBXGroup;
+			children = (
+				F44314DD1CCABF8C009C6E82 /* SharedConfigurationSettings.xcconfig */,
+				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
+				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = PKGRequirementViewControllerScript;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F43479AD1C8A55760091B2D7 /* Icon_32.png */,
+				F43479AE1C8A55760091B2D7 /* Icon_32@2x.png */,
+				F40932881CE29BD8002DBDF8 /* MainView.xib */,
+				F43479AC1C8A556E0091B2D7 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F43479B11C8A557D0091B2D7 /* PKGIntegerFormatter.h */,
+				F43479B21C8A557D0091B2D7 /* PKGIntegerFormatter.m */,
+				F43479B41C8A55840091B2D7 /* PKGRequirementViewControllerScript.h */,
+				F43479B51C8A55840091B2D7 /* PKGRequirementViewControllerScript.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F44E01801C7BC673002E3641 /* Foundation.framework */,
+				F44E017C1C7BC668002E3641 /* AppKit.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F44E017E1C7BC66D002E3641 /* Cocoa.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* ui.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F409B0C70E8C4BCD005D9E86 /* Shared Source */ = {
+			isa = PBXGroup;
+			children = (
+				F44314DE1CCABFB1009C6E82 /* PKGRequirement_Script+Constants.h */,
+				F44314DF1CCABFB1009C6E82 /* PKGRequirement_Script+Constants.m */,
+			);
+			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4970BDF1CD01B2F007CF76F /* Model */,
+				F4E7D27A11EDE4AE00D54D7C /* PKGFilePathTextField.h */,
+				F44314E11CCABFCB009C6E82 /* PKGViewController.h */,
+				F44314E21CCABFD6009C6E82 /* PKGRequirementViewController.h */,
+			);
+			name = "Common Source";
+			sourceTree = "<group>";
+		};
+		F4970BDF1CD01B2F007CF76F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F4C829D61CCECD7A008FB226 /* PKGPackages.h */,
+				F4BCF2441CE2A0EA005C3501 /* PKGObjectProtocol.h */,
+				F4970BDE1CD01B2B007CF76F /* PKGFilePath.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* PKGRequirementViewControllerScript */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementViewControllerScript" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKGRequirementViewControllerScript;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = PKGRequirementViewControllerScript;
+			productReference = 8D5B49B6048680CD000E48DA /* ui.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementViewControllerScript" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerScript */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* PKGRequirementViewControllerScript */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F409328A1CE29BD8002DBDF8 /* MainView.xib in Resources */,
+				F43479B01C8A55760091B2D7 /* Icon_32@2x.png in Resources */,
+				F43479AF1C8A55760091B2D7 /* Icon_32.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F43479B31C8A557D0091B2D7 /* PKGIntegerFormatter.m in Sources */,
+				F44314E01CCABFB1009C6E82 /* PKGRequirement_Script+Constants.m in Sources */,
+				F43479B61C8A55840091B2D7 /* PKGRequirementViewControllerScript.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F40932881CE29BD8002DBDF8 /* MainView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F40932891CE29BD8002DBDF8 /* en */,
+			);
+			name = MainView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				INFOPLIST_FILE = PKGRequirementViewControllerScript/Info.plist;
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = PKGRequirementViewControllerScript/Info.plist;
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F44314DD1CCABF8C009C6E82 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F44314DD1CCABF8C009C6E82 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementViewControllerScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementViewControllerScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

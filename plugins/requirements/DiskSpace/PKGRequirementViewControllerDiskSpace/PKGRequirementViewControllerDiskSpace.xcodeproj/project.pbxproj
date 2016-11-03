@@ -1,0 +1,309 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4451B791C7BC12D00516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B781C7BC12D00516075 /* Foundation.framework */; };
+		F4ABD05C1CC81C1F00C69CA2 /* PKGRequirement_DiskSpace+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4ABD05B1CC81C1F00C69CA2 /* PKGRequirement_DiskSpace+Constants.m */; };
+		F4C7818C1C7BC2200019D5ED /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C7818B1C7BC2200019D5ED /* AppKit.framework */; };
+		F4D801681C86577400D4D483 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D801661C86577400D4D483 /* Icon_32.png */; };
+		F4D801691C86577400D4D483 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D801671C86577400D4D483 /* Icon_32@2x.png */; };
+		F4D801701C86578A00D4D483 /* PKGDiskSpaceFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D8016F1C86578A00D4D483 /* PKGDiskSpaceFormatter.m */; };
+		F4D801731C86579200D4D483 /* PKGRequirementViewControllerDiskSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D801721C86579200D4D483 /* PKGRequirementViewControllerDiskSpace.m */; };
+		F4E8BB9E1DCBF75C00204CDF /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E8BB9C1DCBF75C00204CDF /* MainView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4451B781C7BC12D00516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F48DDE331CE3DC06004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4ABD05B1CC81C1F00C69CA2 /* PKGRequirement_DiskSpace+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_DiskSpace+Constants.m"; path = "../PKGRequirement_DiskSpace+Constants.m"; sourceTree = "<group>"; };
+		F4ABD05D1CC81C2300C69CA2 /* PKGRequirement_DiskSpace+Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_DiskSpace+Constants.h"; path = "../PKGRequirement_DiskSpace+Constants.h"; sourceTree = "<group>"; };
+		F4ABD05E1CC81C2D00C69CA2 /* PKGRequirementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewController.h; path = ../../PKGRequirementViewController.h; sourceTree = "<group>"; };
+		F4ABD05F1CC81C3B00C69CA2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4ABD0601CC81C4300C69CA2 /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
+		F4C7818B1C7BC2200019D5ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F4C7818D1C7BC2240019D5ED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F4D801661C86577400D4D483 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerDiskSpace/Icon_32.png; sourceTree = "<group>"; };
+		F4D801671C86577400D4D483 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerDiskSpace/Icon_32@2x.png"; sourceTree = "<group>"; };
+		F4D8016A1C86577A00D4D483 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerDiskSpace/Info.plist; sourceTree = "<group>"; };
+		F4D8016E1C86578A00D4D483 /* PKGDiskSpaceFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDiskSpaceFormatter.h; path = PKGRequirementViewControllerDiskSpace/PKGDiskSpaceFormatter.h; sourceTree = "<group>"; };
+		F4D8016F1C86578A00D4D483 /* PKGDiskSpaceFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDiskSpaceFormatter.m; path = PKGRequirementViewControllerDiskSpace/PKGDiskSpaceFormatter.m; sourceTree = "<group>"; };
+		F4D801711C86579200D4D483 /* PKGRequirementViewControllerDiskSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerDiskSpace.h; path = PKGRequirementViewControllerDiskSpace/PKGRequirementViewControllerDiskSpace.h; sourceTree = "<group>"; };
+		F4D801721C86579200D4D483 /* PKGRequirementViewControllerDiskSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerDiskSpace.m; path = PKGRequirementViewControllerDiskSpace/PKGRequirementViewControllerDiskSpace.m; sourceTree = "<group>"; };
+		F4E8BB9D1DCBF75C00204CDF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGRequirementViewControllerDiskSpace/en.lproj/MainView.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4C7818C1C7BC2200019D5ED /* AppKit.framework in Frameworks */,
+				F4451B791C7BC12D00516075 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* PKGRequirementViewControllerDiskSpace */ = {
+			isa = PBXGroup;
+			children = (
+				F4ABD05F1CC81C3B00C69CA2 /* SharedConfigurationSettings.xcconfig */,
+				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
+				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = PKGRequirementViewControllerDiskSpace;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				F4C7818F1C7BC22F0019D5ED /* Other Frameowrks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4D801661C86577400D4D483 /* Icon_32.png */,
+				F4D801671C86577400D4D483 /* Icon_32@2x.png */,
+				F4E8BB9C1DCBF75C00204CDF /* MainView.xib */,
+				F4D8016A1C86577A00D4D483 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F4D8016E1C86578A00D4D483 /* PKGDiskSpaceFormatter.h */,
+				F4D8016F1C86578A00D4D483 /* PKGDiskSpaceFormatter.m */,
+				F4D801711C86579200D4D483 /* PKGRequirementViewControllerDiskSpace.h */,
+				F4D801721C86579200D4D483 /* PKGRequirementViewControllerDiskSpace.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4C7818B1C7BC2200019D5ED /* AppKit.framework */,
+				F4451B781C7BC12D00516075 /* Foundation.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* ui.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F409B0C70E8C4BCD005D9E86 /* Shared Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4ABD05D1CC81C2300C69CA2 /* PKGRequirement_DiskSpace+Constants.h */,
+				F4ABD05B1CC81C1F00C69CA2 /* PKGRequirement_DiskSpace+Constants.m */,
+			);
+			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
+			isa = PBXGroup;
+			children = (
+				F48DDE321CE3DBFD004B9A29 /* Model */,
+				F4ABD0601CC81C4300C69CA2 /* PKGViewController.h */,
+				F4ABD05E1CC81C2D00C69CA2 /* PKGRequirementViewController.h */,
+			);
+			name = "Common Source";
+			sourceTree = "<group>";
+		};
+		F48DDE321CE3DBFD004B9A29 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F48DDE331CE3DC06004B9A29 /* PKGPackages.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F4C7818F1C7BC22F0019D5ED /* Other Frameowrks */ = {
+			isa = PBXGroup;
+			children = (
+				F4C7818D1C7BC2240019D5ED /* Cocoa.framework */,
+			);
+			name = "Other Frameowrks";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* PKGRequirementViewControllerDiskSpace */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementViewControllerDiskSpace" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKGRequirementViewControllerDiskSpace;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = PKGRequirementViewControllerDiskSpace;
+			productReference = 8D5B49B6048680CD000E48DA /* ui.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementViewControllerDiskSpace" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+				English,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerDiskSpace */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* PKGRequirementViewControllerDiskSpace */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4E8BB9E1DCBF75C00204CDF /* MainView.xib in Resources */,
+				F4D801691C86577400D4D483 /* Icon_32@2x.png in Resources */,
+				F4D801681C86577400D4D483 /* Icon_32.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4ABD05C1CC81C1F00C69CA2 /* PKGRequirement_DiskSpace+Constants.m in Sources */,
+				F4D801701C86578A00D4D483 /* PKGDiskSpaceFormatter.m in Sources */,
+				F4D801731C86579200D4D483 /* PKGRequirementViewControllerDiskSpace.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F4E8BB9C1DCBF75C00204CDF /* MainView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4E8BB9D1DCBF75C00204CDF /* en */,
+			);
+			name = MainView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = PKGRequirementViewControllerDiskSpace/Info.plist;
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = PKGRequirementViewControllerDiskSpace/Info.plist;
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4ABD05F1CC81C3B00C69CA2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4ABD05F1CC81C3B00C69CA2 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGRequirementViewControllerDiskSpace" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGRequirementViewControllerDiskSpace" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

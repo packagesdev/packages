@@ -1,0 +1,357 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4F5D0851CC9758C0075C2EF /* converter.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4F5D0811CC975640075C2EF /* converter.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4F5D0AD1CC978D80075C2EF /* ui.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4F5D0AA1CC978CA0075C2EF /* ui.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F4F5D0801CC975640075C2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F5D07C1CC975640075C2EF /* PKGRequirementConverterJavaScript.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = PKGRequirementConverterJavaScript;
+		};
+		F4F5D0831CC975860075C2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F5D07C1CC975640075C2EF /* PKGRequirementConverterJavaScript.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = PKGRequirementConverterJavaScript;
+		};
+		F4F5D0A91CC978CA0075C2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F5D0A51CC978CA0075C2EF /* PKGRequirementViewControllerJavaScript.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
+			remoteInfo = PKGRequirementViewControllerJavaScript;
+		};
+		F4F5D0AB1CC978D40075C2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F5D0A51CC978CA0075C2EF /* PKGRequirementViewControllerJavaScript.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = PKGRequirementViewControllerJavaScript;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F4451B6B1C7BBD8700516075 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				F4F5D0AD1CC978D80075C2EF /* ui.bundle in CopyFiles */,
+				F4F5D0851CC9758C0075C2EF /* converter.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F4451B531C7BBCC800516075 /* JavaScript.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaScript.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4451B571C7BBCC800516075 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4F5D07C1CC975640075C2EF /* PKGRequirementConverterJavaScript.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKGRequirementConverterJavaScript.xcodeproj; path = PKGRequirementConverterJavaScript/PKGRequirementConverterJavaScript.xcodeproj; sourceTree = "<group>"; };
+		F4F5D0821CC975720075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4F5D0A51CC978CA0075C2EF /* PKGRequirementViewControllerJavaScript.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKGRequirementViewControllerJavaScript.xcodeproj; path = PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		F4451B4A1C7BBCC800516075 = {
+			isa = PBXGroup;
+			children = (
+				F4F5D0821CC975720075C2EF /* SharedConfigurationSettings.xcconfig */,
+				F4F5D07C1CC975640075C2EF /* PKGRequirementConverterJavaScript.xcodeproj */,
+				F4F5D0A51CC978CA0075C2EF /* PKGRequirementViewControllerJavaScript.xcodeproj */,
+				F4451B551C7BBCC800516075 /* JavaScript */,
+				F4451B541C7BBCC800516075 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F4451B541C7BBCC800516075 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4451B531C7BBCC800516075 /* JavaScript.plugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4451B551C7BBCC800516075 /* JavaScript */ = {
+			isa = PBXGroup;
+			children = (
+				F4451B561C7BBCC800516075 /* Supporting Files */,
+			);
+			path = JavaScript;
+			sourceTree = "<group>";
+		};
+		F4451B561C7BBCC800516075 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4451B571C7BBCC800516075 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F4F5D07D1CC975640075C2EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4F5D0811CC975640075C2EF /* converter.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4F5D0A61CC978CA0075C2EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4F5D0AA1CC978CA0075C2EF /* ui.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F4451B521C7BBCC800516075 /* JavaScript */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4451B5A1C7BBCC800516075 /* Build configuration list for PBXNativeTarget "JavaScript" */;
+			buildPhases = (
+				F4451B511C7BBCC800516075 /* Resources */,
+				F4451B6B1C7BBD8700516075 /* CopyFiles */,
+				F47216461C7D147A006673ED /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4F5D0AC1CC978D40075C2EF /* PBXTargetDependency */,
+				F4F5D0841CC975860075C2EF /* PBXTargetDependency */,
+			);
+			name = JavaScript;
+			productName = JavaScript;
+			productReference = F4451B531C7BBCC800516075 /* JavaScript.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F4451B4B1C7BBCC800516075 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = WhiteBox;
+				TargetAttributes = {
+					F4451B521C7BBCC800516075 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+				};
+			};
+			buildConfigurationList = F4451B4E1C7BBCC800516075 /* Build configuration list for PBXProject "JavaScript" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F4451B4A1C7BBCC800516075;
+			productRefGroup = F4451B541C7BBCC800516075 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F4F5D07D1CC975640075C2EF /* Products */;
+					ProjectRef = F4F5D07C1CC975640075C2EF /* PKGRequirementConverterJavaScript.xcodeproj */;
+				},
+				{
+					ProductGroup = F4F5D0A61CC978CA0075C2EF /* Products */;
+					ProjectRef = F4F5D0A51CC978CA0075C2EF /* PKGRequirementViewControllerJavaScript.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F4451B521C7BBCC800516075 /* JavaScript */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F4F5D0811CC975640075C2EF /* converter.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = converter.bundle;
+			remoteRef = F4F5D0801CC975640075C2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F4F5D0AA1CC978CA0075C2EF /* ui.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ui.bundle;
+			remoteRef = F4F5D0A91CC978CA0075C2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F4451B511C7BBCC800516075 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F47216461C7D147A006673ED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/rm -rf $BUILT_PRODUCTS_DIR/converter.bundle\n/bin/rm -rf $BUILT_PRODUCTS_DIR/ui.bundle\n\nexit 0\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F4F5D0841CC975860075C2EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PKGRequirementConverterJavaScript;
+			targetProxy = F4F5D0831CC975860075C2EF /* PBXContainerItemProxy */;
+		};
+		F4F5D0AC1CC978D40075C2EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PKGRequirementViewControllerJavaScript;
+			targetProxy = F4F5D0AB1CC978D40075C2EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F4451B581C7BBCC800516075 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F5D0821CC975720075C2EF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+			};
+			name = Debug;
+		};
+		F4451B591C7BBCC800516075 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F5D0821CC975720075C2EF /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+			};
+			name = Release;
+		};
+		F4451B5B1C7BBCC800516075 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/Requirements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+		F4451B5C1C7BBCC800516075 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/Requirements;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F4451B4E1C7BBCC800516075 /* Build configuration list for PBXProject "JavaScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4451B581C7BBCC800516075 /* Debug */,
+				F4451B591C7BBCC800516075 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4451B5A1C7BBCC800516075 /* Build configuration list for PBXNativeTarget "JavaScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4451B5B1C7BBCC800516075 /* Debug */,
+				F4451B5C1C7BBCC800516075 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4451B4B1C7BBCC800516075 /* Project object */;
+}

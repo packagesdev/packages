@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Names</key>
+	<array>
+	   <string>IC_CPU_ARCHITECTURE_ANY</string>
+	   <string>IC_CPU_ARCHITECTURE_POWERPC</string>
+	   <string>IC_CPU_ARCHITECTURE_INTEL</string>
+	   <string>IC_CPU_ARCHITECTURE_TYPE_ANY</string>
+	   <string>IC_CPU_ARCHITECTURE_TYPE_32</string>
+	   <string>IC_CPU_ARCHITECTURE_TYPE_64</string>
+    </array>
+    <key>Definitions</key>
+    <dict>
+        <key>IC_CPU_ARCHITECTURE_ANY</key>
+        <string>0</string>
+        <key>IC_CPU_ARCHITECTURE_POWERPC</key>
+        <string>18</string>
+        <key>IC_CPU_ARCHITECTURE_INTEL</key>
+        <string>7</string>
+        <key>IC_CPU_ARCHITECTURE_TYPE_ANY</key>
+        <string>0</string>
+        <key>IC_CPU_ARCHITECTURE_TYPE_32</key>
+        <string>1</string>
+        <key>IC_CPU_ARCHITECTURE_TYPE_64</key>
+        <string>2</string>
+    </dict>
+</dict>
+</plist>

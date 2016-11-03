@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Definitions</key>
+	<dict>
+		<key>IC_DISK_TYPE_DESTINATION</key>
+		<string>0</string>
+		<key>IC_DISK_TYPE_STARTUP_DISK</key>
+		<string>1</string>
+		<key>IC_OS_DISTRIBUTION_TYPE_ANY</key>
+		<string>0</string>
+		<key>IC_OS_DISTRIBUTION_TYPE_CLIENT</key>
+		<string>1</string>
+		<key>IC_OS_DISTRIBUTION_TYPE_SERVER</key>
+		<string>2</string>
+	</dict>
+	<key>Names</key>
+	<array>
+		<string>IC_DISK_TYPE_DESTINATION</string>
+		<string>IC_DISK_TYPE_STARTUP_DISK</string>
+		<string>IC_OS_DISTRIBUTION_TYPE_ANY</string>
+		<string>IC_OS_DISTRIBUTION_TYPE_CLIENT</string>
+		<string>IC_OS_DISTRIBUTION_TYPE_SERVER</string>
+	</array>
+</dict>
+</plist>

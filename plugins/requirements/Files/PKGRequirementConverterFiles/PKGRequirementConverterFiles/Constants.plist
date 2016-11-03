@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Names</key>
+	<array>
+	   <string>IC_DISK_TYPE_DESTINATION</string>
+	   <string>IC_DISK_TYPE_STARTUP_DISK</string>
+	   <string>IC_CONDITION_EXIST</string>
+	   <string>IC_CONDITION_DOES_NOT_EXIST</string>
+	   <string>IC_SELECTOR_ANY</string>
+	   <string>IC_SELECTOR_ALL</string>
+    </array>
+    <key>Definitions</key>
+    <dict>
+        <key>IC_DISK_TYPE_DESTINATION</key>
+        <string>0</string>
+        <key>IC_DISK_TYPE_STARTUP_DISK</key>
+        <string>1</string>
+        <key>IC_CONDITION_EXIST</key>
+        <string>0</string>
+        <key>IC_CONDITION_DOES_NOT_EXIST</key>
+        <string>1</string>
+        <key>IC_SELECTOR_ANY</key>
+        <string>0</string>
+		<key>IC_SELECTOR_ALL</key>
+        <string>1</string>
+    </dict>
+</dict>
+</plist>

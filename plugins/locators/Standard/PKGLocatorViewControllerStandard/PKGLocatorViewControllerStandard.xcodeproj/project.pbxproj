@@ -1,0 +1,297 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4035DB61CC6D61A00184576 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4035DB41CC6D61A00184576 /* Icon_32.png */; };
+		F4035DB71CC6D61A00184576 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4035DB51CC6D61A00184576 /* Icon_32@2x.png */; };
+		F49ED5CA1CC2CC03009B86E7 /* PKGLocator_Standard+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F49ED5C91CC2CC03009B86E7 /* PKGLocator_Standard+Constants.m */; };
+		F4F449C21CC2CD48000D053A /* PKGLocatorViewControllerStandard.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F449C11CC2CD48000D053A /* PKGLocatorViewControllerStandard.m */; };
+		F4F449C51CC2CD57000D053A /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F449C31CC2CD57000D053A /* MainView.xib */; };
+		F4F449C71CC2CD78000D053A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F449C61CC2CD78000D053A /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4035DB41CC6D61A00184576 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGLocatorViewControllerStandard/Icon_32.png; sourceTree = "<group>"; };
+		F4035DB51CC6D61A00184576 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGLocatorViewControllerStandard/Icon_32@2x.png"; sourceTree = "<group>"; };
+		F49ED5C81CC2CC03009B86E7 /* PKGLocator_Standard+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGLocator_Standard+Constants.h"; path = "../PKGLocator_Standard+Constants.h"; sourceTree = "<group>"; };
+		F49ED5C91CC2CC03009B86E7 /* PKGLocator_Standard+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGLocator_Standard+Constants.m"; path = "../PKGLocator_Standard+Constants.m"; sourceTree = "<group>"; };
+		F49ED5CB1CC2CC18009B86E7 /* PKGLocatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewController.h; path = ../../PKGLocatorViewController.h; sourceTree = "<group>"; };
+		F4F449BD1CC2CD2D000D053A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGLocatorViewControllerStandard/Info.plist; sourceTree = "<group>"; };
+		F4F449C01CC2CD48000D053A /* PKGLocatorViewControllerStandard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewControllerStandard.h; path = PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.h; sourceTree = "<group>"; };
+		F4F449C11CC2CD48000D053A /* PKGLocatorViewControllerStandard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLocatorViewControllerStandard.m; path = PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.m; sourceTree = "<group>"; };
+		F4F449C41CC2CD57000D053A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGLocatorViewControllerStandard/en.lproj/MainView.xib; sourceTree = "<group>"; };
+		F4F449C61CC2CD78000D053A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F4F449C81CC2CD85000D053A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4F449CA1CC2CD89000D053A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F4F449CC1CC2CEE1000D053A /* PKGBundleIdentifierFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGBundleIdentifierFormatter.h; path = ../../../../shared/PKGBundleIdentifierFormatter.h; sourceTree = "<group>"; };
+		F4F449D81CC2E4F0000D053A /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
+		F4F449D91CC2E763000D053A /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4F449DA1CC2EC22000D053A /* PKGLocator+Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PKGLocator+Constants.h"; path = "../../PKGLocator+Constants.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F449C71CC2CD78000D053A /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* ICRequirementCPU */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449D91CC2E763000D053A /* SharedConfigurationSettings.xcconfig */,
+				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
+				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = ICRequirementCPU;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449C31CC2CD57000D053A /* MainView.xib */,
+				F4035DB41CC6D61A00184576 /* Icon_32.png */,
+				F4035DB51CC6D61A00184576 /* Icon_32@2x.png */,
+				F4F449BD1CC2CD2D000D053A /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449C01CC2CD48000D053A /* PKGLocatorViewControllerStandard.h */,
+				F4F449C11CC2CD48000D053A /* PKGLocatorViewControllerStandard.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449C61CC2CD78000D053A /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449CA1CC2CD89000D053A /* AppKit.framework */,
+				F4F449C81CC2CD85000D053A /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* ui.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F409B0C70E8C4BCD005D9E86 /* Shared Source */ = {
+			isa = PBXGroup;
+			children = (
+				F49ED5C81CC2CC03009B86E7 /* PKGLocator_Standard+Constants.h */,
+				F49ED5C91CC2CC03009B86E7 /* PKGLocator_Standard+Constants.m */,
+			);
+			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4F449CC1CC2CEE1000D053A /* PKGBundleIdentifierFormatter.h */,
+				F4F449D81CC2E4F0000D053A /* PKGViewController.h */,
+				F4F449DA1CC2EC22000D053A /* PKGLocator+Constants.h */,
+				F49ED5CB1CC2CC18009B86E7 /* PKGLocatorViewController.h */,
+			);
+			name = "Common Source";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* PKGLocatorViewControllerStandard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGLocatorViewControllerStandard" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKGLocatorViewControllerStandard;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = ICRequirementCPU;
+			productReference = 8D5B49B6048680CD000E48DA /* ui.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGLocatorViewControllerStandard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* ICRequirementCPU */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* PKGLocatorViewControllerStandard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4035DB71CC6D61A00184576 /* Icon_32@2x.png in Resources */,
+				F4035DB61CC6D61A00184576 /* Icon_32.png in Resources */,
+				F4F449C51CC2CD57000D053A /* MainView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F449C21CC2CD48000D053A /* PKGLocatorViewControllerStandard.m in Sources */,
+				F49ED5CA1CC2CC03009B86E7 /* PKGLocator_Standard+Constants.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F4F449C31CC2CD57000D053A /* MainView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4F449C41CC2CD57000D053A /* en */,
+			);
+			name = MainView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = PKGLocatorViewControllerStandard/Info.plist;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = PKGLocatorViewControllerStandard/Info.plist;
+				OTHER_LDFLAGS = (
+					"-undefined",
+					dynamic_lookup,
+				);
+				PRODUCT_NAME = ui;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F449D91CC2E763000D053A /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F449D91CC2E763000D053A /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "PKGLocatorViewControllerStandard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "PKGLocatorViewControllerStandard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

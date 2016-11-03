@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IC_CheckFiles</key>
+	<string>	function IC_CheckFiles(inSelector,inCondition,inDiskType,inFiles)
+	{
+		var tCount;
+		
+		tCount=inFiles.length;
+		
+		if (tCount>0)
+		{
+			var tIndex;
+			var tExists;
+			var tPath;
+			var atLeastOneTrue=false;
+			
+			for(tIndex=0;tIndex&lt;tCount;tIndex++)
+			{
+				tPath=inFiles[tIndex];
+			
+				if (inDiskType==IC_DISK_TYPE_DESTINATION)
+				{
+					tPath=my.target.mountpoint+tPath;
+				}
+			
+				if (system.files.fileExistsAtPath(tPath)==true)
+				{
+					if (inCondition==IC_CONDITION_EXIST)
+					{
+						atLeastOneTrue=true;
+						
+						if (inSelector==IC_SELECTOR_ANY)
+						{
+							return true;
+						}
+					}
+					else if (inCondition==IC_CONDITION_DOES_NOT_EXIST &amp;&amp; inSelector==IC_SELECTOR_ALL)
+					{
+						return false;
+					}
+				}
+				else
+				{
+					if (inCondition==IC_CONDITION_EXIST &amp;&amp; inSelector==IC_SELECTOR_ALL)
+					{
+						return false;
+					}
+					else if (inCondition==IC_CONDITION_DOES_NOT_EXIST)
+					{
+						atLeastOneTrue=true;
+						
+						if (inSelector==IC_SELECTOR_ANY)
+						{
+							return true;
+						}
+					}
+				}
+			}
+		
+			return atLeastOneTrue;
+		}
+		
+		return true;
+	}</string>
+</dict>
+</plist>

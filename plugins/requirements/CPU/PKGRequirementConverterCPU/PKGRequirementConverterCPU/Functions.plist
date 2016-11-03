@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IC_CheckCPU</key>
+	<string>	function IC_CheckCPU(inMinimumCoresCount,inSupportedArchitecture,inSupportedPowerPCArchitectureType,inSupportedIntelArchitectureType,inMinimumFrequency)
+	{
+		/* Check Minimum Core Count */
+		
+		if (system.sysctl('hw.ncpu')&gt;=inMinimumCoresCount)
+		{
+			var tArchitecture;
+			var t64BitSupport;
+			
+			tArchitecture=system.sysctl('hw.cputype');
+			
+			/* Check Architecture */
+			
+			if (inSupportedArchitecture!=IC_CPU_ARCHITECTURE_ANY)
+			{
+				if (inSupportedArchitecture!=tArchitecture)
+				{
+					return false;
+				}
+			}
+			
+			/* Check Architecture Type */
+			
+			t64BitSupport=system.sysctl('hw.cpu64bit_capable');
+			
+			if (tArchitecture==IC_CPU_ARCHITECTURE_POWERPC)
+			{
+				if ((inSupportedPowerPCArchitectureType==IC_CPU_ARCHITECTURE_TYPE_32 &amp;&amp; t64BitSupport==1) ||
+					(inSupportedPowerPCArchitectureType==IC_CPU_ARCHITECTURE_TYPE_64 &amp;&amp; t64BitSupport==0))
+				{
+					return false;
+				}
+			}
+			else if (tArchitecture==IC_CPU_ARCHITECTURE_INTEL)
+			{
+				if ((inSupportedIntelArchitectureType==IC_CPU_ARCHITECTURE_TYPE_32 &amp;&amp; t64BitSupport==1) ||
+					(inSupportedIntelArchitectureType==IC_CPU_ARCHITECTURE_TYPE_64 &amp;&amp; t64BitSupport==0))
+				{
+					return false;
+				}
+			}
+			
+			/* Check Minimum CPU Frequency */
+			
+			if (system.sysctl('hw.cpufrequency_max')&gt;=inMinimumFrequency)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}</string>
+</dict>
+</plist>
