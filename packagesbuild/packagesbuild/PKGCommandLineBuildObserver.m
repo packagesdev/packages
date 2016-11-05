@@ -255,6 +255,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			case PKGFileKindPackage:
 				
 				return "package";
+				
+			case PKGFileKindBundle:
+				
+				return "bundle";
 		}
 		
 		return NULL;
