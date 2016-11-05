@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8D5B49AC048680CD000E48DA"
-               BuildableName = "ui.bundle"
-               BlueprintName = "PKGLocatorViewControllerJavaScript"
-               ReferencedContainer = "container:PKGLocatorViewControllerJavaScript.xcodeproj">
+               BlueprintIdentifier = "F42175791C767A610054A7C9"
+               BuildableName = "OS.plugin"
+               BlueprintName = "OS"
+               ReferencedContainer = "container:OS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +42,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D5B49AC048680CD000E48DA"
-            BuildableName = "ui.bundle"
-            BlueprintName = "PKGLocatorViewControllerJavaScript"
-            ReferencedContainer = "container:PKGLocatorViewControllerJavaScript.xcodeproj">
+            BlueprintIdentifier = "F42175791C767A610054A7C9"
+            BuildableName = "OS.plugin"
+            BlueprintName = "OS"
+            ReferencedContainer = "container:OS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +60,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8D5B49AC048680CD000E48DA"
-            BuildableName = "ui.bundle"
-            BlueprintName = "PKGLocatorViewControllerJavaScript"
-            ReferencedContainer = "container:PKGLocatorViewControllerJavaScript.xcodeproj">
+            BlueprintIdentifier = "F42175791C767A610054A7C9"
+            BuildableName = "OS.plugin"
+            BlueprintName = "OS"
+            ReferencedContainer = "container:OS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
