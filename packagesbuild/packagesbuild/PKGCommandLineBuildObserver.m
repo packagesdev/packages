@@ -545,6 +545,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					switch(tErrorEvent.subcode)
 					{
+						case PKGBuildErrorFileNotFound:
+							
+							(void)fprintf(stdout, " because the %s can not be found",fileItemTypeName(tFileKind));
+							break;
+						
 						case PKGBuildErrorReadOnlyVolume:
 							
 							(void)fprintf(stdout, " because the disk is read only");

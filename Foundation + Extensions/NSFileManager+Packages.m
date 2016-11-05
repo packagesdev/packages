@@ -373,8 +373,6 @@ extended_attributes_bail:
 					
 				default:
 					
-					NSLog(@"%d",(int)tError.code);
-					
 					if (outError!=NULL)
 						*outError=tError;
 					
