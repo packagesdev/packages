@@ -15,7 +15,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation NSArray (Reverse)
 
-- (NSArray *)PKG_reversedArray
+- (NSArray *)WB_reversedArray
 {
 	return [[self reverseObjectEnumerator] allObjects];
 }

@@ -2,6 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 
+#import "NSArray+Reverse.h"
 #import "NSArray+WBExtensions.h"
 
 @interface unit_test_NSArray : XCTestCase
@@ -18,6 +19,42 @@
 - (void)tearDown
 {
     [super tearDown];
+}
+
+#pragma mark - WB_reversedArray
+
+- (void)test_array_reversed_array_empty_array
+{
+	// Given
+	
+	NSArray * tArray=@[];
+	
+	// When
+	
+	NSArray * tReversedArray=[tArray WB_reversedArray];
+	
+	// Then
+	
+	NSArray * tExpectedArray=@[];
+	
+	XCTAssertEqualObjects(tReversedArray, tExpectedArray);
+}
+
+- (void)test_array_reversed_array_non_empty_array
+{
+	// Given
+	
+	NSArray * tArray=@[@(1),@(2),@(3)];
+	
+	// When
+	
+	NSArray * tReversedArray=[tArray WB_reversedArray];
+	
+	// Then
+	
+	NSArray * tExpectedArray=@[@(3),@(2),@(1)];
+	
+	XCTAssertEqualObjects(tReversedArray, tExpectedArray);
 }
 
 #pragma mark - WB_arrayByMappingObjectsUsingBlock

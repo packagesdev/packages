@@ -12,6 +12,8 @@
 		F46FA17A1DB9433E001D3FA8 /* unit_tests_NSString.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1791DB9433E001D3FA8 /* unit_tests_NSString.m */; };
 		F46FA1861DB95C37001D3FA8 /* NSDictionary+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1851DB95C37001D3FA8 /* NSDictionary+WBExtensions.m */; };
 		F46FA1871DB95C37001D3FA8 /* NSDictionary+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1851DB95C37001D3FA8 /* NSDictionary+WBExtensions.m */; };
+		F47477791DD5208A00FFA81F /* NSArray+Reverse.m in Sources */ = {isa = PBXBuildFile; fileRef = F47477771DD5208A00FFA81F /* NSArray+Reverse.m */; };
+		F474777A1DD5209100FFA81F /* NSArray+Reverse.m in Sources */ = {isa = PBXBuildFile; fileRef = F47477771DD5208A00FFA81F /* NSArray+Reverse.m */; };
 		F47C701D1DB18FDE00624BC4 /* NSArray+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C701B1DB18FDE00624BC4 /* NSArray+WBExtensions.m */; };
 		F47C701E1DB18FDE00624BC4 /* NSArray+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C701B1DB18FDE00624BC4 /* NSArray+WBExtensions.m */; };
 		F47C70201DB1901000624BC4 /* unit_tests_NSDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C701F1DB1901000624BC4 /* unit_tests_NSDictionary.m */; };
@@ -27,6 +29,8 @@
 		F46FA1791DB9433E001D3FA8 /* unit_tests_NSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = unit_tests_NSString.m; sourceTree = "<group>"; };
 		F46FA1841DB95C37001D3FA8 /* NSDictionary+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBExtensions.h"; path = "../../Foundation + Extensions/NSDictionary+WBExtensions.h"; sourceTree = "<group>"; };
 		F46FA1851DB95C37001D3FA8 /* NSDictionary+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WBExtensions.m"; path = "../../Foundation + Extensions/NSDictionary+WBExtensions.m"; sourceTree = "<group>"; };
+		F47477771DD5208A00FFA81F /* NSArray+Reverse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Reverse.m"; path = "../../Foundation + Extensions/NSArray+Reverse.m"; sourceTree = "<group>"; };
+		F47477781DD5208A00FFA81F /* NSArray+Reverse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Reverse.h"; path = "../../Foundation + Extensions/NSArray+Reverse.h"; sourceTree = "<group>"; };
 		F47C701B1DB18FDE00624BC4 /* NSArray+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WBExtensions.m"; path = "../../Foundation + Extensions/NSArray+WBExtensions.m"; sourceTree = "<group>"; };
 		F47C701C1DB18FDE00624BC4 /* NSArray+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WBExtensions.h"; path = "../../Foundation + Extensions/NSArray+WBExtensions.h"; sourceTree = "<group>"; };
 		F47C701F1DB1901000624BC4 /* unit_tests_NSDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = unit_tests_NSDictionary.m; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 		F4948C561D6FA7FB00FCAB23 /* Foundation Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F47477781DD5208A00FFA81F /* NSArray+Reverse.h */,
+				F47477771DD5208A00FFA81F /* NSArray+Reverse.m */,
 				F47C701C1DB18FDE00624BC4 /* NSArray+WBExtensions.h */,
 				F47C701B1DB18FDE00624BC4 /* NSArray+WBExtensions.m */,
 				F46FA1841DB95C37001D3FA8 /* NSDictionary+WBExtensions.h */,
@@ -224,6 +230,7 @@
 			files = (
 				F46FA1771DB94280001D3FA8 /* NSString+Packages.m in Sources */,
 				F47C701D1DB18FDE00624BC4 /* NSArray+WBExtensions.m in Sources */,
+				F47477791DD5208A00FFA81F /* NSArray+Reverse.m in Sources */,
 				F46FA1861DB95C37001D3FA8 /* NSDictionary+WBExtensions.m in Sources */,
 				F4948C591D6FA81400FCAB23 /* NSIndexPath+Packages.m in Sources */,
 			);
@@ -233,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F474777A1DD5209100FFA81F /* NSArray+Reverse.m in Sources */,
 				F46FA17A1DB9433E001D3FA8 /* unit_tests_NSString.m in Sources */,
 				F47C70201DB1901000624BC4 /* unit_tests_NSDictionary.m in Sources */,
 				F46FA1781DB94280001D3FA8 /* NSString+Packages.m in Sources */,

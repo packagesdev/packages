@@ -15,6 +15,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface NSArray (Reverse)
 
-- (NSArray *)PKG_reversedArray;
+- (NSArray *)WB_reversedArray;
 
 @end

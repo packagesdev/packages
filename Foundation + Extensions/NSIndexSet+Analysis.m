@@ -2,7 +2,7 @@
 
 @implementation NSIndexSet (Analysis)
 
-- (BOOL)PKG_containsOnlyOneRange
+- (BOOL)WB_containsOnlyOneRange
 {
     NSUInteger tCount=[self count];
     
