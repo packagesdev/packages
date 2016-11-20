@@ -42,6 +42,83 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 
 @implementation PKGProject
 
++ (id)projectFromPropertyList:(id)inPropertyList error:(out NSError **)outError
+{
+	if (inPropertyList==nil)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+										  code:PKGFileURLNilError
+									  userInfo:nil];
+		
+		return nil;
+	}
+	
+	if ([inPropertyList isKindOfClass:[NSDictionary class]]==NO)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+										  code:PKGRepresentationInvalidTypeOfValueError
+									  userInfo:nil];
+		
+		return nil;
+	}
+	
+	NSDictionary * tDictionary=inPropertyList;
+	
+	NSNumber * tNumber=tDictionary[PKGProjectTypeKey];
+	
+	if (tNumber==nil)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+										  code:PKGRepresentationInvalidValue
+									  userInfo:@{PKGKeyPathErrorKey:PKGProjectTypeKey}];
+		
+		return nil;
+	}
+	
+	PKGProjectType tProjectType=[tNumber unsignedIntegerValue];
+	
+	NSError * tError=nil;
+	
+	switch(tProjectType)
+	{
+		case PKGProjectTypeDistribution:
+		{
+			PKGDistributionProject * tDistributionProject=[[PKGDistributionProject alloc] initWithRepresentation:tDictionary error:&tError];
+			
+			if (tDistributionProject==nil)
+			{
+				if (outError!=NULL)
+					*outError=tError;
+			}
+			
+			return tDistributionProject;
+		}
+			
+		case PKGProjectTypePackage:
+		{
+			PKGPackageProject * tPackageProject=[[PKGPackageProject alloc] initWithRepresentation:tDictionary error:&tError];
+			
+			if (tPackageProject==nil)
+			{
+				if (outError!=NULL)
+					*outError=tError;
+			}
+			
+			return tPackageProject;
+		}
+	}
+	
+	if (outError!=NULL)
+		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+									  code:PKGRepresentationInvalidValue
+								  userInfo:@{PKGKeyPathErrorKey:PKGProjectTypeKey}];
+	
+	return nil;
+}
+
 + (id)projectWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError
 {
 	NSError * tError=nil;
@@ -84,7 +161,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	return self;
 }
 
-- (id) initWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError
+- (id)initWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError
 {
 	if (inPath==nil)
 	{
@@ -97,7 +174,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	return [self initWithContentsOfURL:[NSURL fileURLWithPath:inPath] error:outError];
 }
 
-- (id) initWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError
+- (id)initWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError
 {
 	if (inURL==nil)
 	{
@@ -123,6 +200,16 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 									  code:PKGRepresentationInvalidTypeOfValueError
 								  userInfo:nil];
 		}
+		
+		return nil;
+	}
+	
+	if ([tDictionary isKindOfClass:[NSDictionary class]]==NO)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+										  code:PKGRepresentationInvalidTypeOfValueError
+									  userInfo:nil];
 		
 		return nil;
 	}
@@ -182,7 +269,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 
 #pragma mark -
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -192,7 +279,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -213,7 +300,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
