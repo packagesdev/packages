@@ -1,0 +1,24 @@
+//
+// Prefix header for all source files of the 'Packages' target in the 'Ivanhoe' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+#ifndef NSAppKitVersionNumber10_9
+#define NSAppKitVersionNumber10_9 1265
+#endif
+
+#ifndef NSAppKitVersionNumber10_10
+#define NSAppKitVersionNumber10_10 1343
+#endif
+
+// Foundation Extensions
+
+#import "NSArray+WBExtensions.h"
+#import "NSDictionary+WBExtensions.h"
+
+// AppKit Extensions
+
+#import "NSViewController+WBExtensions.h"

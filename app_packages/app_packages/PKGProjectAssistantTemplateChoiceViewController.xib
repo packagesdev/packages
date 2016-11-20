@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7525" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7525"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGProjectAssistantTemplateChoiceViewController">
+            <connections>
+                <outlet property="_collectionView" destination="XP6-fQ-J7a" id="0d2-bK-A7s"/>
+                <outlet property="_templateDescriptionLabel" destination="r1a-sO-S34" id="Ccf-qi-dIP"/>
+                <outlet property="_templateIcon" destination="7oR-Ao-1mO" id="cVI-b4-R81"/>
+                <outlet property="_templateNameLabel" destination="tsb-Ok-Qsm" id="528-Wl-EYc"/>
+                <outlet property="view" destination="Lsu-75-rW0" id="zH5-gi-YTL"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Lsu-75-rW0" userLabel="Type Choice">
+            <rect key="frame" x="0.0" y="0.0" width="640" height="345"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="3Qe-xE-qTj">
+                    <rect key="frame" x="17" y="308" width="242" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Choose a template for your project:" id="9n4-i2-g51">
+                        <font key="font" metaFont="systemBold"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView id="XHU-CG-7er" customClass="WBWhiteFramedView">
+                    <rect key="frame" x="20" y="20" width="600" height="133"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView id="7oR-Ao-1mO">
+                            <rect key="frame" x="9" y="80" width="48" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="GZn-BQ-FN2"/>
+                        </imageView>
+                        <textField verticalHuggingPriority="750" id="tsb-Ok-Qsm">
+                            <rect key="frame" x="65" y="94" width="515" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="Foy-Nj-lsb">
+                                <font key="font" metaFont="systemBold" size="17"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="r1a-sO-S34">
+                            <rect key="frame" x="12" y="20" width="571" height="52"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="BwL-4S-Cf0">
+                                <font key="font" metaFont="smallSystem"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                </customView>
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="neF-R3-D52">
+                    <rect key="frame" x="20" y="161" width="600" height="139"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" id="Bub-kB-2eB">
+                        <rect key="frame" x="1" y="1" width="598" height="137"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView selectable="YES" maxNumberOfRows="1" id="XP6-fQ-J7a" customClass="WBCollectionView">
+                                <rect key="frame" x="0.0" y="0.0" width="248" height="158"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="FIg-Kd-MZQ"/>
+                                    <outlet property="itemPrototype" destination="dqE-nn-aIj" id="cEs-tv-e7J"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ER6-UF-qMn">
+                        <rect key="frame" x="1" y="144" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="eoB-mj-jn8">
+                        <rect key="frame" x="234" y="1" width="15" height="143"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <point key="canvasLocation" x="599" y="430.5"/>
+        </customView>
+        <collectionViewItem nibName="PKGProjectTemplateCollectionViewItem" id="dqE-nn-aIj" customClass="PKGProjectTemplateCollectionViewItem"/>
+    </objects>
+</document>

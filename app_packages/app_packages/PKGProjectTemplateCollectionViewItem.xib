@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7525" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7525"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGProjectTemplateCollectionViewItem">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="Y2x-eW-MBU"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="PKGProjectTemplateCollectionViewItemView">
+            <rect key="frame" x="0.0" y="1" width="140" height="133"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="TLY-LP-Z7P" customClass="PKGProjectTemplateCollectionViewItemLabel">
+                    <rect key="frame" x="5" y="7" width="130" height="19"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="X2n-wO-v7a">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView id="1dh-ZY-wfR" customClass="PKGProjectTemplateCollectionViewItemSelectionView">
+                    <rect key="frame" x="26" y="29" width="88" height="88"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="veu-CM-IoF">
+                            <rect key="frame" x="12" y="12" width="64" height="64"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="FqY-Bm-qid"/>
+                        </imageView>
+                    </subviews>
+                </customView>
+            </subviews>
+            <connections>
+                <outlet property="_imageView" destination="veu-CM-IoF" id="wrS-1z-mRw"/>
+                <outlet property="_label" destination="TLY-LP-Z7P" id="pgk-j3-DR5"/>
+                <outlet property="_selectionView" destination="1dh-ZY-wfR" id="7B9-jU-JfS"/>
+            </connections>
+            <point key="canvasLocation" x="308" y="308.5"/>
+        </customView>
+    </objects>
+</document>
