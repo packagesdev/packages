@@ -45,7 +45,7 @@ NSString * const PKGRequirementFailureMessageSecondaryValueKey=@"SECONDARY_VALUE
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -67,7 +67,7 @@ NSString * const PKGRequirementFailureMessageSecondaryValueKey=@"SECONDARY_VALUE
 		
 		if (tString!=nil)
 		{
-			if ([tString isKindOfClass:[NSString class]]==NO)
+			if ([tString isKindOfClass:NSString.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

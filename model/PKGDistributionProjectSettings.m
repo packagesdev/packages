@@ -69,7 +69,7 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 	}
 	else
 	{
-		if ([tDictionary isKindOfClass:[NSDictionary class]]==NO)
+		if ([tDictionary isKindOfClass:NSDictionary.class]==NO)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

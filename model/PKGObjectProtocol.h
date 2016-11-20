@@ -36,13 +36,13 @@ if ([(object) isKindOfClass:class]==NO)\
 }\
 
 
-#define PKGFullCheckStringValueForKey(string,key) PKGFullCheckObjectValueForKey([NSString class],string,key)
-#define PKGFullCheckNumberValueForKey(number,key) PKGFullCheckObjectValueForKey([NSNumber class],number,key)
-#define PKGFullCheckArrayValueForKey(array,key) PKGFullCheckObjectValueForKey([NSArray class],array,key)
-#define PKGFullCheckDictionaryValueForKey(dictionary,key) PKGFullCheckObjectValueForKey([NSDictionary class],dictionary,key)
+#define PKGFullCheckStringValueForKey(string,key) PKGFullCheckObjectValueForKey(NSString.class,string,key)
+#define PKGFullCheckNumberValueForKey(number,key) PKGFullCheckObjectValueForKey(NSNumber.class,number,key)
+#define PKGFullCheckArrayValueForKey(array,key) PKGFullCheckObjectValueForKey(NSArray.class,array,key)
+#define PKGFullCheckDictionaryValueForKey(dictionary,key) PKGFullCheckObjectValueForKey(NSDictionary.class,dictionary,key)
 
 
-#define PKGClassCheckStringValueForKey(string,key) if ((string)!=nil && [(string) isKindOfClass:[NSString class]]==NO)\
+#define PKGClassCheckStringValueForKey(string,key) if ((string)!=nil && [(string) isKindOfClass:NSString.class]==NO)\
 {\
 	if (outError!=NULL)\
 		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain\

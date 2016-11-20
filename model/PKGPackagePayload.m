@@ -74,7 +74,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -106,7 +106,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		}
 		else
 		{
-			if ([_defaultInstallLocation isKindOfClass:[NSString class]]==NO)
+			if ([_defaultInstallLocation isKindOfClass:NSString.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

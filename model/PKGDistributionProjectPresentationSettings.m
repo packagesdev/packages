@@ -51,7 +51,7 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -69,7 +69,7 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 		
 		if (inRepresentation[PKGPresentationInstallationStepsKey]!=nil)
 		{
-			if ([inRepresentation[PKGPresentationInstallationStepsKey] isKindOfClass:[NSArray class]]==NO)
+			if ([inRepresentation[PKGPresentationInstallationStepsKey] isKindOfClass:NSArray.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

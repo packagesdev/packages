@@ -19,7 +19,7 @@
 
 + (Class) valueClass
 {
-	return [PKGFilePath class];
+	return PKGFilePath.class;
 }
 
 #pragma mark -

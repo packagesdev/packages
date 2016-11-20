@@ -68,7 +68,7 @@ NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -95,7 +95,7 @@ NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 		}
 		else
 		{
-			_localizedTitles=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfTitleKey] ofLocalizationsOfValueOfClass:[NSString class] error:&tError];
+			_localizedTitles=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfTitleKey] ofLocalizationsOfValueOfClass:NSString.class error:&tError];
 		
 			if (_localizedTitles==nil)
 			{
@@ -121,7 +121,7 @@ NSString * const PKGChoiceItemOptionsKey=@"OPTIONS";
 		}
 		else
 		{
-			_localizedDescriptions=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfDescriptionKey] ofLocalizationsOfValueOfClass:[NSString class] error:&tError];
+			_localizedDescriptions=[NSMutableDictionary PKG_dictionaryWithRepresentations:inRepresentation[PKGChoiceItemLocalizationsOfDescriptionKey] ofLocalizationsOfValueOfClass:NSString.class error:&tError];
 		
 			if (_localizedDescriptions==nil)
 			{
@@ -282,7 +282,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 		
 		if (inRepresentation[PKGChoicePackageItemRequirementsKey]!=nil)
 		{
-			if ([inRepresentation[PKGChoicePackageItemRequirementsKey] isKindOfClass:[NSArray class]]==NO)
+			if ([inRepresentation[PKGChoicePackageItemRequirementsKey] isKindOfClass:NSArray.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

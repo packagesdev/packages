@@ -240,7 +240,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];

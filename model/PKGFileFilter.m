@@ -54,7 +54,7 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -80,7 +80,7 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 		
 		_regularExpression=[inRepresentation[PKGFilePredicateRegularExpressionKey] boolValue];
 		
-		if ([inRepresentation[PKGFilePredicatePatternKey] isKindOfClass:[NSString class]]==NO)
+		if ([inRepresentation[PKGFilePredicatePatternKey] isKindOfClass:NSString.class]==NO)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -286,7 +286,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -308,7 +308,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationNilRepresentationError userInfo:nil];
 		}
 		
-		if ([inRepresentation[PKGFileFilterPredicatesKey] isKindOfClass:[NSArray class]]==NO)
+		if ([inRepresentation[PKGFileFilterPredicatesKey] isKindOfClass:NSArray.class]==NO)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

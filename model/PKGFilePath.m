@@ -85,7 +85,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -190,7 +190,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	if (inFilePath==nil)
 		return NO;
 	
-	if ([inFilePath isKindOfClass:[PKGFilePath class]]==NO)
+	if ([inFilePath isKindOfClass:PKGFilePath.class]==NO)
 		return NO;
 	
 	if (self.type!=inFilePath.type)

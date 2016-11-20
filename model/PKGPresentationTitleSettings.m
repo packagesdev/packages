@@ -17,7 +17,7 @@
 
 + (Class) valueClass
 {
-	return [NSString class];
+	return NSString.class;
 }
 
 #pragma mark -

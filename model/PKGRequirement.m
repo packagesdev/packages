@@ -75,7 +75,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -150,7 +150,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		
 		if (tArray!=nil)
 		{
-			if ([tArray isKindOfClass:[NSArray class]]==NO)
+			if ([tArray isKindOfClass:NSArray.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -178,7 +178,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 					return;
 				}
 				
-				if ([tLanguageName isKindOfClass:[NSString class]]==NO)
+				if ([tLanguageName isKindOfClass:NSString.class]==NO)
 				{
 					tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 											   code:PKGRepresentationInvalidTypeOfValueError

@@ -141,7 +141,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	}
 	else
 	{
-		if ([inRepresentation[PKGPayloadBundleItemLocatorsKey] isKindOfClass:[NSArray class]]==NO)
+		if ([inRepresentation[PKGPayloadBundleItemLocatorsKey] isKindOfClass:NSArray.class]==NO)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

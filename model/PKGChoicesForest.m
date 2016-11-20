@@ -22,9 +22,9 @@
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
 {
 	if ([PKGChoiceGroupItem isRepresentationOfGroupChoiceItem:inRepresentation]==YES)
-		return [PKGChoiceGroupItem class];
+		return PKGChoiceGroupItem.class;
 	
-	return [PKGChoicePackageItem class];
+	return PKGChoicePackageItem.class;
 }
 
 - (NSString *)description
@@ -86,7 +86,7 @@
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSArray class]]==NO)
+	if ([inRepresentation isKindOfClass:NSArray.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -121,7 +121,7 @@
 {
 	if (_rootNodes==nil)
 	{
-		if (_cachedRepresentation!=nil && [_cachedRepresentation isKindOfClass:[NSArray class]]==YES)
+		if (_cachedRepresentation!=nil && [_cachedRepresentation isKindOfClass:NSArray.class]==YES)
 		{
 			__block NSError * tError=nil;
 			

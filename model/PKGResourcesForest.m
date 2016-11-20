@@ -21,7 +21,7 @@
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
 {
-	return [PKGFileItem class];
+	return PKGFileItem.class;
 }
 
 @end
@@ -59,7 +59,7 @@
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSArray class]]==NO)
+	if ([inRepresentation isKindOfClass:NSArray.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];

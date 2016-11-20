@@ -153,7 +153,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 		}
 		else
 		{
-			if ([inRepresentation[PKGDistributionProjectPackagesComponentsKey] isKindOfClass:[NSArray class]]==NO)
+			if ([inRepresentation[PKGDistributionProjectPackagesComponentsKey] isKindOfClass:NSArray.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -196,7 +196,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 		}
 		else
 		{
-			if ([inRepresentation[PKGDistributionProjectSharedProjectDataKey] isKindOfClass:[NSDictionary class]]==NO)
+			if ([inRepresentation[PKGDistributionProjectSharedProjectDataKey] isKindOfClass:NSDictionary.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

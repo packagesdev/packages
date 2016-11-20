@@ -24,7 +24,7 @@ NSString * const PKGValueKey=@"VALUE";
 
 + (NSMutableDictionary *)PKG_dictionaryWithRepresentations:(NSArray *) inArray ofLocalizationsOfValueOfClass:(Class)inClass error:(out NSError **)outError
 {
-	if ([inArray isKindOfClass:[NSArray class]]==NO)
+	if ([inArray isKindOfClass:NSArray.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -52,7 +52,7 @@ NSString * const PKGValueKey=@"VALUE";
 			return;
 		}
 		
-		if ([tLanguageName isKindOfClass:[NSString class]]==NO)
+		if ([tLanguageName isKindOfClass:NSString.class]==NO)
 		{
 			tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 									   code:PKGRepresentationInvalidTypeOfValueError
@@ -92,7 +92,7 @@ NSString * const PKGValueKey=@"VALUE";
 		
 		id tValue=nil;
 		
-		if ([tValueRepresentation isKindOfClass:[NSDictionary class]]==YES && [inClass conformsToProtocol:@protocol(PKGObjectProtocol)]==YES)
+		if ([tValueRepresentation isKindOfClass:NSDictionary.class]==YES && [inClass conformsToProtocol:@protocol(PKGObjectProtocol)]==YES)
 		{
 			NSError * tValueError=nil;
 			

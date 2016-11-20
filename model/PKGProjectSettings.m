@@ -49,7 +49,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -111,7 +111,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		
 		if (tCertificateRepresentation!=nil)
 		{
-			if ([tCertificateRepresentation isKindOfClass:[NSDictionary class]]==NO)
+			if ([tCertificateRepresentation isKindOfClass:NSDictionary.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

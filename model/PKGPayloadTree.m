@@ -39,10 +39,10 @@
 	if (inRepresentation!=nil)
 	{
 		if ([PKGPayloadBundleItem isRepresentationOfBundleItem:inRepresentation])
-			return [PKGPayloadBundleItem class];
+			return PKGPayloadBundleItem.class;
 	}
 	
-	return [PKGFileItem class];
+	return PKGFileItem.class;
 }
 
 #pragma mark -
@@ -139,7 +139,7 @@
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -180,6 +180,8 @@
 			
 			if (_rootNode==nil)
 			{
+				//NSLog(@"%@ %d %@",tError.domain,(int)tError.code,tError.userInfo);
+				
 				// A COMPLETER
 			}
 			

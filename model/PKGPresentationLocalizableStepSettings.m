@@ -26,7 +26,7 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 
 + (Class) valueClass
 {
-	return [NSObject class];
+	return NSObject.class;
 }
 
 - (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError

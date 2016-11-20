@@ -93,7 +93,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		return nil;
 	}
 	
-	if ([inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
@@ -136,7 +136,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		}
 		else
 		{
-			if ([tChildrenRepresentation isKindOfClass:[NSArray class]]==NO)
+			if ([tChildrenRepresentation isKindOfClass:NSArray.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

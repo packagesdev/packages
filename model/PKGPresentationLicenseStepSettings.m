@@ -27,7 +27,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 
 + (Class)valueClass
 {
-	return [PKGFilePath class];
+	return PKGFilePath.class;
 }
 
 - (id)init
@@ -79,7 +79,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 		
 		if (inRepresentation[PKGPresentationLicenseTemplateKeywordsKey]!=nil)
 		{
-			if ([inRepresentation[PKGPresentationLicenseTemplateKeywordsKey] isKindOfClass:[NSDictionary class]]==NO)
+			if ([inRepresentation[PKGPresentationLicenseTemplateKeywordsKey] isKindOfClass:NSDictionary.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

@@ -58,7 +58,7 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 		}
 		else
 		{
-			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -101,7 +101,7 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 		}
 		else
 		{
-			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -132,7 +132,7 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 		}
 		else
 		{
-			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain

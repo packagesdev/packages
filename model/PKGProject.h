@@ -42,6 +42,8 @@ extern NSString * const PKGProjectCommentsKey;
 
 	@property PKGProjectComments * comments;
 
++ (id)projectFromPropertyList:(id)inPropertyList error:(out NSError **)outError;
+
 + (id)projectWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError;
 + (id)projectWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError;
 
