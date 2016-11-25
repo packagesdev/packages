@@ -6,6 +6,10 @@
     #import <Cocoa/Cocoa.h>
 #endif
 
+#ifndef MAC_OS_X_VERSION_10_10
+#define MAC_OS_X_VERSION_10_10      101000
+#endif
+
 #ifndef NSAppKitVersionNumber10_9
 #define NSAppKitVersionNumber10_9 1265
 #endif
