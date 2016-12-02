@@ -3,8 +3,6 @@
 
 @interface PKGViewController : NSViewController
 
-- (BOOL)PKG_viewCanBeRemoved:(id) sender;
-
-- (void)PKG_viewWillBeRemoved:(id) sender;
+- (BOOL)PKG_viewCanBeRemoved;
 
 @end

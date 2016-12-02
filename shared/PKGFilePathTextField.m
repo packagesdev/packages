@@ -27,7 +27,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 + (Class) cellClass
 {
-    return [PKGFilePathTextFieldCell class];
+    return PKGFilePathTextFieldCell.class;
 }
 
 + (void) setCellClass:(Class) inClass

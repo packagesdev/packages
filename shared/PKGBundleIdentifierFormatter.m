@@ -22,7 +22,7 @@
 
 @implementation PKGBundleIdentifierFormatter
 
-- (id) init
+- (id)init
 {
 	self=[super init];
 	
@@ -36,15 +36,15 @@
 
 #pragma mark -
 
-- (NSString *) stringForObjectValue:(id) inObject
+- (NSString *)stringForObjectValue:(id) inObject
 {
-    if ([inObject isKindOfClass:[NSString class]]==NO)
+    if ([inObject isKindOfClass:NSString.class]==NO)
 		return inObject;
     
     return inObject;
 }
 
-- (BOOL) getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(out NSString **) outError
+- (BOOL)getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(out NSString **) outError
 {
     *outObject=[inString copy];
 	
@@ -53,27 +53,23 @@
 
 #pragma mark -
 
-- (BOOL) isPartialStringValid:(NSString *) inPartialString newEditingString:(NSString **) outNewString errorDescription:(out NSString **) outError
+- (BOOL)isPartialStringValid:(NSString *) inPartialString newEditingString:(NSString **) outNewString errorDescription:(out NSString **) outError
 {
     NSUInteger tLength=[inPartialString length];
-    
-    if (tLength>0)
-    {
-        NSRange tRange=[inPartialString rangeOfCharacterFromSet:_forbiddenCharacterSet];
-		
-		if (tRange.location!=NSNotFound)
-		{
-			if (outNewString!=NULL)
-				*outNewString=nil;
+    if (tLength==0)
+		return YES;
+	
+	NSRange tRange=[inPartialString rangeOfCharacterFromSet:_forbiddenCharacterSet];
+	if (tRange.location==NSNotFound)
+		return YES;
+	
+	if (outNewString!=NULL)
+		*outNewString=nil;
 			
-			if (outError!=NULL)
-				*outError=@"Error";
+	if (outError!=NULL)
+		*outError=@"Error";
 			
-			return NO;
-		}
-    }
-    
-    return YES;
+	return NO;
 }
 
 @end

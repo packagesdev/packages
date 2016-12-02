@@ -14,6 +14,7 @@
 		F40BCAC21C7CDB2D00713F23 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */; };
 		F40BCAC41C7CDB4000713F23 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCAC31C7CDB4000713F23 /* libcrypto.dylib */; };
 		F46FA1951DB97407001D3FA8 /* NSDictionary+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */; };
+		F477A1371DF22B4C00CA546B /* PKGPayloadTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */; };
 		F481B3741CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F481B3731CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m */; };
 		F481B37A1CBD8ACF0063F4CD /* NSString+Packages.m in Sources */ = {isa = PBXBuildFile; fileRef = F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */; };
 		F481B3941CBD8C9C0063F4CD /* libxar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F481B38E1CBD8C530063F4CD /* libxar.a */; };
@@ -128,6 +129,9 @@
 		F40BCAC31C7CDB4000713F23 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		F46FA1931DB97407001D3FA8 /* NSDictionary+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBExtensions.h"; path = "../Foundation + Extensions/NSDictionary+WBExtensions.h"; sourceTree = "<group>"; };
 		F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WBExtensions.m"; path = "../Foundation + Extensions/NSDictionary+WBExtensions.m"; sourceTree = "<group>"; };
+		F477A1341DF22B4C00CA546B /* PKGRootNodesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRootNodesProtocol.h; path = ../model/PKGRootNodesProtocol.h; sourceTree = "<group>"; };
+		F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPayloadTreeNode.m; path = ../model/PKGPayloadTreeNode.m; sourceTree = "<group>"; };
+		F477A1361DF22B4C00CA546B /* PKGPayloadTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPayloadTreeNode.h; path = ../model/PKGPayloadTreeNode.h; sourceTree = "<group>"; };
 		F481B3721CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBundleIdentifierFormatter.h; path = ../shared/PKGBundleIdentifierFormatter.h; sourceTree = "<group>"; };
 		F481B3731CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBundleIdentifierFormatter.m; path = ../shared/PKGBundleIdentifierFormatter.m; sourceTree = "<group>"; };
 		F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Packages.m"; path = "../Foundation + Extensions/NSString+Packages.m"; sourceTree = "<group>"; };
@@ -376,6 +380,9 @@
 				F4A786011CB4674600FC07B8 /* PKGPayloadBundleItem.m */,
 				F4A786021CB4674600FC07B8 /* PKGPayloadTree.h */,
 				F4A786031CB4674600FC07B8 /* PKGPayloadTree.m */,
+				F477A1341DF22B4C00CA546B /* PKGRootNodesProtocol.h */,
+				F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */,
+				F477A1361DF22B4C00CA546B /* PKGPayloadTreeNode.h */,
 				F4A785FC1CB4674600FC07B8 /* PKGPackageScriptsAndResources.h */,
 				F4A785FD1CB4674600FC07B8 /* PKGPackageScriptsAndResources.m */,
 				F4A785E41CB4674600FC07B8 /* PKGDistributionProject.h */,
@@ -588,6 +595,7 @@
 				F4A7862F1CB4674600FC07B8 /* PKGDistributionProject.m in Sources */,
 				F4A786281CB4674600FC07B8 /* NSMutableDictionary+PKGLocalizedValues.m in Sources */,
 				F4A786481CB4674600FC07B8 /* PKGProject.m in Sources */,
+				F477A1371DF22B4C00CA546B /* PKGPayloadTreeNode.m in Sources */,
 				F4A786351CB4674600FC07B8 /* PKGLocator.m in Sources */,
 				F4A786381CB4674600FC07B8 /* PKGPackageProject.m in Sources */,
 			);
