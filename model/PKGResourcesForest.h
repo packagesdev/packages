@@ -13,15 +13,15 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGTreeNode.h"
+#import "PKGRootNodesProtocol.h"
 
-#import "PKGFileItem.h"
+#import "PKGPayloadTreeNode.h"
 
-@interface PKGResourcesTreeNode : PKGTreeNode
+@interface PKGResourcesTreeNode : PKGPayloadTreeNode
 
 @end
 
-@interface PKGResourcesForest : NSObject
+@interface PKGResourcesForest : NSObject <PKGRootNodesProtocol>
 
 	@property (nonatomic) NSMutableArray * rootNodes;
 

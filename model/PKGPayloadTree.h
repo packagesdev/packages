@@ -13,23 +13,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGTreeNode.h"
-
 #import "PKGObjectProtocol.h"
+#import "PKGRootNodesProtocol.h"
 
-#import "PKGFileItem.h"
-#import "PKGPayloadBundleItem.h"
-
-@interface PKGPayloadTreeNode : PKGTreeNode
-
-- (PKGPayloadTreeNode *)descendantNodeAtPath:(NSString *)inPath;
-
-- (NSUInteger)optimizePayloadHierarchy;	// Return the number of children
-
-@end
+#import "PKGPayloadTreeNode.h"
 
 
-@interface PKGPayloadTree : NSObject <PKGObjectProtocol>
+@interface PKGPayloadTree : NSObject <PKGObjectProtocol,PKGRootNodesProtocol>
 
 	@property (nonatomic) PKGPayloadTreeNode * rootNode;
 

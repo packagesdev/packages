@@ -19,7 +19,19 @@ NSString * const PKGProjectCommentsHTMLDataKey=@"NOTES";
 
 @implementation PKGProjectComments
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_htmlData=[NSData data];
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -47,7 +59,7 @@ NSString * const PKGProjectCommentsHTMLDataKey=@"NOTES";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
@@ -59,7 +71,7 @@ NSString * const PKGProjectCommentsHTMLDataKey=@"NOTES";
 
 #pragma mark -
 
-- (NSString *) description
+- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	

@@ -41,4 +41,6 @@ typedef NS_ENUM(NSUInteger, PKGPayloadType)
 
 + (instancetype)emptyPayload;
 
+- (instancetype)initWithDefaultHierarchy:(NSDictionary *)inDefaultHierarchy error:(out NSError **)outError;
+
 @end

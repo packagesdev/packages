@@ -157,6 +157,8 @@ NSString * const PKGPackageProjectPackageScriptsAndResources=@"PACKAGE_SCRIPTS";
 			}
 		}
 		
+		// Can be nil
+		
 		self.comments=[[PKGProjectComments alloc] initWithRepresentation:tProjectDictionary[PKGProjectCommentsKey] error:&tError];
 		
 		if (self.comments==nil)

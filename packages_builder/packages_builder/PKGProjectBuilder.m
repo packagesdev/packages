@@ -66,6 +66,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "PKGCertificatesUtilities.h"
 
 #import "PKGLanguageManager.h"
+#import "PKGPayloadBundleItem.h"
 
 
 #define SIGNATURE_REQUEST_TIME_OUT		10*60.0f // 10 minutes

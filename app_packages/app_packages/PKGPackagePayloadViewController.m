@@ -11,77 +11,15 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGCommentsViewController.h"
+#import "PKGPackagePayloadViewController.h"
 
-@interface PKGCommentsViewController () <NSTextDelegate>
+#import "PKGApplicationPreferences.h"
+
+@implementation PKGPackagePayloadViewController
+
+- (NSUInteger)tag
 {
-	IBOutlet NSTextView * _textView;
-}
-
-@end
-
-@implementation PKGCommentsViewController
-
-- (NSString *)nibName
-{
-	return @"PKGCommentsViewController";
-}
-
-#pragma mark -
-
-- (void)WB_viewWillAdd
-{
-	NSData * tData=self.comments.htmlData;
-	
-	if (tData.length==0)
-	{
-		[_textView setString:@""];
-		return;
-	}
-	
-	NSTextStorage * tTextStorage=_textView.textStorage;
-	
-	[tTextStorage beginEditing];
-	
-	NSDictionary * tAttributesDictionary;
-	[tTextStorage readFromData:tData
-					   options:@{NSDocumentTypeDocumentOption:NSHTMLTextDocumentType}
-			documentAttributes:&tAttributesDictionary
-						 error:NULL];
-	
-	[tTextStorage endEditing];
-}
-
-- (void)WB_viewDidAdd
-{
-	[self.view.window makeFirstResponder:_textView];
-}
-
-#pragma mark - NSTextDelegate
-
-- (void)textDidChange:(NSNotification *)inNotification
-{
-	if (inNotification.object!=_textView)
-		return;
-	
-	NSTextStorage * tTextStorage=[_textView textStorage];
-	
-	NSError * tError;
-	NSData * tData=[tTextStorage dataFromRange:NSMakeRange(0,[tTextStorage length])
-							documentAttributes:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType}
-										 error:&tError];
-	
-	if (tData==nil)
-	{
-		
-		return;
-	}
-	
-	self.comments.htmlData=tData;
-	
-	// Note change
-	
-	[self noteDocumentHasChanged];
+	return PKGPreferencesGeneralPackageProjectPanePayload;
 }
 
 @end

@@ -138,6 +138,8 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 			return nil;
 		}
 		
+		// can be nil
+		
 		_payload=[[PKGPackagePayload alloc] initWithRepresentation:inRepresentation[PKGPackageComponentPayloadKey] error:&tError];
 		
 		if (_payload==nil)
@@ -159,6 +161,8 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 				return nil;
 			}
 		}
+		
+		// can be nil
 		
 		_scriptsAndResources=[[PKGPackageScriptsAndResources alloc] initWithRepresentation:inRepresentation[PKGPackageComponentScriptsAndResourcesKey] error:&tError];
 		
