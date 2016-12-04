@@ -22,10 +22,10 @@
 {
 	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
 	
-	if (tFileItem.type==PKGFileItemTypeFileSystemItem)
-		return (self.numberOfChildren==0);	// A COMPLETER
+	if (tFileItem.type!=PKGFileItemTypeFileSystemItem)
+		return NO;
 	
-	return NO;
+	return ([tFileItem isContentsDisclosed]==NO);
 }
 
 #pragma mark -
