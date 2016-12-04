@@ -255,7 +255,7 @@ extended_attributes_bail:
 	{
 		// A COMPLETER
 		
-		return nil;
+		return NO;
 	}
 	
 	int tFileDescriptor=open(tCPath,O_RDONLY|O_NOFOLLOW);
@@ -265,7 +265,7 @@ extended_attributes_bail:
 		int tError=errno;
 		
 		if (tError==ELOOP)	// Symbolic link
-			return [NSDictionary dictionary];
+			return YES;
 		
 		if (outError!=NULL)
 		{
@@ -283,7 +283,7 @@ extended_attributes_bail:
 			}
 		}
 		
-		return nil;
+		return NO;
 	}
 	
 	__block BOOL tSucceeded=YES;
