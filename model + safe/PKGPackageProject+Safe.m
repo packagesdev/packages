@@ -11,7 +11,9 @@
 		
 		if (tPath==nil)
 		{
-			// A COMPLETER
+			NSLog(@"DefaultFileHierachy.plist file not found");
+			
+			return nil;
 		}
 		
 		NSError * tError=nil;
