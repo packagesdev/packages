@@ -13,6 +13,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "PKGProject.h"
+
 @interface PKGDocument : NSDocument
+
+	@property (readonly) PKGProject * project;
 
 @end

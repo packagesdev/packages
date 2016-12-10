@@ -13,8 +13,16 @@
 
 #import "PKGViewController.h"
 
+#import "PKGFilePath.h"
+
+#import "PKGProject.h"
+
 @interface PKGDocumentViewController : PKGViewController
 
 - (void)noteDocumentHasChanged;
+
+- (id<PKGFilePathConverter>)filePathConverter;
+
+- (PKGProject *)project;
 
 @end

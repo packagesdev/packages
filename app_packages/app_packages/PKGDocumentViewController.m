@@ -13,6 +13,8 @@
 
 #import "PKGDocumentViewController.h"
 
+#import "PKGDocument.h"
+
 @interface PKGDocumentViewController ()
 
 @end
@@ -22,6 +24,16 @@
 - (void)noteDocumentHasChanged
 {
 	[((NSWindowController *) self.view.window.windowController).document updateChangeCount:NSChangeDone];
+}
+
+- (id<PKGFilePathConverter>)filePathConverter
+{
+	return ((NSWindowController *) self.view.window.windowController).document;
+}
+
+- (PKGProject *)project
+{
+	return ((PKGDocument *) ((NSWindowController *) self.view.window.windowController).document).project;
 }
 
 @end

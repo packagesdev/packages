@@ -13,7 +13,7 @@
 
 #import "PKGDocument.h"
 
-#import "PKGProject.h"
+
 
 #import "PKGPackageProjectMainViewController.h"
 #import "PKGDistributionProjectMainViewController.h"
@@ -25,10 +25,10 @@
 
 @interface PKGDocument ()
 {
-	PKGProject * _project;
-	
 	PKGProjectMainViewController * _projectMainViewController;
 }
+
+	@property (readwrite) PKGProject * project;
 
 - (IBAction)build:(id)sender;
 
@@ -54,7 +54,7 @@
 {
     [super windowControllerDidLoadNib:aController];
 	
-	switch(_project.type)
+	switch(self.project.type)
 	{
 		case PKGProjectTypeDistribution:
 			
@@ -69,7 +69,7 @@
 			break;
 	}
 	
-	_projectMainViewController.project=_project;
+	_projectMainViewController.project=self.project;
 	
 	NSWindow * tDocumentMainWindow=self.windowForSheet;
 	
@@ -92,7 +92,7 @@
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
-	id tPropertyList=[_project representation];
+	id tPropertyList=[self.project representation];
 	
 	if (tPropertyList==nil)
 	{
@@ -128,9 +128,9 @@
 		return NO;
 	}
 	
-	_project=[PKGProject projectFromPropertyList:tPropertyList error:&tError];
+	self.project=[PKGProject projectFromPropertyList:tPropertyList error:&tError];
 	
-	if (_project==nil)
+	if (self.project==nil)
 	{
 		
 		return NO;
