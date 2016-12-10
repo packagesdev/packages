@@ -17,11 +17,13 @@
 
 @interface PKGPayloadTreeNode : PKGTreeNode
 
+- (void)insertSortedChild:(PKGPayloadTreeNode *)inPayloadTreeNode;
+
 - (PKGPayloadTreeNode *)descendantNodeAtPath:(NSString *)inPath;
 
 - (NSUInteger)optimizePayloadHierarchy;	// Return the number of children
 
-- (BOOL)hasRealChildren;
+- (BOOL)containsNotTemplateNodeDescendants;
 
 
 @end
