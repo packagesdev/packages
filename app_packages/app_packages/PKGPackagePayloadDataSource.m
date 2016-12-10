@@ -13,37 +13,24 @@
 
 #import "PKGPackagePayloadDataSource.h"
 
-#import "PKGTreeNode.h"
+#import "PKGPayloadTreeNode.h"
 
 @implementation PKGPackagePayloadDataSource
 
-#pragma mark - NSOutlineViewDataSource
+#pragma mark - PKGFileDeadDropViewDelegate
 
-- (NSInteger)outlineView:(NSOutlineView *)inOutlineView numberOfChildrenOfItem:(id)inItem
+- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView validateDropFiles:(NSArray *) inFilenames
 {
-	if (inItem==nil)
-		return self.rootNodes.count;
+	// A COMPLETER
 	
-	PKGTreeNode * tTreeNode=(PKGTreeNode *)inItem;
-	
-	return tTreeNode.numberOfChildren;
+	return YES;
 }
 
-- (id)outlineView:(NSOutlineView *)inOutlineView child:(NSInteger)inIndex ofItem:(id)inItem
+- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView acceptDropFiles:(NSArray *) inFilenames
 {
-	if (inItem==nil)
-		return self.rootNodes[inIndex];
+	// A COMPLETER
 	
-	PKGTreeNode * tTreeNode=(PKGTreeNode *)inItem;
-	
-	return [tTreeNode descendantNodeAtIndex:inIndex];
-}
-
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView isItemExpandable:(id)inItem
-{
-	PKGTreeNode * tTreeNode=(PKGTreeNode *)inItem;
-	
-	return ([tTreeNode isLeaf]==NO);
+	return YES;
 }
 
 @end
