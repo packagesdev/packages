@@ -52,6 +52,8 @@
 - (void)removeChildren;
 - (void)removeFromParent;
 
++ (NSArray *)minimumNodeCoverFromNodesInArray:(NSArray *)inArray;
+
 - (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block;
 
 @end

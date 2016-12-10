@@ -11,6 +11,8 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* Some portions of this code is from or inspired by the NSOutlineView sample code from Apple, inc */
+
 #import "PKGTreeNode.h"
 
 #import "PKGPackagesError.h"
@@ -383,6 +385,39 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 - (void)removeFromParent
 {
 	[[self parent] removeChild:self];
+}
+
+#pragma mark -
+
+/* Code from the Apple Sample Code */
+
++ (NSArray *)minimumNodeCoverFromNodesInArray:(NSArray *)inArray
+{
+	NSMutableArray *tMinimumNodeCover = [NSMutableArray array];
+	NSMutableArray * tNodeQueue = [NSMutableArray arrayWithArray:inArray];
+	PKGTreeNode *tTreeNode = nil;
+	
+	while ([tNodeQueue count])
+	{
+		tTreeNode = tNodeQueue[0];
+		[tNodeQueue removeObjectAtIndex:0];
+		
+		PKGTreeNode *tTreeNodeParent=[tTreeNode parent];
+		
+		while ( tTreeNodeParent && [tNodeQueue indexOfObjectIdenticalTo:tTreeNodeParent]!=NSNotFound)
+		{
+			[tNodeQueue removeObjectIdenticalTo: tTreeNode];
+			tTreeNode = tTreeNodeParent;
+			tTreeNodeParent=tTreeNode.parent;
+		}
+		
+		if (![tTreeNode isDescendantOfNodeInArray: tMinimumNodeCover])
+			[tMinimumNodeCover addObject: tTreeNode];
+		
+		[tNodeQueue removeObjectIdenticalTo: tTreeNode];
+	}
+	
+	return [tMinimumNodeCover copy];
 }
 
 #pragma mark -
