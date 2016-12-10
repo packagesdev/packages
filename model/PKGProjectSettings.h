@@ -33,9 +33,12 @@
 	@property (copy) NSString * certificateKeychainPath;
 
 
-	@property NSMutableArray * filesFilters;
+	@property (readonly) NSMutableArray * filesFilters;
+
+	@property (nonatomic,readonly) NSArray * optimizedFilesFilters;
 
 	@property BOOL filterPayloadOnly;
+
 
 - (BOOL)shouldFilterFileNamed:(NSString *)inFileName ofType:(PKGFileSystemType)inType;
 

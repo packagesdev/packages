@@ -36,6 +36,11 @@ NSString * const PKGProjectSettingsFilterPayloadOnlyKey=@"PAYLOAD_ONLY";
 
 NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/login.keychain";
 
+@interface PKGProjectSettings ()
+
+@property (readwrite) NSMutableArray * filesFilters;
+
+@end
 
 @implementation PKGProjectSettings
 
@@ -167,7 +172,11 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 			return nil;
 		}
 		
-		_filterPayloadOnly=[inRepresentation[PKGProjectSettingsFilterPayloadOnlyKey] boolValue];
+		NSNumber * tNumber=inRepresentation[PKGProjectSettingsFilterPayloadOnlyKey];
+		
+		//PKGFullCheckNumberValueForKey(tNumber,PKGProjectSettingsFilterPayloadOnlyKey);	// A VOIR
+		
+		_filterPayloadOnly=[tNumber boolValue];
 	}
 	
 	return self;
@@ -238,6 +247,24 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	[tDescription appendFormat:@"  Exclude files in payload only: %@\n",(self.filterPayloadOnly==YES)? @"Yes": @"No"];
 	
 	return tDescription;
+}
+
+#pragma mark -
+
+- (NSArray *)optimizedFilesFilters
+{
+	NSMutableArray * tMutableOptimizedFiltersArray=[self.filesFilters WB_filteredArrayUsingBlock:^BOOL(PKGFileFilter * bFilter, NSUInteger bIndex) {
+	
+		if ([bFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
+			return NO;
+		
+		if (bFilter.isEnabled==NO)
+			return NO;
+		
+		return YES;
+	}];
+	
+	return [tMutableOptimizedFiltersArray copy];
 }
 
 #pragma mark -
