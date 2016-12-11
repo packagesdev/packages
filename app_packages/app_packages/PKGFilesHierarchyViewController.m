@@ -10,6 +10,26 @@
 
 #import "PKGPayloadDropView.h"
 
+@interface PKGFilesHierarchyAddPanelDelegate : NSObject<NSOpenSavePanelDelegate>
+
+	@property id destination;
+
+@end
+
+@implementation PKGFilesHierarchyAddPanelDelegate
+
+- (BOOL)panel:(NSOpenPanel *)inPanel shouldEnableURL:(NSURL *)inURL
+{
+	if (inURL.isFileURL==NO)
+		return NO;
+	
+	// A COMPLETER
+	
+	return YES;
+}
+
+@end
+
 @interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate>
 {
 	IBOutlet NSTextField * _viewLabel;
@@ -80,8 +100,9 @@
 	_viewLabel.stringValue=_label;
 	
 	_outlineView.dataSource=_hierarchyDatasource;
-	((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDatasource;
 	
+	if ([self.view isKindOfClass:[PKGPayloadDropView class]]==YES)
+		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDatasource;
 	
 	
 	_highlightExcludedItems=[self highlightExcludedItems];
@@ -176,13 +197,7 @@
 
 - (IBAction)showInFinder:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedRowIndexes;
-	
-	NSInteger tClickedRow=_outlineView.clickedRow;
-	
-	if (tClickedRow!=-1 && [tSelectionIndexSet containsIndex:tClickedRow]==NO)
-		tSelectionIndexSet=[NSIndexSet indexSetWithIndex:tClickedRow];
-
+	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
 	
 	NSWorkspace * tSharedWorkspace=[NSWorkspace sharedWorkspace];
 	
@@ -196,17 +211,50 @@
 
 - (IBAction)addFiles:(id)sender
 {
-	// A COMPLETER
+	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
+	
+	tOpenPanel.resolvesAliases=NO;
+	tOpenPanel.canChooseFiles=YES;
+	tOpenPanel.canChooseDirectories=YES;
+	tOpenPanel.allowsMultipleSelection=YES;
+	tOpenPanel.treatsFilePackagesAsDirectories=YES;
+	tOpenPanel.showsHiddenFiles=[PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog;
+	
+	__block PKGFilesHierarchyAddPanelDelegate * tPanelDelegate=[PKGFilesHierarchyAddPanelDelegate new];
+	
+	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+	
+	PKGTreeNode * tParentNode=nil;
+	
+	if (tSelectionIndexSet.count>0)
+	{
+		NSInteger tClickedRow=_outlineView.clickedRow;
+		
+		if (tClickedRow==-1)
+			tClickedRow=tSelectionIndexSet.firstIndex;
+		
+		PKGPayloadTreeNode * tNode=[_outlineView itemAtRow:tClickedRow];
+		
+		tParentNode=(tNode.isLeaf==NO) ? tNode : tNode.parent;
+	}
+	
+	tPanelDelegate.destination=(tParentNode==nil) ? self.hierarchyDatasource.rootNodes : tParentNode;
+	
+	tOpenPanel.delegate=tPanelDelegate;
+	
+	tOpenPanel.prompt=NSLocalizedString(@"Add...",@"No comment");
+	
+	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
+	
+		tPanelDelegate=nil;		// Trick to prevent ARC from deallocating the delegate before the completionHandler is reached
+		
+		// A COMPLETER
+	}];
 }
 
 - (IBAction)addNewFolder:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedRowIndexes;
-	
-	NSInteger tClickedRow=_outlineView.clickedRow;
-	
-	if (tClickedRow!=-1 && [tSelectionIndexSet containsIndex:tClickedRow]==NO)
-		tSelectionIndexSet=[NSIndexSet indexSetWithIndex:tClickedRow];
+	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
 	
 	PKGPayloadTreeNode * tNewFolderNode=nil;
 	
@@ -217,10 +265,12 @@
 		if (tNewFolderNode==nil)
 			return;
 		
-		[self.hierarchyDatasource.rootNodes addObject:tNewFolderNode];
+		[self.hierarchyDatasource.rootNodes addObject:tNewFolderNode];	// A CHANGER : sorted insertion
 	}
 	else
 	{
+		NSInteger tClickedRow=_outlineView.clickedRow;
+		
 		if (tClickedRow==-1)
 			tClickedRow=tSelectionIndexSet.firstIndex;
 		
@@ -253,7 +303,10 @@
 		if (tNewFolderNode==nil)
 			return;
 		
-		[tParentNode addChild:tNewFolderNode];
+		[tParentNode insertChild:tNewFolderNode sortedUsingComparator:^NSComparisonResult(PKGPayloadTreeNode * bPayloadTreeNode,PKGPayloadTreeNode *bOtherPayloadTreeNode){
+		
+			return [bPayloadTreeNode compareName:bOtherPayloadTreeNode];
+		}];
 	}
 	
 	[self noteDocumentHasChanged];
@@ -297,13 +350,36 @@
 	
 	NSArray * tMinimumCover=[PKGTreeNode minimumNodeCoverFromNodesInArray:tSelectedNodes];
 	
-	for(PKGPayloadTreeNode * tPayloadTreeNode in tMinimumCover)
+	for(PKGTreeNode * tTreeNode in tMinimumCover)
 	{
-		// If the node is "hiding" an invisible node, then we need to put back the invisible node
+		PKGTreeNode * tParentNode=tTreeNode.parent;
 		
-		// A COMPLETER
+		// Replace the node with another one if needed
 		
-		[tPayloadTreeNode removeFromParent];
+		PKGTreeNode * tSurrogateNode=[self.hierarchyDatasource surrogateItemForItem:tTreeNode];
+		
+		if (tSurrogateNode!=nil)
+		{
+			if (tTreeNode.parent!=nil)
+			{
+				NSUInteger tIndex=[tParentNode indexOfChildIdenticalTo:tTreeNode];
+			
+				if (tIndex!=NSNotFound)
+					[tParentNode insertChild:tSurrogateNode atIndex:tIndex];
+			}
+			else
+			{
+				NSUInteger tIndex=[self.hierarchyDatasource.rootNodes indexOfObjectIdenticalTo:tTreeNode];
+				
+				if (tIndex!=NSNotFound)
+					[self.hierarchyDatasource.rootNodes insertObject:tSurrogateNode atIndex:tIndex];
+			}
+		}
+		
+		if (tParentNode!=nil)
+			[tTreeNode removeFromParent];
+		else
+			[self.hierarchyDatasource.rootNodes removeObject:tTreeNode];
 	}
 	
 	[_outlineView deselectAll:nil];
@@ -327,12 +403,8 @@
 {
 	SEL tSelector=inMenuItem.action;
 	
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedRowIndexes;
-	
-	NSInteger tClickedRow=_outlineView.clickedRow;
-	
-	if (tClickedRow!=-1 && [tSelectionIndexSet containsIndex:tClickedRow]==NO)
-		tSelectionIndexSet=[NSIndexSet indexSetWithIndex:tClickedRow];
+	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+
 	
 	NSInteger tSelectedCount=tSelectionIndexSet.count;
 	
@@ -351,6 +423,11 @@
 	
 	if (tSelectedCount>0)
 	{
+		// Add Files
+		
+		if (tSelector==@selector(addFiles:))
+			return YES;
+		
 		// New Folder
 		
 		if (tSelector==@selector(addNewFolder:))
@@ -405,11 +482,11 @@
 			return NO;
 		
 		if (tSelector==@selector(contract:))
-			return ([tPayloadTreeNode numberOfChildren]>0);
+			return ([tPayloadTreeNode isLeaf]==NO);
 		
 		if (tSelector==@selector(expand:))
 		{
-			if ([tPayloadTreeNode numberOfChildren]>0)
+			if ([tPayloadTreeNode isLeaf]==NO)
 				return NO;
 			
 			NSString * tReferencedPath=[tPayloadTreeNode referencedPathUsingConverter:self.filePathConverter];

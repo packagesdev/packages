@@ -231,6 +231,9 @@
             <items>
                 <menuItem title="Add Files…" id="ifD-4M-Nbo">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addFiles:" target="-2" id="sq2-G1-rCc"/>
+                    </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="u3n-6D-iLy"/>
                 <menuItem title="New Folder" id="CHn-mJ-5rf">
