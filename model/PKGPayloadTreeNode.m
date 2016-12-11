@@ -20,12 +20,22 @@
 
 - (BOOL)isLeaf
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	if (tFileItem.type!=PKGFileItemTypeFileSystemItem)
 		return NO;
 	
 	return ([tFileItem isContentsDisclosed]==NO);
+}
+
+#pragma mark -
+
+- (void)contract
+{
+	[self removeChildren];
+	
+	PKGFileItem * tFileItem=self.representedObject;
+	tFileItem.contentsDisclosed=NO;
 }
 
 #pragma mark -
@@ -46,7 +56,7 @@
 		
 		for(PKGPayloadTreeNode * tChildTreeNode in tPayloadTreeNode.children)
 		{
-			PKGFileItem * tFileItem=(PKGFileItem *)tChildTreeNode.representedObject;
+			PKGFileItem * tFileItem=tChildTreeNode.representedObject;
 			
 			if ([[tFileItem.filePath lastPathComponent] isEqualToString:tComponent]==YES)
 			{
@@ -61,7 +71,7 @@
 
 - (NSUInteger)optimizePayloadHierarchy
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	if (tFileItem.type==PKGFileItemTypeFileSystemItem ||
 		tFileItem.type==PKGFileItemTypeNewFolder)
@@ -90,7 +100,7 @@
 
 - (BOOL)containsNoTemplateDescendantNodes;
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	if (tFileItem.type>=PKGFileItemTypeNewFolder)
 		return YES;
