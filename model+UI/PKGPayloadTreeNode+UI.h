@@ -11,8 +11,11 @@
 
 + (NSString *)uniqueFileNameAmongSiblings:(NSArray *)inSiblings;
 
+- (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode;
+
 - (BOOL)isTemplateNode;
 - (BOOL)isFileSystemItemNode;
+
 
 @end
 
@@ -32,6 +35,8 @@
 
 
 - (NSString *)referencedPathUsingConverter:(id<PKGFilePathConverter>)inPathConverter;
+
+
 
 - (BOOL)needsRefresh:(NSTimeInterval)inTimeMark;
 

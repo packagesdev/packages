@@ -30,11 +30,6 @@
 
 #pragma mark -
 
-- (void)insertSortedChild:(PKGPayloadTreeNode *)inPayloadTreeNode
-{
-	// A COMPLETER
-}
-
 - (PKGPayloadTreeNode *)descendantNodeAtPath:(NSString *)inPath
 {
 	if (inPath==nil)
@@ -93,7 +88,7 @@
 	return 1;
 }
 
-- (BOOL)containsNotTemplateNodeDescendants;
+- (BOOL)containsNoTemplateDescendantNodes;
 {
 	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
 	
@@ -104,7 +99,7 @@
 	
 	for(NSUInteger tIndex=0;tIndex<tCount;tIndex++)
 	{
-		if ([((PKGPayloadTreeNode *)[self descendantNodeAtIndex:tIndex]) containsNotTemplateNodeDescendants]==YES)
+		if ([((PKGPayloadTreeNode *)[self descendantNodeAtIndex:tIndex]) containsNoTemplateDescendantNodes]==YES)
 			return YES;
 	}
 	

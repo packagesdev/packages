@@ -39,6 +39,8 @@
 	return [PKGPayloadTreeNode treeNodeWithRepresentedObject:nFileItem children:nil];
 }
 
+#pragma mark -
+
 + (NSString *)uniqueFileNameAmongSiblings:(NSArray *)inSiblingsNodes
 {
 	NSString * tBaseName=NSLocalizedString(@"untitled folder",@"No comment");
@@ -71,6 +73,14 @@
 	while (tIndex<65535);
 	
 	return nil;
+}
+
+- (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode
+{
+	if (inPayloadTreeNode==nil)
+		return NSOrderedDescending;
+	
+	return [((PKGFileItem *)self.representedObject).fileName caseInsensitiveCompare:((PKGFileItem *)inPayloadTreeNode.representedObject).fileName];
 }
 
 #pragma mark -
@@ -129,7 +139,7 @@
 	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
 	
 	if (tFileItem.type<PKGFileItemTypeNewFolder)
-		return ([self containsNotTemplateNodeDescendants]==YES)? tFileItem.icon : tFileItem.disabledIcon;
+		return ([self containsNoTemplateDescendantNodes]==YES)? tFileItem.icon : tFileItem.disabledIcon;
 	
 	return tFileItem.icon;
 }
