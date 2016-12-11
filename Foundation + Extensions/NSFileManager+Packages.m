@@ -504,7 +504,6 @@ extended_attributes_bail:
 					
 				case ENOENT:
 					
-					tUnderlyingError=[NSError errorWithDomain:NSPOSIXErrorDomain code:ENOENT userInfo:nil];
 					*outError=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError userInfo:@{NSFilePathErrorKey:inPath,
 																													NSUnderlyingErrorKey:tUnderlyingError}];
 					break;
