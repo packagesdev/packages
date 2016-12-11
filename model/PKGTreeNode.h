@@ -40,11 +40,15 @@
 - (PKGTreeNode *)descendantNodeAtIndex:(NSUInteger)inIndex;
 - (PKGTreeNode *)descendantNodeAtIndexPath:(NSIndexPath *)inIndexPath;
 
+- (NSUInteger)indexOfChildIdenticalTo:(PKGTreeNode *)inTreeNode;
+
 - (void)addChild:(PKGTreeNode *)inTreeNode;
 - (void)addChildren:(NSArray *)inTreeNodes;
 
 - (void)insertChild:(PKGTreeNode *)inTreeNode atIndex:(NSUInteger)inIndex;
 - (void)insertChildren:(NSArray *)inTreeNodes atIndex:(NSUInteger)inIndex;
+
+- (void)insertChild:(PKGTreeNode *)inTreeNode sortedUsingComparator:(NSComparator)inComparator;
 
 - (void)removeChildAtIndex:(NSUInteger)inIndex;
 - (void)removeChildrenAtIndexes:(NSIndexSet *)inIndexSet;

@@ -312,6 +312,16 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 #pragma mark -
 
+- (NSUInteger)indexOfChildIdenticalTo:(PKGTreeNode *)inTreeNode
+{
+	if (inTreeNode==nil)
+		return NSNotFound;
+	
+	return [_children indexOfObjectIdenticalTo:inTreeNode];
+}
+
+#pragma mark -
+
 - (void)addChild:(PKGTreeNode *)inTreeNode
 {
 	[inTreeNode setParent:self];
@@ -340,6 +350,21 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	[inTreeNodes makeObjectsPerformSelector:@selector(setParent:) withObject:self];
 	[_children insertObjects:inTreeNodes atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inIndex, [inTreeNodes count])]];
+}
+
+- (void)insertChild:(PKGTreeNode *)inTreeNode sortedUsingComparator:(NSComparator)inComparator
+{
+	if (inTreeNode==nil || inComparator==nil)
+		return;
+	
+	[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	
+		if (inComparator(inTreeNode,bTreeNode)!=NSOrderedDescending)
+		{
+			[_children insertObject:inTreeNode atIndex:bIndex];
+			*bOutStop=YES;
+		}
+	}];
 }
 
 - (void)removeChildAtIndex:(NSUInteger)inIndex
