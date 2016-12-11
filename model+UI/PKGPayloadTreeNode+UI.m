@@ -13,7 +13,7 @@
 	if (inParentNode==nil)
 		return nil;
 	
-	PKGFileItem * tParentFileItem=(PKGFileItem *)inParentNode.representedObject;
+	PKGFileItem * tParentFileItem=inParentNode.representedObject;
 	
 	if (tParentFileItem==nil)
 		return nil;
@@ -54,7 +54,7 @@
 		
 		for(PKGPayloadTreeNode * tPayloadTreeNiode in inSiblingsNodes)
 		{
-			PKGFileItem * tFileItem=(PKGFileItem *)tPayloadTreeNiode.representedObject;
+			PKGFileItem * tFileItem=tPayloadTreeNiode.representedObject;
 			
 			if ([tFileItem.fileName caseInsensitiveCompare:tFileName]==NSOrderedSame)
 			{
@@ -95,7 +95,7 @@
 	
 	do
 	{
-		PKGFileItem * tFileItem=(PKGFileItem *)tPayloadTreeNode.representedObject;
+		PKGFileItem * tFileItem=tPayloadTreeNode.representedObject;
 		
 		NSString * tFileName=tFileItem.fileName;
 		
@@ -117,14 +117,14 @@
 
 - (BOOL)isTemplateNode
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	return (tFileItem.type==PKGFileItemTypeInvisible || tFileItem.type==PKGFileItemTypeFolderTemplate);
 }
 
 - (BOOL)isFileSystemItemNode
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	return (tFileItem.type==PKGFileItemTypeFileSystemItem);
 }
@@ -136,7 +136,7 @@
 
 - (NSImage *)nameIcon
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	if (tFileItem.type<PKGFileItemTypeNewFolder)
 		return ([self containsNoTemplateDescendantNodes]==YES)? tFileItem.icon : tFileItem.disabledIcon;
@@ -146,7 +146,7 @@
 
 - (NSAttributedString *)nameTitle
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	NSMutableDictionary * tAttributesDictionary=[NSMutableDictionary dictionaryWithObject:(tFileItem.isReferencedItemMissing==YES) ? [NSColor redColor] : [NSColor blackColor]
 																				   forKey:NSForegroundColorAttributeName];
@@ -160,14 +160,14 @@
 
 - (BOOL)isNameTitleEditable
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	return (tFileItem.type==PKGFileItemTypeNewFolder);
 }
 
 - (NSString *)ownerTitle
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	return [[CBUserIdentity userIdentityWithPosixUID:tFileItem.uid authority:[CBIdentityAuthority localIdentityAuthority]] posixName];
 	
@@ -176,14 +176,14 @@
 
 - (NSString *)groupTitle
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	return [[CBGroupIdentity groupIdentityWithPosixGID:tFileItem.gid authority:[CBIdentityAuthority localIdentityAuthority]] posixName];
 }
 
 - (NSString *)posixPermissionsTitle
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	return tFileItem.posixPermissionsRepresentation;
 }
@@ -192,7 +192,7 @@
 
 - (NSString *)referencedPathUsingConverter:(id<PKGFilePathConverter>)inPathConverter
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	switch(tFileItem.type)
 	{
@@ -215,14 +215,14 @@
 
 - (BOOL)needsRefresh:(NSTimeInterval)inTimeMark
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	return (tFileItem.refreshTimeMark<inTimeMark);
 }
 
 - (void)refreshWithAbsolutePath:(NSString *)inAbsolutePath fileFilters:(NSArray *)inFileFilters
 {
-	PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+	PKGFileItem * tFileItem=self.representedObject;
 	
 	[tFileItem refreshAuxiliaryWithAbsolutePath:inAbsolutePath fileFilters:inFileFilters];
 }
