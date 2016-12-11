@@ -5,4 +5,6 @@
 
 	@property NSMutableArray * rootNodes;
 
+- (id)surrogateItemForItem:(id)inItem;
+
 @end

@@ -17,6 +17,11 @@
 
 @implementation PKGPayloadDataSource
 
+- (id)surrogateItemForItem:(id)inItem
+{
+	return nil;
+}
+
 #pragma mark - NSOutlineViewDataSource
 
 - (NSInteger)outlineView:(NSOutlineView *)inOutlineView numberOfChildrenOfItem:(PKGTreeNode *)inTreeNode
