@@ -17,9 +17,9 @@
 
 @interface PKGTreeNode : NSObject <PKGObjectProtocol>
 
-+ (instancetype)treeNodeWithRepresentedObject:(id<PKGObjectProtocol>)inRepresentedObject children:(NSArray *)inTreeNodes;
++ (instancetype)treeNodeWithRepresentedObject:(id<PKGObjectProtocol>)inRepresentedObject children:(NSArray *)inChildren;
 
-- (instancetype)initWithRepresentedObject:(id<PKGObjectProtocol>)inRepresentedObject children:(NSArray *)inTreeNodes;
+- (instancetype)initWithRepresentedObject:(id<PKGObjectProtocol>)inRepresentedObject children:(NSArray *)inChildren;
 
 - (id<PKGObjectProtocol>)representedObject;
 
@@ -42,17 +42,21 @@
 
 - (NSUInteger)indexOfChildIdenticalTo:(PKGTreeNode *)inTreeNode;
 
-- (void)addChild:(PKGTreeNode *)inTreeNode;
-- (void)addChildren:(NSArray *)inTreeNodes;
+- (void)addChild:(PKGTreeNode *)inChild;
+- (void)addChildren:(NSArray *)inChildren;
 
-- (void)insertChild:(PKGTreeNode *)inTreeNode atIndex:(NSUInteger)inIndex;
-- (void)insertChildren:(NSArray *)inTreeNodes atIndex:(NSUInteger)inIndex;
+- (void)insertChild:(PKGTreeNode *)inChild atIndex:(NSUInteger)inIndex;
+- (void)insertChildren:(NSArray *)inChildren atIndex:(NSUInteger)inIndex;
 
-- (void)insertChild:(PKGTreeNode *)inTreeNode sortedUsingComparator:(NSComparator)inComparator;
+- (void)insertAsSiblingOfNodes:(NSMutableArray *)inSiblings sortedUsingComparator:(NSComparator)inComparator;
+- (void)insertAsSiblingOfNodes:(NSMutableArray *)inSiblings sortedUsingSelector:(SEL)inComparator;
+
+- (void)insertChild:(PKGTreeNode *)inChild sortedUsingComparator:(NSComparator)inComparator;
+- (void)insertChild:(PKGTreeNode *)inChild sortedUsingSelector:(SEL)inComparator;
 
 - (void)removeChildAtIndex:(NSUInteger)inIndex;
 - (void)removeChildrenAtIndexes:(NSIndexSet *)inIndexSet;
-- (void)removeChild:(PKGTreeNode *)inTreeNode;
+- (void)removeChild:(PKGTreeNode *)inChild;
 - (void)removeChildren;
 - (void)removeFromParent;
 
