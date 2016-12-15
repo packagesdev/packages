@@ -79,9 +79,9 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesBuildHideBuildWindowBehavior)
 
 	@property (nonatomic) BOOL highlightExcludedFiles;
 
-	@property (nonatomic) BOOL keepPOSIXPermissionsKey;
+	@property (nonatomic) BOOL keepOwnershipKey;
 
-	@property (nonatomic) BOOL showOwnershipCustomizationDialog;
+	@property (nonatomic) BOOL showOwnershipAndReferenceStyleCustomizationDialog;
 
 	// Build
 

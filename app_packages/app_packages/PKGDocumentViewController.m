@@ -28,7 +28,7 @@
 
 - (id<PKGFilePathConverter>)filePathConverter
 {
-	return ((NSWindowController *) self.view.window.windowController).document;
+	return (id<PKGFilePathConverter>)[NSApp delegate];//((NSWindowController *) self.view.window.windowController).document;
 }
 
 - (PKGProject *)project

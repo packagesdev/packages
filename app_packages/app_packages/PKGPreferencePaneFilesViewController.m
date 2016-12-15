@@ -66,11 +66,11 @@
 	
 	// Default Permission Mode
 	
-	[_keepOwnerAndGroupCheckbox setState:([PKGApplicationPreferences sharedPreferences].keepPOSIXPermissionsKey==YES) ? NSOnState: NSOffState];
+	[_keepOwnerAndGroupCheckbox setState:([PKGApplicationPreferences sharedPreferences].keepOwnershipKey==YES) ? NSOnState: NSOffState];
 	
 	// Show Customization Dialog
 	
-	[_showCustomizationDialogCheckbox setState:([PKGApplicationPreferences sharedPreferences].showOwnershipCustomizationDialog==YES) ? NSOnState: NSOffState];
+	[_showCustomizationDialogCheckbox setState:([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES) ? NSOnState: NSOffState];
 }
 
 #pragma mark -
@@ -92,12 +92,12 @@
 
 - (IBAction)switchKeepOwnerAndGroup:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].keepPOSIXPermissionsKey=([_keepOwnerAndGroupCheckbox state]==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].keepOwnershipKey=([_keepOwnerAndGroupCheckbox state]==NSOnState);
 }
 
 - (IBAction)switchShowCustomizationDialog:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].showOwnershipCustomizationDialog=([_showCustomizationDialogCheckbox state]==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog=([_showCustomizationDialogCheckbox state]==NSOnState);
 }
 
 @end

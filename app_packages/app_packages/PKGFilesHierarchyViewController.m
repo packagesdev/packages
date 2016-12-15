@@ -1,3 +1,15 @@
+/*
+ Copyright (c) 2016, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGFilesHierarchyViewController.h"
 
@@ -8,27 +20,40 @@
 
 #import "PKGApplicationPreferences.h"
 
+#import "PKGTablePayloadFilenameCellView.h"
+
+#import "PKGOwnershipAndReferenceStyleViewController.h"
 #import "PKGPayloadDropView.h"
 
-@interface PKGFilesHierarchyAddPanelDelegate : NSObject<NSOpenSavePanelDelegate>
+@interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
-	@property id destination;
+	@property NSArray * sibblings;
+	@property id<PKGFilePathConverter> filePathConverter;
 
 @end
 
-@implementation PKGFilesHierarchyAddPanelDelegate
+@implementation PKGFilesHierarchyOpenPanelDelegate
 
 - (BOOL)panel:(NSOpenPanel *)inPanel shouldEnableURL:(NSURL *)inURL
 {
 	if (inURL.isFileURL==NO)
 		return NO;
 	
-	// A COMPLETER
+	NSString * tLastPathComponent=[inURL.path lastPathComponent];
+	
+	if ([self.sibblings indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode *bPayloadTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	
+		return ([tLastPathComponent caseInsensitiveCompare:bPayloadTreeNode.fileName]==NSOrderedSame);
+	
+	}]!=NSNotFound)
+		return NO;
+	
 	
 	return YES;
 }
 
 @end
+
 
 @interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate>
 {
@@ -39,6 +64,8 @@
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
 	
+	PKGOwnershipAndReferenceStyleViewController * _ownershipAndReferenceStyleViewController;
+	PKGFilesHierarchyOpenPanelDelegate * _openPanelDelegate;
 	
 	BOOL _highlightExcludedItems;
 	NSArray * _optimizedFilesFilters;
@@ -66,6 +93,20 @@
 
 @implementation PKGFilesHierarchyViewController
 
+- (instancetype)initWithNibName:(NSString *)inNibName bundle:(NSBundle *)inBundle
+{
+	self=[super initWithNibName:inNibName bundle:inBundle];
+	
+	if (self!=nil)
+	{
+		_managedFileAttributes=PKGFileOwnerAndGroupAccounts|PKGFilePosixPermissions;
+	}
+	
+	return self;
+}
+
+#pragma mark -
+
 - (id<PKGFilePathConverter>)filePathConverter
 {
 	return (id<PKGFilePathConverter>) [NSApplication sharedApplication].delegate;
@@ -75,12 +116,27 @@
 {
     [super viewDidLoad];
 	
-	_addButton.enabled=(self.canAddRootNodes==YES);
-	_removeButton.enabled=NO;
-	
-	[_outlineView registerForDraggedTypes:@[NSFilenamesPboardType]];
 	 /*ICFilePboardType,
 	 ICFileExternalPboardType*/
+	
+	// Owner and Group
+	
+	BOOL tHideColumn=(_managedFileAttributes & PKGFileOwnerAndGroupAccounts)==0;
+	
+	[_outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
+	[_outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
+	
+	// Permissions
+	
+	tHideColumn=(_managedFileAttributes & PKGFilePosixPermissions)==0;
+	
+	[_outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
+	
+	
+	[_outlineView registerForDraggedTypes:@[NSFilenamesPboardType]];
+	
+	_addButton.enabled=(self.canAddRootNodes==YES);
+	_removeButton.enabled=NO;
 	
 	
     // Do view setup here.
@@ -91,6 +147,30 @@
 - (BOOL)highlightExcludedItems
 {
 	return [PKGApplicationPreferences sharedPreferences].highlightExcludedFiles;
+}
+
+- (void)setManagedFileAttributes:(PKGManagedAttributesOptions)inOptions
+{
+	if (inOptions!=_managedFileAttributes)
+	{
+		_managedFileAttributes=inOptions;
+	
+		if (_outlineView!=nil)
+		{
+			// Owner and Group
+			
+			BOOL tHideColumn=(_managedFileAttributes & PKGFileOwnerAndGroupAccounts)==0;
+			
+			[_outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
+			[_outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
+			
+			// Permissions
+			
+			tHideColumn=(_managedFileAttributes & PKGFilePosixPermissions)==0;
+			
+			[_outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
+		}
+	}
 }
 
 #pragma mark -
@@ -161,9 +241,12 @@
 	
 	if ([tTableColumnIdentifier isEqualToString:@"file.name"]==YES)
 	{
-		tView.imageView.image=inPayloadTreeNode.nameIcon;
+		PKGTablePayloadFilenameCellView *tPayloadFileNameCellView=(PKGTablePayloadFilenameCellView *)tView;
 		
-		tView.textField.attributedStringValue=inPayloadTreeNode.nameTitle;
+		tPayloadFileNameCellView.attributedImageView.attributedImage=inPayloadTreeNode.nameAttributedIcon;
+		//[tView.imageView unregisterDraggedTypes];	// To prevent the imageView from interfering with drag and drop
+		
+		tView.textField.attributedStringValue=inPayloadTreeNode.nameAttributedTitle;
 		tView.textField.editable=inPayloadTreeNode.isNameTitleEditable;
 		
 		return tView;
@@ -220,8 +303,6 @@
 	tOpenPanel.treatsFilePackagesAsDirectories=YES;
 	tOpenPanel.showsHiddenFiles=[PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog;
 	
-	__block PKGFilesHierarchyAddPanelDelegate * tPanelDelegate=[PKGFilesHierarchyAddPanelDelegate new];
-	
 	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
 	
 	PKGTreeNode * tParentNode=nil;
@@ -238,88 +319,86 @@
 		tParentNode=(tNode.isLeaf==NO) ? tNode : tNode.parent;
 	}
 	
-	tPanelDelegate.destination=(tParentNode==nil) ? self.hierarchyDatasource.rootNodes : tParentNode;
+	_openPanelDelegate=[PKGFilesHierarchyOpenPanelDelegate new];
 	
-	tOpenPanel.delegate=tPanelDelegate;
+	_openPanelDelegate.filePathConverter=self.filePathConverter;
+	_openPanelDelegate.sibblings=(tParentNode==nil) ? self.hierarchyDatasource.rootNodes : tParentNode.children;
+	
+	tOpenPanel.delegate=_openPanelDelegate;
 	
 	tOpenPanel.prompt=NSLocalizedString(@"Add...",@"No comment");
 	
+	__block BOOL tKeepOwnerAndGroup=(self.managedFileAttributes==0) ? NO : [PKGApplicationPreferences sharedPreferences].keepOwnershipKey;
+	__block PKGFilePathType tReferenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+	
+	if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
+	{
+		_ownershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
+		
+		_ownershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=((_managedFileAttributes & PKGFileOwnerAndGroupAccounts)!=0);
+		_ownershipAndReferenceStyleViewController.keepOwnerAndGroup=tKeepOwnerAndGroup;
+		
+		_ownershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
+		
+		NSView * tAccessoryView=_ownershipAndReferenceStyleViewController.view;
+		
+		[_ownershipAndReferenceStyleViewController WB_viewWillAdd];
+		
+		[tOpenPanel setAccessoryView:tAccessoryView];
+		
+		[_ownershipAndReferenceStyleViewController WB_viewDidAdd];
+	}
+	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 	
-		tPanelDelegate=nil;		// Trick to prevent ARC from deallocating the delegate before the completionHandler is reached
+		if (bResult==NSFileHandlingPanelOKButton)
+		{
+			if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
+			{
+				tKeepOwnerAndGroup=_ownershipAndReferenceStyleViewController.keepOwnerAndGroup;
+				tReferenceStyle=_ownershipAndReferenceStyleViewController.referenceStyle;
+			}
+			
+			NSArray * tPaths=[tOpenPanel.URLs WB_arrayByMappingObjectsUsingBlock:^(NSURL * bURL,NSUInteger bIndex){
+				
+				return bURL.path;
+			}];
+			
+			if ([self.hierarchyDatasource outlineView:_outlineView
+							 addFileSystemItemsAtPaths:tPaths
+										referenceType:tReferenceStyle
+											toParents:(tParentNode==nil) ? nil : @[tParentNode]
+											  options:(tKeepOwnerAndGroup==YES) ? PKGPayloadAddKeepOwnership : 0]==YES)
+			{
+				[self noteDocumentHasChanged];
+			}
+		}
 		
-		// A COMPLETER
+		_ownershipAndReferenceStyleViewController=nil;
 	}];
 }
 
 - (IBAction)addNewFolder:(id)sender
 {
 	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+	NSInteger tClickedRow=_outlineView.clickedRow;
 	
-	PKGPayloadTreeNode * tNewFolderNode=nil;
+	// Selection is not empty and no row was clicked
 	
-	if (tSelectionIndexSet.count==0)
-	{
-		tNewFolderNode=[PKGPayloadTreeNode newFolderNodeWithSiblingsNodes:self.hierarchyDatasource.rootNodes];
-		
-		if (tNewFolderNode==nil)
-			return;
-		
-		[self.hierarchyDatasource.rootNodes addObject:tNewFolderNode];	// A CHANGER : sorted insertion
-	}
-	else
-	{
-		NSInteger tClickedRow=_outlineView.clickedRow;
-		
-		if (tClickedRow==-1)
-			tClickedRow=tSelectionIndexSet.firstIndex;
-		
-		PKGPayloadTreeNode * tParentNode=[_outlineView itemAtRow:tClickedRow];
-		
-		if (tParentNode.isLeaf==NO)
-		{
-			tNewFolderNode=[PKGPayloadTreeNode newFolderNodeWithParentNode:tParentNode];
-			
-			// Disclose parent if needed
-			
-			if ([_outlineView isItemExpanded:tParentNode]==NO)
-				[_outlineView expandItem:tParentNode];
-		}
-		else
-		{
-			tParentNode=(PKGPayloadTreeNode *)tParentNode.parent;
-			
-			if (tParentNode!=NULL)
-			{
-				tNewFolderNode=[PKGPayloadTreeNode newFolderNodeWithSiblingsNodes:tParentNode.children];
-			}
-			else
-			{
-				if (self.canAddRootNodes==YES)
-					tNewFolderNode=[PKGPayloadTreeNode newFolderNodeWithSiblingsNodes:self.hierarchyDatasource.rootNodes];
-			}
-		}
-		
-		if (tNewFolderNode==nil)
-			return;
-		
-		[tParentNode insertChild:tNewFolderNode sortedUsingComparator:^NSComparisonResult(PKGPayloadTreeNode * bPayloadTreeNode,PKGPayloadTreeNode *bOtherPayloadTreeNode){
-		
-			return [bPayloadTreeNode compareName:bOtherPayloadTreeNode];
-		}];
-	}
+	if (tSelectionIndexSet.count>0 && tClickedRow==-1)
+		tClickedRow=tSelectionIndexSet.firstIndex;
 	
-	[self noteDocumentHasChanged];
-	
-	[_outlineView reloadData];
+	if ([self.hierarchyDatasource outlineView:_outlineView addNewFolderToParent:(tClickedRow!=-1) ? ((PKGTreeNode *)[_outlineView itemAtRow:tClickedRow]) : nil]==NO)
+		return;
 	
 	// Enter edition mode
 	
-	NSInteger tRow=[_outlineView rowForItem:tNewFolderNode];
+	NSInteger tRow=[_outlineView selectedRow];
+	
+	if (tRow==-1)
+		return;
 	
 	[_outlineView scrollRowToVisible:tRow];
-	
-	[_outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
 	
 	[_outlineView editColumn:[_outlineView columnWithIdentifier:@"file.name"] row:tRow withEvent:nil select:YES];
 }
@@ -346,47 +425,7 @@
 	if (inReturnCode!=NSAlertFirstButtonReturn)
 		return;
 	
-	NSArray * tSelectedNodes=[_outlineView selectedItems];
-	
-	NSArray * tMinimumCover=[PKGTreeNode minimumNodeCoverFromNodesInArray:tSelectedNodes];
-	
-	for(PKGTreeNode * tTreeNode in tMinimumCover)
-	{
-		PKGTreeNode * tParentNode=tTreeNode.parent;
-		
-		// Replace the node with another one if needed
-		
-		PKGTreeNode * tSurrogateNode=[self.hierarchyDatasource surrogateItemForItem:tTreeNode];
-		
-		if (tSurrogateNode!=nil)
-		{
-			if (tTreeNode.parent!=nil)
-			{
-				NSUInteger tIndex=[tParentNode indexOfChildIdenticalTo:tTreeNode];
-			
-				if (tIndex!=NSNotFound)
-					[tParentNode insertChild:tSurrogateNode atIndex:tIndex];
-			}
-			else
-			{
-				NSUInteger tIndex=[self.hierarchyDatasource.rootNodes indexOfObjectIdenticalTo:tTreeNode];
-				
-				if (tIndex!=NSNotFound)
-					[self.hierarchyDatasource.rootNodes insertObject:tSurrogateNode atIndex:tIndex];
-			}
-		}
-		
-		if (tParentNode!=nil)
-			[tTreeNode removeFromParent];
-		else
-			[self.hierarchyDatasource.rootNodes removeObject:tTreeNode];
-	}
-	
-	[_outlineView deselectAll:nil];
-	
-	[self noteDocumentHasChanged];
-	
-	[_outlineView reloadData];
+	[self.hierarchyDatasource outlineView:_outlineView removeItems:[_outlineView selectedItems]];
 }
 
 - (IBAction)expand:(id)sender
@@ -396,7 +435,19 @@
 
 - (IBAction)contract:(id)sender
 {
-	// A COMPLETER
+	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+	
+	NSUInteger tIndex=tSelectionIndexSet.firstIndex;
+	
+	PKGPayloadTreeNode * tExpandedNode=[_outlineView itemAtRow:tIndex];
+	
+	[_outlineView collapseItem:tExpandedNode];
+	
+	[tExpandedNode contract];
+	
+	[self noteDocumentHasChanged];
+	
+	[_outlineView reloadItem:tExpandedNode];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
@@ -431,7 +482,24 @@
 		// New Folder
 		
 		if (tSelector==@selector(addNewFolder:))
-			return YES;
+		{
+			NSInteger tClickedRow=_outlineView.clickedRow;
+			
+			if (tClickedRow==-1)
+				tClickedRow=tSelectionIndexSet.firstIndex;
+			
+			PKGPayloadTreeNode * tParentNode=[_outlineView itemAtRow:tClickedRow];
+			
+			if (tParentNode.isLeaf==NO)
+				return YES;
+			
+			tParentNode=(PKGPayloadTreeNode *)tParentNode.parent;
+			
+			if (tParentNode!=NULL)
+				return YES;
+			
+			return self.canAddRootNodes;
+		}
 		
 		__block BOOL tIsValidated=YES;
 		
@@ -515,6 +583,13 @@
 	}
 	
 	return NO;
+}
+
+#pragma mark - PKGPayloadDataSourceDelegate
+
+- (void)payloadDataDidChange:(PKGPayloadDataSource *)inPayloadDataSource
+{
+	[self noteDocumentHasChanged];
 }
 
 #pragma mark - Notifications

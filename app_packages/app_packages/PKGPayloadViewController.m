@@ -96,6 +96,8 @@
 	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
 	
 	_dataSource.rootNodes=self.payload.filesTree.rootNodes;
+	_dataSource.filePathConverter=self.filePathConverter;
+	_dataSource.delegate=_filesHierarchyViewController;
 	
 	// A COMPLETER
 }

@@ -57,7 +57,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="T4P-v4-hGF">
+                                            <tableCellView id="T4P-v4-hGF" customClass="PKGTablePayloadFilenameCellView">
                                                 <rect key="frame" x="1" y="1" width="484" height="19"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -70,14 +70,13 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="JUz-Ig-LPe">
+                                                    <customView id="4Yw-Z1-cUb" customClass="PKGPayloadTreeNodeImageView">
                                                         <rect key="frame" x="3" y="2" width="16" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="VPF-4I-x95"/>
-                                                    </imageView>
+                                                    </customView>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="imageView" destination="JUz-Ig-LPe" id="4UT-jb-9ps"/>
+                                                    <outlet property="attributedImageView" destination="4Yw-Z1-cUb" id="PgT-77-50V"/>
                                                     <outlet property="textField" destination="Z5w-NW-sbf" id="hc9-XR-Dxa"/>
                                                 </connections>
                                             </tableCellView>
@@ -256,8 +255,24 @@
                         <action selector="showInFinder:" target="-2" id="vib-vE-MRi"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Expand" id="pnt-vx-zGz">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Expand" id="uGj-nR-pir">
+                        <items>
+                            <menuItem title="Item" id="FDi-Qt-p4X">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Contract" id="Ops-2w-Xev">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="contract:" target="-2" id="c7W-VK-gTo"/>
+                    </connections>
+                </menuItem>
             </items>
-            <point key="canvasLocation" x="328" y="820.5"/>
+            <point key="canvasLocation" x="-13" y="-68.5"/>
         </menu>
     </objects>
     <resources>

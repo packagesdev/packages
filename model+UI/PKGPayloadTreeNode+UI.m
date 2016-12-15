@@ -1,3 +1,15 @@
+/*
+ Copyright (c) 2016, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGPayloadTreeNode+UI.h"
 #import "PKGFileItem+UI.h"
@@ -8,30 +20,26 @@
 
 @implementation PKGPayloadTreeNode (UI)
 
-+ (PKGPayloadTreeNode *)newFolderNodeWithParentNode:(PKGPayloadTreeNode *)inParentNode
++ (PKGPayloadTreeNode *)newFolderNodeWithParentNode:(PKGPayloadTreeNode *)inParentNode siblings:(NSArray *)inSiblings
 {
-	if (inParentNode==nil)
+	if (inSiblings==nil)
 		return nil;
 	
-	PKGFileItem * tParentFileItem=inParentNode.representedObject;
+	uid_t tUid=0;
+	uid_t tGid=0;
 	
-	if (tParentFileItem==nil)
-		return nil;
+	if (inParentNode!=nil)
+	{
+		PKGFileItem * tParentFileItem=inParentNode.representedObject;
+		
+		if (tParentFileItem==nil)
+			return nil;
+		
+		tUid=tParentFileItem.uid;
+		tGid=tParentFileItem.gid;
+	}
 	
-	PKGFileItem * nFileItem=[PKGFileItem newFolderWithName:[PKGPayloadTreeNode uniqueFileNameAmongSiblings:inParentNode.children] uid:tParentFileItem.uid gid:tParentFileItem.gid permissions:(tParentFileItem.permissions & ACCESSPERMS)];
-	
-	if (nFileItem==nil)
-		return nil;
-	
-	return [PKGPayloadTreeNode treeNodeWithRepresentedObject:nFileItem children:nil];
-}
-
-+ (PKGPayloadTreeNode *)newFolderNodeWithSiblingsNodes:(NSArray *)inSiblingsNodes
-{
-	if (inSiblingsNodes==nil)
-		return nil;
-	
-	PKGFileItem * nFileItem=[PKGFileItem newFolderWithName:[PKGPayloadTreeNode uniqueFileNameAmongSiblings:inSiblingsNodes] uid:0 gid:0 permissions:0755];
+	PKGFileItem * nFileItem=[PKGFileItem newFolderWithName:[PKGPayloadTreeNode uniqueFileNameAmongSiblings:inSiblings] uid:tUid gid:tGid permissions:0775];
 	
 	if (nFileItem==nil)
 		return nil;
@@ -85,6 +93,11 @@
 
 #pragma mark -
 
+- (NSString *)fileName
+{
+	return ((PKGFileItem *)self.representedObject).fileName;
+}
+
 - (NSString *)filePath
 {
 	if (self.parent==nil)
@@ -131,20 +144,40 @@
 
 @end
 
+@implementation PKGPayloadTreeNodeAttributedImage
+
+- (id)copy
+{
+	PKGPayloadTreeNodeAttributedImage * tAttributedImage=[PKGPayloadTreeNodeAttributedImage new];
+	
+	tAttributedImage.image=self.image;
+	tAttributedImage.alpha=self.alpha;
+	tAttributedImage.defaultLocation=self.isDefaultLocation;
+	
+	return tAttributedImage;
+}
+
+@end
+
 
 @implementation PKGPayloadTreeNode (PKGFileHierarchy)
 
-- (NSImage *)nameIcon
+- (PKGPayloadTreeNodeAttributedImage *)nameAttributedIcon
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	if (tFileItem.type<PKGFileItemTypeNewFolder)
-		return ([self containsNoTemplateDescendantNodes]==YES)? tFileItem.icon : tFileItem.disabledIcon;
+	if (tFileItem==nil)
+		return nil;
 	
-	return tFileItem.icon;
+	PKGPayloadTreeNodeAttributedImage * tAttribuedImage=[PKGPayloadTreeNodeAttributedImage new];
+	
+	tAttribuedImage.image=tFileItem.icon;
+	tAttribuedImage.alpha=(tFileItem.type<PKGFileItemTypeNewFolder && [self containsNoTemplateDescendantNodes]==NO) ? 0.5 : 1.0;
+	
+	return tAttribuedImage;
 }
 
-- (NSAttributedString *)nameTitle
+- (NSAttributedString *)nameAttributedTitle
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	

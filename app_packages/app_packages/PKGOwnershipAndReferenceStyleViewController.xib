@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGOwnershipAndReferenceStyleViewController">
+            <connections>
+                <outlet property="_keepOwnerAndGroupButton" destination="PaN-tX-ahd" id="lXz-Xa-BdS"/>
+                <outlet property="_keepOwnerAndGroupView" destination="iMw-ai-9dF" id="4OG-AX-3RE"/>
+                <outlet property="_referenceStylePopUpButton" destination="Zhb-gn-9q4" id="9W3-IR-FaZ"/>
+                <outlet property="_referenceStyleView" destination="VMh-OO-m28" id="STP-pj-cks"/>
+                <outlet property="view" destination="fVj-tk-cye" id="NWY-wE-JXt"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="fVj-tk-cye">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="95"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <customView id="iMw-ai-9dF">
+                    <rect key="frame" x="0.0" y="59" width="374" height="36"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="egG-ir-jBW">
+                            <rect key="frame" x="49" y="1" width="74" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ownership:" id="RfS-Xr-Gvd">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button id="PaN-tX-ahd">
+                            <rect key="frame" x="127" y="0.0" width="166" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="check" title="Keep owner and group" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GHQ-Tg-H3d">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="switchKeepOwnerAndGroup:" target="-2" id="fuy-AB-TT8"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </customView>
+                <customView id="VMh-OO-m28">
+                    <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Mvf-s2-7M8">
+                            <rect key="frame" x="18" y="23" width="105" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Reference Style:" id="ZzS-aP-zhH">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" id="Zhb-gn-9q4">
+                            <rect key="frame" x="127" y="17" width="225" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" title="Relative to Reference Folder" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ubw-en-6OJ" id="8Ou-t7-L4F">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" id="AhO-K1-Zfx">
+                                    <items>
+                                        <menuItem title="Relative to Reference Folder" state="on" id="ubw-en-6OJ"/>
+                                        <menuItem title="Relative to Project" id="OdK-Zp-4U4"/>
+                                        <menuItem title="Absolute Path" id="ioN-4d-8Wg"/>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <action selector="switchReferenceStyle:" target="-2" id="6JU-71-Vei"/>
+                            </connections>
+                        </popUpButton>
+                    </subviews>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="446" y="160.5"/>
+        </customView>
+    </objects>
+</document>
