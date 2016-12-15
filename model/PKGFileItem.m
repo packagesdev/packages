@@ -30,6 +30,8 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 
 	@property (readwrite) PKGFileItemType type;
 
+	@property (readwrite) PKGFilePath * filePath;
+
 - (instancetype)initWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
 
 + (instancetype)fileItemWithName:(NSString *)inName type:(PKGFileItemType)inType uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
@@ -68,6 +70,27 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 + (instancetype)folderTemplateWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
 {
 	return [PKGFileItem fileItemWithName:inName type:PKGFileItemTypeFolderTemplate uid:inUid gid:inGid permissions:inPermissions];
+}
+
++ (instancetype)fileSystemItemWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions
+{
+	if (inFilePath==nil)
+		return nil;
+	
+	PKGFileItem * nFileItem=[[PKGFileItem alloc] init];
+	
+	if (nFileItem!=nil)
+	{
+		nFileItem.type=PKGFileItemTypeFileSystemItem;
+		
+		nFileItem.filePath=inFilePath;
+		
+		nFileItem.uid=inUid;
+		nFileItem.gid=inGid;
+		nFileItem.permissions=inPermissions;
+	}
+	
+	return nFileItem;
 }
 
 - (instancetype)initWithFileItem:(PKGFileItem *)inFileItem
