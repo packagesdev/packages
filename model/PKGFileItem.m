@@ -188,7 +188,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 		
 		switch(_type)
 		{
-			case PKGFileItemTypeInvisible:
+			case PKGFileItemTypeHiddenFolderTemplate:
 			case PKGFileItemTypeRoot:
 			case PKGFileItemTypeFolderTemplate:
 			case PKGFileItemTypeNewFolder:
@@ -223,6 +223,32 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 		tRepresentation[PKGFileItemExpandedKey]=@(YES);
 	
 	return tRepresentation;
+}
+
+#pragma mark -
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGFileItem * nFileItem=[[[self class] allocWithZone:inZone] init];
+	
+	if (nFileItem!=nil)
+	{
+		nFileItem->_fileItemAuxiliary=[(id)_fileItemAuxiliary copyWithZone:inZone];
+	
+		nFileItem.type=self.type;
+	
+		nFileItem.filePath=[self.filePath copyWithZone:inZone];
+	
+		nFileItem.uid=self.uid;
+	
+		nFileItem.gid=self.gid;
+	
+		nFileItem.permissions=self.permissions;
+	
+		nFileItem.contentsDisclosed=self.isContentsDisclosed;
+	}
+	
+	return nFileItem;
 }
 
 @end

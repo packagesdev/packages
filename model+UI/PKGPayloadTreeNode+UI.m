@@ -128,11 +128,18 @@
 	return [tMutableString copy];
 }
 
+- (BOOL)isHiddenTemplateNode
+{
+	PKGFileItem * tFileItem=self.representedObject;
+	
+	return (tFileItem.type==PKGFileItemTypeHiddenFolderTemplate);
+}
+
 - (BOOL)isTemplateNode
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	return (tFileItem.type==PKGFileItemTypeInvisible || tFileItem.type==PKGFileItemTypeFolderTemplate);
+	return (tFileItem.type==PKGFileItemTypeHiddenFolderTemplate || tFileItem.type==PKGFileItemTypeFolderTemplate);
 }
 
 - (BOOL)isFileSystemItemNode
@@ -229,7 +236,7 @@
 	
 	switch(tFileItem.type)
 	{
-		case PKGFileItemTypeInvisible:
+		case PKGFileItemTypeHiddenFolderTemplate:
 		case PKGFileItemTypeRoot:
 		case PKGFileItemTypeFolderTemplate:
 		case PKGFileItemTypeNewFolder:

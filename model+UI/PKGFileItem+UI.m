@@ -34,7 +34,7 @@
 {
 	switch(self.type)
 	{
-		case PKGFileItemTypeInvisible:
+		case PKGFileItemTypeHiddenFolderTemplate:
 		case PKGFileItemTypeFolderTemplate:
 		case PKGFileItemTypeNewFolder:
 			

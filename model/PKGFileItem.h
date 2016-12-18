@@ -19,7 +19,7 @@
 
 typedef NS_ENUM(NSInteger, PKGFileItemType)
 {
-	PKGFileItemTypeInvisible=-1,
+	PKGFileItemTypeHiddenFolderTemplate=-1,
 	PKGFileItemTypeRoot=0,
 	PKGFileItemTypeFolderTemplate,
 	PKGFileItemTypeNewFolder,
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 
 @class _PKGFileItemAuxiliary;
 
-@interface PKGFileItem : NSObject <PKGObjectProtocol>
+@interface PKGFileItem : NSObject <PKGObjectProtocol,NSCopying>
 {
 	_PKGFileItemAuxiliary * _fileItemAuxiliary;
 }

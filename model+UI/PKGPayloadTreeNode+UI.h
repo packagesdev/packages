@@ -25,6 +25,7 @@
 
 - (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode;
 
+- (BOOL)isHiddenTemplateNode;
 - (BOOL)isTemplateNode;
 - (BOOL)isFileSystemItemNode;
 
