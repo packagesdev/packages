@@ -169,6 +169,26 @@
 
 #pragma mark -
 
+- (id)copyWithZone:(NSZone *)inZone
+{
+	_PKGFileItemAuxiliary * nFileItemAuxiliary=[[[self class] allocWithZone:inZone] init];
+	
+	if (nFileItemAuxiliary!=nil)
+	{
+		nFileItemAuxiliary.refreshTimeMark=self.refreshTimeMark;
+		nFileItemAuxiliary.referencedItemPath=[self.referencedItemPath copy];
+		nFileItemAuxiliary.icon=[self.icon copy];
+		nFileItemAuxiliary.excluded=self.isExcluded;
+		nFileItemAuxiliary.symbolicLink=self.isSymbolicLink;
+		nFileItemAuxiliary.referencedItemMissing=self.isReferencedItemMissing;
+		nFileItemAuxiliary.fileMode=self.fileMode;
+	}
+	
+	return nFileItemAuxiliary;
+}
+
+#pragma mark -
+
 - (void)updateWithReferencedItemPath:(NSString *)inPath type:(PKGFileItemType)inType fileFilters:(NSArray *)inFileFilters
 {
 	self.referencedItemPath=inPath;

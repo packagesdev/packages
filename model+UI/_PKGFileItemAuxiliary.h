@@ -15,7 +15,7 @@
 
 #import "PKGFileItem.h"
 
-@interface _PKGFileItemAuxiliary : NSObject
+@interface _PKGFileItemAuxiliary : NSObject <NSCopying>
 
 	@property (readonly) double refreshTimeMark;
 
