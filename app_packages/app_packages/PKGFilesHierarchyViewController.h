@@ -24,6 +24,8 @@ typedef NS_OPTIONS(NSUInteger, PKGManagedAttributesOptions)
 
 @interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate>
 
+	@property (strong) NSOutlineView * outlineView;
+
 	@property (nonatomic) PKGPayloadDataSource * hierarchyDatasource;
 
 	@property (nonatomic) PKGManagedAttributesOptions managedFileAttributes;

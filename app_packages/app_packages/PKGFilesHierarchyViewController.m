@@ -25,6 +25,8 @@
 #import "PKGOwnershipAndReferenceStyleViewController.h"
 #import "PKGPayloadDropView.h"
 
+#import "PKGPackagePayloadDataSource.h"
+
 @interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
 	@property NSArray * sibblings;
@@ -58,8 +60,6 @@
 @interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate>
 {
 	IBOutlet NSTextField * _viewLabel;
-	
-	IBOutlet NSOutlineView * _outlineView;
 	
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
@@ -107,6 +107,11 @@
 
 #pragma mark -
 
+- (NSString *)nibName
+{
+	return @"PKGFilesHierarchyViewController";
+}
+
 - (id<PKGFilePathConverter>)filePathConverter
 {
 	return (id<PKGFilePathConverter>) [NSApplication sharedApplication].delegate;
@@ -123,17 +128,17 @@
 	
 	BOOL tHideColumn=(_managedFileAttributes & PKGFileOwnerAndGroupAccounts)==0;
 	
-	[_outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
-	[_outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
+	[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
+	[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
 	
 	// Permissions
 	
 	tHideColumn=(_managedFileAttributes & PKGFilePosixPermissions)==0;
 	
-	[_outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
+	[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
 	
 	
-	[_outlineView registerForDraggedTypes:@[NSFilenamesPboardType]];
+	[self.outlineView registerForDraggedTypes:@[NSFilenamesPboardType]];
 	
 	_addButton.enabled=(self.canAddRootNodes==YES);
 	_removeButton.enabled=NO;
@@ -155,20 +160,20 @@
 	{
 		_managedFileAttributes=inOptions;
 	
-		if (_outlineView!=nil)
+		if (self.outlineView!=nil)
 		{
 			// Owner and Group
 			
 			BOOL tHideColumn=(_managedFileAttributes & PKGFileOwnerAndGroupAccounts)==0;
 			
-			[_outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
-			[_outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
+			[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
+			[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
 			
 			// Permissions
 			
 			tHideColumn=(_managedFileAttributes & PKGFilePosixPermissions)==0;
 			
-			[_outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
+			[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
 		}
 	}
 }
@@ -179,7 +184,7 @@
 {
 	_viewLabel.stringValue=_label;
 	
-	_outlineView.dataSource=_hierarchyDatasource;
+	self.outlineView.dataSource=_hierarchyDatasource;
 	
 	if ([self.view isKindOfClass:[PKGPayloadDropView class]]==YES)
 		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDatasource;
@@ -204,7 +209,7 @@
 
 - (void)refreshHierarchy
 {
-	[_outlineView reloadData];
+	[self.outlineView reloadData];
 }
 
 #pragma mark -
@@ -213,8 +218,8 @@
 {
 	_hierarchyDatasource=inDataSource;
 	
-	if (_outlineView!=nil)
-		_outlineView.dataSource=_hierarchyDatasource;
+	if (self.outlineView!=nil)
+		self.outlineView.dataSource=_hierarchyDatasource;
 }
 
 - (void)setLabel:(NSString *)inLabel
@@ -229,7 +234,7 @@
 
 - (NSView *)outlineView:(NSOutlineView *)inOutlineView viewForTableColumn:(NSTableColumn *)inTableColumn item:(PKGPayloadTreeNode *)inPayloadTreeNode
 {
-	if (inOutlineView!=_outlineView)
+	if (inOutlineView!=self.outlineView)
 		return nil;
 	
 	NSString * tTableColumnIdentifier=[inTableColumn identifier];
@@ -280,13 +285,13 @@
 
 - (IBAction)showInFinder:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
 	
 	NSWorkspace * tSharedWorkspace=[NSWorkspace sharedWorkspace];
 	
 	[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 		
-		PKGPayloadTreeNode * tPayloadTreeNode=[_outlineView itemAtRow:bIndex];
+		PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:bIndex];
 		
 		[tSharedWorkspace selectFile:[tPayloadTreeNode referencedPathUsingConverter:self.filePathConverter] inFileViewerRootedAtPath:@""];
 	}];
@@ -294,6 +299,9 @@
 
 - (IBAction)addFiles:(id)sender
 {
+	[((PKGPackagePayloadDataSource *)self.hierarchyDatasource) outlineView:self.outlineView showsHiddenFolders:YES];
+	return;
+	
 	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
 	
 	tOpenPanel.resolvesAliases=NO;
@@ -303,18 +311,18 @@
 	tOpenPanel.treatsFilePackagesAsDirectories=YES;
 	tOpenPanel.showsHiddenFiles=[PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog;
 	
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
 	
 	PKGTreeNode * tParentNode=nil;
 	
 	if (tSelectionIndexSet.count>0)
 	{
-		NSInteger tClickedRow=_outlineView.clickedRow;
+		NSInteger tClickedRow=self.outlineView.clickedRow;
 		
 		if (tClickedRow==-1)
 			tClickedRow=tSelectionIndexSet.firstIndex;
 		
-		PKGPayloadTreeNode * tNode=[_outlineView itemAtRow:tClickedRow];
+		PKGPayloadTreeNode * tNode=[self.outlineView itemAtRow:tClickedRow];
 		
 		tParentNode=(tNode.isLeaf==NO) ? tNode : tNode.parent;
 	}
@@ -364,7 +372,7 @@
 				return bURL.path;
 			}];
 			
-			if ([self.hierarchyDatasource outlineView:_outlineView
+			if ([self.hierarchyDatasource outlineView:self.outlineView
 							 addFileSystemItemsAtPaths:tPaths
 										referenceType:tReferenceStyle
 											toParents:(tParentNode==nil) ? nil : @[tParentNode]
@@ -380,32 +388,35 @@
 
 - (IBAction)addNewFolder:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
-	NSInteger tClickedRow=_outlineView.clickedRow;
+	[((PKGPackagePayloadDataSource *)self.hierarchyDatasource) outlineView:self.outlineView showsHiddenFolders:NO];
+	return;
+	
+	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
+	NSInteger tClickedRow=self.outlineView.clickedRow;
 	
 	// Selection is not empty and no row was clicked
 	
 	if (tSelectionIndexSet.count>0 && tClickedRow==-1)
 		tClickedRow=tSelectionIndexSet.firstIndex;
 	
-	if ([self.hierarchyDatasource outlineView:_outlineView addNewFolderToParent:(tClickedRow!=-1) ? ((PKGTreeNode *)[_outlineView itemAtRow:tClickedRow]) : nil]==NO)
+	if ([self.hierarchyDatasource outlineView:self.outlineView addNewFolderToParent:(tClickedRow!=-1) ? ((PKGTreeNode *)[self.outlineView itemAtRow:tClickedRow]) : nil]==NO)
 		return;
 	
 	// Enter edition mode
 	
-	NSInteger tRow=[_outlineView selectedRow];
+	NSInteger tRow=[self.outlineView selectedRow];
 	
 	if (tRow==-1)
 		return;
 	
-	[_outlineView scrollRowToVisible:tRow];
+	[self.outlineView scrollRowToVisible:tRow];
 	
-	[_outlineView editColumn:[_outlineView columnWithIdentifier:@"file.name"] row:tRow withEvent:nil select:YES];
+	[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"file.name"] row:tRow withEvent:nil select:YES];
 }
 
 - (IBAction)delete:(id)sender
 {
-	NSInteger tNumberOfSelectedRows=_outlineView.numberOfSelectedRows;
+	NSInteger tNumberOfSelectedRows=self.outlineView.numberOfSelectedRows;
 	
 	if (tNumberOfSelectedRows<1)
 		return;
@@ -425,7 +436,7 @@
 	if (inReturnCode!=NSAlertFirstButtonReturn)
 		return;
 	
-	[self.hierarchyDatasource outlineView:_outlineView removeItems:[_outlineView selectedItems]];
+	[self.hierarchyDatasource outlineView:self.outlineView removeItems:[self.outlineView selectedItems]];
 }
 
 - (IBAction)expand:(id)sender
@@ -435,28 +446,27 @@
 
 - (IBAction)contract:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
 	
 	NSUInteger tIndex=tSelectionIndexSet.firstIndex;
 	
-	PKGPayloadTreeNode * tExpandedNode=[_outlineView itemAtRow:tIndex];
+	PKGPayloadTreeNode * tExpandedNode=[self.outlineView itemAtRow:tIndex];
 	
-	[_outlineView collapseItem:tExpandedNode];
+	[self.outlineView collapseItem:tExpandedNode];
 	
 	[tExpandedNode contract];
 	
 	[self noteDocumentHasChanged];
 	
-	[_outlineView reloadItem:tExpandedNode];
+	[self.outlineView reloadItem:tExpandedNode];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
 	SEL tSelector=inMenuItem.action;
 	
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
 
-	
 	NSInteger tSelectedCount=tSelectionIndexSet.count;
 	
 	if (tSelectedCount==0)
@@ -483,12 +493,12 @@
 		
 		if (tSelector==@selector(addNewFolder:))
 		{
-			NSInteger tClickedRow=_outlineView.clickedRow;
+			NSInteger tClickedRow=self.outlineView.clickedRow;
 			
 			if (tClickedRow==-1)
 				tClickedRow=tSelectionIndexSet.firstIndex;
 			
-			PKGPayloadTreeNode * tParentNode=[_outlineView itemAtRow:tClickedRow];
+			PKGPayloadTreeNode * tParentNode=[self.outlineView itemAtRow:tClickedRow];
 			
 			if (tParentNode.isLeaf==NO)
 				return YES;
@@ -509,7 +519,7 @@
 		{
 			[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 			
-				PKGPayloadTreeNode * tPayloadTreeNode=[_outlineView itemAtRow:bIndex];
+				PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:bIndex];
 				
 				if ([tPayloadTreeNode isFileSystemItemNode]==NO)
 				{
@@ -527,7 +537,7 @@
 		{
 			[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 				
-				PKGPayloadTreeNode * tPayloadTreeNode=[_outlineView itemAtRow:bIndex];
+				PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:bIndex];
 				
 				if ([tPayloadTreeNode isTemplateNode]==YES)
 				{
@@ -542,7 +552,7 @@
 	
 	if (tSelectedCount==1)
 	{
-		PKGPayloadTreeNode * tPayloadTreeNode=[_outlineView itemAtRow:tSelectionIndexSet.firstIndex];
+		PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:tSelectionIndexSet.firstIndex];
 		
 		// Contraction and expansion actions
 		
@@ -596,10 +606,10 @@
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)inNotification
 {
-	if (inNotification.object!=_outlineView)
+	if (inNotification.object!=self.outlineView)
 		return;
 	
-	NSIndexSet * tSelectionIndexSet=_outlineView.selectedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedRowIndexes;
 	
 	// Delete button state
 	
@@ -616,7 +626,7 @@
 		
 	[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 		
-		PKGPayloadTreeNode * tPayloadTreeNode=[_outlineView itemAtRow:bIndex];
+		PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:bIndex];
 		
 		if ([tPayloadTreeNode isTemplateNode]==YES)
 		{
@@ -632,7 +642,7 @@
 {
 	_highlightExcludedItems=[self highlightExcludedItems];
 	
-	[_outlineView reloadData];
+	[self.outlineView reloadData];
 }
 
 @end
