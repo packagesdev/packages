@@ -54,7 +54,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		_splitForksIfNeeded=YES;
 		
-		_invisibleHierarchyIncluded=NO;
+		_hiddenFolderTemplatesIncluded=NO;
 		
 		_filesTree=[[PKGPayloadTree alloc] init];
 		
@@ -92,7 +92,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		_splitForksIfNeeded=YES;
 		
-		_invisibleHierarchyIncluded=NO;
+		_hiddenFolderTemplatesIncluded=NO;
 		
 		NSNumber * tNumber=inDefaultHierarchy[IPKGPackagePayloadHierarchyBaseVersion];
 		
@@ -204,7 +204,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		PKGFullCheckNumberValueForKey(tNumber,IPKGPackagePayloadHierarchyShowInvisibleFilesKey);
 		
-		_invisibleHierarchyIncluded=[tNumber boolValue];
+		_hiddenFolderTemplatesIncluded=[tNumber boolValue];
 		
 		NSError * tError=nil;
 		
@@ -252,7 +252,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 	
 	tRepresentation[IPKGPackagePayloadHierarchyBaseVersion]=@(self.templateVersion);
 	
-	tRepresentation[IPKGPackagePayloadHierarchyShowInvisibleFilesKey]=@(self.invisibleHierarchyIncluded);
+	tRepresentation[IPKGPackagePayloadHierarchyShowInvisibleFilesKey]=@(self.hiddenFolderTemplatesIncluded);
 	
 	tRepresentation[IPKGPackagePayloadHierarchyKey]=[self.filesTree representation];
 	
@@ -280,7 +280,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 	
 	[tDescription appendFormat:@"  Template Version: %lu\n",(unsigned long)self.templateVersion];
 	
-	[tDescription appendFormat:@"  Invisible Hierarchy Included: %@\n",(self.invisibleHierarchyIncluded==YES) ? @"Yes" : @"No"];
+	[tDescription appendFormat:@"  Hidden Folder Templates Included: %@\n",(self.hiddenFolderTemplatesIncluded==YES) ? @"Yes" : @"No"];
 	
 	// A COMPLETER
 	
