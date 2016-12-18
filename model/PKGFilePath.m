@@ -131,9 +131,9 @@ NSString * const PKGFilePathStringKey=@"PATH";
 
 #pragma mark -
 
-- (id)copy
+- (id)copyWithZone:(NSZone *)inZone
 {
-	return [[PKGFilePath alloc] initWithString:self.string type:self.type];
+	return [[[self class] alloc] initWithString:self.string type:self.type];
 }
 
 #pragma mark -

@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, PKGFilePathType)
 	PKGFilePathTypeMixed
 };
 
-@interface PKGFilePath : NSObject <PKGObjectProtocol>
+@interface PKGFilePath : NSObject <NSCopying,PKGObjectProtocol>
 
 	@property PKGFilePathType type;
 
