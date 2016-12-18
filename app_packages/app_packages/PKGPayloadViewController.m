@@ -17,7 +17,7 @@
 
 #import "PKGPackagePayloadDataSource.h"
 
-#import "PKGFilesHierarchyViewController.h"
+#import "PKGPayloadFilesHierarchyViewController.h"
 
 @interface PKGPayloadViewController ()
 {
@@ -29,7 +29,7 @@
 	
 	IBOutlet NSView * _hierarchyPlaceHolderView;
 	
-	PKGFilesHierarchyViewController * _filesHierarchyViewController;
+	PKGPayloadFilesHierarchyViewController * _filesHierarchyViewController;
 	
 	PKGPackagePayloadDataSource * _dataSource;
 }
@@ -41,6 +41,8 @@
 - (IBAction)setDefaultDestination:(id)sender;
 
 // Notifications
+
+- (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification;
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification;
 
@@ -66,7 +68,7 @@
 {
     [super viewDidLoad];
 	
-	_filesHierarchyViewController=[PKGFilesHierarchyViewController new];
+	_filesHierarchyViewController=[PKGPayloadFilesHierarchyViewController new];
 	
 	_filesHierarchyViewController.label=@"Payload";
 	_filesHierarchyViewController.hierarchyDatasource=_dataSource;
@@ -106,6 +108,8 @@
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
+	
 	[_filesHierarchyViewController refreshHierarchy];
 }
 
@@ -135,7 +139,23 @@
 	// A COMPLETER
 }
 
+#pragma mark -
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tSelector=inMenuItem.action;
+	
+	// A COMPLETER
+	
+	return YES;
+}
+
 #pragma mark - Notifications
+
+- (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification
+{
+	// A COMPLETER
+}
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification
 {
