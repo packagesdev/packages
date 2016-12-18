@@ -120,7 +120,7 @@
 		
 		if (tParentNode==nil)
 		{
-			[nFileSystemItemNode insertAsSiblingOfNodes:(NSMutableArray *)tSiblings sortedUsingSelector:@selector(compareName:)];
+			[nFileSystemItemNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:tParentNode sortedUsingSelector:@selector(compareName:)];
 		}
 		else
 		{
@@ -183,7 +183,7 @@
 	
 	if (inParent==nil)
 	{
-		[tNewFolderNode insertAsSiblingOfNodes:(NSMutableArray *)tSiblings sortedUsingSelector:@selector(compareName:)];
+		[tNewFolderNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:inParent sortedUsingSelector:@selector(compareName:)];
 	}
 	else
 	{
