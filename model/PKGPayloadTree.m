@@ -124,7 +124,12 @@
 
 - (NSMutableArray *)rootNodes
 {
-	return [NSMutableArray arrayWithObject:self.rootNode];
+	PKGPayloadTreeNode * tRootNode=self.rootNode;
+	
+	if (tRootNode==nil)
+		return nil;
+	
+	return [NSMutableArray arrayWithObject:tRootNode];
 }
 
 @end
