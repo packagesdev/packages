@@ -13,9 +13,104 @@
 
 #import "PKGPackagePayloadDataSource.h"
 
-#import "PKGPayloadTreeNode.h"
+#import "PKGPayloadTreeNode+UI.h"
+
+#import "NSOutlineView+Selection.h"
+
+@interface PKGPackagePayloadDataSource ()
+
+	@property (nonatomic,readonly) PKGTreeNode * cachedHiddenTemplateFoldersTree;
+	@property (nonatomic,readonly) NSUInteger hiddenTemplateFoldersTreeHeight;
+
+@end
 
 @implementation PKGPackagePayloadDataSource
+
+@synthesize cachedHiddenTemplateFoldersTree=_cachedHiddenTemplateFoldersTree;
+@synthesize hiddenTemplateFoldersTreeHeight=_hiddenTemplateFoldersTreeHeight;
+
+- (PKGTreeNode *)cachedHiddenTemplateFoldersTree
+{
+	if (_cachedHiddenTemplateFoldersTree==nil)
+	{
+		NSString * tPath=[[NSBundle mainBundle] pathForResource:@"InvisibleHierarchy" ofType:@"plist"];
+		
+		if (tPath==nil)
+			return nil;
+		
+		NSDictionary * tDictionary=[[NSDictionary alloc] initWithContentsOfFile:tPath];
+		
+		NSError * tError;
+		_cachedHiddenTemplateFoldersTree=[[PKGPayloadTreeNode alloc] initWithRepresentation:tDictionary error:&tError];
+		
+		if (_cachedHiddenTemplateFoldersTree==nil)
+		{
+			// A COMPLETER
+			
+			return nil;
+		}
+		
+		_hiddenTemplateFoldersTreeHeight=[_cachedHiddenTemplateFoldersTree height];
+	}
+	
+	return _cachedHiddenTemplateFoldersTree;
+}
+
+#pragma mark -
+
+- (void)outlineView:(NSOutlineView *)inOutlineView showsHiddenFolders:(BOOL)inShowsHiddenFolders
+{
+	if (inOutlineView==nil)
+		return;
+	
+	// Save selection
+	
+	NSArray * tSavedSelectedItems=[inOutlineView selectedItems];
+	
+	if (inShowsHiddenFolders==YES)
+	{
+		if ([self.rootNodes[0] addUnmatchedDescendantsOfNode:[self.cachedHiddenTemplateFoldersTree deepCopy] usingSelector:@selector(compareName:)]==NO)
+			return;
+	}
+	else
+	{
+		NSMutableArray * tMutableArray=self.rootNodes;
+		NSUInteger tCount=tMutableArray.count;
+		
+		for(NSUInteger tIndex=tCount;tIndex>0;tIndex--)
+		{
+			PKGPayloadTreeNode * tRootNode=(PKGPayloadTreeNode *)[tMutableArray[tIndex-1] filterRecursivelyUsingBlock:^BOOL(PKGPayloadTreeNode * bPayloadTreeNode){
+			
+				return (bPayloadTreeNode.isHiddenTemplateNode==NO || [bPayloadTreeNode numberOfChildren]>0);
+			
+			}
+																										 maximumDepth:self.hiddenTemplateFoldersTreeHeight];
+			
+			if (tRootNode==nil)
+				[tMutableArray removeObjectAtIndex:tIndex-1];
+		}
+	}
+	
+	[inOutlineView deselectAll:nil];
+	
+	[inOutlineView reloadData];
+	
+	// Restore selection
+	
+	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+	
+	for(id tItem in tSavedSelectedItems)
+	{
+		NSInteger tRow=[inOutlineView rowForItem:tItem];
+		
+		if (tRow!=-1)
+			[tMutableIndexSet addIndex:tRow];
+	}
+	
+	[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+	
+	[self.delegate payloadDataDidChange:self];
+}
 
 #pragma mark - PKGFileDeadDropViewDelegate
 

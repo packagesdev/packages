@@ -17,4 +17,6 @@
 
 @interface PKGPackagePayloadDataSource : PKGPayloadDataSource <PKGFileDeadDropViewDelegate>
 
+- (void)outlineView:(NSOutlineView *)inOutlineView showsHiddenFolders:(BOOL)inShowsHiddenFolders;
+
 @end
