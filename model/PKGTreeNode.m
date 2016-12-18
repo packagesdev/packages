@@ -25,10 +25,12 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 {
 	__weak PKGTreeNode * _parent;
 	
-	id<PKGObjectProtocol> _representedObject;
+	id<PKGObjectProtocol,NSCopying> _representedObject;
 	
 	NSMutableArray * _children;
 }
+
+- (PKGTreeNode *)deepCopyWithZone:(NSZone *)inZone;
 
 - (void)setParent:(PKGTreeNode *)inParent;
 
@@ -62,7 +64,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return self;
 }
 
-- (instancetype)initWithRepresentedObject:(id<PKGObjectProtocol>)inRepresentedObject children:(NSArray *)inChildren
+- (instancetype)initWithRepresentedObject:(id<PKGObjectProtocol,NSCopying>)inRepresentedObject children:(NSArray *)inChildren
 {
 	self=[super init];
 	
@@ -213,6 +215,35 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return tDescription;
 }
 
+- (PKGTreeNode *)deepCopy
+{
+	return [self deepCopyWithZone:nil];
+}
+
+- (PKGTreeNode *)deepCopyWithZone:(NSZone *)inZone
+{
+	PKGTreeNode * nTreeNode=[[[self class] allocWithZone:inZone] init];
+	
+	if (nTreeNode!=nil)
+	{
+		nTreeNode->_representedObject=[_representedObject copyWithZone:inZone];
+		
+		for(PKGTreeNode * tChild in _children)
+		{
+			PKGTreeNode * nChild=[tChild deepCopyWithZone:inZone];
+			
+			if (nChild==nil)
+				return nil;
+			
+			nChild.parent=self;
+			
+			[nTreeNode->_children addObject:nChild];
+		}
+	}
+	
+	return nTreeNode;
+}
+
 #pragma mark -
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation
@@ -222,9 +253,29 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return nil;
 }
 
-- (id<PKGObjectProtocol>)representedObject
+- (id<PKGObjectProtocol,NSCopying>)representedObject
 {
 	return _representedObject;
+}
+
+#pragma mark -
+
+- (NSUInteger)height
+{
+	if (_children.count==0)
+		return 0;
+	
+	NSUInteger tMaxChildHeight=0;
+	
+	for(PKGTreeNode * tChild in _children)
+	{
+		NSUInteger tChildHeight=[tChild height];
+		
+		if (tChildHeight>tMaxChildHeight)
+			tMaxChildHeight=tChildHeight;
+	}
+	
+	return (tMaxChildHeight+1);
 }
 
 - (BOOL)isLeaf
@@ -334,6 +385,83 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	[_children addObjectsFromArray:inChildren];
 }
 
+- (BOOL)addUnmatchedDescendantsOfNode:(PKGTreeNode *)inTreeNode usingSelector:(SEL)inComparator
+{
+	if (inTreeNode==nil)
+		return NO;
+	
+	__block BOOL tDidAddDescendants=NO;
+	
+	NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:inComparator]];
+	tInvocation.selector=inComparator;
+	
+	for(PKGTreeNode * tDescendant in inTreeNode.children)
+	{
+		__block BOOL tMatched=NO;
+		
+		tInvocation.target=tDescendant;
+		
+		[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+			
+			NSComparisonResult tComparisonResult;
+			
+			[tInvocation setArgument:&bTreeNode atIndex:2];
+			[tInvocation invoke];
+			[tInvocation getReturnValue:&tComparisonResult];
+			
+			if (tComparisonResult==NSOrderedSame)
+			{
+				tMatched=YES;
+				
+				// Checked with the descendants
+				
+				tDidAddDescendants=[bTreeNode addUnmatchedDescendantsOfNode:tDescendant usingSelector:inComparator];
+				*bOutStop=YES;
+			}
+		}];
+					
+		if (tMatched==NO)
+		{
+			tDidAddDescendants=YES;
+			[tDescendant insertAsSiblingOfChildren:_children ofNode:self sortedUsingSelector:inComparator];
+		}
+	}
+	
+	return tDidAddDescendants;
+}
+
+- (PKGTreeNode *)filterRecursivelyUsingBlock:(BOOL (^)(id bTreeNode))inBlock
+{
+	return [self filterRecursivelyUsingBlock:inBlock maximumDepth:NSNotFound];
+}
+
+- (PKGTreeNode *)filterRecursivelyUsingBlock:(BOOL (^)(id bTreeNode))inBlock maximumDepth:(NSUInteger)inMaximumDepth
+{
+	if (inBlock==nil)
+		return self;
+	
+	if (inMaximumDepth>0)
+	{
+		if (inMaximumDepth!=NSNotFound)
+			inMaximumDepth--;
+		
+		NSUInteger tCount=_children.count;
+		
+		for(NSUInteger tIndex=tCount;tIndex>0;tIndex--)
+		{
+			PKGTreeNode * tResult=[_children[tIndex-1] filterRecursivelyUsingBlock:inBlock maximumDepth:inMaximumDepth];
+			
+			if (tResult==nil)
+				[_children removeObjectAtIndex:tIndex-1];
+		}
+	}
+	
+	if (inBlock(self)==NO)
+		return nil;
+	
+	return self;
+}
+
 - (void)insertChild:(PKGTreeNode *)inChild atIndex:(NSUInteger)inIndex
 {
 	if (inChild==nil || inIndex>[_children count])
@@ -353,17 +481,18 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 }
 
 
-- (void)insertAsSiblingOfNodes:(NSMutableArray *)inSiblings sortedUsingComparator:(NSComparator)inComparator
+- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingComparator:(NSComparator)inComparator
 {
-	if (inSiblings==nil || inComparator==nil)
+	if (inChildren==nil || inComparator==nil)
 		return;
 	
-	if ([inSiblings isKindOfClass:[NSMutableArray class]]==NO)
+	if ([inChildren isKindOfClass:[NSMutableArray class]]==NO)
 		return;
 	
-	if (inSiblings.count==0)
+	if (inChildren.count==0)
 	{
-		[inSiblings addObject:self];
+		[self setParent:inParent];
+		[inChildren addObject:self];
 		return;
 	}
 	
@@ -371,24 +500,25 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		
 		if (inComparator(self,bTreeNode)!=NSOrderedDescending)
 		{
-			[self setParent:bTreeNode.parent];
-			[_children insertObject:self atIndex:bIndex];
+			[self setParent:inParent];
+			[inChildren insertObject:self atIndex:bIndex];
 			*bOutStop=YES;
 		}
 	}];
 }
 
-- (void)insertAsSiblingOfNodes:(NSMutableArray *)inSiblings sortedUsingSelector:(SEL)inComparator
+- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingSelector:(SEL)inComparator
 {
-	if (inSiblings==nil || inComparator==nil)
+	if (inChildren==nil || inComparator==nil)
 		return;
 	
-	if ([inSiblings isKindOfClass:[NSMutableArray class]]==NO)
+	if ([inChildren isKindOfClass:[NSMutableArray class]]==NO)
 		return;
 	
-	if (inSiblings.count==0)
+	if (inChildren.count==0)
 	{
-		[inSiblings addObject:self];
+		[self setParent:inParent];
+		[inChildren addObject:self];
 		return;
 	}
 	
@@ -396,7 +526,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	tInvocation.target=self;
 	tInvocation.selector=inComparator;
 	
-	[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	[inChildren enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 		
 		NSComparisonResult tComparisonResult;
 		
@@ -406,8 +536,8 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		
 		if (tComparisonResult!=NSOrderedDescending)
 		{
-			[self setParent:bTreeNode.parent];
-			[_children insertObject:self atIndex:bIndex];
+			[self setParent:inParent];
+			[inChildren insertObject:self atIndex:bIndex];
 			*bOutStop=YES;
 		}
 	}];
@@ -420,6 +550,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	if (_children.count==0)
 	{
+		[inChild setParent:self];
 		[_children addObject:inChild];
 		return;
 	}
@@ -447,6 +578,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	if (_children.count==0)
 	{
+		[inChild setParent:self];
 		[_children addObject:inChild];
 		return;
 	}

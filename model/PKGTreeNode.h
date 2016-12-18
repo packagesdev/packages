@@ -21,9 +21,13 @@
 
 - (instancetype)initWithRepresentedObject:(id<PKGObjectProtocol>)inRepresentedObject children:(NSArray *)inChildren;
 
-- (id<PKGObjectProtocol>)representedObject;
+- (PKGTreeNode *)deepCopy;
+
+- (id<PKGObjectProtocol,NSCopying>)representedObject;
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
+
+- (NSUInteger)height;
 
 - (BOOL)isLeaf;
 
@@ -45,11 +49,16 @@
 - (void)addChild:(PKGTreeNode *)inChild;
 - (void)addChildren:(NSArray *)inChildren;
 
+- (BOOL)addUnmatchedDescendantsOfNode:(PKGTreeNode *)inTreeNode usingSelector:(SEL)inComparator;
+- (PKGTreeNode *)filterRecursivelyUsingBlock:(BOOL (^)(id bTreeNode))inBlock;
+- (PKGTreeNode *)filterRecursivelyUsingBlock:(BOOL (^)(id bTreeNode))inBlock maximumDepth:(NSUInteger)inMaximumDepth;
+
+
 - (void)insertChild:(PKGTreeNode *)inChild atIndex:(NSUInteger)inIndex;
 - (void)insertChildren:(NSArray *)inChildren atIndex:(NSUInteger)inIndex;
 
-- (void)insertAsSiblingOfNodes:(NSMutableArray *)inSiblings sortedUsingComparator:(NSComparator)inComparator;
-- (void)insertAsSiblingOfNodes:(NSMutableArray *)inSiblings sortedUsingSelector:(SEL)inComparator;
+- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingComparator:(NSComparator)inComparator;
+- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingSelector:(SEL)inComparator;
 
 - (void)insertChild:(PKGTreeNode *)inChild sortedUsingComparator:(NSComparator)inComparator;
 - (void)insertChild:(PKGTreeNode *)inChild sortedUsingSelector:(SEL)inComparator;
