@@ -23,11 +23,17 @@
 
 + (NSString *)uniqueFileNameAmongSiblings:(NSArray *)inSiblings;
 
++ (BOOL)validateFolderName:(NSString *)inFolderName;
+
 - (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode;
+
+- (void)setNewFolderName:(NSString *)inFolderName;
 
 - (BOOL)isHiddenTemplateNode;
 - (BOOL)isTemplateNode;
 - (BOOL)isFileSystemItemNode;
+
+- (BOOL)isSelectableAsInstallationLocation;
 
 @end
 
@@ -36,8 +42,6 @@
 	@property NSImage * image;
 
 	@property CGFloat alpha;
-
-	@property (getter=isDefaultLocation) BOOL defaultLocation;
 
 @end
 

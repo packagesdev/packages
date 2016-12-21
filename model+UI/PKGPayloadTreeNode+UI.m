@@ -83,12 +83,43 @@
 	return nil;
 }
 
++ (BOOL)validateFolderName:(NSString *)inFolderName
+{
+	if (inFolderName==nil)
+		return NO;
+	
+	NSUInteger tLength=inFolderName.length;
+	
+	if (tLength==0 || tLength>256)
+		return NO;
+	
+	if ([inFolderName isEqualToString:@".."]==YES ||
+		[inFolderName isEqualToString:@"."]==YES ||
+		[inFolderName rangeOfString:@"/"].location!=NSNotFound)
+		return NO;
+	
+	return YES;
+}
+
 - (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode
 {
 	if (inPayloadTreeNode==nil)
 		return NSOrderedDescending;
 	
-	return [((PKGFileItem *)self.representedObject).fileName caseInsensitiveCompare:((PKGFileItem *)inPayloadTreeNode.representedObject).fileName];
+	return [((PKGFileItem *)self.representedObject).fileName compare:((PKGFileItem *)inPayloadTreeNode.representedObject).fileName options:NSCaseInsensitiveSearch|NSNumericSearch];
+}
+
+- (void)setNewFolderName:(NSString *)inFolderName
+{
+	if (inFolderName==nil)
+		return;
+	
+	PKGFileItem * tFileItem=self.representedObject;
+	
+	if (tFileItem.type!=PKGFileItemTypeNewFolder)
+		return;
+	
+	tFileItem.filePath.string=inFolderName;
 }
 
 #pragma mark -
@@ -128,6 +159,7 @@
 	return [tMutableString copy];
 }
 
+
 - (BOOL)isHiddenTemplateNode
 {
 	PKGFileItem * tFileItem=self.representedObject;
@@ -149,6 +181,30 @@
 	return (tFileItem.type==PKGFileItemTypeFileSystemItem);
 }
 
+- (BOOL)isSelectableAsInstallationLocation
+{
+	PKGFileItem * tFileItem=self.representedObject;
+	
+	switch(tFileItem.type)
+	{
+		case PKGFileItemTypeHiddenFolderTemplate:
+		case PKGFileItemTypeFolderTemplate:
+		case PKGFileItemTypeNewFolder:
+			
+			return YES;
+			
+		case PKGFileItemTypeFileSystemItem:
+			
+			break;	// It's a bit more complicated
+			
+		default:
+			
+			break;
+	}
+	
+	return NO;
+}
+
 @end
 
 @implementation PKGPayloadTreeNodeAttributedImage
@@ -159,7 +215,6 @@
 	
 	tAttributedImage.image=self.image;
 	tAttributedImage.alpha=self.alpha;
-	tAttributedImage.defaultLocation=self.isDefaultLocation;
 	
 	return tAttributedImage;
 }
