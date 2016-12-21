@@ -371,6 +371,26 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return [_children indexOfObjectIdenticalTo:inTreeNode];
 }
 
+- (NSUInteger)indexOfChildMatching:(BOOL (^)(id bTreeNode))inBlock
+{
+	if (inBlock==nil)
+		return NSNotFound;
+	
+	__block NSUInteger tChildIndex=NSNotFound;
+	
+	[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	
+		if (inBlock(bTreeNode)==YES)
+		{
+			tChildIndex=bIndex;
+			*bOutStop=YES;
+		}
+	
+	}];
+	
+	return tChildIndex;
+}
+
 #pragma mark -
 
 - (void)addChild:(PKGTreeNode *)inChild
@@ -548,12 +568,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if (inChild==nil || inComparator==nil)
 		return;
 	
-	if (_children.count==0)
-	{
-		[inChild setParent:self];
-		[_children addObject:inChild];
-		return;
-	}
+	__block BOOL tDone=NO;
 	
 	[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 		
@@ -561,9 +576,17 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		{
 			[inChild setParent:self];
 			[_children insertObject:inChild atIndex:bIndex];
+			
+			tDone=YES;
 			*bOutStop=YES;
 		}
 	}];
+	
+	if (tDone==YES)
+		return;
+	
+	[inChild setParent:self];
+	[_children addObject:inChild];
 }
 
 
@@ -576,12 +599,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	tInvocation.target=inChild;
 	tInvocation.selector=inComparator;
 	
-	if (_children.count==0)
-	{
-		[inChild setParent:self];
-		[_children addObject:inChild];
-		return;
-	}
+	__block BOOL tDone=NO;
 	
 	[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 		
@@ -595,9 +613,17 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		{
 			[inChild setParent:self];
 			[_children insertObject:inChild atIndex:bIndex];
+			
+			tDone=YES;
 			*bOutStop=YES;
 		}
 	}];
+	
+	if (tDone==YES)
+		return;
+	
+	[inChild setParent:self];
+	[_children addObject:inChild];
 }
 
 - (void)removeChildAtIndex:(NSUInteger)inIndex
