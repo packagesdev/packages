@@ -58,7 +58,14 @@
 
 #pragma mark -
 
-- (void)outlineView:(NSOutlineView *)inOutlineView showsHiddenFolders:(BOOL)inShowsHiddenFolders
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawBadgeInTableColum:(NSTableColumn *)inTableColumn forItem:(id)inItem
+{
+	return (self.installLocationNode==inItem);
+}
+
+#pragma mark -
+
+- (void)outlineView:(NSOutlineView *)inOutlineView showHiddenFolderTemplates:(BOOL)inShowsHiddenFolders
 {
 	if (inOutlineView==nil)
 		return;
@@ -81,7 +88,7 @@
 		{
 			PKGPayloadTreeNode * tRootNode=(PKGPayloadTreeNode *)[tMutableArray[tIndex-1] filterRecursivelyUsingBlock:^BOOL(PKGPayloadTreeNode * bPayloadTreeNode){
 			
-				return (bPayloadTreeNode.isHiddenTemplateNode==NO || [bPayloadTreeNode numberOfChildren]>0);
+				return (bPayloadTreeNode.isHiddenTemplateNode==NO || bPayloadTreeNode==self.installLocationNode || [bPayloadTreeNode numberOfChildren]>0);
 			
 			}
 																										 maximumDepth:self.hiddenTemplateFoldersTreeHeight];

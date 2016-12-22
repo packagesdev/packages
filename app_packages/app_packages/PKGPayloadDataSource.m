@@ -24,7 +24,20 @@
 	return nil;
 }
 
+- (NSArray *)siblingsOfItem:(PKGTreeNode *)inTreeNode
+{
+	if (inTreeNode.parent==nil)
+		return [self.rootNodes copy];
+	
+	return inTreeNode.parent.children;
+}
+
 #pragma mark -
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawBadgeInTableColum:(NSTableColumn *)inTableColumn forItem:(id)inItem
+{
+	return NO;
+}
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileSystemItemsAtPaths:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions
 {
@@ -150,6 +163,56 @@
 	[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
 	
 	//[self updateFiles:IBoutlineView_];
+	
+	return YES;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView addItem:(PKGPayloadTreeNode *)inTreeNode toParent:(PKGPayloadTreeNode *)inParent
+{
+	if (inOutlineView==nil)
+		return NO;
+	
+	if (inTreeNode==nil)
+		return NO;
+	
+	NSArray * tSiblings=self.rootNodes;
+	
+	if (inParent!=nil)
+	{
+		if (inParent.isLeaf==YES)
+		{
+			inParent=(PKGPayloadTreeNode *)inParent.parent;
+			
+			if (inParent!=nil)
+				tSiblings=inParent.children;
+		}
+		else
+		{
+			tSiblings=inParent.children;
+		}
+	}
+	
+	if (inParent==nil)
+	{
+		[inTreeNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:inParent sortedUsingSelector:@selector(compareName:)];
+	}
+	else
+	{
+		[inParent insertChild:inTreeNode sortedUsingSelector:@selector(compareName:)];
+		
+		if ([inOutlineView isItemExpanded:inParent]==NO)
+			[inOutlineView expandItem:inParent];
+	}
+	
+	[inOutlineView deselectAll:nil];
+	
+	[self.delegate payloadDataDidChange:self];
+	
+	[inOutlineView reloadData];
+	
+	NSInteger tRow=[inOutlineView rowForItem:inTreeNode];
+	
+	[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
 	
 	return YES;
 }
@@ -319,12 +382,48 @@
 		
 		NSString * tPath=tArray[0];
 		
-		if ([[tPath lastPathComponent] caseInsensitiveCompare:inPayloadTreeNode.fileName]==NSOrderedSame)
+		if ([[tPath lastPathComponent] compare:inPayloadTreeNode.fileName]==NSOrderedSame)	// We want an exact match
 			return NSDragOperationCopy;
 		
 		return NSDragOperationNone;
 	}
 	
+	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+	{
+		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
+		
+		if (tArray==nil || [tArray isKindOfClass:[NSArray class]]==NO || tArray.count==0)
+		{
+			// We were provided invalid data
+			
+			// A COMPLETER
+			
+			return NSDragOperationNone;
+		}
+		
+		for(NSString * tDroppedFilePath in tArray)
+		{
+			NSString * tFileName=[tDroppedFilePath lastPathComponent];
+			
+			if ([inPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
+				
+				return ([tFileName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+				
+			}]!=NSNotFound)
+				return NSDragOperationNone;
+		}
+		
+		NSString * tFileName=[tArray[0] lastPathComponent];
+		
+		NSUInteger tInsertionIndex=[inPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
+			
+			return ([tFileName caseInsensitiveCompare:bTreeNode.fileName]!=NSOrderedDescending);
+		}];
+		
+		[inOutlineView setDropItem:inPayloadTreeNode dropChildIndex:(tInsertionIndex==NSNotFound) ? [inPayloadTreeNode numberOfChildren]: tInsertionIndex];
+		
+		return NSDragOperationCopy;//[info draggingSourceOperationMask];
+	}
 	
 	// A COMPLETER
 	

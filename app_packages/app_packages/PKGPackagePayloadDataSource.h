@@ -15,8 +15,12 @@
 
 #import "PKGFileDeadDropView.h"
 
+#import "PKGPayloadTreeNode.h"
+
 @interface PKGPackagePayloadDataSource : PKGPayloadDataSource <PKGFileDeadDropViewDelegate>
 
-- (void)outlineView:(NSOutlineView *)inOutlineView showsHiddenFolders:(BOOL)inShowsHiddenFolders;
+	@property PKGPayloadTreeNode * installLocationNode;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView showHiddenFolderTemplates:(BOOL)inShowsHiddenFolders;
 
 @end

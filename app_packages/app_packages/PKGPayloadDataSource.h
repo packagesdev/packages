@@ -40,7 +40,13 @@ typedef NS_OPTIONS(NSUInteger, PKGPayloadAddOptions)
 
 - (id)surrogateItemForItem:(id)inItem;
 
+- (NSArray *)siblingsOfItem:(id)inItem;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawBadgeInTableColum:(NSTableColumn *)inTableColumn forItem:(id)inItem;
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileSystemItemsAtPaths:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView addItem:(id)inItem toParent:(id)inParent;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addNewFolderToParent:(id)inParent;
 
