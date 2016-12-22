@@ -15,6 +15,21 @@
 
 #pragma mark -
 
+- (BOOL)isOpaque
+{
+	return NO;
+}
+
+- (void)setDrawsTarget:(BOOL)inDrawsTarget
+{
+	if (_drawsTarget!=inDrawsTarget)
+	{
+		_drawsTarget=inDrawsTarget;
+		
+		[self setNeedsDisplay:YES];
+	}
+}
+
 - (void)drawRect:(NSRect)inRect
 {
 	if (_attributedImage==nil)
@@ -27,8 +42,12 @@
 	
 	// Draw the target cross
 	
-    if (_attributedImage.isDefaultLocation==YES)
+    if (self.drawsTarget==YES)
 	{
+		[[NSColor redColor] set];
+		
+		NSRectFill(self.bounds);
+		
 		// A COMPLETER
 	}
 }

@@ -19,4 +19,6 @@
 
 	@property (nonatomic,copy) PKGPayloadTreeNodeAttributedImage * attributedImage;
 
+	@property (nonatomic) BOOL drawsTarget;
+
 @end
