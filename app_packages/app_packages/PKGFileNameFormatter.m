@@ -15,37 +15,20 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGFileNameFormatter
 
-- (instancetype)init
+- (NSAttributedString *)attributedStringForObjectValue:(id)inObject withDefaultAttributes:(NSDictionary *)attrs
 {
-    self=[super init];
+	if ([inObject isKindOfClass:[NSAttributedString class]]==YES)
+		return inObject;
 	
-	if (self!=nil)
-	{
-		_cantStartWithADot=YES;
-	}
-    
-    return self;
-}
-
-#pragma mark -
-
-- (void)setCachedAttributes:(NSDictionary *) inAttributes
-{
-	if (cachedAttributes_!=inAttributes)
-		cachedAttributes_=inAttributes;
-}
-
-- (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs 
-{
-	NSAttributedString * tAttributedString=[[NSAttributedString alloc] initWithString:obj
-																		   attributes:(cachedAttributes_==nil) ? attrs : cachedAttributes_];
+	if ([inObject isKindOfClass:[NSString class]]==YES)
+		return [[NSAttributedString alloc] initWithString:inObject attributes:attrs];
 			
-  return tAttributedString;
+	return nil;
 }
 
-- (NSString *)stringForObjectValue:(id)obj
+- (NSString *)stringForObjectValue:(id)inObject
 {
-    return ((obj && [obj isKindOfClass:NSString.class]) ? obj : @"");
+    return ((inObject!=nil && [inObject isKindOfClass:NSString.class]==YES) ? inObject : @"");
 }
 
 - (BOOL)getObjectValue:(out id *)obj forString:(NSString *)string errorDescription:(NSString **)error
@@ -70,7 +53,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     
     if (tLength>0)
     {
-        if (self.cantStartWithADot==NO)
+        if (self.fileNameCanStartWithDot==NO)
         {
              unichar tUniChar=[partialString characterAtIndex:0];
             

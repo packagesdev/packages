@@ -14,14 +14,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import <Foundation/Foundation.h>
 
 @interface PKGFileNameFormatter : NSFormatter
-{
-	
-	NSDictionary * cachedAttributes_;
-}
 
-	@property BOOL cantStartWithADot;
-
-
-- (void) setCachedAttributes:(NSDictionary *) inAttributes;
+	@property BOOL fileNameCanStartWithDot;
 
 @end
