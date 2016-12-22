@@ -7,4 +7,6 @@
 
 - (NSArray *)selectedItems;
 
+- (NSArray *)selectedOrClickedItems;
+
 @end
