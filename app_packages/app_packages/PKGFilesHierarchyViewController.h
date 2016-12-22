@@ -16,6 +16,9 @@
 #import "PKGPayloadDataSource.h"
 
 
+extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
+
+
 typedef NS_OPTIONS(NSUInteger, PKGManagedAttributesOptions)
 {
 	PKGFileOwnerAndGroupAccounts = 1 << 0,
@@ -24,7 +27,7 @@ typedef NS_OPTIONS(NSUInteger, PKGManagedAttributesOptions)
 
 @interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate>
 
-	@property (strong) NSOutlineView * outlineView;
+	@property (strong) IBOutlet NSOutlineView * outlineView;
 
 	@property (nonatomic) PKGPayloadDataSource * hierarchyDatasource;
 
@@ -34,8 +37,13 @@ typedef NS_OPTIONS(NSUInteger, PKGManagedAttributesOptions)
 
 	@property (nonatomic,copy) NSString * label;
 
+	@property (nonatomic,copy) NSString * informationLabel;
+
 - (BOOL)highlightExcludedItems;
 
 - (void)refreshHierarchy;
 
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDeleteItems:(NSArray *)inItems;
+
 @end
+

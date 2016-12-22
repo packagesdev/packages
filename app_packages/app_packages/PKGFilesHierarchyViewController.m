@@ -27,6 +27,8 @@
 
 #import "PKGPackagePayloadDataSource.h"
 
+#import "PKGFileNameFormatter.h"
+
 @interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
 	@property NSArray * sibblings;
@@ -57,15 +59,22 @@
 @end
 
 
-@interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate>
+NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarchyDidRenameFolderNotification";
+
+
+@interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate,NSControlTextEditingDelegate>
 {
 	IBOutlet NSTextField * _viewLabel;
 	
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
 	
+	IBOutlet NSTextField * _viewInformationLabel;
+	
 	PKGOwnershipAndReferenceStyleViewController * _ownershipAndReferenceStyleViewController;
 	PKGFilesHierarchyOpenPanelDelegate * _openPanelDelegate;
+	
+	PKGFileNameFormatter * _cachedFileNameFormatter;
 	
 	BOOL _highlightExcludedItems;
 	NSArray * _optimizedFilesFilters;
@@ -78,6 +87,8 @@
 - (IBAction)addFiles:(id)sender;
 - (IBAction)addNewFolder:(id)sender;
 
+- (IBAction)renameFolder:(id)sender;
+
 - (IBAction)delete:(id)sender;
 - (void)deleteSheetDidEnd:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)inContextInfo;
 
@@ -88,6 +99,8 @@
 // Notifications
 
 - (void)highlightExludedFilesStateDidChange:(NSNotification *)inNotification;
+
+- (void)windowDidBecomeMain:(NSNotification *)inNotification;
 
 @end
 
@@ -100,6 +113,12 @@
 	if (self!=nil)
 	{
 		_managedFileAttributes=PKGFileOwnerAndGroupAccounts|PKGFilePosixPermissions;
+		
+		_label=@"";
+		_informationLabel=@"";
+		
+		_cachedFileNameFormatter=[PKGFileNameFormatter new];
+		_cachedFileNameFormatter.fileNameCanStartWithDot=YES;
 	}
 	
 	return self;
@@ -183,6 +202,7 @@
 - (void)WB_viewWillAdd
 {
 	_viewLabel.stringValue=_label;
+	_viewInformationLabel.stringValue=_informationLabel;
 	
 	self.outlineView.dataSource=_hierarchyDatasource;
 	
@@ -198,6 +218,8 @@
 	// A COMPLETER
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
 - (void)WB_viewWillRemove
@@ -224,10 +246,39 @@
 
 - (void)setLabel:(NSString *)inLabel
 {
-	_label=[inLabel copy];
+	_label=(inLabel!=nil) ? [inLabel copy] : @"";
 	
 	if (_viewLabel!=nil)
 		_viewLabel.stringValue=_label;
+}
+
+- (void)setInformationLabel:(NSString *)inInformationLabel
+{
+	_informationLabel=(inInformationLabel!=nil) ? [inInformationLabel copy] : @"";
+	
+	if (_viewInformationLabel!=nil)
+		_viewInformationLabel.stringValue=_informationLabel;
+}
+
+#pragma mark -
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDeleteItems:(NSArray *)inItems
+{
+	if (inOutlineView==nil || inItems==nil)
+		return NO;
+	
+	NSArray * tMinimumCover=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];
+	
+	if (tMinimumCover.count==0)
+		return NO;
+	
+	for(PKGPayloadTreeNode * tTreeNode in tMinimumCover)
+	{
+		if ([tTreeNode isTemplateNode]==YES)
+			return NO;
+	}
+	
+	return YES;
 }
 
 #pragma mark -
@@ -249,10 +300,15 @@
 		PKGTablePayloadFilenameCellView *tPayloadFileNameCellView=(PKGTablePayloadFilenameCellView *)tView;
 		
 		tPayloadFileNameCellView.attributedImageView.attributedImage=inPayloadTreeNode.nameAttributedIcon;
+		tPayloadFileNameCellView.attributedImageView.drawsTarget=[self.hierarchyDatasource outlineView:inOutlineView shouldDrawBadgeInTableColum:inTableColumn forItem:inPayloadTreeNode];
 		//[tView.imageView unregisterDraggedTypes];	// To prevent the imageView from interfering with drag and drop
 		
-		tView.textField.attributedStringValue=inPayloadTreeNode.nameAttributedTitle;
+		NSAttributedString * tAttributedString=inPayloadTreeNode.nameAttributedTitle;
+		
+		tView.textField.attributedStringValue=tAttributedString;
+		tView.textField.textColor=[tAttributedString attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];	// Because the text color is overriding the attributes.
 		tView.textField.editable=inPayloadTreeNode.isNameTitleEditable;
+		tView.textField.formatter=_cachedFileNameFormatter;
 		
 		return tView;
 	}
@@ -299,9 +355,6 @@
 
 - (IBAction)addFiles:(id)sender
 {
-	[((PKGPackagePayloadDataSource *)self.hierarchyDatasource) outlineView:self.outlineView showsHiddenFolders:YES];
-	return;
-	
 	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
 	
 	tOpenPanel.resolvesAliases=NO;
@@ -388,9 +441,6 @@
 
 - (IBAction)addNewFolder:(id)sender
 {
-	[((PKGPackagePayloadDataSource *)self.hierarchyDatasource) outlineView:self.outlineView showsHiddenFolders:NO];
-	return;
-	
 	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
 	NSInteger tClickedRow=self.outlineView.clickedRow;
 	
@@ -412,6 +462,50 @@
 	[self.outlineView scrollRowToVisible:tRow];
 	
 	[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"file.name"] row:tRow withEvent:nil select:YES];
+}
+
+- (IBAction)renameFolder:(id)sender
+{
+	NSInteger tEditedRow=[self.outlineView rowForView:sender];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGPayloadTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
+	
+	NSString * tNewName=[sender stringValue];
+	
+	if ([tEditedNode.fileName compare:tNewName]==NSOrderedSame)
+		return;
+	
+	if ([tEditedNode.fileName caseInsensitiveCompare:tNewName]!=NSOrderedSame)
+	{
+		if ([PKGPayloadTreeNode validateFolderName:tNewName]==NO ||
+			[[self.hierarchyDatasource siblingsOfItem:tEditedNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	
+				return ([bTreeNode.fileName caseInsensitiveCompare:tNewName]==NSOrderedSame);
+	
+			}].count>0)
+		{
+			NSBeep();
+		
+			[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"file.name"] row:tEditedRow withEvent:nil select:YES];
+		
+			return;
+		}
+	}
+	
+	[tEditedNode setNewFolderName:tNewName];
+	
+	// Sort and update selection
+	
+	PKGTreeNode * tParent=tEditedNode.parent;
+	
+	[tEditedNode removeFromParent];
+	
+	[self.hierarchyDatasource outlineView:self.outlineView addItem:tEditedNode toParent:tParent];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
 - (IBAction)delete:(id)sender
@@ -534,26 +628,13 @@
 		// Delete
 		
 		if (tSelector==@selector(delete:))
-		{
-			[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
-				
-				PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:bIndex];
-				
-				if ([tPayloadTreeNode isTemplateNode]==YES)
-				{
-					tIsValidated=NO;
-					*bOutStop=NO;
-				}
-			}];
-			
-			return tIsValidated;
-		}
+			return [self outlineView:self.outlineView shouldDeleteItems:[self.outlineView selectedOrClickedItems]];
 	}
 	
 	if (tSelectedCount==1)
 	{
 		PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:tSelectionIndexSet.firstIndex];
-		
+
 		// Contraction and expansion actions
 		
 		if ([tPayloadTreeNode isFileSystemItemNode]==NO)
@@ -602,6 +683,13 @@
 	[self noteDocumentHasChanged];
 }
 
+#pragma mark - NSControlTextEditingDelegate
+
+- (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError
+{
+	NSBeep();
+}
+
 #pragma mark - Notifications
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)inNotification
@@ -641,6 +729,13 @@
 - (void)highlightExludedFilesStateDidChange:(NSNotification *)inNotification
 {
 	_highlightExcludedItems=[self highlightExcludedItems];
+	
+	[self.outlineView reloadData];
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)inNotification
+{
+	_lastRefreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
 	
 	[self.outlineView reloadData];
 }

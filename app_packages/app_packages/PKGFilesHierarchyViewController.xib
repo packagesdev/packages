@@ -7,9 +7,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGFilesHierarchyViewController">
             <connections>
                 <outlet property="_addButton" destination="Spv-Qi-Xah" id="POO-Cc-ELx"/>
-                <outlet property="_outlineView" destination="jNy-Xc-1CN" id="Dwi-cx-XFp"/>
                 <outlet property="_removeButton" destination="k3S-CP-r18" id="sRb-xJ-v4t"/>
+                <outlet property="_viewInformationLabel" destination="F9o-fE-km2" id="dAh-FL-R3g"/>
                 <outlet property="_viewLabel" destination="zuz-Lg-yvq" id="mE5-Qg-r5a"/>
+                <outlet property="outlineView" destination="jNy-Xc-1CN" id="g3q-sH-KTQ"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -69,6 +70,10 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <action selector="renameFolder:" target="-2" id="XYg-wM-qCH"/>
+                                                            <outlet property="delegate" destination="-2" id="Jft-MC-hgf"/>
+                                                        </connections>
                                                     </textField>
                                                     <customView id="4Yw-Z1-cUb" customClass="PKGPayloadTreeNodeImageView">
                                                         <rect key="frame" x="3" y="2" width="16" height="16"/>
@@ -223,6 +228,15 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="F9o-fE-km2">
+                    <rect key="frame" x="414" y="10" width="305" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="M00-ic-dzI">
+                        <font key="font" metaFont="miniSystem"/>
+                        <color key="textColor" white="0.48684210526315791" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="481" y="435"/>
         </customView>
@@ -265,7 +279,7 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Contract" id="Ops-2w-Xev">
+                <menuItem title="Expand All" id="Ops-2w-Xev">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="contract:" target="-2" id="c7W-VK-gTo"/>

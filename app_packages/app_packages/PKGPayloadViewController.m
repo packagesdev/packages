@@ -19,6 +19,10 @@
 
 #import "PKGPayloadFilesHierarchyViewController.h"
 
+#import "NSOutlineView+Selection.h"
+
+#import "PKGPayloadTreeNode+UI.h"
+
 @interface PKGPayloadViewController ()
 {
 	IBOutlet NSPopUpButton * _payloadTypePopUpButton;
@@ -40,9 +44,13 @@
 
 - (IBAction)setDefaultDestination:(id)sender;
 
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+
 // Notifications
 
 - (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification;
+
+- (void)fileHierarchyDidRenameFolder:(NSNotification *)inNotification;
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification;
 
@@ -73,7 +81,6 @@
 	_filesHierarchyViewController.label=@"Payload";
 	_filesHierarchyViewController.hierarchyDatasource=_dataSource;
 	
-	
 	_filesHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
 	
 	[_filesHierarchyViewController WB_viewWillAdd];
@@ -100,6 +107,12 @@
 	_dataSource.rootNodes=self.payload.filesTree.rootNodes;
 	_dataSource.filePathConverter=self.filePathConverter;
 	_dataSource.delegate=_filesHierarchyViewController;
+	_dataSource.installLocationNode=[self.payload.filesTree.rootNode descendantNodeAtPath:self.payload.defaultInstallLocation];
+	
+	if (_dataSource.installLocationNode==nil)
+	{
+		// A COMPLETER
+	}
 	
 	// A COMPLETER
 }
@@ -110,12 +123,18 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchyDidRenameFolder:) name:PKGFilesHierarchyDidRenameFolderNotification object:_filesHierarchyViewController.outlineView];
+	
 	[_filesHierarchyViewController refreshHierarchy];
 }
 
 - (void)WB_viewWillRemove
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGFilesHierarchyDidRenameFolderNotification object:nil];
 }
 
 #pragma mark -
@@ -136,7 +155,42 @@
 
 - (IBAction)setDefaultDestination:(id)sender
 {
-	// A COMPLETER
+	NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
+	NSIndexSet * tClickedOrSelectedIndexes=[tOutlineView selectedOrClickedRowIndexes];
+	
+	if (tClickedOrSelectedIndexes.count!=1)
+		return;
+	
+	[_defaultDestinationSetButton setEnabled:NO];
+	
+	PKGPayloadTreeNode * tPreviousDefaultInstallationLocationNode=_dataSource.installLocationNode;
+	_dataSource.installLocationNode=[tOutlineView itemAtRow:tClickedOrSelectedIndexes.firstIndex];
+	
+	NSMutableIndexSet * tRowIndexes=[tClickedOrSelectedIndexes mutableCopy];
+	NSInteger tIndex=[tOutlineView rowForItem:tPreviousDefaultInstallationLocationNode];
+	
+	if (tIndex!=-1)
+		[tRowIndexes addIndex:tIndex];
+	
+	self.payload.defaultInstallLocation=[_dataSource.installLocationNode filePath];
+	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
+	
+	[tOutlineView reloadDataForRowIndexes:tRowIndexes
+							columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
+{
+	self.payload.hiddenFolderTemplatesIncluded=!self.payload.hiddenFolderTemplatesIncluded;
+	
+	if (self.payload.hiddenFolderTemplatesIncluded==YES)
+		[_filesHierarchyViewController showHiddenFolderTemplates];
+	else
+		[_filesHierarchyViewController hideHiddenFolderTemplates];
+	
+	[self noteDocumentHasChanged];
 }
 
 #pragma mark -
@@ -144,6 +198,33 @@
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
 	SEL tSelector=inMenuItem.action;
+	
+	// Set Default Location
+	
+	if (tSelector==@selector(setDefaultDestination:))
+	{
+		NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
+		NSIndexSet * tClickedOrSelectedIndexes=[tOutlineView selectedOrClickedRowIndexes];
+		
+		if (tClickedOrSelectedIndexes.count!=1)
+			return NO;
+		
+		PKGPayloadTreeNode * tSelectedTreeNode=[tOutlineView itemAtRow:tClickedOrSelectedIndexes.firstIndex];
+		
+		if (tSelectedTreeNode==_dataSource.installLocationNode)
+			return NO;
+		
+		return [tSelectedTreeNode isSelectableAsInstallationLocation];
+	}
+	
+	// Show|Hide Hidden Folders
+	
+	if (tSelector==@selector(switchHiddenFolderTemplatesVisibility:))
+	{
+		[inMenuItem setTitle:(self.payload.hiddenFolderTemplatesIncluded==YES) ? NSLocalizedString(@"Hide Hidden Folders", @"") : NSLocalizedString(@"Show Hidden Folders", @"")];
+		 
+		 return YES;
+	}
 	
 	// A COMPLETER
 	
@@ -154,7 +235,44 @@
 
 - (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification
 {
+	NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
+	
+	if (inNotification.object!=tOutlineView)
+		return;
+	
+	if (tOutlineView.numberOfSelectedRows!=1)
+	{
+		[_defaultDestinationSetButton setEnabled:NO];
+		return;
+	}
+	
+	PKGPayloadTreeNode * tSelectedTreeNode=[tOutlineView itemAtRow:tOutlineView.selectedRow];
+	
+	if (tSelectedTreeNode==_dataSource.installLocationNode)
+	{
+		[_defaultDestinationSetButton setEnabled:NO];
+		return;
+	}
+	
+	[_defaultDestinationSetButton setEnabled:[tSelectedTreeNode isSelectableAsInstallationLocation]];
+		
 	// A COMPLETER
+}
+
+- (void)fileHierarchyDidRenameFolder:(NSNotification *)inNotification
+{
+	NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
+	
+	if (inNotification.object!=tOutlineView)
+		return;
+	
+	PKGPayloadTreeNode * tTreeNode=inNotification.userInfo[@"NSObject"];
+	
+	if (tTreeNode==_dataSource.installLocationNode)
+	{
+		self.payload.defaultInstallLocation=[_dataSource.installLocationNode filePath];
+		_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
+	}
 }
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification
