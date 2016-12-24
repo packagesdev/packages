@@ -156,7 +156,7 @@
 - (IBAction)setDefaultDestination:(id)sender
 {
 	NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
-	NSIndexSet * tClickedOrSelectedIndexes=[tOutlineView selectedOrClickedRowIndexes];
+	NSIndexSet * tClickedOrSelectedIndexes=tOutlineView.WB_selectedOrClickedRowIndexes;
 	
 	if (tClickedOrSelectedIndexes.count!=1)
 		return;
@@ -204,7 +204,7 @@
 	if (tSelector==@selector(setDefaultDestination:))
 	{
 		NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
-		NSIndexSet * tClickedOrSelectedIndexes=[tOutlineView selectedOrClickedRowIndexes];
+		NSIndexSet * tClickedOrSelectedIndexes=tOutlineView.WB_selectedOrClickedRowIndexes;
 		
 		if (tClickedOrSelectedIndexes.count!=1)
 			return NO;

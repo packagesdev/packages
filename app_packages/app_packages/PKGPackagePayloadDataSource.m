@@ -72,7 +72,7 @@
 	
 	// Save selection
 	
-	NSArray * tSavedSelectedItems=[inOutlineView selectedItems];
+	NSArray * tSavedSelectedItems=[inOutlineView WB_selectedItems];
 	
 	if (inShowsHiddenFolders==YES)
 	{
