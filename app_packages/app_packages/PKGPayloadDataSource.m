@@ -15,6 +15,8 @@
 
 #import "PKGPayloadTreeNode+UI.h"
 
+#import "NSOutlineView+Selection.h"
+
 #include <sys/stat.h>
 
 @implementation PKGPayloadDataSource
@@ -267,13 +269,22 @@
 	[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
 	
 	return YES;
-	
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems
 {
 	if (inOutlineView==nil || inItems==nil)
 		return;
+	
+	// Save the selection if needed
+	
+	NSArray * tSavedSelectedItems=nil;
+	
+	if (inItems.count==1)
+	{
+		if ([inOutlineView isRowSelected:[inOutlineView rowForItem:inItems[0]]]==NO)
+			tSavedSelectedItems=[inOutlineView WB_selectedItems];
+	}
 	
 	NSArray * tMinimumCover=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];
 	
@@ -314,6 +325,23 @@
 	[inOutlineView deselectAll:nil];
 	
 	[inOutlineView reloadData];
+	
+	if (tSavedSelectedItems!=nil)
+	{
+		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+		
+		for(id tItem in tSavedSelectedItems)
+		{
+			NSInteger tIndex=[inOutlineView rowForItem:tItem];
+			
+			if (tIndex!=-1)
+				[tMutableIndexSet addIndex:tIndex];
+		}
+		
+		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+	}
+	
+	// A COMPLETER (mise a jour de la selection si clicked en dehors de la selection)
 }
 
 #pragma mark - NSOutlineViewDataSource

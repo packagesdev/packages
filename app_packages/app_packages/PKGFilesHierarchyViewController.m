@@ -17,6 +17,7 @@
 #import "PKGFileItem+UI.h"
 
 #import "NSOutlineView+Selection.h"
+#import "NSAlert+block.h"
 
 #import "PKGApplicationPreferences.h"
 
@@ -90,7 +91,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 - (IBAction)renameFolder:(id)sender;
 
 - (IBAction)delete:(id)sender;
-- (void)deleteSheetDidEnd:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)inContextInfo;
 
 
 - (IBAction)expand:(id)sender;
@@ -341,7 +341,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)showInFinder:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
 	
 	NSWorkspace * tSharedWorkspace=[NSWorkspace sharedWorkspace];
 	
@@ -364,7 +364,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	tOpenPanel.treatsFilePackagesAsDirectories=YES;
 	tOpenPanel.showsHiddenFiles=[PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog;
 	
-	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
 	
 	PKGTreeNode * tParentNode=nil;
 	
@@ -441,7 +441,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)addNewFolder:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
 	NSInteger tClickedRow=self.outlineView.clickedRow;
 	
 	// Selection is not empty and no row was clicked
@@ -510,27 +510,25 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)delete:(id)sender
 {
-	NSInteger tNumberOfSelectedRows=self.outlineView.numberOfSelectedRows;
+	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
 	
-	if (tNumberOfSelectedRows<1)
+	if (tIndexSet.count<1)
 		return;
 	
 	NSAlert * tAlert=[[NSAlert alloc] init];
-	tAlert.messageText=(tNumberOfSelectedRows==1) ? NSLocalizedString(@"Do you really want to remove this item?",@"No comment") : NSLocalizedString(@"Do you really want to remove these items?",@"No comment");
+	tAlert.messageText=(tIndexSet.count==1) ? NSLocalizedString(@"Do you really want to remove this item?",@"No comment") : NSLocalizedString(@"Do you really want to remove these items?",@"No comment");
 	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"No comment");
 	
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert beginSheetModalForWindow:self.view.window modalDelegate:self didEndSelector:@selector(deleteSheetDidEnd:returnCode:contextInfo:) contextInfo:NULL];
-}
-
-- (void)deleteSheetDidEnd:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)inContextInfo
-{
-	if (inReturnCode!=NSAlertFirstButtonReturn)
-		return;
+	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 	
-	[self.hierarchyDatasource outlineView:self.outlineView removeItems:[self.outlineView selectedItems]];
+		if (bResponse!=NSAlertFirstButtonReturn)
+			return;
+		
+		[self.hierarchyDatasource outlineView:self.outlineView removeItems:[self.outlineView WB_itemsAtRowIndexes:tIndexSet]];
+	}];
 }
 
 - (IBAction)expand:(id)sender
@@ -540,7 +538,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)contract:(id)sender
 {
-	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
 	
 	NSUInteger tIndex=tSelectionIndexSet.firstIndex;
 	
@@ -559,7 +557,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
 	SEL tSelector=inMenuItem.action;
 	
-	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
 
 	NSInteger tSelectedCount=tSelectionIndexSet.count;
 	
@@ -628,7 +626,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		// Delete
 		
 		if (tSelector==@selector(delete:))
-			return [self outlineView:self.outlineView shouldDeleteItems:[self.outlineView selectedOrClickedItems]];
+			return [self outlineView:self.outlineView shouldDeleteItems:[self.outlineView WB_selectedOrClickedItems]];
 	}
 	
 	if (tSelectedCount==1)
