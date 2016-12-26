@@ -19,7 +19,24 @@
 
 #include <sys/stat.h>
 
+NSString * const PKGPayloadItemsPboardType=@"fr.whitebox.packages.payload.items";
+NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.internal.payload.items";
+
+@interface PKGPayloadDataSource ()
+{
+	NSArray * _internalDragData;
+}
+
+- (void)_switchFilePathOfItem:(PKGPayloadTreeNode *)inTreeNode toType:(PKGFilePathType)inType recursively:(BOOL)inRecursively;
+
+@end
+
 @implementation PKGPayloadDataSource
+
++ (NSArray *)supportedDraggedTypes
+{
+	return @[NSFilenamesPboardType,PKGPayloadItemsPboardType,PKGPayloadItemsInternalPboardType];
+}
 
 - (id)surrogateItemForItem:(id)inItem
 {
@@ -32,6 +49,26 @@
 		return [self.rootNodes copy];
 	
 	return inTreeNode.parent.children;
+}
+
+- (void)_switchFilePathOfItem:(PKGPayloadTreeNode *)inTreeNode toType:(PKGFilePathType)inType recursively:(BOOL)inRecursively
+{
+	if (inTreeNode==nil)
+		return;
+	
+	PKGFileItem * tFileItem=inTreeNode.representedObject;
+	
+	if (tFileItem==nil)
+		return;
+	
+	if (tFileItem.type==PKGFileItemTypeFileSystemItem)
+		[self.filePathConverter shiftTypeOfFilePath:tFileItem.filePath toType:inType];
+	
+	if (inRecursively==NO)
+		return;
+	
+	for(PKGPayloadTreeNode * tChild in inTreeNode.children)
+		[self _switchFilePathOfItem:tChild toType:inType recursively:inRecursively];
 }
 
 #pragma mark -
@@ -367,23 +404,58 @@
 	return ([inTreeNode isLeaf]==NO);
 }
 
-#pragma mark -
+#pragma mark - NSPasteboardOwner
 
-- (BOOL)outlineView:(NSOutlineView *) inOutlineView writeItems:(NSArray*) inItems toPasteboard:(NSPasteboard*)inPasteboard
+- (void)pasteboard:(NSPasteboard *)inPasteboard provideDataForType:(NSString *)inType
 {
-	for(PKGPayloadTreeNode * tPayloadTreeNode in inItems)
+	if (inPasteboard==nil || inType==nil)
+		return;
+	
+	if (_internalDragData==nil)
+		return;
+	
+	if ([inType isEqualToString:PKGPayloadItemsPboardType]==YES)
 	{
-		if ([tPayloadTreeNode isTemplateNode]==YES)
+		NSArray * tRepresentedMinimumCover=[_internalDragData WB_arrayByMappingObjectsUsingBlock:^NSDictionary *(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex){
+		
+			PKGPayloadTreeNode * tTreeNodeCopy=(PKGPayloadTreeNode *)[bTreeNode deepCopy];
+		
+			// Convert all the file paths to absolute paths
+			
+			[self _switchFilePathOfItem:tTreeNodeCopy toType:PKGFilePathTypeAbsolute recursively:YES];
+		
+			return [tTreeNodeCopy representation];
+		
+		}];
+		
+		[inPasteboard setPropertyList:tRepresentedMinimumCover forType:PKGPayloadItemsPboardType];
+	}
+}
+
+#pragma mark - Drag and Drop support
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView writeItems:(NSArray*)inItems toPasteboard:(NSPasteboard*)inPasteboard
+{
+	for(PKGPayloadTreeNode * tTreeNode in inItems)
+	{
+		if ([tTreeNode isTemplateNode]==YES)
 			return NO;
 	}
 	
-	// A COMPLETER
+	_internalDragData=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];
+	
+	[inPasteboard declareTypes:@[PKGPayloadItemsInternalPboardType,PKGPayloadItemsPboardType] owner:self];		// Make the external drag a promised case since it will be less usual IMHO
+	
+	[inPasteboard setData:[NSData data] forType:PKGPayloadItemsInternalPboardType];
 	
 	return YES;
 }
 
-- (NSDragOperation)outlineView:(NSOutlineView*) inOutlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(PKGPayloadTreeNode *)inPayloadTreeNode proposedChildIndex:(NSInteger)inChildIndex
+- (NSDragOperation)outlineView:(NSOutlineView*)inOutlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(PKGPayloadTreeNode *)inProposedTreeNode proposedChildIndex:(NSInteger)inChildIndex
 {
+	if (inProposedTreeNode==nil && self.editableRootNodes==NO)
+		return NSDragOperationNone;
+	
 	NSPasteboard * tPasteBoard=[info draggingPasteboard];
 
 	if (inChildIndex==NSOutlineViewDropOnItemIndex)
@@ -391,7 +463,7 @@
 		if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]==nil)
 			return NSDragOperationNone;
 		
-		if (inPayloadTreeNode.isTemplateNode==NO || inPayloadTreeNode.parent==nil || [inPayloadTreeNode containsNoTemplateDescendantNodes]==YES)
+		if (inProposedTreeNode.isTemplateNode==NO || inProposedTreeNode.parent==nil || [inProposedTreeNode containsNoTemplateDescendantNodes]==YES)
 			return NSDragOperationNone;
 		
 		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
@@ -410,11 +482,52 @@
 		
 		NSString * tPath=tArray[0];
 		
-		if ([[tPath lastPathComponent] compare:inPayloadTreeNode.fileName]==NSOrderedSame)	// We want an exact match
+		if ([[tPath lastPathComponent] compare:inProposedTreeNode.fileName]==NSOrderedSame)	// We want an exact match
 			return NSDragOperationCopy;
 		
 		return NSDragOperationNone;
 	}
+	
+	NSUInteger (^indexOfChildWithName)(NSString *) = ^NSUInteger(NSString *inName){
+	
+		if (inProposedTreeNode==nil)
+		{
+			return [self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
+				
+				return ([inName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+				
+			}];
+		}
+		
+		return [inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
+				
+				return ([inName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+				
+		}];
+	};
+	
+	void (^updateDropLocation)(NSString *) = ^void(NSString * bFirstItemName) {
+		
+		NSUInteger tInsertionIndex=NSNotFound;
+		
+		if (inProposedTreeNode==nil)
+		{
+			tInsertionIndex=[self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
+				
+				return ([bFirstItemName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+				
+			}];
+		}
+		else
+		{
+			tInsertionIndex=[inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
+				
+				return ([bFirstItemName caseInsensitiveCompare:bTreeNode.fileName]!=NSOrderedDescending);
+			}];
+		}
+		
+		[inOutlineView setDropItem:inProposedTreeNode dropChildIndex:(tInsertionIndex!=NSNotFound) ? tInsertionIndex : [inProposedTreeNode numberOfChildren]];
+	};
 	
 	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 	{
@@ -433,32 +546,52 @@
 		{
 			NSString * tFileName=[tDroppedFilePath lastPathComponent];
 			
-			if ([inPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
-				
-				return ([tFileName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
-				
-			}]!=NSNotFound)
+			if (indexOfChildWithName(tFileName)!=NSNotFound)
 				return NSDragOperationNone;
 		}
 		
-		NSString * tFileName=[tArray[0] lastPathComponent];
-		
-		NSUInteger tInsertionIndex=[inPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
-			
-			return ([tFileName caseInsensitiveCompare:bTreeNode.fileName]!=NSOrderedDescending);
-		}];
-		
-		[inOutlineView setDropItem:inPayloadTreeNode dropChildIndex:(tInsertionIndex==NSNotFound) ? [inPayloadTreeNode numberOfChildren]: tInsertionIndex];
+		updateDropLocation([tArray[0] lastPathComponent]);
 		
 		return NSDragOperationCopy;//[info draggingSourceOperationMask];
 	}
 	
-	// A COMPLETER
+	if ([tPasteBoard availableTypeFromArray:@[PKGPayloadItemsInternalPboardType]]!=nil && [info draggingSource]==inOutlineView)
+	{
+		if (inProposedTreeNode!=nil)
+		{
+			if ([_internalDragData containsObject:inProposedTreeNode]==YES)
+				return NSDragOperationNone;
+		
+			if ([inProposedTreeNode isDescendantOfNodeInArray:_internalDragData]==YES)
+				return NSDragOperationNone;
+		}
+		
+		// We need to check the names and eventually switch the drop location
+		
+		for(PKGPayloadTreeNode * tTreeNode in _internalDragData)
+		{
+			NSString * tFileName=tTreeNode.fileName;
+			
+			if (indexOfChildWithName(tFileName)!=NSNotFound)
+				return NSDragOperationNone;
+		}
+		
+		updateDropLocation(((PKGPayloadTreeNode *)_internalDragData[0]).fileName);
+		
+		return NSDragOperationGeneric;
+	}
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGPayloadItemsPboardType]]!=nil)
+	{
+		// A COMPLETER
+		
+		return NSDragOperationNone;
+	}
 	
 	return NSDragOperationNone;
 }
 
-- (BOOL)outlineView:(NSOutlineView*) inOutlineView acceptDrop:(id <NSDraggingInfo>)info item:(PKGPayloadTreeNode *)targetItem childIndex:(NSInteger)childIndex
+- (BOOL)outlineView:(NSOutlineView*)inOutlineView acceptDrop:(id <NSDraggingInfo>)info item:(PKGPayloadTreeNode *)targetItem childIndex:(NSInteger)childIndex
 {
 	// A COMPLETER
 	

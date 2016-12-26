@@ -157,11 +157,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
 	
 	
-	[self.outlineView registerForDraggedTypes:@[NSFilenamesPboardType]];
-	
-	_addButton.enabled=(self.canAddRootNodes==YES);
-	_removeButton.enabled=NO;
-	
+	[self.outlineView registerForDraggedTypes:[PKGPayloadDataSource supportedDraggedTypes]];
 	
     // Do view setup here.
 }
@@ -220,6 +216,14 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
+}
+
+- (void)WB_viewDidAdd
+{
+	// A COMPLETER
+	
+	_addButton.enabled=(_hierarchyDatasource.editableRootNodes==YES);
+	_removeButton.enabled=NO;
 }
 
 - (void)WB_viewWillRemove
@@ -566,10 +570,10 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		// New Folder
 		
 		if (tSelector==@selector(addNewFolder:))
-			return self.canAddRootNodes;
+			return _hierarchyDatasource.editableRootNodes;
 		
 		if (tSelector==@selector(addFiles:))
-			return self.canAddRootNodes;
+			return _hierarchyDatasource.editableRootNodes;
 		
 		return NO;
 	}
@@ -600,15 +604,15 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 			if (tParentNode!=NULL)
 				return YES;
 			
-			return self.canAddRootNodes;
+			return _hierarchyDatasource.editableRootNodes;
 		}
-		
-		__block BOOL tIsValidated=YES;
 		
 		// Show in Finder
 		
 		if (tSelector==@selector(showInFinder:))
 		{
+			__block BOOL tIsValidated=YES;
+			
 			[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 			
 				PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:bIndex];
@@ -701,7 +705,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	if (tSelectionIndexSet.count==0)
 	{
-		_addButton.enabled=(self.canAddRootNodes==YES);
+		_addButton.enabled=_hierarchyDatasource.editableRootNodes;
 		_removeButton.enabled=NO;
 		
 		return;

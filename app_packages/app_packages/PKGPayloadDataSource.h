@@ -15,6 +15,8 @@
 
 #import "PKGFilePath.h"
 
+extern NSString * const PKGPayloadItemsPboardType;
+
 @class PKGPayloadDataSource;
 
 @protocol PKGPayloadDataSourceDelegate <NSObject>
@@ -33,10 +35,13 @@ typedef NS_OPTIONS(NSUInteger, PKGPayloadAddOptions)
 
 	@property NSMutableArray * rootNodes;
 
+	@property BOOL editableRootNodes;
+
 	@property id<PKGFilePathConverter> filePathConverter;
 
 	@property (weak) id<PKGPayloadDataSourceDelegate> delegate;
 
++ (NSArray *)supportedDraggedTypes;
 
 - (id)surrogateItemForItem:(id)inItem;
 

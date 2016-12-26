@@ -33,8 +33,6 @@ typedef NS_OPTIONS(NSUInteger, PKGManagedAttributesOptions)
 
 	@property (nonatomic) PKGManagedAttributesOptions managedFileAttributes;
 
-	@property BOOL canAddRootNodes;
-
 	@property (nonatomic,copy) NSString * label;
 
 	@property (nonatomic,copy) NSString * informationLabel;
