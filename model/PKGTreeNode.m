@@ -192,7 +192,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	NSMutableDictionary * tRepresentedObjectRepresentation=[_representedObject representation];
 	
 	if (tRepresentedObjectRepresentation!=nil)
-		[tRepresentation addEntriesFromDictionary:tRepresentedObjectRepresentation];
+		tRepresentation=tRepresentedObjectRepresentation;
 	
 	NSArray * tChildrenRepresentation=[_children WB_arrayByMappingObjectsUsingBlock:^id(PKGTreeNode * bTreeNode,__attribute__((unused))NSUInteger bIndex){
 		return [bTreeNode representation];

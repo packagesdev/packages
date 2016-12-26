@@ -17,7 +17,7 @@
 
 @implementation PKGPresentationStepSettings
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -40,11 +40,9 @@
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
-	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
-	
-	return tRepresentation;
+	return [NSMutableDictionary dictionary];
 }
 
 @end
