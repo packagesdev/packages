@@ -157,7 +157,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		uid_t tUid=tStat.st_uid;
 		gid_t tGid=tStat.st_gid;
 		
-		if (tParentNode!=nil && (inOptions&PKGPayloadAddKeepOwnership)==PKGPayloadAddKeepOwnership)
+		if (tParentNode!=nil && (inOptions&PKGPayloadAddKeepOwnership)==0)
 		{
 			PKGFileItem * tParentFileItem=(PKGFileItem *)tParentNode.representedObject;
 			
