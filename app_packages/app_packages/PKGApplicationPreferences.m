@@ -150,7 +150,7 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		
 		_highlightExcludedFiles=[_defaults boolForKey:PKGPreferencesFilesHighlightExcludedFilesKey];
 		
-		_keepOwnershipKey=[_defaults boolForKey:PKGPreferencesFilesKeepOwnershipKey];
+		_keepOwnership=[_defaults boolForKey:PKGPreferencesFilesKeepOwnershipKey];
 		
 		_showOwnershipAndReferenceStyleCustomizationDialog=[_defaults boolForKey:PKGPreferencesFilesShowOwnershipAndReferenceStyleCustomizationDialogKey];
 		
@@ -234,9 +234,9 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 	[_defaults setInteger:inBool forKey:PKGPreferencesFilesShowOwnershipAndReferenceStyleCustomizationDialogKey];
 }
 
-- (void)setKeepPOSIXPermissionsKey:(BOOL)inBool
+- (void)setKeepOwnership:(BOOL)inBool
 {
-	_keepOwnershipKey=inBool;
+	_keepOwnership=inBool;
 	
 	[_defaults setInteger:inBool forKey:PKGPreferencesFilesKeepOwnershipKey];
 }
