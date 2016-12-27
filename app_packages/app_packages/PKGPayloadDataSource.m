@@ -499,7 +499,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		return NSDragOperationNone;
 	}
 	
-	BOOL (^validateFileNames)(NSArray *)=^BOOL(NSArray * bFilesNamesArray){
+	BOOL (^validateFileNames)(NSArray *,NSArray *)=^BOOL(NSArray * bFilesNamesArray,NSArray * bExternalFilesNamesArray){
 	
 		// Check that there are no duplicates in the array
 		
@@ -515,7 +515,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		if (inProposedTreeNode==nil)
 		{
-			for(NSString * tFileName in bFilesNamesArray)
+			for(NSString * tFileName in bExternalFilesNamesArray)
 			{
 				if ([self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
 					
@@ -527,7 +527,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		}
 		else
 		{
-			for(NSString * tFileName in bFilesNamesArray)
+			for(NSString * tFileName in bExternalFilesNamesArray)
 			{
 				if ([inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
 					
@@ -584,7 +584,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return [bFilePath lastPathComponent];
 		}];
 		
-		return (validateFileNames(tFileNamesArray)==YES) ? NSDragOperationCopy : NSDragOperationNone;
+		return (validateFileNames(tFileNamesArray,tFileNamesArray)==YES) ? NSDragOperationCopy : NSDragOperationNone;
 	}
 	
 	// Internal Drag
@@ -601,12 +601,20 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		}
 		
 		
-		NSArray * tFileNamesArray=[_internalDragData WB_arrayByMappingObjectsUsingBlock:^NSString *(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex){
-			
-			return bTreeNode.fileName;
-		}];
+		NSMutableArray * tFileNamesArray=[NSMutableArray array];
+		NSMutableArray * tExternalFileNamesArray=[NSMutableArray array];
 		
-		return (validateFileNames(tFileNamesArray)==YES) ? NSDragOperationGeneric : NSDragOperationNone;
+		for(PKGPayloadTreeNode * tTreeNode in _internalDragData)
+		{
+			NSString * tFileName=tTreeNode.fileName;
+			
+			[tFileNamesArray addObject:tFileName];
+			
+			if (tTreeNode.parent!=inProposedTreeNode)
+				[tExternalFileNamesArray addObject:tFileName];
+		}
+		
+		return (validateFileNames(tFileNamesArray,tExternalFileNamesArray)==YES) ? NSDragOperationGeneric : NSDragOperationNone;
 	}
 	
 	// External Drag
