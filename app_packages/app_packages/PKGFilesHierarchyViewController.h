@@ -19,23 +19,16 @@
 extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
 
 
-typedef NS_OPTIONS(NSUInteger, PKGManagedAttributesOptions)
-{
-	PKGFileOwnerAndGroupAccounts = 1 << 0,
-	PKGFilePosixPermissions = 1 << 1,
-};
-
 @interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate>
 
 	@property (strong) IBOutlet NSOutlineView * outlineView;
 
 	@property (nonatomic) PKGPayloadDataSource * hierarchyDatasource;
 
-	@property (nonatomic) PKGManagedAttributesOptions managedFileAttributes;
-
 	@property (nonatomic,copy) NSString * label;
 
 	@property (nonatomic,copy) NSString * informationLabel;
+
 
 - (BOOL)highlightExcludedItems;
 

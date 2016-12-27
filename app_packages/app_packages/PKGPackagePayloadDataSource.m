@@ -29,6 +29,13 @@
 @synthesize cachedHiddenTemplateFoldersTree=_cachedHiddenTemplateFoldersTree;
 @synthesize hiddenTemplateFoldersTreeHeight=_hiddenTemplateFoldersTreeHeight;
 
+- (PKGFileAttributesOptions)managedAttributes
+{
+	return PKGFileAttributesOwnerAndGroup|PKGFileAttributesPOSIXPermissions;
+}
+
+#pragma mark -
+
 - (PKGTreeNode *)cachedHiddenTemplateFoldersTree
 {
 	if (_cachedHiddenTemplateFoldersTree==nil)

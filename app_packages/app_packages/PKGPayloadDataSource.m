@@ -13,6 +13,10 @@
 
 #import "PKGPayloadDataSource.h"
 
+#import "PKGApplicationPreferences.h"
+
+#import "PKGOwnershipAndReferenceStylePanel.h"
+
 #import "PKGPayloadTreeNode+UI.h"
 
 #import "NSOutlineView+Selection.h"
@@ -36,6 +40,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 + (NSArray *)supportedDraggedTypes
 {
 	return @[NSFilenamesPboardType,PKGPayloadItemsPboardType,PKGPayloadItemsInternalPboardType];
+}
+
+- (PKGFileAttributesOptions)managedAttributes
+{
+	return 0;
 }
 
 - (id)surrogateItemForItem:(id)inItem
@@ -78,7 +87,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return NO;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileSystemItemsAtPaths:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileNames:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions
 {
 	if (inOutlineView==nil)
 		return NO;
@@ -442,7 +451,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return NO;
 	}
 	
-	_internalDragData=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];
+	_internalDragData=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];	// A COMPLETER (Find how to empty it when the drag and drop is done)
 	
 	[inPasteboard declareTypes:@[PKGPayloadItemsInternalPboardType,PKGPayloadItemsPboardType] owner:self];		// Make the external drag a promised case since it will be less usual IMHO
 	
@@ -458,6 +467,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	NSPasteboard * tPasteBoard=[info draggingPasteboard];
 
+	// Filenames
+	
 	if (inChildIndex==NSOutlineViewDropOnItemIndex)
 	{
 		if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]==nil)
@@ -488,25 +499,48 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		return NSDragOperationNone;
 	}
 	
-	NSUInteger (^indexOfChildWithName)(NSString *) = ^NSUInteger(NSString *inName){
+	BOOL (^validateFileNames)(NSArray *)=^BOOL(NSArray * bFilesNamesArray){
 	
-		if (inProposedTreeNode==nil)
+		// Check that there are no duplicates in the array
+		
+		NSCountedSet * tCountedSet=[[NSCountedSet alloc] initWithArray:bFilesNamesArray];
+		
+		for(id tObject in tCountedSet)
 		{
-			return [self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
-				
-				return ([inName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
-				
-			}];
+			if ([tCountedSet countForObject:tObject]>1)
+				return NO;
 		}
 		
-		return [inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
-				
-				return ([inName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
-				
-		}];
-	};
-	
-	void (^updateDropLocation)(NSString *) = ^void(NSString * bFirstItemName) {
+		// Check that none of the names is already the one of a child of the proposed node
+		
+		if (inProposedTreeNode==nil)
+		{
+			for(NSString * tFileName in bFilesNamesArray)
+			{
+				if ([self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
+					
+					return ([tFileName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+					
+				}]!=NSNotFound)
+					return NO;
+			}
+		}
+		else
+		{
+			for(NSString * tFileName in bFilesNamesArray)
+			{
+				if ([inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
+					
+					return ([tFileName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+					
+				}]!=NSNotFound)
+					return NO;
+			}
+		}
+		
+		// Update the drop location based on the first name
+		
+		NSString * tFirstName=bFilesNamesArray[0];
 		
 		NSUInteger tInsertionIndex=NSNotFound;
 		
@@ -514,7 +548,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			tInsertionIndex=[self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
 				
-				return ([bFirstItemName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+				return ([tFirstName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
 				
 			}];
 		}
@@ -522,11 +556,14 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			tInsertionIndex=[inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
 				
-				return ([bFirstItemName caseInsensitiveCompare:bTreeNode.fileName]!=NSOrderedDescending);
+				return ([tFirstName caseInsensitiveCompare:bTreeNode.fileName]!=NSOrderedDescending);
 			}];
 		}
 		
 		[inOutlineView setDropItem:inProposedTreeNode dropChildIndex:(tInsertionIndex!=NSNotFound) ? tInsertionIndex : [inProposedTreeNode numberOfChildren]];
+		
+		return NSDragOperationCopy;
+	
 	};
 	
 	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
@@ -542,18 +579,15 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return NSDragOperationNone;
 		}
 		
-		for(NSString * tDroppedFilePath in tArray)
-		{
-			NSString * tFileName=[tDroppedFilePath lastPathComponent];
-			
-			if (indexOfChildWithName(tFileName)!=NSNotFound)
-				return NSDragOperationNone;
-		}
+		NSArray * tFileNamesArray=[tArray WB_arrayByMappingObjectsUsingBlock:^NSString *(NSString * bFilePath,NSUInteger bIndex){
 		
-		updateDropLocation([tArray[0] lastPathComponent]);
+			return [bFilePath lastPathComponent];
+		}];
 		
-		return NSDragOperationCopy;//[info draggingSourceOperationMask];
+		return (validateFileNames(tFileNamesArray)==YES) ? NSDragOperationCopy : NSDragOperationNone;
 	}
+	
+	// Internal Drag
 	
 	if ([tPasteBoard availableTypeFromArray:@[PKGPayloadItemsInternalPboardType]]!=nil && [info draggingSource]==inOutlineView)
 	{
@@ -566,20 +600,16 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				return NSDragOperationNone;
 		}
 		
-		// We need to check the names and eventually switch the drop location
 		
-		for(PKGPayloadTreeNode * tTreeNode in _internalDragData)
-		{
-			NSString * tFileName=tTreeNode.fileName;
+		NSArray * tFileNamesArray=[_internalDragData WB_arrayByMappingObjectsUsingBlock:^NSString *(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex){
 			
-			if (indexOfChildWithName(tFileName)!=NSNotFound)
-				return NSDragOperationNone;
-		}
+			return bTreeNode.fileName;
+		}];
 		
-		updateDropLocation(((PKGPayloadTreeNode *)_internalDragData[0]).fileName);
-		
-		return NSDragOperationGeneric;
+		return (validateFileNames(tFileNamesArray)==YES) ? NSDragOperationGeneric : NSDragOperationNone;
 	}
+	
+	// External Drag
 	
 	if ([tPasteBoard availableTypeFromArray:@[PKGPayloadItemsPboardType]]!=nil)
 	{
@@ -591,9 +621,86 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return NSDragOperationNone;
 }
 
-- (BOOL)outlineView:(NSOutlineView*)inOutlineView acceptDrop:(id <NSDraggingInfo>)info item:(PKGPayloadTreeNode *)targetItem childIndex:(NSInteger)childIndex
+- (BOOL)outlineView:(NSOutlineView*)inOutlineView acceptDrop:(id <NSDraggingInfo>)info item:(PKGPayloadTreeNode *)inProposedTreeNode childIndex:(NSInteger)inChildIndex
 {
-	// A COMPLETER
+	if (inOutlineView==nil)
+		return NO;
+	
+	if (inProposedTreeNode==nil && self.editableRootNodes==NO)
+		return NSDragOperationNone;
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+	{
+		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
+		
+		if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==NO)
+		{
+			PKGPayloadAddOptions tOptions=0;
+			
+			tOptions|=(inChildIndex==NSOutlineViewDropOnItemIndex) ? PKGPayloadAddReplaceParents : 0;
+			tOptions|=([PKGApplicationPreferences sharedPreferences].keepOwnership==YES) ? PKGPayloadAddKeepOwnership : 0;
+
+			return [self outlineView:inOutlineView
+						addFileNames:tArray
+					   referenceType:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle
+						   toParents:@[inProposedTreeNode]
+							 options:tOptions];
+		}
+		
+		PKGOwnershipAndReferenceStylePanel * tPanel=[PKGOwnershipAndReferenceStylePanel ownershipAndReferenceStylePanel];
+		
+		tPanel.canChooseOwnerAndGroupOptions=((self.managedAttributes&PKGFileAttributesOwnerAndGroup)!=0);
+		tPanel.keepOwnerAndGroup=[PKGApplicationPreferences sharedPreferences].keepOwnership;
+		tPanel.referenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		
+		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
+			
+			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+				return;
+			
+			PKGPayloadAddOptions tOptions=0;
+			
+			tOptions|=(inChildIndex==NSOutlineViewDropOnItemIndex) ? PKGPayloadAddReplaceParents : 0;
+			if (tPanel.canChooseOwnerAndGroupOptions==YES)
+				tOptions|=(tPanel.keepOwnerAndGroup==YES) ? PKGPayloadAddKeepOwnership : 0;
+			
+			[self outlineView:inOutlineView
+				 addFileNames:tArray
+				referenceType:tPanel.referenceStyle
+					toParents:@[inProposedTreeNode]
+					  options:tOptions];
+		}];
+		
+		return YES;		// It may at the end not be accepted by the completion handler from the sheet
+	}
+	
+	if ([info draggingSource]==inOutlineView)
+	{
+		for(PKGTreeNode * tTreeNode in _internalDragData)
+		{
+			[tTreeNode removeFromParent];
+			
+			[inProposedTreeNode insertChild:tTreeNode sortedUsingSelector:@selector(compareName:)];
+		}
+		
+		[inOutlineView deselectAll:nil];
+		
+		[self.delegate payloadDataDidChange:self];
+		
+		[inOutlineView reloadData];
+		
+		if ([inOutlineView isItemExpanded:inProposedTreeNode]==NO)
+			[inOutlineView expandItem:inProposedTreeNode];
+		
+		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+		
+		for(id tItem in _internalDragData)
+			[tMutableIndexSet addIndex:[inOutlineView rowForItem:tItem]];
+			
+		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+	}
 	
 	return YES;
 }

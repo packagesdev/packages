@@ -112,8 +112,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	if (self!=nil)
 	{
-		_managedFileAttributes=PKGFileOwnerAndGroupAccounts|PKGFilePosixPermissions;
-		
 		_label=@"";
 		_informationLabel=@"";
 		
@@ -140,23 +138,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
     [super viewDidLoad];
 	
-	 /*ICFilePboardType,
-	 ICFileExternalPboardType*/
-	
-	// Owner and Group
-	
-	BOOL tHideColumn=(_managedFileAttributes & PKGFileOwnerAndGroupAccounts)==0;
-	
-	[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
-	[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
-	
-	// Permissions
-	
-	tHideColumn=(_managedFileAttributes & PKGFilePosixPermissions)==0;
-	
-	[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
-	
-	
 	[self.outlineView registerForDraggedTypes:[PKGPayloadDataSource supportedDraggedTypes]];
 	
     // Do view setup here.
@@ -169,30 +150,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	return [PKGApplicationPreferences sharedPreferences].highlightExcludedFiles;
 }
 
-- (void)setManagedFileAttributes:(PKGManagedAttributesOptions)inOptions
-{
-	if (inOptions!=_managedFileAttributes)
-	{
-		_managedFileAttributes=inOptions;
-	
-		if (self.outlineView!=nil)
-		{
-			// Owner and Group
-			
-			BOOL tHideColumn=(_managedFileAttributes & PKGFileOwnerAndGroupAccounts)==0;
-			
-			[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
-			[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
-			
-			// Permissions
-			
-			tHideColumn=(_managedFileAttributes & PKGFilePosixPermissions)==0;
-			
-			[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
-		}
-	}
-}
-
 #pragma mark -
 
 - (void)WB_viewWillAdd
@@ -200,10 +157,23 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	_viewLabel.stringValue=_label;
 	_viewInformationLabel.stringValue=_informationLabel;
 	
-	self.outlineView.dataSource=_hierarchyDatasource;
+	self.outlineView.dataSource=self.hierarchyDatasource;
 	
 	if ([self.view isKindOfClass:[PKGPayloadDropView class]]==YES)
 		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDatasource;
+	
+	// Owner and Group
+	
+	BOOL tHideColumn=(self.hierarchyDatasource.managedAttributes &  PKGFileAttributesOwnerAndGroup)==0;
+	
+	[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
+	[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
+	
+	// Permissions
+	
+	tHideColumn=(self.hierarchyDatasource.managedAttributes & PKGFileAttributesPOSIXPermissions)==0;
+	
+	[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
 	
 	
 	_highlightExcludedItems=[self highlightExcludedItems];
@@ -393,23 +363,22 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	tOpenPanel.prompt=NSLocalizedString(@"Add...",@"No comment");
 	
-	__block BOOL tKeepOwnerAndGroup=(self.managedFileAttributes==0) ? NO : [PKGApplicationPreferences sharedPreferences].keepOwnershipKey;
+	__block BOOL tKeepOwnerAndGroup=((self.hierarchyDatasource.managedAttributes & PKGFileAttributesOwnerAndGroup)==0) ? NO : [PKGApplicationPreferences sharedPreferences].keepOwnership;
 	__block PKGFilePathType tReferenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 	
 	if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
 	{
 		_ownershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
 		
-		_ownershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=((_managedFileAttributes & PKGFileOwnerAndGroupAccounts)!=0);
+		_ownershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=((self.hierarchyDatasource.managedAttributes & PKGFileAttributesOwnerAndGroup)!=0);
 		_ownershipAndReferenceStyleViewController.keepOwnerAndGroup=tKeepOwnerAndGroup;
-		
 		_ownershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
 		
 		NSView * tAccessoryView=_ownershipAndReferenceStyleViewController.view;
 		
 		[_ownershipAndReferenceStyleViewController WB_viewWillAdd];
 		
-		[tOpenPanel setAccessoryView:tAccessoryView];
+		tOpenPanel.accessoryView=tAccessoryView;
 		
 		[_ownershipAndReferenceStyleViewController WB_viewDidAdd];
 	}
@@ -430,7 +399,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 			}];
 			
 			if ([self.hierarchyDatasource outlineView:self.outlineView
-							 addFileSystemItemsAtPaths:tPaths
+										 addFileNames:tPaths
 										referenceType:tReferenceStyle
 											toParents:(tParentNode==nil) ? nil : @[tParentNode]
 											  options:(tKeepOwnerAndGroup==YES) ? PKGPayloadAddKeepOwnership : 0]==YES)

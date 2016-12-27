@@ -17,7 +17,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="fVj-tk-cye">
             <rect key="frame" x="0.0" y="0.0" width="374" height="95"/>
-            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <customView id="iMw-ai-9dF">
                     <rect key="frame" x="0.0" y="59" width="374" height="36"/>

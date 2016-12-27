@@ -31,6 +31,12 @@ typedef NS_OPTIONS(NSUInteger, PKGPayloadAddOptions)
 	PKGPayloadAddReplaceParents = 1 << 1,
 };
 
+typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
+{
+	PKGFileAttributesOwnerAndGroup = 1 << 0,
+	PKGFileAttributesPOSIXPermissions = 1 << 1,
+};
+
 @interface PKGPayloadDataSource : NSObject <NSOutlineViewDataSource>
 
 	@property NSMutableArray * rootNodes;
@@ -41,6 +47,8 @@ typedef NS_OPTIONS(NSUInteger, PKGPayloadAddOptions)
 
 	@property (weak) id<PKGPayloadDataSourceDelegate> delegate;
 
+	@property (readonly,nonatomic) PKGFileAttributesOptions managedAttributes;
+
 + (NSArray *)supportedDraggedTypes;
 
 - (id)surrogateItemForItem:(id)inItem;
@@ -49,7 +57,7 @@ typedef NS_OPTIONS(NSUInteger, PKGPayloadAddOptions)
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawBadgeInTableColum:(NSTableColumn *)inTableColumn forItem:(id)inItem;
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileSystemItemsAtPaths:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions;
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileNames:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addItem:(id)inItem toParent:(id)inParent;
 
