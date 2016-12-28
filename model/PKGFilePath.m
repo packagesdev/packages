@@ -47,6 +47,14 @@ NSString * const PKGFilePathStringKey=@"PATH";
     return [[PKGFilePath alloc] initWithString:inString type:inType];
 }
 
++ (NSString *)lastPathComponentFromRepresentation:(NSDictionary *)inRepresentation
+{
+	if (inRepresentation==nil)
+		return nil;
+	
+	return [inRepresentation[PKGFilePathStringKey] lastPathComponent];
+}
+
 - (instancetype)init
 {
 	self=[super init];

@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, PKGFilePathType)
 
 + (instancetype)filePathWithString:(NSString *)inString type:(PKGFilePathType)inType;
 
++ (NSString *)lastPathComponentFromRepresentation:(NSDictionary *)inRepresentation;
+
 - (instancetype)initWithString:(NSString *)inString type:(PKGFilePathType)inType;
 
 - (NSString *)lastPathComponent;
