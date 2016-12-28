@@ -208,11 +208,9 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 
 - (NSMutableDictionary *) representation
 {
-	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
+	NSMutableDictionary * tRepresentation=[self.filePath representation];
 	
 	tRepresentation[PKGFileItemTypeKey]=@(self.type);
-	
-	[tRepresentation addEntriesFromDictionary:[self.filePath representation]];
 	
 	tRepresentation[PKGFileItemUserIDKey]=@(self.uid);
 	tRepresentation[PKGFileItemGroupIDKey]=@(self.gid);
