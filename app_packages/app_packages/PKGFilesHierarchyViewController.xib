@@ -273,8 +273,17 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Expand" id="uGj-nR-pir">
                         <items>
-                            <menuItem title="Item" id="FDi-Qt-p4X">
+                            <menuItem title="One Level" id="FDi-Qt-p4X">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="expandOneLevel:" target="-2" id="xje-jF-Je7"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Fully" id="4e9-2a-2Sm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="expand:" target="-2" id="4OK-et-CEE"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>
@@ -282,7 +291,7 @@
                 <menuItem title="Expand All" id="Ops-2w-Xev">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="contract:" target="-2" id="c7W-VK-gTo"/>
+                        <action selector="expandAll:" target="-2" id="ERG-NJ-Bts"/>
                     </connections>
                 </menuItem>
             </items>

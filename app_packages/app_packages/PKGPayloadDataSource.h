@@ -31,6 +31,12 @@ typedef NS_OPTIONS(NSUInteger, PKGPayloadAddOptions)
 	PKGPayloadAddReplaceParents = 1 << 1,
 };
 
+typedef NS_OPTIONS(NSUInteger, PKGPayloadExpandOptions)
+{
+	PKGPayloadExpandKeepOwnership = 1 << 0,
+	PKGPayloadExpandRecursively = 1 << 1,
+};
+
 typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 {
 	PKGFileAttributesOwnerAndGroup = 1 << 0,
@@ -64,5 +70,7 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addNewFolderToParent:(id)inParent;
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView expandItem:(id)inItem options:(PKGPayloadExpandOptions)inOptions;
 
 @end

@@ -92,8 +92,9 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)delete:(id)sender;
 
-
+- (IBAction)expandOneLevel:(id)sender;
 - (IBAction)expand:(id)sender;
+- (IBAction)expandAll:(id)sender;
 - (IBAction)contract:(id)sender;
 
 // Notifications
@@ -504,7 +505,42 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	}];
 }
 
+- (IBAction)expandOneLevel:(id)sender
+{
+	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	if (tIndexSet.count<1)
+		return;
+	
+	// A COMPLETER
+	
+	[tIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL *bOutStop){
+	
+		id tItem=[self.outlineView itemAtRow:bIndex];
+		
+		if (tItem!=nil)
+			[self.hierarchyDatasource outlineView:self.outlineView expandItem:tItem options:0];
+	}];
+}
+
 - (IBAction)expand:(id)sender
+{
+	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	if (tIndexSet.count<1)
+		return;
+	
+	// A COMPLETER
+	
+	[tIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL *bOutStop){
+		
+		id tItem=[self.outlineView itemAtRow:bIndex];
+		
+		if (tItem!=nil)
+			[self.hierarchyDatasource outlineView:self.outlineView expandItem:tItem options:PKGPayloadExpandRecursively];
+	}];
+}
+
+- (IBAction)expandAll:(id)sender
 {
 	// A COMPLETER
 }
@@ -600,6 +636,56 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		
 		if (tSelector==@selector(delete:))
 			return [self outlineView:self.outlineView shouldDeleteItems:[self.outlineView WB_selectedOrClickedItems]];
+		
+		// Expand One Level, Expand
+		
+		if (tSelector==@selector(expandOneLevel:) ||
+			tSelector==@selector(expand:))
+		{
+			__block BOOL tIsValidated=YES;
+			
+			NSFileManager * tFileManager=[NSFileManager defaultManager];
+			
+			[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
+				
+				PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:bIndex];
+				
+				if ([tPayloadTreeNode isFileSystemItemNode]==NO)
+				{
+					tIsValidated=NO;
+					*bOutStop=NO;
+				}
+				
+				if ([tPayloadTreeNode isReferencedItemMissing]==YES)
+				{
+					tIsValidated=NO;
+					*bOutStop=NO;
+				}
+				
+				if ([tPayloadTreeNode isContentsDisclosed]==YES)	// This will also take care of parent and child being in the selection
+				{
+					tIsValidated=NO;
+					*bOutStop=NO;
+				}
+				
+				NSString * tReferencedPath=[tPayloadTreeNode referencedPathUsingConverter:self.hierarchyDatasource.filePathConverter];
+				
+				if (tReferencedPath==nil)
+				{
+					tIsValidated=NO;
+					*bOutStop=NO;
+				}
+				
+				BOOL tIsDirectory=NO;
+				if ([tFileManager fileExistsAtPath:tReferencedPath isDirectory:&tIsDirectory]==NO || tIsDirectory==NO)
+				{
+					tIsValidated=NO;
+					*bOutStop=NO;
+				}
+			}];
+			
+			return tIsValidated;
+		}
 	}
 	
 	if (tSelectedCount==1)

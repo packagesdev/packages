@@ -17,6 +17,7 @@
 
 #import "PKGOwnershipAndReferenceStylePanel.h"
 
+#import "PKGFileItem+UI.h"
 #import "PKGPayloadTreeNode+UI.h"
 
 #import "NSOutlineView+Selection.h"
@@ -32,6 +33,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 }
 
 - (void)_switchFilePathOfItem:(PKGPayloadTreeNode *)inTreeNode toType:(PKGFilePathType)inType recursively:(BOOL)inRecursively;
+
+- (BOOL)_expandItem:(PKGPayloadTreeNode *)inPayloadTreeNode atPath:(NSString *)inAbsolutePath options:(PKGPayloadExpandOptions)inOptions;
 
 @end
 
@@ -78,6 +81,90 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	for(PKGPayloadTreeNode * tChild in inTreeNode.children)
 		[self _switchFilePathOfItem:tChild toType:inType recursively:inRecursively];
+}
+
+- (BOOL)_expandItem:(PKGPayloadTreeNode *)inPayloadTreeNode atPath:(NSString *)inAbsolutePath options:(PKGPayloadExpandOptions)inOptions
+{
+	if (inPayloadTreeNode==nil || inAbsolutePath==nil)
+		return NO;
+	
+	NSFileManager * tFileManager=[NSFileManager defaultManager];
+	
+	NSArray * tContents=[tFileManager contentsOfDirectoryAtPath:inAbsolutePath error:NULL];
+	
+	if (tContents==nil)
+		return NO;
+	
+	PKGFileItem * tFileItem=(PKGFileItem *)inPayloadTreeNode.representedObject;
+	
+	PKGFilePathType tPathType=tFileItem.filePath.type;
+	uid_t tItemUid=tFileItem.uid;
+	gid_t tItemGid=tFileItem.gid;
+	
+	__block BOOL tSuccessful=YES;
+	
+	[tContents enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSString * bPathComponent,NSUInteger bIndex,BOOL *bOutStop){	// Reverse to speed up the insertion
+		
+		NSString * tAbsolutePath=[inAbsolutePath stringByAppendingPathComponent:bPathComponent];
+		
+		PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tAbsolutePath type:tPathType];
+		
+		if (tFilePath==nil)
+			return;
+		
+		uid_t tUid=0;
+		gid_t tGid=0;
+		mode_t tPosixPermissions;
+		
+		NSError * tError=nil;
+		NSDictionary * tFileAttributes=[tFileManager attributesOfItemAtPath:tAbsolutePath error:&tError];
+		
+		if (tFileAttributes==nil)
+		{
+			if (tError!=nil)
+			{
+				// A COMPLETER
+			}
+			
+			tSuccessful=NO;
+			*bOutStop=YES;
+		}
+		
+		if ((inOptions & PKGPayloadExpandKeepOwnership)!=0)
+		{
+			tUid=(uid_t)((NSNumber *)tFileAttributes[NSFileOwnerAccountID]).unsignedIntegerValue;
+			tGid=(gid_t)((NSNumber *)tFileAttributes[NSFileGroupOwnerAccountID]).unsignedIntegerValue;
+		}
+		else
+		{
+			tUid=tItemUid;
+			tGid=tItemGid;
+		}
+		
+		tPosixPermissions=(mode_t)((NSNumber *)tFileAttributes[NSFilePosixPermissions]).unsignedIntegerValue;
+		
+		PKGFileItem * nFileItem=[PKGFileItem fileSystemItemWithFilePath:tFilePath uid:tUid gid:tGid permissions:tPosixPermissions];
+		
+		PKGPayloadTreeNode * nFileSystemItemNode=[[PKGPayloadTreeNode alloc] initWithRepresentedObject:nFileItem children:nil];
+		
+		if (nFileSystemItemNode==nil)
+			return;
+		
+		[inPayloadTreeNode insertChild:nFileSystemItemNode sortedUsingSelector:@selector(compareName:)];
+		
+		if ((inOptions & PKGPayloadExpandRecursively)!=0 && [tFileAttributes[NSFileType] isEqualToString:NSFileTypeDirectory]==YES)
+		{
+			if ([self _expandItem:nFileSystemItemNode atPath:tAbsolutePath options:inOptions]==NO)
+			{
+				tSuccessful=NO;
+				*bOutStop=YES;
+			}
+		}
+	}];
+	
+	tFileItem.contentsDisclosed=YES;
+	
+	return tSuccessful;
 }
 
 #pragma mark -
@@ -396,6 +483,37 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	}
 	
 	// A COMPLETER (mise a jour de la selection si clicked en dehors de la selection)
+}
+
+- (void)outlineView:(NSOutlineView *)inOutlineView expandItem:(PKGPayloadTreeNode *)inPayloadTreeNode options:(PKGPayloadExpandOptions)inOptions
+{
+	if (inOutlineView==nil || inPayloadTreeNode==nil)
+		return;
+	
+	if (inPayloadTreeNode.isFileSystemItemNode==NO)
+		return;
+	
+	if (inPayloadTreeNode.isReferencedItemMissing==YES)
+		return;
+	
+	if ([self _expandItem:inPayloadTreeNode atPath:[inPayloadTreeNode referencedPathUsingConverter:self.filePathConverter] options:inOptions]==NO)
+	{
+		[inPayloadTreeNode removeChildren];
+		
+		NSBeep();
+		
+		return;
+	}
+	
+	[inOutlineView deselectAll:nil];
+	
+	[self.delegate payloadDataDidChange:self];
+	
+	[inOutlineView reloadData];
+	
+	NSInteger tRow=[inOutlineView rowForItem:inPayloadTreeNode];
+	
+	[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
 }
 
 #pragma mark - NSOutlineViewDataSource
