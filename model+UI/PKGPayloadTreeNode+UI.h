@@ -33,6 +33,9 @@
 - (BOOL)isTemplateNode;
 - (BOOL)isFileSystemItemNode;
 
+- (BOOL)isContentsDisclosed;
+- (BOOL)isReferencedItemMissing;
+
 - (BOOL)isSelectableAsInstallationLocation;
 
 @end

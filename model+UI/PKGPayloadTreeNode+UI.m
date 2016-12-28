@@ -181,6 +181,26 @@
 	return (tFileItem.type==PKGFileItemTypeFileSystemItem);
 }
 
+- (BOOL)isContentsDisclosed
+{
+	PKGFileItem * tFileItem=self.representedObject;
+	
+	if (tFileItem.type!=PKGFileItemTypeFileSystemItem)
+		return YES;
+	
+	return tFileItem.isContentsDisclosed;
+}
+
+- (BOOL)isReferencedItemMissing
+{
+	PKGFileItem * tFileItem=self.representedObject;
+	
+	if (tFileItem.type!=PKGFileItemTypeFileSystemItem)
+		return NO;
+	
+	return tFileItem.isReferencedItemMissing;
+}
+
 - (BOOL)isSelectableAsInstallationLocation
 {
 	PKGFileItem * tFileItem=self.representedObject;
