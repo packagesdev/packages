@@ -61,13 +61,13 @@
                         <popUpButton verticalHuggingPriority="750" id="Zhb-gn-9q4">
                             <rect key="frame" x="127" y="17" width="225" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="push" title="Relative to Reference Folder" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ubw-en-6OJ" id="8Ou-t7-L4F">
+                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="8Ou-t7-L4F">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="AhO-K1-Zfx">
                                     <items>
-                                        <menuItem title="Relative to Reference Folder" state="on" id="ubw-en-6OJ"/>
-                                        <menuItem title="Relative to Project" id="OdK-Zp-4U4"/>
+                                        <menuItem title="Relative to Reference Folder" tag="3" id="ubw-en-6OJ"/>
+                                        <menuItem title="Relative to Project" tag="1" id="OdK-Zp-4U4"/>
                                         <menuItem title="Absolute Path" id="ioN-4d-8Wg"/>
                                     </items>
                                 </menu>

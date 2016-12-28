@@ -154,15 +154,23 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		if (lstat([bAbsolutePath fileSystemRepresentation], &tStat)!=0)
 			return;
 		
-		uid_t tUid=tStat.st_uid;
-		gid_t tGid=tStat.st_gid;
+		uid_t tUid=0;
+		gid_t tGid=0;
 		
-		if (tParentNode!=nil && (inOptions&PKGPayloadAddKeepOwnership)==0)
+		if ((inOptions & PKGPayloadAddKeepOwnership)==PKGPayloadAddKeepOwnership)
 		{
-			PKGFileItem * tParentFileItem=(PKGFileItem *)tParentNode.representedObject;
-			
-			tUid=tParentFileItem.uid;
-			tGid=tParentFileItem.gid;
+			tUid=tStat.st_uid;
+			tGid=tStat.st_gid;
+		}
+		else
+		{
+			if (tParentNode!=nil)
+			{
+				PKGFileItem * tParentFileItem=(PKGFileItem *)tParentNode.representedObject;
+				
+				tUid=tParentFileItem.uid;
+				tGid=tParentFileItem.gid;
+			}
 		}
 		
 		mode_t tPosixPermissions=(tStat.st_mode & ALLPERMS);
@@ -617,13 +625,27 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		return (validateFileNames(tFileNamesArray,tExternalFileNamesArray)==YES) ? NSDragOperationGeneric : NSDragOperationNone;
 	}
 	
-	// External Drag
+	// Inter-documents Drag and Drop
 	
 	if ([tPasteBoard availableTypeFromArray:@[PKGPayloadItemsPboardType]]!=nil)
 	{
-		// A COMPLETER
+		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:PKGPayloadItemsPboardType];
 		
-		return NSDragOperationNone;
+		if (tArray==nil || [tArray isKindOfClass:[NSArray class]]==NO || tArray.count==0)
+		{
+			// We were provided invalid data
+			
+			// A COMPLETER
+			
+			return NSDragOperationNone;
+		}
+		
+		NSArray * tFileNamesArray=[tArray WB_arrayByMappingObjectsUsingBlock:^NSString *(NSDictionary * bRepresentation,NSUInteger bIndex){
+			
+			return [PKGFilePath lastPathComponentFromRepresentation:bRepresentation];
+		}];
+		
+		return (validateFileNames(tFileNamesArray,tFileNamesArray)==YES) ? NSDragOperationCopy : NSDragOperationNone;
 	}
 	
 	return NSDragOperationNone;
@@ -637,7 +659,39 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	if (inProposedTreeNode==nil && self.editableRootNodes==NO)
 		return NSDragOperationNone;
 	
+	// Internal drag and drop
+	
+	if ([info draggingSource]==inOutlineView)
+	{
+		for(PKGTreeNode * tPayloadTreeNode in _internalDragData)
+		{
+			[tPayloadTreeNode removeFromParent];
+			
+			[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+		}
+		
+		[inOutlineView deselectAll:nil];
+		
+		[self.delegate payloadDataDidChange:self];
+		
+		[inOutlineView reloadData];
+		
+		if ([inOutlineView isItemExpanded:inProposedTreeNode]==NO)
+			[inOutlineView expandItem:inProposedTreeNode];
+		
+		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+		
+		for(id tItem in _internalDragData)
+			[tMutableIndexSet addIndex:[inOutlineView rowForItem:tItem]];
+		
+		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+		
+		return YES;
+	}
+	
 	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	// Filenames
 	
 	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 	{
@@ -684,33 +738,71 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		return YES;		// It may at the end not be accepted by the completion handler from the sheet
 	}
 	
-	if ([info draggingSource]==inOutlineView)
+	// Inter-documents Drag and Drop
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGPayloadItemsPboardType]]!=nil)
 	{
-		for(PKGTreeNode * tTreeNode in _internalDragData)
-		{
-			[tTreeNode removeFromParent];
+		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:PKGPayloadItemsPboardType];
+		
+		BOOL (^insertNewItems)(PKGFilePathType)=^BOOL(PKGFilePathType inPathType){
+		
+			NSMutableArray * tNewSelectionArray=[NSMutableArray array];
 			
-			[inProposedTreeNode insertChild:tTreeNode sortedUsingSelector:@selector(compareName:)];
+			for(NSDictionary * tRepresentation in tArray)
+			{
+				PKGPayloadTreeNode * tPayloadTreeNode=[[PKGPayloadTreeNode alloc] initWithRepresentation:tRepresentation error:NULL];
+				
+				if (tPayloadTreeNode==nil)
+					return NO;
+				
+				[self _switchFilePathOfItem:tPayloadTreeNode toType:inPathType recursively:YES];
+				
+				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+				
+				[tNewSelectionArray addObject:tPayloadTreeNode];
+			}
+			
+			[inOutlineView deselectAll:nil];
+			
+			[self.delegate payloadDataDidChange:self];
+			
+			[inOutlineView reloadData];
+			
+			if ([inOutlineView isItemExpanded:inProposedTreeNode]==NO)
+				[inOutlineView expandItem:inProposedTreeNode];
+			
+			NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+			
+			for(id tItem in tNewSelectionArray)
+				[tMutableIndexSet addIndex:[inOutlineView rowForItem:tItem]];
+			
+			[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+			
+			return YES;
+		};
+			
+		if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==NO)
+		{
+			return insertNewItems([PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle);
 		}
 		
-		[inOutlineView deselectAll:nil];
+		PKGOwnershipAndReferenceStylePanel * tPanel=[PKGOwnershipAndReferenceStylePanel ownershipAndReferenceStylePanel];
 		
-		[self.delegate payloadDataDidChange:self];
+		tPanel.canChooseOwnerAndGroupOptions=NO;
+		tPanel.referenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 		
-		[inOutlineView reloadData];
-		
-		if ([inOutlineView isItemExpanded:inProposedTreeNode]==NO)
-			[inOutlineView expandItem:inProposedTreeNode];
-		
-		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
-		
-		for(id tItem in _internalDragData)
-			[tMutableIndexSet addIndex:[inOutlineView rowForItem:tItem]];
+		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
 			
-		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+				return;
+			
+			insertNewItems(tPanel.referenceStyle);
+		}];
+		
+		return YES;		// It may at the end not be accepted by the completion handler from the sheet
 	}
 	
-	return YES;
+	return NO;
 }
 
 @end
