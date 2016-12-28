@@ -291,17 +291,17 @@
 	
 	NSImage * tIcon=nil;
 	
-	NSString * tPathExtension=[inPath pathExtension];
-	
-	if ([tPathExtension length]>0)
+	if ((tStat.st_mode & S_IFMT)==S_IFDIR)
 	{
-		tIcon=[_PKGFileItemAuxiliary cachedIconForFileType:tPathExtension];
+		tIcon=[_PKGFileItemAuxiliary cachedGenericFolderIcon];
 	}
 	else
 	{
-		if ((tStat.st_mode & S_IFMT)==S_IFDIR)
+		NSString * tPathExtension=[inPath pathExtension];
+		
+		if ([tPathExtension length]>0)
 		{
-			tIcon=[_PKGFileItemAuxiliary cachedGenericFolderIcon];
+			tIcon=[_PKGFileItemAuxiliary cachedIconForFileType:tPathExtension];
 		}
 		else
 		{
