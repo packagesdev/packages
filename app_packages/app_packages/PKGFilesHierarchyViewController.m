@@ -21,7 +21,7 @@
 
 #import "PKGApplicationPreferences.h"
 
-#import "PKGTablePayloadFilenameCellView.h"
+#import "PKGPayloadFilenameTableCellView.h"
 
 #import "PKGOwnershipAndReferenceStyleViewController.h"
 #import "PKGPayloadDropView.h"
@@ -52,7 +52,6 @@
 	
 	}]!=NSNotFound)
 		return NO;
-	
 	
 	return YES;
 }
@@ -158,21 +157,21 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	_viewLabel.stringValue=_label;
 	_viewInformationLabel.stringValue=_informationLabel;
 	
-	self.outlineView.dataSource=self.hierarchyDatasource;
+	self.outlineView.dataSource=self.hierarchyDataSource;
 	
 	if ([self.view isKindOfClass:[PKGPayloadDropView class]]==YES)
-		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDatasource;
+		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDataSource;
 	
 	// Owner and Group
 	
-	BOOL tHideColumn=(self.hierarchyDatasource.managedAttributes &  PKGFileAttributesOwnerAndGroup)==0;
+	BOOL tHideColumn=(self.hierarchyDataSource.managedAttributes &  PKGFileAttributesOwnerAndGroup)==0;
 	
 	[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
 	[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
 	
 	// Permissions
 	
-	tHideColumn=(self.hierarchyDatasource.managedAttributes & PKGFileAttributesPOSIXPermissions)==0;
+	tHideColumn=(self.hierarchyDataSource.managedAttributes & PKGFileAttributesPOSIXPermissions)==0;
 	
 	[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
 	
@@ -193,7 +192,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
 	// A COMPLETER
 	
-	_addButton.enabled=(_hierarchyDatasource.editableRootNodes==YES);
+	_addButton.enabled=(_hierarchyDataSource.editableRootNodes==YES);
 	_removeButton.enabled=NO;
 }
 
@@ -211,12 +210,14 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 #pragma mark -
 
-- (void)setHierarchyDatasource:(id<NSOutlineViewDataSource>)inDataSource
+- (void)setHierarchyDataSource:(id<NSOutlineViewDataSource>)inDataSource
 {
-	_hierarchyDatasource=inDataSource;
+	_hierarchyDataSource=inDataSource;
+	_hierarchyDataSource.delegate=self;
+	
 	
 	if (self.outlineView!=nil)
-		self.outlineView.dataSource=_hierarchyDatasource;
+		self.outlineView.dataSource=_hierarchyDataSource;
 }
 
 - (void)setLabel:(NSString *)inLabel
@@ -272,10 +273,10 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	if ([tTableColumnIdentifier isEqualToString:@"file.name"]==YES)
 	{
-		PKGTablePayloadFilenameCellView *tPayloadFileNameCellView=(PKGTablePayloadFilenameCellView *)tView;
+		PKGPayloadFilenameTableCellView *tPayloadFileNameCellView=(PKGPayloadFilenameTableCellView *)tView;
 		
 		tPayloadFileNameCellView.attributedImageView.attributedImage=inPayloadTreeNode.nameAttributedIcon;
-		tPayloadFileNameCellView.attributedImageView.drawsTarget=[self.hierarchyDatasource outlineView:inOutlineView shouldDrawBadgeInTableColum:inTableColumn forItem:inPayloadTreeNode];
+		tPayloadFileNameCellView.attributedImageView.drawsTarget=[self.hierarchyDataSource outlineView:inOutlineView shouldDrawBadgeInTableColum:inTableColumn forItem:inPayloadTreeNode];
 		//[tView.imageView unregisterDraggedTypes];	// To prevent the imageView from interfering with drag and drop
 		
 		NSAttributedString * tAttributedString=inPayloadTreeNode.nameAttributedTitle;
@@ -358,20 +359,20 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	_openPanelDelegate=[PKGFilesHierarchyOpenPanelDelegate new];
 	
 	_openPanelDelegate.filePathConverter=self.filePathConverter;
-	_openPanelDelegate.sibblings=(tParentNode==nil) ? self.hierarchyDatasource.rootNodes : tParentNode.children;
+	_openPanelDelegate.sibblings=(tParentNode==nil) ? self.hierarchyDataSource.rootNodes : tParentNode.children;
 	
 	tOpenPanel.delegate=_openPanelDelegate;
 	
 	tOpenPanel.prompt=NSLocalizedString(@"Add...",@"No comment");
 	
-	__block BOOL tKeepOwnerAndGroup=((self.hierarchyDatasource.managedAttributes & PKGFileAttributesOwnerAndGroup)==0) ? NO : [PKGApplicationPreferences sharedPreferences].keepOwnership;
+	__block BOOL tKeepOwnerAndGroup=((self.hierarchyDataSource.managedAttributes & PKGFileAttributesOwnerAndGroup)==0) ? NO : [PKGApplicationPreferences sharedPreferences].keepOwnership;
 	__block PKGFilePathType tReferenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 	
 	if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
 	{
 		_ownershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
 		
-		_ownershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=((self.hierarchyDatasource.managedAttributes & PKGFileAttributesOwnerAndGroup)!=0);
+		_ownershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=((self.hierarchyDataSource.managedAttributes & PKGFileAttributesOwnerAndGroup)!=0);
 		_ownershipAndReferenceStyleViewController.keepOwnerAndGroup=tKeepOwnerAndGroup;
 		_ownershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
 		
@@ -399,7 +400,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 				return bURL.path;
 			}];
 			
-			if ([self.hierarchyDatasource outlineView:self.outlineView
+			if ([self.hierarchyDataSource outlineView:self.outlineView
 										 addFileNames:tPaths
 										referenceType:tReferenceStyle
 											toParents:(tParentNode==nil) ? nil : @[tParentNode]
@@ -423,7 +424,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	if (tSelectionIndexSet.count>0 && tClickedRow==-1)
 		tClickedRow=tSelectionIndexSet.firstIndex;
 	
-	if ([self.hierarchyDatasource outlineView:self.outlineView addNewFolderToParent:(tClickedRow!=-1) ? ((PKGTreeNode *)[self.outlineView itemAtRow:tClickedRow]) : nil]==NO)
+	if ([self.hierarchyDataSource outlineView:self.outlineView addNewFolderToParent:(tClickedRow!=-1) ? ((PKGTreeNode *)[self.outlineView itemAtRow:tClickedRow]) : nil]==NO)
 		return;
 	
 	// Enter edition mode
@@ -455,7 +456,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	if ([tEditedNode.fileName caseInsensitiveCompare:tNewName]!=NSOrderedSame)
 	{
 		if ([PKGPayloadTreeNode validateFolderName:tNewName]==NO ||
-			[[self.hierarchyDatasource siblingsOfItem:tEditedNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+			[[self.hierarchyDataSource siblingsOfItem:tEditedNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 	
 				return ([bTreeNode.fileName caseInsensitiveCompare:tNewName]==NSOrderedSame);
 	
@@ -477,7 +478,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	[tEditedNode removeFromParent];
 	
-	[self.hierarchyDatasource outlineView:self.outlineView addItem:tEditedNode toParent:tParent];
+	[self.hierarchyDataSource outlineView:self.outlineView addItem:tEditedNode toParent:tParent];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
@@ -501,7 +502,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
 		
-		[self.hierarchyDatasource outlineView:self.outlineView removeItems:[self.outlineView WB_itemsAtRowIndexes:tIndexSet]];
+		[self.hierarchyDataSource outlineView:self.outlineView removeItems:[self.outlineView WB_itemsAtRowIndexes:tIndexSet]];
 	}];
 }
 
@@ -519,7 +520,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		id tItem=[self.outlineView itemAtRow:bIndex];
 		
 		if (tItem!=nil)
-			[self.hierarchyDatasource outlineView:self.outlineView expandItem:tItem options:0];
+			[self.hierarchyDataSource outlineView:self.outlineView expandItem:tItem options:0];
 	}];
 }
 
@@ -536,7 +537,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		id tItem=[self.outlineView itemAtRow:bIndex];
 		
 		if (tItem!=nil)
-			[self.hierarchyDatasource outlineView:self.outlineView expandItem:tItem options:PKGPayloadExpandRecursively];
+			[self.hierarchyDataSource outlineView:self.outlineView expandItem:tItem options:PKGPayloadExpandRecursively];
 	}];
 }
 
@@ -575,10 +576,10 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		// New Folder
 		
 		if (tSelector==@selector(addNewFolder:))
-			return _hierarchyDatasource.editableRootNodes;
+			return _hierarchyDataSource.editableRootNodes;
 		
 		if (tSelector==@selector(addFiles:))
-			return _hierarchyDatasource.editableRootNodes;
+			return _hierarchyDataSource.editableRootNodes;
 		
 		return NO;
 	}
@@ -609,7 +610,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 			if (tParentNode!=NULL)
 				return YES;
 			
-			return _hierarchyDatasource.editableRootNodes;
+			return _hierarchyDataSource.editableRootNodes;
 		}
 		
 		// Show in Finder
@@ -668,7 +669,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 					*bOutStop=NO;
 				}
 				
-				NSString * tReferencedPath=[tPayloadTreeNode referencedPathUsingConverter:self.hierarchyDatasource.filePathConverter];
+				NSString * tReferencedPath=[tPayloadTreeNode referencedPathUsingConverter:self.hierarchyDataSource.filePathConverter];
 				
 				if (tReferencedPath==nil)
 				{
@@ -760,7 +761,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	if (tSelectionIndexSet.count==0)
 	{
-		_addButton.enabled=_hierarchyDatasource.editableRootNodes;
+		_addButton.enabled=_hierarchyDataSource.editableRootNodes;
 		_removeButton.enabled=NO;
 		
 		return;
