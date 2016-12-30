@@ -79,7 +79,7 @@
 	_filesHierarchyViewController=[PKGPayloadFilesHierarchyViewController new];
 	
 	_filesHierarchyViewController.label=@"Payload";
-	_filesHierarchyViewController.hierarchyDatasource=_dataSource;
+	_filesHierarchyViewController.hierarchyDataSource=_dataSource;
 	
 	_filesHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
 	

@@ -23,7 +23,7 @@ extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
 
 	@property (strong) IBOutlet NSOutlineView * outlineView;
 
-	@property (nonatomic) PKGPayloadDataSource * hierarchyDatasource;
+	@property (nonatomic) PKGPayloadDataSource * hierarchyDataSource;
 
 	@property (nonatomic,copy) NSString * label;
 

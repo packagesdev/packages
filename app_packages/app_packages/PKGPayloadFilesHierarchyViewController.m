@@ -43,7 +43,7 @@
 	if (tMinimumCover.count==0)
 		return NO;
 	
-	PKGPackagePayloadDataSource * tDataSource=(PKGPackagePayloadDataSource *) self.hierarchyDatasource;
+	PKGPackagePayloadDataSource * tDataSource=(PKGPackagePayloadDataSource *) self.hierarchyDataSource;
 	
 	for(PKGPayloadTreeNode * tTreeNode in tMinimumCover)
 	{
@@ -64,12 +64,12 @@
 
 - (void)showHiddenFolderTemplates
 {
-	[((PKGPackagePayloadDataSource *) self.hierarchyDatasource) outlineView:self.outlineView showHiddenFolderTemplates:YES];
+	[((PKGPackagePayloadDataSource *) self.hierarchyDataSource) outlineView:self.outlineView showHiddenFolderTemplates:YES];
 }
 
 - (void)hideHiddenFolderTemplates
 {
-	[((PKGPackagePayloadDataSource *) self.hierarchyDatasource) outlineView:self.outlineView showHiddenFolderTemplates:NO];
+	[((PKGPackagePayloadDataSource *) self.hierarchyDataSource) outlineView:self.outlineView showHiddenFolderTemplates:NO];
 }
 
 #pragma mark -
