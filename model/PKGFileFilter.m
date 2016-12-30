@@ -262,7 +262,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 
 @implementation PKGFileFilter
 
-- (instancetype) init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -270,13 +270,13 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 	{
 		_enabled=YES;
 		
-		_predicates=[NSArray array];
+		_predicates=[NSArray arrayWithObject:[PKGFilePredicate new]];
 	}
 	
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -334,7 +334,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
@@ -435,7 +435,7 @@ NSString * const PKGFileFilterToolTipKey=@"PROXY_TOOLTIP";
 
 @dynamic predicates;
 
-- (instancetype) init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -448,7 +448,7 @@ NSString * const PKGFileFilterToolTipKey=@"PROXY_TOOLTIP";
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -478,7 +478,7 @@ NSString * const PKGFileFilterToolTipKey=@"PROXY_TOOLTIP";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[super representation];
 	
