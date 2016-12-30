@@ -1,9 +1,9 @@
 
 #import <AppKit/AppKit.h>
 
-@interface NSOutlineView (Selection_WB)
+#import "NSTableView+Selection.h"
 
-	@property (readonly, copy) NSIndexSet *WB_selectedOrClickedRowIndexes;
+@interface NSOutlineView (Selection_WB)
 
 - (NSArray *)WB_selectedItems;
 
