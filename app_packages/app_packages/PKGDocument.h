@@ -15,7 +15,7 @@
 
 #import "PKGProject.h"
 
-@interface PKGDocument : NSDocument
+@interface PKGDocument : NSDocument <PKGFilePathConverter>
 
 	@property (readonly) PKGProject * project;
 
