@@ -13,6 +13,9 @@
 #import "NSAlert+block.h"
 #import "NSTableView+Selection.h"
 
+NSString * const PKGFileFiltersSeparatorTableRowViewIdentifier=@"tablerowview.separator";
+NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
+
 @interface PKGPayloadExclusionsViewController () <NSTableViewDelegate>
 {
 	IBOutlet NSTableView * _tableView;
@@ -342,7 +345,7 @@
 - (CGFloat)tableView:(NSTableView *)inTableView heightOfRow:(NSInteger)inRow
 {
 	if (inTableView!=_tableView)
-		return 17.0;
+		return 17;
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:inRow];
 	
@@ -361,10 +364,24 @@
 	
 	if ([tFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
 	{
-		return [PKGSeparatorTableRowView new];
+		PKGSeparatorTableRowView * tSeparatorRowView=[inTableView makeViewWithIdentifier:PKGFileFiltersSeparatorTableRowViewIdentifier owner:self];
+		
+		if (tSeparatorRowView!=nil)
+			return tSeparatorRowView;
+		
+		tSeparatorRowView=[[PKGSeparatorTableRowView alloc] initWithFrame:NSZeroRect];
+		tSeparatorRowView.identifier=PKGFileFiltersSeparatorTableRowViewIdentifier;
+		
+		return tSeparatorRowView;
 	}
 	
-	NSTableRowView * tTableRowView=[NSTableRowView new];
+	NSTableRowView * tTableRowView=[inTableView makeViewWithIdentifier:PKGFileFiltersTableRowViewIdentifier owner:self];
+	
+	if (tTableRowView==nil)
+	{
+		tTableRowView=[[NSTableRowView alloc] initWithFrame:NSZeroRect];
+		tTableRowView.identifier=PKGFileFiltersTableRowViewIdentifier;
+	}
 	
 	if ([tFilter isKindOfClass:[PKGDefaultFileFilter class]]==YES)
 	{
