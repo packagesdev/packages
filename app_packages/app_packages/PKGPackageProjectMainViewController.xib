@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGPackageProjectMainViewController">
+            <connections>
+                <outlet property="_contentView" destination="r1k-GZ-Jmo" id="Yn5-wk-ety"/>
+                <outlet property="_segmentedControl" destination="1Pk-bt-4W1" id="dyM-xH-7uY"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY" customClass="PKGControlledView">
+            <rect key="frame" x="0.0" y="-1" width="721" height="416"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="r1k-GZ-Jmo" customClass="WBWhiteFramedView">
+                    <rect key="frame" x="-1" y="32" width="723" height="364"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </customView>
+                <segmentedControl verticalHuggingPriority="750" id="1Pk-bt-4W1">
+                    <rect key="frame" x="-7" y="392" width="733" height="25"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="cx9-gt-bmq">
+                        <font key="font" metaFont="system"/>
+                        <segments>
+                            <segment label="Project" imageScaling="none" width="144.60000610351562"/>
+                            <segment label="Settings" imageScaling="none" width="144.60000610351562" tag="1"/>
+                            <segment label="Payload" imageScaling="none" width="144.60000610351562" tag="2"/>
+                            <segment label="Scripts" imageScaling="none" width="144.60000610351562" tag="3"/>
+                            <segment label="Comments" imageScaling="none" width="144.60000610351562" tag="4"/>
+                        </segments>
+                    </segmentedCell>
+                    <connections>
+                        <action selector="showTabView:" target="-2" id="VNm-Hv-pBC"/>
+                    </connections>
+                </segmentedControl>
+            </subviews>
+            <point key="canvasLocation" x="656.5" y="37"/>
+        </customView>
+    </objects>
+</document>
