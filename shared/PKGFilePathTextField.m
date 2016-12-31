@@ -55,6 +55,32 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return NO;
 }
 
+- (void)viewWillMoveToWindow:(NSWindow *)inWindow
+{
+	if (inWindow==nil)
+		return;
+	
+	if (_pathConverter!=nil)
+			return;
+	
+	_pathConverter=((NSWindowController *) inWindow.windowController).document;
+			
+	if (self.skipExistenceCheck==YES)
+		return;
+	
+	if (self.pathConverter==nil)
+		return;
+	
+	NSString * tAbsolutePath=[self.pathConverter absolutePathForFilePath:self.filePath];
+	
+	if ([[NSFileManager defaultManager] fileExistsAtPath:tAbsolutePath]==NO)
+	{
+		((PKGFilePathTextFieldCell *)self.cell).fileNotFound=YES;
+		
+		[self updateCell:self.cell];
+	}
+}
+
 #pragma mark -
 
 - (void)setFilePath:(PKGFilePath *)inFilePath
@@ -84,24 +110,19 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	[self.cell setStringValue:(tStringValue!=nil)? tStringValue :@""];
 	
-	if (self.skipExistenceCheck==NO)
-	{
-		if (self.pathConverter==nil)
-		{
-			NSLog(@"The Path converter has not been set");
+	if (self.skipExistenceCheck==YES)
+		return;
+	
+	if (self.pathConverter==nil)
 			return;
-		}
 		
-		NSFileManager * tFileManager=[NSFileManager defaultManager];
+	NSString * tAbsolutePath=[self.pathConverter absolutePathForFilePath:self.filePath];
+	
+	if ([[NSFileManager defaultManager] fileExistsAtPath:tAbsolutePath]==NO)
+	{
+		((PKGFilePathTextFieldCell *)self.cell).fileNotFound=YES;
 		
-		NSString * tAbsolutePath=[self.pathConverter absolutePathForFilePath:self.filePath];
-		
-		if ([tFileManager fileExistsAtPath:tAbsolutePath]==NO)
-		{
-			((PKGFilePathTextFieldCell *)self.cell).fileNotFound=YES;
-			
-			[self updateCell:self.cell];
-		}
+		[self updateCell:self.cell];
 	}
 }
 
@@ -111,36 +132,36 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	PKGFilePathType tPathType=[sender tag];
 	
-	if (tPathType!=self.filePath.type)
+	if (tPathType==self.filePath.type)
+		return;
+	
+	if (self.pathConverter==nil)
 	{
-		if (self.pathConverter==nil)
-		{
-			NSLog(@"The Path converter has not been set");
-			return;
-		}
+		NSLog(@"The Path converter has not been set");
+		return;
+	}
+	
+	PKGFilePath * tPathToConvert=self.filePath;
+	
+	if ([self.pathConverter shiftTypeOfFilePath:tPathToConvert toType:tPathType]==YES)
+	{
+		self.filePath=tPathToConvert;
 		
-		PKGFilePath * tPathToConvert=self.filePath;
+		[[NSNotificationCenter defaultCenter] postNotificationName:NSControlTextDidChangeNotification
+															object:self
+														  userInfo:nil];
 		
-		if ([self.pathConverter shiftTypeOfFilePath:tPathToConvert toType:tPathType]==YES)
-		{
-			self.filePath=tPathToConvert;
-			
-			[[NSNotificationCenter defaultCenter] postNotificationName:NSControlTextDidChangeNotification
-																object:self
-															  userInfo:nil];
-			
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-			
-			[[self target] performSelector:[self action]
-								withObject:self];
-			
+		
+		[[self target] performSelector:[self action]
+							withObject:self];
+		
 #pragma clang diagnostic pop
-		}
-		else
-		{
-			// A COMPLETER
-		}
+	}
+	else
+	{
+		// A COMPLETER
 	}
 }
 
@@ -148,28 +169,25 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
-	if (self.delegate==nil)
+	if (self.delegate==nil || [self.delegate conformsToProtocol:@protocol(PKGFilePathTextFieldDelegate)]==NO)
 		return [super draggingEntered:sender];
 	
-	if ([self.delegate conformsToProtocol:@protocol(PKGFilePathTextFieldDelegate)]==YES)
+	NSPasteboard * tPasteBoard=[sender draggingPasteboard];
+	
+	if ([tPasteBoard.types containsObject:NSFilenamesPboardType]==YES)
 	{
-		NSPasteboard *tPasteBoard=[sender draggingPasteboard];
+		NSDragOperation sourceDragMask= [sender draggingSourceOperationMask];
 		
-		if ([tPasteBoard.types containsObject:NSFilenamesPboardType]==YES)
+		if ((sourceDragMask & NSDragOperationCopy)==NSDragOperationCopy)
 		{
-			NSDragOperation sourceDragMask= [sender draggingSourceOperationMask];
+			NSArray * tFiles=[tPasteBoard propertyListForType:NSFilenamesPboardType];
 			
-			if ((sourceDragMask & NSDragOperationCopy)==NSDragOperationCopy)
+			if ([tFiles count]==1)
 			{
-				NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
-				
-				if ([tFiles count]==1)
-				{
-					id<PKGFilePathTextFieldDelegate> tDelegate=(id<PKGFilePathTextFieldDelegate>)self.delegate;
-						
-					if ([tDelegate filePathTextField:self shouldAcceptFile:tFiles[0]]==YES)
-						return NSDragOperationCopy;
-				}
+				id<PKGFilePathTextFieldDelegate> tDelegate=(id<PKGFilePathTextFieldDelegate>)self.delegate;
+					
+				if ([tDelegate filePathTextField:self shouldAcceptFile:tFiles[0]]==YES)
+					return NSDragOperationCopy;
 			}
 		}
 	}
@@ -182,11 +200,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (self.delegate==nil)
 		return [super performDragOperation:sender];
 	
-	NSPasteboard *tPasteBoard= [sender draggingPasteboard];
+	NSPasteboard * tPasteBoard=[sender draggingPasteboard];
 	
 	if ([tPasteBoard.types containsObject:NSFilenamesPboardType]==YES)
 	{
-		NSArray *tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
+		NSArray *tFiles=[tPasteBoard propertyListForType:NSFilenamesPboardType];
 		
 		if ([tFiles count]==1)
 		{
