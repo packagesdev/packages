@@ -19,4 +19,6 @@
 
 	@property (readonly) PKGProject * project;
 
+	@property (readonly,copy) NSString * folder;
+
 @end

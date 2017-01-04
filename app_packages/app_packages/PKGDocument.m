@@ -96,16 +96,24 @@
 
 #pragma mark -
 
-- (NSString *)referenceProjectPath
+- (NSString *)folder
 {
 	return [[self.fileURL path] stringByDeletingLastPathComponent];
 }
 
+- (NSString *)referenceProjectPath
+{
+	return self.folder;
+}
+
 - (NSString *)referenceFolderPath
 {
-	// A COMPLETER
+	NSString * tReferenceProjectPath=self.project.settings.referenceFolderPath;
 	
-	return nil;
+	if (tReferenceProjectPath==nil)
+		return self.folder;
+	
+	return tReferenceProjectPath;
 }
 
 #pragma mark -
