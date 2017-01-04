@@ -21,9 +21,9 @@
 
 	@property BOOL allowDowngrade;
 
-	@property PKGFilePath * preInstallationScriptPath;
+	@property PKGFilePath * preInstallationScriptPath;	// can be nil
 
-	@property PKGFilePath * postInstallationScriptPath;
+	@property PKGFilePath * postInstallationScriptPath;	// can be nil
 
 	@property (readonly) NSMutableArray * locators;
 

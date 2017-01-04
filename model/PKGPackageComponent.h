@@ -32,6 +32,6 @@ typedef NS_ENUM(NSUInteger, PKGPackageComponentType)
 
 	@property (readonly) PKGPackageComponentType type;
 
-	@property (readonly) PKGFilePath * importPath;
+	@property (readonly) PKGFilePath * importPath;	// can be nil
 
 @end
