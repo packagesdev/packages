@@ -17,6 +17,4 @@
 
 	@property (readonly) NSUInteger tag;
 
-
-
 @end
