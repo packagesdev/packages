@@ -1,3 +1,15 @@
+/*
+ Copyright (c) 2016, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGPayloadExclusionsViewController.h"
 
@@ -18,8 +30,6 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 @interface PKGPayloadExclusionsViewController () <NSTableViewDelegate>
 {
-	IBOutlet NSTableView * _tableView;
-	
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
 	
@@ -92,15 +102,15 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	_fileFiltersDataSource=inDataSource;
 	_fileFiltersDataSource.delegate=self;
 	
-	if (_tableView!=nil)
-		_tableView.dataSource=_fileFiltersDataSource;
+	if (self.tableView!=nil)
+		self.tableView.dataSource=_fileFiltersDataSource;
 }
 
 #pragma mark -
 
 - (void)WB_viewWillAdd
 {
-	_tableView.dataSource=self.fileFiltersDataSource;
+	self.tableView.dataSource=self.fileFiltersDataSource;
 }
 
 - (void)WB_viewDidAdd
@@ -113,12 +123,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (IBAction)switchFilterState:(NSButton *)sender
 {
-	NSInteger tEditedRow=[_tableView rowForView:sender];
+	NSInteger tEditedRow=[self.tableView rowForView:sender];
 	
 	if (tEditedRow==-1)
 		return;
 	
-	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:tEditedRow];
+	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
 	BOOL tNewState=([sender state]==NSOnState);
 	
@@ -132,12 +142,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (IBAction)setPredicatePattern:(NSTextField *)sender
 {
-	NSInteger tEditedRow=[_tableView rowForView:sender];
+	NSInteger tEditedRow=[self.tableView rowForView:sender];
 	
 	if (tEditedRow==-1)
 		return;
 	
-	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:tEditedRow];
+	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
 	NSString * tNewValue=sender.stringValue;
 	
@@ -151,12 +161,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (IBAction)switchPredicateFileType:(NSPopUpButton *)sender
 {
-	NSInteger tEditedRow=[_tableView rowForView:sender];
+	NSInteger tEditedRow=[self.tableView rowForView:sender];
 	
 	if (tEditedRow==-1)
 		return;
 	
-	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:tEditedRow];
+	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
 	NSInteger tNewFileType=[sender selectedTag];
 	
@@ -170,12 +180,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (IBAction)switchPredicateRegularExpressionState:(NSButton *)sender
 {
-	NSInteger tEditedRow=[_tableView rowForView:sender];
+	NSInteger tEditedRow=[self.tableView rowForView:sender];
 	
 	if (tEditedRow==-1)
 		return;
 	
-	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:tEditedRow];
+	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
 	BOOL tNewState=([sender state]==NSOnState);
 	
@@ -191,23 +201,23 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 {
 	PKGFileFilter * tFileFilter=[PKGFileFilter new];
 	
-	[self.fileFiltersDataSource tableView:_tableView addItem:tFileFilter];
+	[self.fileFiltersDataSource tableView:self.tableView addItem:tFileFilter];
 	
 	// Enter edition mode
 	
-	NSInteger tRow=_tableView.selectedRow;
+	NSInteger tRow=self.tableView.selectedRow;
 	
 	if (tRow==-1)
 		return;
 	
-	[_tableView scrollRowToVisible:tRow];
+	[self.tableView scrollRowToVisible:tRow];
 	
-	[_tableView editColumn:[_tableView columnWithIdentifier:@"exclusion.value"] row:tRow withEvent:nil select:YES];
+	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"exclusion.value"] row:tRow withEvent:nil select:YES];
 }
 
 - (IBAction)delete:(id)sender
 {
-	NSIndexSet * tIndexSet=_tableView.WB_selectedOrClickedRowIndexes;
+	NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
 	
 	if (tIndexSet.count<1)
 		return;
@@ -224,7 +234,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
 		
-		[self.fileFiltersDataSource tableView:_tableView removeItems:[self.fileFiltersDataSource tableView:_tableView itemsAtRowIndexes:tIndexSet]];
+		[self.fileFiltersDataSource tableView:self.tableView removeItems:[self.fileFiltersDataSource tableView:self.tableView itemsAtRowIndexes:tIndexSet]];
 	}];
 }
 
@@ -248,13 +258,13 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {
-	if (inTableView!=_tableView)
+	if (inTableView!=self.tableView)
 		return nil;
 	
 	NSString * tTableColumnIdentifier=[inTableColumn identifier];
 	NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 	
-	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:inRow];
+	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:inRow];
 	
 	if ([tFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
 		return nil;
@@ -344,10 +354,10 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (CGFloat)tableView:(NSTableView *)inTableView heightOfRow:(NSInteger)inRow
 {
-	if (inTableView!=_tableView)
+	if (inTableView!=self.tableView)
 		return 17;
 	
-	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:inRow];
+	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:inRow];
 	
 	if ([tFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
 		return 8.0;
@@ -357,10 +367,10 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (NSTableRowView *)tableView:(NSTableView *)inTableView rowViewForRow:(NSInteger)inRow
 {
-	if (inTableView!=_tableView)
+	if (inTableView!=self.tableView)
 		return nil;
 	
-	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:_tableView itemAtRow:inRow];
+	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:inRow];
 	
 	if ([tFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
 	{
@@ -395,14 +405,14 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (NSIndexSet *)tableView:(NSTableView *)inTableView selectionIndexesForProposedSelection:(NSIndexSet *)inProposedSelectionIndexes
 {
-	if (inTableView!=_tableView)
+	if (inTableView!=self.tableView)
 		return inProposedSelectionIndexes;
 	
 	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
 	
 	[inProposedSelectionIndexes enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 	
-		id tItem=[self.fileFiltersDataSource tableView:_tableView itemAtRow:bIndex];
+		id tItem=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:bIndex];
 		
 		if ([tItem isMemberOfClass:[PKGFileFilter class]]==YES)
 			[tMutableIndexSet addIndex:bIndex];
@@ -415,10 +425,10 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (void)tableViewSelectionDidChange:(NSNotification *)inNotification
 {
-	if (inNotification.object!=_tableView)
+	if (inNotification.object!=self.tableView)
 		return;
 	
-	NSIndexSet * tSelectionIndexSet=_tableView.selectedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.tableView.selectedRowIndexes;
 	
 	// Delete button state
 	
