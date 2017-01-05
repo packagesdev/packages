@@ -21,7 +21,7 @@
 
 #import "PKGFilePathTextField.h"
 
-@interface PKGProjectSettingsViewController ()
+@interface PKGProjectSettingsViewController () <PKGFilePathTextFieldDelegate>
 {
 	IBOutlet NSTextField * _buildNameTextField;
 	
@@ -36,6 +36,15 @@
 	PKGPayloadExclusionsViewController * _exclusionsViewController;
 }
 
+- (IBAction)setProjectName:(id)sender;
+
+- (IBAction)setBuildPath:(id)sender;
+- (IBAction)selectBuildPath:(id)sender;
+- (IBAction)showBuildPathInFinder:(id)sender;
+
+- (IBAction)setReferenceFolder:(id)sender;
+- (IBAction)resetReferenceFolder:(id)sender;
+
 @end
 
 @implementation PKGProjectSettingsViewController
@@ -45,8 +54,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	// Build Path
 	
 	// Exclusions
 	
@@ -75,7 +82,38 @@
 	
 	// Reference Folder
 	
-	// A COMPLETER
+	NSMenuItem * tMenuItem=[_buildReferenceFolderPopUpButton itemAtIndex:0];
+	
+	if (tMenuItem!=nil)
+	{
+		NSImage * tImage=nil;
+		
+		NSString * tReferenceFolderPath=self.projectSettings.referenceFolderPath;
+		
+		if (tReferenceFolderPath==nil)
+		{
+			tMenuItem.title=NSLocalizedStringFromTable(@"Project Folder",@"Project",@"");
+			
+			_buildReferenceFolderPopUpButton.toolTip=nil;
+			
+			tImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
+		}
+		else
+		{
+			tMenuItem.title=([tReferenceFolderPath isEqualToString:@"/"]==NO) ? [tReferenceFolderPath lastPathComponent] : @"/";
+			
+			_buildReferenceFolderPopUpButton.toolTip=tReferenceFolderPath;
+			
+			tImage=[[NSWorkspace sharedWorkspace] iconForFile:tReferenceFolderPath];
+		}
+		
+		if (tImage!=nil)
+		{
+			tImage.size=NSMakeSize(16.0f,16.0);
+			
+			tMenuItem.image=tImage;
+		}
+	}
 	
 	// Exclusions
 	
@@ -88,9 +126,256 @@
 
 - (void)WB_viewDidAdd
 {
-	// Build Path
+}
+
+#pragma mark -
+
+- (IBAction)setProjectName:(NSTextField *)sender
+{
+	NSString * tOldProjectName=(self.projectSettings.name==nil) ? @"" : self.projectSettings.name;
 	
-	// A COMPLETER
+	if ([tOldProjectName isEqualToString:sender.stringValue]==YES)
+		return;
+	
+	self.projectSettings.name=sender.stringValue;
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)setBuildPath:(PKGFilePathTextField *)sender
+{
+	PKGFilePath * tFilePath=[sender filePath];
+	
+	if (tFilePath==nil)
+		return;
+	
+	if ([self.projectSettings.buildPath isEqualToFilePath:tFilePath]==NO)
+	{
+		self.projectSettings.buildPath=tFilePath;
+		
+		[self noteDocumentHasChanged];
+	}
+}
+
+- (IBAction)selectBuildPath:(id)sender
+{
+	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
+	
+	tOpenPanel.canChooseFiles=NO;
+	tOpenPanel.canChooseDirectories=YES;
+	tOpenPanel.canCreateDirectories=YES;
+	
+	tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
+	
+	NSString * tOldBuildPath=[self.filePathConverter absolutePathForFilePath:self.projectSettings.buildPath];
+	
+	if (tOldBuildPath!=nil)
+		tOpenPanel.directoryURL=[NSURL fileURLWithPath:tOldBuildPath];
+	
+	dispatch_async(dispatch_get_main_queue(), ^{	// Dispatched to avoid the lack of animation for the sheet because of the dumb popupbutton animation
+		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
+			
+			if (bResult==NSFileHandlingPanelOKButton)
+			{
+				NSString * tNewBuildPath=tOpenPanel.URL.path;
+				
+				if ([tNewBuildPath isEqualToString:tOldBuildPath]==YES)
+					return;
+				
+				PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tNewBuildPath type:self.projectSettings.buildPath.type];
+				
+				if (tFilePath==nil)
+				{
+					NSBeep();
+					
+					return;
+				}
+				
+				self.projectSettings.buildPath=tFilePath;
+				
+				[_buildPathTextField setFilePath:self.projectSettings.buildPath];
+				
+				[self noteDocumentHasChanged];
+			}
+		}];
+	});
+}
+
+- (IBAction)showBuildPathInFinder:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] selectFile:[self.filePathConverter absolutePathForFilePath:self.projectSettings.buildPath] inFileViewerRootedAtPath:@""];
+}
+
+- (IBAction)setReferenceFolder:(id)sender
+{
+	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
+	
+	tOpenPanel.resolvesAliases=NO;
+	
+	tOpenPanel.canChooseFiles=NO;
+	tOpenPanel.canChooseDirectories=YES;
+	tOpenPanel.canCreateDirectories=NO;
+	
+	tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
+	
+	if (self.projectSettings.referenceFolderPath!=nil)
+		tOpenPanel.directoryURL=[NSURL fileURLWithPath:self.projectSettings.referenceFolderPath];
+	
+	dispatch_async(dispatch_get_main_queue(), ^{	// Dispatched to avoid the lack of animation for the sheet because of the dumb popupbutton animation
+		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
+			
+			if (bResult==NSFileHandlingPanelOKButton)
+			{
+				NSString * tReferenceFolderPath=tOpenPanel.URL.path;
+				
+				if ([self.projectSettings.referenceFolderPath isEqualToString:tReferenceFolderPath]==NO)
+				{
+					self.projectSettings.referenceFolderPath=tReferenceFolderPath;
+					
+					NSMenuItem * tMenuItem=[_buildReferenceFolderPopUpButton itemAtIndex:0];
+					
+					if (tMenuItem!=nil)
+					{
+						[tMenuItem setTitle:([tReferenceFolderPath isEqualToString:@"/"]==NO) ? [tReferenceFolderPath lastPathComponent] : @"/"];
+							
+						_buildReferenceFolderPopUpButton.toolTip=tReferenceFolderPath;
+							
+						NSImage * tImage=[[NSWorkspace sharedWorkspace] iconForFile:tReferenceFolderPath];
+						
+						if (tImage!=nil)
+						{
+							tImage.size=NSMakeSize(16.0f,16.0);
+							
+							tMenuItem.image=tImage;
+						}
+					}
+					
+					[self noteDocumentHasChanged];
+				}
+			}
+			
+			[_buildReferenceFolderPopUpButton selectItemAtIndex:0];
+		}];
+	});
+}
+
+- (IBAction)resetReferenceFolder:(id)sender
+{
+	if (self.projectSettings.referenceFolderPath!=nil)
+	{
+		self.projectSettings.referenceFolderPath=nil;
+		
+		NSMenuItem * tMenuItem=[_buildReferenceFolderPopUpButton itemAtIndex:0];
+		
+		if (tMenuItem!=nil)
+		{
+			tMenuItem.title=NSLocalizedStringFromTable(@"Project Folder",@"Project",@"");
+				
+			_buildReferenceFolderPopUpButton.toolTip=nil;
+				
+			NSImage * tImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
+			
+			if (tImage!=nil)
+			{
+				tImage.size=NSMakeSize(16.0f,16.0);
+				
+				tMenuItem.image=tImage;
+			}
+		}
+		
+		[self noteDocumentHasChanged];
+	}
+	
+	[_buildReferenceFolderPopUpButton selectItemAtIndex:0];
+}
+
+
+- (BOOL) validateMenuItem:(NSMenuItem *) inMenuItem
+{
+	SEL tAction=[inMenuItem action];
+	
+	/*if (tAction==@selector(changeCertificate:))
+	{
+		if (cachedBuildFormat_==ICDOCUMENT_PROJECT_SETTINGS_BUILD_FORMAT_FLAT)
+		{
+			if (cachedCertificateDictionary_==nil || [cachedCertificateDictionary_ count]==0)
+			{
+				[inMenuItem setTitle:NSLocalizedStringFromTable(@"Set Certificate...",@"Project",@"")];
+			}
+			else
+			{
+				[inMenuItem setTitle:NSLocalizedStringFromTable(@"Change Certificate...",@"Project",@"")];
+			}
+			
+			return YES;
+		}
+		
+		return NO;
+	}
+	
+	 if (tAction==@selector(removeCertificate:))
+	{
+		if (cachedBuildFormat_!=ICDOCUMENT_PROJECT_SETTINGS_BUILD_FORMAT_FLAT || cachedCertificateDictionary_==nil || [cachedCertificateDictionary_ count]==0)
+		{
+			return NO;
+		}
+	}
+	*/
+	if (tAction==@selector(showBuildPathInFinder:))
+	{
+		NSString * tPath=[self.filePathConverter absolutePathForFilePath:self.projectSettings.buildPath];
+		
+		if (tPath==nil)
+			return NO;
+		
+		return [[NSFileManager defaultManager] fileExistsAtPath:tPath];
+	}
+	
+	if (tAction==@selector(setReferenceFolder:))
+	{
+		if (self.projectSettings.referenceFolderPath!=nil && ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)==NSAlternateKeyMask)
+		{
+			inMenuItem.title=NSLocalizedStringFromTable(@"Revert to Default",@"Project",@"");
+			inMenuItem.action=@selector(resetReferenceFolder:);
+		}
+		
+		return YES;
+	}
+	
+	if (tAction==@selector(resetReferenceFolder:))
+	{
+		if (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=NSAlternateKeyMask)
+		{
+			inMenuItem.title=NSLocalizedStringFromTable(@"Other...",@"Project",@"");
+			inMenuItem.action=@selector(setReferenceFolder:);
+		}
+		
+		return YES;
+	}
+	
+	return YES;
+}
+
+#pragma mark -
+
+- (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inErrorDescription
+{
+	if ([inErrorDescription isEqualToString:@"Error"]==YES)
+		NSBeep();
+}
+
+#pragma mark - PKGFilePathTextFieldDelegate
+
+- (BOOL)filePathTextField:(PKGFilePathTextField *)inFilePathTextField shouldAcceptFile:(NSString *)inPath
+{
+	if (inFilePathTextField==_buildPathTextField)
+	{
+		BOOL isDirectory;
+		
+		return ([[NSFileManager defaultManager] fileExistsAtPath:inPath isDirectory:&isDirectory]==YES && isDirectory==YES);
+	}
+	
+	return NO;
 }
 
 @end

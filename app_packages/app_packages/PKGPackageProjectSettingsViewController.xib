@@ -26,17 +26,25 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>
                 <popUpButton verticalHuggingPriority="750" id="d0c-pq-WgK">
-                    <rect key="frame" x="635" y="305" width="37" height="24"/>
+                    <rect key="frame" x="635" y="303" width="37" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="smallSquare" title=" " bezelStyle="smallSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="YA4-gJ-4YK">
+                    <popUpButtonCell key="cell" type="smallSquare" title=" " bezelStyle="smallSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="0vG-fe-CSX" id="YA4-gJ-4YK">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="7hf-1z-6EK">
                             <items>
                                 <menuItem title=" " image="NSActionTemplate" hidden="YES" id="0vG-fe-CSX"/>
-                                <menuItem title="Choose…" id="EJu-JK-Eol"/>
+                                <menuItem title="Choose…" id="EJu-JK-Eol">
+                                    <connections>
+                                        <action selector="selectBuildPath:" target="-2" id="tUf-hu-IVX"/>
+                                    </connections>
+                                </menuItem>
                                 <menuItem isSeparatorItem="YES" id="fIh-KI-eMT"/>
-                                <menuItem title="Reveal in Finder" id="EBL-MY-jMn"/>
+                                <menuItem title="Reveal in Finder" id="EBL-MY-jMn">
+                                    <connections>
+                                        <action selector="showBuildPathInFinder:" target="-2" id="L4G-ZF-gKG"/>
+                                    </connections>
+                                </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
@@ -44,16 +52,20 @@
                 <popUpButton verticalHuggingPriority="750" id="xW5-KM-7TR">
                     <rect key="frame" x="153" y="269" width="270" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Bvd-Nh-CcG" id="Bd4-sq-wMu">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="Bd4-sq-wMu" customClass="PKGReferenceFolderPopupButtonCell">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="jhX-WQ-zBo">
                             <items>
-                                <menuItem title="-" state="on" id="Bvd-Nh-CcG"/>
+                                <menuItem title="-" id="Bvd-Nh-CcG"/>
                                 <menuItem isSeparatorItem="YES" id="Tnx-rz-QEV">
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </menuItem>
-                                <menuItem title="Other…" tag="-1" id="6gP-WS-3An"/>
+                                <menuItem title="Other…" tag="-1" id="6gP-WS-3An">
+                                    <connections>
+                                        <action selector="setReferenceFolder:" target="-2" id="NqG-Li-SVW"/>
+                                    </connections>
+                                </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
@@ -76,6 +88,9 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <action selector="setProjectName:" target="-2" id="jej-46-2I7"/>
+                        <outlet property="delegate" destination="-2" id="ffF-Dg-6Oc"/>
+                        <outlet property="formatter" destination="5qm-NS-9Rc" id="VZg-dz-Ke4"/>
                         <outlet property="nextKeyView" destination="dLO-iy-AiD" id="rq1-DT-MYq"/>
                     </connections>
                 </textField>
@@ -114,6 +129,10 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <action selector="setBuildPath:" target="-2" id="qpo-dJ-qD2"/>
+                        <outlet property="delegate" destination="-2" id="7G9-Pq-Tye"/>
+                    </connections>
                 </textField>
                 <button id="RRt-5T-TqC">
                     <rect key="frame" x="153" y="19" width="235" height="18"/>
@@ -126,6 +145,7 @@
             </subviews>
             <point key="canvasLocation" x="538" y="429.5"/>
         </customView>
+        <customFormatter id="5qm-NS-9Rc" customClass="PKGProjectNameFormatter"/>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
