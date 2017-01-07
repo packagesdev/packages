@@ -21,7 +21,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGFileDeadDropView
 
-- (instancetype)initWithFrame:(NSRect) inFrame
+- (instancetype)initWithFrame:(NSRect)inFrame
 {
 	self=[super initWithFrame:inFrame];
 	
@@ -51,35 +51,48 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
-	NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
-    NSPasteboard * tPasteBoard = [sender draggingPasteboard];
+	if (self.delegate==nil)
+	{
+		NSLog(@"PKGFileDeadDropView <0x%p>: drag & drop won't work. delegate is not set",self);
+		return NSDragOperationNone;
+	}
 
-    if (self.delegate!=nil && [[tPasteBoard types] containsObject:NSFilenamesPboardType]==YES)
-    {
-        if (sourceDragMask & NSDragOperationCopy)
-        {
-            NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
-        
-			if (tFiles!=nil)
-			{
-				if ([self.delegate fileDeadDropView:self validateDropFiles:tFiles]==YES)
-				{
-					self.highlighted=YES;
-				
-					return NSDragOperationCopy;
-				}
-			}
-        }
-    }
+    NSPasteboard * tPasteBoard=[sender draggingPasteboard];
+
+	if ([[tPasteBoard types] containsObject:NSFilenamesPboardType]==NO)
+		return NSDragOperationNone;
+   
+	NSDragOperation tSourceDragMask = [sender draggingSourceOperationMask];
+		
+	if ((tSourceDragMask & NSDragOperationCopy)==0)
+		return NSDragOperationNone;
+	
+	NSArray * tFiles=[tPasteBoard propertyListForType:NSFilenamesPboardType];
+	
+	if (tFiles!=nil)
+	{
+		if ([self.delegate fileDeadDropView:self validateDropFiles:tFiles]==YES)
+		{
+			self.highlighted=YES;
+		
+			return NSDragOperationCopy;
+		}
+	}
     
     return NSDragOperationNone;
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
-    NSPasteboard * tPasteBoard= [sender draggingPasteboard];
+    if (self.delegate==nil)
+	{
+		NSLog(@"PKGFileDeadDropView <0x%p>: drag & drop won't work. delegate is not set",self);
+		return NO;
+	}
+	
+	NSPasteboard * tPasteBoard=[sender draggingPasteboard];
 
-    if (self.delegate!=nil && [[tPasteBoard types] containsObject:NSFilenamesPboardType]==YES)
+    if ([[tPasteBoard types] containsObject:NSFilenamesPboardType]==YES)
     {
         NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
         
