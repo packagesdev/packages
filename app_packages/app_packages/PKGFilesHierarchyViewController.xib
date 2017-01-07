@@ -220,7 +220,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="zuz-Lg-yvq">
-                    <rect key="frame" x="18" y="514" width="69" height="18"/>
+                    <rect key="frame" x="18" y="514" width="701" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Contents" id="SnW-DJ-6WQ">
                         <font key="font" metaFont="systemBold" size="14"/>
@@ -228,10 +228,10 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="F9o-fE-km2">
-                    <rect key="frame" x="414" y="10" width="305" height="32"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="F9o-fE-km2">
+                    <rect key="frame" x="390" y="10" width="329" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="M00-ic-dzI">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" id="M00-ic-dzI">
                         <font key="font" metaFont="miniSystem"/>
                         <color key="textColor" white="0.48684210526315791" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
