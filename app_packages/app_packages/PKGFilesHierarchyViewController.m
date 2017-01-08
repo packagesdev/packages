@@ -129,11 +129,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	return @"PKGFilesHierarchyViewController";
 }
 
-- (id<PKGFilePathConverter>)filePathConverter
-{
-	return (id<PKGFilePathConverter>) [NSApplication sharedApplication].delegate;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -159,7 +154,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	self.outlineView.dataSource=self.hierarchyDataSource;
 	
-	if ([self.view isKindOfClass:[PKGPayloadDropView class]]==YES)
+	if ([_hierarchyDataSource conformsToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
 		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDataSource;
 	
 	// Owner and Group
@@ -363,7 +358,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	tOpenPanel.delegate=_openPanelDelegate;
 	
-	tOpenPanel.prompt=NSLocalizedString(@"Add...",@"No comment");
+	tOpenPanel.prompt=NSLocalizedString(@"Add",@"No comment");
 	
 	__block BOOL tKeepOwnerAndGroup=((self.hierarchyDataSource.managedAttributes & PKGFileAttributesOwnerAndGroup)==0) ? NO : [PKGApplicationPreferences sharedPreferences].keepOwnership;
 	__block PKGFilePathType tReferenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
