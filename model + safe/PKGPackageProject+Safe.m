@@ -1,6 +1,8 @@
 
 #import "PKGPackageProject+Safe.h"
 
+#import "PKGApplicationPreferences.h"
+
 @implementation PKGPackageProject (Safe)
 
 - (PKGPackagePayload *)payload_safe
@@ -42,6 +44,28 @@
 	}
 	
 	return self.payload;
+}
+
+- (PKGPackageScriptsAndResources *)scriptsAndResources_safe
+{
+	if (self.scriptsAndResources==nil)
+	{
+		PKGPackageScriptsAndResources * tScriptsAndResources=[PKGPackageScriptsAndResources new];
+		
+		if (tScriptsAndResources==nil)
+		{
+			// A COMPLETER
+			
+			return nil;
+		}
+		
+		tScriptsAndResources.preInstallationScriptPath.type=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		tScriptsAndResources.postInstallationScriptPath.type=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		
+		self.scriptsAndResources=tScriptsAndResources;
+	}
+	
+	return self.scriptsAndResources;
 }
 
 @end
