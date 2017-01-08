@@ -337,6 +337,9 @@
 
 - (void)refreshWithAbsolutePath:(NSString *)inAbsolutePath fileFilters:(NSArray *)inFileFilters
 {
+	if (inAbsolutePath==nil)
+		return;
+	
 	PKGFileItem * tFileItem=self.representedObject;
 	
 	[tFileItem refreshAuxiliaryWithAbsolutePath:inAbsolutePath fileFilters:inFileFilters];
