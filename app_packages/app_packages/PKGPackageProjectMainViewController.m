@@ -67,14 +67,30 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
 	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
 	
 	PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisiblePackageProjectPane;
 	
 	[_segmentedControl selectSegmentWithTag:tTag];
 	[self showTabViewWithTag:tTag];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[_currentContentController WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[super WB_viewDidDisappear];
+	
+	[_currentContentController WB_viewDidDisappear];
 }
 
 - (BOOL)PKG_viewCanBeRemoved
@@ -181,14 +197,14 @@
 	
 	tNewView.frame=_contentView.bounds;
 	
-	[_currentContentController WB_viewWillRemove];
-	[tNewSegmentViewController WB_viewWillAdd];
+	[_currentContentController WB_viewWillDisappear];
+	[tNewSegmentViewController WB_viewWillAppear];
 	
 	[tOldView removeFromSuperview];
 	[_contentView addSubview:tNewView];
 	
-	[tNewSegmentViewController WB_viewDidAdd];
-	[_currentContentController WB_viewDidRemove];
+	[tNewSegmentViewController WB_viewDidAppear];
+	[_currentContentController WB_viewDidDisappear];
 	
 	_currentContentController=tNewSegmentViewController;
 }

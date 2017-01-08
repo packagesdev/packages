@@ -46,7 +46,7 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	[_tableView reloadData];
 }

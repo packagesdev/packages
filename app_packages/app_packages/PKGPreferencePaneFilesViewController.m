@@ -54,7 +54,7 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	// Show All Files
 	

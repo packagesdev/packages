@@ -62,8 +62,10 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
 	[self _updateLayout];
 	
 	// Tag Section
@@ -89,15 +91,19 @@
 	_useHFSPlusCompressionCheckbox.state=(self.packageSettings.useHFSPlusCompression==YES)? NSOnState : NSOffState;
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
+	[super WB_viewDidAppear];
+	
 	[self.view.window makeFirstResponder:_identifierTextField];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 }
 
-- (void)WB_viewWillRemove
+- (void)WB_viewWillDisappear
 {
+	[super WB_viewWillDisappear];
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 }
 

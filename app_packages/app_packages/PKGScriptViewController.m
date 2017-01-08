@@ -41,6 +41,9 @@
 
 - (void)refreshUI;
 
+- (IBAction)showInFinder:(id)sender;
+- (IBAction)openWithFinder:(id)sender;
+
 - (IBAction)switchPathType:(NSPopUpButton *)sender;
 - (IBAction)selectPath:(id)sender;
 - (IBAction)removePath:(id)sender;
@@ -86,14 +89,14 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	_viewLabel.stringValue=_label;
 	
 	[self refreshUI];
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
 	// This will allow us to display a question mark if the file can not be found following some user actions in another application
 	
@@ -101,7 +104,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidChangeMain:) name:PKGWindowDidResignMainNotification object:self.view];
 }
 
-- (void)WB_viewWillRemove
+- (void)WB_viewWillDisappear
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGWindowDidBecomeMainNotification object:self.view];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGWindowDidResignMainNotification object:self.view];
@@ -193,6 +196,26 @@
 
 #pragma mark -
 
+- (IBAction)showInFinder:(id)sender
+{
+	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:self.installationScriptPath];
+	
+	if (tAbsolutePath==nil)
+		return;
+	
+	[[NSWorkspace sharedWorkspace] selectFile:tAbsolutePath inFileViewerRootedAtPath:@""];
+}
+
+- (IBAction)openWithFinder:(id)sender
+{
+	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:self.installationScriptPath];
+	
+	if (tAbsolutePath==nil)
+		return;
+	
+	[[NSWorkspace sharedWorkspace] openFile:tAbsolutePath];
+}
+
 - (IBAction)switchPathType:(NSPopUpButton *)sender
 {
 	if (_installationScriptPath==nil)
@@ -236,7 +259,7 @@
 			
 			if (tFilePath==nil)
 			{
-				// A COMPLETER
+				NSLog(@"<PKGScriptViewController> File Path conversion failed.");
 				return;
 			}
 			
@@ -269,6 +292,20 @@
 		
 		[self refreshUI];
 	}];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tSelector=inMenuItem.action;
+	
+	if (tSelector==@selector(showInFinder:) ||
+		tSelector==@selector(openWithFinder:))
+		return self.installationScriptPath.isSet;
+	
+	if (tSelector==@selector(switchPathType:))
+		return YES;
+	
+	return YES;
 }
 
 #pragma mark - PKGFileDeadDropViewDelegate

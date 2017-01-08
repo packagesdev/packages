@@ -49,6 +49,10 @@
 
 + (NSMenu *)soundMenu;
 
+- (void)refreshTemporaryBuildLocationUI;
+
+- (void)refreshUI;
+
 - (void)setFailoverFolder:(NSString *) inFolderPath;
 
 
@@ -87,36 +91,17 @@
 	[_playSoundOnErrorsPopUpButton setMenu:[PKGPreferencePaneBuildViewController soundMenu]];
 }
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
-	[super WB_viewWillAdd];
+	[super WB_viewWillAppear];
 	
-	[_unsavedProjectBehaviorPopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].unsavedProjectSaveBehavior];
-	
-	// Build Window
-    
-    [_showBuildWindowBehaviorPopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior];
-    
-   [_hideBuildWindowBehaviorPopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior];
-	
-	// Build Result
-	
-	NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
-	
-	[_playSoundOnSuccessPopUpButton selectItemWithTag:([tSoundName length]==0) ? -1 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
-	
-	tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
-	
-	[_playSoundOnErrorsPopUpButton selectItemWithTag:([tSoundName length]==0) ? -1 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
-	
-	// Quick Build
-	
-	[_quickBuildUseBundleVersionCheckBox setState:([PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild==YES) ? NSOnState : NSOffState];
-	
-	[self setFailoverFolder:[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild];
-	
-	// Temporary Build Location
-	
+	[self refreshUI];
+}
+
+#pragma mark -
+
+- (void)refreshTemporaryBuildLocationUI
+{
 	NSString * tPath=[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation;
 	
 	[_temporaryBuildLocationTextField setStringValue:tPath];
@@ -141,6 +126,37 @@
 	[tImage setSize:NSMakeSize(32.0f,32.0f)];
 	
 	[_temporaryBuildLocationIconImageView setImage:tImage];
+}
+
+- (void)refreshUI
+{
+	[_unsavedProjectBehaviorPopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].unsavedProjectSaveBehavior];
+	
+	// Build Window
+	
+	[_showBuildWindowBehaviorPopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior];
+	
+	[_hideBuildWindowBehaviorPopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior];
+	
+	// Build Result
+	
+	NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
+	
+	[_playSoundOnSuccessPopUpButton selectItemWithTag:([tSoundName length]==0) ? -1 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
+	
+	tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+	
+	[_playSoundOnErrorsPopUpButton selectItemWithTag:([tSoundName length]==0) ? -1 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
+	
+	// Quick Build
+	
+	[_quickBuildUseBundleVersionCheckBox setState:([PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild==YES) ? NSOnState : NSOffState];
+	
+	[self setFailoverFolder:[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild];
+	
+	// Temporary Build Location
+	
+	[self refreshTemporaryBuildLocationUI];
 }
 
 #pragma mark -
@@ -370,7 +386,7 @@
 		
 		[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation=tOpenPanel.URL.path;
 		
-		[self WB_viewWillAdd];
+		[self refreshTemporaryBuildLocationUI];
 	}];
 }
 
@@ -393,7 +409,7 @@
 	
 	[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation=[inFilenames firstObject];
 	
-	[self WB_viewWillAdd];
+	[self refreshTemporaryBuildLocationUI];
 	
 	return YES;
 }

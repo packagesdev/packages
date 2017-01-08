@@ -36,7 +36,7 @@
 
 @implementation PKGPreferencePaneAdvancedViewController
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	// Advanced Mode
 	

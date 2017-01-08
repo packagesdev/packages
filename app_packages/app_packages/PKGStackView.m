@@ -118,11 +118,11 @@
 				tViewController=nil;
 		}
 		
-		[tViewController WB_viewWillRemove];
+		[tViewController WB_viewWillDisappear];
 		
 		[bView removeFromSuperview];
 		
-		[tViewController WB_viewDidRemove];
+		[tViewController WB_viewDidDisappear];
 	}];
 	
 	// Layout
@@ -223,11 +223,11 @@
 				tViewController=nil;
 		}
 		
-		[tViewController WB_viewWillAdd];
+		[tViewController WB_viewWillAppear];
 		
 		[self addSubview:bView];
 		
-		[tViewController WB_viewDidAdd];
+		[tViewController WB_viewDidAppear];
 	}];
 }
 

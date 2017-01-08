@@ -117,12 +117,12 @@ NSString * const PKGPreferencesWindowSelectedPaneIdentifierKey=@"preferences.ui.
 		_paneControllersDictionary[inIdentifier]=tViewController;
 	}
 	
-	[_currentViewController WB_viewWillRemove];
+	[_currentViewController WB_viewWillDisappear];
 	
 	if (_currentViewController!=nil)
 		[_currentViewController.view removeFromSuperview];
 	
-	[_currentViewController WB_viewDidRemove];
+	[_currentViewController WB_viewDidDisappear];
 	
 	_currentViewController=tViewController;
 	
@@ -143,11 +143,11 @@ NSString * const PKGPreferencesWindowSelectedPaneIdentifierKey=@"preferences.ui.
 	
 	[self.window setFrame:tWindowFrame display:YES animate:YES];
 	
-	[_currentViewController WB_viewWillAdd];
+	[_currentViewController WB_viewWillAppear];
 	
 	[[self.window contentView] addSubview:_currentViewController.view];
 	
-	[_currentViewController WB_viewDidAdd];
+	[_currentViewController WB_viewDidAppear];
 	
 	[[NSUserDefaults standardUserDefaults] setObject:inIdentifier forKey:PKGPreferencesWindowSelectedPaneIdentifierKey];
 }

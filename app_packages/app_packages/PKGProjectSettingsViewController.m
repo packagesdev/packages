@@ -61,17 +61,15 @@
 	
 	_exclusionsViewController.view.frame=_exclusionsPlaceHolderView.bounds;
 	
-	[_exclusionsViewController WB_viewWillAdd];
-	
 	[_exclusionsPlaceHolderView addSubview:_exclusionsViewController.view];
-	
-	[_exclusionsViewController WB_viewDidAdd];
 }
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
 	// Build Name
 	
 	_buildNameTextField.stringValue=(self.projectSettings.name==nil) ? @"" : self.projectSettings.name;
@@ -122,10 +120,31 @@
 	_exclusionsViewController.fileFiltersDataSource=tDataSource;
 	
 	_filterPayloadOnlyCheckbox.state=(self.projectSettings.filterPayloadOnly==YES) ? NSOnState : NSOffState;
+	
+	[_exclusionsViewController WB_viewWillAppear];
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
+	[super WB_viewDidAppear];
+	
+	[_exclusionsViewController WB_viewDidAppear];
+	
+	[self.view.window makeFirstResponder:_buildNameTextField];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[_exclusionsViewController WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[super WB_viewDidDisappear];
+	
+	[_exclusionsViewController WB_viewDidDisappear];
 }
 
 #pragma mark -

@@ -29,8 +29,10 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
 	NSData * tData=self.comments.htmlData;
 	
 	if (tData.length==0)
@@ -52,8 +54,10 @@
 	[tTextStorage endEditing];
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
+	[super WB_viewDidAppear];
+	
 	[self.view.window makeFirstResponder:_textView];
 }
 

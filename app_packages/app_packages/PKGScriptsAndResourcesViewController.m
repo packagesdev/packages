@@ -1,3 +1,15 @@
+/*
+ Copyright (c) 2016, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGScriptsAndResourcesViewController.h"
 
@@ -39,6 +51,11 @@
 	return self;
 }
 
+- (NSString *)nibName
+{
+	return @"PKGScriptsAndResourcesViewController";
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,6 +64,7 @@
 	
 	_preInstallationScriptViewController=[PKGScriptViewController new];
 	_preInstallationScriptViewController.label=NSLocalizedString(@"Pre-installation", @"");
+	_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
 	
 	[_installationScriptView addView:_preInstallationScriptViewController.view];
 	
@@ -54,6 +72,7 @@
 	
 	_postInstallationScriptViewController=[PKGScriptViewController new];
 	_postInstallationScriptViewController.label=NSLocalizedString(@"Post-installation", @"");
+	_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
 	
 	[_installationScriptView addView:_postInstallationScriptViewController.view];
 	
@@ -67,38 +86,66 @@
 	
 	_filesHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
 	
-	[_filesHierarchyViewController WB_viewWillAdd];
-	
 	[_hierarchyPlaceHolderView addSubview:_filesHierarchyViewController.view];
 	
-	[_filesHierarchyViewController WB_viewDidAdd];
+	_dataSource.delegate=_filesHierarchyViewController;
 }
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)setScriptsAndResources:(PKGPackageScriptsAndResources *)inScriptsAndResources
 {
-	_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
-	
-	_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
-	
-	_dataSource.rootNodes=self.scriptsAndResources.resourcesForest.rootNodes;
-	
-	_dataSource.delegate=_filesHierarchyViewController;
-	
-	// A COMPLETER
+	if (_scriptsAndResources!=inScriptsAndResources)
+	{
+		_scriptsAndResources=inScriptsAndResources;
+		
+		_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
+		_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
+		
+		_dataSource.rootNodes=self.scriptsAndResources.resourcesForest.rootNodes;
+	}
 }
 
-- (void)WB_viewDidAdd
+#pragma mark -
+
+- (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
+	[_preInstallationScriptViewController WB_viewWillAppear];
+	[_postInstallationScriptViewController WB_viewWillAppear];
+	[_filesHierarchyViewController WB_viewWillAppear];
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
 	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
 	
 	_dataSource.filePathConverter=self.filePathConverter;
-	[_filesHierarchyViewController refreshHierarchy];
 	
-	// A COMPLETER
+	[_preInstallationScriptViewController WB_viewDidAppear];
+	[_postInstallationScriptViewController WB_viewDidAppear];
+	[_filesHierarchyViewController WB_viewDidAppear];
 }
 
-#pragma mark -
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[_preInstallationScriptViewController WB_viewWillDisappear];
+	[_postInstallationScriptViewController WB_viewWillDisappear];
+	[_filesHierarchyViewController WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[super WB_viewDidDisappear];
+	
+	[_preInstallationScriptViewController WB_viewDidDisappear];
+	[_postInstallationScriptViewController WB_viewDidDisappear];
+	[_filesHierarchyViewController WB_viewDidDisappear];
+}
 
 @end

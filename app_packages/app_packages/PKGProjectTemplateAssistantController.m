@@ -57,8 +57,10 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
 	[_showOnLaunchCheckBox setState:([PKGApplicationPreferences sharedPreferences].dontShowProjectAssistantOnLaunch==NO) ? NSOnState : NSOffState];
 }
 

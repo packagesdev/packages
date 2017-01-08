@@ -65,7 +65,7 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	[_keepOwnerAndGroupButton setState:(_keepOwnerAndGroup==YES) ? NSOnState : NSOffState];
 	

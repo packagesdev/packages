@@ -67,11 +67,29 @@
 	
 	[_placeHolderView removeFromSuperview];
 	
-	[_navigationController WB_viewWillAdd];
-	
 	[self.view addSubview:_navigationController.view];
-	
-	[_navigationController WB_viewDidAdd];
+}
+
+#pragma mark -
+
+- (void)WB_viewWillAppear
+{
+	[_navigationController WB_viewWillAppear];
+}
+
+- (void)WB_viewDidAppear
+{
+	[_navigationController WB_viewDidAppear];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[_navigationController WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[_navigationController WB_viewDidDisappear];
 }
 
 #pragma mark -

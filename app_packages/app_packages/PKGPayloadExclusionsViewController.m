@@ -28,6 +28,18 @@
 NSString * const PKGFileFiltersSeparatorTableRowViewIdentifier=@"tablerowview.separator";
 NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
+@interface NSTableView_fixed : NSTableView
+@end
+
+@implementation NSTableView_fixed
+
+- (BOOL)isOpaque
+{
+	return NO;
+}
+
+@end
+
 @interface PKGPayloadExclusionsViewController () <NSTableViewDelegate>
 {
 	IBOutlet NSButton * _addButton;
@@ -108,12 +120,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	self.tableView.dataSource=self.fileFiltersDataSource;
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
 	_addButton.enabled=YES;
 	_removeButton.enabled=NO;

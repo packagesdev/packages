@@ -47,7 +47,7 @@
 	[IBdefaultReferenceStylePopUpButton_ removeItemAtIndex:0];
 }
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	// Default Visibles Panes
 	

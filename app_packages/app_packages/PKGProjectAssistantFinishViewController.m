@@ -138,7 +138,7 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	_projectName=[[self.assistantController.assistantSettings objectForKey:PKGProjectTemplateAssistantSettingsProjectNameKey] copy];
 	
@@ -162,7 +162,7 @@
 	self.assistantController.nextButton.title=NSLocalizedString(@"Finish",@"");
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
 	[self.view.window makeFirstResponder:_projectNametextField];
 }

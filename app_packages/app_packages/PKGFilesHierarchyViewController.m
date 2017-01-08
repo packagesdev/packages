@@ -147,7 +147,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	_viewLabel.stringValue=_label;
 	_viewInformationLabel.stringValue=_informationLabel;
@@ -183,15 +183,17 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
 	// A COMPLETER
 	
 	_addButton.enabled=(_hierarchyDataSource.editableRootNodes==YES);
 	_removeButton.enabled=NO;
+	
+	[self refreshHierarchy];
 }
 
-- (void)WB_viewWillRemove
+- (void)WB_viewWillDisappear
 {
 	// A COMPLETER
 	
@@ -373,11 +375,11 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		
 		NSView * tAccessoryView=_ownershipAndReferenceStyleViewController.view;
 		
-		[_ownershipAndReferenceStyleViewController WB_viewWillAdd];
+		[_ownershipAndReferenceStyleViewController WB_viewWillAppear];
 		
 		tOpenPanel.accessoryView=tAccessoryView;
 		
-		[_ownershipAndReferenceStyleViewController WB_viewDidAdd];
+		[_ownershipAndReferenceStyleViewController WB_viewDidAppear];
 	}
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
@@ -404,6 +406,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 				[self noteDocumentHasChanged];
 			}
 		}
+		
+		[_ownershipAndReferenceStyleViewController WB_viewWillDisappear];
 		
 		_ownershipAndReferenceStyleViewController=nil;
 	}];

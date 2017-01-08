@@ -83,19 +83,17 @@
 	
 	_filesHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
 	
-	[_filesHierarchyViewController WB_viewWillAdd];
-	
 	[_hierarchyPlaceHolderView addSubview:_filesHierarchyViewController.view];
-	
-	[_filesHierarchyViewController WB_viewDidAdd];
 	
     // Do view setup here.
 }
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
 	[self _updateLayout];
 	
 	[_payloadTypePopUpButton selectItemWithTag:self.payload.type];
@@ -114,11 +112,15 @@
 		// A COMPLETER
 	}
 	
+	[_filesHierarchyViewController WB_viewWillAppear];
+	
 	// A COMPLETER
 }
 
-- (void)WB_viewDidAdd
+- (void)WB_viewDidAppear
 {
+	[super WB_viewDidAppear];
+	
 	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
@@ -128,16 +130,26 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchyDidRenameFolder:) name:PKGFilesHierarchyDidRenameFolderNotification object:_filesHierarchyViewController.outlineView];
 	
 	_dataSource.filePathConverter=self.filePathConverter;
-	[_filesHierarchyViewController refreshHierarchy];
+	
+	[_filesHierarchyViewController WB_viewDidAppear];
 }
 
-- (void)WB_viewWillRemove
+- (void)WB_viewWillDisappear
 {
+	[super WB_viewWillDisappear];
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGFilesHierarchyDidRenameFolderNotification object:nil];
+	
+	[_filesHierarchyViewController WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[_filesHierarchyViewController WB_viewDidDisappear];
 }
 
 #pragma mark -

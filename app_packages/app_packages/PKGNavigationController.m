@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAdd
+- (void)WB_viewWillAppear
 {
 	if ([[self.view subviews] count]>0)
 		return;
@@ -50,14 +50,33 @@
 	
 	tView.frame=self.view.bounds;
 	
-	[tVisibleViewController WB_viewWillAdd];
+	[tVisibleViewController WB_viewWillAppear];
 	
 	[self.view addSubview:tView];
+}
+
+- (void)WB_viewDidAppear
+{
+	NSViewController * tVisibleViewController=[_viewControllers lastObject];
 	
-	[tVisibleViewController WB_viewDidAdd];
+	[tVisibleViewController WB_viewDidAppear];
 	
 	if ([self.delegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]==YES)
 		[self.delegate navigationController:self didShowViewController:tVisibleViewController animated:NO];
+}
+
+- (void)WB_viewWillDisappear
+{
+	NSViewController * tVisibleViewController=[_viewControllers lastObject];
+	
+	[tVisibleViewController WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	NSViewController * tVisibleViewController=[_viewControllers lastObject];
+	
+	[tVisibleViewController WB_viewDidDisappear];
 }
 
 #pragma mark -
@@ -93,9 +112,9 @@
 	
 	tView.frame=[self.view bounds];
 	
-	[tPreviouslyVisibleViewController WB_viewWillRemove];
+	[tPreviouslyVisibleViewController WB_viewWillDisappear];
 	
-	[inViewController WB_viewWillAdd];
+	[inViewController WB_viewWillAppear];
 	
 	// Here we can animate
 	
@@ -103,9 +122,9 @@
 	
 	[self.view addSubview:tView];
 	
-	[tPreviouslyVisibleViewController WB_viewDidRemove];
+	[tPreviouslyVisibleViewController WB_viewDidDisappear];
 	
-	[inViewController WB_viewDidAdd];
+	[inViewController WB_viewDidAppear];
 	
 	if ([self.delegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]==YES)
 		[self.delegate navigationController:self didShowViewController:inViewController animated:inAnimated];
@@ -129,9 +148,9 @@
 	
 	tView.frame=[self.view bounds];
 	
-	[tPreviouslyVisibleViewController WB_viewWillRemove];
+	[tPreviouslyVisibleViewController WB_viewWillDisappear];
 	
-	[tNewVisibleViewController WB_viewWillAdd];
+	[tNewVisibleViewController WB_viewWillAppear];
 	
 	// Here we can animate
 	
@@ -139,9 +158,9 @@
 	
 	[self.view addSubview:tView];
 	
-	[tPreviouslyVisibleViewController WB_viewDidRemove];
+	[tPreviouslyVisibleViewController WB_viewDidDisappear];
 	
-	[tNewVisibleViewController WB_viewDidAdd];
+	[tNewVisibleViewController WB_viewDidAppear];
 	
 	if ([self.delegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]==YES)
 		[self.delegate navigationController:self didShowViewController:tNewVisibleViewController animated:inAnimated];
@@ -184,9 +203,9 @@
 	
 	tView.frame=[self.view bounds];
 	
-	[tVisibleViewController WB_viewWillRemove];
+	[tVisibleViewController WB_viewWillDisappear];
 	
-	[tNewVisibleViewController WB_viewWillAdd];
+	[tNewVisibleViewController WB_viewWillAppear];
 	
 	// Here we can animate
 	
@@ -194,9 +213,9 @@
 	
 	[self.view addSubview:tView];
 	
-	[tVisibleViewController WB_viewDidRemove];
+	[tVisibleViewController WB_viewDidDisappear];
 	
-	[tNewVisibleViewController WB_viewDidAdd];
+	[tNewVisibleViewController WB_viewDidAppear];
 	
 	if ([self.delegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]==YES)
 		[self.delegate navigationController:self didShowViewController:tNewVisibleViewController animated:inAnimated];

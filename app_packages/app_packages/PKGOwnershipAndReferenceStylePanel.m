@@ -61,11 +61,11 @@
 	
 	NSView * tView=_ownershipAndReferenceStyleController.view;	// To be sure it's loaded before the willAdd
 	
-	[_ownershipAndReferenceStyleController WB_viewWillAdd];
+	[_ownershipAndReferenceStyleController WB_viewWillAppear];
 	
 	[_placeHolderView addSubview:tView];
 	
-	[_ownershipAndReferenceStyleController WB_viewDidAdd];
+	[_ownershipAndReferenceStyleController WB_viewDidAppear];
 	
 	
 	NSString * tTitle=self.prompt;

@@ -3,12 +3,12 @@
 
 @interface NSViewController (WBExtensions)
 
-- (void)WB_viewWillAdd;
+- (void)WB_viewWillAppear;
 
-- (void)WB_viewDidAdd;
+- (void)WB_viewDidAppear;
 
-- (void)WB_viewWillRemove;
+- (void)WB_viewWillDisappear;
 
-- (void)WB_viewDidRemove;
+- (void)WB_viewDidDisappear;
 
 @end

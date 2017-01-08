@@ -85,11 +85,11 @@
 	
 	[tMainView setFrame:tFrame];
 	
-	[_projectMainViewController WB_viewWillAdd];
+	[_projectMainViewController WB_viewWillAppear];
 	
 	[tDocumentMainWindow.contentView addSubview:tMainView];
 	
-	[_projectMainViewController WB_viewDidAdd];
+	[_projectMainViewController WB_viewDidAppear];
 	
 	[tDocumentMainWindow setMinSize:NSMakeSize(PKGDocumentWindowPackageProjectMinWidth, PKGDocumentWindowMinHeight)];
 }

@@ -50,11 +50,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	tView.frame=tContentView.bounds;
 	
-	[_projectTemplateAssistantController WB_viewWillAdd];
+	[_projectTemplateAssistantController WB_viewWillAppear];
 	
 	[tContentView addSubview:tView];
 	
-	[_projectTemplateAssistantController WB_viewDidAdd];
+	[_projectTemplateAssistantController WB_viewDidDisappear];
 }
 
 @end
