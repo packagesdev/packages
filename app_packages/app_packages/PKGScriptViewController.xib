@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGScriptViewController">
+            <connections>
+                <outlet property="_lastModificationTextField" destination="8Yq-Ef-Rgu" id="8Yz-aB-UKH"/>
+                <outlet property="_referenceStylePopUpButton" destination="i85-tN-ijB" id="cAw-hz-ude"/>
+                <outlet property="_removeButton" destination="xR8-Uo-tLF" id="dMh-Cl-gFN"/>
+                <outlet property="_scriptNameTextField" destination="5t6-7W-gy9" id="k8A-og-FLD"/>
+                <outlet property="_scriptsDeadDropView" destination="WCC-8t-kGI" id="prz-T4-ynJ"/>
+                <outlet property="_setButton" destination="hyY-4Y-QYZ" id="poC-nH-7ep"/>
+                <outlet property="_viewLabel" destination="FnT-l0-gyk" id="fmc-ji-w8k"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY" customClass="PKGTellerView">
+            <rect key="frame" x="0.0" y="-3" width="333" height="138"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button hidden="YES" verticalHuggingPriority="750" id="xR8-Uo-tLF">
+                    <rect key="frame" x="179" y="22" width="65" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="smallSquare" title="Remove…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="Fhf-Yh-Ytp">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="removePath:" target="-2" id="R6E-CB-2aI"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="Jls-c8-yGS">
+                    <rect key="frame" x="102" y="50" width="54" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Modified:" id="VTf-Hd-ELu">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView id="WCC-8t-kGI" customClass="PKGScriptDeadDropView">
+                    <rect key="frame" x="33" y="20" width="64" height="64"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </customView>
+                <textField verticalHuggingPriority="750" id="8Yq-Ef-Rgu">
+                    <rect key="frame" x="158" y="50" width="157" height="14"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="4ez-Ls-ay2">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="5t6-7W-gy9">
+                    <rect key="frame" x="102" y="67" width="213" height="17"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" id="yY1-uy-aL4">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" id="hyY-4Y-QYZ">
+                    <rect key="frame" x="134" y="22" width="46" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="smallSquare" title="Set…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="U13-nR-J3k">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="selectPath:" target="-2" id="zHR-hw-H7P"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="FnT-l0-gyk">
+                    <rect key="frame" x="18" y="100" width="297" height="18"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="7ds-AL-evX">
+                        <font key="font" metaFont="systemBold" size="14"/>
+                        <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="i85-tN-ijB">
+                    <rect key="frame" x="105" y="20" width="30" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title=" " bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="1" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="CiZ-cj-fDF" id="haG-z4-QSw" customClass="PKGReferenceSmallSquarePopUpButtonCell">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" title="OtherViews" id="cdI-uh-nLt">
+                            <items>
+                                <menuItem title=" " state="on" tag="1" id="CiZ-cj-fDF"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="811.5" y="238"/>
+        </customView>
+    </objects>
+</document>
