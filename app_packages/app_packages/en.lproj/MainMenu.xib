@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
 		<string key="IBDocument.SystemVersion">14F2009</string>
-		<string key="IBDocument.InterfaceBuilderVersion">7525</string>
+		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">7525</string>
+			<string key="NS.object.0">7706</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
@@ -1088,6 +1088,25 @@
 									<reference key="NSOnImage" ref="22264431"/>
 									<reference key="NSMixedImage" ref="502987506"/>
 								</object>
+								<object class="NSMenuItem" id="473549797">
+									<reference key="NSMenu" ref="472472500"/>
+									<string key="NSTitle">Show Hidden Folders</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="22264431"/>
+									<reference key="NSMixedImage" ref="502987506"/>
+								</object>
+								<object class="NSMenuItem" id="405780448">
+									<reference key="NSMenu" ref="472472500"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="22264431"/>
+									<reference key="NSMixedImage" ref="502987506"/>
+								</object>
 								<object class="NSMenuItem" id="293071352">
 									<reference key="NSMenu" ref="472472500"/>
 									<string key="NSTitle">Set as Default Location</string>
@@ -1486,27 +1505,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">newFolder:</string>
-						<reference key="source" ref="865479084"/>
-						<reference key="destination" ref="736555491"/>
-					</object>
-					<int key="connectionID">414</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">selectAll:</string>
 						<reference key="source" ref="865479084"/>
 						<reference key="destination" ref="122730599"/>
 					</object>
 					<int key="connectionID">179</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setAsDefaultLocation:</string>
-						<reference key="source" ref="865479084"/>
-						<reference key="destination" ref="293071352"/>
-					</object>
-					<int key="connectionID">417</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1563,14 +1566,6 @@
 						<reference key="destination" ref="881712449"/>
 					</object>
 					<int key="connectionID">205</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">expand:</string>
-						<reference key="source" ref="865479084"/>
-						<reference key="destination" ref="642263195"/>
-					</object>
-					<int key="connectionID">416</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1862,14 +1857,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">expandOneLevel:</string>
-						<reference key="source" ref="865479084"/>
-						<reference key="destination" ref="371833195"/>
-					</object>
-					<int key="connectionID">415</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">alignRight:</string>
 						<reference key="source" ref="865479084"/>
 						<reference key="destination" ref="816960374"/>
@@ -2003,6 +1990,46 @@
 						<reference key="destination" ref="799166768"/>
 					</object>
 					<int key="connectionID">482</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addNewFolder:</string>
+						<reference key="source" ref="865479084"/>
+						<reference key="destination" ref="736555491"/>
+					</object>
+					<int key="connectionID">486</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">expandOneLevel:</string>
+						<reference key="source" ref="865479084"/>
+						<reference key="destination" ref="371833195"/>
+					</object>
+					<int key="connectionID">487</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">expand:</string>
+						<reference key="source" ref="865479084"/>
+						<reference key="destination" ref="642263195"/>
+					</object>
+					<int key="connectionID">488</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setDefaultDestination:</string>
+						<reference key="source" ref="865479084"/>
+						<reference key="destination" ref="293071352"/>
+					</object>
+					<int key="connectionID">489</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">switchHiddenFolderTemplatesVisibility:</string>
+						<reference key="source" ref="865479084"/>
+						<reference key="destination" ref="473549797"/>
+					</object>
+					<int key="connectionID">497</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2977,6 +3004,8 @@
 							<reference ref="293071352"/>
 							<reference ref="898579932"/>
 							<reference ref="265220263"/>
+							<reference ref="473549797"/>
+							<reference ref="405780448"/>
 						</array>
 						<reference key="parent" ref="33938030"/>
 					</object>
@@ -3104,6 +3133,16 @@
 						<reference key="object" ref="264425805"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Font Manager</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">490</int>
+						<reference key="object" ref="473549797"/>
+						<reference key="parent" ref="472472500"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">496</int>
+						<reference key="object" ref="405780448"/>
+						<reference key="parent" ref="472472500"/>
 					</object>
 				</array>
 			</object>
@@ -3249,6 +3288,8 @@
 				<string key="478.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="479.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="483.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="490.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="496.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3267,7 +3308,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">485</int>
+			<int key="maxID">497</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5531,6 +5572,292 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">PKGDocument</string>
+					<string key="superclassName">NSDocument</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGDocument.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGDocument</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">build:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">build:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">build:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGDocument.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGDocumentViewController</string>
+					<string key="superclassName">PKGViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGDocumentViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGFilesHierarchyViewController</string>
+					<string key="superclassName">PKGDocumentViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">outlineView</string>
+						<string key="NS.object.0">NSOutlineView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">outlineView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">outlineView</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGFilesHierarchyViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGFilesHierarchyViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addFiles:">id</string>
+						<string key="addNewFolder:">id</string>
+						<string key="contract:">id</string>
+						<string key="delete:">id</string>
+						<string key="expand:">id</string>
+						<string key="expandAll:">id</string>
+						<string key="expandOneLevel:">id</string>
+						<string key="renameFolder:">id</string>
+						<string key="showInFinder:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addFiles:">
+							<string key="name">addFiles:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addNewFolder:">
+							<string key="name">addNewFolder:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="contract:">
+							<string key="name">contract:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="expand:">
+							<string key="name">expand:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="expandAll:">
+							<string key="name">expandAll:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="expandOneLevel:">
+							<string key="name">expandOneLevel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="renameFolder:">
+							<string key="name">renameFolder:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showInFinder:">
+							<string key="name">showInFinder:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_addButton">NSButton</string>
+						<string key="_removeButton">NSButton</string>
+						<string key="_viewInformationLabel">NSTextField</string>
+						<string key="_viewLabel">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_addButton">
+							<string key="name">_addButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_removeButton">
+							<string key="name">_removeButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_viewInformationLabel">
+							<string key="name">_viewInformationLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_viewLabel">
+							<string key="name">_viewLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGFilesHierarchyViewController.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGPayloadExclusionsViewController</string>
+					<string key="superclassName">PKGDocumentViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">tableView</string>
+						<string key="NS.object.0">NSTableView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">tableView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">tableView</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGPayloadExclusionsViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGPayloadExclusionsViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addExclusion:">id</string>
+						<string key="delete:">id</string>
+						<string key="setPredicatePattern:">id</string>
+						<string key="switchFilterState:">id</string>
+						<string key="switchPredicateFileType:">id</string>
+						<string key="switchPredicateRegularExpressionState:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addExclusion:">
+							<string key="name">addExclusion:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setPredicatePattern:">
+							<string key="name">setPredicatePattern:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchFilterState:">
+							<string key="name">switchFilterState:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchPredicateFileType:">
+							<string key="name">switchPredicateFileType:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchPredicateRegularExpressionState:">
+							<string key="name">switchPredicateRegularExpressionState:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_addButton">NSButton</string>
+						<string key="_removeButton">NSButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_addButton">
+							<string key="name">_addButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_removeButton">
+							<string key="name">_removeButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGPayloadExclusionsViewController.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGPayloadViewController</string>
+					<string key="superclassName">PKGSegmentViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGPayloadViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGPayloadViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="setDefaultDestination:">id</string>
+						<string key="switchHiddenFolderTemplatesVisibility:">id</string>
+						<string key="switchPayloadType:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="setDefaultDestination:">
+							<string key="name">setDefaultDestination:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchHiddenFolderTemplatesVisibility:">
+							<string key="name">switchHiddenFolderTemplatesVisibility:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="switchPayloadType:">
+							<string key="name">switchPayloadType:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_defaultDestinationLabel">NSTextField</string>
+						<string key="_defaultDestinationSetButton">NSButton</string>
+						<string key="_hierarchyPlaceHolderView">NSView</string>
+						<string key="_payloadTypePopUpButton">NSPopUpButton</string>
+						<string key="_splitForksCheckbox">NSButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_defaultDestinationLabel">
+							<string key="name">_defaultDestinationLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_defaultDestinationSetButton">
+							<string key="name">_defaultDestinationSetButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_hierarchyPlaceHolderView">
+							<string key="name">_hierarchyPlaceHolderView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_payloadTypePopUpButton">
+							<string key="name">_payloadTypePopUpButton</string>
+							<string key="candidateClassName">NSPopUpButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_splitForksCheckbox">
+							<string key="name">_splitForksCheckbox</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGPayloadViewController.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGSegmentViewController</string>
+					<string key="superclassName">PKGDocumentViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGSegmentViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../../shared/PKGViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">WBOutlineView</string>
 					<string key="superclassName">NSOutlineView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -5612,6 +5939,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSBrowser.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSButton</string>
+					<string key="superclassName">NSControl</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSButton.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -5753,6 +6088,14 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">NSPopUpButton</string>
+					<string key="superclassName">NSButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSPopUpButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">NSPopover</string>
 					<string key="superclassName">NSResponder</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -5782,6 +6125,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSText.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSTextField</string>
+					<string key="superclassName">NSControl</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSTextField.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
