@@ -98,7 +98,7 @@
 				return (bPayloadTreeNode.isHiddenTemplateNode==NO || bPayloadTreeNode==self.installLocationNode || [bPayloadTreeNode numberOfChildren]>0);
 			
 			}
-																										 maximumDepth:self.hiddenTemplateFoldersTreeHeight];
+																										 maximumDepth:(self.hiddenTemplateFoldersTreeHeight==0) ? NSNotFound : self.hiddenTemplateFoldersTreeHeight];
 			
 			if (tRootNode==nil)
 				[tMutableArray removeObjectAtIndex:tIndex-1];
