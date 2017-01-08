@@ -40,7 +40,7 @@
                                     </connections>
                                 </menuItem>
                                 <menuItem isSeparatorItem="YES" id="fIh-KI-eMT"/>
-                                <menuItem title="Reveal in Finder" id="EBL-MY-jMn">
+                                <menuItem title="Show in Finder" id="EBL-MY-jMn">
                                     <connections>
                                         <action selector="showBuildPathInFinder:" target="-2" id="L4G-ZF-gKG"/>
                                     </connections>
@@ -143,7 +143,7 @@
                     </buttonCell>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="538" y="429.5"/>
+            <point key="canvasLocation" x="610" y="276.5"/>
         </customView>
         <customFormatter id="5qm-NS-9Rc" customClass="PKGProjectNameFormatter"/>
     </objects>
