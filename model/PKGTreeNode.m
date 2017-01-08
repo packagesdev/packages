@@ -516,15 +516,25 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		return;
 	}
 	
+	__block BOOL tInserted=NO;
+	
 	[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 		
 		if (inComparator(self,bTreeNode)!=NSOrderedDescending)
 		{
 			[self setParent:inParent];
 			[inChildren insertObject:self atIndex:bIndex];
+			tInserted=YES;
 			*bOutStop=YES;
 		}
 	}];
+	
+	if (tInserted==0)
+	{
+		[self setParent:inParent];
+		[inChildren addObject:self];
+		return;
+	}
 }
 
 - (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingSelector:(SEL)inComparator
@@ -535,16 +545,11 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if ([inChildren isKindOfClass:[NSMutableArray class]]==NO)
 		return;
 	
-	if (inChildren.count==0)
-	{
-		[self setParent:inParent];
-		[inChildren addObject:self];
-		return;
-	}
-	
 	NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:inComparator]];
 	tInvocation.target=self;
 	tInvocation.selector=inComparator;
+	
+	__block BOOL tInserted=NO;
 	
 	[inChildren enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 		
@@ -558,9 +563,17 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		{
 			[self setParent:inParent];
 			[inChildren insertObject:self atIndex:bIndex];
+			tInserted=YES;
 			*bOutStop=YES;
 		}
 	}];
+	
+	if (tInserted==0)
+	{
+		[self setParent:inParent];
+		[inChildren addObject:self];
+		return;
+	}
 }
 
 - (void)insertChild:(PKGTreeNode *)inChild sortedUsingComparator:(NSComparator)inComparator
