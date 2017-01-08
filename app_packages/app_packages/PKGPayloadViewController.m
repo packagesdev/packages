@@ -105,7 +105,7 @@
 	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
 	
 	_dataSource.rootNodes=self.payload.filesTree.rootNodes;
-	_dataSource.filePathConverter=self.filePathConverter;
+	
 	_dataSource.delegate=_filesHierarchyViewController;
 	_dataSource.installLocationNode=[self.payload.filesTree.rootNode descendantNodeAtPath:self.payload.defaultInstallLocation];
 	
@@ -119,12 +119,15 @@
 
 - (void)WB_viewDidAdd
 {
+	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchyDidRenameFolder:) name:PKGFilesHierarchyDidRenameFolderNotification object:_filesHierarchyViewController.outlineView];
 	
+	_dataSource.filePathConverter=self.filePathConverter;
 	[_filesHierarchyViewController refreshHierarchy];
 }
 
