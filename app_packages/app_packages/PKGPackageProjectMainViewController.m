@@ -18,6 +18,7 @@
 #import "PKGPackageProjectSettingsViewController.h"
 #import "PKGPackageSettingsViewController.h"
 #import "PKGPackagePayloadViewController.h"
+#import "PKGPackageScriptsAndResourcesViewController.h"
 #import "PKGPackageCommentsViewController.h"
 
 #import "PKGPackageProject.h"
@@ -36,7 +37,7 @@
 	PKGPackageProjectSettingsViewController * _projectSettingsController;
 	PKGPackageSettingsViewController *_settingsController;
 	PKGPackagePayloadViewController *_payloadController;
-	
+	PKGPackageScriptsAndResourcesViewController *_scriptsAndResourcesViewController;
 	PKGCommentsViewController * _commentsController;
 }
 
@@ -148,6 +149,14 @@
 			break;
 			
 		case PKGPreferencesGeneralPackageProjectPaneScripts:
+			
+			if (_scriptsAndResourcesViewController==nil)
+			{
+				_scriptsAndResourcesViewController=[PKGPackageScriptsAndResourcesViewController new];
+				_scriptsAndResourcesViewController.scriptsAndResources=((PKGPackageProject *) self.project).scriptsAndResources_safe;
+			}
+			
+			tNewSegmentViewController=_scriptsAndResourcesViewController;
 			
 			break;
 			
