@@ -53,7 +53,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	if (self.delegate==nil)
 	{
+#ifdef DEBUG
 		NSLog(@"PKGFileDeadDropView <0x%p>: drag & drop won't work. delegate is not set",self);
+#endif
 		return NSDragOperationNone;
 	}
 
@@ -86,7 +88,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
     if (self.delegate==nil)
 	{
+#ifdef DEBUG
 		NSLog(@"PKGFileDeadDropView <0x%p>: drag & drop won't work. delegate is not set",self);
+#endif
 		return NO;
 	}
 	
