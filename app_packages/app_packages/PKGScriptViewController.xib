@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
@@ -45,8 +46,11 @@
                 <customView id="WCC-8t-kGI" customClass="PKGScriptDeadDropView">
                     <rect key="frame" x="33" y="20" width="64" height="64"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <outlet property="menu" destination="6vK-8T-cho" id="8VA-5W-7aV"/>
+                    </connections>
                 </customView>
-                <textField verticalHuggingPriority="750" id="8Yq-Ef-Rgu">
+                <textField verticalHuggingPriority="750" id="8Yq-Ef-Rgu" userLabel="Modified date Label">
                     <rect key="frame" x="158" y="50" width="157" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="4ez-Ls-ay2">
@@ -55,7 +59,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="5t6-7W-gy9">
+                <textField verticalHuggingPriority="750" id="5t6-7W-gy9" userLabel="Name Label">
                     <rect key="frame" x="102" y="67" width="213" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" id="yY1-uy-aL4">
@@ -75,7 +79,7 @@
                         <action selector="selectPath:" target="-2" id="zHR-hw-H7P"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="FnT-l0-gyk">
+                <textField verticalHuggingPriority="750" id="FnT-l0-gyk" userLabel="View Label">
                     <rect key="frame" x="18" y="100" width="297" height="18"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="7ds-AL-evX">
@@ -87,18 +91,38 @@
                 <popUpButton verticalHuggingPriority="750" id="i85-tN-ijB">
                     <rect key="frame" x="105" y="20" width="30" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title=" " bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="1" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="CiZ-cj-fDF" id="haG-z4-QSw" customClass="PKGReferenceSmallSquarePopUpButtonCell">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="haG-z4-QSw" customClass="PKGReferenceSmallSquarePopUpButtonCell">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="cdI-uh-nLt">
                             <items>
-                                <menuItem title=" " state="on" tag="1" id="CiZ-cj-fDF"/>
+                                <menuItem title=" " tag="1" id="CiZ-cj-fDF"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="switchPathType:" target="-2" id="ngz-NX-Esc"/>
+                    </connections>
                 </popUpButton>
             </subviews>
-            <point key="canvasLocation" x="811.5" y="238"/>
+            <point key="canvasLocation" x="282.5" y="143"/>
         </customView>
+        <menu id="6vK-8T-cho">
+            <items>
+                <menuItem title="Open with Finder" id="E7c-5E-QAj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="openWithFinder:" target="-2" id="79D-od-ZPi"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show in Finder" id="ZyZ-Cs-9OG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showInFinder:" target="-2" id="bCr-cs-aqH"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="172" y="325.5"/>
+        </menu>
     </objects>
 </document>
