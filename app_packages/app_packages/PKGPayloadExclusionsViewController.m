@@ -25,10 +25,10 @@
 #import "NSAlert+block.h"
 #import "NSTableView+Selection.h"
 
-NSString * const PKGFileFiltersSeparatorTableRowViewIdentifier=@"tablerowview.separator";
-NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
-@interface NSTableView_fixed : NSTableView
+#import "PKGTableView.h"
+
+@interface NSTableView_fixed : PKGTableView
 @end
 
 @implementation NSTableView_fixed
@@ -39,6 +39,9 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 }
 
 @end
+
+NSString * const PKGFileFiltersSeparatorTableRowViewIdentifier=@"tablerowview.separator";
+NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 @interface PKGPayloadExclusionsViewController () <NSTableViewDelegate>
 {
