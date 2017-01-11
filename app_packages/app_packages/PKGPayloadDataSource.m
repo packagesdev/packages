@@ -412,6 +412,80 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return YES;
 }
 
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(PKGPayloadTreeNode *)inNewFolderTreeNode as:(NSString *)inNewName
+{
+	if (inOutlineView==nil || inNewFolderTreeNode==nil || inNewName==nil)
+		return NO;
+	
+	if ([inNewFolderTreeNode.fileName compare:inNewName]==NSOrderedSame)
+		return NO;
+	
+	if ([inNewFolderTreeNode.fileName caseInsensitiveCompare:inNewName]!=NSOrderedSame)
+	{
+		NSUInteger tLength=inNewName.length;
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inNewFolderTreeNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView columnWithIdentifier:@"file.name"]];
+		
+		if (tLength==0)
+		{
+			[inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+			return NO;
+		}
+		
+		void (^renameAlertBailOut)(NSString *,NSString *) = ^(NSString *bMessageText,NSString *bInformativeText)
+		{
+			NSAlert * tAlert=[NSAlert new];
+			tAlert.alertStyle=NSCriticalAlertStyle;
+			tAlert.messageText=bMessageText;
+			tAlert.informativeText=bInformativeText;
+			
+			[tAlert runModal];
+			
+			[inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+		};
+		
+		if (tLength>=256)
+		{
+			renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),inNewName],NSLocalizedString(@"Try using a name with fewer characters.",@""));
+
+			return NO;
+		}
+		
+		if ([inNewName isEqualToString:@".."]==YES ||
+			[inNewName isEqualToString:@"."]==YES ||
+			[inNewName rangeOfString:@"/"].location!=NSNotFound)
+		{
+			renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),inNewName],NSLocalizedString(@"Try using a name with no punctuation marks.",@""));
+			
+			return NO;
+		}
+		
+		if ([[self siblingsOfItem:inNewFolderTreeNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+			
+			return ([bTreeNode.fileName caseInsensitiveCompare:inNewName]==NSOrderedSame);
+			
+		}].count>0)
+		{
+			renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" is already taken.",@""),inNewName],NSLocalizedString(@"Please choose a different name.",@""));
+
+			return NO;
+		}
+	}
+	
+	[inNewFolderTreeNode setNewFolderName:inNewName];
+	
+	// Sort and update selection
+	
+	PKGTreeNode * tParentNode=inNewFolderTreeNode.parent;
+	
+	if (tParentNode!=nil)
+		[inNewFolderTreeNode removeFromParent];
+	else
+		[self.rootNodes removeObject:inNewFolderTreeNode];
+	
+	return [self outlineView:inOutlineView addItem:inNewFolderTreeNode toParent:tParentNode];
+}
+
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems
 {
 	if (inOutlineView==nil || inItems==nil)
@@ -674,7 +748,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			tInsertionIndex=[self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
 				
-				return ([tFirstName caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+				return ([tFirstName compare:bTreeNode.fileName options:NSCaseInsensitiveSearch|NSNumericSearch]==NSOrderedSame);
 				
 			}];
 		}
@@ -682,11 +756,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			tInsertionIndex=[inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
 				
-				return ([tFirstName caseInsensitiveCompare:bTreeNode.fileName]!=NSOrderedDescending);
+				return ([tFirstName compare:bTreeNode.fileName options:NSCaseInsensitiveSearch|NSNumericSearch]!=NSOrderedDescending);
 			}];
 		}
 		
-		[inOutlineView setDropItem:inProposedTreeNode dropChildIndex:(tInsertionIndex!=NSNotFound) ? tInsertionIndex : [inProposedTreeNode numberOfChildren]];
+		[inOutlineView setDropItem:inProposedTreeNode dropChildIndex:(tInsertionIndex!=NSNotFound) ? tInsertionIndex : ((inProposedTreeNode==nil) ? self.rootNodes.count : [inProposedTreeNode numberOfChildren])];
 		
 		return NSDragOperationCopy;
 	
@@ -740,6 +814,9 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				[tExternalFileNamesArray addObject:tFileName];
 		}
 		
+		if (tExternalFileNamesArray.count==0)
+			return NSDragOperationNone;
+		
 		return (validateFileNames(tFileNamesArray,tExternalFileNamesArray)==YES) ? NSDragOperationGeneric : NSDragOperationNone;
 	}
 	
@@ -783,9 +860,15 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	{
 		for(PKGTreeNode * tPayloadTreeNode in _internalDragData)
 		{
-			[tPayloadTreeNode removeFromParent];
+			if (tPayloadTreeNode.parent!=nil)
+				[tPayloadTreeNode removeFromParent];
+			else
+				[self.rootNodes removeObject:tPayloadTreeNode];
 			
-			[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+			if (inProposedTreeNode!=nil)
+				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+			else
+				[tPayloadTreeNode insertAsSiblingOfChildren:self.rootNodes ofNode:nil sortedUsingSelector:@selector(compareName:)];
 		}
 		
 		[inOutlineView deselectAll:nil];
@@ -794,7 +877,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		[inOutlineView reloadData];
 		
-		if ([inOutlineView isItemExpanded:inProposedTreeNode]==NO)
+		if (inProposedTreeNode!=nil && [inOutlineView isItemExpanded:inProposedTreeNode]==NO)
 			[inOutlineView expandItem:inProposedTreeNode];
 		
 		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
@@ -886,7 +969,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			
 			[inOutlineView reloadData];
 			
-			if ([inOutlineView isItemExpanded:inProposedTreeNode]==NO)
+			if (inProposedTreeNode !=nil && [inOutlineView isItemExpanded:inProposedTreeNode]==NO)
 				[inOutlineView expandItem:inProposedTreeNode];
 			
 			NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];

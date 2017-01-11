@@ -62,7 +62,7 @@
 NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarchyDidRenameFolderNotification";
 
 
-@interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate,NSControlTextEditingDelegate>
+@interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate,NSControlTextEditingDelegate,NSTextFieldDelegate>
 {
 	IBOutlet NSTextField * _viewLabel;
 	
@@ -86,8 +86,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)addFiles:(id)sender;
 - (IBAction)addNewFolder:(id)sender;
-
-- (IBAction)renameFolder:(id)sender;
 
 - (IBAction)delete:(id)sender;
 
@@ -282,6 +280,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		tView.textField.textColor=[tAttributedString attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];	// Because the text color is overriding the attributes.
 		tView.textField.editable=inPayloadTreeNode.isNameTitleEditable;
 		tView.textField.formatter=_cachedFileNameFormatter;
+		tView.textField.delegate=self;
 		
 		return tView;
 	}
@@ -436,50 +435,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	[self.outlineView scrollRowToVisible:tRow];
 	
 	[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"file.name"] row:tRow withEvent:nil select:YES];
-}
-
-- (IBAction)renameFolder:(id)sender
-{
-	NSInteger tEditedRow=[self.outlineView rowForView:sender];
-	
-	if (tEditedRow==-1)
-		return;
-	
-	PKGPayloadTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
-	
-	NSString * tNewName=[sender stringValue];
-	
-	if ([tEditedNode.fileName compare:tNewName]==NSOrderedSame)
-		return;
-	
-	if ([tEditedNode.fileName caseInsensitiveCompare:tNewName]!=NSOrderedSame)
-	{
-		if ([PKGPayloadTreeNode validateFolderName:tNewName]==NO ||
-			[[self.hierarchyDataSource siblingsOfItem:tEditedNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
-	
-				return ([bTreeNode.fileName caseInsensitiveCompare:tNewName]==NSOrderedSame);
-	
-			}].count>0)
-		{
-			NSBeep();
-		
-			[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"file.name"] row:tEditedRow withEvent:nil select:YES];
-		
-			return;
-		}
-	}
-	
-	[tEditedNode setNewFolderName:tNewName];
-	
-	// Sort and update selection
-	
-	PKGTreeNode * tParent=tEditedNode.parent;
-	
-	[tEditedNode removeFromParent];
-	
-	[self.hierarchyDataSource outlineView:self.outlineView addItem:tEditedNode toParent:tParent];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
 - (IBAction)delete:(id)sender
@@ -745,6 +700,24 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 - (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError
 {
 	NSBeep();
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)inNotification
+{
+	NSTextField * tTextField=inNotification.object;
+	
+	if ([tTextField isKindOfClass:[NSTextField class]]==NO)
+		return;
+	
+	NSInteger tEditedRow=[self.outlineView rowForView:tTextField];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGPayloadTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
+	
+	if ([self.hierarchyDataSource outlineView:self.outlineView renameNewFolder:tEditedNode as:tTextField.stringValue]==YES)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
 #pragma mark - Notifications

@@ -69,6 +69,8 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addNewFolderToParent:(id)inParent;
 
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(id)inNewFolderItem as:(NSString *)inNewName;
+
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
 
 - (void)outlineView:(NSOutlineView *)inOutlineView expandItem:(id)inItem options:(PKGPayloadExpandOptions)inOptions;
