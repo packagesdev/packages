@@ -191,7 +191,7 @@
 	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
 	
 	[tOutlineView reloadDataForRowIndexes:tRowIndexes
-							columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+							columnIndexes:[NSIndexSet indexSetWithIndex:[tOutlineView columnWithIdentifier:@"file.name"]]];
 	
 	[self noteDocumentHasChanged];
 }
