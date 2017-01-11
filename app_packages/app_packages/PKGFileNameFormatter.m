@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2010, Stephane Sudre
+Copyright (c) 2008-2016, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)stringForObjectValue:(id)inObject
 {
-    return ((inObject!=nil && [inObject isKindOfClass:NSString.class]==YES) ? inObject : @"");
+	if (inObject==nil)
+		return @"";
+	
+	if ([inObject isKindOfClass:NSString.class])
+		return inObject;
+	
+	if ([inObject isKindOfClass:NSAttributedString.class]==YES)
+		return ((NSAttributedString *)inObject).string;
+	
+	return @"";
 }
 
 - (BOOL)getObjectValue:(out id *)obj forString:(NSString *)string errorDescription:(NSString **)error
@@ -42,7 +51,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
    NSUInteger tLength=partialString.length;
     
-    if (tLength>256)
+    if (tLength>=256)
     {
         *newString=nil;
             
