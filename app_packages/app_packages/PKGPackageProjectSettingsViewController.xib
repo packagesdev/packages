@@ -141,6 +141,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="setFilterPayloadOnly:" target="-2" id="UJU-6S-syg"/>
+                    </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="610" y="276.5"/>

@@ -45,6 +45,8 @@
 - (IBAction)setReferenceFolder:(id)sender;
 - (IBAction)resetReferenceFolder:(id)sender;
 
+- (IBAction)setFilterPayloadOnly:(id)sender;
+
 @end
 
 @implementation PKGProjectSettingsViewController
@@ -308,6 +310,17 @@
 	[_buildReferenceFolderPopUpButton selectItemAtIndex:0];
 }
 
+- (IBAction)setFilterPayloadOnly:(NSButton *)sender
+{
+	BOOL tNewValue=(sender.state==NSOnState);
+	
+	if (self.projectSettings.filterPayloadOnly!=tNewValue)
+	{
+		self.projectSettings.filterPayloadOnly=tNewValue;
+		
+		[self noteDocumentHasChanged];
+	}
+}
 
 - (BOOL) validateMenuItem:(NSMenuItem *) inMenuItem
 {
