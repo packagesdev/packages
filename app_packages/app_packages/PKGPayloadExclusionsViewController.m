@@ -28,10 +28,10 @@
 
 #import "PKGTableView.h"
 
-@interface NSTableView_fixed : PKGTableView
+@interface PKGTableView_fixed : PKGTableView
 @end
 
-@implementation NSTableView_fixed
+@implementation PKGTableView_fixed
 
 - (BOOL)isOpaque
 {
@@ -338,7 +338,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 			tMenuItem=[tMenu itemAtIndex:PKGFileSystemTypeFolder];
 			tMenuItem.image=_cachedSmallFolderIcon;
 			
-			tMenuItem=[tMenu itemAtIndex:PKGFileSystemTypeFileorFolder];
+			tMenuItem=[tMenu itemAtIndex:PKGFileSystemTypeFileOrFolder];
 			tMenuItem.image=_cachedSmallFileFolderIcon;
 			
 			[tPopUpButtonView.popUpButton selectItemWithTag:tFilter.predicate.fileType];

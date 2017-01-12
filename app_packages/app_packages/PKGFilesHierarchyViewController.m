@@ -170,7 +170,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	
 	_highlightExcludedItems=[self highlightExcludedItems];
-	_optimizedFilesFilters=[self project].settings.optimizedFilesFilters;
+	
 	
 	
 	_lastRefreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
@@ -183,6 +183,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (void)WB_viewDidAppear
 {
+	_optimizedFilesFilters=[self project].settings.optimizedFilesFilters;
+	
 	// A COMPLETER
 	
 	_addButton.enabled=(_hierarchyDataSource.editableRootNodes==YES);
@@ -270,16 +272,17 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	{
 		PKGPayloadFilenameTableCellView *tPayloadFileNameCellView=(PKGPayloadFilenameTableCellView *)tView;
 		
-		tPayloadFileNameCellView.attributedImageView.attributedImage=inPayloadTreeNode.nameAttributedIcon;
-		tPayloadFileNameCellView.attributedImageView.drawsTarget=[self.hierarchyDataSource outlineView:inOutlineView shouldDrawBadgeInTableColum:inTableColumn forItem:inPayloadTreeNode];
+		PKGPayloadTreeNodeAttributedImage * tAttributedImage=inPayloadTreeNode.nameAttributedIcon;
+		
+		tAttributedImage.drawsTargetCross=[self.hierarchyDataSource outlineView:inOutlineView shouldDrawTargetCroosForItem:inPayloadTreeNode];
+		
+		tPayloadFileNameCellView.attributedImageView.attributedImage=tAttributedImage;
+		
 		//[tView.imageView unregisterDraggedTypes];	// To prevent the imageView from interfering with drag and drop
 		
-		NSAttributedString * tAttributedString=inPayloadTreeNode.nameAttributedTitle;
-		
-		tView.textField.attributedStringValue=tAttributedString;
-		tView.textField.textColor=[tAttributedString attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];	// Because the text color is overriding the attributes.
+		tView.textField.attributedStringValue=inPayloadTreeNode.nameAttributedTitle;
 		tView.textField.editable=inPayloadTreeNode.isNameTitleEditable;
-		tView.textField.formatter=_cachedFileNameFormatter;
+		
 		tView.textField.delegate=self;
 		
 		return tView;
@@ -696,6 +699,21 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 }
 
 #pragma mark - NSControlTextEditingDelegate
+
+- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
+{
+	
+	control.formatter=_cachedFileNameFormatter;
+	
+	return YES;
+}
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+	control.formatter=nil;
+	
+	return YES;
+}
 
 - (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError
 {

@@ -68,7 +68,7 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 	{
 		_fileType=[inRepresentation[PKGFilePredicateFileTypeKey] unsignedIntegerValue];
 		
-		if (_fileType>PKGFileSystemTypeFileorFolder)
+		if (_fileType>PKGFileSystemTypeFileOrFolder)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -127,7 +127,7 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 			[tDescription appendString:@"Folder\n"];
 			break;
 			
-		case PKGFileSystemTypeFileorFolder:
+		case PKGFileSystemTypeFileOrFolder:
 			[tDescription appendString:@"File or Folder\n"];
 			break;
 			
@@ -144,7 +144,13 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 
 - (BOOL)matchesFileNamed:(NSString *)inFileName ofType:(PKGFileSystemType)inType
 {
-	if (inFileName==nil || [self.pattern length]==0)
+	if (inFileName==nil)
+		return NO;
+	
+	if (self.fileType!=PKGFileSystemTypeFileOrFolder && self.fileType!=inType)
+		return NO;
+	
+	if ([self.pattern length]==0)
 		return NO;
 	
 	if (self.regularExpression==YES)

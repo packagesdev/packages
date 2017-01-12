@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, PKGFileSystemType)
 {
 	PKGFileSystemTypeFile=0,
 	PKGFileSystemTypeFolder,
-	PKGFileSystemTypeFileorFolder
+	PKGFileSystemTypeFileOrFolder
 };
 
 @interface PKGFilePredicate : NSObject <PKGObjectProtocol>
