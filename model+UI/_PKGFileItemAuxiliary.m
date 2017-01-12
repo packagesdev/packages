@@ -199,6 +199,7 @@
 	self.fileMode='d';
 	self.symbolicLink=NO;
 	self.referencedItemMissing=NO;
+	self.excluded=NO;
 	
 	self.refreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
 	
