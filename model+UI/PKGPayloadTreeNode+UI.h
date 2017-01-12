@@ -32,6 +32,7 @@
 - (BOOL)isHiddenTemplateNode;
 - (BOOL)isTemplateNode;
 - (BOOL)isFileSystemItemNode;
+- (BOOL)isExcluded;
 
 - (BOOL)isContentsDisclosed;
 - (BOOL)isReferencedItemMissing;
@@ -45,6 +46,10 @@
 	@property NSImage * image;
 
 	@property CGFloat alpha;
+
+	@property BOOL drawsTargetCross;
+
+	@property BOOL drawsSymbolicLinkArrow;
 
 @end
 

@@ -181,6 +181,23 @@
 	return (tFileItem.type==PKGFileItemTypeFileSystemItem);
 }
 
+- (BOOL)isExcluded
+{
+	PKGPayloadTreeNode * tTreeNode=self;
+	
+	while (tTreeNode!=nil)
+	{
+		PKGFileItem * tFileItem=tTreeNode.representedObject;
+		
+		if (tFileItem.isExcluded==YES)
+			return YES;
+		
+		tTreeNode=(PKGPayloadTreeNode *)tTreeNode.parent;
+	}
+	
+	return NO;
+}
+
 - (BOOL)isContentsDisclosed
 {
 	PKGFileItem * tFileItem=self.representedObject;
@@ -235,6 +252,8 @@
 	
 	tAttributedImage.image=self.image;
 	tAttributedImage.alpha=self.alpha;
+	tAttributedImage.drawsTargetCross=self.drawsTargetCross;
+	tAttributedImage.drawsSymbolicLinkArrow=self.drawsSymbolicLinkArrow;
 	
 	return tAttributedImage;
 }
@@ -251,12 +270,13 @@
 	if (tFileItem==nil)
 		return nil;
 	
-	PKGPayloadTreeNodeAttributedImage * tAttribuedImage=[PKGPayloadTreeNodeAttributedImage new];
+	PKGPayloadTreeNodeAttributedImage * tAttributedImage=[PKGPayloadTreeNodeAttributedImage new];
 	
-	tAttribuedImage.image=tFileItem.icon;
-	tAttribuedImage.alpha=(tFileItem.type<PKGFileItemTypeNewFolder && [self containsNoTemplateDescendantNodes]==NO) ? 0.5 : 1.0;
+	tAttributedImage.image=tFileItem.icon;
+	tAttributedImage.alpha=(tFileItem.type<PKGFileItemTypeNewFolder && [self containsNoTemplateDescendantNodes]==NO) ? 0.5 : 1.0;
+	tAttributedImage.drawsSymbolicLinkArrow=tFileItem.isSymbolicLink;
 	
-	return tAttribuedImage;
+	return tAttributedImage;
 }
 
 - (NSAttributedString *)nameAttributedTitle
@@ -266,7 +286,7 @@
 	NSMutableDictionary * tAttributesDictionary=[NSMutableDictionary dictionaryWithObject:(tFileItem.isReferencedItemMissing==YES) ? [NSColor redColor] : [NSColor blackColor]
 																				   forKey:NSForegroundColorAttributeName];
 	
-	if (tFileItem.isExcluded==YES)
+	if (self.isExcluded==YES)
 		tAttributesDictionary[NSStrikethroughStyleAttributeName]=@(NSUnderlineStyleSingle);
 	
 	return [[NSAttributedString alloc] initWithString:tFileItem.fileName
