@@ -63,6 +63,13 @@
     [super viewDidLoad];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) name:NSViewFrameDidChangeNotification object:self.view];
+	
+	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
+	
+	PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisiblePackageProjectPane;
+	
+	[_segmentedControl selectSegmentWithTag:tTag];
+	[self showTabViewWithTag:tTag];
 }
 
 #pragma mark -
@@ -71,12 +78,14 @@
 {
 	[super WB_viewWillAppear];
 	
-	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
+	[_currentContentController WB_viewWillAppear];
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
 	
-	PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisiblePackageProjectPane;
-	
-	[_segmentedControl selectSegmentWithTag:tTag];
-	[self showTabViewWithTag:tTag];
+	[_currentContentController WB_viewDidAppear];
 }
 
 - (void)WB_viewWillDisappear
@@ -197,14 +206,20 @@
 	
 	tNewView.frame=_contentView.bounds;
 	
-	[_currentContentController WB_viewWillDisappear];
-	[tNewSegmentViewController WB_viewWillAppear];
+	if (self.view.window!=nil)
+	{
+		[_currentContentController WB_viewWillDisappear];
+		[tNewSegmentViewController WB_viewWillAppear];
+	}
 	
 	[tOldView removeFromSuperview];
 	[_contentView addSubview:tNewView];
 	
-	[tNewSegmentViewController WB_viewDidAppear];
-	[_currentContentController WB_viewDidDisappear];
+	if (self.view.window!=nil)
+	{
+		[tNewSegmentViewController WB_viewDidAppear];
+		[_currentContentController WB_viewDidDisappear];
+	}
 	
 	_currentContentController=tNewSegmentViewController;
 }
