@@ -19,9 +19,4 @@
 
 @implementation PKGProjectMainViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
 @end

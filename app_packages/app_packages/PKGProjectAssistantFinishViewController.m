@@ -28,11 +28,11 @@
 
 @implementation PKGProjectAssistantFinishViewController
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+	[super WB_viewDidLoad];
 	
-	_projectDirectoryTextField.deadDropDelegate=self;
+    _projectDirectoryTextField.deadDropDelegate=self;
 	
 	((PKGProjectTemplateAssistantDirectoryDeadDropView *)self.view).delegate=self;
 }

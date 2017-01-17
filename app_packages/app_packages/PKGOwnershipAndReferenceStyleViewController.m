@@ -37,11 +37,11 @@
 	return NSStringFromClass([self class]);
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
-    
-	[self _updateViewLayout];
+	[super WB_viewDidLoad];
+	
+    [self _updateViewLayout];
 }
 
 #pragma mark -

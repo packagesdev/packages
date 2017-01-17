@@ -80,9 +80,9 @@
 
 @implementation PKGPreferencePaneBuildViewController
 
-- (void)awakeFromNib
+- (void)WB_viewDidLoad
 {
-	[super awakeFromNib];
+	[super WB_viewDidLoad];
 	
 	[_temporaryBuildLocationView setDelegate:self];
 	

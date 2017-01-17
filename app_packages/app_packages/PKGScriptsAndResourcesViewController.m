@@ -56,11 +56,11 @@
 	return @"PKGScriptsAndResourcesViewController";
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+	[super WB_viewDidLoad];
 	
-	// Pre-installation
+    // Pre-installation
 	
 	_preInstallationScriptViewController=[PKGScriptViewController new];
 	_preInstallationScriptViewController.label=NSLocalizedString(@"Pre-installation", @"");

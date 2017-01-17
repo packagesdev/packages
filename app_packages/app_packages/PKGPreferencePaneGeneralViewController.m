@@ -38,9 +38,9 @@
 
 @implementation PKGPreferencePaneGeneralViewController
 
-- (void)awakeFromNib
+- (void)WB_viewDidLoad
 {
-    [super awakeFromNib];
+	[super WB_viewDidLoad];
 	
 	// Reference Style
 	

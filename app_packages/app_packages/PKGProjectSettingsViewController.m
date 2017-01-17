@@ -53,11 +53,11 @@
 
 #pragma mark -
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+	[super WB_viewDidLoad];
 	
-	// Exclusions
+    // Exclusions
 	
 	_exclusionsViewController=[PKGPayloadExclusionsViewController new];
 	
@@ -92,7 +92,7 @@
 		
 		if (tReferenceFolderPath==nil)
 		{
-			tMenuItem.title=NSLocalizedStringFromTable(@"Project Folder",@"Project",@"");
+			tMenuItem.title=NSLocalizedString(@"Project Folder",@"");
 			
 			_buildReferenceFolderPopUpButton.toolTip=nil;
 			

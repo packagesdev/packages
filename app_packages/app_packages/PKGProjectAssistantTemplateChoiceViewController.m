@@ -53,11 +53,11 @@
 	return self;
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+	[super WB_viewDidLoad];
 	
-	_collectionView.content=_projectTemplates;
+    _collectionView.content=_projectTemplates;
 	
 	if (_selectedIndex==NSNotFound)
 		return;

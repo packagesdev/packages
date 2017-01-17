@@ -58,11 +58,9 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) name:NSViewFrameDidChangeNotification object:self.view];
+	[super WB_viewDidLoad];
 	
 	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
 	
@@ -70,6 +68,10 @@
 	
 	[_segmentedControl selectSegmentWithTag:tTag];
 	[self showTabViewWithTag:tTag];
+	
+	// Register for Notification
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) name:NSViewFrameDidChangeNotification object:self.view];
 }
 
 #pragma mark -

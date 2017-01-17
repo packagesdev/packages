@@ -13,9 +13,9 @@
 
 @implementation PKGPayloadFilesHierarchyViewController
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-	[super viewDidLoad];
+	[super WB_viewDidLoad];
 	
 	// Add menu items
 	

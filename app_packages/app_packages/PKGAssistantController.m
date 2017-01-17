@@ -56,9 +56,9 @@
 	return self;
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+	[super WB_viewDidLoad];
 	
 	_previousButton.enabled=NO;
 	self.nextButton.enabled=YES;
