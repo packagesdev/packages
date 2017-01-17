@@ -42,7 +42,7 @@ if ([(object) isKindOfClass:class]==NO)\
 #define PKGFullCheckDictionaryValueForKey(dictionary,key) PKGFullCheckObjectValueForKey(NSDictionary.class,dictionary,key)
 
 
-#define PKGClassCheckStringValueForKey(string,key) if ((string)!=nil && [(string) isKindOfClass:NSString.class]==NO)\
+#define PKGClassCheckObjectValueForKey(class,object,key) if ((object)!=nil && [(object) isKindOfClass:class]==NO)\
 {\
 	if (outError!=NULL)\
 		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain\
@@ -52,6 +52,8 @@ if ([(object) isKindOfClass:class]==NO)\
 	return nil;\
 }\
 
+#define PKGClassCheckStringValueForKey(string,key) PKGClassCheckObjectValueForKey(NSString.class,string,key)
+#define PKGClassCheckNumberValueForKey(number,key) PKGClassCheckObjectValueForKey(NSNumber.class,number,key)
 
 @protocol PKGObjectProtocol <NSObject>
 
