@@ -21,6 +21,24 @@
 
 #import "NSAlert+block.h"
 
+@interface PKGScriptOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
+
+@property (copy) NSString * currentPath;
+
+@end
+
+@implementation PKGScriptOpenPanelDelegate
+
+- (BOOL)panel:(NSOpenPanel *)inPanel shouldEnableURL:(NSURL *)inURL
+{
+	if (inURL.isFileURL==NO)
+		return NO;
+	
+	return ([self.currentPath isEqualToString:inURL.path]==NO);
+}
+
+@end
+
 @interface PKGScriptViewController () <PKGFileDeadDropViewDelegate,PKGScriptDeadDropViewDataSource>
 {
 	IBOutlet NSTextField * _viewLabel;
@@ -35,6 +53,8 @@
 	
 	IBOutlet NSButton * _setButton;
 	IBOutlet NSButton * _removeButton;
+	
+	PKGScriptOpenPanelDelegate * _openPanelDelegate;
 	
 	NSDateFormatter * _lastModifiedDateFormatter;
 }
@@ -79,9 +99,9 @@
 	return NSStringFromClass([self class]);
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-	[super viewDidLoad];
+	[super WB_viewDidLoad];
 	
 	_scriptsDeadDropView.delegate=self;
 	_scriptsDeadDropView.dataSource=self;
@@ -92,12 +112,12 @@
 - (void)WB_viewWillAppear
 {
 	_viewLabel.stringValue=_label;
-	
-	[self refreshUI];
 }
 
 - (void)WB_viewDidAppear
 {
+	[self refreshUI];
+	
 	// This will allow us to display a question mark if the file can not be found following some user actions in another application
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidChangeMain:) name:PKGWindowDidBecomeMainNotification object:self.view];
@@ -239,12 +259,18 @@
 	tOpenPanel.canChooseDirectories=NO;
 	tOpenPanel.canCreateDirectories=NO;
 	
-	tOpenPanel.prompt=NSLocalizedString(@"Set",@"No comment");
-	
 	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:self.installationScriptPath];
 	
 	if (tAbsolutePath!=nil)
 		tOpenPanel.directoryURL=[NSURL fileURLWithPath:[tAbsolutePath stringByDeletingLastPathComponent]];
+	
+	_openPanelDelegate=[PKGScriptOpenPanelDelegate new];
+	
+	_openPanelDelegate.currentPath=tAbsolutePath;
+	
+	tOpenPanel.delegate=_openPanelDelegate;
+	
+	tOpenPanel.prompt=NSLocalizedString(@"Set",@"No comment");
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
