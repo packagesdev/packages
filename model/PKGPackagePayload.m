@@ -200,9 +200,9 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		_templateVersion=[tNumber unsignedIntegerValue];
 		
-		tNumber=inRepresentation[IPKGPackagePayloadHierarchyShowInvisibleFilesKey];
+		tNumber=inRepresentation[IPKGPackagePayloadHierarchyShowInvisibleFilesKey];	// can be nil
 		
-		PKGFullCheckNumberValueForKey(tNumber,IPKGPackagePayloadHierarchyShowInvisibleFilesKey);
+		PKGClassCheckNumberValueForKey(tNumber,IPKGPackagePayloadHierarchyShowInvisibleFilesKey);
 		
 		_hiddenFolderTemplatesIncluded=[tNumber boolValue];
 		
