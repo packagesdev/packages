@@ -3,6 +3,10 @@
 
 @implementation NSViewController (WBExtensions)
 
+- (void)WB_viewDidLoad
+{
+}
+
 - (void)WB_viewWillAppear
 {
 }

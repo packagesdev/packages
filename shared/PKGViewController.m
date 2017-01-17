@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -52,10 +52,11 @@
 	return NSStringFromClass([self class]);
 }
 
-- (void)viewDidLoad
+- (void)loadView
 {
-    [super viewDidLoad];
-    // Do view setup here.
+	[super loadView];
+	
+	[self WB_viewDidLoad];
 }
 
 #pragma mark -

@@ -3,6 +3,8 @@
 
 @interface NSViewController (WBExtensions)
 
+- (void)WB_viewDidLoad;
+
 - (void)WB_viewWillAppear;
 
 - (void)WB_viewDidAppear;
