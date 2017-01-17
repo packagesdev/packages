@@ -127,9 +127,9 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	return @"PKGFilesHierarchyViewController";
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+	[super WB_viewDidLoad];
 	
 	[self.outlineView registerForDraggedTypes:[PKGPayloadDataSource supportedDraggedTypes]];
 	
@@ -172,13 +172,9 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	_highlightExcludedItems=[self highlightExcludedItems];
 	
 	
-	
 	_lastRefreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
+	
 	// A COMPLETER
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
 - (void)WB_viewDidAppear
@@ -191,6 +187,14 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	_removeButton.enabled=NO;
 	
 	[self refreshHierarchy];
+	
+	[self.hierarchyDataSource outlineView:self.outlineView restoreExpansionsState:nil];
+	
+	
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
 - (void)WB_viewWillDisappear
@@ -198,6 +202,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	// A COMPLETER
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
 - (void)refreshHierarchy
@@ -274,7 +280,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		
 		PKGPayloadTreeNodeAttributedImage * tAttributedImage=inPayloadTreeNode.nameAttributedIcon;
 		
-		tAttributedImage.drawsTargetCross=[self.hierarchyDataSource outlineView:inOutlineView shouldDrawTargetCroosForItem:inPayloadTreeNode];
+		tAttributedImage.drawsTargetCross=[self.hierarchyDataSource outlineView:inOutlineView shouldDrawTargetCrossForItem:inPayloadTreeNode];
 		
 		tPayloadFileNameCellView.attributedImageView.attributedImage=tAttributedImage;
 		
@@ -500,7 +506,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)expandAll:(id)sender
 {
-	// A COMPLETER
+	[self.hierarchyDataSource outlineView:self.outlineView expandAllItemsWithOptions:0];
 }
 
 - (IBAction)contract:(id)sender
@@ -509,15 +515,9 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	NSUInteger tIndex=tSelectionIndexSet.firstIndex;
 	
-	PKGPayloadTreeNode * tExpandedNode=[self.outlineView itemAtRow:tIndex];
+	PKGPayloadTreeNode * tItem=[self.outlineView itemAtRow:tIndex];
 	
-	[self.outlineView collapseItem:tExpandedNode];
-	
-	[tExpandedNode contract];
-	
-	[self noteDocumentHasChanged];
-	
-	[self.outlineView reloadItem:tExpandedNode];
+	[self.hierarchyDataSource outlineView:self.outlineView contractItem:tItem];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
@@ -537,6 +537,9 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		
 		if (tSelector==@selector(addFiles:))
 			return _hierarchyDataSource.editableRootNodes;
+		
+		if (tSelector==@selector(expandAll:))
+			return YES;
 		
 		return NO;
 	}
@@ -644,6 +647,11 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 			
 			return tIsValidated;
 		}
+		
+		// Expand All
+		
+		if (tSelector==@selector(expandAll:))
+			return YES;
 	}
 	
 	if (tSelectedCount==1)
