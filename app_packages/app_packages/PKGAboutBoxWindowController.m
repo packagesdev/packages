@@ -49,7 +49,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (void)awakeFromNib
+- (void)windowDidLoad
 {
     NSDictionary * tDictionary=[[NSBundle mainBundle] infoDictionary];
         

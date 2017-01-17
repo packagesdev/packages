@@ -70,7 +70,7 @@ NSString * const PKGPreferencesWindowSelectedPaneIdentifierKey=@"preferences.ui.
 	return @"PKGPreferencesWindowController";
 }
 
-- (void)awakeFromNib
+- (void)windowDidLoad
 {
 	[self.window center];
 	
