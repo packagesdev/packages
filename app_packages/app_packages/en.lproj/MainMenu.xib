@@ -1091,7 +1091,8 @@
 								<object class="NSMenuItem" id="473549797">
 									<reference key="NSMenu" ref="472472500"/>
 									<string key="NSTitle">Show Hidden Folders</string>
-									<string key="NSKeyEquiv"/>
+									<string key="NSKeyEquiv">.</string>
+									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="22264431"/>
 									<reference key="NSMixedImage" ref="502987506"/>
@@ -5634,7 +5635,6 @@
 						<string key="expand:">id</string>
 						<string key="expandAll:">id</string>
 						<string key="expandOneLevel:">id</string>
-						<string key="renameFolder:">id</string>
 						<string key="showInFinder:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -5664,10 +5664,6 @@
 						</object>
 						<object class="IBActionInfo" key="expandOneLevel:">
 							<string key="name">expandOneLevel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="renameFolder:">
-							<string key="name">renameFolder:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showInFinder:">
