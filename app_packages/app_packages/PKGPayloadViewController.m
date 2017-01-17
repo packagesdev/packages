@@ -19,6 +19,9 @@
 
 #import "PKGPayloadFilesHierarchyViewController.h"
 
+#import "PKGFilesEmptySelectionInspectorViewController.h"
+#import "PKGFilesSelectionInspectorViewController.h"
+
 #import "NSOutlineView+Selection.h"
 
 #import "PKGPayloadTreeNode+UI.h"
@@ -32,8 +35,14 @@
 	IBOutlet NSButton * _defaultDestinationSetButton;
 	
 	IBOutlet NSView * _hierarchyPlaceHolderView;
+	IBOutlet NSView * _inspectorPlaceHolderView;
 	
 	PKGPayloadFilesHierarchyViewController * _filesHierarchyViewController;
+	
+	PKGViewController *_emptySelectionInspectorViewController;
+	PKGFilesSelectionInspectorViewController * _selectionInspectorViewController;
+	
+	PKGViewController *_currentInspectorViewController;
 	
 	PKGPackagePayloadDataSource * _dataSource;
 }
@@ -72,11 +81,11 @@
 	return @"PKGPayloadViewController";
 }
 
-- (void)viewDidLoad
+- (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+	[super WB_viewDidLoad];
 	
-	_filesHierarchyViewController=[PKGPayloadFilesHierarchyViewController new];
+    _filesHierarchyViewController=[PKGPayloadFilesHierarchyViewController new];
 	
 	_filesHierarchyViewController.label=@"Payload";
 	_filesHierarchyViewController.hierarchyDataSource=_dataSource;
@@ -132,6 +141,8 @@
 	_dataSource.filePathConverter=self.filePathConverter;
 	
 	[_filesHierarchyViewController WB_viewDidAppear];
+	
+	[self fileHierarchySelectionDidChange:[NSNotification notificationWithName:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView]];
 }
 
 - (void)WB_viewWillDisappear
@@ -255,7 +266,65 @@
 	if (inNotification.object!=tOutlineView)
 		return;
 	
-	if (tOutlineView.numberOfSelectedRows!=1)
+	NSUInteger tNumberOfSelectedRows=tOutlineView.numberOfSelectedRows;
+	
+	// Inspector
+	
+	if (tNumberOfSelectedRows==0)
+	{
+		if (_emptySelectionInspectorViewController==nil)
+			_emptySelectionInspectorViewController=[PKGFilesEmptySelectionInspectorViewController new];
+		
+		if (_currentInspectorViewController!=_emptySelectionInspectorViewController)
+		{
+			[_currentInspectorViewController WB_viewWillDisappear];
+			
+			[_currentInspectorViewController.view removeFromSuperview];
+			
+			[_currentInspectorViewController WB_viewDidDisappear];
+			
+			_currentInspectorViewController=_emptySelectionInspectorViewController;
+			
+			_currentInspectorViewController.view.frame=_inspectorPlaceHolderView.bounds;
+			
+			[_currentInspectorViewController WB_viewWillAppear];
+			
+			[_inspectorPlaceHolderView addSubview:_currentInspectorViewController.view];
+			
+			[_currentInspectorViewController WB_viewDidAppear];
+		}
+	}
+	else
+	{
+		if (_selectionInspectorViewController==nil)
+			_selectionInspectorViewController=[PKGFilesSelectionInspectorViewController new];
+		
+		if (_currentInspectorViewController!=_selectionInspectorViewController)
+		{
+			[_currentInspectorViewController WB_viewWillDisappear];
+			
+			[_currentInspectorViewController.view removeFromSuperview];
+			
+			[_currentInspectorViewController WB_viewDidDisappear];
+
+			
+			_currentInspectorViewController=_selectionInspectorViewController;
+			
+			_currentInspectorViewController.view.frame=_inspectorPlaceHolderView.bounds;
+			
+			[_currentInspectorViewController WB_viewWillAppear];
+			
+			[_inspectorPlaceHolderView addSubview:_currentInspectorViewController.view];
+			
+			[_currentInspectorViewController WB_viewDidAppear];
+		}
+		
+		_selectionInspectorViewController.selectedItems=[tOutlineView WB_selectedItems];
+	}
+	
+	// Default Destination
+	
+	if (tNumberOfSelectedRows!=1)
 	{
 		[_defaultDestinationSetButton setEnabled:NO];
 		return;

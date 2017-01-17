@@ -269,6 +269,7 @@
                         <action selector="showInFinder:" target="-2" id="vib-vE-MRi"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="Cgr-WT-MgQ"/>
                 <menuItem title="Expand" id="pnt-vx-zGz">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Expand" id="uGj-nR-pir">
@@ -292,6 +293,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="expandAll:" target="-2" id="ERG-NJ-Bts"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Contract" id="kHx-SV-kfm">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="contract:" target="-2" id="i4s-TG-zZI"/>
                     </connections>
                 </menuItem>
             </items>
