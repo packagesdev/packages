@@ -61,7 +61,7 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 - (NSArray *)siblingsOfItem:(id)inItem;
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawBadgeInTableColum:(NSTableColumn *)inTableColumn forItem:(id)inItem;
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawTargetCrossForItem:(id)inItem;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileNames:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions;
 
@@ -74,5 +74,11 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
 
 - (void)outlineView:(NSOutlineView *)inOutlineView expandItem:(id)inItem options:(PKGPayloadExpandOptions)inOptions;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView expandAllItemsWithOptions:(PKGPayloadExpandOptions)inOptions;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView contractItem:(id)inItem;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object;
 
 @end

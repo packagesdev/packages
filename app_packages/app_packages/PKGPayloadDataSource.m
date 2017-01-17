@@ -169,7 +169,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 
 #pragma mark -
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawBadgeInTableColum:(NSTableColumn *)inTableColumn forItem:(id)inItem
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawTargetCrossForItem:(id)inItem
 {
 	return NO;
 }
@@ -275,13 +275,9 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return;
 		
 		if (tParentNode==nil)
-		{
 			[nFileSystemItemNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:tParentNode sortedUsingSelector:@selector(compareName:)];
-		}
 		else
-		{
 			[tParentNode insertChild:nFileSystemItemNode sortedUsingSelector:@selector(compareName:)];
-		}
 		
 		[tNewSelectionArray addObject:nFileSystemItemNode];
 	}];
@@ -588,6 +584,94 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	NSInteger tRow=[inOutlineView rowForItem:inPayloadTreeNode];
 	
 	[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
+}
+
+- (void)outlineView:(NSOutlineView *)inOutlineView  expandAllItemsWithOptions:(PKGPayloadExpandOptions)inOptions
+{
+	if (inOutlineView==nil)
+		return;
+	
+	__block BOOL (^_expandItems)(NSArray *,PKGPayloadExpandOptions);
+	__block NSMutableArray * tExpandedItems=[NSMutableArray array];
+	
+	_expandItems = ^BOOL(NSArray * bItems,PKGPayloadExpandOptions bOptions)
+	{
+		BOOL tDidExpand=NO;
+		
+		for(PKGPayloadTreeNode * tItem in bItems)
+		{
+			if (tItem.isFileSystemItemNode==NO && [tItem numberOfChildren]>0)
+			{
+				if (_expandItems([tItem children],bOptions)==YES)
+					tDidExpand=YES;
+				
+				continue;
+			}
+			
+			if (tItem.isReferencedItemMissing==YES)
+				continue;
+			
+			if (tItem.isContentsDisclosed==YES)
+			{
+				if ([tItem numberOfChildren]>0 && _expandItems([tItem children],bOptions)==YES)
+					tDidExpand=YES;
+				
+				continue;
+			}
+			
+			if ([self _expandItem:tItem atPath:[tItem referencedPathUsingConverter:self.filePathConverter] options:PKGPayloadExpandRecursively]==NO)
+			{
+				[tItem removeChildren];
+				continue;
+			}
+			
+			tDidExpand=YES;
+			[tExpandedItems addObject:tItem];
+		}
+		
+		return tDidExpand;
+	};
+	
+	// Save selection
+	
+	// A COMPLETER
+	
+	PKGPayloadExpandOptions tOptions=(inOptions|PKGPayloadExpandRecursively);
+	
+	if (_expandItems(self.rootNodes,tOptions)==YES)
+	{
+		// A COMPLETER
+		
+		[self.delegate payloadDataDidChange:self];
+		
+		[tExpandedItems enumerateObjectsUsingBlock:^(id bItem,NSUInteger bIndex,BOOL *bOutStop){
+		
+		
+			[inOutlineView reloadItem:bItem];
+		}];
+	}
+	
+	// Restore Selection
+	
+}
+
+- (void)outlineView:(NSOutlineView *)inOutlineView contractItem:(PKGPayloadTreeNode *)inPayloadTreeNode
+{
+	if (inOutlineView==nil || inPayloadTreeNode==nil)
+		return;
+	
+	
+	[inOutlineView collapseItem:inPayloadTreeNode];
+	
+	[inPayloadTreeNode contract];
+	
+	[self.delegate payloadDataDidChange:self];
+	
+	[inOutlineView reloadItem:inPayloadTreeNode];
+}
+
+- (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object
+{
 }
 
 #pragma mark - NSOutlineViewDataSource
@@ -908,7 +992,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return [self outlineView:inOutlineView
 						addFileNames:tArray
 					   referenceType:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle
-						   toParents:@[inProposedTreeNode]
+						   toParents:(inProposedTreeNode==nil) ? nil : @[inProposedTreeNode]
 							 options:tOptions];
 		}
 		
@@ -932,7 +1016,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			[self outlineView:inOutlineView
 				 addFileNames:tArray
 				referenceType:tPanel.referenceStyle
-					toParents:@[inProposedTreeNode]
+					toParents:(inProposedTreeNode==nil) ? nil : @[inProposedTreeNode]
 					  options:tOptions];
 		}];
 		

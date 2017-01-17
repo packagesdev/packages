@@ -65,7 +65,7 @@
 
 #pragma mark -
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawBadgeInTableColum:(NSTableColumn *)inTableColumn forItem:(id)inItem
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawTargetCrossForItem:(id)inItem
 {
 	return (self.installLocationNode==inItem);
 }
@@ -125,6 +125,77 @@
 	
 	[self.delegate payloadDataDidChange:self];
 }
+
+- (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object
+{
+	if (object!=nil)
+	{
+		[super outlineView:inOutlineView restoreExpansionsState:object];
+		return;
+	}
+	
+	// Expand the ancestors of file system items or new folder items
+	
+	NSNull * tNull=[NSNull null];
+	
+	__block __weak void (^_weakExpandAncestorsOfItemsIfNeeded)(NSArray *,NSMutableArray *);
+	__block void(^_expandAncestorsOfItemsIfNeeded)(NSArray *,NSMutableArray *);
+	__block BOOL tFoundNonTemplateNodes=NO;
+	
+	_expandAncestorsOfItemsIfNeeded = ^(NSArray * bItems,NSMutableArray * bExpansionStack)
+	{
+		for(PKGPayloadTreeNode * tItem in bItems)
+		{
+			if ([tItem isTemplateNode]==YES)
+			{
+				[bExpansionStack addObject:tItem];
+				
+				_weakExpandAncestorsOfItemsIfNeeded([tItem children],bExpansionStack);
+				
+				[bExpansionStack removeLastObject];
+			}
+			else
+			{
+				tFoundNonTemplateNodes=YES;
+				
+				// Expand Ancestors
+				
+				NSUInteger tCount=bExpansionStack.count;
+				
+				for(NSUInteger tIndex=0;tIndex<tCount;tIndex++)
+				{
+					id tAncestor=bExpansionStack[tIndex];
+					
+					if (tAncestor!=tNull)
+					{
+						[inOutlineView expandItem:tAncestor];
+						
+						bExpansionStack[tIndex]=tNull;
+					}
+				}
+			}
+		}
+	};
+	
+	_weakExpandAncestorsOfItemsIfNeeded = _expandAncestorsOfItemsIfNeeded;
+	
+	_expandAncestorsOfItemsIfNeeded(self.rootNodes,[NSMutableArray array]);
+	
+	if (tFoundNonTemplateNodes==NO)
+	{
+		// expand / and /Library
+		
+		PKGPayloadTreeNode * tRootNode=[self.rootNodes lastObject];
+		
+		[inOutlineView expandItem:tRootNode];
+		
+		PKGPayloadTreeNode *tLibraryNode=[tRootNode descendantNodeAtPath:@"/Library"];
+		
+		if (tLibraryNode!=nil)
+			[inOutlineView expandItem:tLibraryNode];
+	}
+}
+
 
 #pragma mark - PKGFileDeadDropViewDelegate
 
