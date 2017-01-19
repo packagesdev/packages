@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -273,24 +273,24 @@
 
 - (IBAction)switchUnsavedProjectBehavior:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].unsavedProjectSaveBehavior=[[_unsavedProjectBehaviorPopUpButton selectedItem] tag];
+	[PKGApplicationPreferences sharedPreferences].unsavedProjectSaveBehavior=_unsavedProjectBehaviorPopUpButton.selectedItem.tag;
 }
 
 - (IBAction)switchShowBuildWindowBehavior:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior=[[_showBuildWindowBehaviorPopUpButton selectedItem] tag];
+	[PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior=_showBuildWindowBehaviorPopUpButton.selectedItem.tag;
 }
 
 - (IBAction)switchHideBuildWindowBehavior:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior=[[_hideBuildWindowBehaviorPopUpButton selectedItem] tag];
+	[PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior=_hideBuildWindowBehaviorPopUpButton.selectedItem.tag;
 }
 
-- (IBAction)switchPlaySoundOnSuccess:(id) sender
+- (IBAction)switchPlaySoundOnSuccess:(NSPopUpButton *) sender
 {
 	NSString * tOldSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
-	NSMenuItem * tMenuItem=[sender selectedItem];
-	NSInteger tTag=[tMenuItem tag];
+	NSMenuItem * tMenuItem=sender.selectedItem;
+	NSInteger tTag=tMenuItem.tag;
 	
 	if (tTag==-1)
 	{
@@ -307,11 +307,11 @@
 	[[NSSound soundNamed:tSoundName] play];
 }
 
-- (IBAction)switchPlaySoundOnErrors:(id) sender
+- (IBAction)switchPlaySoundOnErrors:(NSPopUpButton *) sender
 {
 	NSString * tOldSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
-	NSMenuItem * tMenuItem=[sender selectedItem];
-	NSInteger tTag=[tMenuItem tag];
+	NSMenuItem * tMenuItem=sender.selectedItem;
+	NSInteger tTag=tMenuItem.tag;
 	
 	if (tTag==-1)
 	{
