@@ -844,7 +844,10 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			}];
 		}
 		
-		[inOutlineView setDropItem:inProposedTreeNode dropChildIndex:(tInsertionIndex!=NSNotFound) ? tInsertionIndex : ((inProposedTreeNode==nil) ? self.rootNodes.count : [inProposedTreeNode numberOfChildren])];
+		if (self.rootNodes.count==0)
+			[inOutlineView setDropItem:nil dropChildIndex:NSOutlineViewDropOnItemIndex];
+		else
+			[inOutlineView setDropItem:inProposedTreeNode dropChildIndex:(tInsertionIndex!=NSNotFound) ? tInsertionIndex : ((inProposedTreeNode==nil) ? self.rootNodes.count : [inProposedTreeNode numberOfChildren])];
 		
 		return NSDragOperationCopy;
 	
@@ -986,7 +989,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			PKGPayloadAddOptions tOptions=0;
 			
-			tOptions|=(inChildIndex==NSOutlineViewDropOnItemIndex) ? PKGPayloadAddReplaceParents : 0;
+			tOptions|=(inChildIndex==NSOutlineViewDropOnItemIndex && inProposedTreeNode!=nil) ? PKGPayloadAddReplaceParents : 0;
 			tOptions|=([PKGApplicationPreferences sharedPreferences].keepOwnership==YES) ? PKGPayloadAddKeepOwnership : 0;
 
 			return [self outlineView:inOutlineView
@@ -1009,7 +1012,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			
 			PKGPayloadAddOptions tOptions=0;
 			
-			tOptions|=(inChildIndex==NSOutlineViewDropOnItemIndex) ? PKGPayloadAddReplaceParents : 0;
+			tOptions|=(inChildIndex==NSOutlineViewDropOnItemIndex && inProposedTreeNode!=nil) ? PKGPayloadAddReplaceParents : 0;
 			if (tPanel.canChooseOwnerAndGroupOptions==YES)
 				tOptions|=(tPanel.keepOwnerAndGroup==YES) ? PKGPayloadAddKeepOwnership : 0;
 			
