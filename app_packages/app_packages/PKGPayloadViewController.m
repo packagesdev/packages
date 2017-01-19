@@ -297,7 +297,10 @@
 	else
 	{
 		if (_selectionInspectorViewController==nil)
+		{
 			_selectionInspectorViewController=[PKGFilesSelectionInspectorViewController new];
+			_selectionInspectorViewController.delegate=_filesHierarchyViewController;
+		}
 		
 		if (_currentInspectorViewController!=_selectionInspectorViewController)
 		{

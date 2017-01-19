@@ -118,9 +118,9 @@
 
 #pragma mark -
 
-- (IBAction)switchConclusionAction:(id)sender
+- (IBAction)switchConclusionAction:(NSPopUpButton *)sender
 {
-	PKGPackageConclusionAction tConclusionAction=[[sender selectedItem] tag];
+	PKGPackageConclusionAction tConclusionAction=sender.selectedItem.tag;
 	
 	if (self.packageSettings.conclusionAction!=tConclusionAction)
 	{

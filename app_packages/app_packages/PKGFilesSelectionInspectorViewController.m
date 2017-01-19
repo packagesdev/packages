@@ -27,6 +27,8 @@
 	IBOutlet NSTextField * _sourcePathTextField;
 	
 	IBOutlet NSTextField * _destinationPathTextField;
+	
+	NSUInteger _cachedFilePathType;
 }
 
 + (NSImage *)iconForItemAtPath:(NSString *)inPath type:(PKGFileItemType)inType;
@@ -317,7 +319,9 @@
 	_referenceTypeTextField.hidden=YES;
 	_referenceTypePopUpButton.hidden=NO;
 	
-	[_referenceTypePopUpButton selectItemWithTag:tFileItem.filePath.type];
+	_cachedFilePathType=tFileItem.filePath.type;
+	
+	[_referenceTypePopUpButton selectItemWithTag:_cachedFilePathType];
 	
 	// Source
 	
@@ -457,8 +461,80 @@
 	
 	// Reference Type
 	
-	// A COMPLETER
+	_cachedFilePathType=NSNotFound;
+	__block BOOL tCanSwitchPathType=YES;
 	
+	[self.selectedItems enumerateObjectsUsingBlock:^(PKGPayloadTreeNode * bTreeNode, NSUInteger bIndex,BOOL * bOutStop){
+	
+		PKGFileItem * tSelectedItem=[bTreeNode representedObject];
+		
+		switch(tSelectedItem.type)
+		{
+			case PKGFileItemTypeHiddenFolderTemplate:
+			case PKGFileItemTypeFolderTemplate:
+			case PKGFileItemTypeNewFolder:
+				
+				tCanSwitchPathType=NO;
+				*bOutStop=YES;
+				
+				break;
+				
+			case PKGFileItemTypeFileSystemItem:
+				
+				if (_cachedFilePathType==NSNotFound)
+				{
+					_cachedFilePathType=tSelectedItem.filePath.type;
+				}
+				else
+				{
+					if (tSelectedItem.filePath.type!=_cachedFilePathType)
+					{
+						_cachedFilePathType=PKGFilePathTypeMixed;
+						*bOutStop=YES;
+					}
+				}
+				
+				break;
+				
+			default:
+				break;
+		}
+	
+	}];
+	
+	if (tCanSwitchPathType==NO)
+	{
+		_referenceTypeTextField.hidden=NO;
+		_referenceTypePopUpButton.hidden=YES;
+	}
+	else
+	{
+		_referenceTypeTextField.hidden=YES;
+		_referenceTypePopUpButton.hidden=NO;
+		
+		if (_cachedFilePathType==PKGFilePathTypeMixed)
+		{
+			_referenceTypePopUpButton.enabled=YES;
+			
+			[_referenceTypePopUpButton insertItemWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+												   atIndex:0];
+			
+			NSMenuItem * tMenuItem=[_referenceTypePopUpButton itemAtIndex:0];
+			
+			tMenuItem.image=[NSImage imageNamed:@"MixedMenuItemUbuntu"];
+			tMenuItem.target=nil;
+			tMenuItem.enabled=NO;
+			tMenuItem.tag=PKGFilePathTypeMixed;
+			
+			[_referenceTypePopUpButton selectItemAtIndex:0];
+			
+			[_referenceTypePopUpButton setNeedsDisplay:YES];
+		}
+		else
+		{
+			[_referenceTypePopUpButton selectItemWithTag:_cachedFilePathType];
+		}
+	}
 	
 	// Source
 	
@@ -478,7 +554,30 @@
 
 - (IBAction)switchFilePathType:(NSPopUpButton *)sender
 {
-	// A COMPLETER
+	PKGFilePathType tType=[sender selectedItem].tag;
+	
+	if (tType!=_cachedFilePathType)
+	{
+		for(PKGPayloadTreeNode * tTreeNode in self.selectedItems)
+		{
+			PKGFileItem * tFileItem=[tTreeNode representedObject];
+			
+			if ([self.filePathConverter shiftTypeOfFilePath:tFileItem.filePath toType:tType]==NO)
+			{
+				// A COMPLETER
+			}
+		}
+		
+		if (self.selectedItems.count==1)
+		{
+			PKGPayloadTreeNode * tSelectedNode=[self.selectedItems lastObject];
+			PKGFileItem * tSelectedItem=[tSelectedNode representedObject];
+			
+			_sourcePathTextField.stringValue=tSelectedItem.filePath.string;
+		}
+		
+		[self.delegate filesSelectionInspectorViewController:self didUpdateFileItems:self.selectedItems];
+	}
 }
 
 - (IBAction)showInFinder:(id)sender
@@ -491,8 +590,19 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
+	SEL tAction=inMenuItem.action;
 	
-	// A COMPLETER
+	if (tAction==@selector(showInFinder:) ||
+		tAction==@selector(switchFilePathType:))
+		return YES;
+	
+	if (tAction==@selector(chooseFileSystemItemSource:))
+	{
+		if (self.selectedItems.count!=1)
+			return NO;
+		
+		return [[self.selectedItems lastObject] isFileSystemItemNode];
+	}
 	
 	return YES;
 }
@@ -516,13 +626,24 @@
 		if (bResult!=NSFileHandlingPanelOKButton)
 			return;
 		
+		PKGFileItem * tSelectedItem=[tSelectedNode representedObject];
+		
+		PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tOpenPanel.URL.path type:tSelectedItem.filePath.type];
+		
+		if (tFilePath==nil)
+		{
+			return;
+		}
+		
+		tSelectedItem.filePath.string=tFilePath.string;
+		
 		// Refresh Inspector
 		
-		// A COMPLETER
+		[self _refreshSelectionForFileSystemTreeNode:tSelectedNode atPath:tOpenPanel.URL.path];
 		
 		// Refresh Hierarchy
 		
-		// A COMPLETER
+		[self.delegate filesSelectionInspectorViewController:self didUpdateFileItems:self.selectedItems];
 	}];
 }
 

@@ -30,6 +30,8 @@
 
 #import "PKGFileNameFormatter.h"
 
+
+
 @interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
 	@property NSArray * sibblings;
@@ -697,6 +699,15 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	}
 	
 	return NO;
+}
+
+#pragma mark - PKGFilesSelectionInspectorDelegate
+
+- (void)filesSelectionInspectorViewController:(PKGFilesSelectionInspectorViewController *)inViewController didUpdateFileItems:(NSArray *)inArray
+{
+	[self noteDocumentHasChanged];
+	
+	// A COMPLETER
 }
 
 #pragma mark - PKGPayloadDataSourceDelegate

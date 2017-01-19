@@ -14,12 +14,12 @@
 #import "PKGDocumentViewController.h"
 
 #import "PKGPayloadDataSource.h"
-
+#import "PKGFilesSelectionInspectorViewController.h"
 
 extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
 
 
-@interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate>
+@interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate,PKGFilesSelectionInspectorDelegate>
 
 	@property (strong) IBOutlet NSOutlineView * outlineView;
 
