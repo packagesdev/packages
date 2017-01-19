@@ -23,7 +23,7 @@
 	
 	IBOutlet NSPopUpButton * _visiblePackageProjectPanePopUpButton;
 	
-	IBOutlet id IBdefaultReferenceStylePopUpButton_;
+	IBOutlet NSPopUpButton * _defaultReferenceStylePopUpButton;
 }
 
 - (IBAction)switchDefaultVisibleDistributionProjectPane:(id) sender;
@@ -44,7 +44,7 @@
 	
 	// Reference Style
 	
-	[IBdefaultReferenceStylePopUpButton_ removeItemAtIndex:0];
+	[_defaultReferenceStylePopUpButton removeItemAtIndex:0];
 }
 
 - (void)WB_viewWillAppear
@@ -65,29 +65,29 @@
 	
 	// Default Reference Style
 	
-	[IBdefaultReferenceStylePopUpButton_ selectItemWithTag:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle];
+	[_defaultReferenceStylePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle];
 }
 
 #pragma mark -
 
 - (IBAction)switchDefaultVisibleDistributionProjectPane:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionProjectPane=[[_visibleDistributionProjectPanePopUpButton selectedItem] tag];
+	[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionProjectPane=_visibleDistributionProjectPanePopUpButton.selectedItem.tag;
 }
 
 - (IBAction)switchDefaultVisibleDistributionPackagePane:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionPackagePane=[[_visibleDistributionPackagePanePopUpButton selectedItem] tag];
+	[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionPackagePane=_visibleDistributionPackagePanePopUpButton.selectedItem.tag;
 }
 
 - (IBAction)switchDefaultVisiblePackageProjectPane:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].defaultVisiblePackageProjectPane=[[_visiblePackageProjectPanePopUpButton selectedItem] tag];
+	[PKGApplicationPreferences sharedPreferences].defaultVisiblePackageProjectPane=_visiblePackageProjectPanePopUpButton.selectedItem.tag;
 }
 
 - (IBAction) switchDefaultReferenceStyle:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle=[[IBdefaultReferenceStylePopUpButton_ selectedItem] tag];
+	[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle=_defaultReferenceStylePopUpButton.selectedItem.tag;
 }
 
 @end

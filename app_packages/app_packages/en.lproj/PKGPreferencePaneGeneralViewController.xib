@@ -521,14 +521,6 @@
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array key="connectionRecords">
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">IBdefaultReferenceStylePopUpButton_</string>
-						<reference key="source" ref="171271069"/>
-						<reference key="destination" ref="218781817"/>
-					</object>
-					<int key="connectionID">118</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">switchDefaultReferenceStyle:</string>
 						<reference key="source" ref="171271069"/>
@@ -591,6 +583,14 @@
 						<reference key="destination" ref="1010972800"/>
 					</object>
 					<int key="connectionID">179</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_defaultReferenceStylePopUpButton</string>
+						<reference key="source" ref="171271069"/>
+						<reference key="destination" ref="218781817"/>
+					</object>
+					<int key="connectionID">186</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -943,7 +943,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">185</int>
+			<int key="maxID">186</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -982,15 +982,15 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="IBdefaultReferenceStylePopUpButton_">id</string>
+						<string key="_defaultReferenceStylePopUpButton">NSPopUpButton</string>
 						<string key="_visibleDistributionPackagePanePopUpButton">NSPopUpButton</string>
 						<string key="_visibleDistributionProjectPanePopUpButton">NSPopUpButton</string>
 						<string key="_visiblePackageProjectPanePopUpButton">NSPopUpButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="IBdefaultReferenceStylePopUpButton_">
-							<string key="name">IBdefaultReferenceStylePopUpButton_</string>
-							<string key="candidateClassName">id</string>
+						<object class="IBToOneOutletInfo" key="_defaultReferenceStylePopUpButton">
+							<string key="name">_defaultReferenceStylePopUpButton</string>
+							<string key="candidateClassName">NSPopUpButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="_visibleDistributionPackagePanePopUpButton">
 							<string key="name">_visibleDistributionPackagePanePopUpButton</string>
@@ -1023,7 +1023,7 @@
 					<string key="superclassName">NSPopUpButtonCell</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGReferencePopupButtonCell.h</string>
+						<string key="minorKey">../app_packages/PKGReferencePopupButtonCell.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
