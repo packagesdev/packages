@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,9 +14,9 @@
 #import "PKGPayloadTreeNode+UI.h"
 #import "PKGFileItem+UI.h"
 
-#import <Collaboration/Collaboration.h>
-
 #include <sys/stat.h>
+
+#import "PKGUsersAndGroupsMonitor.h"
 
 @implementation PKGPayloadTreeNode (UI)
 
@@ -304,16 +304,14 @@
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	return [[CBUserIdentity userIdentityWithPosixUID:tFileItem.uid authority:[CBIdentityAuthority localIdentityAuthority]] posixName];
-	
-	// A COMPLETER
+	return [[PKGUsersAndGroupsMonitor sharedMonitor] posixNameForUserAccountID:tFileItem.uid];
 }
 
 - (NSString *)groupTitle
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	return [[CBGroupIdentity groupIdentityWithPosixGID:tFileItem.gid authority:[CBIdentityAuthority localIdentityAuthority]] posixName];
+	return [[PKGUsersAndGroupsMonitor sharedMonitor] posixNameForGroupAccountID:tFileItem.gid];
 }
 
 - (NSString *)posixPermissionsTitle
