@@ -49,25 +49,6 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	SecIdentityCopyCertificate(tIdentityRef,&tCertificateRef);
 	
 	return tCertificateRef;
-	
-	if (tCertificateRef!=NULL)
-	{
-		CFStringRef tCertificateCommonName=NULL;
-		
-		if (SecCertificateCopyCommonName(tCertificateRef, &tCertificateCommonName)!=errSecSuccess)
-		{
-			// Release Memory
-			
-			CFRelease(tCertificateRef);
-		}
-		
-		if (CFStringCompare(tCertificateCommonName,(__bridge CFStringRef)inName,0)==kCFCompareEqualTo)
-			return tCertificateRef;
-		
-		// Release Memory
-		
-		CFRelease(tCertificateRef);
-	}
 }
 
 + (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath
