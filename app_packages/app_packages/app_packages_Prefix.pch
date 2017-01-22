@@ -18,6 +18,8 @@
 #define NSAppKitVersionNumber10_10 1343
 #endif
 
+#define PKGAppkitMinimumPushButtonWidth	82.0
+
 // Foundation Extensions
 
 #import "NSArray+WBExtensions.h"
