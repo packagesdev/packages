@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,7 +19,16 @@
 
 #import "PKGFileFiltersDataSource.h"
 
+#import "PKGCertificateSealWindowController.h"
+
 #import "PKGFilePathTextField.h"
+
+#import "PKGCertificatesUtilities.h"
+
+#import <SecurityInterface/SFChooseIdentityPanel.h>
+#import <SecurityInterface/SFCertificatePanel.h>
+
+#import "NSAlert+block.h"
 
 @interface PKGProjectSettingsViewController () <PKGFilePathTextFieldDelegate>
 {
@@ -34,7 +43,22 @@
 	IBOutlet NSButton * _filterPayloadOnlyCheckbox;
 	
 	PKGPayloadExclusionsViewController * _exclusionsViewController;
+	
+	PKGFileFiltersDataSource * _fileFiltersDataSource;
+	
+	PKGCertificateSealWindowController * _certificateSealWindowController;
+	
+	SFChooseIdentityPanel * _chooseIdentityPanel;
 }
+
+- (void)refreshUI;
+
+- (IBAction)selectCertificate:(id)sender;
+- (void)selectCertificateDidEnd:(NSWindow *) inSheet returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
+
+- (IBAction)removeCertificate:(id)sender;
+
+- (void)updateCertificateSeal;
 
 - (IBAction)setProjectName:(id)sender;
 
@@ -68,9 +92,31 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAppear
+- (void)setProjectSettings:(PKGProjectSettings *)inProjectSettings
 {
-	[super WB_viewWillAppear];
+	if (_projectSettings!=inProjectSettings)
+	{
+		_projectSettings=inProjectSettings;
+		
+		if (_projectSettings!=nil)
+			_fileFiltersDataSource=[[PKGFileFiltersDataSource alloc] initWithFileFilters:_projectSettings.filesFilters];
+		else
+			_fileFiltersDataSource=nil;
+		
+		[self refreshUI];
+	}
+}
+
+#pragma mark -
+
+- (void)refreshUI
+{
+	if (_buildNameTextField==nil)
+		return;
+	
+	// Certificate Seal
+	
+	[self updateCertificateSeal];
 	
 	// Build Name
 	
@@ -117,11 +163,16 @@
 	
 	// Exclusions
 	
-	PKGFileFiltersDataSource * tDataSource=[[PKGFileFiltersDataSource alloc] initWithFileFilters:self.projectSettings.filesFilters];
-	
-	_exclusionsViewController.fileFiltersDataSource=tDataSource;
+	_exclusionsViewController.fileFiltersDataSource=_fileFiltersDataSource;
 	
 	_filterPayloadOnlyCheckbox.state=(self.projectSettings.filterPayloadOnly==YES) ? NSOnState : NSOffState;
+}
+
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
+	
+	[self refreshUI];
 	
 	[_exclusionsViewController WB_viewWillAppear];
 }
@@ -139,6 +190,9 @@
 {
 	[super WB_viewWillDisappear];
 	
+	if (_certificateSealWindowController!=nil)
+		[_certificateSealWindowController.window orderOut:self];
+	
 	[_exclusionsViewController WB_viewWillDisappear];
 }
 
@@ -150,6 +204,165 @@
 }
 
 #pragma mark -
+
+- (BOOL)isSignable
+{
+	return YES;
+}
+
+- (NSString *)certificatePanelMessage
+{
+	return @"";
+}
+
+- (void)updateCertificateSeal
+{
+	if (self.projectSettings.certificateName!=nil)
+	{
+		if (_certificateSealWindowController==nil)
+		{
+			_certificateSealWindowController=[[PKGCertificateSealWindowController alloc] init];
+			
+			SecCertificateRef tCertificateRef=[PKGCertificatesUtilities copyOfCertificateWithName:self.projectSettings.certificateName];
+			
+			if (tCertificateRef==NULL)
+			{
+				// A COMPLETER
+			}
+			
+			_certificateSealWindowController.certificate=tCertificateRef;
+			
+			CFRelease(tCertificateRef);
+			
+			NSRect tWindowFrame=_certificateSealWindowController.window.frame;
+			NSRect tFrame=self.view.frame;
+			tWindowFrame.origin=[self.view.window convertRectToScreen:NSMakeRect(NSMaxX(tFrame)-NSWidth(tWindowFrame)+30.0,NSMaxY(tFrame)-48.0,0.0,0.0)].origin;
+			
+			[_certificateSealWindowController.window setFrame:tWindowFrame display:NO];
+			
+			[self.view.window addChildWindow:_certificateSealWindowController.window ordered:NSWindowAbove];
+		}
+		
+		[_certificateSealWindowController.window orderFront:self];
+	}
+	
+	if (self.projectSettings.certificateName==nil && _certificateSealWindowController!=nil)
+	{
+		[self.view.window removeChildWindow:_certificateSealWindowController.window];
+		
+		[_certificateSealWindowController.window orderOut:self];
+		
+		_certificateSealWindowController=nil;
+	}
+}
+
+#pragma mark -
+
+- (IBAction)selectCertificate:(id)sender
+{
+	NSArray * tIdentitiesArray=[PKGCertificatesUtilities availableIdentities];
+	
+	if (tIdentitiesArray.count==0)
+	{
+		NSAlert * tAlert=[[NSAlert alloc] init];
+		
+		tAlert.messageText=NSLocalizedString(@"No certificates Alert Message Text",@"No comment");
+		tAlert.informativeText=NSLocalizedStringFromTable(@"No certificates Alert Informative Text",@"Project",@"");
+		
+		[tAlert addButtonWithTitle:NSLocalizedString(@"OK",@"No Comment")];
+		[tAlert addButtonWithTitle:NSLocalizedString(@"Go to Apple Developer website",@"No Comment")];
+		
+		[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
+		
+			if (bReturnCode==NSAlertSecondButtonReturn)
+				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:NSLocalizedString(@"url.apple.developer.website.certificates",@"")]];
+		}];
+		
+		return;
+	}
+	
+	_chooseIdentityPanel=[[SFChooseIdentityPanel alloc] init];
+	
+	[_chooseIdentityPanel setInformativeText:NSLocalizedString(@"Gatekeeper requires packages to be signed to allow them to be installed.",@"")];	// A COMPLETER
+	
+	[_chooseIdentityPanel setAlternateButtonTitle:NSLocalizedString(@"Cancel",@"")];
+	
+	[_chooseIdentityPanel beginSheetForWindow:self.view.window
+								modalDelegate:self
+							   didEndSelector:@selector(selectCertificateDidEnd:returnCode:contextInfo:)
+								  contextInfo:NULL
+								   identities:tIdentitiesArray
+									  message:self.certificatePanelMessage];
+}
+
+- (void)selectCertificateDidEnd:(NSWindow *)inSheet returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
+{
+	if (inReturnCode!=NSOKButton)
+		return;
+	
+	SecIdentityRef tIdentityRef=[_chooseIdentityPanel identity];
+	
+	if (tIdentityRef==NULL)
+	{
+	}
+	
+	SecCertificateRef tCertificateRef;
+	OSStatus tStatus=SecIdentityCopyCertificate(tIdentityRef,&tCertificateRef);
+	
+	if (tStatus!=noErr)
+	{
+	}
+	
+	CFStringRef tCertificateNameRef;
+	
+	if (SecCertificateCopyCommonName(tCertificateRef, &tCertificateNameRef)!=errSecSuccess)
+	{
+	}
+	
+	self.projectSettings.certificateName=(__bridge_transfer NSString *)tCertificateNameRef;
+	self.projectSettings.certificateKeychainPath=[@"~/Library/Keychains/login.keychain" stringByExpandingTildeInPath];
+	
+	
+	//[IBcertificateStamp_ setCertificate:tCertificateRef];	// A COMPLETER
+		
+	[self updateCertificateSeal];
+		
+	// Notify Document Change
+		
+	[self noteDocumentHasChanged];
+	
+	// Release Memory
+	
+	CFRelease(tCertificateRef);
+}
+
+- (IBAction)removeCertificate:(id) sender
+{
+	NSAlert * tAlert=[[NSAlert alloc] init];
+	
+	tAlert.messageText=NSLocalizedString(@"Do you really want to remove the certificate?",@"No comment");
+	tAlert.informativeText=NSLocalizedStringFromTable(@"This cannot be undone.",@"Project",@"");
+	
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No Comment")];
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No Comment")];
+	
+	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
+		
+		if (bReturnCode==NSAlertSecondButtonReturn)
+			return;
+		
+		_chooseIdentityPanel=nil;	// Good opportunity to release this panel
+		
+		self.projectSettings.certificateName=nil;
+		self.projectSettings.certificateKeychainPath=nil;
+		
+		[self updateCertificateSeal];
+		
+		// Notify Document Change
+		
+		[self noteDocumentHasChanged];
+	}];
+}
 
 - (IBAction)setProjectName:(NSTextField *)sender
 {
@@ -322,37 +535,31 @@
 	}
 }
 
-- (BOOL) validateMenuItem:(NSMenuItem *) inMenuItem
+- (BOOL)validateMenuItem:(NSMenuItem *) inMenuItem
 {
 	SEL tAction=[inMenuItem action];
 	
-	/*if (tAction==@selector(changeCertificate:))
+	if (tAction==@selector(selectCertificate:))
 	{
-		if (cachedBuildFormat_==ICDOCUMENT_PROJECT_SETTINGS_BUILD_FORMAT_FLAT)
-		{
-			if (cachedCertificateDictionary_==nil || [cachedCertificateDictionary_ count]==0)
-			{
-				[inMenuItem setTitle:NSLocalizedStringFromTable(@"Set Certificate...",@"Project",@"")];
-			}
-			else
-			{
-				[inMenuItem setTitle:NSLocalizedStringFromTable(@"Change Certificate...",@"Project",@"")];
-			}
-			
-			return YES;
-		}
+		if (self.isSignable==NO)
+			return NO;
 		
-		return NO;
+		if (self.projectSettings.certificateName==nil)
+			[inMenuItem setTitle:NSLocalizedString(@"Set Certificate...",@"")];
+		else
+			[inMenuItem setTitle:NSLocalizedString(@"Change Certificate...",@"")];
+		
+		return YES;
 	}
 	
-	 if (tAction==@selector(removeCertificate:))
+	if (tAction==@selector(removeCertificate:))
 	{
-		if (cachedBuildFormat_!=ICDOCUMENT_PROJECT_SETTINGS_BUILD_FORMAT_FLAT || cachedCertificateDictionary_==nil || [cachedCertificateDictionary_ count]==0)
-		{
+		if (self.isSignable==NO)
 			return NO;
-		}
+		
+		return (self.projectSettings.certificateName!=nil);
 	}
-	*/
+	
 	if (tAction==@selector(showBuildPathInFinder:))
 	{
 		NSString * tPath=[self.filePathConverter absolutePathForFilePath:self.projectSettings.buildPath];

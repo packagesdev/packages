@@ -19,4 +19,9 @@
 	return PKGPreferencesGeneralPackageProjectPaneProject;
 }
 
+- (NSString *)certificatePanelMessage
+{
+	return NSLocalizedString(@"Choose a certificate to be used to sign the package.",@"");
+}
+
 @end
