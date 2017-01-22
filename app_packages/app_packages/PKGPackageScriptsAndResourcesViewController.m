@@ -23,7 +23,7 @@
 
 - (NSUInteger)tag
 {
-	return PKGPreferencesGeneralPackageProjectPaneScripts;
+	return PKGPreferencesGeneralPackageProjectPaneScriptsAndResources;
 }
 
 @end
