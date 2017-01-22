@@ -45,6 +45,10 @@
 
 - (IBAction)showTabView:(id)sender;
 
+- (IBAction)showPayloadTab:(id)sender;
+- (IBAction)showScriptsAndResourcesTab:(id)sender;
+- (IBAction)showCommentsTab:(id)sender;
+
 // Notifications
 
 - (void)viewDidResize:(NSNotification *)inNotification;
@@ -175,7 +179,7 @@
 			
 			break;
 			
-		case PKGPreferencesGeneralPackageProjectPaneScripts:
+		case PKGPreferencesGeneralPackageProjectPaneScriptsAndResources:
 			
 			if (_scriptsAndResourcesViewController==nil)
 			{
@@ -231,13 +235,33 @@
 	[self showTabViewWithTag:[sender selectedSegment]];
 }
 
+#pragma mark -
+
+- (IBAction)showPayloadTab:(id)sender
+{
+	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPanePayload];
+	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPanePayload];
+}
+
+- (IBAction)showScriptsAndResourcesTab:(id)sender
+{
+	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPaneScriptsAndResources];
+	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPaneScriptsAndResources];
+}
+
+- (IBAction)showCommentsTab:(id)sender
+{
+	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPaneComments];
+	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPaneComments];
+}
+
 #pragma mark - Notifications
 
 - (void)viewDidResize:(NSNotification *)inNotification
 {
 	NSInteger tSegmentCount=[_segmentedControl segmentCount];
 	
-	NSRect tFrame=[_segmentedControl frame];
+	NSRect tFrame=_segmentedControl.frame;
 	
 	tFrame.origin.x=-7.0f;
 	tFrame.size.width=NSWidth(self.view.frame)+7.0f;
@@ -245,13 +269,11 @@
 	CGFloat tSegmentWidth=tFrame.size.width/tSegmentCount;
 	
 	for(NSUInteger tIndex=0;tIndex<(tSegmentCount-1);tIndex++)
-	{
 		[_segmentedControl setWidth:tSegmentWidth forSegment:tIndex];
-	}
 	
 	[_segmentedControl setWidth:tFrame.size.width-(tSegmentCount-1)*tSegmentWidth forSegment:(tSegmentCount-1)];
 	
-	[_segmentedControl setFrame:tFrame];
+	_segmentedControl.frame=tFrame;
 }
 
 @end
