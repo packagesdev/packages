@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesGeneralPackageProjectPaneTag)
 	PKGPreferencesGeneralPackageProjectPaneProject=0,
 	PKGPreferencesGeneralPackageProjectPaneSettings=1,
 	PKGPreferencesGeneralPackageProjectPanePayload=2,
-	PKGPreferencesGeneralPackageProjectPaneScripts=3,
+	PKGPreferencesGeneralPackageProjectPaneScriptsAndResources=3,
 	PKGPreferencesGeneralPackageProjectPaneComments=4,
 
 };
