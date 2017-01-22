@@ -26,6 +26,8 @@
 
 - (void) awakeFromNib
 {
+	_emptyLabel.stringValue=NSLocalizedString(@"Empty Selection",@"");
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:_emptyLabel];
 }
 
@@ -33,16 +35,13 @@
 
 - (void)viewFrameDidChange:(NSNotification *)inNotification
 {
-	// Center the label horizontally and vertically
+	// Center the label vertically
 	
-	NSRect tViewFrame=[self.view frame];
+	NSRect tLabelFrame=_emptyLabel.frame;
 	
-	NSRect tLabelFrame=[_emptyLabel frame];
+	tLabelFrame.origin.y=round(NSMidY(self.view.frame)-NSHeight(tLabelFrame)*0.5f);
 	
-	tLabelFrame.origin.x=round(NSMidX(tViewFrame)-NSWidth(tLabelFrame)*0.5f);
-	tLabelFrame.origin.y=round(NSMidY(tViewFrame)-NSHeight(tLabelFrame)*0.5f);
-	
-	[_emptyLabel setFrame:tLabelFrame];
+	_emptyLabel.frame=tLabelFrame;
 }
 
 @end
