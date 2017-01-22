@@ -105,11 +105,6 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
 #pragma mark -
 
 - (void)setFileFiltersDataSource:(PKGFileFiltersDataSource *)inDataSource
@@ -132,6 +127,19 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 {
 	_addButton.enabled=YES;
 	_removeButton.enabled=NO;
+	
+	[self.tableView reloadData];
+	
+	// Restore selection
+	
+	// A COMPLETER
+}
+
+- (void)WB_viewWillDisappear
+{
+	// Save selection
+	
+	// A COMPLETER
 }
 
 #pragma mark -
@@ -257,7 +265,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 {
 	SEL tSelector=inMenuItem.action;
 
-	// A COMPLETER
+	if (tSelector==@selector(delete:))
+	{
+		NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
+		
+		return (tIndexSet.count>0);
+	}
 	
 	return YES;
 }
