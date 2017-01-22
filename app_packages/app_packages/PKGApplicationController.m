@@ -65,11 +65,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction) showPackageFormatDocumentation:(id) sender
 {
-    NSURL * tURL;
-    
     // Try local first
     
-    tURL=nil;
+    NSURL * tURL=nil;
     
     /*if (NSAppKitVersionNumber>=664.0)
     {
