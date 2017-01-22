@@ -743,7 +743,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
 	NSTextField * tTextField=inNotification.object;
 	
-	if ([tTextField isKindOfClass:[NSTextField class]]==NO)
+	if ([tTextField isKindOfClass:NSTextField.class]==NO)
 		return;
 	
 	NSInteger tEditedRow=[self.outlineView rowForView:tTextField];

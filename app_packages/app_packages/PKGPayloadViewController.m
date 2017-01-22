@@ -187,7 +187,7 @@
 	if (tClickedOrSelectedIndexes.count!=1)
 		return;
 	
-	[_defaultDestinationSetButton setEnabled:NO];
+	_defaultDestinationSetButton.enabled=NO;
 	
 	PKGPayloadTreeNode * tPreviousDefaultInstallationLocationNode=_dataSource.installLocationNode;
 	_dataSource.installLocationNode=[tOutlineView itemAtRow:tClickedOrSelectedIndexes.firstIndex];
@@ -329,7 +329,7 @@
 	
 	if (tNumberOfSelectedRows!=1)
 	{
-		[_defaultDestinationSetButton setEnabled:NO];
+		_defaultDestinationSetButton.enabled=NO;
 		return;
 	}
 	
@@ -337,11 +337,11 @@
 	
 	if (tSelectedTreeNode==_dataSource.installLocationNode)
 	{
-		[_defaultDestinationSetButton setEnabled:NO];
+		_defaultDestinationSetButton.enabled=NO;
 		return;
 	}
 	
-	[_defaultDestinationSetButton setEnabled:[tSelectedTreeNode isSelectableAsInstallationLocation]];
+	_defaultDestinationSetButton.enabled=[tSelectedTreeNode isSelectableAsInstallationLocation];
 		
 	// A COMPLETER
 }
