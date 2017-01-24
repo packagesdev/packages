@@ -172,14 +172,14 @@
 {
 	[super WB_viewWillAppear];
 	
-	[self refreshUI];
-	
 	[_exclusionsViewController WB_viewWillAppear];
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
+	
+	[self refreshUI];
 	
 	[_exclusionsViewController WB_viewDidAppear];
 	
@@ -191,7 +191,13 @@
 	[super WB_viewWillDisappear];
 	
 	if (_certificateSealWindowController!=nil)
+	{
+		[self.view.window removeChildWindow:_certificateSealWindowController.window];
+		
 		[_certificateSealWindowController.window orderOut:self];
+		
+		_certificateSealWindowController=nil;
+	}
 	
 	[_exclusionsViewController WB_viewWillDisappear];
 }
@@ -223,16 +229,14 @@
 		{
 			_certificateSealWindowController=[[PKGCertificateSealWindowController alloc] init];
 			
-			SecCertificateRef tCertificateRef=[PKGCertificatesUtilities copyOfCertificateWithName:self.projectSettings.certificateName];
+			_certificateSealWindowController.nextResponder=self;
 			
-			if (tCertificateRef==NULL)
-			{
-				// A COMPLETER
-			}
+			SecCertificateRef tCertificateRef=[PKGCertificatesUtilities copyOfCertificateWithName:self.projectSettings.certificateName];
 			
 			_certificateSealWindowController.certificate=tCertificateRef;
 			
-			CFRelease(tCertificateRef);
+			if (tCertificateRef!=NULL)
+				CFRelease(tCertificateRef);
 			
 			NSRect tWindowFrame=_certificateSealWindowController.window.frame;
 			NSRect tFrame=self.view.frame;
@@ -283,7 +287,7 @@
 	
 	_chooseIdentityPanel=[[SFChooseIdentityPanel alloc] init];
 	
-	[_chooseIdentityPanel setInformativeText:NSLocalizedString(@"Gatekeeper requires packages to be signed to allow them to be installed.",@"")];	// A COMPLETER
+	[_chooseIdentityPanel setInformativeText:NSLocalizedString(@"Certificate Chooser Informative Text",@"")];
 	
 	[_chooseIdentityPanel setAlternateButtonTitle:NSLocalizedString(@"Cancel",@"")];
 	
