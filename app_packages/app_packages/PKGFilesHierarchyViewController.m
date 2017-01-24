@@ -84,6 +84,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	NSTimeInterval _lastRefreshTimeMark;
 }
 
+- (void)refreshUI;
+
 - (IBAction)showInFinder:(id)sender;
 
 - (IBAction)addFiles:(id)sender;
@@ -149,8 +151,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (void)WB_viewWillAppear
 {
-	_viewLabel.stringValue=_label;
-	_viewInformationLabel.stringValue=_informationLabel;
+	[self refreshUI];
 	
 	self.outlineView.dataSource=self.hierarchyDataSource;
 	
@@ -208,6 +209,27 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
+- (void)refreshUI
+{
+	if (_viewLabel==nil)
+		return;
+	
+	_viewLabel.stringValue=_label;
+	
+	NSRect tInformationlabelFrame=_viewInformationLabel.frame;
+	
+	_viewInformationLabel.stringValue=_informationLabel;
+	
+	[_viewInformationLabel sizeToFit];
+	
+	CGFloat tNewWidth=NSWidth(_viewInformationLabel.frame);
+	
+	tInformationlabelFrame.origin.x=NSMaxX(tInformationlabelFrame)-tNewWidth;
+	tInformationlabelFrame.size.width=tNewWidth;
+	
+	_viewInformationLabel.frame=tInformationlabelFrame;
+}
+
 - (void)refreshHierarchy
 {
 	[self.outlineView reloadData];
@@ -229,16 +251,14 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
 	_label=(inLabel!=nil) ? [inLabel copy] : @"";
 	
-	if (_viewLabel!=nil)
-		_viewLabel.stringValue=_label;
+	[self refreshUI];
 }
 
 - (void)setInformationLabel:(NSString *)inInformationLabel
 {
 	_informationLabel=(inInformationLabel!=nil) ? [inInformationLabel copy] : @"";
 	
-	if (_viewInformationLabel!=nil)
-		_viewInformationLabel.stringValue=_informationLabel;
+	[self refreshUI];
 }
 
 #pragma mark -
