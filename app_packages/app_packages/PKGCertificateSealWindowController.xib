@@ -26,6 +26,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <connections>
                             <action selector="showCertificate:" target="-2" id="3za-Rs-QJY"/>
+                            <outlet property="menu" destination="tEy-i8-Qyr" id="YwG-h4-BGy"/>
                         </connections>
                     </customView>
                 </subviews>
@@ -35,5 +36,15 @@
             </connections>
             <point key="canvasLocation" x="474" y="565"/>
         </window>
+        <menu id="tEy-i8-Qyr">
+            <items>
+                <menuItem title="Remove…" id="cT6-4C-18F">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeCertificate:" target="-1" id="PuH-1F-WAM"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
 </document>
