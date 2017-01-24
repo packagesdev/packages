@@ -3,6 +3,8 @@
 
 #import "PKGPayloadBundleItem.h"
 
+#include <sys/stat.h>
+
 @implementation PKGPayloadTreeNode
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
@@ -40,6 +42,79 @@
 
 #pragma mark -
 
+- (PKGPayloadTreeNode *)createMissingDescendantsForPath:(NSString *)inPath
+{
+	if (inPath==nil)
+		return nil;
+	
+	PKGPayloadTreeNode * tParentTreeNode=self;
+	
+	NSArray * tPathComponents=[inPath componentsSeparatedByString:@"/"];
+	NSString * tDirectoryPath=@"/";
+	NSUInteger tIndex,tCount=tPathComponents.count;
+	
+	for(tIndex=0;tIndex<tCount;tIndex++)
+	{
+		NSString * tComponent=tPathComponents[tIndex];
+		
+		if (tComponent.length==0)
+			continue;
+		
+		BOOL tFound=NO;
+		
+		for(PKGPayloadTreeNode * tChildTreeNode in tParentTreeNode.children)
+		{
+			PKGFileItem * tFileItem=tChildTreeNode.representedObject;
+			
+			if ([[tFileItem.filePath lastPathComponent] isEqualToString:tComponent]==YES)
+			{
+				tParentTreeNode=tChildTreeNode;
+				tFound=YES;
+				
+				tDirectoryPath=[tDirectoryPath stringByAppendingPathComponent:tComponent];
+				
+				break;
+			}
+		}
+		
+		if (tFound==NO)
+			break;
+	}
+	
+	NSFileManager * tFileManager=[NSFileManager defaultManager];
+	
+	for(;tIndex<tCount;tIndex++)
+	{
+		NSString * tComponent=tPathComponents[tIndex];
+		
+		if (tComponent.length==0)
+			continue;
+		
+		NSError * tError=nil;
+		NSDictionary * tAttributes=[tFileManager attributesOfItemAtPath:tDirectoryPath error:&tError];
+		
+		if (tAttributes==nil)
+		{
+			// A COMPLETER
+		}
+		
+		PKGFileItem * tFileItem=[PKGFileItem newFolderWithName:tComponent
+														   uid:[tAttributes[NSFileOwnerAccountID] integerValue]
+														   gid:[tAttributes[NSFileGroupOwnerAccountID] integerValue]
+												   permissions:([tAttributes[NSFilePosixPermissions] integerValue]&UF_SETTABLE)];
+		
+		PKGPayloadTreeNode * tPayloadTreeNode=[PKGPayloadTreeNode treeNodeWithRepresentedObject:tFileItem children:nil];
+		
+		[tParentTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+		
+		tParentTreeNode=tPayloadTreeNode;
+		
+		tDirectoryPath=[tDirectoryPath stringByAppendingPathComponent:tComponent];
+	}
+	
+	return tParentTreeNode;
+}
+
 - (PKGPayloadTreeNode *)descendantNodeAtPath:(NSString *)inPath
 {
 	if (inPath==nil)
@@ -54,7 +129,9 @@
 		if (tComponent.length==0)
 			continue;
 		
-		for(PKGPayloadTreeNode * tChildTreeNode in tPayloadTreeNode.children)
+		PKGPayloadTreeNode * tChildTreeNode=nil;
+		
+		for(tChildTreeNode in tPayloadTreeNode.children)
 		{
 			PKGFileItem * tFileItem=tChildTreeNode.representedObject;
 			
@@ -64,6 +141,9 @@
 				break;
 			}
 		}
+		
+		if (tChildTreeNode==nil)
+			return nil;
 	}
 	
 	return tPayloadTreeNode;

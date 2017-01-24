@@ -19,6 +19,8 @@
 
 - (void)contract;
 
+- (PKGPayloadTreeNode *)createMissingDescendantsForPath:(NSString *)inPath;
+
 - (PKGPayloadTreeNode *)descendantNodeAtPath:(NSString *)inPath;
 
 - (NSUInteger)optimizePayloadHierarchy;	// Return the number of children
