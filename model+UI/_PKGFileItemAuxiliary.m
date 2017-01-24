@@ -115,21 +115,6 @@
 	return sCachedGenericFolderIcon;
 }
 
-+ (NSImage *)cachedGenericFolderIconDisabled
-{
-	static dispatch_once_t onceToken;
-	static NSImage * sCachedGenericFolderIconDisabled=nil;
-	
-	dispatch_once(&onceToken, ^{
-		
-		sCachedGenericFolderIconDisabled=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
-		
-		// A COMPLETER
-	});
-	
-	return sCachedGenericFolderIconDisabled;
-}
-
 + (NSImage *)cachedIconForFileType:(NSString *)inType
 {
 	if (inType==nil)
@@ -151,6 +136,23 @@
 			
 			if (tIcon!=nil)
 				sIconTypesRespository[tType]=tIcon;
+		}
+		
+		// Application
+		
+		NSImage * tIcon=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericApplicationIcon)];
+		
+		if (tIcon!=nil)
+			sIconTypesRespository[@"app"]=tIcon;
+		
+		// Framework & lproj folders
+		
+		tIcon=[_PKGFileItemAuxiliary cachedGenericFolderIcon];
+		
+		if (tIcon!=nil)
+		{
+			sIconTypesRespository[@"lproj"]=tIcon;
+			sIconTypesRespository[@"framework"]=tIcon;
 		}
 	});
 	
@@ -292,29 +294,21 @@
 	
 	NSImage * tIcon=nil;
 	
-	if ((tStat.st_mode & S_IFMT)==S_IFDIR)
+	NSString * tPathExtension=[inPath pathExtension];
+	
+	if ([tPathExtension length]>0)
+		tIcon=[_PKGFileItemAuxiliary cachedIconForFileType:tPathExtension];
+	
+	if (tIcon==nil)
 	{
-		tIcon=[_PKGFileItemAuxiliary cachedGenericFolderIcon];
-	}
-	else
-	{
-		NSString * tPathExtension=[inPath pathExtension];
-		
-		if ([tPathExtension length]>0)
+		if ((tStat.st_mode & S_IFMT)==S_IFDIR)
 		{
-			tIcon=[_PKGFileItemAuxiliary cachedIconForFileType:tPathExtension];
+			tIcon=[_PKGFileItemAuxiliary cachedGenericFolderIcon];
 		}
 		else
 		{
 			tIcon=[[NSWorkspace sharedWorkspace] iconForFile:inPath];
-			
-			// A COMPLETER
 		}
-	}
-	
-	if (self.symbolicLink==YES)
-	{
-		// A COMPLETER
 	}
 	
 	self.icon=tIcon;

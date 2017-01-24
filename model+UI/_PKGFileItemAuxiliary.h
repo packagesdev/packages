@@ -36,8 +36,6 @@
 
 + (NSImage *)cachedGenericFolderIcon;
 
-+ (NSImage *)cachedGenericFolderIconDisabled;
-
 - (void)updateWithReferencedItemPath:(NSString *)inPath type:(PKGFileItemType)inType fileFilters:(NSArray *)inFileFilters;
 
 @end
