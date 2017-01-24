@@ -21,7 +21,7 @@
 
 - (NSString *)certificatePanelMessage
 {
-	return NSLocalizedString(@"Choose a certificate to be used to sign the package.",@"");
+	return NSLocalizedString(@"Choose a certificate to be used for signing the package.",@"");
 }
 
 @end
