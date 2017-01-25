@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+	<!-- Aperture Plugin -->
+
+	<key>ApertureEdit</key>
+	<string>/Library/Application Support/Aperture/Plug-Ins</string>
+	
+	<key>ApertureExport</key>
+	<string>/Library/Application Support/Aperture/Plug-Ins</string>
+	
+	<!-- Color Picker -->
+	
+	<key>colorPicker</key>
+	<string>/Library/ColorPickers</string>
+	
+	<!-- QuickTime Plugin Plugin -->
+	
+	<key>component</key>
+	<array>
+		<string>/Library/QuickTime/</string>
+		<string>/Library/Components/</string>
+	</array>
+	
+	<!-- Font -->
+	
+	<key>dfont</key>
+	<string>/Library/Fonts/</string>
+
+	<!-- Dictionary.app base -->
+	
+	<key>dict</key>
+	<string>/Library/Dictionaries/</string>
+	
+	<!-- Framework -->
+	
+	<key>framework</key>
+	<string>/Library/Frameworks/</string>
+	
+	<!-- Keychain -->
+	
+	<key>keychain</key>
+	<string>/Library/Keychains/</string>
+	
+	<!-- Spotlight Importer -->
+	
+	<key>mdimporter</key>
+	<string>/Library/Spotlight</string>
+	
+	<!-- Preferences Pane -->
+	
+	<key>prefPane</key>
+	<string>/Library/PreferencePanes/</string>
+	
+	<!-- QuickLook Generator -->
+	
+	<key>qlgenerator</key>
+	<string>/Library/QuickLook/</string>
+	
+	<!-- Screen Saver -->
+	
+	<key>saver</key>
+	<string>/Library/Screen Savers/</string>
+	
+	<!-- Service -->
+	
+	<key>service</key>
+	<string>/Library/Services/</string>
+	
+	<!-- TrueType Font -->
+	
+	<key>ttf</key>
+	<string>/Library/Fonts/</string>
+	
+	<!-- Dashboard Widget -->
+	
+	<key>wdgt</key>
+	<string>/Library/Widgets/</string>
+	
+	<!-- Internet Plugin -->
+	
+	<key>webplugin</key>
+	<string>/Library/Internet Plug-Ins/</string>
+	
+</dict>
+</plist>
