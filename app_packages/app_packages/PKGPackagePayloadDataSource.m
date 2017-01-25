@@ -13,9 +13,17 @@
 
 #import "PKGPackagePayloadDataSource.h"
 
+#import "PKGSmartLocationDetector.h"
+
 #import "PKGPayloadTreeNode+UI.h"
 
 #import "NSOutlineView+Selection.h"
+
+#import "PKGApplicationPreferences.h"
+
+#import "PKGOwnershipAndReferenceStylePanel.h"
+
+#import "PKGPayloadDropView.h"
 
 @interface PKGPackagePayloadDataSource ()
 
@@ -199,16 +207,142 @@
 
 #pragma mark - PKGFileDeadDropViewDelegate
 
-- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView validateDropFiles:(NSArray *) inFilenames
+- (BOOL)fileDeadDropView:(PKGPayloadDropView *)inView validateDropFiles:(NSArray *)inFilenames
 {
-	// A COMPLETER
+	if (inFilenames==nil)
+		return NO;
 	
+	PKGPayloadTreeNode * tRootNode=[self.rootNodes lastObject];
+	
+	for(NSString * tPath in inFilenames)
+	{
+		NSArray * tPotentialDirectories=[PKGSmartLocationDetector potentialInstallationDirectoriesForFileAtPath:tPath];
+		
+		if (tPotentialDirectories==nil)
+			return NO;
+		
+		NSString * tDirectory=nil;
+		
+		for(tDirectory in tPotentialDirectories)
+		{
+			PKGPayloadTreeNode * tPayloadTreeNode=[tRootNode descendantNodeAtPath:tDirectory];
+			
+			if (tPayloadTreeNode==nil)
+			{
+				if ([PKGSmartLocationDetector canCreateDirectoryPath:tDirectory]==YES)
+					break;
+			}
+			else
+			{
+				NSString * tLastPathComponent=[tPath lastPathComponent];
+				
+				if ([tPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode *bTreeNode){
+					
+					return ([tLastPathComponent caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+					
+					
+				}]==NSNotFound)
+					break;
+			}
+		}
+		
+		if (tDirectory==nil)
+			return NO;
+	}
+
 	return YES;
 }
 
-- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView acceptDropFiles:(NSArray *) inFilenames
+- (BOOL)fileDeadDropView:(PKGPayloadDropView *)inView acceptDropFiles:(NSArray *)inFilenames
 {
-	// A COMPLETER
+	if (inFilenames==nil)
+		return NO;
+	
+	PKGPayloadTreeNode * tRootNode=[self.rootNodes lastObject];
+	
+	NSMutableArray * tParentsArray=[NSMutableArray array];
+	
+	for(NSString * tPath in inFilenames)
+	{
+		NSArray * tPotentialDirectories=[PKGSmartLocationDetector potentialInstallationDirectoriesForFileAtPath:tPath];
+		
+		if (tPotentialDirectories==nil)
+			return NO;
+		
+		NSString * tDirectory=nil;
+		
+		for(tDirectory in tPotentialDirectories)
+		{
+			PKGPayloadTreeNode * tPayloadTreeNode=[tRootNode descendantNodeAtPath:tDirectory];
+			
+			if (tPayloadTreeNode==nil)
+			{
+				if ([PKGSmartLocationDetector canCreateDirectoryPath:tDirectory]==YES)
+				{
+					tPayloadTreeNode=[tRootNode createMissingDescendantsForPath:tDirectory];
+					
+					[tParentsArray addObject:tPayloadTreeNode];
+					
+					break;
+				}
+			}
+			else
+			{
+				NSString * tLastPathComponent=[tPath lastPathComponent];
+				
+				if ([tPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode *bTreeNode){
+					
+					return ([tLastPathComponent caseInsensitiveCompare:bTreeNode.fileName]==NSOrderedSame);
+					
+					
+				}]==NSNotFound)
+				{
+					[tParentsArray addObject:tPayloadTreeNode];
+					
+					break;
+				}
+			}
+		}
+		
+		if (tDirectory==nil)
+			return NO;
+	}
+	
+	if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==NO)
+	{
+		PKGPayloadAddOptions tOptions=0;
+		
+		tOptions|=([PKGApplicationPreferences sharedPreferences].keepOwnership==YES) ? PKGPayloadAddKeepOwnership : 0;
+		
+		return [self outlineView:inView.fileHierarchyOutlineView
+					addFileNames:inFilenames
+				   referenceType:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle
+					   toParents:tParentsArray
+						 options:tOptions];
+	}
+	
+	PKGOwnershipAndReferenceStylePanel * tPanel=[PKGOwnershipAndReferenceStylePanel ownershipAndReferenceStylePanel];
+	
+	tPanel.canChooseOwnerAndGroupOptions=((self.managedAttributes&PKGFileAttributesOwnerAndGroup)!=0);
+	tPanel.keepOwnerAndGroup=[PKGApplicationPreferences sharedPreferences].keepOwnership;
+	tPanel.referenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+	
+	[tPanel beginSheetModalForWindow:inView.fileHierarchyOutlineView.window completionHandler:^(NSInteger bReturnCode){
+		
+		if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+			return;
+		
+		PKGPayloadAddOptions tOptions=0;
+		
+		if (tPanel.canChooseOwnerAndGroupOptions==YES)
+			tOptions|=(tPanel.keepOwnerAndGroup==YES) ? PKGPayloadAddKeepOwnership : 0;
+		
+		[self outlineView:inView.fileHierarchyOutlineView
+			 addFileNames:inFilenames
+			referenceType:tPanel.referenceStyle
+				toParents:tParentsArray
+				  options:tOptions];
+	}];
 	
 	return YES;
 }
