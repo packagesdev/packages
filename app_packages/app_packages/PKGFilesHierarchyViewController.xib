@@ -231,13 +231,16 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="F9o-fE-km2">
                     <rect key="frame" x="390" y="10" width="329" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" id="M00-ic-dzI">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="M00-ic-dzI">
                         <font key="font" metaFont="miniSystem"/>
                         <color key="textColor" white="0.48684210526315791" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
+            <connections>
+                <outlet property="fileHierarchyOutlineView" destination="jNy-Xc-1CN" id="1TV-o3-XNh"/>
+            </connections>
             <point key="canvasLocation" x="481" y="435"/>
         </customView>
         <menu id="DPY-TZ-WPQ">
