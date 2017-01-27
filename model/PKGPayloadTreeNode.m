@@ -99,8 +99,8 @@
 		}
 		
 		PKGFileItem * tFileItem=[PKGFileItem newFolderWithName:tComponent
-														   uid:[tAttributes[NSFileOwnerAccountID] integerValue]
-														   gid:[tAttributes[NSFileGroupOwnerAccountID] integerValue]
+														   uid:(uid_t)[tAttributes[NSFileOwnerAccountID] integerValue]
+														   gid:(gid_t)[tAttributes[NSFileGroupOwnerAccountID] integerValue]
 												   permissions:([tAttributes[NSFilePosixPermissions] integerValue]&UF_SETTABLE)];
 		
 		PKGPayloadTreeNode * tPayloadTreeNode=[PKGPayloadTreeNode treeNodeWithRepresentedObject:tFileItem children:nil];
