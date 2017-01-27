@@ -88,7 +88,7 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 											  (id)kSecMatchLimit:(id)kSecMatchLimitOne} mutableCopy];
 	
 	if ([tSecKeychainArray count]>0)
-		[tQueryDictionary setObject:tSecKeychainArray forKey:kSecMatchSearchList];
+		[tQueryDictionary setObject:tSecKeychainArray forKey:(__bridge NSString *)kSecMatchSearchList];
 	
 	
 	SecIdentityRef tResult=NULL;
