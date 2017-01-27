@@ -61,6 +61,8 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 - (NSArray *)siblingsOfItem:(id)inItem;
 
+- (void)outlineView:(NSOutlineView *)inOutlineView discloseItemIfNeeded:(id)inItem;
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawTargetCrossForItem:(id)inItem;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addFileNames:(NSArray *)inPaths referenceType:(PKGFilePathType)inReferenceType toParents:(NSArray *)inParents options:(PKGPayloadAddOptions)inOptions;

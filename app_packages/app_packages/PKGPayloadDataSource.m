@@ -63,6 +63,30 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return inTreeNode.parent.children;
 }
 
+- (void)outlineView:(NSOutlineView *)inOutlineView discloseItemIfNeeded:(PKGPayloadTreeNode *)inTreeNode
+{
+	if (inOutlineView==nil || inTreeNode==nil)
+		return;
+	
+	__block __weak void (^_weakDiscloseItemIfNeeded)(PKGPayloadTreeNode *);
+	__block void (^_discloseItemIfNeeded)(PKGPayloadTreeNode *);
+	
+	_discloseItemIfNeeded = ^(PKGPayloadTreeNode * bTreeNode)
+	{
+		PKGPayloadTreeNode * tParentNode=(PKGPayloadTreeNode *)bTreeNode.parent;
+		
+		if (tParentNode!=nil)
+			_weakDiscloseItemIfNeeded(tParentNode);
+		
+		if ([inOutlineView isItemExpanded:bTreeNode]==NO)
+			[inOutlineView expandItem:bTreeNode];
+	};
+			
+	_weakDiscloseItemIfNeeded = _discloseItemIfNeeded;
+	
+	_discloseItemIfNeeded(inTreeNode);
+}
+
 - (void)_switchFilePathOfItem:(PKGPayloadTreeNode *)inTreeNode toType:(PKGFilePathType)inType recursively:(BOOL)inRecursively
 {
 	if (inTreeNode==nil)
