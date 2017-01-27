@@ -109,6 +109,8 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 		_uid=inFileItem.uid;
 		_gid=inFileItem.gid;
 		_permissions=inFileItem.permissions;
+		
+		_contentsDisclosed=inFileItem.contentsDisclosed;
 	}
 	
 	return self;
