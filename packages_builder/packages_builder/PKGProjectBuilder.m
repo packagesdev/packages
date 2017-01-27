@@ -6968,7 +6968,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	switch(tType)
 	{
-		case PKGFileItemTypeInvisible:
+		case PKGFileItemTypeHiddenFolderTemplate:
 		case PKGFileItemTypeFolderTemplate:	// Base Node
 		case PKGFileItemTypeNewFolder:	// New Folder
 			
@@ -7152,9 +7152,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			if (tBundleIdentifier==nil)
 			{
-				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorBundleIdentifierNotFound filePath:tFullPath fileKind:PKGFileKindBundle]];
+				[self postCurrentStepWarningEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorBundleIdentifierNotFound filePath:tFullPath fileKind:PKGFileKindBundle]];
 				
-				return NO;
+				return YES;
 			}
 			
 			// Can Downgrade
