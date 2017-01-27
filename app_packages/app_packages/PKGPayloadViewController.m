@@ -20,7 +20,7 @@
 #import "PKGPayloadFilesHierarchyViewController.h"
 
 #import "PKGFilesEmptySelectionInspectorViewController.h"
-#import "PKGFilesSelectionInspectorViewController.h"
+#import "PKGPayloadFilesSelectionInspectorViewController.h"
 
 #import "NSOutlineView+Selection.h"
 
@@ -40,7 +40,7 @@
 	PKGPayloadFilesHierarchyViewController * _filesHierarchyViewController;
 	
 	PKGViewController *_emptySelectionInspectorViewController;
-	PKGFilesSelectionInspectorViewController * _selectionInspectorViewController;
+	PKGPayloadFilesSelectionInspectorViewController * _selectionInspectorViewController;
 	
 	PKGViewController *_currentInspectorViewController;
 	
@@ -298,7 +298,7 @@
 	{
 		if (_selectionInspectorViewController==nil)
 		{
-			_selectionInspectorViewController=[PKGFilesSelectionInspectorViewController new];
+			_selectionInspectorViewController=[PKGPayloadFilesSelectionInspectorViewController new];
 			_selectionInspectorViewController.delegate=_filesHierarchyViewController;
 		}
 		

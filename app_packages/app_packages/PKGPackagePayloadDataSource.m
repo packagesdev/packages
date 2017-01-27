@@ -16,6 +16,7 @@
 #import "PKGSmartLocationDetector.h"
 
 #import "PKGPayloadTreeNode+UI.h"
+#import "PKGPayloadBundleItem.h"
 
 #import "NSOutlineView+Selection.h"
 
@@ -76,6 +77,74 @@
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawTargetCrossForItem:(id)inItem
 {
 	return (self.installLocationNode==inItem);
+}
+
+#pragma mark -
+
+- (void)outlineView:(NSOutlineView *)inOutlineView transformItemIfNeeded:(PKGPayloadTreeNode *)inTreeNode
+{
+	PKGFileItem * tRepresentedObject=inTreeNode.representedObject;
+	
+	if (tRepresentedObject.type<PKGFileItemTypeNewFolder)
+		return;
+	
+	if (tRepresentedObject.type==PKGFileItemTypeNewFolder)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	if (tRepresentedObject.type==PKGFileItemTypeFileSystemItem)
+	{
+		NSString * tAbsolutePath=[inTreeNode referencedPathUsingConverter:self.filePathConverter];
+		
+		if (tAbsolutePath==nil)
+		{
+			NSLog(@"<0x%lx> Failed to compute reference path",(unsigned long)inTreeNode);
+			return;
+		}
+		
+		NSError * tError=nil;
+		NSDictionary * tAttributesDictionary=[[NSFileManager defaultManager] attributesOfItemAtPath:tAbsolutePath error:&tError];
+		
+		if ([tAttributesDictionary[NSFileType] isEqualToString:NSFileTypeRegular]==YES && [tRepresentedObject isMemberOfClass:[PKGPayloadBundleItem class]]==YES)
+		{
+			// We need to revert to a PKGFileItem
+			
+			PKGFileItem * tConvertedFileItem=[(PKGPayloadBundleItem *) tRepresentedObject fileItem];
+			
+			if (tConvertedFileItem==nil)
+			{
+				NSLog(@"<0x%lx> Conversion from PKGFileItem to PKGPayloadBundleItem failed",(unsigned long)tConvertedFileItem);
+				return;
+			}
+			
+			[inTreeNode setRepresentedObject:tConvertedFileItem];
+		}
+		else if ([tAttributesDictionary[NSFileType] isEqualToString:NSFileTypeDirectory]==YES && [tRepresentedObject isMemberOfClass:[PKGFileItem class]]==YES)
+		{
+			// We shall investigate whether this shall not become a PKGPayloadBundleItem
+			
+			NSBundle * tBundle=[NSBundle bundleWithPath:tAbsolutePath];
+			
+			if (tBundle==nil)
+				return;
+			
+			if (tBundle.bundleIdentifier.length==0)
+				return;
+			
+			PKGPayloadBundleItem * tConvertedBundleItem=[[PKGPayloadBundleItem alloc] initWithFileItem:tRepresentedObject];
+			
+			if (tConvertedBundleItem==nil)
+			{
+				NSLog(@"<0x%lx> Conversion from PKGPayloadBundleItem to PKGFileItem failed",(unsigned long)tConvertedBundleItem);
+				return;
+			}
+			
+			[inTreeNode setRepresentedObject:tConvertedBundleItem];
+		}
+	}
 }
 
 #pragma mark -
@@ -307,6 +376,9 @@
 		if (tDirectory==nil)
 			return NO;
 	}
+	
+	for(PKGPayloadTreeNode * bParentTreeNode in tParentsArray)
+		[self outlineView:inView.fileHierarchyOutlineView discloseItemIfNeeded:bParentTreeNode];
 	
 	if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==NO)
 	{

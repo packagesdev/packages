@@ -103,4 +103,16 @@
 	return YES;
 }
 
+#pragma mark -
+
+- (NSIndexSet *)outlineView:(NSOutlineView *)inOutlineView selectionIndexesForProposedSelection:(NSIndexSet *)inProposedSelectionIndexes
+{
+	if (self.outlineView!=inOutlineView || inProposedSelectionIndexes.count!=1)
+		return inProposedSelectionIndexes;
+	
+	[((PKGPackagePayloadDataSource *) self.hierarchyDataSource) outlineView:self.outlineView transformItemIfNeeded:[inOutlineView itemAtRow:inProposedSelectionIndexes.firstIndex]];
+	
+	return inProposedSelectionIndexes;
+}
+
 @end
