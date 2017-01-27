@@ -72,7 +72,7 @@
                         [tMutableSet addObject:tPattern];
                     break;
                     
-                case PKGFileSystemTypeFileorFolder:
+                case PKGFileSystemTypeFileOrFolder:
                     
                     tMutableSet=((tIsRegularExpression==NO) ? _fileNamesSet:_fileNamesRegExSet);
                     if ([tMutableSet containsObject:tPattern]==NO)
