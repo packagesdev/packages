@@ -25,6 +25,8 @@
 
 - (id<PKGObjectProtocol,NSCopying>)representedObject;
 
+- (void)setRepresentedObject:(id<PKGObjectProtocol,NSCopying>)inRepresentedObject;
+
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
 
 - (NSUInteger)height;

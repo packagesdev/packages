@@ -258,6 +258,12 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return _representedObject;
 }
 
+- (void)setRepresentedObject:(id<PKGObjectProtocol,NSCopying>)inRepresentedObject
+{
+	if (_representedObject!=inRepresentedObject)
+		_representedObject=inRepresentedObject;
+}
+
 #pragma mark -
 
 - (NSUInteger)height
