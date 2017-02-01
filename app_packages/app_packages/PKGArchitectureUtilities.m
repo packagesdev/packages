@@ -61,7 +61,15 @@ enum
 	
 	if (fread(&tMagicCookie,sizeof(uint32_t),1,tFile)!=1)
 	{
-		switch(errno)
+		if (feof(tFile)!=0)
+		{
+			fclose(tFile);
+			return @[];
+		}
+		
+		int tError=ferror(tFile);
+		
+		switch(tError)
 		{
 			case EISDIR:
 				
@@ -79,9 +87,9 @@ enum
 			
 			default:
 				
-				fclose(tFile);
+				NSLog(@"[PKGArchitectureUtilities architecturesOfFileAtPath:] Read error (%d) \'%@\'",tError,inPath);
 				
-				NSLog(@"[PKGArchitectureUtilities architecturesOfFileAtPath:] Read error (%d) \'%@\'",errno,inPath);
+				fclose(tFile);
 				
 				return nil;
 		}
