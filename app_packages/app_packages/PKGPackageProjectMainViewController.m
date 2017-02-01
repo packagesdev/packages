@@ -26,6 +26,8 @@
 #import "PKGProject+Safe.h"
 #import "PKGPackageProject+Safe.h"
 
+#import "NSAlert+Block.h"
+
 @interface PKGPackageProjectMainViewController ()
 {
 	IBOutlet NSSegmentedControl * _segmentedControl;
@@ -173,6 +175,18 @@
 			{
 				_payloadController=[PKGPackagePayloadViewController new];
 				_payloadController.payload=((PKGPackageProject *) self.project).payload_safe;
+				
+				if (_payloadController.payload==nil)
+				{
+					NSAlert * tAlert=[[NSAlert alloc] init];
+					
+					tAlert.messageText=@"Description forthcoming";		// A COMPLETER
+					tAlert.informativeText=@"Description forthcoming";	// A COMPLETER
+					
+					[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:nil];
+					
+					return;
+				}
 			}
 			
 			tNewSegmentViewController=_payloadController;
