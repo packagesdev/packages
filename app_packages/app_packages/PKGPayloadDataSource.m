@@ -494,6 +494,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	[inNewFolderTreeNode setNewFolderName:inNewName];
 	
+	[self outlineView:inOutlineView transformItemIfNeeded:inNewFolderTreeNode];	// We may have to tranform the item (if the extension is removed/added)
+	
 	// Sort and update selection
 	
 	PKGTreeNode * tParentNode=inNewFolderTreeNode.parent;
@@ -695,6 +697,10 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object
+{
+}
+
+- (void)outlineView:(NSOutlineView *)inOutlineView transformItemIfNeeded:(PKGPayloadTreeNode *)inTreeNode
 {
 }
 

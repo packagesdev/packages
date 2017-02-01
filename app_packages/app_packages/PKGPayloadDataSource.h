@@ -83,4 +83,6 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 - (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object;
 
+- (void)outlineView:(NSOutlineView *)inOutlineView transformItemIfNeeded:(id)inItem;
+
 @end
