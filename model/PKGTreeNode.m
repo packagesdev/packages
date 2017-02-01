@@ -367,6 +367,20 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return nil;
 }
 
+- (PKGTreeNode *)descendantNodeMatching:(BOOL (^)(id bTreeNode))inBlock
+{
+	if (inBlock==nil)
+		return nil;
+	
+	for(PKGTreeNode * tChild in _children)
+	{
+		if (inBlock(tChild)==YES)
+			return tChild;
+	}
+	
+	return nil;
+}
+
 #pragma mark -
 
 - (NSUInteger)indexOfChildIdenticalTo:(PKGTreeNode *)inTreeNode

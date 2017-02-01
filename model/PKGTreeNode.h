@@ -45,6 +45,7 @@
 
 - (PKGTreeNode *)descendantNodeAtIndex:(NSUInteger)inIndex;
 - (PKGTreeNode *)descendantNodeAtIndexPath:(NSIndexPath *)inIndexPath;
+- (PKGTreeNode *)descendantNodeMatching:(BOOL (^)(id bTreeNode))inBlock;
 
 - (NSUInteger)indexOfChildIdenticalTo:(PKGTreeNode *)inTreeNode;
 - (NSUInteger)indexOfChildMatching:(BOOL (^)(id bTreeNode))inBlock;
