@@ -11,13 +11,6 @@
 
 @implementation PKGPayloadFilesSelectionInspectorViewController
 
-- (NSString *)nibName
-{
-	return @"PKGFilesSelectionInspectorViewController";
-}
-
-#pragma mark -
-
 #pragma mark -
 
 - (void)WB_viewWillAppear

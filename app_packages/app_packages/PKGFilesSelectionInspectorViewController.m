@@ -28,6 +28,9 @@
 	
 	IBOutlet NSTextField * _destinationPathTextField;
 	
+	
+	IBOutlet NSTabView * _tabView;
+	
 	NSUInteger _cachedFilePathType;
 }
 
@@ -414,6 +417,8 @@
 {
 	PKGPayloadTreeNode * tSelectedNode=[self.selectedItems lastObject];
 	PKGFileItem * tSelectedItem=[tSelectedNode representedObject];
+	
+	NSLog(@"%@",NSStringFromClass([tSelectedItem class]));
 	
 	if (tSelectedItem.type==PKGFileItemTypeFileSystemItem)
 	{
