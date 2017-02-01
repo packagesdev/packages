@@ -9,7 +9,7 @@
 {
 	if (self.payload==nil)
 	{
-		NSString * tPath=[[NSBundle mainBundle] pathForResource:@"DefaultFileHierachy" ofType:@"plist"];
+		NSString * tPath=[[NSBundle mainBundle] pathForResource:@"DefaultFileHierarchy" ofType:@"plist"];
 		
 		if (tPath==nil)
 		{
