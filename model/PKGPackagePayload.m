@@ -15,19 +15,19 @@
 
 #import "PKGPackagesError.h"
 
-NSString * const IPKGPackagePayloadTypeKey=@"PAYLOAD_TYPE";
+NSString * const PKGPackagePayloadTypeKey=@"PAYLOAD_TYPE";
 
-NSString * const IPKGPackagePayloadDefaultInstallLocationKey=@"DEFAULT_INSTALL_LOCATION";
+NSString * const PKGPackagePayloadDefaultInstallLocationKey=@"DEFAULT_INSTALL_LOCATION";
 
-NSString * const IPKGPackagePayloadSplitForkIfNeededKey=@"SPLIT_FORKS";
+NSString * const PKGPackagePayloadSplitForkIfNeededKey=@"SPLIT_FORKS";
 
-NSString * const IPKGPackagePayloadHierarchyBaseVersion=@"VERSION";
+NSString * const PKGPackagePayloadHierarchyBaseVersion=@"VERSION";
 
-NSString * const IPKGPackagePayloadHierarchyShowInvisibleFilesKey=@"SHOW_INVISIBLE";
+NSString * const PKGPackagePayloadHierarchyShowInvisibleFilesKey=@"SHOW_INVISIBLE";
 
-NSString * const IPKGPackagePayloadHierarchyKey=@"HIERARCHY";
+NSString * const PKGPackagePayloadHierarchyKey=@"HIERARCHY";
 
-NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING_FILES_AS_WARNING";
+NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING_FILES_AS_WARNING";
 
 @interface PKGPackagePayload ()
 {
@@ -94,14 +94,14 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		_hiddenFolderTemplatesIncluded=NO;
 		
-		NSNumber * tNumber=inDefaultHierarchy[IPKGPackagePayloadHierarchyBaseVersion];
+		NSNumber * tNumber=inDefaultHierarchy[PKGPackagePayloadHierarchyBaseVersion];
 		
-		PKGFullCheckNumberValueForKey(tNumber,IPKGPackagePayloadHierarchyBaseVersion);
+		PKGFullCheckNumberValueForKey(tNumber,PKGPackagePayloadHierarchyBaseVersion);
 		
 		_templateVersion=[tNumber unsignedIntegerValue];
 		
 		NSError * tError=nil;
-		_filesTree=[[PKGPayloadTree alloc] initWithRepresentation:inDefaultHierarchy[IPKGPackagePayloadHierarchyKey] error:&tError];
+		_filesTree=[[PKGPayloadTree alloc] initWithRepresentation:inDefaultHierarchy[PKGPackagePayloadHierarchyKey] error:&tError];
 		
 		if (_filesTree==nil)
 		{
@@ -112,7 +112,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 				if (tCode==PKGRepresentationNilRepresentationError)
 					tCode=PKGRepresentationInvalidValue;
 				
-				NSString * tPathError=IPKGPackagePayloadHierarchyKey;
+				NSString * tPathError=PKGPackagePayloadHierarchyKey;
 				
 				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
 					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
@@ -153,9 +153,9 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 	
 	if (self!=nil)
 	{
-		NSNumber * tNumber=inRepresentation[IPKGPackagePayloadTypeKey];
+		NSNumber * tNumber=inRepresentation[PKGPackagePayloadTypeKey];
 		
-		PKGFullCheckNumberValueForKey(tNumber,IPKGPackagePayloadTypeKey);
+		PKGFullCheckNumberValueForKey(tNumber,PKGPackagePayloadTypeKey);
 		
 		_type=[tNumber unsignedIntegerValue];
 		
@@ -164,12 +164,12 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 											  code:PKGRepresentationInvalidValue
-										  userInfo:@{PKGKeyPathErrorKey:IPKGPackagePayloadTypeKey}];
+										  userInfo:@{PKGKeyPathErrorKey:PKGPackagePayloadTypeKey}];
 			
 			return nil;
 		}
 		
-		_defaultInstallLocation=[inRepresentation[IPKGPackagePayloadDefaultInstallLocationKey] copy];
+		_defaultInstallLocation=[inRepresentation[PKGPackagePayloadDefaultInstallLocationKey] copy];
 		
 		if (_defaultInstallLocation==nil)
 		{
@@ -182,33 +182,33 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 												  code:PKGRepresentationInvalidTypeOfValueError
-											  userInfo:@{PKGKeyPathErrorKey:IPKGPackagePayloadDefaultInstallLocationKey}];
+											  userInfo:@{PKGKeyPathErrorKey:PKGPackagePayloadDefaultInstallLocationKey}];
 				
 				return nil;
 			}
 		}
 		
-		if (inRepresentation[IPKGPackagePayloadSplitForkIfNeededKey]==nil)
+		if (inRepresentation[PKGPackagePayloadSplitForkIfNeededKey]==nil)
 			_splitForksIfNeeded=YES;
 		else
-			_splitForksIfNeeded=[inRepresentation[IPKGPackagePayloadSplitForkIfNeededKey] boolValue];
+			_splitForksIfNeeded=[inRepresentation[PKGPackagePayloadSplitForkIfNeededKey] boolValue];
 		
 		
-		tNumber=inRepresentation[IPKGPackagePayloadHierarchyBaseVersion];
+		tNumber=inRepresentation[PKGPackagePayloadHierarchyBaseVersion];
 		
-		PKGFullCheckNumberValueForKey(tNumber,IPKGPackagePayloadHierarchyBaseVersion);
+		PKGFullCheckNumberValueForKey(tNumber,PKGPackagePayloadHierarchyBaseVersion);
 		
 		_templateVersion=[tNumber unsignedIntegerValue];
 		
-		tNumber=inRepresentation[IPKGPackagePayloadHierarchyShowInvisibleFilesKey];	// can be nil
+		tNumber=inRepresentation[PKGPackagePayloadHierarchyShowInvisibleFilesKey];	// can be nil
 		
-		PKGClassCheckNumberValueForKey(tNumber,IPKGPackagePayloadHierarchyShowInvisibleFilesKey);
+		PKGClassCheckNumberValueForKey(tNumber,PKGPackagePayloadHierarchyShowInvisibleFilesKey);
 		
 		_hiddenFolderTemplatesIncluded=[tNumber boolValue];
 		
 		NSError * tError=nil;
 		
-		_filesTree=[[PKGPayloadTree alloc] initWithRepresentation:inRepresentation[IPKGPackagePayloadHierarchyKey] error:&tError];
+		_filesTree=[[PKGPayloadTree alloc] initWithRepresentation:inRepresentation[PKGPackagePayloadHierarchyKey] error:&tError];
 		
 		if (_filesTree==nil)
 		{
@@ -219,7 +219,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 				if (tCode==PKGRepresentationNilRepresentationError)
 					tCode=PKGRepresentationInvalidValue;
 				
-				NSString * tPathError=IPKGPackagePayloadHierarchyKey;
+				NSString * tPathError=PKGPackagePayloadHierarchyKey;
 				
 				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
 					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
@@ -234,7 +234,7 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 		
 		// A COMPLETER
 		
-		self.treatMissingPayloadFilesAsWarnings=[inRepresentation[IPKGPackagePayloadTreatMissingFilesAsWarningsKey] boolValue];
+		self.treatMissingPayloadFilesAsWarnings=[inRepresentation[PKGPackagePayloadTreatMissingFilesAsWarningsKey] boolValue];
 	}
 	
 	return self;
@@ -244,21 +244,21 @@ NSString * const IPKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSIN
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
-	tRepresentation[IPKGPackagePayloadTypeKey]=@(self.type);
+	tRepresentation[PKGPackagePayloadTypeKey]=@(self.type);
 	
-	tRepresentation[IPKGPackagePayloadDefaultInstallLocationKey]=self.defaultInstallLocation;
+	tRepresentation[PKGPackagePayloadDefaultInstallLocationKey]=self.defaultInstallLocation;
 	
-	tRepresentation[IPKGPackagePayloadSplitForkIfNeededKey]=@(self.splitForksIfNeeded);
+	tRepresentation[PKGPackagePayloadSplitForkIfNeededKey]=@(self.splitForksIfNeeded);
 	
-	tRepresentation[IPKGPackagePayloadHierarchyBaseVersion]=@(self.templateVersion);
+	tRepresentation[PKGPackagePayloadHierarchyBaseVersion]=@(self.templateVersion);
 	
-	tRepresentation[IPKGPackagePayloadHierarchyShowInvisibleFilesKey]=@(self.hiddenFolderTemplatesIncluded);
+	tRepresentation[PKGPackagePayloadHierarchyShowInvisibleFilesKey]=@(self.hiddenFolderTemplatesIncluded);
 	
-	tRepresentation[IPKGPackagePayloadHierarchyKey]=[self.filesTree representation];
+	tRepresentation[PKGPackagePayloadHierarchyKey]=[self.filesTree representation];
 	
 	// A COMPLETER
 	
-	tRepresentation[IPKGPackagePayloadTreatMissingFilesAsWarningsKey]=@(self.treatMissingPayloadFilesAsWarnings);
+	tRepresentation[PKGPackagePayloadTreatMissingFilesAsWarningsKey]=@(self.treatMissingPayloadFilesAsWarnings);
 	
 	return tRepresentation;
 }
