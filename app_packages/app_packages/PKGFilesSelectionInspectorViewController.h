@@ -1,19 +1,22 @@
 
 #import "PKGDocumentViewController.h"
 
-@class PKGFilesSelectionInspectorViewController;
+#import "PKGFilesSelectionInspectorDelegate.h"
 
-@protocol PKGFilesSelectionInspectorDelegate
-
-- (void)filesSelectionInspectorViewController:(PKGFilesSelectionInspectorViewController *)inViewController didUpdateFileItems:(NSArray *)inArray;
-
-@end
+#import "PKGFilesSelectionInspectorTabViewItemViewController.h"
 
 @interface PKGFilesSelectionInspectorViewController : PKGDocumentViewController
+{
+	IBOutlet NSTabView * tabView;
+}
 
 	@property (nonatomic) NSArray * selectedItems;
 
-	@property (weak) id<PKGFilesSelectionInspectorDelegate> delegate;
+	@property (nonatomic,weak) id<PKGFilesSelectionInspectorDelegate> delegate;
+
+	@property (readonly) NSMutableArray * tabViewItemViewControllers;
+
+- (PKGFilesSelectionInspectorTabViewItemViewController *)attributesViewController;
 
 - (void)refreshSingleSelection;
 - (void)refreshMultipleSelection;

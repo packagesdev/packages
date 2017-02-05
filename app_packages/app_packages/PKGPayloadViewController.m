@@ -323,6 +323,7 @@
 		}
 		
 		_selectionInspectorViewController.selectedItems=[tOutlineView WB_selectedItems];
+		_selectionInspectorViewController.delegate=_filesHierarchyViewController;
 	}
 	
 	// Default Destination

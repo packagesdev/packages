@@ -14,7 +14,11 @@
 #import "PKGScriptsAndResourcesViewController.h"
 
 #import "PKGPayloadDataSource.h"
+
 #import "PKGFilesHierarchyViewController.h"
+
+#import "PKGFilesEmptySelectionInspectorViewController.h"
+#import "PKGFilesSelectionInspectorViewController.h"
 
 #import "PKGScriptViewController.h"
 
@@ -22,11 +26,15 @@
 
 #import "PKGPackageScriptsStackView.h"
 
+
+#import "NSOutlineView+Selection.h"
+
 @interface PKGScriptsAndResourcesViewController ()
 {
 	IBOutlet PKGPackageScriptsStackView * _installationScriptView;
 	
 	IBOutlet NSView * _hierarchyPlaceHolderView;
+	IBOutlet NSView * _inspectorPlaceHolderView;
 	
 	PKGScriptViewController * _preInstallationScriptViewController;
 	
@@ -34,8 +42,17 @@
 	
 	PKGFilesHierarchyViewController * _filesHierarchyViewController;
 	
+	PKGViewController *_emptySelectionInspectorViewController;
+	PKGFilesSelectionInspectorViewController * _selectionInspectorViewController;
+	
+	PKGViewController *_currentInspectorViewController;
+	
 	PKGPayloadDataSource * _dataSource;
 }
+
+// Notifications
+
+- (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification;
 
 @end
 
@@ -123,11 +140,15 @@
 	
 	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
+	
 	_dataSource.filePathConverter=self.filePathConverter;
 	
 	[_preInstallationScriptViewController WB_viewDidAppear];
 	[_postInstallationScriptViewController WB_viewDidAppear];
 	[_filesHierarchyViewController WB_viewDidAppear];
+	
+	[self fileHierarchySelectionDidChange:[NSNotification notificationWithName:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView]];
 }
 
 - (void)WB_viewWillDisappear
@@ -136,6 +157,9 @@
 	
 	[_preInstallationScriptViewController WB_viewWillDisappear];
 	[_postInstallationScriptViewController WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
+	
 	[_filesHierarchyViewController WB_viewWillDisappear];
 }
 
@@ -146,6 +170,77 @@
 	[_preInstallationScriptViewController WB_viewDidDisappear];
 	[_postInstallationScriptViewController WB_viewDidDisappear];
 	[_filesHierarchyViewController WB_viewDidDisappear];
+}
+
+#pragma mark - Notifications
+
+- (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification
+{
+	NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
+	
+	if (inNotification.object!=tOutlineView)
+		return;
+	
+	NSUInteger tNumberOfSelectedRows=tOutlineView.numberOfSelectedRows;
+	
+	// Inspector
+	
+	if (tNumberOfSelectedRows==0)
+	{
+		if (_emptySelectionInspectorViewController==nil)
+			_emptySelectionInspectorViewController=[PKGFilesEmptySelectionInspectorViewController new];
+		
+		if (_currentInspectorViewController!=_emptySelectionInspectorViewController)
+		{
+			[_currentInspectorViewController WB_viewWillDisappear];
+			
+			[_currentInspectorViewController.view removeFromSuperview];
+			
+			[_currentInspectorViewController WB_viewDidDisappear];
+			
+			_currentInspectorViewController=_emptySelectionInspectorViewController;
+			
+			_currentInspectorViewController.view.frame=_inspectorPlaceHolderView.bounds;
+			
+			[_currentInspectorViewController WB_viewWillAppear];
+			
+			[_inspectorPlaceHolderView addSubview:_currentInspectorViewController.view];
+			
+			[_currentInspectorViewController WB_viewDidAppear];
+		}
+	}
+	else
+	{
+		if (_selectionInspectorViewController==nil)
+		{
+			_selectionInspectorViewController=[PKGFilesSelectionInspectorViewController new];
+			_selectionInspectorViewController.delegate=_filesHierarchyViewController;
+		}
+		
+		if (_currentInspectorViewController!=_selectionInspectorViewController)
+		{
+			[_currentInspectorViewController WB_viewWillDisappear];
+			
+			[_currentInspectorViewController.view removeFromSuperview];
+			
+			[_currentInspectorViewController WB_viewDidDisappear];
+			
+			
+			_currentInspectorViewController=_selectionInspectorViewController;
+			
+			_currentInspectorViewController.view.frame=_inspectorPlaceHolderView.bounds;
+			
+			[_currentInspectorViewController WB_viewWillAppear];
+			
+			[_inspectorPlaceHolderView addSubview:_currentInspectorViewController.view];
+			
+			[_currentInspectorViewController WB_viewDidAppear];
+		}
+		
+		_selectionInspectorViewController.selectedItems=[tOutlineView WB_selectedItems];
+	}
+	
+	// A COMPLETER
 }
 
 @end

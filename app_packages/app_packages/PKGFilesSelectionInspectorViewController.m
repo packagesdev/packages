@@ -28,9 +28,6 @@
 	
 	IBOutlet NSTextField * _destinationPathTextField;
 	
-	
-	IBOutlet NSTabView * _tabView;
-	
 	NSUInteger _cachedFilePathType;
 }
 
@@ -130,6 +127,20 @@
 	return tFileSystemItemIcon;
 }
 
+- (instancetype)initWithNibName:(NSString *)inNibName bundle:(NSBundle *)inBundle
+{
+	self=[super initWithNibName:inNibName bundle:inBundle];
+	
+	if (self!=nil)
+	{
+		_tabViewItemViewControllers=[NSMutableArray array];
+	}
+	
+	return self;
+}
+
+#pragma mark -
+
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
@@ -141,15 +152,60 @@
 	tDateFormater.timeStyle=NSDateFormatterShortStyle;
 	
 	_lastModifiedDateTextField.formatter=tDateFormater;
+	
+	NSUInteger tIndex=[tabView indexOfTabViewItemWithIdentifier:@"tabviewitem.attributes"];
+	
+	if (tIndex==NSNotFound)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	NSView * tView=[tabView tabViewItemAtIndex:tIndex].view;
+	
+	PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController=[self attributesViewController];
+	
+	if (tTabViewItemViewController==nil)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	tTabViewItemViewController.delegate=self.delegate;
+	
+	[_tabViewItemViewControllers addObject:tTabViewItemViewController];
+	
+	tTabViewItemViewController.view.frame=tView.bounds;
+	
+	[tView addSubview:tTabViewItemViewController.view];
+}
+
+- (PKGFilesSelectionInspectorTabViewItemViewController *)attributesViewController
+{
+	return nil;
 }
 
 #pragma mark -
+
+- (void)setDelegate:(id<PKGFilesSelectionInspectorDelegate>)inDelegate
+{
+	_delegate=inDelegate;
+	
+	for(PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController in _tabViewItemViewControllers)
+		tTabViewItemViewController.delegate=inDelegate;
+}
 
 - (void)setSelectedItems:(NSArray *)inSelectedItems
 {
 	if ([_selectedItems isEqualToArray:inSelectedItems]==NO)
 	{
 		_selectedItems=inSelectedItems;
+		
+		for(PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController in _tabViewItemViewControllers)
+			tTabViewItemViewController.selectedItems=_selectedItems;
+		
 		[self refreshUI];
 	}
 }
@@ -185,9 +241,19 @@
 		return;
 	
 	if (self.selectedItems.count>1)
+	{
 		[self refreshMultipleSelection];
+	
+		for(PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController in _tabViewItemViewControllers)
+			[tTabViewItemViewController refreshMultipleSelection];
+	}
 	else
+	{
 		[self refreshSingleSelection];
+		
+		for(PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController in _tabViewItemViewControllers)
+			[tTabViewItemViewController refreshSingleSelection];
+	}
 }
 
 - (void)_refreshSelectionForFileSystemTreeNode:(PKGPayloadTreeNode *)inTreeNode atPath:(NSString *)inPath
@@ -240,15 +306,16 @@
 	{
 		BOOL tIsFile=[tFileTypeString isEqualToString:NSFileTypeRegular];
 		
-		if (tIsFile==YES || [tFileTypeString isEqualToString:NSFileTypeDirectory]==YES)
+		if (tIsFile==YES || [tFileTypeString isEqualToString:NSFileTypeDirectory]==YES)		// A COMPLETER Should improve a lot to take into account disclosed bundles with removed descendants.
 		{
 			NSString * tExecutableFilePath=nil;
 			
 			if (tIsFile==NO)
 			{
 				NSBundle * tBundle=[NSBundle bundleWithPath:inPath];
+				NSString * tIdentifier=tBundle.infoDictionary[@"CFBundleIdentifier"];
 				
-				if (tBundle!=nil)
+				if ([tIdentifier isKindOfClass:[NSString class]]==YES && tIdentifier.length>0)
 					tExecutableFilePath=tBundle.executablePath;
 			}
 			else
@@ -418,7 +485,7 @@
 	PKGPayloadTreeNode * tSelectedNode=[self.selectedItems lastObject];
 	PKGFileItem * tSelectedItem=[tSelectedNode representedObject];
 	
-	NSLog(@"%@",NSStringFromClass([tSelectedItem class]));
+	NSLog(@"%@",NSStringFromClass([tSelectedItem class]));	// A RETIRER
 	
 	if (tSelectedItem.type==PKGFileItemTypeFileSystemItem)
 	{
@@ -581,7 +648,7 @@
 			_sourcePathTextField.stringValue=tSelectedItem.filePath.string;
 		}
 		
-		[self.delegate filesSelectionInspectorViewController:self didUpdateFileItems:self.selectedItems];
+		[self.delegate viewController:self didUpdateSelectedItems:self.selectedItems];
 	}
 }
 
@@ -648,7 +715,7 @@
 		
 		// Refresh Hierarchy
 		
-		[self.delegate filesSelectionInspectorViewController:self didUpdateFileItems:self.selectedItems];
+		[self.delegate viewController:self didUpdateSelectedItems:self.selectedItems];
 	}];
 }
 

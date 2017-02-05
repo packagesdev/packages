@@ -17,7 +17,7 @@
                 <outlet property="_referenceTypePopUpButton" destination="kqL-4z-7Z3" id="wNv-yf-8xf"/>
                 <outlet property="_referenceTypeTextField" destination="MD5-J0-yfc" id="aft-Nh-n5Y"/>
                 <outlet property="_sourcePathTextField" destination="NkL-aO-KRk" id="RtK-6I-Se2"/>
-                <outlet property="_tabView" destination="otR-Rd-rP2" id="eHt-hK-jmQ"/>
+                <outlet property="tabView" destination="otR-Rd-rP2" id="1hG-xN-7xI"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -184,22 +184,22 @@
                     </connections>
                 </popUpButton>
                 <tabView controlSize="small" id="otR-Rd-rP2">
-                    <rect key="frame" x="-10" y="-10" width="389" height="312"/>
+                    <rect key="frame" x="-13" y="-10" width="389" height="312"/>
                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                     <tabViewItems>
-                        <tabViewItem label="Attributes" identifier="Attributes" id="Kbw-3c-gAJ">
+                        <tabViewItem label="Attributes" identifier="tabviewitem.attributes" id="Kbw-3c-gAJ">
                             <view key="view" id="WSI-P6-Yi9">
                                 <rect key="frame" x="10" y="25" width="369" height="274"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Rules" identifier="Bundle" id="6Dr-lz-Vmc">
+                        <tabViewItem label="Rules" identifier="tabviewitem.rules" id="6Dr-lz-Vmc">
                             <view key="view" id="Bwv-as-eKD">
                                 <rect key="frame" x="10" y="25" width="369" height="274"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="Scripts" identifier="Scripts" id="Ua3-vC-Lhr">
+                        <tabViewItem label="Scripts" identifier="tabviewitem.scripts" id="Ua3-vC-Lhr">
                             <view key="view" id="zLt-sU-9in">
                                 <rect key="frame" x="10" y="25" width="369" height="274"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

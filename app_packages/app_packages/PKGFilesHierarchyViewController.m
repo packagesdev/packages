@@ -723,11 +723,24 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 #pragma mark - PKGFilesSelectionInspectorDelegate
 
-- (void)filesSelectionInspectorViewController:(PKGFilesSelectionInspectorViewController *)inViewController didUpdateFileItems:(NSArray *)inArray
+- (void)viewController:(NSViewController *)inViewController didUpdateSelectedItems:(NSArray *)inArray
 {
 	[self noteDocumentHasChanged];
 	
-	// A COMPLETER
+	[_hierarchyDataSource outlineView:self.outlineView reloadDataForItems:inArray];
+}
+
+- (BOOL)viewController:(NSViewController *)inViewController shouldRenameItem:(id)inItem to:(NSString *)inName
+{
+	return [self.hierarchyDataSource outlineView:self.outlineView shouldRenameNewFolder:inItem as:inName];
+}
+
+- (void)viewController:(NSViewController *)inViewController didRenameItem:(id)inItem to:(NSString *)inName
+{
+	if ([self.hierarchyDataSource outlineView:self.outlineView renameNewFolder:inItem as:inName]==YES)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":inItem}];
+	
+	[self noteDocumentHasChanged];
 }
 
 #pragma mark - PKGPayloadDataSourceDelegate
@@ -772,6 +785,16 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		return;
 	
 	PKGPayloadTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
+	
+	if ([self.hierarchyDataSource outlineView:self.outlineView shouldRenameNewFolder:tEditedNode as:tTextField.stringValue]==NO)
+	{
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"file.name"]];
+		
+		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+		
+		return;
+	}
 	
 	if ([self.hierarchyDataSource outlineView:self.outlineView renameNewFolder:tEditedNode as:tTextField.stringValue]==YES)
 		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];

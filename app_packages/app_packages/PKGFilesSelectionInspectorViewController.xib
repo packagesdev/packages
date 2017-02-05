@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -10,24 +10,24 @@
                 <outlet property="_architecturesLabel" destination="dp4-1T-Ysx" id="7fi-lY-ChI"/>
                 <outlet property="_architecturesTextField" destination="iIH-qh-w8K" id="Sy2-Hu-wCO"/>
                 <outlet property="_bigNameTextField" destination="bYB-9C-xaj" id="0aw-2k-QMW"/>
-                <outlet property="_destinationPathTextField" destination="Bdu-2o-9Xc" id="vxe-7L-LCv"/>
                 <outlet property="_fileTypeTextField" destination="iC5-BK-ZWE" id="lez-n8-0Cs"/>
                 <outlet property="_iconView" destination="yW1-4X-ZIt" id="C0o-X8-6AA"/>
                 <outlet property="_lastModifiedDateTextField" destination="lly-G9-XOd" id="Ez3-Qt-GiK"/>
                 <outlet property="_referenceTypePopUpButton" destination="kqL-4z-7Z3" id="wNv-yf-8xf"/>
                 <outlet property="_referenceTypeTextField" destination="MD5-J0-yfc" id="aft-Nh-n5Y"/>
                 <outlet property="_sourcePathTextField" destination="NkL-aO-KRk" id="RtK-6I-Se2"/>
+                <outlet property="tabView" destination="8DU-UL-FgV" id="26f-Yy-O6r"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="363" height="651"/>
+            <rect key="frame" x="0.0" y="-5" width="363" height="494"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="iIH-qh-w8K">
-                    <rect key="frame" x="99" y="569" width="248" height="14"/>
+                    <rect key="frame" x="99" y="412" width="248" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="&lt;&lt;DON'T CHANGE&gt;&gt;" id="RSJ-2F-ogX">
                         <font key="font" metaFont="smallSystem"/>
@@ -36,7 +36,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="dp4-1T-Ysx">
-                    <rect key="frame" x="18" y="569" width="78" height="14"/>
+                    <rect key="frame" x="18" y="412" width="78" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Architectures:" id="Ifs-Og-nFH">
                         <font key="font" metaFont="smallSystem"/>
@@ -45,7 +45,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="lly-G9-XOd">
-                    <rect key="frame" x="155" y="597" width="192" height="14"/>
+                    <rect key="frame" x="155" y="440" width="192" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DON'T CHANGE &gt;&gt;" id="60v-A8-EDi">
                         <font key="font" metaFont="smallSystem"/>
@@ -54,7 +54,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="mCC-aH-ANP">
-                    <rect key="frame" x="99" y="597" width="54" height="14"/>
+                    <rect key="frame" x="99" y="440" width="54" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Modified:" id="UT6-86-v8w">
                         <font key="font" metaFont="smallSystem"/>
@@ -63,7 +63,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="bYB-9C-xaj">
-                    <rect key="frame" x="99" y="614" width="248" height="17"/>
+                    <rect key="frame" x="99" y="457" width="248" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DON'T CHANGE &gt;&gt;" id="D3a-Xd-DTn">
                         <font key="font" metaFont="systemBold"/>
@@ -72,12 +72,12 @@
                     </textFieldCell>
                 </textField>
                 <imageView id="yW1-4X-ZIt">
-                    <rect key="frame" x="62" y="597" width="32" height="32"/>
+                    <rect key="frame" x="62" y="440" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="0ny-7s-9Wm"/>
                 </imageView>
                 <textField verticalHuggingPriority="750" id="MD5-J0-yfc">
-                    <rect key="frame" x="99" y="523" width="11" height="14"/>
+                    <rect key="frame" x="99" y="366" width="11" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="-" id="FZb-zu-9VI">
                         <font key="font" metaFont="smallSystem"/>
@@ -86,7 +86,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="TGQ-fW-LLd" customClass="PKGPopUpButtonSource">
-                    <rect key="frame" x="45" y="494" width="51" height="22"/>
+                    <rect key="frame" x="45" y="337" width="51" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Source:" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="KCW-22-juU" id="E7V-Vb-BVZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -111,17 +111,8 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" id="Bdu-2o-9Xc">
-                    <rect key="frame" x="99" y="418" width="248" height="43"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt;DON'T CHANGE&gt;&gt;" id="pIg-Ea-Pmu">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField verticalHuggingPriority="750" id="NkL-aO-KRk">
-                    <rect key="frame" x="99" y="471" width="248" height="43"/>
+                    <rect key="frame" x="99" y="314" width="248" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt;DON'T CHANGE&gt;&gt;" id="xU2-Nu-vuD">
                         <font key="font" metaFont="smallSystem"/>
@@ -129,17 +120,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="64M-CU-zFd">
-                    <rect key="frame" x="27" y="447" width="68" height="14"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Destination:" id="hgb-mk-BNT">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField verticalHuggingPriority="750" id="dyr-Qt-ter">
-                    <rect key="frame" x="64" y="547" width="32" height="14"/>
+                    <rect key="frame" x="64" y="390" width="32" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Kind:" id="kDG-7q-nOY">
                         <font key="font" metaFont="smallSystem"/>
@@ -148,7 +130,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="iC5-BK-ZWE">
-                    <rect key="frame" x="99" y="547" width="248" height="14"/>
+                    <rect key="frame" x="99" y="390" width="248" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt;DON'T CHANGE&gt;&gt;" id="9mG-ML-Pwn">
                         <font key="font" metaFont="smallSystem"/>
@@ -157,7 +139,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="mr6-YI-gj6">
-                    <rect key="frame" x="34" y="523" width="61" height="14"/>
+                    <rect key="frame" x="34" y="366" width="61" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Reference:" id="Syy-tL-YX6">
                         <font key="font" metaFont="smallSystem"/>
@@ -166,7 +148,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="kqL-4z-7Z3">
-                    <rect key="frame" x="98" y="518" width="220" height="22"/>
+                    <rect key="frame" x="98" y="361" width="220" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Relative to Project" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="1" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="NUe-Zl-tVF" id="sr5-RU-pwc" customClass="PKGReferencePopupButtonCell">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -182,8 +164,20 @@
                         <action selector="switchFilePathType:" target="-2" id="MkG-b7-LX1"/>
                     </connections>
                 </popUpButton>
+                <tabView controlSize="small" id="8DU-UL-FgV">
+                    <rect key="frame" x="-13" y="-10" width="389" height="312"/>
+                    <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                    <tabViewItems>
+                        <tabViewItem label="Attributes" identifier="tabviewitem.attributes" id="XIG-Cs-Pbv">
+                            <view key="view" id="lQH-0U-axi">
+                                <rect key="frame" x="10" y="25" width="369" height="274"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
             </subviews>
-            <point key="canvasLocation" x="685.5" y="505.5"/>
+            <point key="canvasLocation" x="685.5" y="427"/>
         </customView>
     </objects>
 </document>
