@@ -61,6 +61,8 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 - (NSArray *)siblingsOfItem:(id)inItem;
 
+- (void)outlineView:(NSOutlineView *)inOutlineView reloadDataForItems:(NSArray *)inItems;
+
 - (void)outlineView:(NSOutlineView *)inOutlineView discloseItemIfNeeded:(id)inItem;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDrawTargetCrossForItem:(id)inItem;
@@ -70,6 +72,8 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addItem:(id)inItem toParent:(id)inParent;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addNewFolderToParent:(id)inParent;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameNewFolder:(id)inNewFolderItem as:(NSString *)inNewName;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(id)inNewFolderItem as:(NSString *)inNewName;
 

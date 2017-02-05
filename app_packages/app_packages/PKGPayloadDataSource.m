@@ -63,6 +63,26 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return inTreeNode.parent.children;
 }
 
+#pragma mark -
+
+- (void)outlineView:(NSOutlineView *)inOutlineView reloadDataForItems:(NSArray *)inItems
+{
+	if (inOutlineView==nil || inItems==nil)
+		return;
+	
+	NSMutableIndexSet * tRowIndexes=[NSMutableIndexSet indexSet];
+	
+	for(PKGPayloadTreeNode * tTreeNode in inItems)
+	{
+		NSInteger tRow=[inOutlineView rowForItem:tTreeNode];
+		
+		if (tRow!=-1)
+			[tRowIndexes addIndex:tRow];
+	}
+	
+	[inOutlineView reloadDataForRowIndexes:tRowIndexes columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,inOutlineView.numberOfColumns)]];
+}
+
 - (void)outlineView:(NSOutlineView *)inOutlineView discloseItemIfNeeded:(PKGPayloadTreeNode *)inTreeNode
 {
 	if (inOutlineView==nil || inTreeNode==nil)
@@ -432,7 +452,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return YES;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(PKGPayloadTreeNode *)inNewFolderTreeNode as:(NSString *)inNewName
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameNewFolder:(PKGPayloadTreeNode *)inNewFolderTreeNode as:(NSString *)inNewName
 {
 	if (inOutlineView==nil || inNewFolderTreeNode==nil || inNewName==nil)
 		return NO;
@@ -460,14 +480,12 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			tAlert.informativeText=bInformativeText;
 			
 			[tAlert runModal];
-			
-			[inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
 		};
 		
 		if (tLength>=256)
 		{
 			renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),inNewName],NSLocalizedString(@"Try using a name with fewer characters.",@""));
-
+			
 			return NO;
 		}
 		
@@ -487,11 +505,16 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		}].count>0)
 		{
 			renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" is already taken.",@""),inNewName],NSLocalizedString(@"Please choose a different name.",@""));
-
+			
 			return NO;
 		}
 	}
 	
+	return YES;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(PKGPayloadTreeNode *)inNewFolderTreeNode as:(NSString *)inNewName
+{
 	[inNewFolderTreeNode setNewFolderName:inNewName];
 	
 	[self outlineView:inOutlineView transformItemIfNeeded:inNewFolderTreeNode];	// We may have to tranform the item (if the extension is removed/added)
