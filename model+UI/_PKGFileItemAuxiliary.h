@@ -29,13 +29,14 @@
 
 	@property (readonly,getter=isReferencedItemMissing) BOOL referencedItemMissing;
 
-	@property (readonly) char fileMode;
+	@property (readonly) unsigned char fileType;
 
 
 + (NSImage *)cachedIconForTemplateFolderAtPath:(NSString *)inPath;
 
 + (NSImage *)cachedGenericFolderIcon;
 
+- (void)updateWithReferencedItemPath:(NSString *)inPath type:(PKGFileItemType)inType fileFilters:(NSArray *)inFileFilters obsolete:(BOOL)inObsolete;
 - (void)updateWithReferencedItemPath:(NSString *)inPath type:(PKGFileItemType)inType fileFilters:(NSArray *)inFileFilters;
 
 @end

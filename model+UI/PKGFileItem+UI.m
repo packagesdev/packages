@@ -19,12 +19,112 @@
 
 @implementation PKGFileItem (UI)
 
++ (NSString *)representationOfPOSIXPermissions:(mode_t)inPermissions fileType:(unsigned char)inFileType
+{
+	char tOwnerExecute;
+	
+	if ((inPermissions & S_ISUID)==S_ISUID)
+		tOwnerExecute=((inPermissions & S_IXUSR)==S_IXUSR) ? 's' : 'S';
+	else
+		tOwnerExecute=((inPermissions & S_IXUSR)==S_IXUSR) ? 'x' : '-';
+	
+	char tGroupExecute;
+	
+	if ((inPermissions & S_ISGID)==S_ISGID)
+		tGroupExecute=((inPermissions & S_IXGRP)==S_IXGRP) ? 's' : 'S';
+	else
+		tGroupExecute=((inPermissions & S_IXGRP)==S_IXGRP) ? 'x' : '-';
+	
+	char tOtherExecute;
+	
+	if ((inPermissions & S_ISTXT)==S_ISTXT)
+		tOtherExecute=((inPermissions & S_IXOTH)==S_IXOTH) ? 't' : 'T';
+	else
+		tOtherExecute=((inPermissions & S_IXOTH)==S_IXOTH) ? 'x' : '-';
+	
+	return [NSString stringWithFormat:@"%c%c%c%c%c%c%c%c%c%c", inFileType,
+			((inPermissions & S_IRUSR)==S_IRUSR) ? 'r' : '-',
+			((inPermissions & S_IWUSR)==S_IWUSR) ? 'w' : '-',
+			tOwnerExecute,
+			((inPermissions & S_IRGRP)==S_IRGRP) ? 'r' : '-',
+			((inPermissions & S_IWGRP)==S_IWGRP) ? 'w' : '-',
+			tGroupExecute,
+			((inPermissions & S_IROTH)==S_IROTH) ? 'r' : '-',
+			((inPermissions & S_IWOTH)==S_IWOTH) ? 'w' : '-',
+			tOtherExecute];
+}
+
++ (NSString *)representationOfPOSIXPermissions:(mode_t)inPermissions mixedPermissions:(mode_t)inMixedPermissions fileType:(unsigned char)inFileType
+{
+	char ownerExecute,groupExecute,otherExecute;
+	char tMixedChar='?';
+	
+	if ((inMixedPermissions & S_ISUID)==S_ISUID || (inMixedPermissions & S_IXUSR)==S_IXUSR)
+	{
+		ownerExecute=tMixedChar;
+	}
+	else
+	{
+		if ((inPermissions & S_ISUID)==S_ISUID)
+		{
+			ownerExecute=((inPermissions & S_IXUSR)==S_IXUSR) ? 's' : 'S';
+		}
+		else
+		{
+			ownerExecute=((inPermissions & S_IXUSR)==S_IXUSR) ? 'x' : '-';
+		}
+	}
+	
+	if ((inMixedPermissions & S_ISGID)==S_ISGID || (inMixedPermissions & S_IXGRP)==S_IXGRP)
+	{
+		groupExecute=tMixedChar;
+	}
+	else
+	{
+		if ((inPermissions & S_ISGID)==S_ISGID)
+		{
+			groupExecute=((inPermissions & S_IXGRP)==S_IXGRP) ? 's' : 'S';
+		}
+		else
+		{
+			groupExecute=((inPermissions & S_IXGRP)==S_IXGRP) ? 'x' : '-';
+		}
+	}
+	
+	if ((inMixedPermissions & S_ISTXT)==S_ISTXT || (inMixedPermissions & S_IXOTH)==S_IXOTH)
+	{
+		otherExecute=tMixedChar;
+	}
+	else
+	{
+		if ((inPermissions & S_ISTXT)==S_ISTXT)
+		{
+			otherExecute=((inPermissions & S_IXOTH)==S_IXOTH) ? 't' : 'T';
+		}
+		else
+		{
+			otherExecute=((inPermissions & S_IXOTH)==S_IXOTH) ? 'x' : '-';
+		}
+	}
+	
+	return [NSString stringWithFormat:@"%c%c%c%c%c%c%c%c%c%c",inFileType,
+			((inMixedPermissions & S_IRUSR)==S_IRUSR) ? tMixedChar : (((inPermissions & S_IRUSR)==S_IRUSR) ? 'r' : '-'),
+			((inMixedPermissions & S_IWUSR)==S_IWUSR) ? tMixedChar : (((inPermissions & S_IWUSR)==S_IWUSR) ? 'w' : '-'),
+			ownerExecute,
+			((inMixedPermissions & S_IRGRP)==S_IRGRP) ? tMixedChar : (((inPermissions & S_IRGRP)==S_IRGRP) ? 'r' : '-'),
+			((inMixedPermissions & S_IWGRP)==S_IWGRP) ? tMixedChar : (((inPermissions & S_IWGRP)==S_IWGRP) ? 'w' : '-'),
+			groupExecute,
+			((inMixedPermissions & S_IROTH)==S_IROTH) ? tMixedChar : (((inPermissions & S_IROTH)==S_IROTH) ? 'r' : '-'),
+			((inMixedPermissions & S_IWOTH)==S_IWOTH) ? tMixedChar : (((inPermissions & S_IWOTH)==S_IWOTH) ? 'w' : '-'),
+			otherExecute];
+}
+
 - (NSTimeInterval)refreshTimeMark
 {
 	if (_fileItemAuxiliary==nil)
 		return -1.0;
 	
-	if (self.type!=PKGFileItemTypeFileSystemItem)
+	if (self.type<PKGFileItemTypeNewFolder)
 		return DBL_MAX;
 	
 	return _fileItemAuxiliary.refreshTimeMark;
@@ -50,6 +150,22 @@
 	}
 	
 	return nil;
+}
+
+- (NSString *)referencedItemPath
+{
+	if (_fileItemAuxiliary==nil)
+		return nil;
+	
+	return _fileItemAuxiliary.referencedItemPath;
+}
+
+- (unsigned char)fileType
+{
+	if (_fileItemAuxiliary==nil)
+		return 'd';
+	
+	return _fileItemAuxiliary.fileType;
 }
 
 - (BOOL)isExcluded
@@ -100,67 +216,37 @@
 	return _fileItemAuxiliary.icon;
 }
 
-- (NSString *)referencedItemPath
-{
-	if (_fileItemAuxiliary==nil)
-		return nil;
-	
-	return _fileItemAuxiliary.referencedItemPath;
-}
-
 - (NSString *)posixPermissionsRepresentation
 {
-	char tFileMode='d';
+	unsigned char tFileType='d';
 	
 	if (_fileItemAuxiliary!=nil)
-		tFileMode=_fileItemAuxiliary.fileMode;
+		tFileType=_fileItemAuxiliary.fileType;
 	
-	mode_t tPermissions=self.permissions;
-	
-	char tOwnerExecute;
-	
-	if ((tPermissions & S_ISUID)==S_ISUID)
-		tOwnerExecute=((tPermissions & S_IXUSR)==S_IXUSR) ? 's' : 'S';
-	else
-		tOwnerExecute=((tPermissions & S_IXUSR)==S_IXUSR) ? 'x' : '-';
-	
-	char tGroupExecute;
-	
-	if ((tPermissions & S_ISGID)==S_ISGID)
-		tGroupExecute=((tPermissions & S_IXGRP)==S_IXGRP) ? 's' : 'S';
-	else
-		tGroupExecute=((tPermissions & S_IXGRP)==S_IXGRP) ? 'x' : '-';
-	
-	char tOtherExecute;
-	
-	if ((tPermissions & S_ISTXT)==S_ISTXT)
-		tOtherExecute=((tPermissions & S_IXOTH)==S_IXOTH) ? 't' : 'T';
-	else
-		tOtherExecute=((tPermissions & S_IXOTH)==S_IXOTH) ? 'x' : '-';
-	
-	return [NSString stringWithFormat:@"%c%c%c%c%c%c%c%c%c%c", tFileMode,
-			((tPermissions & S_IRUSR)==S_IRUSR) ? 'r' : '-',
-			((tPermissions & S_IWUSR)==S_IWUSR) ? 'w' : '-',
-			tOwnerExecute,
-			((tPermissions & S_IRGRP)==S_IRGRP) ? 'r' : '-',
-			((tPermissions & S_IWGRP)==S_IWGRP) ? 'w' : '-',
-			tGroupExecute,
-			((tPermissions & S_IROTH)==S_IROTH) ? 'r' : '-',
-			((tPermissions & S_IWOTH)==S_IWOTH) ? 'w' : '-',
-			tOtherExecute];
+	return [PKGFileItem representationOfPOSIXPermissions:self.permissions fileType:tFileType];
 }
 
 #pragma mark -
 
 - (void)refreshAuxiliaryWithAbsolutePath:(NSString *)inAbsolutePath fileFilters:(NSArray *)inFileFilters
 {
-	if (_fileItemAuxiliary!=nil && (self.type!=PKGFileItemTypeFileSystemItem))
+	if (_fileItemAuxiliary!=nil && self.type<PKGFileItemTypeNewFolder)
 		return;
 	
 	if (_fileItemAuxiliary==nil)
 		_fileItemAuxiliary=[_PKGFileItemAuxiliary new];
 	
 	[_fileItemAuxiliary updateWithReferencedItemPath:inAbsolutePath type:self.type fileFilters:inFileFilters];
+}
+
+- (void)createTemporaryAuxiliaryIfNeededWithAbsolutePath:(NSString *)inAbsolutePath
+{
+	if (_fileItemAuxiliary!=nil || self.type<PKGFileItemTypeNewFolder)
+		return;
+	
+	_fileItemAuxiliary=[_PKGFileItemAuxiliary new];
+	
+	[_fileItemAuxiliary updateWithReferencedItemPath:inAbsolutePath type:self.type fileFilters:nil obsolete:YES];
 }
 
 @end

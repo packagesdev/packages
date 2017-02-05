@@ -31,7 +31,7 @@
 
 	@property (readwrite,getter=isReferencedItemMissing) BOOL referencedItemMissing;
 
-	@property (readwrite) char fileMode;
+	@property (readwrite) unsigned char fileType;
 
 + (NSImage *)cachedUnknownFSObjectIcon;
 
@@ -71,6 +71,7 @@
 		tIcon=[tSharedWorkspace iconForFileType:NSFileTypeForHFSTypeCode(kSharedLibrariesFolderIcon)];
 		
 		sIconTemplatesRepository[@"/Library"]=tIcon;
+		sIconTemplatesRepository[@"/System/Library"]=tIcon;
 		
 		// System
 		
@@ -183,7 +184,7 @@
 		nFileItemAuxiliary.excluded=self.isExcluded;
 		nFileItemAuxiliary.symbolicLink=self.isSymbolicLink;
 		nFileItemAuxiliary.referencedItemMissing=self.isReferencedItemMissing;
-		nFileItemAuxiliary.fileMode=self.fileMode;
+		nFileItemAuxiliary.fileType=self.fileType;
 	}
 	
 	return nFileItemAuxiliary;
@@ -193,21 +194,24 @@
 
 - (void)updateWithReferencedItemPath:(NSString *)inPath type:(PKGFileItemType)inType fileFilters:(NSArray *)inFileFilters
 {
+	[self updateWithReferencedItemPath:inPath type:inType fileFilters:inFileFilters obsolete:NO];
+}
+
+- (void)updateWithReferencedItemPath:(NSString *)inPath type:(PKGFileItemType)inType fileFilters:(NSArray *)inFileFilters obsolete:(BOOL)inObsolete
+{
 	self.referencedItemPath=inPath;
 	
 	if (inPath==nil)
 		return;
 	
-	self.fileMode='d';
+	self.fileType='d';
 	self.symbolicLink=NO;
 	self.referencedItemMissing=NO;
 	self.excluded=NO;
 	
-	self.refreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
+	self.refreshTimeMark=(inObsolete==NO) ? [NSDate timeIntervalSinceReferenceDate] : 0.0;
 	
 	// File Mode
-	
-	self.fileMode='d';
 	
 	struct stat tStat;
 	
@@ -234,32 +238,35 @@
 				case S_IFDIR:
 					break;
 				case S_IFREG:
-					self.fileMode='-';
+					self.fileType='-';
 					break;
 				case S_IFLNK:
-					self.fileMode='l';
+					self.fileType='l';
 					self.symbolicLink=YES;
 					break;
 				case S_IFBLK:
-					self.fileMode='b';
+					self.fileType='b';
 					break;
 				case S_IFCHR:
-					self.fileMode='c';
+					self.fileType='c';
 					break;
 				case S_IFSOCK:
-					self.fileMode='s';
+					self.fileType='s';
 					break;
 				default:
-					self.fileMode='-';
+					self.fileType='-';
 					break;
 			}
 		}
 	}
 	
+	if (inObsolete==YES)
+		return;
+	
 	// Excluded
 	
 	NSString * tFileName=[inPath lastPathComponent];
-	PKGFileSystemType tFileSystemType=(self.fileMode=='d') ? PKGFileSystemTypeFolder : PKGFileSystemTypeFile;
+	PKGFileSystemType tFileSystemType=(self.fileType=='d') ? PKGFileSystemTypeFolder : PKGFileSystemTypeFile;
 	
 	for(PKGFileFilter * tFileFilter in inFileFilters)
 	{

@@ -23,6 +23,8 @@
 
 	@property (nonatomic,readonly,copy) NSString *referencedItemPath;
 
+	@property (nonatomic,readonly) unsigned char fileType;
+
 	@property (nonatomic,readonly) NSImage * icon;
 
 	@property (nonatomic,getter=isExcluded,readonly) BOOL excluded;
@@ -33,6 +35,12 @@
 
 	@property (nonatomic,readonly,copy) NSString * posixPermissionsRepresentation;
 
++ (NSString *)representationOfPOSIXPermissions:(mode_t)inPermissions fileType:(unsigned char)inFileType;
+
++ (NSString *)representationOfPOSIXPermissions:(mode_t)inPermissions mixedPermissions:(mode_t)inMixedPermissions fileType:(unsigned char)inFileType;
+
 - (void)refreshAuxiliaryWithAbsolutePath:(NSString *)inAbsolutePath fileFilters:(NSArray *)inFileFilters;
+
+- (void)createTemporaryAuxiliaryIfNeededWithAbsolutePath:(NSString *)inAbsolutePath;
 
 @end
