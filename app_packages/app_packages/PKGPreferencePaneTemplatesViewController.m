@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -55,7 +55,7 @@
 {
 	NSInteger tRow=[_tableView rowForView:sender];
 	
-	if (tRow==-1 || tRow>=[_keys count])
+	if (tRow==-1 || tRow>=_keys.count)
 		return;
 	
 	NSString * tKey=_keys[tRow];
@@ -66,7 +66,7 @@
 		NSString * tStringValue=tValue;
 		
 		if ([tStringValue hasSuffix:@"."]==YES)
-			tValue=[tStringValue substringToIndex:[tStringValue length]-1];
+			tValue=[tStringValue substringToIndex:tStringValue.length-1];
 	}
 	
 	[[PKGProjectTemplateDefaultValuesSettings sharedSettings] setValue:tValue forKey:tKey];
@@ -77,7 +77,7 @@
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)inTableView
 {
 	if (inTableView==_tableView)
-		return [_keys count];
+		return _keys.count;
 	
 	return 0;
 }
@@ -94,17 +94,17 @@
 		
 		if ([tTableColumnIdentifier isEqualToString:@"Key"]==YES)
 		{
-			[tView.textField setStringValue:NSLocalizedStringFromTable(tKey,@"Preferences",@"")];
+			tView.textField.stringValue=NSLocalizedStringFromTable(tKey,@"Preferences",@"");
 			
 			return tView;
 		}
 
 		if ([tTableColumnIdentifier isEqualToString: @"Value"]==YES)
 		{
-			[tView.textField setStringValue:[[PKGProjectTemplateDefaultValuesSettings sharedSettings] valueForKey:tKey]];
+			tView.textField.stringValue=[[PKGProjectTemplateDefaultValuesSettings sharedSettings] valueForKey:tKey];
 			
 			if ([tKey isEqualToString:PKGProjectTemplateCompanyIdentifierPrefixKey]==YES)
-				[tView.textField setFormatter:[PKGBundleIdentifierFormatter new]];
+				tView.textField.formatter=[PKGBundleIdentifierFormatter new];
 			
 			return tView;
 		}
