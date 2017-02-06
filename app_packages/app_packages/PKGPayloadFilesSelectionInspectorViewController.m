@@ -6,12 +6,18 @@
 #import "PKGPayloadBundleItem.h"
 
 #import "PKGFilesSelectionInspectorAttributesViewController.h"
+#import "PKGFilesSelectionInspectorRulesViewController.h"
+#import "PKGFilesSelectionInspectorScriptsViewController.h"
 
 @interface PKGPayloadFilesSelectionInspectorViewController ()
 {
 	NSTabViewItem * _rulesTabViewItem;
 	
 	NSTabViewItem * _scriptsTabViewItem;
+	
+	PKGFilesSelectionInspectorRulesViewController * _rulesViewController;
+	
+	PKGFilesSelectionInspectorScriptsViewController * _scriptsViewController;
 }
 
 @end
@@ -22,9 +28,69 @@
 {
 	[super WB_viewDidLoad];
 	
-	_rulesTabViewItem=[tabView tabViewItemAtIndex:[tabView indexOfTabViewItemWithIdentifier:@"tabviewitem.rules"]];
+	// Rules
 	
-	_scriptsTabViewItem=[tabView tabViewItemAtIndex:[tabView indexOfTabViewItemWithIdentifier:@"tabviewitem.scripts"]];
+	NSUInteger tIndex=[tabView indexOfTabViewItemWithIdentifier:@"tabviewitem.rules"];
+	
+	if (tIndex==NSNotFound)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	_rulesTabViewItem=[tabView tabViewItemAtIndex:tIndex];
+	
+	NSView * tView=_rulesTabViewItem.view;
+	
+	PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController=[PKGFilesSelectionInspectorRulesViewController new];
+	
+	if (tTabViewItemViewController==nil)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	tTabViewItemViewController.delegate=self.delegate;
+	
+	[self.tabViewItemViewControllers addObject:tTabViewItemViewController];
+	
+	tTabViewItemViewController.view.frame=tView.bounds;
+	
+	[tView addSubview:tTabViewItemViewController.view];
+	
+	// Scripts
+	
+	tIndex=[tabView indexOfTabViewItemWithIdentifier:@"tabviewitem.scripts"];
+	
+	if (tIndex==NSNotFound)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	_scriptsTabViewItem=[tabView tabViewItemAtIndex:tIndex];
+	
+	tView=_rulesTabViewItem.view;
+	
+	tTabViewItemViewController=[PKGFilesSelectionInspectorScriptsViewController new];
+	
+	if (tTabViewItemViewController==nil)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	tTabViewItemViewController.delegate=self.delegate;
+	
+	[self.tabViewItemViewControllers addObject:tTabViewItemViewController];
+	
+	tTabViewItemViewController.view.frame=tView.bounds;
+	
+	[tView addSubview:tTabViewItemViewController.view];
 }
 
 #pragma mark -
