@@ -81,7 +81,7 @@
                         <rect key="frame" x="1" y="17" width="178" height="48"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="15" headerView="sXK-7F-BTF" viewBased="YES" id="iGI-ze-KWU">
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="15" headerView="sXK-7F-BTF" viewBased="YES" floatsGroupRows="NO" id="iGI-ze-KWU">
                                 <rect key="frame" x="0.0" y="0.0" width="179" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="1"/>
@@ -276,7 +276,7 @@
                         <rect key="frame" x="1" y="17" width="91" height="48"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="15" headerView="8Ce-za-jVa" viewBased="YES" id="AEc-Hv-rtZ">
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="15" headerView="8Ce-za-jVa" viewBased="YES" floatsGroupRows="NO" id="AEc-Hv-rtZ">
                                 <rect key="frame" x="0.0" y="0.0" width="91" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="1"/>
