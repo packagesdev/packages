@@ -358,7 +358,8 @@
 																					 keyEquivalent:@""];
 			
 				tMenuItem.tag=PKGAccountMenuMixedItemTag;
-			
+				tMenuItem.enabled=NO;
+				
 				[_fileOwnerPopUpButton.menu insertItem:tMenuItem atIndex:0];
 			}
 			
@@ -404,6 +405,7 @@
 																					 keyEquivalent:@""];
 				
 				tMenuItem.tag=PKGAccountMenuMixedItemTag;
+				tMenuItem.enabled=NO;
 				
 				[_fileGroupPopUpButton.menu insertItem:tMenuItem atIndex:0];
 			}
@@ -566,6 +568,8 @@
 	return 0;
 }
 
+#pragma mark - NSTableViewDelegate
+
 - (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {
 	if (inTableView==_filePermissionsTableView)
@@ -718,6 +722,15 @@
 	}
 	
 	return nil;
+}
+
+-(void)tableView:(NSTableView *)inTableView didAddRowView:(NSTableRowView *)inRowView forRow:(NSInteger)inRow
+{
+	if (inTableView!=_fileSpecialBitsTableView || inRowView==nil)
+		return;
+	
+	if ((inRow%2)==1)
+		inRowView.backgroundColor=[NSColor colorWithDeviceRed:1.0 green:213.0/255.0 blue:202.0/255.0 alpha:1.0];
 }
 
 @end
