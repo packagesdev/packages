@@ -1,3 +1,15 @@
+/*
+ Copyright (c) 2017, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGFilesSelectionInspectorViewController.h"
 
@@ -28,7 +40,7 @@
 	
 	IBOutlet NSTextField * _destinationPathTextField;
 	
-	NSUInteger _cachedFilePathType;
+	NSUInteger _filePathType;
 }
 
 + (NSImage *)iconForItemAtPath:(NSString *)inPath type:(PKGFileItemType)inType;
@@ -269,9 +281,14 @@
 	
 	if (tAttributesDictionary==nil)
 	{
-		// A COMPLETER
+		if ([tError.domain isEqualToString:NSCocoaErrorDomain]==NO || tError.code!=NSFileReadNoSuchFileError)
+		{
+			NSLog(@"Could not read file attributes");
+			
+			return;
+		}
 		
-		return;
+		// Following code works also for a nil attributesDictionary
 	}
 	
 	// Icon
@@ -389,9 +406,9 @@
 	_referenceTypeTextField.hidden=YES;
 	_referenceTypePopUpButton.hidden=NO;
 	
-	_cachedFilePathType=tFileItem.filePath.type;
+	_filePathType=tFileItem.filePath.type;
 	
-	[_referenceTypePopUpButton selectItemWithTag:_cachedFilePathType];
+	[_referenceTypePopUpButton selectItemWithTag:_filePathType];
 	
 	// Source
 	
@@ -487,6 +504,11 @@
 	
 	NSLog(@"%@",NSStringFromClass([tSelectedItem class]));	// A RETIRER
 	
+	NSInteger tMixedIndex=[_referenceTypePopUpButton indexOfItemWithTag:PKGFilePathTypeMixed];
+	
+	if (tMixedIndex!=-1)
+		[_referenceTypePopUpButton removeItemAtIndex:tMixedIndex];
+	
 	if (tSelectedItem.type==PKGFileItemTypeFileSystemItem)
 	{
 		[self _refreshSelectionForFileSystemTreeNode:tSelectedNode atPath:[tSelectedNode referencedPathUsingConverter:self.filePathConverter]];
@@ -533,7 +555,7 @@
 	
 	// Reference Type
 	
-	_cachedFilePathType=NSNotFound;
+	_filePathType=NSNotFound;
 	__block BOOL tCanSwitchPathType=YES;
 	
 	[self.selectedItems enumerateObjectsUsingBlock:^(PKGPayloadTreeNode * bTreeNode, NSUInteger bIndex,BOOL * bOutStop){
@@ -553,15 +575,15 @@
 				
 			case PKGFileItemTypeFileSystemItem:
 				
-				if (_cachedFilePathType==NSNotFound)
+				if (_filePathType==NSNotFound)
 				{
-					_cachedFilePathType=tSelectedItem.filePath.type;
+					_filePathType=tSelectedItem.filePath.type;
 				}
 				else
 				{
-					if (tSelectedItem.filePath.type!=_cachedFilePathType)
+					if (tSelectedItem.filePath.type!=_filePathType)
 					{
-						_cachedFilePathType=PKGFilePathTypeMixed;
+						_filePathType=PKGFilePathTypeMixed;
 						*bOutStop=YES;
 					}
 				}
@@ -584,27 +606,36 @@
 		_referenceTypeTextField.hidden=YES;
 		_referenceTypePopUpButton.hidden=NO;
 		
-		if (_cachedFilePathType==PKGFilePathTypeMixed)
+		NSInteger tMixedIndex=[_referenceTypePopUpButton indexOfItemWithTag:PKGFilePathTypeMixed];
+		
+		if (_filePathType==PKGFilePathTypeMixed)
 		{
 			_referenceTypePopUpButton.enabled=YES;
 			
-			[_referenceTypePopUpButton insertItemWithTitle:NSLocalizedString(@"Mixed",@"No comment")
-												   atIndex:0];
+			if (tMixedIndex==-1)
+			{
+				NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+																						action:nil
+																				 keyEquivalent:@""];
 			
-			NSMenuItem * tMenuItem=[_referenceTypePopUpButton itemAtIndex:0];
+				tMenuItem.image=[NSImage imageNamed:@"MixedMenuItemUbuntu"];
+				tMenuItem.target=nil;
+				tMenuItem.enabled=NO;
+				tMenuItem.tag=PKGFilePathTypeMixed;
+				
+				[_referenceTypePopUpButton.menu insertItem:tMenuItem atIndex:0];
+			}
 			
-			tMenuItem.image=[NSImage imageNamed:@"MixedMenuItemUbuntu"];
-			tMenuItem.target=nil;
-			tMenuItem.enabled=NO;
-			tMenuItem.tag=PKGFilePathTypeMixed;
-			
-			[_referenceTypePopUpButton selectItemAtIndex:0];
+			[_referenceTypePopUpButton selectItemWithTag:PKGFilePathTypeMixed];
 			
 			[_referenceTypePopUpButton setNeedsDisplay:YES];
 		}
 		else
 		{
-			[_referenceTypePopUpButton selectItemWithTag:_cachedFilePathType];
+			if (tMixedIndex!=-1)
+				[_referenceTypePopUpButton removeItemAtIndex:tMixedIndex];
+			
+			[_referenceTypePopUpButton selectItemWithTag:_filePathType];
 		}
 	}
 	
@@ -624,11 +655,43 @@
 
 #pragma mark -
 
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(showInFinder:))
+	{
+		for(PKGPayloadTreeNode * tTreeNode in self.selectedItems)
+		{
+			if ([tTreeNode isFileSystemItemNode]==NO)
+				return NO;
+			
+			if ([tTreeNode isReferencedItemMissing]==YES)
+				return NO;
+		}
+		
+		return YES;
+	}
+	
+	if (tAction==@selector(switchFilePathType:))
+		return (inMenuItem.tag!=PKGFilePathTypeMixed);
+	
+	if (tAction==@selector(chooseFileSystemItemSource:))
+	{
+		if (self.selectedItems.count!=1)
+			return NO;
+		
+		return [[self.selectedItems lastObject] isFileSystemItemNode];
+	}
+	
+	return YES;
+}
+
 - (IBAction)switchFilePathType:(NSPopUpButton *)sender
 {
 	PKGFilePathType tType=[sender selectedItem].tag;
 	
-	if (tType!=_cachedFilePathType)
+	if (tType!=_filePathType)
 	{
 		for(PKGPayloadTreeNode * tTreeNode in self.selectedItems)
 		{
@@ -658,25 +721,6 @@
 	
 	for(PKGPayloadTreeNode * tTreeNode in self.selectedItems)
 		[tWorkSpace selectFile:[tTreeNode referencedPathUsingConverter:self.filePathConverter] inFileViewerRootedAtPath:@""];
-}
-
-- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
-{
-	SEL tAction=inMenuItem.action;
-	
-	if (tAction==@selector(showInFinder:) ||
-		tAction==@selector(switchFilePathType:))
-		return YES;
-	
-	if (tAction==@selector(chooseFileSystemItemSource:))
-	{
-		if (self.selectedItems.count!=1)
-			return NO;
-		
-		return [[self.selectedItems lastObject] isFileSystemItemNode];
-	}
-	
-	return YES;
 }
 
 - (IBAction)chooseFileSystemItemSource:(id)sender;
