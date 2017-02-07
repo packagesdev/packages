@@ -5,9 +5,9 @@
 
 #import "PKGPayloadBundleItem.h"
 
-#import "PKGFilesSelectionInspectorAttributesViewController.h"
-#import "PKGFilesSelectionInspectorRulesViewController.h"
-#import "PKGFilesSelectionInspectorScriptsViewController.h"
+#import "PKGPayloadFilesSelectionInspectorAttributesViewController.h"
+#import "PKGPayloadFilesSelectionInspectorRulesViewController.h"
+#import "PKGPayloadFilesSelectionInspectorScriptsViewController.h"
 
 @interface PKGPayloadFilesSelectionInspectorViewController ()
 {
@@ -15,9 +15,9 @@
 	
 	NSTabViewItem * _scriptsTabViewItem;
 	
-	PKGFilesSelectionInspectorRulesViewController * _rulesViewController;
+	PKGPayloadFilesSelectionInspectorRulesViewController * _rulesViewController;
 	
-	PKGFilesSelectionInspectorScriptsViewController * _scriptsViewController;
+	PKGPayloadFilesSelectionInspectorRulesViewController * _scriptsViewController;
 }
 
 @end
@@ -43,7 +43,7 @@
 	
 	NSView * tView=_rulesTabViewItem.view;
 	
-	PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController=[PKGFilesSelectionInspectorRulesViewController new];
+	PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController=[PKGPayloadFilesSelectionInspectorRulesViewController new];
 	
 	if (tTabViewItemViewController==nil)
 	{
@@ -75,7 +75,7 @@
 	
 	tView=_rulesTabViewItem.view;
 	
-	tTabViewItemViewController=[PKGFilesSelectionInspectorScriptsViewController new];
+	tTabViewItemViewController=[PKGPayloadFilesSelectionInspectorScriptsViewController new];
 	
 	if (tTabViewItemViewController==nil)
 	{
@@ -97,7 +97,7 @@
 
 - (PKGFilesSelectionInspectorTabViewItemViewController *)attributesViewController
 {
-	return [[PKGFilesSelectionInspectorAttributesViewController alloc] init];
+	return [[PKGPayloadFilesSelectionInspectorAttributesViewController alloc] init];
 }
 
 #pragma mark -

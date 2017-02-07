@@ -1,0 +1,6 @@
+
+#import "PKGFilesSelectionInspectorTabViewItemViewController.h"
+
+@interface PKGPayloadFilesSelectionInspectorRulesViewController : PKGFilesSelectionInspectorTabViewItemViewController
+
+@end

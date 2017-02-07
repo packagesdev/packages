@@ -31,7 +31,6 @@
 #import "PKGFileNameFormatter.h"
 
 
-
 @interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
 	@property NSArray * sibblings;

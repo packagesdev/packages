@@ -18,6 +18,8 @@
 
 #import "PKGArchitectureUtilities.h"
 
+#import "PKGFilesSelectionInspectorAttributesViewController.h"
+
 @interface PKGFilesSelectionInspectorViewController ()
 {
 	IBOutlet NSImageView * _iconView;
@@ -196,7 +198,7 @@
 
 - (PKGFilesSelectionInspectorTabViewItemViewController *)attributesViewController
 {
-	return nil;
+	return [PKGFilesSelectionInspectorAttributesViewController new];
 }
 
 #pragma mark -
