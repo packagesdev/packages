@@ -3,6 +3,9 @@
 
 #import "PKGStackView.h"
 
+#import "PKGPayloadTreeNode.h"
+#import "PKGPayloadBundleItem.h"
+
 @interface PKGPayloadFilesSelectionInspectorScriptsViewController ()
 
 @end
@@ -16,6 +19,11 @@
 
 - (void)refreshSingleSelection
 {
+	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
+	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
+	
+	if ([tBundleItem isKindOfClass:[PKGPayloadBundleItem class]]==NO)
+		return;
 }
 
 

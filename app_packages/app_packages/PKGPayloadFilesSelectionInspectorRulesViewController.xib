@@ -29,13 +29,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" floatsGroupRows="NO" id="b4k-AC-nXC">
-                                <rect key="frame" x="0.0" y="0.0" width="287" height="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="287" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="1"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="State" editable="NO" width="20" minWidth="20" maxWidth="1000" id="9ke-VJ-c16">
+                                    <tableColumn identifier="locator.state" editable="NO" width="20" minWidth="20" maxWidth="1000" id="9ke-VJ-c16">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -63,7 +63,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="Name" width="261" minWidth="40" maxWidth="1000" id="61Q-Ks-fis">
+                                    <tableColumn identifier="locator.name" width="261" minWidth="40" maxWidth="1000" id="61Q-Ks-fis">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -151,6 +151,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="switchAllowDowngrade:" target="-2" id="BdJ-Hy-CpF"/>
+                    </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="tca-PT-I0c">
                     <rect key="frame" x="18" y="186" width="54" height="14"/>
