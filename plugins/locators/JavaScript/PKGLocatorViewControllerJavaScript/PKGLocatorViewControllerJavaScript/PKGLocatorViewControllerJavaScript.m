@@ -22,6 +22,8 @@
 	
 	// Data
 	
+	NSMutableDictionary * _settings;
+	
 	NSMutableArray * _cachedParameters;
 	
 	NSArray * _cachedFunctionPrototypes;
@@ -43,52 +45,60 @@
 
 @implementation PKGLocatorViewControllerJavaScript
 
-- (void)awakeFromNib
+- (void)WB_viewDidLoad
 {
+	[super WB_viewDidLoad];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(functionsListDidChange:)
 											     name:ICJavaScriptFunctionsListDidChangeNotification
 											   object:_textViewDelegate];
 }
 
-- (NSString *)nibName
+- (void)setSettings:(NSDictionary *)inSettings
 {
-	return @"MainView";
+	_settings=[inSettings mutableCopy];
+	
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	_settings[PKGLocatorJavaScriptSourceCodeKey]=[_textView.string copy];
+	
+	return [_settings copy];
 }
 
 #pragma mark -
 
-- (void)updateUI
+- (void)refreshUI
 {
 	// Shared Source Code
 		
-	NSString * tString=[self.settings[PKGLocatorJavaScriptSourceCodeKey] copy];
+	NSString * tString=[_settings[PKGLocatorJavaScriptSourceCodeKey] copy];
 	
 	if (tString!=nil)
 	{
-		[_textView setString:tString];
+		_textView.string=tString;
 		
 		[_textViewDelegate textDidChange:nil];
 	}
 	
 	// Function
 	
-	tString=self.settings[PKGLocatorJavaScriptFunctionKey];
+	tString=_settings[PKGLocatorJavaScriptFunctionKey];
 	
-	if (tString!=nil)
-		[_functionsComboBox setStringValue:tString];
-	else
-		[_functionsComboBox setStringValue:@""];
+	_functionsComboBox.stringValue=(tString!=nil) ? tString : @"";
 	
 	// Parameters
 	
-	_cachedParameters=self.settings[PKGLocatorJavaScriptParametersKey];
+	_cachedParameters=_settings[PKGLocatorJavaScriptParametersKey];
 	
 	if (_cachedParameters==nil)
 	{
 		_cachedParameters=[NSMutableArray array];
 		
-		self.settings[PKGLocatorJavaScriptParametersKey]=[NSMutableArray array];
+		_settings[PKGLocatorJavaScriptParametersKey]=[NSMutableArray array];
 	}
 	
 	[_addButton setEnabled:YES];
@@ -102,14 +112,7 @@
 
 #pragma mark -
 
-- (NSMutableDictionary *)settings
-{
-	self.settings[PKGLocatorJavaScriptSourceCodeKey]=[[_textView string] copy];
-	
-	return [super settings];
-}
-
-- (BOOL)windowCanBeResized
+- (BOOL)isResizableWindow
 {
 	return YES;
 }
@@ -133,7 +136,7 @@
 
 - (CGFloat) minHeight
 {
-	return 340.0f;
+	return 340.0;
 }
 
 #pragma mark - NSComboBoxDataSource
@@ -141,14 +144,14 @@
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *) inComboBox
 {
 	if (_cachedFunctionPrototypes!=nil)
-		return [_cachedFunctionPrototypes count];
+		return _cachedFunctionPrototypes.count;
 	
 	return 0;
 }
 
 - (id)comboBox:(NSComboBox *) inComboBox objectValueForItemAtIndex:(NSInteger) inIndex
 {
-	if (_cachedFunctionPrototypes!=nil && inIndex<[_cachedFunctionPrototypes count])
+	if (_cachedFunctionPrototypes!=nil && inIndex<_cachedFunctionPrototypes.count)
 		return _cachedFunctionPrototypes[inIndex];
 	
 	return nil;
@@ -168,14 +171,9 @@
 {
     if (_tableView==inTableView)
 	{
-		NSUInteger tParametersCount=0;
-		NSUInteger tPrototypeParametersCount=0;
+		NSUInteger tParametersCount=_cachedParameters.count;
 		
-		if (_cachedParameters!=nil)
-			tParametersCount=[_cachedParameters count];
-		
-		if (_cachedFunctionPrototypeParameters!=nil)
-			tPrototypeParametersCount=[_cachedFunctionPrototypeParameters count];
+		NSUInteger tPrototypeParametersCount=_cachedFunctionPrototypeParameters.count;
 		
 		if (tPrototypeParametersCount>tParametersCount)
 			return tPrototypeParametersCount;
@@ -192,19 +190,19 @@
 	{
 		if (_cachedParameters!=nil)
 		{
-			NSString * tColumnIdentifier=[inTableColumn identifier];
+			NSString * tColumnIdentifier=inTableColumn.identifier;
 			
 			if ([tColumnIdentifier isEqualToString:@"Value"]==YES)
 			{
-				if (inRowIndex<[_cachedParameters count])
+				if (inRowIndex<_cachedParameters.count)
 				{
-					NSMutableString * tMutableString=[_cachedParameters [inRowIndex] mutableCopy];
+					NSMutableString * tMutableString=[_cachedParameters[inRowIndex] mutableCopy];
 					
 					if (tMutableString!=nil)
 					{
 						CFStringTrimWhitespace((CFMutableStringRef) tMutableString);
 					
-						if ([tMutableString length]>0)
+						if (tMutableString.length>0)
 							return tMutableString;
 					}
 				}
@@ -219,13 +217,13 @@
 {
 	if (_tableView==inTableView)
 	{
-		NSString * tColumnIdentifier=[inTableColumn identifier];
+		NSString * tColumnIdentifier=inTableColumn.identifier;
 	
 		if ([tColumnIdentifier isEqualToString:@"Value"]==YES)
 		{
 			if (_cachedParameters!=nil)
 			{
-				NSUInteger tCount=[_cachedParameters count];
+				NSUInteger tCount=_cachedParameters.count;
 				
 				if (inRowIndex>=tCount)
 				{
@@ -267,15 +265,15 @@
 {
 	[self controlTextDidChange:[NSNotification notificationWithName:NSTextDidChangeNotification object:_functionsComboBox]];
 	
-	NSString * tString=[_functionsComboBox stringValue];
+	NSString * tString=_functionsComboBox.stringValue;
 	
 	if (tString!=nil)
-		self.settings[PKGLocatorJavaScriptFunctionKey]=tString;
+		_settings[PKGLocatorJavaScriptFunctionKey]=tString;
 }
 
 - (IBAction)addParameter:(id) sender
 {
-	NSUInteger tRowIndex=[_cachedParameters count];
+	NSUInteger tRowIndex=_cachedParameters.count;
 
 	[_cachedParameters addObject:@""];
 	
@@ -308,7 +306,7 @@
 {
 	if ([inNotification object]==_functionsComboBox)
 	{
-		NSString * tFunctionName=[_functionsComboBox stringValue];
+		NSString * tFunctionName=_functionsComboBox.stringValue;
 		
 		_cachedFunctionPrototypeParameters=nil;
 		
@@ -327,7 +325,7 @@
 
 	_cachedFunctionPrototypes=[_textViewDelegate sortedFunctionsList];
 	
-	NSString * tFunctionName=[_functionsComboBox stringValue];
+	NSString * tFunctionName=_functionsComboBox.stringValue;
 	
 	[_functionsComboBox reloadData];
 	

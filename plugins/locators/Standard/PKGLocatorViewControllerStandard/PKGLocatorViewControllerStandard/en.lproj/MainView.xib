@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">101000</int>
-		<string key="IBDocument.SystemVersion">14F1713</string>
-		<string key="IBDocument.InterfaceBuilderVersion">7525</string>
+		<int key="IBDocument.SystemTarget">1080</int>
+		<string key="IBDocument.SystemVersion">14F2109</string>
+		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">7525</string>
+			<string key="NS.object.0">7706</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -41,6 +41,7 @@
 						<string key="NSFrame">{{17, 139}, {358, 17}}</string>
 						<reference key="NSSuperview" ref="621028610"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="5788969"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="994251379">
 							<int key="NSCellFlags">67108864</int>
@@ -80,6 +81,7 @@
 						<string key="NSFrame">{{146, 98}, {420, 22}}</string>
 						<reference key="NSSuperview" ref="621028610"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="597556138"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="871501379">
 							<int key="NSCellFlags">-1804599231</int>
@@ -113,6 +115,7 @@
 						<string key="NSFrame">{{29, 100}, {112, 17}}</string>
 						<reference key="NSSuperview" ref="621028610"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="164277433"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="635994383">
 							<int key="NSCellFlags">67108864</int>
@@ -132,6 +135,7 @@
 						<string key="NSFrame">{{146, 56}, {420, 22}}</string>
 						<reference key="NSSuperview" ref="621028610"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="969478901"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="490208590">
 							<int key="NSCellFlags">-1804599231</int>
@@ -152,6 +156,7 @@
 						<string key="NSFrame">{{55, 58}, {86, 17}}</string>
 						<reference key="NSSuperview" ref="621028610"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="62572963"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="112354274">
 							<int key="NSCellFlags">67108864</int>
@@ -168,9 +173,10 @@
 					<object class="NSTextField" id="969478901">
 						<reference key="NSNextResponder" ref="621028610"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{147, 42}, {42, 11}}</string>
+						<string key="NSFrame">{{147, 41}, {42, 12}}</string>
 						<reference key="NSSuperview" ref="621028610"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="259191030"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="437652277">
 							<int key="NSCellFlags">67108864</int>
@@ -200,6 +206,7 @@
 						<string key="NSFrame">{{144, 18}, {272, 18}}</string>
 						<reference key="NSSuperview" ref="621028610"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="710665644">
 							<int key="NSCellFlags">67108864</int>
@@ -227,6 +234,7 @@
 				<string key="NSFrameSize">{586, 176}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="44434405"/>
 				<string key="NSClassName">NSView</string>
 				<string key="NSExtension">NSResponder</string>
 			</object>
@@ -481,7 +489,7 @@
 					<string key="superclassName">PKGViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../PKGLocatorViewController.h</string>
+						<string key="minorKey">../../PKGLocatorViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -489,7 +497,7 @@
 					<string key="superclassName">PKGLocatorViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.h</string>
+						<string key="minorKey">../PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -534,7 +542,7 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.m</string>
+						<string key="minorKey">../PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.m</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -542,7 +550,7 @@
 					<string key="superclassName">NSViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../shared/PKGViewController.h</string>
+						<string key="minorKey">../../../../shared/PKGViewController.h</string>
 					</object>
 				</object>
 			</array>
@@ -667,10 +675,6 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="101000" key="NS.object.0"/>
-		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
 			<integer value="4600" key="NS.object.0"/>

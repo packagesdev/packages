@@ -11,61 +11,71 @@
 	IBOutlet NSTextField * _defaultPathTextField;
 	
 	IBOutlet NSButton * _defaultPathCheckBox;
+	
+	NSMutableDictionary * _settings;
 }
 
-- (IBAction)setBundleIdentifier:(id) sender;
+- (IBAction)setBundleIdentifier:(id)sender;
 
-- (IBAction)setDefaultPath:(id) sender;
+- (IBAction)setDefaultPath:(id)sender;
 
-- (IBAction)switchUseDefaultPath:(id) sender;
+- (IBAction)switchUseDefaultPath:(id)sender;
 
 @end
 
 @implementation PKGLocatorViewControllerStandard
 
-- (void)awakeFromNib
+- (void)WB_viewDidLoad
 {
+	[super WB_viewDidLoad];
+	
 	PKGBundleIdentifierFormatter * tFormatter=[PKGBundleIdentifierFormatter new];
 	
 	[_bundleIdentifierTextField setFormatter:tFormatter];
 }
 
-- (NSString *)nibName
+- (void)setSettings:(NSDictionary *)inSettings
 {
-	return @"MainView";
+	_settings=[inSettings mutableCopy];
+	
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	return [_settings copy];
 }
 
 #pragma mark -
 
-- (void)updateUI
+- (void)refreshUI
 {
-	NSString * tString=self.settings[PKGLocatorStandardBundleIdentifierKey];
+	NSString * tString=_settings[PKGLocatorStandardBundleIdentifierKey];
 	
-	[_bundleIdentifierTextField setStringValue:(tString!=nil) ? tString : @""];
+	_bundleIdentifierTextField.stringValue=(tString!=nil) ? tString : @"";
 
 	
-	[_defaultPathCheckBox setEnabled:NO];
+	_defaultPathCheckBox.enabled=NO;
+	_defaultPathCheckBox.state=NSOffState;
 	
-	[_defaultPathCheckBox setState:NSOffState];
-	
-	tString=self.settings[PKGLocatorStandardDefaultPathKey];
+	tString=_settings[PKGLocatorStandardDefaultPathKey];
 	
 	if (tString!=nil)
 	{
-		[_defaultPathTextField setStringValue:tString];
+		_defaultPathTextField.stringValue=tString;
 		
-		if ([tString length]>0)
+		if (tString.length>0)
 		{
-			NSNumber * tNumber=self.settings[PKGLocatorStandardPreferDefaultPathKey];
+			NSNumber * tNumber=_settings[PKGLocatorStandardPreferDefaultPathKey];
 			
-			[_defaultPathCheckBox setEnabled:YES];
+			_defaultPathCheckBox.enabled=YES;
 			
-			[_defaultPathCheckBox setState:([tNumber boolValue]==YES) ? NSOnState : NSOffState];
+			_defaultPathCheckBox.state=(tNumber.boolValue==YES) ? NSOnState : NSOffState;
 		}
 	}
 	else
 	{
-		[_defaultPathTextField setStringValue:@""];
+		_defaultPathTextField.stringValue=@"";
 	}
 }
 
@@ -91,6 +101,8 @@
 	return [tMutableDictionary copy];
 }
 
+
+
 - (NSView *)previousKeyView
 {
 	return _bundleIdentifierTextField;
@@ -103,25 +115,25 @@
 
 #pragma mark -
 
-- (IBAction)setBundleIdentifier:(id) sender
+- (IBAction)setBundleIdentifier:(NSTextField *) sender
 {
-	NSString * tStringValue=[_bundleIdentifierTextField stringValue];
+	NSString * tStringValue=sender.stringValue;
 	
 	if (tStringValue!=nil)
-		self.settings[PKGLocatorStandardBundleIdentifierKey]=tStringValue;
+		_settings[PKGLocatorStandardBundleIdentifierKey]=tStringValue;
 }
 
-- (IBAction)setDefaultPath:(id) sender
+- (IBAction)setDefaultPath:(NSTextField *) sender
 {
-	NSString * tStringValue=[_defaultPathTextField stringValue];
+	NSString * tStringValue=sender.stringValue;
 	
 	if (tStringValue!=nil)
-		self.settings[PKGLocatorStandardDefaultPathKey]=tStringValue;
+		_settings[PKGLocatorStandardDefaultPathKey]=tStringValue;
 }
 
 - (IBAction)switchUseDefaultPath:(id) sender
 {
-	self.settings[PKGLocatorStandardPreferDefaultPathKey]=@([_defaultPathCheckBox state]==NSOnState);
+	_settings[PKGLocatorStandardPreferDefaultPathKey]=@(_defaultPathCheckBox.state==NSOnState);
 }
 
 #pragma mark -
@@ -134,17 +146,17 @@
 
 - (void)controlTextDidChange:(NSNotification *) inNotification
 {
-	if ([inNotification object]==_defaultPathTextField)
+	if (inNotification.object==_defaultPathTextField)
 	{
-		BOOL tValue=([[_defaultPathTextField stringValue] length]>0);
+		BOOL tValue=(_defaultPathTextField.stringValue.length>0);
 		
-		[_defaultPathCheckBox setEnabled:tValue];
+		_defaultPathCheckBox.enabled=tValue;
 		
 		if (tValue==NO)
 		{
-			[_defaultPathCheckBox setState:NSOffState];
+			_defaultPathCheckBox.state=NSOffState;
 			
-			self.settings[PKGLocatorStandardPreferDefaultPathKey]=@(NO);
+			_settings[PKGLocatorStandardPreferDefaultPathKey]=@(NO);
 		}
 	}
 }
