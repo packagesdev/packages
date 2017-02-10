@@ -207,7 +207,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 - (NSString *)localizedPluginNameForIdentifier:(NSString *) inIdentifier
 {
 	if (inIdentifier!=nil)
-		return [self dictionary][inIdentifier][PKGPluginNameKey];
+		return ((PKGPlugin *)[self dictionary][inIdentifier]).displayName;
 	
 	return nil;
 }
