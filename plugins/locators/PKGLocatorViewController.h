@@ -15,22 +15,25 @@
 
 #import "PKGLocator+Constants.h"
 
+#import "NSViewController+WBExtensions.h"
+
 @interface PKGLocatorViewController : PKGViewController
 
-@property (nonatomic) NSMutableDictionary * settings;
+	@property (nonatomic) NSDictionary * settings;
 
-- (NSDictionary *)defaultSettingsWithCommonValues:(NSDictionary *) inDictionary;
+	@property (nonatomic,readonly,getter=isResizableWindow) BOOL resizableWindow;
 
-- (void)updateUI;
+	@property (nonatomic,readonly) CGFloat minHeight;
 
-- (NSView *)previousKeyView;
+	@property (nonatomic,readonly) NSView * previousKeyView;
+
+
+- (NSDictionary *)defaultSettingsWithCommonValues:(NSDictionary *)inDictionary;
+
+- (void)refreshUI;
 
 - (void)setNextKeyView:(NSView *)inView;
 
-- (void)optionKeyStateDidChange:(BOOL) isOptionKeyPressed;
-
-- (BOOL)windowCanBeResized;
-
-- (CGFloat)minHeight;
+- (void)optionKeyStateDidChange:(BOOL)isOptionKeyPressed;
 
 @end

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,32 +15,66 @@
 
 @implementation PKGLocatorViewController
 
-- (NSMutableDictionary *) defaultDictionaryWithCommonValues:(NSDictionary *) inDictionary
+- (NSString *) nibName
 {
-	return [NSMutableDictionary dictionary];
+	return @"MainView";
 }
 
-- (NSView *) previousKeyView
+- (NSBundle *)nibBundle
+{
+	return [NSBundle bundleForClass:[self class]];
+}
+
+#pragma mark -
+
+- (NSDictionary *)defaultSettingsWithCommonValues:(NSDictionary *)inDictionary
+{
+	return [NSDictionary dictionary];
+}
+
+- (void)setSettings:(NSDictionary *)inSettings
+{
+}
+
+- (NSDictionary *)settings
+{
+	return [NSDictionary dictionary];
+}
+
+- (NSView *)previousKeyView
 {
 	return nil;
 }
 
-- (void) setNextKeyView:(NSView *) inView
+- (void)refreshUI
 {
 }
 
-- (void) optionKeyStateDidChange:(BOOL) isOptionKeyPressed
-{
-}
-
-- (BOOL) windowCanBeResized
+- (BOOL)isResizableWindow
 {
 	return NO;
 }
 
-- (CGFloat) minHeight
+- (CGFloat)minHeight
 {
-	return 100.0f;
+	return 100.0;
+}
+
+- (void)setNextKeyView:(NSView *)inView
+{
+}
+
+- (void)optionKeyStateDidChange:(BOOL)isOptionKeyPressed
+{
+}
+
+#pragma mark -
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	[self refreshUI];
 }
 
 @end
