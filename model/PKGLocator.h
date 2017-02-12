@@ -15,7 +15,7 @@
 
 #import "PKGObjectProtocol.h"
 
-@interface PKGLocator : NSObject <PKGObjectProtocol>
+@interface PKGLocator : NSObject <PKGObjectProtocol,NSCopying>
 
 	@property (getter=isEnabled) BOOL enabled;
 

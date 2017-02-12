@@ -35,7 +35,7 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 		
 		_name=@"";
 		
-		_identifier=@""; // A COMPLETER
+		_identifier=@"";
 		
 		_settingsRepresentation=nil;
 	}
@@ -89,6 +89,25 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 	
 	return self;
 }
+
+#pragma mark -
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGLocator * nLocator=[[[self class] allocWithZone:inZone] init];
+	
+	if (nLocator!=nil)
+	{
+		nLocator.enabled=self.enabled;
+		nLocator.name=[self.name copy];
+		nLocator.identifier=[self.identifier copy];
+		nLocator.settingsRepresentation=[self.settingsRepresentation copy];	// A AMELIORER
+	}
+	
+	return nLocator;
+}
+
+#pragma mark -
 
 - (NSMutableDictionary *) representation
 {
