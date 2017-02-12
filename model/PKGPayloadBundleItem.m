@@ -64,6 +64,11 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	
 	self=[super initWithFileItem:inFileItem];
 	
+	if (self!=nil)
+	{
+		_locators=[NSMutableArray array];
+	}
+	
 	return self;
 }
 
