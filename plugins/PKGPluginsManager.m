@@ -204,7 +204,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 	}];
 }
 
-- (NSString *)localizedPluginNameForIdentifier:(NSString *) inIdentifier
+- (NSString *)localizedPluginNameForIdentifier:(NSString *)inIdentifier
 {
 	if (inIdentifier!=nil)
 		return ((PKGPlugin *)[self dictionary][inIdentifier]).displayName;
@@ -212,7 +212,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 	return nil;
 }
 
-- (NSString *)identifierForLocalizedPluginName:(NSString *) inLocalizedName
+- (NSString *)identifierForLocalizedPluginName:(NSString *)inLocalizedName
 {
 	if (inLocalizedName!=nil)
 		return [self reverseDictionary][inLocalizedName];
@@ -230,12 +230,12 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 
 #pragma mark -
 
-- (PKGConverter *)createConverterForIdentifier:(NSString *) inIdentifier
+- (PKGConverter *)createConverterForIdentifier:(NSString *)inIdentifier
 {
 	return [self createConverterForIdentifier:inIdentifier project:nil];
 }
 
-- (PKGConverter *)createConverterForIdentifier:(NSString *) inIdentifier project:(PKGDistributionProject *) inProject
+- (PKGConverter *)createConverterForIdentifier:(NSString *)inIdentifier project:(PKGDistributionProject *)inProject
 {
 	PKGPlugin * tPlugin=[self pluginForIdentifier:inIdentifier];
 	
