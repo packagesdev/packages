@@ -64,7 +64,7 @@
 {
 }
 
-- (void)optionKeyStateDidChange:(BOOL)isOptionKeyPressed
+- (void)optionKeyStateDidChange:(BOOL)inOptionKeyDown
 {
 }
 
