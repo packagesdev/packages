@@ -20,10 +20,13 @@
 
 - (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
 }
 
 - (void)WB_viewDidAppear
 {
+	[super WB_viewDidAppear];
+	
 	[self refreshUI];
 	
 	// Register for notifications (rename folder)
@@ -33,10 +36,12 @@
 
 - (void)WB_viewWillDisappear
 {
+	[super WB_viewWillDisappear];
 }
 
 - (void)WB_viewDidDisappear
 {
+	[super WB_viewDidDisappear];
 }
 
 #pragma mark -
