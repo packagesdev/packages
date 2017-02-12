@@ -177,7 +177,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	PKGCertificateWindowController * tWindowController=[PKGCertificateWindowController new];
 	
 	PKGCertificatePanel * tPanel=(PKGCertificatePanel *)tWindowController.window;
-	
 	tPanel->retainedWindowController=tWindowController;
 	
 	return tPanel;

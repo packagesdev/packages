@@ -75,6 +75,10 @@
 	
 	_defaultButton.title=tTitle;
 	
+	// Update button frame
+	
+	// A COMPLETER
+	
 	[self _updateLayout];
 }
 
@@ -138,6 +142,10 @@
 	_prompt=[inPrompt copy];
 	
 	_defaultButton.title=((inPrompt==nil) ? @"" : inPrompt);
+	
+	// Update button frame
+	
+	// A COMPLETER
 }
 
 #pragma mark -
@@ -183,7 +191,6 @@
 	PKGOwnershipAndReferenceStyleWindowController * tWindowController=[PKGOwnershipAndReferenceStyleWindowController new];
 	
 	PKGOwnershipAndReferenceStylePanel * tPanel=(PKGOwnershipAndReferenceStylePanel *)tWindowController.window;
-	
 	tPanel->retainedWindowController=tWindowController;
 	
 	return tPanel;
