@@ -81,7 +81,6 @@
 	
 	_preInstallationScriptViewController=[PKGScriptViewController new];
 	_preInstallationScriptViewController.label=NSLocalizedString(@"Pre-installation", @"");
-	_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
 	
 	[_installationScriptView addView:_preInstallationScriptViewController.view];
 	
@@ -89,7 +88,6 @@
 	
 	_postInstallationScriptViewController=[PKGScriptViewController new];
 	_postInstallationScriptViewController.label=NSLocalizedString(@"Post-installation", @"");
-	_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
 	
 	[_installationScriptView addView:_postInstallationScriptViewController.view];
 	
@@ -128,6 +126,9 @@
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
+	
+	_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
+	_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
 	
 	[_preInstallationScriptViewController WB_viewWillAppear];
 	[_postInstallationScriptViewController WB_viewWillAppear];
