@@ -21,8 +21,6 @@
 
 + (PKGPayloadTreeNode *)newFolderNodeWithParentNode:(PKGPayloadTreeNode *)inParentNode siblings:(NSArray *)inSiblings;
 
-+ (NSString *)uniqueFileNameAmongSiblings:(NSArray *)inSiblings;
-
 + (BOOL)validateFolderName:(NSString *)inFolderName;
 
 - (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode;

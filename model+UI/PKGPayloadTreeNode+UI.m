@@ -18,6 +18,8 @@
 
 #import "PKGUsersAndGroupsMonitor.h"
 
+#import "NSArray+UniqueName.h"
+
 @implementation PKGPayloadTreeNode (UI)
 
 + (PKGPayloadTreeNode *)newFolderNodeWithParentNode:(PKGPayloadTreeNode *)inParentNode siblings:(NSArray *)inSiblings
@@ -39,7 +41,14 @@
 		tGid=tParentFileItem.gid;
 	}
 	
-	PKGFileItem * nFileItem=[PKGFileItem newFolderWithName:[PKGPayloadTreeNode uniqueFileNameAmongSiblings:inSiblings] uid:tUid gid:tGid permissions:0775];
+	NSString * tFolderName=[inSiblings uniqueNameWithBaseName:NSLocalizedString(@"untitled folder",@"No comment") options:NSCaseInsensitiveSearch usingNameExtractor:^NSString *(PKGPayloadTreeNode * bPayloadTreeNode,NSUInteger bIndex){
+	
+		PKGFileItem * tFileItem=bPayloadTreeNode.representedObject;
+		
+		return tFileItem.fileName;
+	}];
+	
+	PKGFileItem * nFileItem=[PKGFileItem newFolderWithName:tFolderName uid:tUid gid:tGid permissions:0775];
 	
 	if (nFileItem==nil)
 		return nil;
@@ -48,40 +57,6 @@
 }
 
 #pragma mark -
-
-+ (NSString *)uniqueFileNameAmongSiblings:(NSArray *)inSiblingsNodes
-{
-	NSString * tBaseName=NSLocalizedString(@"untitled folder",@"No comment");
-	
-	NSString * tFileName=tBaseName;
-	NSUInteger tIndex=1;
-	
-	do
-	{
-		BOOL tFound=NO;
-		
-		for(PKGPayloadTreeNode * tPayloadTreeNiode in inSiblingsNodes)
-		{
-			PKGFileItem * tFileItem=tPayloadTreeNiode.representedObject;
-			
-			if ([tFileItem.fileName caseInsensitiveCompare:tFileName]==NSOrderedSame)
-			{
-				tFound=YES;
-				break;
-			}
-		}
-		
-		if (tFound==NO)
-			return tFileName;
-		
-		tFileName=[NSString stringWithFormat:@"%@ %lu",tBaseName,(unsigned long)tIndex];
-		
-		tIndex++;
-	}
-	while (tIndex<65535);
-	
-	return nil;
-}
 
 + (BOOL)validateFolderName:(NSString *)inFolderName
 {
