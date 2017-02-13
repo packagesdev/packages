@@ -13,11 +13,102 @@
 
 #import "PKGDistributionProjectMainViewController.h"
 
-@interface PKGDistributionProjectMainViewController ()
+#import "PKGDistributionProjectSourceListController.h"
+
+#import "PKGDistributionProjectSourceListDataSource.h"
+
+#import "PKGDistributionProject.h"
+
+@interface PKGDistributionProjectMainViewController () <NSSplitViewDelegate>
+{
+	IBOutlet NSSplitView * _splitView;
+	
+	
+	PKGDistributionProjectSourceListController * _sourceListController;
+	
+	PKGDistributionProjectSourceListDataSource * _dataSource;
+}
+
+// Notifications
+
+- (void)sourceListSelectionDidChange:(NSNotification *)inNotification;
 
 @end
 
 @implementation PKGDistributionProjectMainViewController
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+	self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	
+	_dataSource=[PKGDistributionProjectSourceListDataSource new];
+	
+	return self;
+}
+
+- (void)WB_viewDidLoad
+{
+	[super WB_viewDidLoad];
+	
+	// Source List
+	
+	_sourceListController=[PKGDistributionProjectSourceListController new];
+	_sourceListController.dataSource=_dataSource;
+	
+	NSView * tLeftView=_splitView.subviews[0];
+	
+	_sourceListController.view.frame=tLeftView.bounds;
+	
+	[tLeftView addSubview:_sourceListController.view];
+	
+	// A COMPLETER
+}
+
+#pragma mark -
+
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
+	
+	PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)self.project;
+	
+	_dataSource.packageComponents=tDistributionProject.packageComponents;
+	
+	[_sourceListController WB_viewWillAppear];
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	[self.view.window makeFirstResponder:_sourceListController.outlineView];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceListSelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_sourceListController.outlineView];
+	
+	[_sourceListController WB_viewDidAppear];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
+	
+	[_sourceListController WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[super WB_viewDidDisappear];
+	
+	[_sourceListController WB_viewDidDisappear];
+}
+
+#pragma mark -
+
+- (void)sourceListSelectionDidChange:(NSNotification *)inNotification
+{
+	// A COMPLETER
+}
 
 @end
