@@ -160,6 +160,8 @@
 
 - (void)WB_viewDidDisappear
 {
+	[super WB_viewDidDisappear];
+	
 	[_filesHierarchyViewController WB_viewDidDisappear];
 }
 
