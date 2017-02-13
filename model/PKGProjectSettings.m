@@ -255,7 +255,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 {
 	NSMutableArray * tMutableOptimizedFiltersArray=[self.filesFilters WB_filteredArrayUsingBlock:^BOOL(PKGFileFilter * bFilter, NSUInteger bIndex) {
 	
-		if ([bFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
+		if ([bFilter isKindOfClass:PKGSeparatorFilter.class]==YES)
 			return NO;
 		
 		if (bFilter.isEnabled==NO)

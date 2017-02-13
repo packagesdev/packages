@@ -17,10 +17,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSAttributedString *)attributedStringForObjectValue:(id)inObject withDefaultAttributes:(NSDictionary *)attrs
 {
-	if ([inObject isKindOfClass:[NSAttributedString class]]==YES)
+	if ([inObject isKindOfClass:NSAttributedString.class]==YES)
 		return inObject;
 	
-	if ([inObject isKindOfClass:[NSString class]]==YES)
+	if ([inObject isKindOfClass:NSString.class]==YES)
 		return [[NSAttributedString alloc] initWithString:inObject attributes:attrs];
 			
 	return nil;

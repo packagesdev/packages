@@ -294,7 +294,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:inRow];
 	
-	if ([tFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
+	if ([tFilter isKindOfClass:PKGSeparatorFilter.class]==YES)
 		return nil;
 	
 	if (tFilter==nil)
@@ -311,7 +311,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	if ([tTableColumnIdentifier isEqualToString:@"exclusion.value"]==YES)
 	{
-		if ([tFilter isKindOfClass:[PKGDefaultFileFilter class]]==YES)
+		if ([tFilter isKindOfClass:PKGDefaultFileFilter.class]==YES)
 		{
 			PKGDefaultFileFilter * tDefaultFileFilter=(PKGDefaultFileFilter *)tFilter;
 			
@@ -335,7 +335,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	{
 		PKGPopUpButtonTableCellView * tPopUpButtonView=(PKGPopUpButtonTableCellView *)tTableCellView;
 		
-		if ([tFilter isKindOfClass:[PKGDefaultFileFilter class]]==YES)
+		if ([tFilter isKindOfClass:PKGDefaultFileFilter.class]==YES)
 		{
 			tPopUpButtonView.hidden=YES;
 		}
@@ -364,7 +364,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	{
 		PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 		
-		if ([tFilter isKindOfClass:[PKGDefaultFileFilter class]]==YES)
+		if ([tFilter isKindOfClass:PKGDefaultFileFilter.class]==YES)
 		{
 			tCheckBoxView.hidden=YES;
 		}
@@ -387,7 +387,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:inRow];
 	
-	if ([tFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
+	if ([tFilter isKindOfClass:PKGSeparatorFilter.class]==YES)
 		return 8.0;
 	
 	return 15.0;
@@ -400,7 +400,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:inRow];
 	
-	if ([tFilter isKindOfClass:[PKGSeparatorFilter class]]==YES)
+	if ([tFilter isKindOfClass:PKGSeparatorFilter.class]==YES)
 	{
 		PKGSeparatorTableRowView * tSeparatorRowView=[inTableView makeViewWithIdentifier:PKGFileFiltersSeparatorTableRowViewIdentifier owner:self];
 		
@@ -421,7 +421,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 		tTableRowView.identifier=PKGFileFiltersTableRowViewIdentifier;
 	}
 	
-	if ([tFilter isKindOfClass:[PKGDefaultFileFilter class]]==YES)
+	if ([tFilter isKindOfClass:PKGDefaultFileFilter.class]==YES)
 	{
 		PKGDefaultFileFilter * tDefaultFileFilter=(PKGDefaultFileFilter *)tFilter;
 		
@@ -442,7 +442,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 		id tItem=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:bIndex];
 		
-		if ([tItem isMemberOfClass:[PKGFileFilter class]]==YES)
+		if ([tItem isMemberOfClass:PKGFileFilter.class]==YES)
 			[tMutableIndexSet addIndex:bIndex];
 	}];
 	

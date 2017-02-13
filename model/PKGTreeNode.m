@@ -526,7 +526,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if (inChildren==nil || inComparator==nil)
 		return;
 	
-	if ([inChildren isKindOfClass:[NSMutableArray class]]==NO)
+	if ([inChildren isKindOfClass:NSMutableArray.class]==NO)
 		return;
 	
 	if (inChildren.count==0)
@@ -562,7 +562,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if (inChildren==nil || inComparator==nil)
 		return;
 	
-	if ([inChildren isKindOfClass:[NSMutableArray class]]==NO)
+	if ([inChildren isKindOfClass:NSMutableArray.class]==NO)
 		return;
 	
 	NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:inComparator]];

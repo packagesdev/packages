@@ -334,7 +334,7 @@
 				NSBundle * tBundle=[NSBundle bundleWithPath:inPath];
 				NSString * tIdentifier=tBundle.infoDictionary[@"CFBundleIdentifier"];
 				
-				if ([tIdentifier isKindOfClass:[NSString class]]==YES && tIdentifier.length>0)
+				if ([tIdentifier isKindOfClass:NSString.class]==YES && tIdentifier.length>0)
 					tExecutableFilePath=tBundle.executablePath;
 			}
 			else

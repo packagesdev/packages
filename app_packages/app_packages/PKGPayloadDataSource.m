@@ -816,7 +816,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
 		
-		if (tArray==nil || [tArray isKindOfClass:[NSArray class]]==NO)
+		if (tArray==nil || [tArray isKindOfClass:NSArray.class]==NO)
 		{
 			// We were provided invalid data
 			
@@ -910,7 +910,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	{
 		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
 		
-		if (tArray==nil || [tArray isKindOfClass:[NSArray class]]==NO || tArray.count==0)
+		if (tArray==nil || [tArray isKindOfClass:NSArray.class]==NO || tArray.count==0)
 		{
 			// We were provided invalid data
 			
@@ -966,7 +966,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	{
 		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:PKGPayloadItemsPboardType];
 		
-		if (tArray==nil || [tArray isKindOfClass:[NSArray class]]==NO || tArray.count==0)
+		if (tArray==nil || [tArray isKindOfClass:NSArray.class]==NO || tArray.count==0)
 		{
 			// We were provided invalid data
 			

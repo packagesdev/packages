@@ -24,7 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *) stringForObjectValue:(id) inObject
 {
-	if (![inObject isKindOfClass:[NSString class]])
+	if (![inObject isKindOfClass:NSString.class])
 		return @"";
 	
 	return inObject;
@@ -32,7 +32,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *) editingStringForObjectValue:(id) inObject
 {
-	if (![inObject isKindOfClass:[NSString class]])
+	if (![inObject isKindOfClass:NSString.class])
 		return @"";
 	
 	return inObject;
@@ -44,7 +44,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 	if (inObject!=nil)
 	{
-		if (![inObject isKindOfClass:[NSString class]])
+		if (![inObject isKindOfClass:NSString.class])
 			return nil;
 		
 		if ([inObject length]>0)

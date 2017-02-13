@@ -97,7 +97,7 @@
 	if (tIsBundle==INDETERMINED_value)
 		return;
 	
-	if (tIsBundle==NO_value && [tRepresentedObject isMemberOfClass:[PKGPayloadBundleItem class]]==YES)
+	if (tIsBundle==NO_value && [tRepresentedObject isMemberOfClass:PKGPayloadBundleItem.class]==YES)
 	{
 		// We need to revert to a PKGFileItem
 		
@@ -111,7 +111,7 @@
 		
 		[inTreeNode setRepresentedObject:tConvertedFileItem];
 	}
-	else if (tIsBundle==YES_value && [tRepresentedObject isMemberOfClass:[PKGFileItem class]]==YES)
+	else if (tIsBundle==YES_value && [tRepresentedObject isMemberOfClass:PKGFileItem.class]==YES)
 	{
 		// We shall investigate whether this shall not become a PKGPayloadBundleItem
 		

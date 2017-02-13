@@ -141,7 +141,7 @@
 	PKGPayloadTreeNode * tSelectedNode=[self.selectedItems lastObject];
 	PKGFileItem * tSelectedItem=[tSelectedNode representedObject];
 	
-	if ([tSelectedItem isKindOfClass:[PKGPayloadBundleItem class]]==YES)
+	if ([tSelectedItem isKindOfClass:PKGPayloadBundleItem.class]==YES)
 	{
 		if ([tabView indexOfTabViewItem:_rulesTabViewItem]==NSNotFound)
 			[tabView insertTabViewItem:_rulesTabViewItem atIndex:1];

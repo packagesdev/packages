@@ -91,7 +91,7 @@
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 	
-	if ([tBundleItem isKindOfClass:[PKGPayloadBundleItem class]]==NO)
+	if ([tBundleItem isKindOfClass:PKGPayloadBundleItem.class]==NO)
 		return;
 	
 	_preInstallationScriptViewController.installationScriptPath=[tBundleItem preInstallationScriptPath_safe];

@@ -110,7 +110,7 @@
 		NSViewController * tViewController=nil;
 		NSResponder * tNextResponder=bView.nextResponder;
 		
-		if ([tNextResponder isKindOfClass:[NSViewController class]]==YES)
+		if ([tNextResponder isKindOfClass:NSViewController.class]==YES)
 		{
 			tViewController=(NSViewController *)tNextResponder;
 		
@@ -215,7 +215,7 @@
 		NSViewController * tViewController=nil;
 		NSResponder * tNextResponder=bView.nextResponder;
 		
-		if ([tNextResponder isKindOfClass:[NSViewController class]]==YES)
+		if ([tNextResponder isKindOfClass:NSViewController.class]==YES)
 		{
 			tViewController=(NSViewController *)tNextResponder;
 			

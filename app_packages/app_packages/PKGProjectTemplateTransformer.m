@@ -114,10 +114,10 @@ NSString * const PKGProjectTemplateTransformerYearKey=@"YEAR";
 	
 	// Preprocess
 	
-	if ([inPropertyList isKindOfClass:[NSMutableArray class]]==YES)
+	if ([inPropertyList isKindOfClass:NSMutableArray.class]==YES)
 		return [PKGProjectTemplateTransformer _preprocessArray:inPropertyList withKeywordsDictionary:tMutableKeywordsDictionary];
 	
-	if ([inPropertyList isKindOfClass:[NSMutableDictionary class]]==YES)
+	if ([inPropertyList isKindOfClass:NSMutableDictionary.class]==YES)
 		return [PKGProjectTemplateTransformer _preprocessDictionary:inPropertyList withKeywordsDictionary:tMutableKeywordsDictionary];
 	
 	return NO;
@@ -131,19 +131,19 @@ NSString * const PKGProjectTemplateTransformerYearKey=@"YEAR";
 	{
 		id tObject=inMutableArray[tIndex];
 		
-		if ([tObject isKindOfClass:[NSMutableArray class]]==YES)
+		if ([tObject isKindOfClass:NSMutableArray.class]==YES)
 		{
 			if ([PKGProjectTemplateTransformer _preprocessArray:tObject withKeywordsDictionary:inKeywordsDictionary]==NO)
 				return NO;
 		}
 		
-		if ([tObject isKindOfClass:[NSMutableDictionary class]]==YES)
+		if ([tObject isKindOfClass:NSMutableDictionary.class]==YES)
 		{
 			if ([PKGProjectTemplateTransformer _preprocessDictionary:tObject withKeywordsDictionary:inKeywordsDictionary]==NO)
 				return NO;
 		}
 		
-		if ([tObject isKindOfClass:[NSString class]]==YES)
+		if ([tObject isKindOfClass:NSString.class]==YES)
 		{
 			NSString * tPreprocessedString=[((NSString *)tObject) replaceAllTextBetweenString:@"%%"
 																					andString:@"%%"
@@ -165,19 +165,19 @@ NSString * const PKGProjectTemplateTransformerYearKey=@"YEAR";
 	{
 		id tObject=inMutableDictionary[tKey];
 		
-		if ([tObject isKindOfClass:[NSArray class]]==YES)
+		if ([tObject isKindOfClass:NSArray.class]==YES)
 		{
 			if ([PKGProjectTemplateTransformer _preprocessArray:tObject withKeywordsDictionary:inKeywordsDictionary]==NO)
 				return NO;
 		}
 		
-		if ([tObject isKindOfClass:[NSMutableDictionary class]]==YES)
+		if ([tObject isKindOfClass:NSMutableDictionary.class]==YES)
 		{
 			if ([PKGProjectTemplateTransformer _preprocessDictionary:tObject withKeywordsDictionary:inKeywordsDictionary]==NO)
 				return NO;
 		}
 		
-		if ([tObject isKindOfClass:[NSString class]]==YES)
+		if ([tObject isKindOfClass:NSString.class]==YES)
 		{
 			NSString * tPreprocessedString=[((NSString *)tObject) replaceAllTextBetweenString:@"%%"
 																					andString:@"%%"

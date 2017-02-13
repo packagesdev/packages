@@ -112,7 +112,7 @@
 			{
 				NSString * tBundleIdentifier=tDictionary[@"CFBundleIdentifier"];
 				
-				if ([tBundleIdentifier isKindOfClass:[NSString class]]==NO)
+				if ([tBundleIdentifier isKindOfClass:NSString.class]==NO)
 					return NO_value;
 				
 				if (tBundleIdentifier.length==0)
@@ -183,7 +183,7 @@
 			
 			NSString * tBundleIdentifier=tDictionary[@"CFBundleIdentifier"];
 			
-			if ([tBundleIdentifier isKindOfClass:[NSString class]]==NO)
+			if ([tBundleIdentifier isKindOfClass:NSString.class]==NO)
 				return NO_value;
 			
 			if (tBundleIdentifier.length==0)
@@ -236,7 +236,7 @@
 	
 	NSString * tBundleIdentifier=tDictionary[@"CFBundleIdentifier"];
 	
-	if ([tBundleIdentifier isKindOfClass:[NSString class]]==NO)
+	if ([tBundleIdentifier isKindOfClass:NSString.class]==NO)
 		return NO_value;
 	
 	if (tBundleIdentifier.length==0)

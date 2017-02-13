@@ -17,7 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)stringForObjectValue:(id)inObject
 {
-    return ((inObject && [inObject isKindOfClass:[NSString class]]) ? inObject : @"");
+    return ((inObject && [inObject isKindOfClass:NSString.class]) ? inObject : @"");
 }
 
 - (BOOL)getObjectValue:(out id *)outObject forString:(NSString *)inString errorDescription:(out NSString **)outError

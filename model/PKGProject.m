@@ -54,7 +54,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 		return nil;
 	}
 	
-	if ([inPropertyList isKindOfClass:[NSDictionary class]]==NO)
+	if ([inPropertyList isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -204,7 +204,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 		return nil;
 	}
 	
-	if ([tDictionary isKindOfClass:[NSDictionary class]]==NO)
+	if ([tDictionary isKindOfClass:NSDictionary.class]==NO)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
