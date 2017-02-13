@@ -21,6 +21,9 @@
 #import "NSTableView+Selection.h"
 #import "NSAlert+block.h"
 
+#import "NSArray+UniqueName.h"
+
+#import "PKGLocatorPluginsManager.h"
 #import "PKGLocatorPanel.h"
 
 @interface PKGPayloadFilesSelectionInspectorRulesViewController () <NSTableViewDataSource,NSTableViewDelegate>
@@ -40,6 +43,9 @@
 - (IBAction)delete:(id)sender;
 - (IBAction)editLocator:(id)sender;
 
+- (IBAction)switchLocatorState:(id)sender;
+- (IBAction)setLocatorName:(id)sender;
+
 @end
 
 @implementation PKGPayloadFilesSelectionInspectorRulesViewController
@@ -50,6 +56,13 @@
 	
 	// A COMPLETER
 }
+
+/*- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[_locatorsTableView endEditing:nil];
+}*/
 
 - (void)refreshSingleSelection
 {
@@ -82,48 +95,125 @@
 	[self noteDocumentHasChanged];
 }
 
+- (IBAction)switchLocatorState:(NSButton *)sender
+{
+	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
+	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
+	NSMutableArray * tLocators=tBundleItem.locators;
+	
+	NSInteger tRow=[_locatorsTableView rowForView:sender];
+	
+	if (tRow==-1 || tRow>tLocators.count)
+		return;
+	
+	PKGLocator * tLocator=tLocators[tRow];
+	BOOL tEnabled=(sender.state==NSOnState);
+	
+	if (tLocator.isEnabled==tEnabled)
+		return;
+	
+	tLocator.enabled=tEnabled;
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)setLocatorName:(NSTextField *)sender
+{
+	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
+	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
+	NSMutableArray * tLocators=tBundleItem.locators;
+	
+	NSInteger tRow=[_locatorsTableView rowForView:sender];
+	
+	if (tRow==-1 || tRow>tLocators.count)
+		return;
+	
+	
+	NSString * tNewName=sender.stringValue;
+	
+	if ([tLocators indexOfObjectPassingTest:^BOOL(PKGLocator * bLocator,NSUInteger bIndex,BOOL * bOutStop){
+	
+		if (bIndex==tRow)
+			return NO;
+		
+		return ([bLocator.name isEqualToString:tNewName]);
+	
+	}]!=NSNotFound)
+	{
+		NSBeep();
+		
+		NSAlert * tAlert=[NSAlert new];
+		tAlert.alertStyle=NSCriticalAlertStyle;
+		tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),tNewName];
+		tAlert.informativeText=NSLocalizedString(@"Please choose a different name.",@"");
+		
+		[tAlert runModal];
+		
+		[_locatorsTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
+									  columnIndexes:[NSIndexSet indexSetWithIndex:[_locatorsTableView columnWithIdentifier:@"locator.name"]]];
+		
+		return;
+	}
+	
+	PKGLocator * tLocator=tLocators[tRow];
+	tLocator.name=tNewName;
+	
+	[_locatorsTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
+								  columnIndexes:[NSIndexSet indexSetWithIndex:[_locatorsTableView columnWithIdentifier:@"locator.name"]]];
+	
+	[self noteDocumentHasChanged];
+}
+
 - (IBAction)addLocator:(id)sender
 {
 	PKGLocator * tNewLocator=[[PKGLocator alloc] init];
 	
-	tNewLocator.name=@"";	// A COMPLETER
 	tNewLocator.identifier=@"fr.whitebox.Packages.locator.standard";
+	
+	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	
 	PKGLocatorPanel * tLocatorPanel=[PKGLocatorPanel locatorPanel];
 	
 	tLocatorPanel.locator=tNewLocator;
-	tLocatorPanel.payloadTreeNode=self.selectedItems.lastObject;
+	tLocatorPanel.payloadTreeNode=tTreeNode;
+	tLocatorPanel.filePathConverter=self.filePathConverter;
 	
-	// A COMPLETER
-	
-	[tLocatorPanel beginSheetModalForWindow:self.view.window completionHandler:^{
-	
-	
-		// A COMPLETER
-	}];
-	
-	/*NSMutableDictionary * tMutableDictionary;
-	
-	editLocatorMode_=NO;
-	
-	tMutableDictionary=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],ICDOCUMENT_LOCATOR_STATE,
-						@"fr.whitebox.Packages.locator.standard",ICDOCUMENT_LOCATOR_IDENTIFIER,
-						nil];
-	
-	if (tMutableDictionary!=nil)
-	{
-		if (locatorController_==nil)
+	[tLocatorPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
+		
+		if (bResult==PKGLocatorPanelCancelButton)
+			return;
+		
+		PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
+		
+		NSString * tBaseName=[[PKGLocatorPluginsManager defaultManager]localizedPluginNameForIdentifier:tNewLocator.identifier];
+		
+		tNewLocator.name=[tBundleItem.locators uniqueNameWithBaseName:tBaseName usingNameExtractor:^NSString *(PKGLocator * bLocator,NSUInteger bIndex) {
+		
+			return bLocator.name;
+		}];
+		
+		if (tNewLocator.name==nil)
 		{
-			locatorController_=[ICLocatorEditorController newController];
+			NSLog(@"Could not determine a unique name for the locator");
+			
+			tNewLocator.name=@"";
 		}
 		
-		if (locatorController_!=nil)
-		{
-			[locatorController_ showEditorForWindow:[document_ windowForSheet] withDictionary:tMutableDictionary file:[array_ objectAtIndex:0] delegate:self];
-		}
-	}*/
-	
-	// A COMPLETER
+		[tBundleItem.locators addObject:tNewLocator];
+		
+		NSInteger tRow=tBundleItem.locators.count-1;
+		
+		[_locatorsTableView reloadData];
+		
+		[_locatorsTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
+		
+		[_locatorsTableView editColumn:[_locatorsTableView columnWithIdentifier:@"locator.name"]
+								   row:tRow
+							 withEvent:nil
+								select:YES];
+		
+		[self noteDocumentHasChanged];
+	}];
 }
 
 - (IBAction)delete:(id)sender
@@ -152,6 +242,7 @@
 		
 		[_locatorsTableView deselectAll:self];
 		
+		[_locatorsTableView reloadData];
 		
 		[self noteDocumentHasChanged];
 	}];
@@ -162,10 +253,22 @@
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 	
+	PKGLocator * tEditedLocator=[tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex] copy];
 	
-	_locatorsTableView.WB_selectedOrClickedRowIndexes;
+	PKGLocatorPanel * tLocatorPanel=[PKGLocatorPanel locatorPanel];
 	
-	// A COMPLETER
+	tLocatorPanel.locator=tEditedLocator;
+	tLocatorPanel.payloadTreeNode=tTreeNode;
+	
+	[tLocatorPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
+		
+		if (bResult==PKGLocatorPanelCancelButton)
+			return;
+		
+		tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex]=[tEditedLocator copy];
+		
+		[self noteDocumentHasChanged];
+	}];
 }
 
 #pragma mark - NSTableViewDataSource
@@ -179,6 +282,7 @@
 		
 		return tBundleItem.locators.count;
 	}
+	
 	return 0;
 }
 
@@ -199,7 +303,6 @@
 		if ([tTableColumnIdentifier isEqualToString:@"locator.state"]==YES)
 		{
 			NSButton * tCheckBox=((PKGCheckboxTableCellView *)tCellView).checkbox;
-			
 			tCheckBox.state=(tLocator.isEnabled==YES) ? NSOnState : NSOffState;
 			
 			return tCellView;
@@ -208,7 +311,6 @@
 		if ([tTableColumnIdentifier isEqualToString:@"locator.name"]==YES)
 		{
 			NSTextField * tTextField=tCellView.textField;
-			
 			tTextField.stringValue=tLocator.name;
 			
 			return tCellView;
