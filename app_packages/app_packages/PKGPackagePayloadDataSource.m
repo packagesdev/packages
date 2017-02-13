@@ -25,20 +25,13 @@
 #import "PKGOwnershipAndReferenceStylePanel.h"
 
 #import "PKGPayloadDropView.h"
+#import "PKGPayloadTreeNode+Bundle.h"
 
-typedef NS_ENUM(NSUInteger, PKGTriboolean)
-{
-	NO_value=0,
-	YES_value=1,
-	INDETERMINED_value=2
-};
 
 @interface PKGPackagePayloadDataSource ()
 
 	@property (nonatomic,readonly) PKGTreeNode * cachedHiddenTemplateFoldersTree;
 	@property (nonatomic,readonly) NSUInteger hiddenTemplateFoldersTreeHeight;
-
-- (PKGTriboolean)bundleExistsAtNode:(PKGPayloadTreeNode *)inTreeNode;
 
 @end
 
@@ -46,212 +39,6 @@ typedef NS_ENUM(NSUInteger, PKGTriboolean)
 
 @synthesize cachedHiddenTemplateFoldersTree=_cachedHiddenTemplateFoldersTree;
 @synthesize hiddenTemplateFoldersTreeHeight=_hiddenTemplateFoldersTreeHeight;
-
-- (PKGTriboolean)bundleExistsAtNode:(PKGPayloadTreeNode *)inTreeNode
-{
-	PKGFileItem * tRepresentedObject=inTreeNode.representedObject;
-	
-	if (tRepresentedObject.type<PKGFileItemTypeNewFolder)
-		return NO_value;
-	
-	// There must be an extension
-	
-	NSString * tPathExtension=[tRepresentedObject.filePath.string pathExtension];
-	
-	if (tPathExtension.length==0)
-		return NO_value;
-	
-	if (tRepresentedObject.type==PKGFileItemTypeFileSystemItem)
-	{
-		NSString * tAbsolutePath=[inTreeNode referencedPathUsingConverter:self.filePathConverter];
-		
-		if (tAbsolutePath==nil)
-		{
-			NSLog(@"<0x%lx> Failed to compute reference path",(unsigned long)inTreeNode);
-			return NO_value;
-		}
-		
-		// If it's a real filesystem item, it must be a directory
-		
-		NSError * tError=nil;
-		NSDictionary * tAttributesDictionary=[[NSFileManager defaultManager] attributesOfItemAtPath:tAbsolutePath error:&tError];
-		
-		if (tAttributesDictionary==nil)
-		{
-			if ([tError.domain isEqualToString:NSCocoaErrorDomain]==YES && tError.code==NSFileReadNoSuchFileError)
-				return INDETERMINED_value;
-			
-			return NO_value;
-		}
-		
-		if ([tAttributesDictionary[NSFileType] isEqualToString:NSFileTypeDirectory]==NO)
-			return NO_value;
-		
-		// Check whether there is a Info.plist file with a bundle identifier if the directory's contents is not disclosed
-		
-		if (tRepresentedObject.isContentsDisclosed==NO)
-		{
-			NSBundle * tBundle=[NSBundle bundleWithPath:tAbsolutePath];
-			
-			return (tBundle.bundleIdentifier.length>0) ? YES_value : NO_value;
-		}
-	}
-	
-	// This will also work for the PKGFileItemTypeNewFolder case
-	
-	// Check whether there is a Info.plist file with a bundle identifier in the descendants
-	
-	PKGPayloadTreeNode * tInfoPListNode=(PKGPayloadTreeNode *)[inTreeNode descendantNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
-	
-		PKGFileItem * tRepresentedChildObject=bChildNode.representedObject;
-		
-		if (tRepresentedChildObject.type!=PKGFileItemTypeFileSystemItem)
-			return NO_value;
-		
-		return ([tRepresentedChildObject.filePath.string isEqualToString:@"Info.plist"]) ? YES_value : NO_value;
-	}];
-	
-	if (tInfoPListNode!=nil)
-	{
-		NSString * tInfoPlistPath=[tInfoPListNode referencedPathUsingConverter:self.filePathConverter];
-		
-		if (tInfoPlistPath==nil)
-		{
-			NSLog(@"<0x%lx> Failed to compute Info.plist path",(unsigned long)tInfoPListNode);
-			return NO_value;
-		}
-		
-		NSError * tError=nil;
-		NSData * tData=[NSData dataWithContentsOfFile:tInfoPlistPath options:0 error:&tError];
-		
-		if (tData==nil)
-		{
-			if ([tError.domain isEqualToString:NSCocoaErrorDomain]==YES && tError.code==NSFileReadNoSuchFileError)
-				return INDETERMINED_value;
-		}
-		else
-		{
-			NSDictionary * tDictionary=[NSPropertyListSerialization propertyListWithData:tData options:NSPropertyListImmutable format:NULL error:NULL];
-			
-			if (tDictionary!=nil)
-			{
-				NSString * tBundleIdentifier=tDictionary[@"CFBundleIdentifier"];
-				
-				if ([tBundleIdentifier isKindOfClass:[NSString class]]==YES && tBundleIdentifier.length>0)
-					return YES_value;
-			}
-		}
-	}
-	
-	PKGPayloadTreeNode * tContentsNode=(PKGPayloadTreeNode *)[inTreeNode descendantNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
-		
-		PKGFileItem * tRepresentedChildObject=bChildNode.representedObject;
-		
-		if (tRepresentedChildObject.type<PKGFileItemTypeNewFolder)
-			return NO_value;
-		
-		return ([tRepresentedChildObject.filePath.string isEqualToString:@"Contents"]) ? YES_value : NO_value;
-	}];
-	
-	if (tContentsNode==nil)
-		return NO_value;
-	
-	PKGFileItem * tContentsRepresentedObject=tContentsNode.representedObject;
-	
-	if (tContentsRepresentedObject.type==PKGFileItemTypeFileSystemItem)
-	{
-		NSString * tAbsolutePath=[tContentsNode referencedPathUsingConverter:self.filePathConverter];
-		
-		if (tAbsolutePath==nil)
-		{
-			NSLog(@"<0x%lx> Failed to compute reference path",(unsigned long)inTreeNode);
-			return NO_value;
-		}
-		
-		NSError * tError=nil;
-		NSDictionary * tAttributesDictionary=[[NSFileManager defaultManager] attributesOfItemAtPath:tAbsolutePath error:&tError];
-		
-		if (tAttributesDictionary==nil)
-		{
-			if ([tError.domain isEqualToString:NSCocoaErrorDomain]==YES && tError.code==NSFileReadNoSuchFileError)
-				return INDETERMINED_value;
-			
-			return NO_value;
-		}
-		
-		if ([tAttributesDictionary[NSFileType] isEqualToString:NSFileTypeDirectory]==NO)
-			return NO_value;
-		
-		// Check whether there is a Info.plist file with a bundle identifier
-		
-		if (tContentsRepresentedObject.isContentsDisclosed==NO)
-		{
-			NSString * tInfoPlistPath=[tAbsolutePath stringByAppendingPathComponent:@"Info.plist"];
-			
-			BOOL isDirectory;
-			
-			if ([[NSFileManager defaultManager] fileExistsAtPath:tInfoPlistPath isDirectory:&isDirectory]==NO || isDirectory==YES)
-				return NO_value;
-			
-			NSDictionary * tDictionary=[NSDictionary dictionaryWithContentsOfFile:tInfoPlistPath];
-				
-			if (tDictionary==nil)
-				return NO_value;
-			
-			NSString * tBundleIdentifier=tDictionary[@"CFBundleIdentifier"];
-					
-			if ([tBundleIdentifier isKindOfClass:[NSString class]]==YES && tBundleIdentifier.length>0)
-				return YES_value;
-			
-			return NO_value;
-		}
-	}
-	
-	tInfoPListNode=(PKGPayloadTreeNode *)[inTreeNode descendantNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
-		
-		PKGFileItem * tRepresentedChildObject=bChildNode.representedObject;
-		
-		if (tRepresentedChildObject.type!=PKGFileItemTypeFileSystemItem)
-			return NO_value;
-		
-		return ([tRepresentedChildObject.filePath.string isEqualToString:@"Info.plist"]==YES) ? YES_value : NO_value;
-	}];
-	
-	if (tInfoPListNode==nil)
-		return NO_value;
-	
-	NSString * tInfoPlistPath=[tInfoPListNode referencedPathUsingConverter:self.filePathConverter];
-	
-	if (tInfoPlistPath==nil)
-	{
-		NSLog(@"<0x%lx> Failed to compute Info.plist path",(unsigned long)tInfoPListNode);
-		return NO_value;
-	}
-	
-	NSError * tError=nil;
-	NSData * tData=[NSData dataWithContentsOfFile:tInfoPlistPath options:0 error:&tError];
-	
-	if (tData==nil)
-	{
-		if ([tError.domain isEqualToString:NSCocoaErrorDomain]==YES && tError.code==NSFileReadNoSuchFileError)
-			return INDETERMINED_value;
-		
-		return NO_value;
-	}
-
-	NSDictionary * tDictionary=[NSPropertyListSerialization propertyListWithData:tData options:NSPropertyListImmutable format:NULL error:NULL];
-	
-	if (tDictionary==nil)
-		return NO_value;
-	
-	
-	NSString * tBundleIdentifier=tDictionary[@"CFBundleIdentifier"];
-	
-	if ([tBundleIdentifier isKindOfClass:[NSString class]]==YES && tBundleIdentifier.length>0)
-		return YES_value;
-	
-	return NO_value;
-}
 
 #pragma mark -
 
@@ -305,7 +92,7 @@ typedef NS_ENUM(NSUInteger, PKGTriboolean)
 	if (tRepresentedObject.type<PKGFileItemTypeNewFolder)
 		return;
 	
-	PKGTriboolean tIsBundle=[self bundleExistsAtNode:inTreeNode];
+	PKGTriboolean tIsBundle=[inTreeNode isBundleWithFilePathConverter:self.filePathConverter bundleIdentifier:NULL];
 	
 	if (tIsBundle==INDETERMINED_value)
 		return;
