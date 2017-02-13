@@ -29,9 +29,9 @@
 @interface PKGResourcesForest ()
 {
 	NSArray* _cachedRepresentation;
-	
-	//PKGResourcesTreeNode * _rootNode;
 }
+
+	@property (nonatomic,readwrite) NSMutableArray * rootNodes;
 
 @end
 

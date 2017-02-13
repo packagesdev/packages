@@ -23,7 +23,7 @@
 
 @interface PKGResourcesForest : NSObject <PKGRootNodesProtocol>
 
-	@property (nonatomic) NSMutableArray * rootNodes;
+	@property (nonatomic,readonly) NSMutableArray * rootNodes;
 
 
 - (id)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError;
