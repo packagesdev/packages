@@ -17,14 +17,26 @@
 
 #import "PKGPayloadTreeNode.h"
 
-@interface PKGLocatorPanel : NSPanel
+#import "PKGPanel.h"
+
+#import "PKGFilePath.h"
+
+enum
+{
+	PKGLocatorPanelCancelButton	= NSModalResponseCancel,
+	PKGLocatorPanelOKButton	= NSModalResponseOK,
+};
+
+@interface PKGLocatorPanel : PKGPanel
 
 	@property (nonatomic) PKGLocator * locator;
 
 	@property (nonatomic) PKGPayloadTreeNode * payloadTreeNode;
 
+	@property (nonatomic,weak) id<PKGFilePathConverter> filePathConverter;
+
 + (PKGLocatorPanel *)locatorPanel;
 
-- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(void))handler;
+- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler;
 
 @end

@@ -18,8 +18,11 @@
 #import "PKGLocatorPluginsManager.h"
 
 #import "PKGPayloadTreeNode+UI.h"
+#import "PKGPayloadTreeNode+Bundle.h"
 
 #import "PKGLocatorViewController.h"
+
+#import "PKGEvent.h"
 
 @interface PKGLocatorWindowController : NSWindowController
 {
@@ -47,6 +50,8 @@
 	@property (nonatomic) PKGLocator * locator;
 
 	@property (nonatomic) PKGPayloadTreeNode * payloadTreeNode;
+
+	@property (weak,nonatomic) id<PKGFilePathConverter> filePathConverter;
 
 - (void)refreshUI;
 
@@ -87,12 +92,19 @@
 	
 	if (tPluginsNames==nil)
 	{
-		NSLog(@"A COMPLETER");	// A COMPLETER
+		NSLog(@"Unable to retrieve the list of plugins names");
 	}
 	else
 	{
 		[_locatorTypePopUpButton addItemsWithTitles:tPluginsNames];
 	}
+	
+	// Register for Notifications
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(optionKeyDidChange:)
+												 name:PKGOptionKeyDidChangeStateNotification
+											   object:self];
 }
 
 #pragma mark -
@@ -117,7 +129,23 @@
 		
 		_cachedCommonValues[PKGLocatorCommonValuePathKey]=_payloadTreeNode.filePath;
 		
-		_cachedCommonValues[PKGLocatorCommonValueBundleIdentifierKey]=@"";	// A COMPLETER
+		NSString * tBundleIdentifier;
+		
+		if (self.filePathConverter!=nil && [_payloadTreeNode isBundleWithFilePathConverter:self.filePathConverter bundleIdentifier:&tBundleIdentifier]==YES_value)
+			_cachedCommonValues[PKGLocatorCommonValueBundleIdentifierKey]=tBundleIdentifier;
+	}
+}
+
+- (void)setFilePathConverter:(id<PKGFilePathConverter>)inFilePathConverter
+{
+	if (_filePathConverter!=inFilePathConverter)
+	{
+		_filePathConverter=inFilePathConverter;
+		
+		NSString * tBundleIdentifier;
+		
+		if (self.payloadTreeNode!=nil && [self.payloadTreeNode isBundleWithFilePathConverter:self.filePathConverter bundleIdentifier:&tBundleIdentifier]==YES_value)
+			_cachedCommonValues[PKGLocatorCommonValueBundleIdentifierKey]=tBundleIdentifier;	// Should work even if _cachedCommonValues is nil
 	}
 }
 
@@ -321,6 +349,21 @@
 	[NSApp endSheet:self.window returnCode:sender.tag];
 }
 
+#pragma mark - Notifications
+
+- (void)optionKeyDidChange:(NSNotification *)inNotification
+{
+	if (inNotification==nil)
+		return;
+	
+	NSNumber * tNumber=inNotification.userInfo[PKGOptionKeyState];
+	
+	if (tNumber==nil)
+		return;
+	
+	[_currentLocatorViewController optionKeyStateDidChange:[tNumber boolValue]];
+}
+
 @end
 
 @interface PKGLocatorPanel ()
@@ -339,12 +382,9 @@
 	PKGLocatorWindowController * tWindowController=[PKGLocatorWindowController new];
 	
 	PKGLocatorPanel * tPanel=(PKGLocatorPanel *)tWindowController.window;
-	
 	tPanel->retainedWindowController=tWindowController;
 	
 	return tPanel;
-	
-	return nil;
 }
 
 #pragma mark -
@@ -369,21 +409,31 @@
 	retainedWindowController.payloadTreeNode=inPayloadTreeNode;
 }
 
+- (id<PKGFilePathConverter>)filePathConverter
+{
+	return retainedWindowController.filePathConverter;
+}
+
+- (void)setFilePathConverter:(id<PKGFilePathConverter>)inFilePathConverter
+{
+	retainedWindowController.filePathConverter=inFilePathConverter;
+}
+
 #pragma mark -
 
 - (void)_sheetDidEndSelector:(PKGLocatorPanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
 {
-	void(^handler)(void) = (__bridge_transfer void(^)(void)) contextInfo;
+	void(^handler)(NSInteger) = (__bridge_transfer void(^)(NSInteger)) contextInfo;
 	
 	if (handler!=nil)
-		handler();
+		handler(inReturnCode);
 	
 	inPanel->retainedWindowController=nil;
 	
 	[inPanel orderOut:self];
 }
 
-- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(void))handler
+- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
 {
 	[retainedWindowController refreshUI];
 	
@@ -392,8 +442,6 @@
 		modalDelegate:self
 	   didEndSelector:@selector(_sheetDidEndSelector:returnCode:contextInfo:)
 		  contextInfo:(__bridge_retained void*)[handler copy]];
-	
-	
 }
 
 @end
