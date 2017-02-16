@@ -17,16 +17,36 @@
 
 #import "PKGDistributionProjectSourceListDataSource.h"
 
+#import "PKGDistributionMultipleSelectionViewController.h"
+
+#import "PKGDistributionProjectViewController.h"
+
 #import "PKGDistributionProject.h"
+
+#import "PKGDistributionProjectSourceListTreeNode.h"
+#import "PKGDistributionProjectSourceListProjectItem.h"
+#import "PKGDistributionProjectSourceListPackageComponentItem.h"
+
+#import "NSOutlineView+Selection.h"
 
 @interface PKGDistributionProjectMainViewController () <NSSplitViewDelegate>
 {
 	IBOutlet NSSplitView * _splitView;
 	
+	IBOutlet NSView * _sourceListPlaceHolderView;
+	
+	IBOutlet NSView * _contentsView;
 	
 	PKGDistributionProjectSourceListController * _sourceListController;
 	
 	PKGDistributionProjectSourceListDataSource * _dataSource;
+	
+	
+	PKGDistributionMultipleSelectionViewController * _multipleSectionViewController;
+	
+	PKGDistributionProjectViewController * _projectViewController;
+	
+	PKGViewController * _currentContentsViewController;
 }
 
 // Notifications
@@ -55,11 +75,9 @@
 	_sourceListController=[PKGDistributionProjectSourceListController new];
 	_sourceListController.dataSource=_dataSource;
 	
-	NSView * tLeftView=_splitView.subviews[0];
+	_sourceListController.view.frame=_sourceListPlaceHolderView.bounds;
 	
-	_sourceListController.view.frame=tLeftView.bounds;
-	
-	[tLeftView addSubview:_sourceListController.view];
+	[_sourceListPlaceHolderView addSubview:_sourceListController.view];
 	
 	// A COMPLETER
 }
@@ -74,6 +92,8 @@
 	
 	_dataSource.packageComponents=tDistributionProject.packageComponents;
 	
+	_dataSource.delegate=_sourceListController;
+	
 	[_sourceListController WB_viewWillAppear];
 }
 
@@ -84,6 +104,8 @@
 	[self.view.window makeFirstResponder:_sourceListController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceListSelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_sourceListController.outlineView];
+	
+	_dataSource.filePathConverter=self.filePathConverter;
 	
 	[_sourceListController WB_viewDidAppear];
 }
@@ -104,11 +126,131 @@
 	[_sourceListController WB_viewDidDisappear];
 }
 
+#pragma mark - NSSplitViewDelegate
+
+#define ICDOCUMENT_RIGHTVIEW_MIN_WIDTH		1026
+
+- (void)splitView:(NSSplitView *) inSplitView resizeSubviewsWithOldSize:(NSSize)oldSize
+{
+	NSRect tSplitViewFrame=[inSplitView frame];
+	
+	NSRect tLeftFrame=_sourceListPlaceHolderView.frame;
+	NSRect tRightFrame=_contentsView.frame;
+	
+	tRightFrame.size.width=NSWidth(tSplitViewFrame)-inSplitView.dividerThickness-NSWidth(tLeftFrame);
+	
+	if (NSWidth(tRightFrame)<ICDOCUMENT_RIGHTVIEW_MIN_WIDTH)
+	{
+		tRightFrame.size.width=ICDOCUMENT_RIGHTVIEW_MIN_WIDTH;
+		
+		tLeftFrame.size.width=NSWidth(tSplitViewFrame)-inSplitView.dividerThickness-NSWidth(tRightFrame);
+		
+		if (NSWidth(tLeftFrame)<0)
+			tLeftFrame.size.width=0;
+	}
+	
+	tRightFrame.size.height=NSHeight(tSplitViewFrame);
+	
+	tRightFrame.origin.y=0;
+	
+	_contentsView.frame=tRightFrame;
+	
+	tLeftFrame.size.height=NSHeight(tSplitViewFrame);
+	
+	tLeftFrame.origin.y=0;
+	
+	_sourceListPlaceHolderView.frame=tLeftFrame;
+	
+	[inSplitView adjustSubviews];
+}
+
+- (BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview
+{
+	return NO;
+}
+
+- (CGFloat)splitView:(NSSplitView *)inSplitView constrainMaxCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset
+{
+	return (NSWidth(inSplitView.frame)-(ICDOCUMENT_RIGHTVIEW_MIN_WIDTH+inSplitView.dividerThickness));
+}
+
 #pragma mark -
 
 - (void)sourceListSelectionDidChange:(NSNotification *)inNotification
 {
-	// A COMPLETER
+	NSOutlineView * tOutlineView=_sourceListController.outlineView;
+	
+	if (inNotification.object!=tOutlineView)
+		return;
+	
+	NSUInteger tNumberOfSelectedRows=tOutlineView.numberOfSelectedRows;
+	
+	if (tNumberOfSelectedRows>1)
+	{
+		if (_multipleSectionViewController==nil)
+			_multipleSectionViewController=[PKGDistributionMultipleSelectionViewController new];
+		
+		if (_currentContentsViewController!=_multipleSectionViewController)
+		{
+			[_currentContentsViewController WB_viewWillDisappear];
+			
+			[_currentContentsViewController.view removeFromSuperview];
+			
+			[_currentContentsViewController WB_viewDidDisappear];
+			
+			_currentContentsViewController=_multipleSectionViewController;
+			
+			_currentContentsViewController.view.frame=_contentsView.bounds;
+			
+			[_currentContentsViewController WB_viewWillAppear];
+			
+			[_contentsView addSubview:_currentContentsViewController.view];
+			
+			[_currentContentsViewController WB_viewDidAppear];
+		}
+	}
+	else
+	{
+		PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)self.project;
+		
+		PKGDistributionProjectSourceListTreeNode * tSourceListTreeNode=[tOutlineView WB_selectedItems][0];
+		PKGDistributionProjectSourceListItem * tSourceListItem=[tSourceListTreeNode representedObject];
+
+		PKGViewController * tNewViewController=nil;
+		
+		if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListProjectItem.class]==YES)
+		{
+			if (_projectViewController==nil)
+			{
+				_projectViewController=[PKGDistributionProjectViewController new];
+			}
+			
+			_projectViewController.project=tDistributionProject;
+			
+			tNewViewController=_projectViewController;
+		}
+		
+		if (_currentContentsViewController!=tNewViewController)
+		{
+			[_currentContentsViewController WB_viewWillDisappear];
+			
+			[_currentContentsViewController.view removeFromSuperview];
+			
+			[_currentContentsViewController WB_viewDidDisappear];
+			
+			_currentContentsViewController=tNewViewController;
+			
+			_currentContentsViewController=tNewViewController;
+			
+			_currentContentsViewController.view.frame=_contentsView.bounds;
+			
+			[_currentContentsViewController WB_viewWillAppear];
+			
+			[_contentsView addSubview:_currentContentsViewController.view];
+			
+			[_currentContentsViewController WB_viewDidAppear];
+		}
+	}
 }
 
 @end

@@ -7,6 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionProjectMainViewController">
             <connections>
+                <outlet property="_contentsView" destination="BfD-j4-b0J" id="k0V-UY-wMl"/>
+                <outlet property="_sourceListPlaceHolderView" destination="fjd-OL-AdH" id="64f-6c-35C"/>
                 <outlet property="_splitView" destination="l83-2M-oIc" id="sPk-KQ-89k"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -17,16 +19,16 @@
             <rect key="frame" x="0.0" y="1" width="978" height="695"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <splitView dividerStyle="paneSplitter" vertical="YES" id="l83-2M-oIc">
-                    <rect key="frame" x="0.0" y="25" width="978" height="670"/>
+                <splitView dividerStyle="thin" vertical="YES" id="l83-2M-oIc">
+                    <rect key="frame" x="0.0" y="33" width="978" height="662"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <customView id="fjd-OL-AdH">
-                            <rect key="frame" x="0.0" y="0.0" width="487" height="670"/>
+                            <rect key="frame" x="0.0" y="0.0" width="492" height="662"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </customView>
                         <customView id="BfD-j4-b0J">
-                            <rect key="frame" x="497" y="0.0" width="481" height="670"/>
+                            <rect key="frame" x="493" y="0.0" width="485" height="662"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </customView>
                     </subviews>
@@ -34,6 +36,9 @@
                         <real value="250"/>
                         <real value="250"/>
                     </holdingPriorities>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="YlF-5c-PmM"/>
+                    </connections>
                 </splitView>
             </subviews>
             <point key="canvasLocation" x="777" y="440.5"/>
