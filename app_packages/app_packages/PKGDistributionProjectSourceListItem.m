@@ -39,4 +39,9 @@
 	return nil;
 }
 
+- (BOOL)isEditable
+{
+	return NO;
+}
+
 @end

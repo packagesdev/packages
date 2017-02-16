@@ -21,4 +21,6 @@
 
 	@property (nonatomic,readonly,copy) NSString * label;
 
+	@property (nonatomic,readonly,getter=isEditable) BOOL editable;
+
 @end

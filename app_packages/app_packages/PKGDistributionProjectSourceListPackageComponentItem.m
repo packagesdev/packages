@@ -54,4 +54,9 @@
 	return _packageComponent.packageSettings.name;
 }
 
+- (BOOL)isEditable
+{
+	return (_packageComponent.type!=PKGPackageComponentTypeImported);
+}
+
 @end
