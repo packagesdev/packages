@@ -92,6 +92,8 @@
 	[_projectMainViewController WB_viewDidAppear];
 	
 	[tDocumentMainWindow setMinSize:NSMakeSize(PKGDocumentWindowPackageProjectMinWidth, PKGDocumentWindowMinHeight)];
+	
+	[tDocumentMainWindow setContentBorderThickness:33.0 forEdge:NSMinYEdge];
 }
 
 #pragma mark -
