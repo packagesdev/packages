@@ -27,7 +27,7 @@
 
 	@property PKGDistributionProjectPresentationSettings * presentationSettings;
 
-	@property PKGDistributionProjectRequirementsAndResources * requirementsAndResources;
+	@property PKGDistributionProjectRequirementsAndResources * requirementsAndResources;	// can be nil
 
 	@property (readonly) NSMutableArray * packageComponents;
 
