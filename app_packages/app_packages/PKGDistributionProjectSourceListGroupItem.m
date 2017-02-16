@@ -36,17 +36,17 @@
 		{
 			case PKGPackageComponentTypeProject:
 				
-				_label=[NSLocalizedString(@"PACKAGES", @"") copy];
+				_label=[NSLocalizedString(@"Packages", @"") copy];
 				break;
 				
 			case PKGPackageComponentTypeImported:
 				
-				_label=[NSLocalizedString(@"IMPORTED", @"") copy];
+				_label=[NSLocalizedString(@"Imported", @"") copy];
 				break;
 				
 			case PKGPackageComponentTypeReference:
 				
-				_label=[NSLocalizedString(@"REFERENCED", @"") copy];
+				_label=[NSLocalizedString(@"Referenced", @"") copy];
 				break;
 		}
 	}
