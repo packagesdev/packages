@@ -51,8 +51,6 @@
 	SFChooseIdentityPanel * _chooseIdentityPanel;
 }
 
-- (void)refreshUI;
-
 - (IBAction)selectCertificate:(id)sender;
 - (void)selectCertificateDidEnd:(NSWindow *) inSheet returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
 

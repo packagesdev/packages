@@ -23,4 +23,6 @@
 
 	@property (nonatomic,readonly) NSString * certificatePanelMessage;
 
+- (void)refreshUI;
+
 @end
