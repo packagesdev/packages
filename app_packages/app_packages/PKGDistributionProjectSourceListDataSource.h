@@ -13,8 +13,24 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PKGFilePath.h"
+
+@class PKGDistributionProjectSourceListDataSource;
+
+@protocol PKGDistributionProjectSourceListDataSourceDelegate <NSObject>
+
+- (void)sourceListDataDidChange:(PKGDistributionProjectSourceListDataSource *)inSourceListDataSource;
+
+@end
+
 @interface PKGDistributionProjectSourceListDataSource : NSObject <NSOutlineViewDataSource>
 
 	@property (nonatomic) NSMutableArray * packageComponents;
+
+	@property id<PKGFilePathConverter> filePathConverter;
+
+	@property (weak) id<PKGDistributionProjectSourceListDataSourceDelegate> delegate;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
 
 @end

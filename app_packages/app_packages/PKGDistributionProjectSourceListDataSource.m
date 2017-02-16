@@ -14,6 +14,11 @@
 #import "PKGDistributionProjectSourceListDataSource.h"
 
 #import "PKGDistributionProjectSourceListForest.h"
+#import "PKGDistributionProjectSourceListTreeNode.h"
+#import "PKGDistributionProjectSourceListGroupItem.h"
+#import "PKGDistributionProjectSourceListPackageComponentItem.h"
+
+#import "NSOutlineView+Selection.h"
 
 @interface PKGDistributionProjectSourceListDataSource ()
 {
@@ -55,6 +60,104 @@
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView isItemExpandable:(PKGTreeNode *)inTreeNode
 {
 	return ([inTreeNode isLeaf]==NO);
+}
+
+#pragma mark -
+
+- (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems
+{
+	if (inOutlineView==nil || inItems.count==0)
+		return;
+	
+	// Save the selection if needed
+	
+	NSArray * tSavedSelectedItems=nil;
+	
+	if (inItems.count==1)
+	{
+		if ([inOutlineView isRowSelected:[inOutlineView rowForItem:inItems[0]]]==NO)
+			tSavedSelectedItems=[inOutlineView WB_selectedItems];
+	}
+	
+	NSInteger tFirstIndex=[inOutlineView rowForItem:inItems[0]];
+	
+	// Remove the packages
+	
+	for(PKGTreeNode * tTreeNode in inItems)
+	{
+		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem=[tTreeNode representedObject];
+		
+		// A COMPLETER
+		
+		[_packageComponents removeObject:tPackageComponentItem.packageComponent];
+		
+		[tTreeNode removeFromParent];
+	}
+	
+	// Remove some groups if they don't have any descendant nodes
+	
+	NSMutableSet * tRemovableSet=[NSMutableSet set];
+	
+	for(PKGDistributionProjectSourceListTreeNode * tTreeNode in _forest.rootNodes)
+	{
+		PKGDistributionProjectSourceListGroupItem * tGroupItem=[tTreeNode representedObject];
+		
+		if ([tGroupItem isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==YES)
+		{
+			if (tTreeNode.numberOfChildren==0 && tGroupItem.groupType!=PKGPackageComponentTypeProject)
+				[tRemovableSet addObject:tTreeNode];
+		}
+	}
+	
+	for(PKGDistributionProjectSourceListTreeNode * tTreeNode in tRemovableSet)
+		[_forest.rootNodes removeObject:tTreeNode];
+	
+	[self.delegate sourceListDataDidChange:self];
+	
+	inOutlineView.allowsEmptySelection=YES;
+	
+	[inOutlineView deselectAll:nil];
+	
+	[inOutlineView reloadData];
+	
+	if (tSavedSelectedItems!=nil)
+	{
+		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+		
+		for(id tItem in tSavedSelectedItems)
+		{
+			NSInteger tIndex=[inOutlineView rowForItem:tItem];
+			
+			if (tIndex!=-1)
+				[tMutableIndexSet addIndex:tIndex];
+		}
+		
+		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+	}
+	
+	if (inOutlineView.numberOfSelectedRows==0)
+	{
+		NSInteger tNewSelectionIndex=tFirstIndex-1;
+		
+		for(;tNewSelectionIndex>=1;tNewSelectionIndex--)
+		{
+			PKGDistributionProjectSourceListTreeNode * tTreeNode=[inOutlineView itemAtRow:tNewSelectionIndex];
+			
+			if (tTreeNode==nil)
+				continue;
+			
+			PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem=[tTreeNode representedObject];
+			
+			if ([tPackageComponentItem isKindOfClass:PKGDistributionProjectSourceListPackageComponentItem.class]==NO)
+				continue;
+			
+			break;
+		}
+		
+		[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tNewSelectionIndex] byExtendingSelection:NO];
+	}
+	
+	inOutlineView.allowsEmptySelection=NO;
 }
 
 @end
