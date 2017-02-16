@@ -19,7 +19,17 @@
 #import "PKGDistributionProjectSourceListGroupItem.h"
 #import "PKGDistributionProjectSourceListPackageComponentItem.h"
 
+#import "NSOutlineView+Selection.h"
+#import "NSAlert+block.h"
+
+#import "PKGPackageComponent+UI.h"
+
 @interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate>
+
+- (IBAction)showInFinder:(id)sender;
+- (IBAction)duplicate:(id)sender;
+- (IBAction)renamePackage:(id)sender;
+- (IBAction)exportPackageAsProject:(id)sender;
 
 @end
 
@@ -71,11 +81,126 @@
 - (void)setDataSource:(id<NSOutlineViewDataSource>)inDataSource
 {
 	_dataSource=inDataSource;
-	//_dataSource.delegate=self;
-	
+	_dataSource.delegate=self;
 	
 	if (self.outlineView!=nil)
 		self.outlineView.dataSource=_dataSource;
+}
+
+#pragma mark -
+
+- (IBAction)showInFinder:(id)sender
+{
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	NSWorkspace * tSharedWorkspace=[NSWorkspace sharedWorkspace];
+	
+	[tSelectionIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
+		
+		PKGDistributionProjectSourceListTreeNode * tSourceListTreeNode=[self.outlineView itemAtRow:bIndex];
+		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem=tSourceListTreeNode.representedObject;
+		
+		[tSharedWorkspace selectFile:[tPackageComponentItem.packageComponent referencedPathUsingConverter:self.filePathConverter] inFileViewerRootedAtPath:@""];
+	}];
+}
+
+- (IBAction)duplicate:(id)sender
+{
+	// A COMPLETER
+}
+
+- (IBAction)renamePackage:(id)sender
+{
+	// A COMPLETER
+}
+
+- (IBAction)delete:(id)sender
+{
+	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	if (tIndexSet.count<1)
+		return;
+	
+	NSAlert * tAlert=[[NSAlert alloc] init];
+	tAlert.messageText=(tIndexSet.count==1) ? NSLocalizedString(@"Do you really want to remove this package?",@"No comment") : NSLocalizedString(@"Do you really want to remove these packages?",@"No comment");
+	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"No comment");
+	
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
+	
+	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+		
+		if (bResponse!=NSAlertFirstButtonReturn)
+			return;
+		
+		[self.dataSource outlineView:self.outlineView removeItems:[self.outlineView WB_itemsAtRowIndexes:tIndexSet]];
+	}];
+}
+
+- (IBAction)exportPackageAsProject:(id)sender
+{
+	// A COMPLETER
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	typedef BOOL (^packageComponentItemFilter)(PKGDistributionProjectSourceListPackageComponentItem *);
+	
+	BOOL (^validateSelection)(NSIndexSet *,packageComponentItemFilter) = ^BOOL(NSIndexSet * bSelectionIndex,packageComponentItemFilter bFilter)
+	{
+		__block BOOL tValidationFailed=NO;
+		
+		[bSelectionIndex enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
+			
+			PKGDistributionProjectSourceListTreeNode * tSourceListTreeNode=[self.outlineView itemAtRow:bIndex];
+			PKGDistributionProjectSourceListPackageComponentItem * tSourceListItem=tSourceListTreeNode.representedObject;
+			
+			if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListPackageComponentItem.class]==NO)
+			{
+				tValidationFailed=YES;
+				*bOutStop=YES;
+				return;
+			}
+			
+			if (bFilter!=nil && bFilter(tSourceListItem)==NO)
+			{
+				tValidationFailed=YES;
+				*bOutStop=YES;
+				return;
+			}
+		}];
+		
+		return (tValidationFailed==NO);
+	};
+	
+	if (tAction==@selector(showInFinder:))
+	{
+		return validateSelection(tSelectionIndexSet,^BOOL(PKGDistributionProjectSourceListPackageComponentItem * bPackageComponentItem){
+		
+			return (bPackageComponentItem.packageComponent.type==PKGPackageComponentTypeImported);
+		});
+	}
+	
+	if (tAction==@selector(duplicate:) ||
+		tAction==@selector(renamePackage:) ||
+		tAction==@selector(exportPackageAsProject:))
+	{
+		return validateSelection(tSelectionIndexSet,^BOOL(PKGDistributionProjectSourceListPackageComponentItem * bPackageComponentItem){
+			
+			return (bPackageComponentItem.packageComponent.type==PKGPackageComponentTypeProject);
+		});
+	}
+	
+	if (tAction==@selector(delete:))
+	{
+		return validateSelection(tSelectionIndexSet,nil);
+	}
+	
+	return YES;
 }
 
 #pragma mark - NSOutlineViewDelegate
@@ -85,40 +210,38 @@
 	if (inOutlineView!=self.outlineView)
 		return nil;
 	
-	NSString * tTableColumnIdentifier=[inTableColumn identifier];
-	
-	//if ([tTableColumnIdentifier isEqualToString:@"sourcelist.name"]==YES)
+	PKGDistributionProjectSourceListItem * tSourceListItem=inSourceListTreeNode.representedObject;
+		
+	if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListProjectItem.class]==YES)
 	{
-		PKGDistributionProjectSourceListItem * tSourceListItem=inSourceListTreeNode.representedObject;
+		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
 		
-		if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListProjectItem.class]==YES)
-		{
-			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
-			
-			tView.imageView.image=tSourceListItem.icon;
-			tView.textField.stringValue=tSourceListItem.label;
-			
-			return tView;
-		}
+		tView.imageView.image=tSourceListItem.icon;
+		tView.textField.stringValue=tSourceListItem.label;
 		
-		if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==YES)
-		{
-			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
-			
-			tView.textField.stringValue=tSourceListItem.label;
-			
-			return tView;
-		}
 		
-		if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListPackageComponentItem.class]==YES)
-		{
-			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
-			
-			tView.imageView.image=tSourceListItem.icon;
-			tView.textField.stringValue=tSourceListItem.label;
-			
-			return tView;
-		}
+		return tView;
+	}
+	
+	if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==YES)
+	{
+		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
+		
+		tView.textField.stringValue=tSourceListItem.label;
+		tView.textField.controlSize=NSMiniControlSize;
+		
+		return tView;
+	}
+	
+	if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListPackageComponentItem.class]==YES)
+	{
+		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
+		
+		tView.imageView.image=tSourceListItem.icon;
+		tView.textField.stringValue=tSourceListItem.label;
+		tView.textField.editable=tSourceListItem.editable;
+		
+		return tView;
 	}
 	
 	return nil;
@@ -157,5 +280,12 @@
 {
 	return NO;
 }*/
+
+#pragma mark - PKGDistributionProjectSourceListDataSourceDelegate
+
+- (void)sourceListDataDidChange:(PKGDistributionProjectSourceListDataSource *)inSourceListDataSource
+{
+	[self noteDocumentHasChanged];
+}
 
 @end
