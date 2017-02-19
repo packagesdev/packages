@@ -25,4 +25,6 @@
 
 	@property NSDictionary * settingsRepresentation;
 
+- (BOOL)isEqualToLocator:(PKGLocator *)inLocator;
+
 @end

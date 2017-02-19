@@ -107,6 +107,20 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 	return nLocator;
 }
 
+- (BOOL)isEqualToLocator:(PKGLocator *)inLocator
+{
+	if (inLocator==nil)
+		return NO;
+	
+	if (self.settingsRepresentation!=nil && inLocator.settingsRepresentation==nil)
+		return NO;
+	
+	return (self.enabled==inLocator.enabled &&
+			[self.name isEqualToString:inLocator.name]==YES &&
+			[self.identifier isEqualToString:inLocator.identifier]==YES &&
+			[self.settingsRepresentation isEqualToDictionary:inLocator.settingsRepresentation]==YES);
+}
+
 #pragma mark -
 
 - (NSMutableDictionary *) representation
