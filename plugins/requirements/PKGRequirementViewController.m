@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -27,26 +27,51 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 	return [inPasteboardDictionary copy];
 }
 
+- (NSString *)nibName
+{
+	return @"MainView";
+}
+
+- (NSBundle *)nibBundle
+{
+	return [NSBundle bundleForClass:[self class]];
+}
+
+#pragma mark -
+
 - (NSDictionary *)defaultSettings
 {
 	NSLog(@"- [%@ defaultSettings] implentation missing",NSStringFromClass([self class]));
 	
-	return nil;
+	return [NSDictionary dictionary];
 }
 
-#pragma mark -
+- (void)setSettings:(NSDictionary *)inSettings
+{
+}
+
+- (NSDictionary *)settings
+{
+	return [NSDictionary dictionary];
+}
 
 - (NSView *)previousKeyView
 {
 	return nil;
 }
 
-- (void)setNextKeyView:(NSView *) inView
+- (void)refreshUI
 {
 }
 
-- (void)optionKeyStateDidChange:(BOOL) isOptionKeyPressed
+- (BOOL)isResizableWindow
 {
+	return NO;
+}
+
+- (CGFloat)minHeight
+{
+	return 100.0;
 }
 
 - (PKGRequirementType)requirementType
@@ -54,19 +79,29 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 	return PKGRequirementTypeUndefined;
 }
 
+- (void)setNextKeyView:(NSView *)inView
+{
+}
+
+#pragma mark -
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	[self refreshUI];
+}
+
+#pragma mark -
+
+- (void)optionKeyStateDidChange:(BOOL)inOptionKeyDown
+{
+}
+
 - (void)noteCheckTypeChange
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGRequirementTypeDidChangeNotification object:self];
 }
 
-- (BOOL)windowCanBeResized
-{
-	return NO;
-}
-
-- (CGFloat)minHeight
-{
-	return 100.0f;
-}
 
 @end
