@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2016, Stephane Sudre
+Copyright (c) 2008-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,7 +19,87 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGFilePathTextField.h"
 
-@interface PKGRequirementViewControllerScript () <PKGFilePathTextFieldDelegate,NSTableViewDataSource,NSTableViewDelegate>
+#import "PKGTableViewDataSource.h"
+#import "PKGCheckboxTableCellView.h"
+
+#import "NSArray+WBExtensions.h"
+#import "NSTableView+Selection.h"
+
+@interface PKGScriptArgument : NSObject <PKGObjectProtocol>
+
+	@property BOOL state;
+
+	@property (copy) NSString * value;
+
+@end
+
+@implementation PKGScriptArgument
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_state=YES;
+		_value=@"";
+	}
+	
+	return self;
+}
+
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+{
+	if (inRepresentation==nil)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationNilRepresentationError userInfo:nil];
+		
+		return nil;
+	}
+	
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+		
+		return nil;
+	}
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		NSNumber * tNumber=inRepresentation[PKGRequirementScriptArgumentEnabledKey];	// can be nil
+		
+		PKGClassCheckNumberValueForKey(tNumber,PKGRequirementScriptArgumentEnabledKey);
+		
+		_state=[tNumber boolValue];
+		
+		NSString * tString=inRepresentation[PKGRequirementScriptArgumentValueKey];
+		
+		PKGClassCheckStringValueForKey(tString,PKGRequirementScriptArgumentValueKey);	// can be nil ?? / A COMPLETER
+		
+		_value=[tString copy];
+	}
+	
+	return self;
+}
+
+- (NSMutableDictionary *)representation
+{
+	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
+	
+	tRepresentation[PKGRequirementScriptArgumentEnabledKey]=@(self.state);
+	
+	tRepresentation[PKGRequirementScriptArgumentValueKey]=[self.value copy];
+	
+	return tRepresentation;
+}
+
+@end
+
+@interface PKGRequirementViewControllerScript () <PKGFilePathTextFieldDelegate,NSTableViewDelegate>
 {
 	IBOutlet PKGFilePathTextField * _scriptPathTextField;
 	
@@ -39,20 +119,28 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Data
 	
-	NSMutableArray * _cachedArguments;
+	PKGTableViewDataSource * _dataSource;
+	
+	NSMutableArray * _arguments;
+	
+	NSMutableDictionary * _settings;
 }
 
-- (IBAction)updateScriptPath:(id) sender;
+- (IBAction)updateScriptPath:(id)sender;
 
-- (IBAction)selectScriptPath:(id) sender;
+- (IBAction)selectScriptPath:(id)sender;
 
-- (IBAction)revealScriptPathInFinder:(id) sender;
+- (IBAction)revealScriptPathInFinder:(id)sender;
 
 - (IBAction)switchEmbed:(id) sender;
 
-- (IBAction)addArgument:(id) sender;
+- (IBAction)switchArgumentState:(id)sender;
 
-- (IBAction)removeArgument:(id) sender;
+- (IBAction)setArgumentValue:(id)sender;
+
+- (IBAction)addArgument:(id)sender;
+
+- (IBAction)delete:(id)sender;
 
 - (IBAction)switchComparator:(id) sender;
 
@@ -105,81 +193,93 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return [tMutableDictionary copy];
 }
 
-- (void)awakeFromNib
+- (void)WB_viewDidLoad
 {
+	[super WB_viewDidLoad];
+	
 	// Return Value
 	
-	PKGIntegerFormatter * tFormatter=[PKGIntegerFormatter new];
+	_returnValueTextField.formatter=[PKGIntegerFormatter new];
+}
+
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
 	
-	if (tFormatter!=nil)
-		[_returnValueTextField setFormatter:tFormatter];
+	_tableView.dataSource=_dataSource;
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
 	
-	// Array
+	_addButton.enabled=YES;
+	_removeButton.enabled=NO;
 	
-	NSTableColumn * tTableColumn = [_tableView tableColumnWithIdentifier:@"State"];
-    
-	if (tTableColumn!=nil)
-	{
-		NSButtonCell * tButttonCell= [[NSButtonCell alloc] initTextCell:@""];
-		
-		if (tButttonCell!=nil)
-		{
-			[tButttonCell setButtonType: NSSwitchButton];
-			tButttonCell.controlSize=NSMiniControlSize;
-			tButttonCell.editable=YES;
-			tButttonCell.imagePosition=NSImageOnly;
-			
-			[tTableColumn setDataCell:tButttonCell];
-		}
-	}
-	
-	// Name
-	
-	tTableColumn = [_tableView tableColumnWithIdentifier:@"Value"];
-    
-	if (tTableColumn!=nil)
-	{
-		NSCell * tTextFieldCell= [tTableColumn dataCell];
-		
-		tTextFieldCell.font=[NSFont systemFontOfSize:11.0f];
-	}
+	[_tableView reloadData];
 }
 
 #pragma mark -
 
-- (void)updateUI
+- (void)setSettings:(NSDictionary *)inSettings
+{
+	_settings=[inSettings mutableCopy];
+	
+	_arguments=[[_settings[PKGRequirementScriptArgumentsListKey] WB_arrayByMappingObjectsUsingBlock:^PKGScriptArgument *(NSDictionary * bArgumentDictionary,NSUInteger bIndex){
+	
+		return [[PKGScriptArgument alloc] initWithRepresentation:bArgumentDictionary error:NULL];
+	}] mutableCopy];
+	
+	_dataSource=[[PKGTableViewDataSource alloc] initWithItems:_arguments];
+	
+	_tableView.dataSource=_dataSource;
+	
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	_settings[PKGRequirementScriptArgumentsListKey]=[_arguments WB_arrayByMappingObjectsUsingBlock:^NSDictionary *(PKGScriptArgument * bScriptArgument,NSUInteger bIndex){
+	
+		return [bScriptArgument representation];
+	}];
+	
+	return [_settings copy];
+}
+
+- (void)refreshUI
 {
 	NSInteger tTag=PKGRequirementComparatorIsEqual;
 	
 	// Embed
 	
-	[_embeddedWarningLabel setHidden:YES];
+	_embeddedWarningLabel.hidden=YES;
 	
-	NSNumber * tNumber=self.settings[PKGRequirementScriptEmbeddedKey];
+	NSNumber * tNumber=_settings[PKGRequirementScriptEmbeddedKey];
 	NSInteger tState=NSOnState;
 	
 	if (tNumber!=nil)
 		tState=([tNumber boolValue]==YES) ? NSOnState : NSOffState;
 	
-	[_embedCheckBox setState:tState];
+	_embedCheckBox.state=tState;
 	
 	if (tState==NSOnState)
 	{
-		if ([self.project isFlat]==YES)
-			[_embeddedWarningLabel setHidden:NO];
+		/*if ([self.project isFlat]==YES)
+			_embeddedWarningLabel.hidden=NO;*/
 	}
 	
 	// Script Path
 	
 	_scriptPathTextField.pathConverter=self.filePathConverter;
 	
-	NSDictionary * tScriptPathRepresentation=self.settings[PKGRequirementScriptPathKey];
+	NSDictionary * tScriptPathRepresentation=_settings[PKGRequirementScriptPathKey];
 	
 	PKGFilePath * tFilePath=[[PKGFilePath alloc] initWithRepresentation:tScriptPathRepresentation error:NULL];
 	
 	if (tFilePath==nil)
 	{
-		self.settings[PKGRequirementScriptPathKey]=[NSDictionary dictionary];
+		_settings[PKGRequirementScriptPathKey]=[NSDictionary dictionary];
 		
 		tFilePath=[[PKGFilePath alloc] init];
 	}
@@ -193,25 +293,23 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		if (tType!=PKGFilePathTypeAbsolute)
 		{
-			self.settings[PKGRequirementScriptEmbeddedKey]=@(YES);
+			_settings[PKGRequirementScriptEmbeddedKey]=@(YES);
 						  
-			[_embedCheckBox setEnabled:NO];
+			_embedCheckBox.enabled=NO;
 
-			[_embedCheckBox setState:NSOnState];
+			_embedCheckBox.state=NSOnState;
 		}
 		else
 		{
-			[_embedCheckBox setEnabled:YES];
+			_embedCheckBox.enabled=YES;
 		}
 	}
 	
 	// Arguments
 	
-	_cachedArguments=self.settings[PKGRequirementScriptArgumentsListKey];
+	_addButton.enabled=YES;
 	
-	[_addButton setEnabled:YES];
-	
-	[_removeButton setEnabled:NO];
+	_removeButton.enabled=NO;
 	
 	[_tableView reloadData];
 	
@@ -219,7 +317,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Comparator
 	
-	tNumber=self.settings[PKGRequirementScriptReturnValueComparatorKey];
+	tNumber=_settings[PKGRequirementScriptReturnValueComparatorKey];
 	
 	if (tNumber!=nil)
 		tTag=[tNumber integerValue];
@@ -231,12 +329,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Return Value
 	
-	tNumber=self.settings[PKGRequirementScriptReturnValueKey];
+	tNumber=_settings[PKGRequirementScriptReturnValueKey];
 	
 	if (tNumber==nil)
-		[_returnValueTextField setStringValue:@"0"];
+		_returnValueTextField.stringValue=@"0";
 	else
-		[_returnValueTextField setStringValue:[tNumber stringValue]];
+		_returnValueTextField.stringValue=[tNumber stringValue];
 }
 
 #pragma mark -
@@ -264,73 +362,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[_returnValueTextField setNextKeyView:inView];
 }
 
-#pragma mark - NSTableViewDataSource
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *) inTableView
-{
-	if (inTableView!=_tableView)
-		return 0;
-	
-	return [_cachedArguments count];
-}
-
-- (id)tableView:(NSTableView *) inTableView objectValueForTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
-{
-	if (inTableView!=_tableView)
-		return nil;
-	
-	if (_cachedArguments!=nil)
-	{
-		NSString * tColumnIdentifier=[inTableColumn identifier];
-		
-		NSMutableDictionary * tDictionary=_cachedArguments[inRowIndex];
-		
-		if ([tColumnIdentifier isEqualToString: @"State"]==YES)
-			return tDictionary[PKGRequirementScriptArgumentEnabledKey];
-		
-		if ([tColumnIdentifier isEqualToString: @"Value"]==YES)
-			return tDictionary[PKGRequirementScriptArgumentValueKey];
-	}
-	
-	return nil;
-}
-
-- (void)tableView:(NSTableView *) inTableView setObjectValue:(id) object forTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
-{
-	if (inTableView!=_tableView)
-		return;
-	
-	if (_cachedArguments!=nil)
-	{
-		NSString * tColumnIdentifier=[inTableColumn identifier];
-		
-		NSMutableDictionary * tDictionary=_cachedArguments[inRowIndex];
-		
-		if ([tColumnIdentifier isEqualToString: @"State"]==YES)
-		{
-			NSNumber * tNumber=tDictionary[PKGRequirementScriptArgumentEnabledKey];
-			
-			if ([tNumber boolValue]!=[object boolValue])
-				[tDictionary setObject:object forKey:PKGRequirementScriptArgumentEnabledKey];
-		}
-		else if ([tColumnIdentifier isEqualToString: @"Value"]==YES)
-		{
-			[tDictionary setObject:object forKey:PKGRequirementScriptArgumentValueKey];
-		}
-	}
-}
-
-- (void)control:(NSControl *) inControl didFailToValidatePartialString:(NSString *) inPartialString errorDescription:(NSString *) inError
-{
-	if (inError!=nil && [inError isEqualToString:@"NSBeep"]==YES)
-		NSBeep();
-}
-
 #pragma mark -
 
 - (IBAction)updateScriptPath:(id) sender
 {
-	NSDictionary * tScriptPathRepresentation=self.settings[PKGRequirementScriptPathKey];
+	NSDictionary * tScriptPathRepresentation=_settings[PKGRequirementScriptPathKey];
 	
 	PKGFilePath * tFilePath=[[PKGFilePath alloc] initWithRepresentation:tScriptPathRepresentation error:NULL];
 	
@@ -349,21 +385,21 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		{
 			if (tNewFilePath.type!=PKGFilePathTypeAbsolute)
 			{
-				self.settings[PKGRequirementScriptEmbeddedKey]=@(YES);
+				_settings[PKGRequirementScriptEmbeddedKey]=@(YES);
 				
-				[_embedCheckBox setState:NSOnState];
+				_embedCheckBox.state=NSOnState;
 				
-				[_embedCheckBox setEnabled:NO];
+				_embedCheckBox.enabled=NO;
 				
-				if ([self.project isFlat]==YES)
-					[_embeddedWarningLabel setHidden:NO];
+				/*if ([self.project isFlat]==YES)
+					_embeddedWarningLabel.hidden=NO;*/
 			}
 			else
 			{
-				[_embedCheckBox setEnabled:YES];
+				_embedCheckBox.enabled=YES;
 			}
 			
-			self.settings[PKGRequirementScriptPathKey]=[tNewFilePath representation];
+			_settings[PKGRequirementScriptPathKey]=[tNewFilePath representation];
 		}
 	}
 }
@@ -397,58 +433,69 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     [[NSWorkspace sharedWorkspace] selectFile:[self.filePathConverter absolutePathForFilePath:[_scriptPathTextField filePath]] inFileViewerRootedAtPath:@""];
 }
 
-- (IBAction)switchEmbed:(id) sender
+- (IBAction)switchEmbed:(NSButton *) sender
 {
-	NSInteger tState=[sender state];
+	NSInteger tState=sender.state;
 	
-	self.settings[PKGRequirementScriptEmbeddedKey]=@(tState==NSOnState);
+	_settings[PKGRequirementScriptEmbeddedKey]=@(tState==NSOnState);
 	
-	[_embeddedWarningLabel setHidden:YES];
+	_embeddedWarningLabel.hidden=YES;
 	
 	if (tState==NSOnState)
 	{
-		if ([self.project isFlat]==YES)
-			[_embeddedWarningLabel setHidden:NO];
+		/*if ([self.project isFlat]==YES)
+			_embeddedWarningLabel.hidden=NO;*/
 	}
+}
+
+- (IBAction)switchArgumentState:(NSButton *)sender
+{
+	NSInteger tEditedRow=[_tableView rowForView:sender];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGScriptArgument * tScriptArgument=[_dataSource tableView:_tableView itemAtRow:tEditedRow];
+	
+	BOOL tNewState=(sender.state==NSOnState);
+	
+	if (tScriptArgument.state==tNewState)
+		return;
+	
+	tScriptArgument.state=tNewState;
+}
+
+- (IBAction)setArgumentValue:(NSTextField *)sender
+{
+	NSInteger tEditedRow=[_tableView rowForView:sender];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGScriptArgument * tScriptArgument=[_dataSource tableView:_tableView itemAtRow:tEditedRow];
+	
+	tScriptArgument.value=sender.stringValue;
 }
 
 - (IBAction)addArgument:(id) sender
 {
-	NSUInteger tRowIndex=[_cachedArguments count];
+	PKGScriptArgument * tScriptArgument=[PKGScriptArgument new];
 	
-	[_cachedArguments addObject:@{PKGRequirementScriptArgumentEnabledKey:@(YES),
-								  PKGRequirementScriptArgumentValueKey:@""}];
+	[_dataSource tableView:_tableView addItem:tScriptArgument];
 	
-	[_tableView deselectAll:self];
-	
-	[_tableView reloadData];
-	
-	[_tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRowIndex] byExtendingSelection:NO];
-	
-	[_tableView editColumn:1 row:tRowIndex withEvent:nil select:YES];
+	[_tableView editColumn:[_tableView columnWithIdentifier:@"argument.value"] row:_tableView.selectedRow withEvent:nil select:YES];
 }
 
-- (IBAction)removeArgument:(id) sender
+- (IBAction)delete:(id) sender
 {
-	NSIndexSet * tIndexSet=[_tableView selectedRowIndexes];
-	
-	[_tableView deselectAll:self];
-	
-	if (tIndexSet!=nil)
-	{
-		[_cachedArguments removeObjectsAtIndexes:tIndexSet];
-		
-		[_tableView reloadData];
-		
-		[_removeButton setEnabled:NO];
-	}
+	[_dataSource tableView:_tableView removeItems:[_dataSource tableView:_tableView itemsAtRowIndexes:_tableView.WB_selectedOrClickedRowIndexes]];
 }
 
-- (IBAction)switchComparator:(id) sender
+- (IBAction)switchComparator:(NSPopUpButton *) sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementScriptReturnValueComparatorKey]=@(tTag);
+	_settings[PKGRequirementScriptReturnValueComparatorKey]=@(tTag);
 }
 
 - (IBAction)setReturnValue:(id) sender
@@ -458,7 +505,59 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSNumber * tNumber=[NSNumber numberWithInteger:[tStringValue integerValue]];
 	
 	if (tNumber!=nil)
-		self.settings[PKGRequirementScriptReturnValueKey]=tNumber;
+		_settings[PKGRequirementScriptReturnValueKey]=tNumber;
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	// A COMPLETER
+	
+	return YES;
+}
+
+#pragma mark - NSTableViewDataDelegate
+
+- (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
+{
+	if (inTableView!=_tableView)
+		return nil;
+	
+	NSString * tTableColumnIdentifier=[inTableColumn identifier];
+	NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
+	
+	PKGScriptArgument * tScriptArgument=[_dataSource tableView:_tableView itemAtRow:inRow];
+	
+	if (tScriptArgument==nil)
+		return nil;
+	
+	if ([tTableColumnIdentifier isEqualToString:@"argument.state"]==YES)
+	{
+		PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
+		
+		tCheckBoxView.checkbox.state=(tScriptArgument.state==YES) ? NSOnState : NSOffState;
+		
+		return tCheckBoxView;
+	}
+	
+	if ([tTableColumnIdentifier isEqualToString:@"argument.value"]==YES)
+	{
+		tTableCellView.textField.stringValue=tScriptArgument.value;
+		tTableCellView.textField.editable=YES;
+		
+		return tTableCellView;
+	}
+	
+	return nil;
+}
+
+#pragma mark - NSControlTextEditingDelegate
+
+- (void)control:(NSControl *) inControl didFailToValidatePartialString:(NSString *) inPartialString errorDescription:(NSString *) inError
+{
+	if (inError!=nil && [inError isEqualToString:@"NSBeep"]==YES)
+		NSBeep();
 }
 
 #pragma mark - PKGFilePathTextFieldDelegate
@@ -473,11 +572,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return ([[NSFileManager defaultManager] fileExistsAtPath:inPath isDirectory:&isDirectory]==NO && isDirectory==NO);
 }
 
-#pragma mark - NSTableViewDelegate
+#pragma mark - Notifications
 
 - (void)tableViewSelectionDidChange:(NSNotification *) inNotification
 {
-    if ([inNotification object]==_tableView)
-		[_removeButton setEnabled:([_tableView numberOfSelectedRows]!=0)];
+    if (inNotification.object!=_tableView)
+		return;
+	
+	_removeButton.enabled=(_tableView.numberOfSelectedRows>0);
 }
+
 @end
