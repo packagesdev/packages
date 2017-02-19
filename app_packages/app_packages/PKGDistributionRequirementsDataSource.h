@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -11,30 +11,8 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Cocoa/Cocoa.h>
+#import "PKGTableViewDataSource.h"
 
-@class PKGFileFiltersDataSource;
-
-@protocol PKGFileFiltersDataSourceDelegate <NSObject>
-
-- (void)fileFiltersDataDidChange:(PKGFileFiltersDataSource *)inFileFiltersDataSource;
-
-@end
-
-@interface PKGFileFiltersDataSource : NSObject <NSTableViewDataSource>
-
-	@property (readonly) NSMutableArray * filesFilters;
-
-	@property (weak) id<PKGFileFiltersDataSourceDelegate> delegate;
-
-- (instancetype)initWithFileFilters:(NSMutableArray *)inArray;
-
-- (id)tableView:(NSTableView *)inTableView itemAtRow:(NSInteger)inRow;
-
-- (NSArray *)tableView:(NSTableView *)inTableView itemsAtRowIndexes:(NSIndexSet *)inIndexSet;
-
-- (void)tableView:(NSTableView *)inTableView addItem:(id)inItem;
-
-- (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems;
+@interface PKGDistributionRequirementsDataSource : PKGTableViewDataSource
 
 @end
