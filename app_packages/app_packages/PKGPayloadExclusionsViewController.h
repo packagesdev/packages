@@ -13,12 +13,12 @@
 
 #import "PKGDocumentViewController.h"
 
-#import "PKGFileFiltersDataSource.h"
+#import "PKGTableViewDataSource.h"
 
-@interface PKGPayloadExclusionsViewController : PKGDocumentViewController <PKGFileFiltersDataSourceDelegate>
+@interface PKGPayloadExclusionsViewController : PKGDocumentViewController <PKGTableViewDataSourceDelegate>
 
 	@property (strong) IBOutlet NSTableView * tableView;
 
-	@property (nonatomic) PKGFileFiltersDataSource * fileFiltersDataSource;
+	@property (nonatomic) PKGTableViewDataSource * fileFiltersDataSource;
 
 @end

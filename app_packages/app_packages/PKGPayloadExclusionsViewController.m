@@ -107,7 +107,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 #pragma mark -
 
-- (void)setFileFiltersDataSource:(PKGFileFiltersDataSource *)inDataSource
+- (void)setFileFiltersDataSource:(PKGTableViewDataSource *)inDataSource
 {
 	_fileFiltersDataSource=inDataSource;
 	_fileFiltersDataSource.delegate=self;
@@ -120,6 +120,8 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (void)WB_viewWillAppear
 {
+	[super WB_viewWillAppear];
+	
 	self.tableView.dataSource=self.fileFiltersDataSource;
 }
 
@@ -137,6 +139,8 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (void)WB_viewWillDisappear
 {
+	[super WB_viewWillDisappear];
+	
 	// Save selection
 	
 	// A COMPLETER
@@ -275,9 +279,9 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	return YES;
 }
 
-#pragma mark - PKGFileFiltersDataSourceDelegate
+#pragma mark - PKGTableViewDataSourceDelegate
 
-- (void)fileFiltersDataDidChange:(PKGFileFiltersDataSource *)inFileFiltersDataSource
+- (void)dataDidChange:(PKGTableViewDataSource *)inDataSource
 {
 	[self noteDocumentHasChanged];
 }
