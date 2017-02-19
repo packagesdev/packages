@@ -15,7 +15,7 @@
 
 @implementation PKGLocatorViewController
 
-- (NSString *) nibName
+- (NSString *)nibName
 {
 	return @"MainView";
 }
@@ -64,10 +64,6 @@
 {
 }
 
-- (void)optionKeyStateDidChange:(BOOL)inOptionKeyDown
-{
-}
-
 #pragma mark -
 
 - (void)WB_viewDidAppear
@@ -75,6 +71,12 @@
 	[super WB_viewDidAppear];
 	
 	[self refreshUI];
+}
+
+#pragma mark -
+
+- (void)optionKeyStateDidChange:(BOOL)inOptionKeyDown
+{
 }
 
 @end
