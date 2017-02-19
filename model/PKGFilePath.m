@@ -83,7 +83,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -105,7 +105,11 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	
 	if (self!=nil)
 	{
-		_type=[inRepresentation[PKGFilePathTypeKey] unsignedIntegerValue];
+		NSNumber * tNumber=inRepresentation[PKGFilePathTypeKey];	// can be nil
+		
+		PKGClassCheckNumberValueForKey(tNumber,PKGFilePathTypeKey);
+		
+		_type=[tNumber unsignedIntegerValue];
 		
 		if (_type>PKGFilePathTypeMixed)
 		{
@@ -117,13 +121,17 @@ NSString * const PKGFilePathStringKey=@"PATH";
 			return nil;
 		}
 		
-		_string=[inRepresentation[PKGFilePathStringKey] copy];
+		NSString * tString=inRepresentation[PKGFilePathStringKey];
+		
+		PKGClassCheckStringValueForKey(tString,PKGFilePathStringKey);
+		
+		_string=[tString copy];
 	}
 	
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
