@@ -21,12 +21,6 @@
 
 #import "PKGFilePath.h"
 
-enum
-{
-	PKGLocatorPanelCancelButton	= NSModalResponseCancel,
-	PKGLocatorPanelOKButton	= NSModalResponseOK,
-};
-
 @interface PKGLocatorPanel : PKGPanel
 
 	@property (nonatomic) PKGLocator * locator;

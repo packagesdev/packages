@@ -180,7 +180,7 @@
 	
 	[tLocatorPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
 		
-		if (bResult==PKGLocatorPanelCancelButton)
+		if (bResult==PKGPanelCancelButton)
 			return;
 		
 		PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
@@ -253,16 +253,21 @@
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 	
-	PKGLocator * tEditedLocator=[tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex] copy];
+	PKGLocator * tOriginalLocator=tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex];
+	PKGLocator * tEditedLocator=[tOriginalLocator copy];
 	
 	PKGLocatorPanel * tLocatorPanel=[PKGLocatorPanel locatorPanel];
 	
 	tLocatorPanel.locator=tEditedLocator;
 	tLocatorPanel.payloadTreeNode=tTreeNode;
+	tLocatorPanel.filePathConverter=self.filePathConverter;
 	
 	[tLocatorPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
 		
-		if (bResult==PKGLocatorPanelCancelButton)
+		if (bResult==PKGPanelCancelButton)
+			return;
+		
+		if ([tEditedLocator isEqualToLocator:tOriginalLocator]==YES)
 			return;
 		
 		tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex]=[tEditedLocator copy];
