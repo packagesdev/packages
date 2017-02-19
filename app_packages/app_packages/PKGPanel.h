@@ -16,6 +16,12 @@
 extern NSString * const PKGWindowDidChangeOptionKeyStateNotification;
 extern NSString * const PKGWindowOptionKeyState;
 
+enum
+{
+	PKGPanelCancelButton	= NSModalResponseCancel,
+	PKGPanelOKButton		= NSModalResponseOK,
+};
+
 @interface PKGPanel : NSPanel
 
 @end
