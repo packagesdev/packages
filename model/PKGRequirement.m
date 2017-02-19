@@ -57,7 +57,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		
 		_behavior=PKGRequirementOnFailureBehaviorInstallationStop;
 		
-		_settingsRepresentation=[NSDictionary dictionary];
+		_settingsRepresentation=nil;
 		
 		_messages=[NSMutableDictionary dictionary];
 	}
@@ -230,6 +230,26 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 	return self;
 }
 
+#pragma mark -
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGRequirement * nRequirement=[[[self class] allocWithZone:inZone] init];
+	
+	if (nRequirement!=nil)
+	{
+		nRequirement.enabled=self.enabled;
+		nRequirement.name=[self.name copy];
+		nRequirement.identifier=[self.identifier copy];
+		nRequirement.type=self.type;
+		nRequirement.behavior=self.behavior;
+		nRequirement.messages=[self.messages mutableCopy];	// A AMELIORER (deep copy)
+		nRequirement.settingsRepresentation=[self.settingsRepresentation copy];	// A AMELIORER (deep copy)
+	}
+	
+	return nRequirement;
+}
+
 - (NSMutableDictionary *) representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
@@ -242,7 +262,8 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 	
 	tRepresentation[PKGRequirementTypeKey]=@(self.type);
 	
-	tRepresentation[PKGRequirementSettingsRepresentationKey]=self.settingsRepresentation;
+	if (self.settingsRepresentation!=nil)
+		tRepresentation[PKGRequirementSettingsRepresentationKey]=self.settingsRepresentation;
 	
 	tRepresentation[PKGRequirementOnFailureBehaviorKey]=@(self.behavior);
 	
@@ -264,6 +285,23 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 }
 
 #pragma mark -
+
+- (BOOL)isEqualToRequirement:(PKGRequirement *)inRequirement
+{
+	if (inRequirement==nil)
+		return NO;
+	
+	if (inRequirement.settingsRepresentation==nil && self.settingsRepresentation!=nil)
+		return NO;
+	
+	return (self.enabled==inRequirement.enabled &&
+			[self.name isEqualToString:inRequirement.name]==YES &&
+			[self.identifier isEqualToString:inRequirement.identifier]==YES &&
+			self.type==inRequirement.type &&
+			self.behavior==inRequirement.behavior &&
+			[self.messages isEqualToDictionary:inRequirement.messages]==YES &&
+			[self.settingsRepresentation isEqualToDictionary:inRequirement.settingsRepresentation]==YES);
+}
 
 - (NSComparisonResult)compareBehavior:(PKGRequirement *)inOtherRequirement
 {

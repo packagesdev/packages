@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
 	PKGRequirementOnFailureBehaviorInstallationStop
 };
 
-@interface PKGRequirement : NSObject <PKGObjectProtocol>
+@interface PKGRequirement : NSObject <PKGObjectProtocol,NSCopying>
 
 	@property (getter=isEnabled) BOOL enabled;
 
@@ -54,7 +54,9 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
 
 	@property (readonly)NSMutableDictionary * messages;
 
-	@property NSDictionary * settingsRepresentation;
+	@property NSDictionary * settingsRepresentation;	// can be nil
+
+- (BOOL)isEqualToRequirement:(PKGRequirement *)inRequirement;
 
 - (NSComparisonResult)compareBehavior:(PKGRequirement *)inOtherRequirement;
 
