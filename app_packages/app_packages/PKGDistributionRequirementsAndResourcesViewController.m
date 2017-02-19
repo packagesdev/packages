@@ -1,8 +1,10 @@
 
 #import "PKGDistributionRequirementsAndResourcesViewController.h"
 
+#import "PKGDistributionRequirementsDataSource.h"
 #import "PKGPayloadDataSource.h"
 
+#import "PKGDistributionRequirementsViewController.h"
 #import "PKGFilesHierarchyViewController.h"
 
 #import "PKGFilesEmptySelectionInspectorViewController.h"
@@ -14,8 +16,14 @@
 
 @interface PKGDistributionRequirementsAndResourcesViewController ()
 {
+	IBOutlet NSButton * _rootVolumeOnlyCheckbox;
+	
+	IBOutlet NSView * _requirementsPlaceHolderView;
+	
 	IBOutlet NSView * _hierarchyPlaceHolderView;
 	IBOutlet NSView * _inspectorPlaceHolderView;
+	
+	PKGDistributionRequirementsViewController * _requirementsViewController;
 	
 	PKGFilesHierarchyViewController * _filesHierarchyViewController;
 	
@@ -24,8 +32,11 @@
 	
 	PKGViewController *_currentInspectorViewController;
 	
-	PKGPayloadDataSource * _dataSource;
+	PKGDistributionRequirementsDataSource * _requirementsDataSource;
+	PKGPayloadDataSource * _resourcesDataSource;
 }
+
+- (IBAction)switchRootVolumeOnlyRequirement:(id)sender;
 
 // Notifications
 
@@ -38,9 +49,6 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	
-	_dataSource=[PKGPayloadDataSource new];
-	_dataSource.editableRootNodes=YES;
 	
 	return self;
 }
@@ -56,19 +64,26 @@
 	
 	// A COMPLETER
 	
+	// Requirements
+	
+	_requirementsViewController=[PKGDistributionRequirementsViewController new];
+	
+	_requirementsViewController.view.frame=_requirementsPlaceHolderView.bounds;
+	
+	[_requirementsPlaceHolderView addSubview:_requirementsViewController.view];
+	
 	// Files Hierarchy
 	
 	_filesHierarchyViewController=[PKGFilesHierarchyViewController new];
 	
 	_filesHierarchyViewController.label=NSLocalizedString(@"Additional Resources", @"");
 	_filesHierarchyViewController.informationLabel=NSLocalizedString(@"These resources can be used by the above requirements and scripts \nor the requirements for the choices of the Installation Type step.", @"");
-	_filesHierarchyViewController.hierarchyDataSource=_dataSource;
 	
 	_filesHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
 	
 	[_hierarchyPlaceHolderView addSubview:_filesHierarchyViewController.view];
 	
-	_dataSource.delegate=_filesHierarchyViewController;
+	
 }
 
 #pragma mark -
@@ -79,9 +94,13 @@
 	{
 		_requirementsAndResources=inRequirementsAndResources;
 		
-		// A COMPLETER
+		_requirementsDataSource=[[PKGDistributionRequirementsDataSource alloc] initWithItems:self.requirementsAndResources.requirements];
 		
-		_dataSource.rootNodes=self.requirementsAndResources.resourcesForest.rootNodes;
+		_resourcesDataSource=[PKGPayloadDataSource new];
+		_resourcesDataSource.editableRootNodes=YES;
+		_resourcesDataSource.rootNodes=self.requirementsAndResources.resourcesForest.rootNodes;
+		_resourcesDataSource.delegate=_filesHierarchyViewController;
+		_resourcesDataSource.filePathConverter=self.filePathConverter;
 	}
 }
 
@@ -91,6 +110,13 @@
 {
 	[super WB_viewWillAppear];
 	
+	_requirementsViewController.requirementsDataSource=_requirementsDataSource;
+	
+	[_requirementsViewController WB_viewWillAppear];
+	
+	_filesHierarchyViewController.hierarchyDataSource=_resourcesDataSource;
+	if (_resourcesDataSource!=nil)
+		_resourcesDataSource.delegate=_filesHierarchyViewController;
 	
 	[_filesHierarchyViewController WB_viewWillAppear];
 }
@@ -99,21 +125,31 @@
 {
 	[super WB_viewDidAppear];
 	
-	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
+	// Requirements
+	
+	_rootVolumeOnlyCheckbox.state=(self.requirementsAndResources.rootVolumeOnlyRequirement==YES) ? NSOnState : NSOffState;
+	
+	[_requirementsViewController WB_viewDidAppear];
+	
+	// Resources
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
 	
-	_dataSource.filePathConverter=self.filePathConverter;
-	
+	if (_resourcesDataSource!=nil)
+		_resourcesDataSource.filePathConverter=self.filePathConverter;
 	
 	[_filesHierarchyViewController WB_viewDidAppear];
 	
 	[self fileHierarchySelectionDidChange:[NSNotification notificationWithName:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView]];
+
+	[self.view.window makeFirstResponder:_requirementsViewController.tableView];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[_requirementsViewController WB_viewWillDisappear];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
 	
@@ -124,7 +160,23 @@
 {
 	[super WB_viewDidDisappear];
 	
+	[_requirementsViewController WB_viewDidDisappear];
+	
 	[_filesHierarchyViewController WB_viewDidDisappear];
+}
+
+#pragma mark -
+
+- (IBAction)switchRootVolumeOnlyRequirement:(NSButton *)sender
+{
+	BOOL tNewValue=(sender.state==NSOnState);
+	
+	if (self.requirementsAndResources.rootVolumeOnlyRequirement!=tNewValue)
+	{
+		self.requirementsAndResources.rootVolumeOnlyRequirement=tNewValue;
+		
+		[self noteDocumentHasChanged];
+	}
 }
 
 #pragma mark - Notifications

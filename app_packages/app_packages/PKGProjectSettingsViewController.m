@@ -17,7 +17,7 @@
 
 #import "PKGPayloadExclusionsViewController.h"
 
-#import "PKGFileFiltersDataSource.h"
+#import "PKGTableViewDataSource.h"
 
 #import "PKGCertificateSealWindowController.h"
 
@@ -44,7 +44,7 @@
 	
 	PKGPayloadExclusionsViewController * _exclusionsViewController;
 	
-	PKGFileFiltersDataSource * _fileFiltersDataSource;
+	PKGTableViewDataSource * _fileFiltersDataSource;
 	
 	PKGCertificateSealWindowController * _certificateSealWindowController;
 	
@@ -97,7 +97,7 @@
 		_projectSettings=inProjectSettings;
 		
 		if (_projectSettings!=nil)
-			_fileFiltersDataSource=[[PKGFileFiltersDataSource alloc] initWithFileFilters:_projectSettings.filesFilters];
+			_fileFiltersDataSource=[[PKGTableViewDataSource alloc] initWithItems:_projectSettings.filesFilters];
 		else
 			_fileFiltersDataSource=nil;
 		
