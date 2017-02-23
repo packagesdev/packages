@@ -14,9 +14,6 @@
 #import "PKGTableViewDataSource.h"
 
 @interface PKGTableViewDataSource ()
-{
-	NSArray * _cachedDisplayedItems;
-}
 
 	@property (readwrite) NSMutableArray * items;
 
@@ -31,8 +28,6 @@
 	if (self!=nil)
 	{
 		_items=inArray;
-		
-		_cachedDisplayedItems=[self arrangeItems];
 	}
 	
 	return self;
@@ -40,32 +35,35 @@
 
 #pragma mark -
 
-- (NSArray *)arrangeItems;
-{
-	return [self.items copy];
-}
-
-#pragma mark -
-
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)inTableView
 {
 	if (inTableView==nil)
-		return nil;
+		return 0;
 	
-	return _cachedDisplayedItems.count;
+	return self.items.count;
 }
 
 #pragma mark -
+
+- (NSInteger)tableView:(NSTableView *)inTableView rowForItem:(id)inItem
+{
+	if (inTableView==nil || inItem==nil)
+		return -1;
+	
+	NSInteger tIndex=[self.items indexOfObjectIdenticalTo:inItem];
+	
+	return (tIndex==NSNotFound) ? -1 : tIndex;
+}
 
 - (id)tableView:(NSTableView *)inTableView itemAtRow:(NSInteger)inRow
 {
 	if (inTableView==nil)
 		return nil;
 	
-	if (inRow<0 || inRow>=_cachedDisplayedItems.count)
+	if (inRow<0 || inRow>=self.items.count)
 		return nil;
 	
-	return _cachedDisplayedItems[inRow];
+	return self.items[inRow];
 }
 
 - (NSArray *)tableView:(NSTableView *)inTableView itemsAtRowIndexes:(NSIndexSet *)inIndexSet
@@ -73,10 +71,10 @@
 	if (inTableView==nil || inIndexSet==nil)
 		return nil;
 	
-	if (inIndexSet.lastIndex>=_cachedDisplayedItems.count)
+	if (inIndexSet.lastIndex>=self.items.count)
 		return nil;
 	
-	return [_cachedDisplayedItems objectsAtIndexes:inIndexSet];
+	return [self.items objectsAtIndexes:inIndexSet];
 }
 
 - (void)tableView:(NSTableView *)inTableView addItem:(id)inItem
@@ -86,7 +84,27 @@
 	
 	[self.items addObject:inItem];
 	
-	_cachedDisplayedItems=[self arrangeItems];
+	[inTableView deselectAll:self];
+	
+	[self.delegate dataDidChange:self];
+	
+	[inTableView reloadData];
+	
+	NSInteger tIndex=[self.items indexOfObjectIdenticalTo:inItem];
+	
+	if (tIndex!=NSNotFound)
+		[inTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tIndex] byExtendingSelection:NO];
+}
+
+- (void)tableView:(NSTableView *)inTableView replaceItemAtIndex:(NSUInteger)inIndex withItem:(id)inItem
+{
+	if (inTableView==nil || inItem==nil)
+		return;
+	
+	if (inIndex>=self.items.count)
+		return;
+	
+	[self.items replaceObjectAtIndex:inIndex withObject:inItem];
 	
 	[inTableView deselectAll:self];
 	
@@ -94,7 +112,7 @@
 	
 	[inTableView reloadData];
 	
-	NSInteger tIndex=[_cachedDisplayedItems indexOfObject:inItem];
+	NSInteger tIndex=[self.items indexOfObjectIdenticalTo:inItem];
 	
 	if (tIndex!=NSNotFound)
 		[inTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tIndex] byExtendingSelection:NO];
@@ -106,8 +124,6 @@
 		return;
 	
 	[self.items removeObjectsInArray:inItems];
-	
-	_cachedDisplayedItems=[self arrangeItems];
 	
 	[inTableView deselectAll:self];
 	

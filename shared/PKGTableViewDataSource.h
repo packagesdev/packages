@@ -29,13 +29,19 @@
 
 - (instancetype)initWithItems:(NSMutableArray *)inArray;
 
-- (NSArray *)arrangeItems;
+- (NSMutableArray *)arrangedItems;
+
+- (NSMutableArray *)cleanedUpItems;
+
+- (NSInteger)tableView:(NSTableView *)inTableView rowForItem:(id)inItem;
 
 - (id)tableView:(NSTableView *)inTableView itemAtRow:(NSInteger)inRow;
 
 - (NSArray *)tableView:(NSTableView *)inTableView itemsAtRowIndexes:(NSIndexSet *)inIndexSet;
 
 - (void)tableView:(NSTableView *)inTableView addItem:(id)inItem;
+
+- (void)tableView:(NSTableView *)inTableView replaceItemAtIndex:(NSUInteger)inIndex withItem:(id)inItem;
 
 - (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems;
 
