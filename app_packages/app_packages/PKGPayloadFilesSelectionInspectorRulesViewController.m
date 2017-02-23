@@ -176,7 +176,6 @@
 	
 	tLocatorPanel.locator=tNewLocator;
 	tLocatorPanel.payloadTreeNode=tTreeNode;
-	tLocatorPanel.filePathConverter=self.filePathConverter;
 	
 	[tLocatorPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
 		
@@ -260,7 +259,6 @@
 	
 	tLocatorPanel.locator=tEditedLocator;
 	tLocatorPanel.payloadTreeNode=tTreeNode;
-	tLocatorPanel.filePathConverter=self.filePathConverter;
 	
 	[tLocatorPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
 		
