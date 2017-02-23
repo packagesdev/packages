@@ -50,38 +50,39 @@
 		{
 			PKGDistributionProjectSourceListTreeNode * tPackageComponentTreeNode=[[PKGDistributionProjectSourceListTreeNode alloc] initWithRepresentedObject:[[PKGDistributionProjectSourceListPackageComponentItem alloc] initWithPackageComponent:tPackageComponent] children:nil];
 			
+			PKGDistributionProjectSourceListTreeNode * tGroupNode=nil;
+			
 			switch (tPackageComponent.type)
 			{
 				case PKGPackageComponentTypeProject:
 					
-					[tProjectPackagesGroupNode insertChild:tPackageComponentTreeNode sortedUsingComparator:^NSComparisonResult(PKGDistributionProjectSourceListTreeNode * bTreeNode1,PKGDistributionProjectSourceListTreeNode * bTreeNode2){
-						
-						PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem1=[bTreeNode1 representedObject];
-						PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem2=[bTreeNode2 representedObject];
-						
-						return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name];
-					}];
-					
+					tGroupNode=tProjectPackagesGroupNode;
 					break;
 					
 				case PKGPackageComponentTypeImported:
 					
-					[tProjectImportedGroupNode addChild:tPackageComponentTreeNode];	// A COMPLETER (sorted by name)
-					
+					tGroupNode=tPackageComponentTreeNode;
 					break;
 					
 				case PKGPackageComponentTypeReference:
 					
-					[tProjectReferencedGroupNode insertChild:tPackageComponentTreeNode sortedUsingComparator:^NSComparisonResult(PKGDistributionProjectSourceListTreeNode * bTreeNode1,PKGDistributionProjectSourceListTreeNode * bTreeNode2){
-						
-						PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem1=[bTreeNode1 representedObject];
-						PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem2=[bTreeNode2 representedObject];
-						
-						return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name];
-					}];
+					tGroupNode=tProjectReferencedGroupNode;
+					break;
+					
+				default:
+					
+					// A COMPLETER
 					
 					break;
 			}
+			
+			[tGroupNode insertChild:tPackageComponentTreeNode sortedUsingComparator:^NSComparisonResult(PKGDistributionProjectSourceListTreeNode * bTreeNode1,PKGDistributionProjectSourceListTreeNode * bTreeNode2){
+				
+				PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem1=[bTreeNode1 representedObject];
+				PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem2=[bTreeNode2 representedObject];
+				
+				return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name options:NSNumericSearch];
+			}];
 		}
 		
 		[_rootNodes addObject:tProjectPackagesGroupNode];
@@ -98,6 +99,68 @@
 
 #pragma mark -
 
+- (void)addPackageComponent:(PKGPackageComponent *)inPackageComponent
+{
+	if (inPackageComponent==nil)
+		return;
+	
+	NSUInteger tGroupIndex=[self.rootNodes indexOfObjectPassingTest:^BOOL(PKGDistributionProjectSourceListTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	
+		PKGDistributionProjectSourceListItem * tItem=[bTreeNode representedObject];
+		
+		if ([tItem isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==NO)
+			return NO;
+		
+		return (((PKGDistributionProjectSourceListGroupItem *)tItem).groupType==inPackageComponent.type);
+	}];
+	
+	PKGDistributionProjectSourceListTreeNode * tGroupNode=(tGroupIndex==NSNotFound) ? [[PKGDistributionProjectSourceListTreeNode alloc] initWithRepresentedObject:[[PKGDistributionProjectSourceListGroupItem alloc] initWithGroupType:inPackageComponent.type] children:nil] : self.rootNodes[tGroupIndex];
+	
+	if (tGroupNode==nil)
+		return;
+	
+	[tGroupNode insertChild:[[PKGDistributionProjectSourceListTreeNode alloc] initWithRepresentedObject:[[PKGDistributionProjectSourceListPackageComponentItem alloc] initWithPackageComponent:inPackageComponent] children:nil] sortedUsingComparator:^NSComparisonResult(PKGDistributionProjectSourceListTreeNode * bTreeNode1,PKGDistributionProjectSourceListTreeNode * bTreeNode2){
+		
+		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem1=[bTreeNode1 representedObject];
+		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem2=[bTreeNode2 representedObject];
+		
+		return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name options:NSNumericSearch];
+	}];
+ 
+	if (tGroupIndex==NSNotFound)
+	{
+		if (inPackageComponent.type==PKGPackageComponentTypeReference)
+			[self.rootNodes addObject:tGroupNode];
+		else
+			[self.rootNodes insertObject:tGroupNode atIndex:2];
+	}
+}
 
+- (PKGDistributionProjectSourceListTreeNode *)treeNodeForPackageComponent:(PKGPackageComponent *)inPackageComponent
+{
+	if (inPackageComponent==nil)
+		return nil;
+	
+	for(PKGDistributionProjectSourceListTreeNode * tTreeNode in self.rootNodes)
+	{
+		PKGDistributionProjectSourceListItem * tItem=[tTreeNode representedObject];
+		
+		if ([tItem isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==NO)
+			continue;
+		
+		if (((PKGDistributionProjectSourceListGroupItem *)tItem).groupType==inPackageComponent.type)
+		{
+			return (PKGDistributionProjectSourceListTreeNode *)[tTreeNode descendantNodeMatching:^BOOL(PKGDistributionProjectSourceListTreeNode *bComponentTreeNode){
+			
+				PKGDistributionProjectSourceListPackageComponentItem * tComponentItem=[bComponentTreeNode representedObject];
+				
+				return (tComponentItem.packageComponent==inPackageComponent);
+				
+			}];
+		}
+	}
+	
+	return nil;
+}
 
 @end

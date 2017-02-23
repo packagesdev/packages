@@ -15,6 +15,8 @@
 
 #import "PKGFilePath.h"
 
+#import "PKGPackageComponent.h"
+
 @class PKGDistributionProjectSourceListDataSource;
 
 @protocol PKGDistributionProjectSourceListDataSourceDelegate <NSObject>
@@ -30,6 +32,14 @@
 	@property id<PKGFilePathConverter> filePathConverter;
 
 	@property (weak) id<PKGDistributionProjectSourceListDataSourceDelegate> delegate;
+
+
+- (void)addProjectPackageComponent:(NSOutlineView *)inOutlineView;
+
+- (void)addReferencePackageComponent:(NSOutlineView *)inOutlineView;
+
+- (void)importPackageComponent:(NSOutlineView *)inOutlineView;
+
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
 

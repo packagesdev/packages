@@ -15,8 +15,15 @@
 
 @interface PKGProjectMainViewController ()
 
+- (IBAction)build:(id)sender;
+
 @end
 
 @implementation PKGProjectMainViewController
+
+- (IBAction)build:(id)sender
+{
+	// A COMPLETER
+}
 
 @end

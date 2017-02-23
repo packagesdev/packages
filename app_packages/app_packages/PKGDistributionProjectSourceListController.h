@@ -21,4 +21,12 @@
 
 	@property (nonatomic) PKGDistributionProjectSourceListDataSource * dataSource;
 
+- (IBAction)showProject:(id)sender;
+
+- (IBAction)addPackage:(id)sender;
+
+- (IBAction)addPackageReference:(id)sender;
+
+- (IBAction)importPackage:(id)sender;
+
 @end

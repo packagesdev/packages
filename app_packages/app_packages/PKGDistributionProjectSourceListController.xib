@@ -7,6 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionProjectSourceListController">
             <connections>
+                <outlet property="_addButton" destination="X9V-FI-tnX" id="N6N-La-6Pa"/>
+                <outlet property="_sourceListAuxiliaryView" destination="mns-d4-rpm" id="gIc-7r-BAZ"/>
                 <outlet property="outlineView" destination="a94-rx-tqv" id="JTF-KG-mmK"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="HFB-s8-TZZ"/>
             </connections>
@@ -25,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="20" viewBased="YES" floatsGroupRows="NO" indentationPerLevel="14" outlineTableColumn="mdl-Tx-LkZ" id="a94-rx-tqv" customClass="PKGSourceListView">
-                                <rect key="frame" x="0.0" y="0.0" width="395" height="614"/>
+                                <rect key="frame" x="0.0" y="0.0" width="395" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -91,7 +93,7 @@
                                 </tableColumns>
                                 <connections>
                                     <outlet property="delegate" destination="-2" id="v3B-GU-VRE"/>
-                                    <outlet property="menu" destination="mf1-Db-Uup" id="XXA-fd-5yH"/>
+                                    <outlet property="menu" destination="mf1-Db-Uup" id="yo0-EJ-wgE"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -145,8 +147,27 @@
                 </menuItem>
             </items>
         </menu>
+        <customView id="mns-d4-rpm">
+            <rect key="frame" x="0.0" y="0.0" width="173" height="33"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" id="X9V-FI-tnX">
+                    <rect key="frame" x="13" y="5" width="27" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UAi-d8-rUy">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addPackage:" target="-2" id="o8E-tE-tGg"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="53.5" y="832.5"/>
+        </customView>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
     </resources>
 </document>

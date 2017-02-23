@@ -20,10 +20,16 @@
 
 #import "NSOutlineView+Selection.h"
 
+#import "NSArray+UniqueName.h"
+
+#import "PKGProjectTemplateDefaultValuesSettings.h"
+
 @interface PKGDistributionProjectSourceListDataSource ()
 {
 	PKGDistributionProjectSourceListForest * _forest;
 }
+
+- (void)outlineView:(NSOutlineView *)inOutlineView addPackageComponent:(PKGPackageComponent *)inPackageComponent;
 
 @end
 
@@ -63,6 +69,101 @@
 }
 
 #pragma mark -
+
+- (void)addProjectPackageComponent:(NSOutlineView *)inOutlineView
+{
+	PKGPackageComponent * tProjectComponent=[PKGPackageComponent projectComponent];
+	
+	// Name
+	
+	NSString * tName=[self.packageComponents uniqueNameWithBaseName:NSLocalizedString(@"untitled package",@"No comment") usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+	
+		return bPackageComponent.packageSettings.name;
+	}];
+	
+	tProjectComponent.packageSettings.name=(tName==nil)? @"" : tName;
+	
+	// Identifier
+	
+	NSArray * tNameComponents=[tProjectComponent.packageSettings.name componentsSeparatedByString:@" "];
+	
+	NSString * tPackageIdentifier=[tNameComponents componentsJoinedByString:@"-"];
+	if (tPackageIdentifier==nil)
+		tPackageIdentifier=@"";
+	
+	NSString * tDefaultIdentifierPrefix=[[PKGProjectTemplateDefaultValuesSettings sharedSettings] valueForKey:PKGProjectTemplateCompanyIdentifierPrefixKey];
+	
+	if (tDefaultIdentifierPrefix!=nil)
+	{
+		NSString * tFormat=@"%@%@";
+		
+		if ([tDefaultIdentifierPrefix hasSuffix:@"."]==NO)
+			tFormat=@"%@.%@";
+		
+		tPackageIdentifier=[NSString stringWithFormat:tFormat,tDefaultIdentifierPrefix,tPackageIdentifier];
+	}
+	
+	tProjectComponent.packageSettings.identifier=tPackageIdentifier;
+	
+	[self outlineView:inOutlineView addPackageComponent:tProjectComponent];
+}
+
+- (void)addReferencePackageComponent:(NSOutlineView *)inOutlineView
+{
+	PKGPackageComponent * tProjectComponent=[PKGPackageComponent referenceComponent];
+	
+	NSString * tName=[self.packageComponents uniqueNameWithBaseName:NSLocalizedString(@"untitled package",@"No comment") usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+		
+		return bPackageComponent.packageSettings.name;
+	}];
+	
+	tProjectComponent.packageSettings.name=(tName==nil)? @"" : tName;
+	
+	[self outlineView:inOutlineView addPackageComponent:tProjectComponent];
+}
+
+- (void)importPackageComponent:(NSOutlineView *)inOutlineView
+{
+	// A COMPLETER
+	
+	PKGPackageComponent * tProjectComponent=[PKGPackageComponent importedComponentWithFilePath:nil];
+	
+	[self outlineView:inOutlineView addPackageComponent:tProjectComponent];
+}
+
+- (void)outlineView:(NSOutlineView *)inOutlineView addPackageComponent:(PKGPackageComponent *)inPackageComponent
+{
+	if (inOutlineView==nil || inPackageComponent==nil)
+		return;
+	
+	if ([self.packageComponents containsObject:inPackageComponent]==NO)
+	{
+		[self.packageComponents addObject:inPackageComponent];
+		
+		[_forest addPackageComponent:inPackageComponent];
+		
+		[self.delegate sourceListDataDidChange:self];
+		
+		// Post Notification
+		
+		// A COMPLETER
+		
+		[inOutlineView reloadData];
+		
+		PKGDistributionProjectSourceListTreeNode * tTreeNode=[_forest treeNodeForPackageComponent:inPackageComponent];
+		
+		[inOutlineView expandItem:tTreeNode.parent];
+		
+		NSInteger tSelectedRow=(tTreeNode==nil) ? 0 : [inOutlineView rowForItem:tTreeNode];
+		
+		if (tSelectedRow==-1)
+			tSelectedRow=0;
+		
+		[inOutlineView scrollRowToVisible:tSelectedRow];
+		
+		[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tSelectedRow] byExtendingSelection:NO];
+	}
+}
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems
 {

@@ -126,6 +126,28 @@
 	[_sourceListController WB_viewDidDisappear];
 }
 
+#pragma mark -
+
+- (IBAction)showProject:(id)sender
+{
+	[_sourceListController showProject:sender];
+}
+
+- (IBAction)addPackage:(id)sender
+{
+	// A COMPLETER
+}
+
+- (IBAction)addPackageReference:(id)sender
+{
+	// A COMPLETER
+}
+
+- (IBAction)importPackage:(id)sender
+{
+	// A COMPLETER
+}
+
 #pragma mark - NSSplitViewDelegate
 
 #define ICDOCUMENT_RIGHTVIEW_MIN_WIDTH		1026
@@ -212,8 +234,12 @@
 	else
 	{
 		PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)self.project;
+		NSArray * tSelectedItems=[tOutlineView WB_selectedItems];
 		
-		PKGDistributionProjectSourceListTreeNode * tSourceListTreeNode=[tOutlineView WB_selectedItems][0];
+		if (tSelectedItems.count==0)
+			return;
+		
+		PKGDistributionProjectSourceListTreeNode * tSourceListTreeNode=tSelectedItems[0];
 		PKGDistributionProjectSourceListItem * tSourceListItem=[tSourceListTreeNode representedObject];
 
 		PKGViewController * tNewViewController=nil;

@@ -17,10 +17,16 @@
 
 #import "PKGRootNodesProtocol.h"
 
+#import "PKGPackageComponent.h"
+
 @interface PKGDistributionProjectSourceListForest : NSObject <PKGRootNodesProtocol>
 
 	@property (nonatomic,readonly) NSMutableArray * rootNodes;
 
 - (instancetype)initWithPackageComponents:(NSMutableArray *)inPackageComponents;
+
+- (void)addPackageComponent:(PKGPackageComponent *)inPackageComponent;
+
+- (PKGDistributionProjectSourceListTreeNode *)treeNodeForPackageComponent:(PKGPackageComponent *)inPackageComponent;
 
 @end

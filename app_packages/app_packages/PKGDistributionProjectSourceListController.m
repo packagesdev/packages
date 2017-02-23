@@ -24,12 +24,35 @@
 
 #import "PKGPackageComponent+UI.h"
 
+#import "PKGDocumentWindowController.h"
+
+#import "PKGEvent.h"
+
 @interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate>
+{
+	IBOutlet NSView * _sourceListAuxiliaryView;
+	
+	IBOutlet NSButton * _addButton;
+}
+
+	@property IBOutlet NSMenu * contextualMenu;
 
 - (IBAction)showInFinder:(id)sender;
 - (IBAction)duplicate:(id)sender;
 - (IBAction)renamePackage:(id)sender;
 - (IBAction)exportPackageAsProject:(id)sender;
+
+- (IBAction)showProject:(id)sender;
+
+- (IBAction)addPackage:(id)sender;
+
+- (IBAction)addPackageReference:(id)sender;
+
+- (IBAction)importPackage:(id)sender;
+
+// Notifications
+
+- (void)optionKeyDidChange:(NSNotification *)inNotification;
 
 @end
 
@@ -49,15 +72,25 @@
 	[super WB_viewWillAppear];
 	
 	self.outlineView.dataSource=self.dataSource;
+	
+	
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
 	
+	NSView * tLeftAccessoryView=((PKGDocumentWindowController *) self.view.window.windowController).leftAccessoryView;
+	
+	_sourceListAuxiliaryView.frame=tLeftAccessoryView.bounds;
+	
+	[tLeftAccessoryView addSubview:_sourceListAuxiliaryView];
+	
 	[self.outlineView reloadData];
 	
 	[self.outlineView expandItem:nil expandChildren:YES];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionKeyDidChange:) name:PKGOptionKeyDidChangeStateNotification object:self.view.window];
 	
 	// A COMPLETER
 }
@@ -65,6 +98,8 @@
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[_sourceListAuxiliaryView removeFromSuperview];
 	
 	// A COMPLETER
 }
@@ -87,7 +122,7 @@
 		self.outlineView.dataSource=_dataSource;
 }
 
-#pragma mark -
+#pragma mark - Contextual Menu
 
 - (IBAction)showInFinder:(id)sender
 {
@@ -141,6 +176,35 @@
 {
 	// A COMPLETER
 }
+
+#pragma mark -
+
+- (IBAction)showProject:(id)sender
+{
+	[self.outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+}
+
+- (IBAction)addPackage:(id)sender
+{
+	[self.dataSource addProjectPackageComponent:self.outlineView];
+	
+	// A COMPLETER
+}
+
+- (IBAction)addPackageReference:(id)sender
+{
+	[self.dataSource addReferencePackageComponent:self.outlineView];
+	
+	// A COMPLETER
+}
+
+- (IBAction)importPackage:(id)sender
+{
+	[self.dataSource importPackageComponent:self.outlineView];
+	
+	// A COMPLETER
+}
+
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
@@ -286,6 +350,30 @@
 - (void)sourceListDataDidChange:(PKGDistributionProjectSourceListDataSource *)inSourceListDataSource
 {
 	[self noteDocumentHasChanged];
+}
+
+#pragma mark - Notifications
+
+- (void)optionKeyDidChange:(NSNotification *)inNotification
+{
+	if (inNotification==nil)
+		return;
+	
+	NSNumber * tNumber=inNotification.userInfo[PKGOptionKeyState];
+	
+	if (tNumber==nil)
+		return;
+	
+	if ([tNumber boolValue]==YES)
+	{
+		_addButton.image=[NSImage imageNamed:@"NSAddTemplate"];
+		_addButton.action=@selector(addPackageReference:);
+	}
+	else
+	{
+		_addButton.image=[NSImage imageNamed:@"NSAddTemplate"];
+		_addButton.action=@selector(addPackage:);
+	}
 }
 
 @end
