@@ -214,6 +214,13 @@
 	
 	_currentLocatorViewController=[[PKGLocatorPluginsManager defaultManager] createPluginUIControllerForIdentifier:inIdentifier];
 	
+	if (_currentLocatorViewController==nil)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
 	if (_cachedSettingsRepresentations[inIdentifier]!=nil)
 	{
 		self.locator.settingsRepresentation=_cachedSettingsRepresentations[inIdentifier];
@@ -225,13 +232,6 @@
 	}
 	
 	_currentLocatorViewController.settings=self.locator.settingsRepresentation;
-	
-	if (_currentLocatorViewController==nil)
-	{
-		// A COMPLETER
-		
-		return;
-	}
 	
 	NSRect tBounds=_locatorPlaceHolderView.bounds;
 	
@@ -326,7 +326,11 @@
 	NSString * tLocatorIdentifier=[[PKGLocatorPluginsManager defaultManager] identifierForLocalizedPluginName:sender.titleOfSelectedItem];
 	
 	if ([tLocatorIdentifier isEqualToString:self.locator.identifier]==NO)
+	{
+		self.locator.settingsRepresentation=nil;
+		
 		[self showLocatorViewControllerWithIdentifier:tLocatorIdentifier];
+	}
 }
 
 - (IBAction)endDialog:(NSButton *)sender
@@ -371,6 +375,8 @@
 	PKGLocatorWindowController * retainedWindowController;
 }
 
+	@property (nonatomic,readwrite) id<PKGFilePathConverter> filePathConverter;
+
 - (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
 
 @end
@@ -409,16 +415,6 @@
 	retainedWindowController.payloadTreeNode=inPayloadTreeNode;
 }
 
-- (id<PKGFilePathConverter>)filePathConverter
-{
-	return retainedWindowController.filePathConverter;
-}
-
-- (void)setFilePathConverter:(id<PKGFilePathConverter>)inFilePathConverter
-{
-	retainedWindowController.filePathConverter=inFilePathConverter;
-}
-
 #pragma mark -
 
 - (void)_sheetDidEndSelector:(PKGLocatorPanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
@@ -435,6 +431,8 @@
 
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
 {
+	retainedWindowController.filePathConverter=self.filePathConverter=((NSWindowController *) inWindow.windowController).document;
+	
 	[retainedWindowController refreshUI];
 	
 	[NSApp beginSheet:self

@@ -181,7 +181,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (void)WB_viewDidAppear
 {
-	_optimizedFilesFilters=[self project].settings.optimizedFilesFilters;
+	_optimizedFilesFilters=self.documentProject.settings.optimizedFilesFilters;
 	
 	// A COMPLETER
 	

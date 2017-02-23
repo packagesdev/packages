@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,26 +14,36 @@
 #import "PKGDocumentViewController.h"
 
 #import "PKGDocument.h"
+#import "PKGDocumentWindowController.h"
 
 @interface PKGDocumentViewController ()
+
+	@property (nonatomic,readonly) PKGDocument * document;
 
 @end
 
 @implementation PKGDocumentViewController
 
-- (void)noteDocumentHasChanged
+- (PKGDocument *)document
 {
-	[((NSWindowController *) self.view.window.windowController).document updateChangeCount:NSChangeDone];
+	return ((NSWindowController *) self.view.window.windowController).document;
 }
 
 - (id<PKGFilePathConverter>)filePathConverter
 {
-	return /*(id<PKGFilePathConverter>)[NSApp delegate];//*/((NSWindowController *) self.view.window.windowController).document;
+	return self.document;
 }
 
-- (PKGProject *)project
+- (PKGProject *)documentProject
 {
-	return ((PKGDocument *) ((NSWindowController *) self.view.window.windowController).document).project;
+	return ((PKGDocumentWindowController *) self.view.window.windowController).project;
+}
+
+#pragma mark -
+
+- (void)noteDocumentHasChanged
+{
+	[self.document updateChangeCount:NSChangeDone];
 }
 
 @end
