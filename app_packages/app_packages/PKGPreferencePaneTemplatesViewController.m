@@ -99,7 +99,7 @@
 			return tView;
 		}
 
-		if ([tTableColumnIdentifier isEqualToString: @"Value"]==YES)
+		if ([tTableColumnIdentifier isEqualToString:@"Value"]==YES)
 		{
 			tView.textField.stringValue=[[PKGProjectTemplateDefaultValuesSettings sharedSettings] valueForKey:tKey];
 			
