@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,30 +13,19 @@
 
 #import "PKGDocument.h"
 
-
-
-#import "PKGPackageProjectMainViewController.h"
-#import "PKGDistributionProjectMainViewController.h"
-
-#define PKGDocumentWindowPackageProjectMinWidth				1026.0
-#define PKGDocumentWindowDistributionProjectMinWidth		1200.0
-#define PKGDocumentWindowMinHeight							613.0
-
+#import "PKGDocumentWindowController.h"
 
 #import "NSString+Packages.h"
 
 @interface PKGDocument ()
 {
-	PKGProjectMainViewController * _projectMainViewController;
+	PKGDocumentWindowController * _documentWindowController;
 }
-
-	@property (readwrite) PKGProject * project;
 
 	@property (readonly,copy) NSString * referenceProjectPath;
 
 	@property (readonly,copy) NSString * referenceFolderPath;
 
-- (IBAction)build:(id)sender;
 
 @end
 
@@ -49,51 +38,9 @@
 
 #pragma mark -
 
-- (NSString *)windowNibName
+- (void)makeWindowControllers
 {
-    // Override returning the nib file name of the document
-    // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
-    return @"PKGDocument";
-}
-
-- (void)windowControllerDidLoadNib:(NSWindowController *)aController
-{
-    [super windowControllerDidLoadNib:aController];
-	
-	switch(self.project.type)
-	{
-		case PKGProjectTypeDistribution:
-			
-			_projectMainViewController=[PKGDistributionProjectMainViewController new];
-			
-			break;
-			
-		case PKGProjectTypePackage:
-			
-			_projectMainViewController=[PKGPackageProjectMainViewController new];
-			
-			break;
-	}
-	
-	_projectMainViewController.project=self.project;
-	
-	NSWindow * tDocumentMainWindow=self.windowForSheet;
-	
-	NSView * tMainView=_projectMainViewController.view;
-	
-	NSRect tFrame=((NSView *)tDocumentMainWindow.contentView).bounds;
-	
-	[tMainView setFrame:tFrame];
-	
-	[_projectMainViewController WB_viewWillAppear];
-	
-	[tDocumentMainWindow.contentView addSubview:tMainView];
-	
-	[_projectMainViewController WB_viewDidAppear];
-	
-	[tDocumentMainWindow setMinSize:NSMakeSize(PKGDocumentWindowPackageProjectMinWidth, PKGDocumentWindowMinHeight)];
-	
-	[tDocumentMainWindow setContentBorderThickness:33.0 forEdge:NSMinYEdge];
+	[self addWindowController:_documentWindowController];
 }
 
 #pragma mark -
@@ -110,7 +57,7 @@
 
 - (NSString *)referenceFolderPath
 {
-	NSString * tReferenceProjectPath=self.project.settings.referenceFolderPath;
+	NSString * tReferenceProjectPath=_documentWindowController.project.settings.referenceFolderPath;
 	
 	if (tReferenceProjectPath==nil)
 		return self.folder;
@@ -122,7 +69,7 @@
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
-	id tPropertyList=[self.project representation];
+	id tPropertyList=[_documentWindowController.project representation];
 	
 	if (tPropertyList==nil)
 	{
@@ -158,13 +105,15 @@
 		return NO;
 	}
 	
-	self.project=[PKGProject projectFromPropertyList:tPropertyList error:&tError];
+	PKGProject * tProject=[PKGProject projectFromPropertyList:tPropertyList error:&tError];
 	
-	if (self.project==nil)
+	if (tProject==nil)
 	{
 		
 		return NO;
 	}
+	
+	_documentWindowController=[[PKGDocumentWindowController alloc] initWithProject:tProject];
 	
 	return YES;
 	
@@ -182,13 +131,7 @@
     return NO;
 }
 
-#pragma mark -
-
-- (IBAction)build:(id)sender
-{
-}
-
-#pragma mark -
+#pragma mark - PKGFilePathConverter
 
 - (NSString *)absolutePathForFilePath:(PKGFilePath *)inFilePath
 {
