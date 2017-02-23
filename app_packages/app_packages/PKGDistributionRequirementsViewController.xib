@@ -108,6 +108,9 @@
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="switchRequirementState:" target="-2" id="gtJ-XI-iCF"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <connections>
@@ -135,12 +138,15 @@
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="d3i-eS-2qF">
                                                         <rect key="frame" x="0.0" y="0.0" width="417" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="nei-QL-C9e">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <action selector="setRequirementName:" target="-2" id="sUh-7T-fmP"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <connections>

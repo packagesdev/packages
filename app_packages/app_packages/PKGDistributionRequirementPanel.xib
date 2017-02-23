@@ -7,9 +7,12 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionRequirementWindowController">
             <connections>
+                <outlet property="_behaviorPlaceHolderView" destination="URL-IR-9OJ" id="pA6-ic-ZOE"/>
                 <outlet property="_cancelButton" destination="M1u-sW-Is4" id="X3b-hf-oPs"/>
+                <outlet property="_checkTypeView" destination="UwO-JB-YgQ" id="fvt-QH-EN0"/>
                 <outlet property="_okButton" destination="kGW-Kb-1db" id="uN9-7i-m59"/>
                 <outlet property="_requirementPlaceHolderView" destination="4mv-d5-3ip" id="ydf-sx-xXB"/>
+                <outlet property="_requirementTypeCheckBox" destination="4yR-uc-VNH" id="l1W-7n-h8y"/>
                 <outlet property="_requirementTypeIcon" destination="fyH-Wc-PSp" id="dfh-7c-pNx"/>
                 <outlet property="_requirementTypePopUpButton" destination="MMe-ly-j6o" id="Nbj-aR-QrG"/>
                 <outlet property="window" destination="5KD-Ym-9xb" id="7e7-97-p7B"/>
@@ -31,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="AQq-MG-qhR" id="qAu-g3-7jg">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="RF9-EZ-XXa">
                                 <items>
                                     <menuItem title="Item1" state="on" id="AQq-MG-qhR"/>
@@ -74,9 +77,6 @@ Gw
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" tag="1" inset="2" id="rdq-cP-wcL">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
                         </buttonCell>
                         <connections>
                             <action selector="endDialog:" target="-2" id="vJ7-N1-Bwg"/>
@@ -87,7 +87,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="n3Z-h6-3zu"/>
                     </imageView>
-                    <customView id="UwO-JB-YgQ" customClass="WBLightGrayView">
+                    <customView id="UwO-JB-YgQ" customClass="WBLightGrayFramedView">
                         <rect key="frame" x="20" y="127" width="586" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <subviews>
@@ -98,6 +98,9 @@ DQ
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="switchRequirementCheckType:" target="-2" id="0pi-48-boU"/>
+                                </connections>
                             </button>
                         </subviews>
                     </customView>

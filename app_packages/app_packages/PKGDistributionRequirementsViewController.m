@@ -170,7 +170,6 @@
 	PKGDistributionRequirementPanel * tRequirementPanel=[PKGDistributionRequirementPanel distributionRequirementPanel];
 	
 	tRequirementPanel.requirement=tNewRequirement;
-	tRequirementPanel.filePathConverter=self.filePathConverter;
 	
 	[tRequirementPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
 		
@@ -192,18 +191,18 @@
 		}
 		
 		[self.requirementsDataSource tableView:self.tableView addItem:tNewRequirement];
+		
+		// Enter edition mode
+		
+		NSInteger tRow=self.tableView.selectedRow;
+		
+		if (tRow==-1)
+			return;
+		
+		[self.tableView scrollRowToVisible:tRow];
+		
+		[self.tableView editColumn:[self.tableView columnWithIdentifier:@"requirement.name"] row:tRow withEvent:nil select:YES];
 	}];
-	
-	/*// Enter edition mode
-	
-	NSInteger tRow=self.tableView.selectedRow;
-	
-	if (tRow==-1)
-		return;
-	
-	[self.tableView scrollRowToVisible:tRow];
-	
-	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"requirement.name"] row:tRow withEvent:nil select:YES];*/
 }
 
 - (IBAction)delete:(id)sender
@@ -231,13 +230,13 @@
 
 - (IBAction)editRequirement:(id)sender
 {
-	PKGRequirement * tOriginalRequirement=[self.requirementsDataSource tableView:self.tableView itemAtRow:self.tableView.WB_selectedOrClickedRowIndexes.firstIndex];
+	NSUInteger tIndex=self.tableView.WB_selectedOrClickedRowIndexes.firstIndex;
+	PKGRequirement * tOriginalRequirement=[self.requirementsDataSource tableView:self.tableView itemAtRow:tIndex];
 	PKGRequirement * tEditedRequirement=[tOriginalRequirement copy];
 	
 	PKGDistributionRequirementPanel * tRequirementPanel=[PKGDistributionRequirementPanel distributionRequirementPanel];
 	
 	tRequirementPanel.requirement=tEditedRequirement;
-	tRequirementPanel.filePathConverter=self.filePathConverter;
 	
 	[tRequirementPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
 		
@@ -247,11 +246,7 @@
 		if ([tEditedRequirement isEqualToRequirement:tOriginalRequirement]==YES)
 			return;
 		
-		// A COMPLETER
-		
-		//tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex]=[tEditedLocator copy];
-		
-		[self noteDocumentHasChanged];
+		[self.requirementsDataSource tableView:self.tableView replaceItemAtIndex:tIndex withItem:tEditedRequirement];
 	}];
 }
 
