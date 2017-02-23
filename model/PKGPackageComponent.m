@@ -30,7 +30,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 
 @interface PKGPackageComponent ()
 
-	@property (readwrite) NSString * uuid;
+	@property (readwrite) NSString * UUID;
 
 	@property (readwrite) PKGPackageComponentType type;
 
@@ -43,7 +43,57 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 
 @synthesize packageSettings=_packageSettings,payload=_payload,scriptsAndResources=_scriptsAndResources;
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
++ (PKGPackageComponent *)projectComponent
+{
+	PKGPackageComponent * nProjectComponent=[PKGPackageComponent new];
+	
+	if (nProjectComponent!=nil)
+	{
+		nProjectComponent.UUID=[NSUUID UUID].UUIDString;
+		nProjectComponent.type=PKGPackageComponentTypeProject;
+		
+		nProjectComponent.packageSettings=[PKGPackageSettings new];
+	}
+	
+	return nProjectComponent;
+}
+
++ (PKGPackageComponent *)referenceComponent
+{
+	PKGPackageComponent * nReferenceComponent=[PKGPackageComponent new];
+	
+	if (nReferenceComponent!=nil)
+	{
+		nReferenceComponent.UUID=[NSUUID UUID].UUIDString;
+		nReferenceComponent.type=PKGPackageComponentTypeReference;
+		
+		nReferenceComponent.packageSettings=[PKGPackageSettings new];
+	}
+	
+	return nReferenceComponent;
+}
+
++ (PKGPackageComponent *)importedComponentWithFilePath:(PKGFilePath *)inFilePath
+{
+	if (inFilePath==nil)
+		return nil;
+	
+	PKGPackageComponent * nImportedComponent=[PKGPackageComponent new];
+	
+	if (nImportedComponent!=nil)
+	{
+		nImportedComponent.UUID=[NSUUID UUID].UUIDString;
+		nImportedComponent.type=PKGPackageComponentTypeImported;
+		
+		nImportedComponent.packageSettings=[PKGPackageSettings new];
+		
+		nImportedComponent.importPath=inFilePath;
+	}
+	
+	return nImportedComponent;
+}
+
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -190,7 +240,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
