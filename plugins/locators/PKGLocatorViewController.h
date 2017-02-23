@@ -17,6 +17,8 @@
 
 #import "NSViewController+WBExtensions.h"
 
+#import "PKGFilePath.h"
+
 @interface PKGLocatorViewController : PKGViewController
 
 	@property (nonatomic) NSDictionary * settings;
@@ -26,6 +28,8 @@
 	@property (nonatomic,readonly) CGFloat minHeight;
 
 	@property (nonatomic,readonly) NSView * previousKeyView;
+
+	@property (readonly) id<PKGFilePathConverter> filePathConverter;
 
 
 - (NSDictionary *)defaultSettingsWithCommonValues:(NSDictionary *)inDictionary;

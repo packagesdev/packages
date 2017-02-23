@@ -13,6 +13,8 @@
 
 #import "PKGLocatorViewController.h"
 
+#import "PKGLocatorPanel.h"
+
 @implementation PKGLocatorViewController
 
 - (NSString *)nibName
@@ -58,6 +60,11 @@
 - (CGFloat)minHeight
 {
 	return 100.0;
+}
+
+- (id<PKGFilePathConverter>)filePathConverter
+{
+	return ((PKGLocatorPanel *)self.view.window).filePathConverter;
 }
 
 - (void)setNextKeyView:(NSView *)inView

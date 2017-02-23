@@ -14,7 +14,7 @@
 	
 	IBOutlet NSComboBox * _functionsComboBox;
 	
-	IBOutlet NSTableView * _tableView;
+	IBOutlet NSTableView * _argumentsTableView;
 	
 	IBOutlet NSButton * _addButton;
 	
@@ -31,11 +31,13 @@
 	NSArray * _cachedFunctionPrototypeParameters;
 }
 
-- (IBAction)setFunctionName:(id) sender;
+- (IBAction)setFunctionName:(id)sender;
 
-- (IBAction)addParameter:(id) sender;
+- (IBAction)setParameterValue:(id)sender;
 
-- (IBAction)removeParameters:(id) sender;
+- (IBAction)addParameter:(id)sender;
+
+- (IBAction)removeParameters:(id)sender;
 
 // Notifications
 
@@ -55,18 +57,14 @@
 											   object:_textViewDelegate];
 }
 
-- (void)setSettings:(NSDictionary *)inSettings
+- (void)WB_viewDidAppear
 {
-	_settings=[inSettings mutableCopy];
+	[super WB_viewDidAppear];
 	
-	[self refreshUI];
-}
-
-- (NSDictionary *)settings
-{
-	_settings[PKGLocatorJavaScriptSourceCodeKey]=[_textView.string copy];
+	_addButton.enabled=YES;
+	_removeButton.enabled=NO;
 	
-	return [_settings copy];
+	[_argumentsTableView reloadData];
 }
 
 #pragma mark -
@@ -74,7 +72,7 @@
 - (void)refreshUI
 {
 	// Shared Source Code
-		
+	
 	NSString * tString=[_settings[PKGLocatorJavaScriptSourceCodeKey] copy];
 	
 	if (tString!=nil)
@@ -91,23 +89,30 @@
 	_functionsComboBox.stringValue=(tString!=nil) ? tString : @"";
 	
 	// Parameters
+}
+
+#pragma mark -
+
+- (void)setSettings:(NSDictionary *)inSettings
+{
+	_settings=[inSettings mutableCopy];
+	
+	if (inSettings[PKGLocatorJavaScriptParametersKey]==nil)
+		_settings[PKGLocatorJavaScriptParametersKey]=[NSMutableArray array];
+	else
+		_settings[PKGLocatorJavaScriptParametersKey]=[inSettings[PKGLocatorJavaScriptParametersKey] mutableCopy];
 	
 	_cachedParameters=_settings[PKGLocatorJavaScriptParametersKey];
 	
-	if (_cachedParameters==nil)
-	{
-		_cachedParameters=[NSMutableArray array];
-		
-		_settings[PKGLocatorJavaScriptParametersKey]=[NSMutableArray array];
-	}
 	
-	[_addButton setEnabled:YES];
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	_settings[PKGLocatorJavaScriptSourceCodeKey]=[_textView.string copy];
 	
-	[_removeButton setEnabled:NO];
-	
-	[_tableView reloadData];
-	
-	[_tableView deselectAll:self];
+	return [_settings copy];
 }
 
 #pragma mark -
@@ -129,7 +134,7 @@
 
 - (void)setNextKeyView:(NSView *) inView
 {
-	[_tableView setNextKeyView:inView];
+	[_argumentsTableView setNextKeyView:inView];
 }
 
 #pragma mark -
@@ -167,96 +172,45 @@
 
 #pragma mark - NSTableViewDataSource
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *) inTableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)inTableView
 {
-    if (_tableView==inTableView)
-	{
-		NSUInteger tParametersCount=_cachedParameters.count;
-		
-		NSUInteger tPrototypeParametersCount=_cachedFunctionPrototypeParameters.count;
-		
-		if (tPrototypeParametersCount>tParametersCount)
-			return tPrototypeParametersCount;
-		
-		return tParametersCount;
-	}
+	if (inTableView!=_argumentsTableView)
+		return 0;
 	
-	return 0;
+	if (_cachedFunctionPrototypeParameters.count>_cachedParameters.count)
+		return _cachedFunctionPrototypeParameters.count;
+	
+	return _cachedParameters.count;
 }
 
-- (id)tableView:(NSTableView *) inTableView objectValueForTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
+#pragma mark -  NSTableViewDelegate
+
+- (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {
-	if (_tableView==inTableView)
+	if (inTableView!=_argumentsTableView)
+		return nil;
+	
+	NSString * tTableColumnIdentifier=[inTableColumn identifier];
+	NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
+	
+	if ([tTableColumnIdentifier isEqualToString:@"parameter"]==YES)
 	{
-		if (_cachedParameters!=nil)
+		if (inRow<_cachedParameters.count)
 		{
-			NSString * tColumnIdentifier=inTableColumn.identifier;
+			NSString * tParameter=_cachedParameters[inRow];
 			
-			if ([tColumnIdentifier isEqualToString:@"Value"]==YES)
-			{
-				if (inRowIndex<_cachedParameters.count)
-				{
-					NSMutableString * tMutableString=[_cachedParameters[inRowIndex] mutableCopy];
-					
-					if (tMutableString!=nil)
-					{
-						CFStringTrimWhitespace((CFMutableStringRef) tMutableString);
-					
-						if (tMutableString.length>0)
-							return tMutableString;
-					}
-				}
-			}
+			tTableCellView.textField.stringValue=tParameter;
 		}
+		
+		if (inRow<_cachedFunctionPrototypeParameters.count)
+		{
+			tTableCellView.textField.placeholderString=_cachedFunctionPrototypeParameters[inRow];
+		}
+		
+		return tTableCellView;
 	}
 	
 	return nil;
-}
-
-- (void)tableView:(NSTableView *) inTableView setObjectValue:(id) object forTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
-{
-	if (_tableView==inTableView)
-	{
-		NSString * tColumnIdentifier=inTableColumn.identifier;
-	
-		if ([tColumnIdentifier isEqualToString:@"Value"]==YES)
-		{
-			if (_cachedParameters!=nil)
-			{
-				NSUInteger tCount=_cachedParameters.count;
-				
-				if (inRowIndex>=tCount)
-				{
-					for(NSUInteger tIndex=tCount;tIndex<inRowIndex;tIndex++)
-						[_cachedParameters addObject:@""];
-					
-					[_cachedParameters addObject:object];
-				}
-				else
-				{
-					[_cachedParameters replaceObjectAtIndex:inRowIndex withObject:object];
-				}
-			}
-		}
-	}
-}
-
-- (void)tableView:(NSTableView *) inTableView willDisplayCell:(id) cell forTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
-{
-	NSString * tColumnIdentifier=[inTableColumn identifier];
-	
-	if ([tColumnIdentifier isEqualToString:@"Value"]==YES)
-	{
-		if (_cachedFunctionPrototypeParameters!=nil)
-		{
-			if (inRowIndex<[_cachedFunctionPrototypeParameters count])
-			{
-				NSTextFieldCell * tTextFieldCell= (NSTextFieldCell *) cell;
-			
-				[tTextFieldCell setPlaceholderString:[_cachedFunctionPrototypeParameters objectAtIndex:inRowIndex]];
-			}
-		}
-	}
 }
 
 #pragma mark -
@@ -271,33 +225,66 @@
 		_settings[PKGLocatorJavaScriptFunctionKey]=tString;
 }
 
+- (IBAction)setParameterValue:(NSTextField *)sender
+{
+	NSInteger tRow=[_argumentsTableView rowForView:sender];
+	
+	if (tRow==-1)
+		return;
+	
+	NSString * tParameter=sender.stringValue;
+	
+	NSUInteger tCount=_cachedParameters.count;
+	
+	if (tRow>=tCount)
+	{
+		for(NSUInteger tIndex=tCount;tIndex<tRow;tIndex++)
+			[_cachedParameters addObject:[NSMutableString string]];
+		
+		[_cachedParameters addObject:tParameter];
+	}
+	else
+	{
+		[_cachedParameters replaceObjectAtIndex:tRow withObject:tParameter];
+	}
+}
+
 - (IBAction)addParameter:(id) sender
 {
-	NSUInteger tRowIndex=_cachedParameters.count;
-
-	[_cachedParameters addObject:@""];
+	NSMutableString * tNewParameter=[NSMutableString string];
 	
-	[_tableView deselectAll:self];
-			
-	[_tableView reloadData];
+	[self.view.window makeFirstResponder:nil];
 	
-	[_tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRowIndex] byExtendingSelection:NO];
-				
-	[_tableView editColumn:0 row:tRowIndex withEvent:nil select:YES];
+	[_cachedParameters addObject:tNewParameter];
+	
+	[_argumentsTableView deselectAll:self];
+	
+	[_argumentsTableView reloadData];
+	
+	NSInteger tIndex=[_cachedParameters indexOfObjectIdenticalTo:tNewParameter];
+	
+	if (tIndex!=NSNotFound)
+	{
+		[_argumentsTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tIndex] byExtendingSelection:NO];
+		
+		[_argumentsTableView scrollRowToVisible:tIndex];
+		
+		[_argumentsTableView editColumn:[_argumentsTableView columnWithIdentifier:@"parameter"] row:tIndex withEvent:nil select:YES];
+	}
 }
 
 - (IBAction)removeParameters:(id) sender
 {
-	NSIndexSet * tIndexSet=[_tableView selectedRowIndexes];
+	NSIndexSet * tIndexSet=_argumentsTableView.selectedRowIndexes;
 	
-	if (tIndexSet!=nil)
-	{
-		[_cachedParameters removeObjectsAtIndexes:tIndexSet];
+	if (tIndexSet.count<1)
+		return;
 	
-		[_tableView deselectAll:self];
-		
-		[_tableView reloadData];
-	}
+	[_cachedParameters removeObjectsAtIndexes:tIndexSet];
+	
+	[_argumentsTableView deselectAll:self];
+	
+	[_argumentsTableView reloadData];
 }
 
 #pragma mark - Notifications
@@ -313,7 +300,7 @@
 		if (tFunctionName!=nil)
 			_cachedFunctionPrototypeParameters=[_textViewDelegate parametersForFunctionNamed:tFunctionName];
 		
-		[_tableView reloadData];
+		[_argumentsTableView reloadData];
 	}
 }
 
@@ -335,13 +322,15 @@
 	if (tFunctionName!=nil)
 		_cachedFunctionPrototypeParameters=[_textViewDelegate parametersForFunctionNamed:tFunctionName];
 	
-	[_tableView reloadData];
+	[_argumentsTableView reloadData];
 }
 
-- (void)tableViewSelectionDidChange:(NSNotification *) inNotification
+- (void)tableViewSelectionDidChange:(NSNotification *)inNotification
 {
-    if ([inNotification object]==_tableView)
-		[_removeButton setEnabled:([_tableView numberOfSelectedRows]!=0)];
+	if (inNotification.object!=_argumentsTableView)
+		return;
+	
+	_removeButton.enabled=([_argumentsTableView numberOfSelectedRows]!=0);
 }
 
 @end
