@@ -23,13 +23,13 @@
 		
 		NSInteger tClickedRow=[self rowAtPoint:tPoint];
 		
-		if (tClickedRow!=-1)
-		{
-			id tItem=[self itemAtRow:tClickedRow];
+		if (tClickedRow==-1)
+			return nil;
+		
+		id tItem=[self itemAtRow:tClickedRow];
 			
-			if ([self.delegate outlineView:self isGroupItem:tItem]==YES)
-				return nil;
-		}
+		if ([self.delegate outlineView:self isGroupItem:tItem]==YES)
+			return nil;
 	}
 	
 	return [super menuForEvent:inEvent];
