@@ -19,4 +19,6 @@
 
 - (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName options:(NSStringCompareOptions)inOptions usingNameExtractor:(NSString * (^)(id,NSUInteger))nameExtractor;
 
+- (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName format:(NSString *)inFormat options:(NSStringCompareOptions)inOptions usingNameExtractor:(NSString * (^)(id,NSUInteger))nameExtractor;
+
 @end

@@ -19,14 +19,24 @@
 
 @implementation NSArray (UniqueName)
 
-- (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName usingNameExtractor:(NSString * (^)(id,NSUInteger))nameExtractor
+- (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName usingNameExtractor:(NSString * (^)(id bObject,NSUInteger bIndex))nameExtractor
 {
 	return [self uniqueNameWithBaseName:inBaseName options:0 usingNameExtractor:nameExtractor];
 }
 
 - (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName options:(NSStringCompareOptions)inOptions usingNameExtractor:(NSString * (^)(id bObject,NSUInteger bIndex))nameExtractor
 {
+	return [self uniqueNameWithBaseName:inBaseName format: @"%@ %lu" options:inOptions usingNameExtractor:nameExtractor];
+}
+
+- (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName format:(NSString *)inFormat options:(NSStringCompareOptions)inOptions usingNameExtractor:(NSString * (^)(id bObject,NSUInteger bIndex))nameExtractor
+{
 	if (inBaseName==nil || nameExtractor==nil)
+		return nil;
+	
+	if (inFormat.length==0 ||
+		[inFormat rangeOfString:@"%@"].location==NSNotFound ||
+		[inFormat rangeOfString:@"%lu"].location==NSNotFound)
 		return nil;
 	
 	NSArray * tNamesArray=[self WB_arrayByMappingObjectsUsingBlock:nameExtractor];
@@ -46,11 +56,13 @@
 		}]==NSNotFound)
 			return tFileName;
 		
-		tFileName=[NSString stringWithFormat:@"%@ %lu",inBaseName,(unsigned long)tIndex];
+		tFileName=[NSString stringWithFormat:inFormat,inBaseName,(unsigned long)tIndex];
 		
 		tIndex++;
 	}
 	while (tIndex<UNIQUENAME_ATTEMPTS_MAX);
+	
+	NSLog(@"Unable to find a unique name using the basename %@",inBaseName);
 	
 	return nil;
 }
