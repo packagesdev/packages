@@ -135,17 +135,17 @@
 
 - (IBAction)addPackage:(id)sender
 {
-	// A COMPLETER
+	[_sourceListController addPackage:sender];
 }
 
 - (IBAction)addPackageReference:(id)sender
 {
-	// A COMPLETER
+	[_sourceListController addPackageReference:sender];
 }
 
 - (IBAction)importPackage:(id)sender
 {
-	// A COMPLETER
+	[_sourceListController importPackage:sender];
 }
 
 #pragma mark - NSSplitViewDelegate
