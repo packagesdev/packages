@@ -88,6 +88,34 @@
 		[_requirementTypePopUpButton addItemsWithTitles:tPluginsNames];
 	}
 	
+	// OK button
+	
+	if (self.prompt!=nil)
+	{
+		NSRect tButtonFrame=_okButton.frame;
+		
+		_okButton.title=self.prompt;
+		
+		[_okButton sizeToFit];
+		
+		CGFloat tWidth=NSWidth(_okButton.frame);
+		
+		if (tWidth<PKGAppkitMinimumPushButtonWidth)
+			tWidth=PKGAppkitMinimumPushButtonWidth;
+		
+		CGFloat tDeltaWidth=tWidth-NSWidth(tButtonFrame);
+		
+		tButtonFrame.origin.x-=tDeltaWidth;
+		tButtonFrame.size.width=tWidth;
+		
+		_okButton.frame=tButtonFrame;
+		
+		tButtonFrame=_cancelButton.frame;
+		tButtonFrame.origin.x-=tDeltaWidth;
+		
+		_cancelButton.frame=tButtonFrame;
+	}
+	
 	// Register for Notifications
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -105,6 +133,37 @@
 		_requirement=inRequirement;
 		
 		_cachedSettingsRepresentations=[NSMutableDictionary dictionary];
+	}
+}
+
+- (void)setPrompt:(NSString *)inPrompt
+{
+	_prompt=[inPrompt copy];
+	
+	if (_okButton!=nil && _prompt!=nil)
+	{
+		NSRect tButtonFrame=_okButton.frame;
+		
+		_okButton.title=_prompt;
+		
+		[_okButton sizeToFit];
+		
+		CGFloat tWidth=NSWidth(_okButton.frame);
+		
+		if (tWidth<PKGAppkitMinimumPushButtonWidth)
+			tWidth=PKGAppkitMinimumPushButtonWidth;
+		
+		CGFloat tDeltaWidth=tWidth-NSWidth(tButtonFrame);
+		
+		tButtonFrame.origin.x-=tDeltaWidth;
+		tButtonFrame.size.width=tWidth;
+		
+		_okButton.frame=tButtonFrame;
+		
+		tButtonFrame=_cancelButton.frame;
+		tButtonFrame.origin.x-=tDeltaWidth;
+		
+		_cancelButton.frame=tButtonFrame;
 	}
 }
 

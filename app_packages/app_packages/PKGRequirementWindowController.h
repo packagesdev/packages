@@ -19,6 +19,7 @@
 
 	@property (nonatomic) PKGRequirement * requirement;
 
+	@property (nonatomic,copy) NSString * prompt;
 
 - (void)refreshUI;
 
