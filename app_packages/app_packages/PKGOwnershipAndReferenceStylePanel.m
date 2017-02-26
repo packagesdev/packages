@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -61,23 +61,29 @@
 	
 	NSView * tView=_ownershipAndReferenceStyleController.view;	// To be sure it's loaded before the willAdd
 	
-	[_ownershipAndReferenceStyleController WB_viewWillAppear];
-	
 	[_placeHolderView addSubview:tView];
 	
-	[_ownershipAndReferenceStyleController WB_viewDidAppear];
 	
+	// Default button
 	
-	NSString * tTitle=self.prompt;
-	
-	if (tTitle==nil)
-		tTitle=NSLocalizedString(@"Finish", @"");
-	
-	_defaultButton.title=tTitle;
-	
-	// Update button frame
-	
-	// A COMPLETER
+	if (self.prompt!=nil)
+	{
+		NSRect tButtonFrame=_defaultButton.frame;
+		
+		_defaultButton.title=self.prompt;
+		
+		[_defaultButton sizeToFit];
+		
+		CGFloat tWidth=NSWidth(_defaultButton.frame);
+		
+		if (tWidth<PKGAppkitMinimumPushButtonWidth)
+			tWidth=PKGAppkitMinimumPushButtonWidth;
+		
+		tButtonFrame.origin.x=NSMaxX(tButtonFrame)-tWidth;
+		tButtonFrame.size.width=tWidth;
+		
+		_defaultButton.frame=tButtonFrame;
+	}
 	
 	[self _updateLayout];
 }
@@ -141,11 +147,24 @@
 {
 	_prompt=[inPrompt copy];
 	
-	_defaultButton.title=((inPrompt==nil) ? @"" : inPrompt);
-	
-	// Update button frame
-	
-	// A COMPLETER
+	if (_defaultButton!=nil && _prompt!=nil)
+	{
+		NSRect tButtonFrame=_defaultButton.frame;
+		
+		_defaultButton.title=_prompt;
+		
+		[_defaultButton sizeToFit];
+		
+		CGFloat tWidth=NSWidth(_defaultButton.frame);
+		
+		if (tWidth<PKGAppkitMinimumPushButtonWidth)
+			tWidth=PKGAppkitMinimumPushButtonWidth;
+		
+		tButtonFrame.origin.x=NSMaxX(tButtonFrame)-tWidth;
+		tButtonFrame.size.width=tWidth;
+		
+		_defaultButton.frame=tButtonFrame;
+	}
 }
 
 #pragma mark -
