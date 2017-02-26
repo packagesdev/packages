@@ -31,6 +31,16 @@
 
 @implementation PKGRequirementPanel
 
+- (NSString *)prompt
+{
+	return self.retainedWindowController.prompt;
+}
+
+- (void)setPrompt:(NSString *)inPrompt
+{
+	self.retainedWindowController.prompt=inPrompt;
+}
+
 - (PKGRequirement *)requirement
 {
 	return self.retainedWindowController.requirement;

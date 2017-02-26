@@ -24,4 +24,6 @@ enum
 
 @interface PKGPanel : NSPanel
 
+	@property (nonatomic) NSString * prompt;
+
 @end

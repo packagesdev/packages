@@ -69,6 +69,27 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	[_certificateView setDisplayDetails:YES];
 	
+	// Default button
+	
+	if (self.prompt!=nil)
+	{
+		NSRect tButtonFrame=_defaultButton.frame;
+		
+		_defaultButton.title=self.prompt;
+		
+		[_defaultButton sizeToFit];
+		
+		CGFloat tWidth=NSWidth(_defaultButton.frame);
+		
+		if (tWidth<PKGAppkitMinimumPushButtonWidth)
+			tWidth=PKGAppkitMinimumPushButtonWidth;
+		
+		tButtonFrame.origin.x=NSMaxX(tButtonFrame)-tWidth;
+		tButtonFrame.size.width=tWidth;
+		
+		_defaultButton.frame=tButtonFrame;
+	}
+	
 	[self refreshUI];
 	
 	// Register for notifications
@@ -82,7 +103,24 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	_prompt=[inPrompt copy];
 	
-	[self refreshUI];
+	if (_defaultButton!=nil && _prompt!=nil)
+	{
+		NSRect tButtonFrame=_defaultButton.frame;
+		
+		_defaultButton.title=_prompt;
+		
+		[_defaultButton sizeToFit];
+		
+		CGFloat tWidth=NSWidth(_defaultButton.frame);
+		
+		if (tWidth<PKGAppkitMinimumPushButtonWidth)
+			tWidth=PKGAppkitMinimumPushButtonWidth;
+		
+		tButtonFrame.origin.x=NSMaxX(tButtonFrame)-tWidth;
+		tButtonFrame.size.width=tWidth;
+		
+		_defaultButton.frame=tButtonFrame;
+	}
 }
 
 - (void)setCertificate:(SecCertificateRef)inCertificate
@@ -103,29 +141,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return;
 	
 	[_certificateView setCertificate:_certificate];
-	
-	NSString * tTitle=self.prompt;
-	
-	if (tTitle==nil)
-		tTitle=NSLocalizedString(@"OK", @"");
-	
-	NSRect tButtonFrame=_defaultButton.frame;
-	
-	_defaultButton.title=tTitle;
-	
-	// Update button frame
-	
-	[_defaultButton sizeToFit];
-	
-	CGFloat tWidth=NSWidth(_defaultButton.frame);
-	
-	if (tWidth<PKGAppkitMinimumPushButtonWidth)
-		tWidth=PKGAppkitMinimumPushButtonWidth;
-	
-	tButtonFrame.origin.x=NSMaxX(tButtonFrame)-tWidth;
-	tButtonFrame.size.width=tWidth;
-	
-	_defaultButton.frame=tButtonFrame;
 }
 
 #pragma mark -
