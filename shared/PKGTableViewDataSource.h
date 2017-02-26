@@ -29,10 +29,6 @@
 
 - (instancetype)initWithItems:(NSMutableArray *)inArray;
 
-- (NSMutableArray *)arrangedItems;
-
-- (NSMutableArray *)cleanedUpItems;
-
 - (NSInteger)tableView:(NSTableView *)inTableView rowForItem:(id)inItem;
 
 - (id)tableView:(NSTableView *)inTableView itemAtRow:(NSInteger)inRow;
