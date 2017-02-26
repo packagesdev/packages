@@ -61,7 +61,7 @@
 					
 				case PKGPackageComponentTypeImported:
 					
-					tGroupNode=tPackageComponentTreeNode;
+					tGroupNode=tProjectImportedGroupNode;
 					break;
 					
 				case PKGPackageComponentTypeReference:
