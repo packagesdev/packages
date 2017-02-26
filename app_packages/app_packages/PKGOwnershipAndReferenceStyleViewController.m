@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -67,7 +67,9 @@
 
 - (void)WB_viewWillAppear
 {
-	[_keepOwnerAndGroupButton setState:(_keepOwnerAndGroup==YES) ? NSOnState : NSOffState];
+	[super WB_viewWillAppear];
+	
+	_keepOwnerAndGroupButton.state=(_keepOwnerAndGroup==YES) ? NSOnState : NSOffState;
 	
 	[_referenceStylePopUpButton selectItemWithTag:_referenceStyle];
 }
@@ -92,7 +94,7 @@
 	{
 		_keepOwnerAndGroup=inKeepOwnerAndGroup;
 		
-		[_keepOwnerAndGroupButton setState:(_keepOwnerAndGroup==YES) ? NSOnState : NSOffState];
+		_keepOwnerAndGroupButton.state=(_keepOwnerAndGroup==YES) ? NSOnState : NSOffState;
 	}
 }
 
@@ -110,12 +112,12 @@
 
 - (IBAction)switchKeepOwnerAndGroup:(id)sender
 {
-	_keepOwnerAndGroup=([_keepOwnerAndGroupButton state]==NSOnState);
+	_keepOwnerAndGroup=(_keepOwnerAndGroupButton.state==NSOnState);
 }
 
 - (IBAction)switchReferenceStyle:(id)sender
 {
-	_referenceStyle=[[_referenceStylePopUpButton selectedItem] tag];
+	_referenceStyle=_referenceStylePopUpButton.selectedItem.tag;
 }
 
 @end
