@@ -24,12 +24,81 @@
 
 #import "PKGProjectTemplateDefaultValuesSettings.h"
 
+#import "PKGOwnershipAndReferenceStyleViewController.h"
+#import "PKGApplicationPreferences.h"
+
+#import "PKGArchive.h"
+
+@interface PKGPackagesImportPanelDelegate : NSObject<NSOpenSavePanelDelegate>
+{
+	NSFileManager * _fileManager;
+}
+
+	@property NSArray * importedPackageComponents;
+	@property id<PKGFilePathConverter> filePathConverter;
+
+@end
+
+@implementation PKGPackagesImportPanelDelegate
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_fileManager=[NSFileManager defaultManager];
+	}
+	
+	return self;
+}
+
+#pragma mark - NSOpenSavePanelDelegate
+
+- (BOOL)panel:(NSOpenPanel *)inPanel shouldEnableURL:(NSURL *)inURL
+{
+	if (inURL.isFileURL==NO)
+		return NO;
+	
+	NSString * tAbsolutePath=inURL.path;
+	
+	if (tAbsolutePath==nil)
+		return NO;
+	
+	BOOL isDirectory;
+	
+	[_fileManager fileExistsAtPath:tAbsolutePath isDirectory:&isDirectory];
+	
+	if (isDirectory==YES)
+		return YES;
+	
+	// Check whether the package has not been imported yet.
+	
+	if ([self.importedPackageComponents indexOfObjectPassingTest:^BOOL(PKGPackageComponent *bPackageComponent,NSUInteger bIndex,BOOL * bOutStop){
+		
+		return ([[self.filePathConverter absolutePathForFilePath:bPackageComponent.importPath] caseInsensitiveCompare:tAbsolutePath]==NSOrderedSame);
+		
+	}]!=NSNotFound)
+		return NO;
+	
+	// Check whether it's a flat package or not
+	
+	PKGArchive * tPackageArchive=[PKGArchive archiveAtPath:tAbsolutePath];
+	
+	return [tPackageArchive isFlatPackage];
+}
+
+@end
+
 @interface PKGDistributionProjectSourceListDataSource ()
 {
 	PKGDistributionProjectSourceListForest * _forest;
+	
+	PKGPackagesImportPanelDelegate * _importPanelDelegate;
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView addPackageComponent:(PKGPackageComponent *)inPackageComponent;
+- (void)outlineView:(NSOutlineView *)inOutlineView addPackageComponents:(NSArray *)inPackageComponents;
 
 @end
 
@@ -103,7 +172,12 @@
 		tPackageIdentifier=[NSString stringWithFormat:tFormat,tDefaultIdentifierPrefix,tPackageIdentifier];
 	}
 	
-	tProjectComponent.packageSettings.identifier=tPackageIdentifier;
+	tPackageIdentifier=[self.packageComponents uniqueNameWithBaseName:tPackageIdentifier format:@"%@-@lu" options:0 usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+		
+		return bPackageComponent.packageSettings.identifier;
+	}];
+	
+	tProjectComponent.packageSettings.identifier=(tPackageIdentifier==nil)? @"" : tPackageIdentifier;
 	
 	[self outlineView:inOutlineView addPackageComponent:tProjectComponent];
 }
@@ -124,45 +198,136 @@
 
 - (void)importPackageComponent:(NSOutlineView *)inOutlineView
 {
-	// A COMPLETER
+	NSOpenPanel * tImportPanel=[NSOpenPanel openPanel];
 	
-	PKGPackageComponent * tProjectComponent=[PKGPackageComponent importedComponentWithFilePath:nil];
+	tImportPanel.resolvesAliases=YES;
+	tImportPanel.canChooseFiles=YES;
+	tImportPanel.allowsMultipleSelection=YES;
+	tImportPanel.treatsFilePackagesAsDirectories=YES;
+	tImportPanel.canCreateDirectories=NO;
+	tImportPanel.prompt=NSLocalizedString(@"Import", @"");
 	
-	[self outlineView:inOutlineView addPackageComponent:tProjectComponent];
+	NSArray * tImportedPackageComponents=[self.packageComponents WB_filteredArrayUsingBlock:^BOOL(PKGPackageComponent * bPackageComponent, NSUInteger bIndex) {
+		
+		return (bPackageComponent.type==PKGPackageComponentTypeImported);
+	}];
+	
+	_importPanelDelegate=[PKGPackagesImportPanelDelegate new];
+	
+	_importPanelDelegate.filePathConverter=self.filePathConverter;
+	_importPanelDelegate.importedPackageComponents=tImportedPackageComponents;
+	
+	tImportPanel.delegate=_importPanelDelegate;
+	
+	__block PKGFilePathType tReferenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+	
+	PKGOwnershipAndReferenceStyleViewController * tOwnershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
+	
+	tOwnershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=NO;
+	tOwnershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
+	
+	NSView * tAccessoryView=tOwnershipAndReferenceStyleViewController.view;
+	
+	tImportPanel.accessoryView=tAccessoryView;
+	
+	[tImportPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bResult){
+		
+		if (bResult!=NSFileHandlingPanelOKButton)
+			return;
+		
+		PKGFilePathType tFileType=tOwnershipAndReferenceStyleViewController.referenceStyle;
+		
+		__block NSMutableArray * tTemporaryComponents=[NSMutableArray arrayWithArray:self.packageComponents];
+		
+		NSArray * tImportedPackageComponents=[tImportPanel.URLs WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGPackageComponent *(NSURL * bImportURL, NSUInteger bIndex) {
+			
+			PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:bImportURL.path type:tFileType];
+			
+			if (tFilePath==nil)
+			{
+				// A COMPLETER
+				
+				return nil;
+			}
+			
+			PKGPackageComponent * tPackageComponent=[PKGPackageComponent importedComponentWithFilePath:tFilePath];
+			
+			NSString * tName=[tTemporaryComponents uniqueNameWithBaseName:[[bImportURL.path lastPathComponent] stringByDeletingPathExtension] usingNameExtractor:^NSString *(PKGPackageComponent * bPackageComponent, NSUInteger bIndex) {
+				return bPackageComponent.packageSettings.name;
+			}];
+			
+			tPackageComponent.packageSettings.name=tName;
+			
+			[tTemporaryComponents addObject:tPackageComponent];
+			
+			return tPackageComponent;
+		}];
+		
+		[self outlineView:inOutlineView addPackageComponents:tImportedPackageComponents];
+	}];
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView addPackageComponent:(PKGPackageComponent *)inPackageComponent
 {
-	if (inOutlineView==nil || inPackageComponent==nil)
+	if (inPackageComponent==nil)
 		return;
 	
-	if ([self.packageComponents containsObject:inPackageComponent]==NO)
+	[self outlineView:inOutlineView addPackageComponents:@[inPackageComponent]];
+}
+
+- (void)outlineView:(NSOutlineView *)inOutlineView addPackageComponents:(NSArray *)inPackageComponents
+{
+	if (inOutlineView==nil || inPackageComponents.count==0)
+		return;
+	
+	NSMutableSet * tMutableSet=[NSMutableSet set];
+	
+	for(PKGPackageComponent * tPackageComponent in inPackageComponents)
 	{
-		[self.packageComponents addObject:inPackageComponent];
+		if ([self.packageComponents containsObject:tPackageComponent]==YES)
+		{
+			// A COMPLETER
+			
+			continue;
+		}
+
+		[self.packageComponents addObject:tPackageComponent];
 		
-		[_forest addPackageComponent:inPackageComponent];
+		[_forest addPackageComponent:tPackageComponent];
 		
-		[self.delegate sourceListDataDidChange:self];
-		
-		// Post Notification
-		
-		// A COMPLETER
-		
-		[inOutlineView reloadData];
-		
-		PKGDistributionProjectSourceListTreeNode * tTreeNode=[_forest treeNodeForPackageComponent:inPackageComponent];
-		
+		[tMutableSet addObject:tPackageComponent];
+	}
+	
+	if (tMutableSet.count==0)
+		return;
+	
+	[self.delegate sourceListDataDidChange:self];
+	
+	// Post Notification
+	
+	// A COMPLETER
+	
+	[inOutlineView reloadData];
+	
+	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+	
+	for(PKGPackageComponent * tPackageComponent in tMutableSet)
+	{
+		PKGDistributionProjectSourceListTreeNode * tTreeNode=[_forest treeNodeForPackageComponent:tPackageComponent];
+	
 		[inOutlineView expandItem:tTreeNode.parent];
-		
+	
 		NSInteger tSelectedRow=(tTreeNode==nil) ? 0 : [inOutlineView rowForItem:tTreeNode];
-		
+	
 		if (tSelectedRow==-1)
 			tSelectedRow=0;
 		
-		[inOutlineView scrollRowToVisible:tSelectedRow];
-		
-		[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tSelectedRow] byExtendingSelection:NO];
+		[tMutableIndexSet addIndex:tSelectedRow];
 	}
+	
+	[inOutlineView scrollRowToVisible:(tMutableIndexSet.firstIndex==NSNotFound) ? 0 : tMutableIndexSet.firstIndex];
+	
+	[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems

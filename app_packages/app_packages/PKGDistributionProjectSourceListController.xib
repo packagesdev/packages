@@ -126,12 +126,6 @@
                         <action selector="duplicate:" target="-2" id="2ft-4G-uxX"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Rename" id="1ji-EK-IPr">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="renamePackage:" target="-2" id="Fah-3r-CxP"/>
-                    </connections>
-                </menuItem>
                 <menuItem title="Delete" id="9rA-bi-pZw">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
