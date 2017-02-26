@@ -39,7 +39,7 @@
 
 - (IBAction)showInFinder:(id)sender;
 - (IBAction)duplicate:(id)sender;
-- (IBAction)renamePackage:(id)sender;
+
 - (IBAction)exportPackageAsProject:(id)sender;
 
 - (IBAction)showProject:(id)sender;
@@ -144,11 +144,6 @@
 	// A COMPLETER
 }
 
-- (IBAction)renamePackage:(id)sender
-{
-	// A COMPLETER
-}
-
 - (IBAction)delete:(id)sender
 {
 	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
@@ -174,7 +169,19 @@
 
 - (IBAction)exportPackageAsProject:(id)sender
 {
+	NSSavePanel * tExportPanel=[NSSavePanel savePanel];
+	
 	// A COMPLETER
+	
+	tExportPanel.prompt=NSLocalizedString(@"Export", @"");
+	
+	[tExportPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
+		
+		if (bResult!=NSFileHandlingPanelOKButton)
+			return;
+
+		// A COMPLETER
+	}];
 }
 
 #pragma mark -
@@ -187,22 +194,16 @@
 - (IBAction)addPackage:(id)sender
 {
 	[self.dataSource addProjectPackageComponent:self.outlineView];
-	
-	// A COMPLETER
 }
 
 - (IBAction)addPackageReference:(id)sender
 {
 	[self.dataSource addReferencePackageComponent:self.outlineView];
-	
-	// A COMPLETER
 }
 
 - (IBAction)importPackage:(id)sender
 {
 	[self.dataSource importPackageComponent:self.outlineView];
-	
-	// A COMPLETER
 }
 
 
@@ -249,9 +250,19 @@
 		});
 	}
 	
-	if (tAction==@selector(duplicate:) ||
-		tAction==@selector(renamePackage:) ||
+	if (tAction==@selector(renamePackage:) ||
 		tAction==@selector(exportPackageAsProject:))
+	{
+		if (tSelectionIndexSet.count!=1)
+			return NO;
+		
+		return validateSelection(tSelectionIndexSet,^BOOL(PKGDistributionProjectSourceListPackageComponentItem * bPackageComponentItem){
+			
+			return (bPackageComponentItem.packageComponent.type==PKGPackageComponentTypeProject);
+		});
+	}
+	
+	if (tAction==@selector(duplicate:))
 	{
 		return validateSelection(tSelectionIndexSet,^BOOL(PKGDistributionProjectSourceListPackageComponentItem * bPackageComponentItem){
 			
