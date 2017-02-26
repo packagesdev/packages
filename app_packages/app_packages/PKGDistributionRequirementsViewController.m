@@ -168,7 +168,7 @@
 	tNewRequirement.identifier=@"fr.whitebox.Packages.requirement.os";
 	
 	PKGDistributionRequirementPanel * tRequirementPanel=[PKGDistributionRequirementPanel distributionRequirementPanel];
-	
+	tRequirementPanel.prompt=NSLocalizedString(@"Add", @"");
 	tRequirementPanel.requirement=tNewRequirement;
 	
 	[tRequirementPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
