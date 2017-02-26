@@ -72,7 +72,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	IBOutlet NSTextField * _viewInformationLabel;
 	
-	PKGOwnershipAndReferenceStyleViewController * _ownershipAndReferenceStyleViewController;
 	PKGFilesHierarchyOpenPanelDelegate * _openPanelDelegate;
 	
 	PKGFileNameFormatter * _cachedFileNameFormatter;
@@ -394,21 +393,19 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	__block BOOL tKeepOwnerAndGroup=((self.hierarchyDataSource.managedAttributes & PKGFileAttributesOwnerAndGroup)==0) ? NO : [PKGApplicationPreferences sharedPreferences].keepOwnership;
 	__block PKGFilePathType tReferenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 	
+	PKGOwnershipAndReferenceStyleViewController * tOwnershipAndReferenceStyleViewController=nil;
+	
 	if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
 	{
-		_ownershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
+		tOwnershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
 		
-		_ownershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=((self.hierarchyDataSource.managedAttributes & PKGFileAttributesOwnerAndGroup)!=0);
-		_ownershipAndReferenceStyleViewController.keepOwnerAndGroup=tKeepOwnerAndGroup;
-		_ownershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
+		tOwnershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=((self.hierarchyDataSource.managedAttributes & PKGFileAttributesOwnerAndGroup)!=0);
+		tOwnershipAndReferenceStyleViewController.keepOwnerAndGroup=tKeepOwnerAndGroup;
+		tOwnershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
 		
-		NSView * tAccessoryView=_ownershipAndReferenceStyleViewController.view;
-		
-		[_ownershipAndReferenceStyleViewController WB_viewWillAppear];
+		NSView * tAccessoryView=tOwnershipAndReferenceStyleViewController.view;
 		
 		tOpenPanel.accessoryView=tAccessoryView;
-		
-		[_ownershipAndReferenceStyleViewController WB_viewDidAppear];
 	}
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
@@ -417,8 +414,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		{
 			if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
 			{
-				tKeepOwnerAndGroup=_ownershipAndReferenceStyleViewController.keepOwnerAndGroup;
-				tReferenceStyle=_ownershipAndReferenceStyleViewController.referenceStyle;
+				tKeepOwnerAndGroup=tOwnershipAndReferenceStyleViewController.keepOwnerAndGroup;
+				tReferenceStyle=tOwnershipAndReferenceStyleViewController.referenceStyle;
 			}
 			
 			NSArray * tPaths=[tOpenPanel.URLs WB_arrayByMappingObjectsUsingBlock:^(NSURL * bURL,NSUInteger bIndex){
@@ -435,10 +432,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 				[self noteDocumentHasChanged];
 			}
 		}
-		
-		[_ownershipAndReferenceStyleViewController WB_viewWillDisappear];
-		
-		_ownershipAndReferenceStyleViewController=nil;
 	}];
 }
 
