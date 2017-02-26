@@ -173,6 +173,7 @@
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	
 	PKGLocatorPanel * tLocatorPanel=[PKGLocatorPanel locatorPanel];
+	tLocatorPanel.prompt=NSLocalizedString(@"Add", @"");
 	
 	tLocatorPanel.locator=tNewLocator;
 	tLocatorPanel.payloadTreeNode=tTreeNode;
