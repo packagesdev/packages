@@ -15,14 +15,7 @@
 
 @implementation PKGAssistantStepViewController
 
-- (NSString *)nibName
-{
-	return NSStringFromClass([self class]);
-}
-
-#pragma mark -
-
-- (PKGAssistantStepViewController *) nextStepViewController
+- (PKGAssistantStepViewController *)nextStepViewController
 {
 	return nil;
 }
