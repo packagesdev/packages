@@ -66,7 +66,7 @@
 		{
 			PKGFileItem * tFileItem=tChildTreeNode.representedObject;
 			
-			if ([[tFileItem.filePath lastPathComponent] isEqualToString:tComponent]==YES)
+			if ([tFileItem.filePath.lastPathComponent isEqualToString:tComponent]==YES)
 			{
 				tParentTreeNode=tChildTreeNode;
 				tFound=YES;
@@ -135,7 +135,7 @@
 		{
 			PKGFileItem * tFileItem=tChildTreeNode.representedObject;
 			
-			if ([[tFileItem.filePath lastPathComponent] isEqualToString:tComponent]==YES)
+			if ([tFileItem.filePath.lastPathComponent isEqualToString:tComponent]==YES)
 			{
 				tPayloadTreeNode=tChildTreeNode;
 				break;

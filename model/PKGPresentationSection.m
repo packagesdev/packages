@@ -201,7 +201,7 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 	NSMutableString * tDescription=[NSMutableString string];
 	
 	if (self.pluginPath!=nil)
-		[tDescription appendFormat:@"  o %@ -> %@\n",[[self.pluginPath lastPathComponent] stringByDeletingPathExtension],[self.pluginPath description]];
+		[tDescription appendFormat:@"  o %@ -> %@\n",[self.pluginPath.lastPathComponent stringByDeletingPathExtension],[self.pluginPath description]];
 	else
 		[tDescription appendFormat:@"  o %@\n",_name];
 	
@@ -237,7 +237,7 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 - (NSString *)name
 {
 	if (self.pluginPath!=nil)
-		return [self.pluginPath lastPathComponent];
+		return self.pluginPath.lastPathComponent;
 		
 	return _name;
 }
