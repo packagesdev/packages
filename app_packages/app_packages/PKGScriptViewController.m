@@ -59,8 +59,6 @@
 	NSDateFormatter * _lastModifiedDateFormatter;
 }
 
-- (void)refreshUI;
-
 - (IBAction)showInFinder:(id)sender;
 - (IBAction)openWithFinder:(id)sender;
 
@@ -76,9 +74,9 @@
 
 @implementation PKGScriptViewController
 
-- (instancetype)initWithNibName:(NSString *)inNibName bundle:(NSBundle *)inBundle
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
 {
-	self=[super initWithNibName:inNibName bundle:inBundle];
+	self=[super initWithDocument:inDocument];
 	
 	if (self!=nil)
 	{
@@ -105,47 +103,6 @@
 	
 	_scriptsDeadDropView.delegate=self;
 	_scriptsDeadDropView.dataSource=self;
-}
-
-#pragma mark -
-
-- (void)WB_viewWillAppear
-{
-	_viewLabel.stringValue=_label;
-}
-
-- (void)WB_viewDidAppear
-{
-	[self refreshUI];
-	
-	// This will allow us to display a question mark if the file can not be found following some user actions in another application
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidChangeMain:) name:PKGWindowDidBecomeMainNotification object:self.view];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidChangeMain:) name:PKGWindowDidResignMainNotification object:self.view];
-}
-
-- (void)WB_viewWillDisappear
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGWindowDidBecomeMainNotification object:self.view];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGWindowDidResignMainNotification object:self.view];
-}
-
-#pragma mark -
-
-- (void)setLabel:(NSString *)inLabel
-{
-	_label=(inLabel!=nil) ? [inLabel copy] : @"";
-	
-	if (_viewLabel!=nil)
-		_viewLabel.stringValue=_label;
-}
-
-- (void)setInstallationScriptPath:(PKGFilePath *)inFilePath
-{
-	if (_installationScriptPath!=inFilePath)
-		_installationScriptPath=inFilePath;
-	
-	[self refreshUI];
 }
 
 #pragma mark -
@@ -180,7 +137,7 @@
 	}
 	
 	_scriptNameTextField.stringValue=_installationScriptPath.lastPathComponent;
-		
+	
 	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:self.installationScriptPath];
 	
 	if (tAbsolutePath==nil)
@@ -212,6 +169,51 @@
 	_scriptNameTextField.textColor=[NSColor blackColor];
 	
 	_lastModificationTextField.stringValue=[_lastModifiedDateFormatter stringForObjectValue:tAttributes[NSFileModificationDate]];
+}
+
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
+	
+	_viewLabel.stringValue=_label;
+	
+	[self refreshUI];
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	// This will allow us to display a question mark if the file can not be found following some user actions in another application
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidChangeMain:) name:PKGWindowDidBecomeMainNotification object:self.view];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidChangeMain:) name:PKGWindowDidResignMainNotification object:self.view];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGWindowDidBecomeMainNotification object:self.view];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGWindowDidResignMainNotification object:self.view];
+}
+
+#pragma mark -
+
+- (void)setLabel:(NSString *)inLabel
+{
+	_label=(inLabel!=nil) ? [inLabel copy] : @"";
+	
+	if (_viewLabel!=nil)
+		_viewLabel.stringValue=_label;
+}
+
+- (void)setInstallationScriptPath:(PKGFilePath *)inFilePath
+{
+	if (_installationScriptPath!=inFilePath)
+		_installationScriptPath=inFilePath;
+	
+	[self refreshUI];
 }
 
 #pragma mark -

@@ -44,7 +44,7 @@
 	{
 		case PKGProjectTypeDistribution:
 			
-			_projectMainViewController=[PKGDistributionProjectMainViewController new];
+			_projectMainViewController=[[PKGDistributionProjectMainViewController alloc] initWithDocument:self.document];
 			
 			[self.window setMinSize:NSMakeSize(PKGDocumentWindowDistributionProjectMinWidth, PKGDocumentWindowMinHeight)];
 			
@@ -52,7 +52,7 @@
 			
 		case PKGProjectTypePackage:
 			
-			_projectMainViewController=[PKGPackageProjectMainViewController new];
+			_projectMainViewController=[[PKGPackageProjectMainViewController alloc] initWithDocument:self.document];
 			
 			[self.window setMinSize:NSMakeSize(PKGDocumentWindowPackageProjectMinWidth, PKGDocumentWindowMinHeight)];
 			

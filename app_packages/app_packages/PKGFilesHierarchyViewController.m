@@ -45,7 +45,7 @@
 	if (inURL.isFileURL==NO)
 		return NO;
 	
-	NSString * tLastPathComponent=[inURL.path lastPathComponent];
+	NSString * tLastPathComponent=inURL.path.lastPathComponent;
 	
 	if ([self.sibblings indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode *bPayloadTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 	
@@ -82,8 +82,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	NSTimeInterval _lastRefreshTimeMark;
 }
 
-- (void)refreshUI;
-
 - (IBAction)showInFinder:(id)sender;
 
 - (IBAction)addFiles:(id)sender;
@@ -106,9 +104,9 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 @implementation PKGFilesHierarchyViewController
 
-- (instancetype)initWithNibName:(NSString *)inNibName bundle:(NSBundle *)inBundle
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
 {
-	self=[super initWithNibName:inNibName bundle:inBundle];
+	self=[super initWithDocument:inDocument];
 	
 	if (self!=nil)
 	{
@@ -147,66 +145,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 #pragma mark -
 
-- (void)WB_viewWillAppear
-{
-	[self refreshUI];
-	
-	self.outlineView.dataSource=self.hierarchyDataSource;
-	
-	if ([_hierarchyDataSource conformsToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
-		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDataSource;
-	
-	// Owner and Group
-	
-	BOOL tHideColumn=(self.hierarchyDataSource.managedAttributes &  PKGFileAttributesOwnerAndGroup)==0;
-	
-	[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
-	[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
-	
-	// Permissions
-	
-	tHideColumn=(self.hierarchyDataSource.managedAttributes & PKGFileAttributesPOSIXPermissions)==0;
-	
-	[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
-	
-	
-	_highlightExcludedItems=[self highlightExcludedItems];
-	
-	
-	_lastRefreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
-	
-	// A COMPLETER
-}
-
-- (void)WB_viewDidAppear
-{
-	_optimizedFilesFilters=self.documentProject.settings.optimizedFilesFilters;
-	
-	// A COMPLETER
-	
-	_addButton.enabled=(_hierarchyDataSource.editableRootNodes==YES);
-	_removeButton.enabled=NO;
-	
-	[self refreshHierarchy];
-	
-	[self.hierarchyDataSource outlineView:self.outlineView restoreExpansionsState:nil];
-	
-	
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
-}
-
-- (void)WB_viewWillDisappear
-{
-	// A COMPLETER
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
-}
-
 - (void)refreshUI
 {
 	if (_viewLabel==nil)
@@ -228,6 +166,72 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	_viewInformationLabel.frame=tInformationlabelFrame;
 }
 
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
+	
+	_highlightExcludedItems=[self highlightExcludedItems];
+	_lastRefreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
+	
+	
+	self.outlineView.dataSource=self.hierarchyDataSource;
+	
+	if ([_hierarchyDataSource conformsToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
+		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDataSource;
+	
+	// Owner and Group
+	
+	BOOL tHideColumn=(self.hierarchyDataSource.managedAttributes &  PKGFileAttributesOwnerAndGroup)==0;
+	
+	[self.outlineView tableColumnWithIdentifier:@"file.owner"].hidden=tHideColumn;
+	[self.outlineView tableColumnWithIdentifier:@"file.group"].hidden=tHideColumn;
+	
+	// Permissions
+	
+	tHideColumn=(self.hierarchyDataSource.managedAttributes & PKGFileAttributesPOSIXPermissions)==0;
+	
+	[self.outlineView tableColumnWithIdentifier:@"file.permissions"].hidden=tHideColumn;
+	
+	
+	[self refreshUI];
+	
+	
+	// A COMPLETER
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	_optimizedFilesFilters=self.documentProject.settings.optimizedFilesFilters;
+	
+	// A COMPLETER
+	
+	_addButton.enabled=(_hierarchyDataSource.editableRootNodes==YES);
+	_removeButton.enabled=NO;
+	
+	[self refreshHierarchy];
+	
+	[self.hierarchyDataSource outlineView:self.outlineView restoreExpansionsState:nil];
+	
+	
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	// A COMPLETER
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
+}
+
 - (void)refreshHierarchy
 {
 	[self.outlineView reloadData];
@@ -239,7 +243,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
 	_hierarchyDataSource=inDataSource;
 	_hierarchyDataSource.delegate=self;
-	
 	
 	if (self.outlineView!=nil)
 		self.outlineView.dataSource=_hierarchyDataSource;

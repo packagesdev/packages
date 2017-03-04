@@ -47,6 +47,7 @@
 
 - (IBAction)showTabView:(id)sender;
 
+- (IBAction)showSettingsTab:(id)sender;
 - (IBAction)showPayloadTab:(id)sender;
 - (IBAction)showScriptsAndResourcesTab:(id)sender;
 - (IBAction)showCommentsTab:(id)sender;
@@ -68,13 +69,6 @@
 {
 	[super WB_viewDidLoad];
 	
-	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
-	
-	PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisiblePackageProjectPane;
-	
-	[_segmentedControl selectSegmentWithTag:tTag];
-	[self showTabViewWithTag:tTag];
-	
 	// Register for Notification
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) name:NSViewFrameDidChangeNotification object:self.view];
@@ -85,6 +79,15 @@
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
+	
+	// Show the tab that was saved
+	
+	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
+	
+	PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisiblePackageProjectPane;
+	
+	[_segmentedControl selectSegmentWithTag:tTag];
+	[self showTabViewWithTag:tTag];
 	
 	[_currentContentController WB_viewWillAppear];
 }
@@ -149,7 +152,7 @@
 			
 			if (_projectSettingsController==nil)
 			{
-				_projectSettingsController=[PKGPackageProjectSettingsViewController new];
+				_projectSettingsController=[[PKGPackageProjectSettingsViewController alloc] initWithDocument:self.document];
 				_projectSettingsController.projectSettings=(PKGPackageProjectSettings *)self.project.settings;
 			}
 			
@@ -161,7 +164,7 @@
 			
 			if (_settingsController==nil)
 			{
-				_settingsController=[PKGPackageSettingsViewController new];
+				_settingsController=[[PKGPackageSettingsViewController alloc] initWithDocument:self.document];
 				_settingsController.packageSettings=((id<PKGPackageObjectProtocol>) self.project).packageSettings;
 			}
 			
@@ -173,7 +176,7 @@
 			
 			if (_payloadController==nil)
 			{
-				_payloadController=[PKGPackagePayloadViewController new];
+				_payloadController=[[PKGPackagePayloadViewController alloc] initWithDocument:self.document];
 				_payloadController.payload=((PKGPackageProject *) self.project).payload_safe;
 				
 				if (_payloadController.payload==nil)
@@ -197,7 +200,7 @@
 			
 			if (_scriptsAndResourcesViewController==nil)
 			{
-				_scriptsAndResourcesViewController=[PKGPackageScriptsAndResourcesViewController new];
+				_scriptsAndResourcesViewController=[[PKGPackageScriptsAndResourcesViewController alloc] initWithDocument:self.document];
 				_scriptsAndResourcesViewController.scriptsAndResources=((PKGPackageProject *) self.project).scriptsAndResources_safe;
 			}
 			
@@ -209,7 +212,7 @@
 			
 			if (_commentsController==nil)
 			{
-				_commentsController=[PKGPackageCommentsViewController new];
+				_commentsController=[[PKGPackageCommentsViewController alloc] initWithDocument:self.document];
 				_commentsController.comments=self.project.comments_safe;
 			}
 			
@@ -250,6 +253,12 @@
 }
 
 #pragma mark -
+
+- (IBAction)showSettingsTab:(id)sender
+{
+	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPaneSettings];
+	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPaneSettings];
+}
 
 - (IBAction)showPayloadTab:(id)sender
 {

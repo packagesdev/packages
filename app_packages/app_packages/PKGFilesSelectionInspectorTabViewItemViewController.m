@@ -18,6 +18,17 @@
 
 #pragma mark -
 
+- (void)refreshUI
+{
+	if (self.selectedItems==nil)
+		return;
+	
+	if (self.selectedItems.count>1)
+		[self refreshMultipleSelection];
+	else
+		[self refreshSingleSelection];
+}
+
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
@@ -45,17 +56,6 @@
 }
 
 #pragma mark -
-
-- (void)refreshUI
-{
-	if (self.selectedItems==nil)
-		return;
-	
-	if (self.selectedItems.count>1)
-		[self refreshMultipleSelection];
-	else
-		[self refreshSingleSelection];
-}
 
 - (void)refreshSingleSelection
 {

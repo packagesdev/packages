@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,6 +21,8 @@
 
 #import "PKGDistributionProjectViewController.h"
 
+#import "PKGDistributionPackageComponentViewController.h"
+
 #import "PKGDistributionProject.h"
 
 #import "PKGDistributionProjectSourceListTreeNode.h"
@@ -41,10 +43,8 @@
 	
 	PKGDistributionProjectSourceListDataSource * _dataSource;
 	
-	
-	PKGDistributionMultipleSelectionViewController * _multipleSectionViewController;
-	
 	PKGDistributionProjectViewController * _projectViewController;
+	
 	
 	PKGViewController * _currentContentsViewController;
 }
@@ -57,11 +57,15 @@
 
 @implementation PKGDistributionProjectMainViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
 {
-	self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	self=[super initWithDocument:inDocument];
 	
-	_dataSource=[PKGDistributionProjectSourceListDataSource new];
+	if (self!=nil)
+	{
+		_dataSource=[PKGDistributionProjectSourceListDataSource new];
+		_dataSource.filePathConverter=self.filePathConverter;
+	}
 	
 	return self;
 }
@@ -72,7 +76,7 @@
 	
 	// Source List
 	
-	_sourceListController=[PKGDistributionProjectSourceListController new];
+	_sourceListController=[[PKGDistributionProjectSourceListController alloc] initWithDocument:self.document];
 	_sourceListController.dataSource=_dataSource;
 	
 	_sourceListController.view.frame=_sourceListPlaceHolderView.bounds;
@@ -104,8 +108,6 @@
 	[self.view.window makeFirstResponder:_sourceListController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceListSelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_sourceListController.outlineView];
-	
-	_dataSource.filePathConverter=self.filePathConverter;
 	
 	[_sourceListController WB_viewDidAppear];
 }
@@ -205,31 +207,16 @@
 	if (inNotification.object!=tOutlineView)
 		return;
 	
+	PKGViewController * tNewViewController=nil;
+	
 	NSUInteger tNumberOfSelectedRows=tOutlineView.numberOfSelectedRows;
 	
 	if (tNumberOfSelectedRows>1)
 	{
-		if (_multipleSectionViewController==nil)
-			_multipleSectionViewController=[PKGDistributionMultipleSelectionViewController new];
+		if (_currentContentsViewController!=nil && [_currentContentsViewController isKindOfClass:PKGDistributionMultipleSelectionViewController.class]==YES)
+			return;
 		
-		if (_currentContentsViewController!=_multipleSectionViewController)
-		{
-			[_currentContentsViewController WB_viewWillDisappear];
-			
-			[_currentContentsViewController.view removeFromSuperview];
-			
-			[_currentContentsViewController WB_viewDidDisappear];
-			
-			_currentContentsViewController=_multipleSectionViewController;
-			
-			_currentContentsViewController.view.frame=_contentsView.bounds;
-			
-			[_currentContentsViewController WB_viewWillAppear];
-			
-			[_contentsView addSubview:_currentContentsViewController.view];
-			
-			[_currentContentsViewController WB_viewDidAppear];
-		}
+		tNewViewController=[PKGDistributionMultipleSelectionViewController new];
 	}
 	else
 	{
@@ -241,42 +228,50 @@
 		
 		PKGDistributionProjectSourceListTreeNode * tSourceListTreeNode=tSelectedItems[0];
 		PKGDistributionProjectSourceListItem * tSourceListItem=[tSourceListTreeNode representedObject];
-
-		PKGViewController * tNewViewController=nil;
 		
 		if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListProjectItem.class]==YES)
 		{
-			if (_projectViewController==nil)
+			if (_currentContentsViewController!=nil && [_currentContentsViewController isKindOfClass:PKGDistributionProjectViewController.class]==YES)
+				return;
+			
+			tNewViewController=[[PKGDistributionProjectViewController alloc] initWithDocument:self.document];
+			
+			((PKGDistributionProjectViewController *)tNewViewController).project=tDistributionProject;
+		}
+		else if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListPackageComponentItem.class]==YES)
+		{
+			PKGPackageComponent * tPackageComponent=((PKGDistributionProjectSourceListPackageComponentItem *) tSourceListItem).packageComponent;
+			
+			if (_currentContentsViewController!=nil && [_currentContentsViewController isKindOfClass:PKGDistributionPackageComponentViewController.class]==YES)
 			{
-				_projectViewController=[PKGDistributionProjectViewController new];
+				if (((PKGDistributionPackageComponentViewController *)_currentContentsViewController).packageComponent==tPackageComponent)
+					return;
 			}
 			
-			_projectViewController.project=tDistributionProject;
+			tNewViewController=[[PKGDistributionPackageComponentViewController alloc] initWithDocument:self.document];
 			
-			tNewViewController=_projectViewController;
-		}
-		
-		if (_currentContentsViewController!=tNewViewController)
-		{
-			[_currentContentsViewController WB_viewWillDisappear];
-			
-			[_currentContentsViewController.view removeFromSuperview];
-			
-			[_currentContentsViewController WB_viewDidDisappear];
-			
-			_currentContentsViewController=tNewViewController;
-			
-			_currentContentsViewController=tNewViewController;
-			
-			_currentContentsViewController.view.frame=_contentsView.bounds;
-			
-			[_currentContentsViewController WB_viewWillAppear];
-			
-			[_contentsView addSubview:_currentContentsViewController.view];
-			
-			[_currentContentsViewController WB_viewDidAppear];
+			((PKGDistributionPackageComponentViewController *)tNewViewController).packageComponent=tPackageComponent;
 		}
 	}
+	
+	if (_currentContentsViewController!=nil)
+	{
+		[_currentContentsViewController WB_viewWillDisappear];
+		
+		[_currentContentsViewController.view removeFromSuperview];
+	
+		[_currentContentsViewController WB_viewDidDisappear];
+	}
+	
+	_currentContentsViewController=tNewViewController;
+	
+	_currentContentsViewController.view.frame=_contentsView.bounds;
+	
+	[_currentContentsViewController WB_viewWillAppear];
+	
+	[_contentsView addSubview:_currentContentsViewController.view];
+	
+	[_currentContentsViewController WB_viewDidAppear];
 }
 
 @end

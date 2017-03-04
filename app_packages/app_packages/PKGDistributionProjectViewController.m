@@ -62,13 +62,6 @@
 {
 	[super WB_viewDidLoad];
 	
-	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
-	
-	PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisibleDistributionProjectPane;
-	
-	[_segmentedControl selectSegmentWithTag:tTag];
-	[self showTabViewWithTag:tTag];
-	
 	// Register for Notification
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) name:NSViewFrameDidChangeNotification object:self.view];
@@ -79,6 +72,28 @@
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
+	
+	PKGPreferencesGeneralDistributionProjectPaneTag tTag;
+	
+	// Show the tab that was saved
+	
+	NSString * tRegistryKey=@"ui.project.selected.segment";
+	
+	if ([self.documentRegistry objectForKey:tRegistryKey]==nil)
+	{
+		// Use the default tab
+		
+		PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
+		
+		tTag=tApplicationPreferences.defaultVisibleDistributionProjectPane;
+	}
+	else
+	{
+		tTag=[self.documentRegistry integerForKey:tRegistryKey];
+	}
+	
+	[_segmentedControl selectSegmentWithTag:tTag];
+	[self showTabViewWithTag:tTag];
 	
 	[_currentContentController WB_viewWillAppear];
 }
@@ -143,7 +158,7 @@
 			
 			if (_projectSettingsController==nil)
 			{
-				_projectSettingsController=[PKGDistributionProjectSettingsViewController new];
+				_projectSettingsController=[[PKGDistributionProjectSettingsViewController alloc] initWithDocument:self.document];
 				_projectSettingsController.projectSettings=(PKGDistributionProjectSettings *)self.project.settings;
 			}
 			
@@ -155,7 +170,7 @@
 			
 			/*if (_settingsController==nil)
 			{
-				_settingsController=[PKGPackageSettingsViewController new];
+				_settingsController=[[PKGPackageSettingsViewController alloc] initWithDocument:self.document];
 				_settingsController.packageSettings=((id<PKGPackageObjectProtocol>) self.project).packageSettings;
 			}
 			
@@ -167,7 +182,7 @@
 			
 			if (_requirementsAndResourcesController==nil)
 			{
-				_requirementsAndResourcesController=[PKGDistributionRequirementsAndResourcesViewController new];
+				_requirementsAndResourcesController=[[PKGDistributionRequirementsAndResourcesViewController alloc] initWithDocument:self.document];
 				_requirementsAndResourcesController.requirementsAndResources=((PKGDistributionProject *) self.project).requirementsAndResources_safe;
 			}
 			
@@ -179,7 +194,7 @@
 			
 			if (_commentsController==nil)
 			{
-				_commentsController=[PKGDistributionCommentsViewController new];
+				_commentsController=[[PKGDistributionCommentsViewController alloc] initWithDocument:self.document];
 				_commentsController.comments=self.project.comments_safe;
 			}
 			
@@ -212,6 +227,8 @@
 	}
 	
 	_currentContentController=tNewSegmentViewController;
+	
+	[self.documentRegistry setInteger:inTag forKey:@"ui.project.selected.segment"];
 }
 
 - (IBAction)showTabView:(id)sender

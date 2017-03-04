@@ -46,12 +46,6 @@
 
 @implementation PKGDistributionRequirementsAndResourcesViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-	self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	
-	return self;
-}
 
 - (NSUInteger)tag
 {
@@ -66,7 +60,7 @@
 	
 	// Requirements
 	
-	_requirementsViewController=[PKGDistributionRequirementsViewController new];
+	_requirementsViewController=[[PKGDistributionRequirementsViewController alloc] initWithDocument:self.document];
 	
 	_requirementsViewController.view.frame=_requirementsPlaceHolderView.bounds;
 	
@@ -134,9 +128,6 @@
 	// Resources
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
-	
-	if (_resourcesDataSource!=nil)
-		_resourcesDataSource.filePathConverter=self.filePathConverter;
 	
 	[_filesHierarchyViewController WB_viewDidAppear];
 	
@@ -220,7 +211,7 @@
 	{
 		if (_selectionInspectorViewController==nil)
 		{
-			_selectionInspectorViewController=[PKGFilesSelectionInspectorViewController new];
+			_selectionInspectorViewController=[[PKGFilesSelectionInspectorViewController alloc] initWithDocument:self.document];
 			_selectionInspectorViewController.delegate=_filesHierarchyViewController;
 		}
 		

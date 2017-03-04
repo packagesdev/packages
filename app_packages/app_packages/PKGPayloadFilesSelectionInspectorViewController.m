@@ -55,7 +55,7 @@
 	
 	NSView * tView=_rulesTabViewItem.view;
 	
-	PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController=[PKGPayloadFilesSelectionInspectorRulesViewController new];
+	PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController=[[PKGPayloadFilesSelectionInspectorRulesViewController alloc] initWithDocument:self.document];
 	
 	if (tTabViewItemViewController==nil)
 	{

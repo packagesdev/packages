@@ -9,8 +9,6 @@
 
 	@property (nonatomic) NSArray * selectedItems;
 
-- (void)refreshUI;
-
 - (void)refreshSingleSelection;
 
 - (void)refreshMultipleSelection;

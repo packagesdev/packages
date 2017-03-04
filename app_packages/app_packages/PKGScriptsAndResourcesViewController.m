@@ -58,12 +58,16 @@
 
 @implementation PKGScriptsAndResourcesViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
 {
-	self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	self=[super initWithDocument:inDocument];
 	
-	_dataSource=[PKGPayloadDataSource new];
-	_dataSource.editableRootNodes=YES;
+	if (self!=nil)
+	{
+		_dataSource=[PKGPayloadDataSource new];
+		_dataSource.editableRootNodes=YES;
+		_dataSource.filePathConverter=self.filePathConverter;
+	}
 	
 	return self;
 }
@@ -79,21 +83,21 @@
 	
     // Pre-installation
 	
-	_preInstallationScriptViewController=[PKGScriptViewController new];
+	_preInstallationScriptViewController=[[PKGScriptViewController alloc] initWithDocument:self.document];
 	_preInstallationScriptViewController.label=NSLocalizedString(@"Pre-installation", @"");
 	
 	[_installationScriptView addView:_preInstallationScriptViewController.view];
 	
 	// Post-installation
 	
-	_postInstallationScriptViewController=[PKGScriptViewController new];
+	_postInstallationScriptViewController=[[PKGScriptViewController alloc] initWithDocument:self.document];
 	_postInstallationScriptViewController.label=NSLocalizedString(@"Post-installation", @"");
 	
 	[_installationScriptView addView:_postInstallationScriptViewController.view];
 	
 	// Files Hierarchy
 	
-	_filesHierarchyViewController=[PKGFilesHierarchyViewController new];
+	_filesHierarchyViewController=[[PKGFilesHierarchyViewController alloc] initWithDocument:self.document];
 	
 	_filesHierarchyViewController.label=NSLocalizedString(@"Additional Resources", @"");
 	_filesHierarchyViewController.informationLabel=NSLocalizedString(@"These resources can be used by the pre and post-installation scripts.", @"");
@@ -142,8 +146,6 @@
 	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
-	
-	_dataSource.filePathConverter=self.filePathConverter;
 	
 	[_preInstallationScriptViewController WB_viewDidAppear];
 	[_postInstallationScriptViewController WB_viewDidAppear];
@@ -214,7 +216,7 @@
 	{
 		if (_selectionInspectorViewController==nil)
 		{
-			_selectionInspectorViewController=[PKGFilesSelectionInspectorViewController new];
+			_selectionInspectorViewController=[[PKGFilesSelectionInspectorViewController alloc] initWithDocument:self.document];
 			_selectionInspectorViewController.delegate=_filesHierarchyViewController;
 		}
 		

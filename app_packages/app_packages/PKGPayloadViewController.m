@@ -67,11 +67,15 @@
 
 @implementation PKGPayloadViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
 {
-	self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	self=[super initWithDocument:inDocument];
 	
-	_dataSource=[PKGPackagePayloadDataSource new];
+	if (self!=nil)
+	{
+		_dataSource=[PKGPackagePayloadDataSource new];
+		_dataSource.filePathConverter=self.filePathConverter;
+	}
 	
 	return self;
 }
@@ -85,7 +89,7 @@
 {
 	[super WB_viewDidLoad];
 	
-    _filesHierarchyViewController=[PKGPayloadFilesHierarchyViewController new];
+    _filesHierarchyViewController=[[PKGPayloadFilesHierarchyViewController alloc] initWithDocument:self.document];
 	
 	_filesHierarchyViewController.label=@"Payload";
 	_filesHierarchyViewController.hierarchyDataSource=_dataSource;
@@ -130,15 +134,13 @@
 {
 	[super WB_viewDidAppear];
 	
-	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
+	//[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchyDidRenameFolder:) name:PKGFilesHierarchyDidRenameFolderNotification object:_filesHierarchyViewController.outlineView];
-	
-	_dataSource.filePathConverter=self.filePathConverter;
 	
 	[_filesHierarchyViewController WB_viewDidAppear];
 	
@@ -300,7 +302,7 @@
 	{
 		if (_selectionInspectorViewController==nil)
 		{
-			_selectionInspectorViewController=[PKGPayloadFilesSelectionInspectorViewController new];
+			_selectionInspectorViewController=[[PKGPayloadFilesSelectionInspectorViewController alloc] initWithDocument:self.document];
 			_selectionInspectorViewController.delegate=_filesHierarchyViewController;
 		}
 		

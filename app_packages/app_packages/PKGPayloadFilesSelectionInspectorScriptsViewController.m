@@ -39,14 +39,14 @@
 	
 	// Pre-installation
 	
-	_preInstallationScriptViewController=[PKGBundleScriptViewController new];
+	_preInstallationScriptViewController=[[PKGBundleScriptViewController alloc] initWithDocument:self.document];
 	_preInstallationScriptViewController.label=NSLocalizedString(@"Pre-installation", @"");
 	
 	[_installationBundleScriptView addView:_preInstallationScriptViewController.view];
 	
 	// Post-installation
 	
-	_postInstallationScriptViewController=[PKGBundleScriptViewController new];
+	_postInstallationScriptViewController=[[PKGBundleScriptViewController alloc] initWithDocument:self.document];
 	_postInstallationScriptViewController.label=NSLocalizedString(@"Post-installation", @"");
 	
 	[_installationBundleScriptView addView:_postInstallationScriptViewController.view];

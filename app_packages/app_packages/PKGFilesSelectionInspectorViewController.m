@@ -47,8 +47,6 @@
 
 + (NSImage *)iconForItemAtPath:(NSString *)inPath type:(PKGFileItemType)inType;
 
-- (void)refreshUI;
-
 - (void)_refreshSelectionForFileSystemTreeNode:(PKGPayloadTreeNode *)inTreeNode atPath:(NSString *)inPath;
 - (void)_refreshSelectionForNonFileSystemTreeNode:(PKGPayloadTreeNode *)inTreeNode atPath:(NSString *)inPath;
 
@@ -198,7 +196,7 @@
 
 - (PKGFilesSelectionInspectorTabViewItemViewController *)attributesViewController
 {
-	return [PKGFilesSelectionInspectorAttributesViewController new];
+	return [[PKGFilesSelectionInspectorAttributesViewController alloc] initWithDocument:self.document];
 }
 
 #pragma mark -
@@ -226,29 +224,6 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAppear
-{
-}
-
-- (void)WB_viewDidAppear
-{
-	[self refreshUI];
-	
-	// Register for notifications (rename folder)
-	
-	// A COMPLETER
-}
-
-- (void)WB_viewWillDisappear
-{
-}
-
-- (void)WB_viewDidDisappear
-{
-}
-
-#pragma mark -
-
 - (void)refreshUI
 {
 	if (_iconView==nil || self.selectedItems==nil)
@@ -257,7 +232,7 @@
 	if (self.selectedItems.count>1)
 	{
 		[self refreshMultipleSelection];
-	
+		
 		for(PKGFilesSelectionInspectorTabViewItemViewController * tTabViewItemViewController in _tabViewItemViewControllers)
 			[tTabViewItemViewController refreshMultipleSelection];
 	}
@@ -269,6 +244,34 @@
 			[tTabViewItemViewController refreshSingleSelection];
 	}
 }
+
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	[self refreshUI];
+	
+	// Register for notifications (rename folder)
+	
+	// A COMPLETER
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[super WB_viewDidDisappear];
+}
+
+#pragma mark -
 
 - (void)_refreshSelectionForFileSystemTreeNode:(PKGPayloadTreeNode *)inTreeNode atPath:(NSString *)inPath
 {
