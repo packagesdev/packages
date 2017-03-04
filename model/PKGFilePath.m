@@ -52,7 +52,12 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	if (inRepresentation==nil)
 		return nil;
 	
-	return [inRepresentation[PKGFilePathStringKey] lastPathComponent];
+	NSString * tPath=inRepresentation[PKGFilePathStringKey];
+	
+	if (tPath==nil || [tPath isKindOfClass:NSString.class]==NO)
+		return nil;
+	
+	return tPath.lastPathComponent;
 }
 
 - (instancetype)init
@@ -191,7 +196,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	if(self.string==nil)
 		return nil;
 	
-	return [self.string lastPathComponent];
+	return self.string.lastPathComponent;
 }
 
 - (BOOL)isSet
