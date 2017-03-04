@@ -62,7 +62,7 @@
 - (void)insertChildren:(NSArray *)inChildren atIndex:(NSUInteger)inIndex;
 
 - (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingComparator:(NSComparator)inComparator;
-- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingSelector:(SEL)inComparator;
+- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingSelector:(SEL)inSelector;
 
 - (void)insertChild:(PKGTreeNode *)inChild sortedUsingComparator:(NSComparator)inComparator;
 - (void)insertChild:(PKGTreeNode *)inChild sortedUsingSelector:(SEL)inComparator;
@@ -72,6 +72,9 @@
 - (void)removeChild:(PKGTreeNode *)inChild;
 - (void)removeChildren;
 - (void)removeFromParent;
+
+- (void)sortChildrenUsingComparator:(NSComparator)inComparator;
+- (void)sortChildrenUsingSelector:(SEL)inSelector;
 
 + (NSArray *)minimumNodeCoverFromNodesInArray:(NSArray *)inArray;
 

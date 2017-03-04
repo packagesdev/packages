@@ -504,7 +504,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (void)insertChild:(PKGTreeNode *)inChild atIndex:(NSUInteger)inIndex
 {
-	if (inChild==nil || inIndex>[_children count])
+	if (inChild==nil || inIndex>_children.count)
 		return;
 	
 	[inChild setParent:self];
@@ -513,11 +513,11 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (void)insertChildren:(NSArray *)inChildren atIndex:(NSUInteger)inIndex
 {
-	if ([inChildren count]==0 || inIndex>[_children count])
+	if ([inChildren count]==0 || inIndex>_children.count)
 		return;
 	
 	[inChildren makeObjectsPerformSelector:@selector(setParent:) withObject:self];
-	[_children insertObjects:inChildren atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inIndex, [inChildren count])]];
+	[_children insertObjects:inChildren atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inIndex, inChildren.count)]];
 }
 
 
@@ -557,17 +557,17 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	}
 }
 
-- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingSelector:(SEL)inComparator
+- (void)insertAsSiblingOfChildren:(NSMutableArray *)inChildren ofNode:(PKGTreeNode *)inParent sortedUsingSelector:(SEL)inSelector
 {
-	if (inChildren==nil || inComparator==nil)
+	if (inChildren==nil || inSelector==nil)
 		return;
 	
 	if ([inChildren isKindOfClass:NSMutableArray.class]==NO)
 		return;
 	
-	NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:inComparator]];
+	NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:inSelector]];
 	tInvocation.target=self;
-	tInvocation.selector=inComparator;
+	tInvocation.selector=inSelector;
 	
 	__block BOOL tInserted=NO;
 	
@@ -623,14 +623,14 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 }
 
 
-- (void)insertChild:(PKGTreeNode *)inChild sortedUsingSelector:(SEL)inComparator
+- (void)insertChild:(PKGTreeNode *)inChild sortedUsingSelector:(SEL)inSelector
 {
-	if (inChild==nil || inComparator==nil)
+	if (inChild==nil || inSelector==nil)
 		return;
 	
-	NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[inChild methodSignatureForSelector:inComparator]];
+	NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[inChild methodSignatureForSelector:inSelector]];
 	tInvocation.target=inChild;
-	tInvocation.selector=inComparator;
+	tInvocation.selector=inSelector;
 	
 	__block BOOL tDone=NO;
 	
@@ -702,6 +702,22 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 - (void)removeFromParent
 {
 	[[self parent] removeChild:self];
+}
+
+- (void)sortChildrenUsingComparator:(NSComparator)inComparator
+{
+	if (inComparator==nil)
+		return;
+	
+	[_children sortUsingComparator:inComparator];
+}
+
+- (void)sortChildrenUsingSelector:(SEL)inSelector
+{
+	if (inSelector==nil)
+		return;
+	
+	[_children sortUsingSelector:inSelector];
 }
 
 #pragma mark -
