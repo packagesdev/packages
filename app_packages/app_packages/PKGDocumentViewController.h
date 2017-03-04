@@ -17,12 +17,22 @@
 
 #import "PKGProject.h"
 
+#import "PKGDocument.h"
+
+#import "PKGDocumentRegistry.h"
+
 @interface PKGDocumentViewController : PKGViewController
+
+	@property (nonatomic,readonly) PKGDocument * document;
 
 	@property (nonatomic,readonly) id<PKGFilePathConverter> filePathConverter;
 
 	@property (nonatomic,readonly) PKGProject * documentProject;
 
+	@property (nonatomic,readonly) PKGDocumentRegistry * documentRegistry;
+
+
+- (instancetype)initWithDocument:(PKGDocument *)inDocument;
 
 - (void)noteDocumentHasChanged;
 

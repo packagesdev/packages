@@ -18,15 +18,32 @@
 
 @interface PKGDocumentViewController ()
 
-	@property (nonatomic,readonly) PKGDocument * document;
+	@property (nonatomic,readwrite) PKGDocument * document;
 
 @end
 
 @implementation PKGDocumentViewController
 
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_document=inDocument;
+	}
+	
+	return self;
+}
+
+#pragma mark -
+
 - (PKGDocument *)document
 {
-	return ((NSWindowController *) self.view.window.windowController).document;
+	if (_document==nil)
+		return ((NSWindowController *) self.view.window.windowController).document;
+	
+	return _document;
 }
 
 - (id<PKGFilePathConverter>)filePathConverter
@@ -37,6 +54,11 @@
 - (PKGProject *)documentProject
 {
 	return ((PKGDocumentWindowController *) self.view.window.windowController).project;
+}
+
+- (PKGDocumentRegistry *)documentRegistry
+{
+	return self.document.registry;
 }
 
 #pragma mark -
