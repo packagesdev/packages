@@ -307,4 +307,28 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPackageComponent * nPackageComponent=[[[self class] allocWithZone:inZone] init];
+	
+	if (nPackageComponent!=nil)
+	{
+		nPackageComponent.UUID=[NSUUID UUID].UUIDString;
+		
+		nPackageComponent.type=self.type;
+		
+		nPackageComponent.importPath=[self.importPath copyWithZone:inZone];
+		
+		nPackageComponent.packageSettings=[self.packageSettings copyWithZone:inZone];
+		
+		nPackageComponent.payload=[self.payload copyWithZone:inZone];
+		
+		nPackageComponent.scriptsAndResources=[self.scriptsAndResources copyWithZone:inZone];
+	}
+	
+	return nPackageComponent;
+}
+
 @end

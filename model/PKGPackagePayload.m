@@ -287,4 +287,30 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPackagePayload * nPackagePayload=[[[self class] allocWithZone:inZone] init];
+	
+	if (nPackagePayload!=nil)
+	{
+		nPackagePayload.defaultInstallLocation=[self.defaultInstallLocation copyWithZone:inZone];
+		
+		nPackagePayload.type=self.type;
+		
+		nPackagePayload.templateVersion=self.templateVersion;
+		
+		nPackagePayload.splitForksIfNeeded=self.splitForksIfNeeded;
+		
+		nPackagePayload.hiddenFolderTemplatesIncluded=self.hiddenFolderTemplatesIncluded;
+		
+		nPackagePayload.filesTree=[self.filesTree copyWithZone:inZone];
+		
+		nPackagePayload.treatMissingPayloadFilesAsWarnings=self.treatMissingPayloadFilesAsWarnings;
+	}
+	
+	return nPackagePayload;
+}
+
 @end

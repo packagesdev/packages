@@ -537,4 +537,42 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPackageSettings * nPackageSettings=[[[self class] allocWithZone:inZone] init];
+	
+	if (nPackageSettings!=nil)
+	{
+		nPackageSettings.name=[self.name copyWithZone:inZone];
+		
+		nPackageSettings.identifier=[self.identifier copyWithZone:inZone];
+		
+		nPackageSettings.version=[self.version copyWithZone:inZone];
+		
+		
+		nPackageSettings.conclusionAction=self.conclusionAction;
+		
+		
+		nPackageSettings.locationType=self.locationType;
+		
+		nPackageSettings.locationURL=[self.locationURL copyWithZone:inZone];
+		
+		
+		nPackageSettings.authenticationMode=self.authenticationMode;
+		
+		
+		nPackageSettings.relocatable=self.relocatable;
+		
+		nPackageSettings.overwriteDirectoryPermissions=self.overwriteDirectoryPermissions;
+		
+		nPackageSettings.followSymbolicLinks=self.followSymbolicLinks;
+		
+		nPackageSettings.useHFSPlusCompression=self.useHFSPlusCompression;
+	}
+	
+	return nPackageSettings;
+}
+
 @end

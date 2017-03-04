@@ -19,7 +19,7 @@
 
 #import "PKGResourcesForest.h"
 
-@interface PKGPackageScriptsAndResources : NSObject <PKGObjectProtocol>
+@interface PKGPackageScriptsAndResources : NSObject <PKGObjectProtocol,NSCopying>
 
 	@property PKGFilePath * preInstallationScriptPath;	// can be nil
 

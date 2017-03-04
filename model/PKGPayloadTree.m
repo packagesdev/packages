@@ -132,4 +132,21 @@
 	return [NSMutableArray arrayWithObject:tRootNode];
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPayloadTree * nPayloadtree=[[[self class] allocWithZone:inZone] init];
+	
+	if (nPayloadtree!=nil)
+	{
+		if (_cachedRepresentation!=nil)
+			nPayloadtree->_cachedRepresentation=[_cachedRepresentation copy];
+		else
+			nPayloadtree.rootNode=(PKGPayloadTreeNode *)[self.rootNode deepCopy];
+	}
+	
+	return nPayloadtree;
+}
+
 @end

@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, PKGPackageLocationType)
 	PKGPackageLocationRemovableMedia
 };
 
-@interface PKGPackageSettings : NSObject <PKGObjectProtocol>
+@interface PKGPackageSettings : NSObject <PKGObjectProtocol,NSCopying>
 
 	@property (copy) NSString * name;
 

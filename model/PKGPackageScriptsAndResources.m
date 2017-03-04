@@ -174,4 +174,23 @@ NSString * const PKGPackageScriptsAndResourcesResourcesHierarchyKey=@"RESOURCES"
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPackageScriptsAndResources * nPackageScriptsAndResources=[[[self class] allocWithZone:inZone] init];
+	
+	if (nPackageScriptsAndResources!=nil)
+	{
+		nPackageScriptsAndResources.preInstallationScriptPath=[self.preInstallationScriptPath copyWithZone:inZone];
+		
+		nPackageScriptsAndResources.postInstallationScriptPath=[self.postInstallationScriptPath copyWithZone:inZone];
+		
+		nPackageScriptsAndResources.resourcesForest=[self.resourcesForest copyWithZone:inZone];
+	}
+	
+	return nPackageScriptsAndResources;
+}
+
+
 @end

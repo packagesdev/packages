@@ -21,7 +21,7 @@
 
 @end
 
-@interface PKGResourcesForest : NSObject <PKGRootNodesProtocol>
+@interface PKGResourcesForest : NSObject <PKGRootNodesProtocol,NSCopying>
 
 	@property (nonatomic,readonly) NSMutableArray * rootNodes;
 

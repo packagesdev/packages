@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, PKGPayloadType)
 	PKGPayloadExternal,
 };
 
-@interface PKGPackagePayload : NSObject <PKGObjectProtocol>
+@interface PKGPackagePayload : NSObject <PKGObjectProtocol,NSCopying>
 
 	@property (copy) NSString * defaultInstallLocation;
 

@@ -19,7 +19,7 @@
 #import "PKGPayloadTreeNode.h"
 
 
-@interface PKGPayloadTree : NSObject <PKGObjectProtocol,PKGRootNodesProtocol>
+@interface PKGPayloadTree : NSObject <PKGObjectProtocol,PKGRootNodesProtocol,NSCopying>
 
 	@property (nonatomic) PKGPayloadTreeNode * rootNode;
 

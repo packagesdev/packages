@@ -124,11 +124,33 @@
 	NSMutableString * tDescription=[NSMutableString string];
 	
 	for(PKGResourcesTreeNode * tResourcesTreeNode in self.rootNodes)
-	{
 		[tDescription appendFormat:@"  %@\n",[tResourcesTreeNode description]];
-	}
 	
 	return tDescription;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGResourcesForest * nResourcesForest=[[[self class] allocWithZone:inZone] init];
+	
+	if (nResourcesForest!=nil)
+	{
+		if (_cachedRepresentation!=nil)
+		{
+			nResourcesForest->_cachedRepresentation=[_cachedRepresentation copy];
+		}
+		else
+		{
+			nResourcesForest.rootNodes=[self.rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGResourcesTreeNode * bTreeNode,NSUInteger bIndex){
+			
+				return [bTreeNode deepCopy];
+			}];
+		}
+	}
+	
+	return nResourcesForest;
 }
 
 @end

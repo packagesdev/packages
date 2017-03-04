@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, PKGPackageComponentType)
 	PKGPackageComponentTypeReference
 };
 
-@interface PKGPackageComponent : NSObject <PKGObjectProtocol,PKGPackageObjectProtocol>
+@interface PKGPackageComponent : NSObject <PKGObjectProtocol,PKGPackageObjectProtocol,NSCopying>
 
 	@property (readonly,copy) NSString * UUID;
 
