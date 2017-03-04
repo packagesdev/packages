@@ -3,17 +3,18 @@
 
 @implementation WBLightGrayView
 
-- (BOOL) isOpaque
+- (BOOL)isOpaque
 {
 	return YES;
-	
 }
 
-- (void)drawRect:(NSRect) inFrame
+#pragma mark -
+
+- (void)drawRect:(NSRect)inRect
 {
-	[[NSColor colorWithDeviceWhite:0.94f alpha:1.0f] set];
+	[[NSColor colorWithDeviceWhite:0.94 alpha:1.0] set];
 	
-	NSRectFill(inFrame);
+	NSRectFill(inRect);
 }
 
 @end

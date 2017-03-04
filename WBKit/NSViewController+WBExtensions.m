@@ -3,6 +3,10 @@
 
 @implementation NSViewController (WBExtensions)
 
+- (void)refreshUI
+{
+}
+
 - (void)WB_viewDidLoad
 {
 }
