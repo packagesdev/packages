@@ -23,11 +23,11 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesGeneralDistributionProjectPaneTag)
 	PKGPreferencesGeneralDistributionProjectPaneComments=3
 };
 
-typedef NS_ENUM(NSUInteger, PKGPreferencesGeneralDistributionPackagePaneTag)
+typedef NS_ENUM(NSUInteger, PKGPreferencesGeneralDistributionPackageComponentPaneTag)
 {
-	PKGPreferencesGeneralDistributionPackagePaneSettings=0,
-	PKGPreferencesGeneralDistributionPackagePanePayload=1,
-	PKGPreferencesGeneralDistributionPackagePaneScripts=2
+	PKGPreferencesGeneralDistributionPackageComponentPaneSettings=0,
+	PKGPreferencesGeneralDistributionPackageComponentPanePayload=1,
+	PKGPreferencesGeneralDistributionPackageComponentPaneScriptsAndResources=2
 };
 
 typedef NS_ENUM(NSUInteger, PKGPreferencesGeneralPackageProjectPaneTag)
@@ -67,7 +67,7 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesBuildHideBuildWindowBehavior)
 
 	@property (nonatomic) PKGPreferencesGeneralDistributionProjectPaneTag defaultVisibleDistributionProjectPane;
 
-	@property (nonatomic) PKGPreferencesGeneralDistributionPackagePaneTag defaultVisibleDistributionPackagePane;
+	@property (nonatomic) PKGPreferencesGeneralDistributionPackageComponentPaneTag defaultVisibleDistributionPackageComponentPane;
 
 	@property (nonatomic) PKGPreferencesGeneralPackageProjectPaneTag defaultVisiblePackageProjectPane;
 

@@ -57,7 +57,7 @@
 	
 	// Package
 	
-	[_visibleDistributionPackagePanePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionPackagePane];
+	[_visibleDistributionPackagePanePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionPackageComponentPane];
 	
 	// Package Standalone
 	
@@ -77,7 +77,7 @@
 
 - (IBAction)switchDefaultVisibleDistributionPackagePane:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionPackagePane=_visibleDistributionPackagePanePopUpButton.selectedItem.tag;
+	[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionPackageComponentPane=_visibleDistributionPackagePanePopUpButton.selectedItem.tag;
 }
 
 - (IBAction)switchDefaultVisiblePackageProjectPane:(id) sender

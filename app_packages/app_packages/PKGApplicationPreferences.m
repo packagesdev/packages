@@ -17,7 +17,7 @@
 
 NSString * const PKGPreferencesGeneralDefaultVisibleDistributionProjectPaneKey=@"general.project.pane.default";
 
-NSString * const PKGPreferencesGeneralDefaultVisibleDistributionPackagePaneKey=@"general.package.pane.default";
+NSString * const PKGPreferencesGeneralDefaultVisibleDistributionPackageComponentPaneKey=@"general.package.pane.default";
 
 NSString * const PKGPreferencesGeneralDefaultVisiblePackageProjectPaneKey=@"general.package.standalone.pane.default";
 
@@ -107,7 +107,7 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		
 		[_defaults registerDefaults:@{
 									  PKGPreferencesGeneralDefaultVisibleDistributionProjectPaneKey:@(PKGPreferencesGeneralDistributionProjectPaneSettings),
-									  PKGPreferencesGeneralDefaultVisibleDistributionPackagePaneKey:@(PKGPreferencesGeneralDistributionPackagePaneSettings),
+									  PKGPreferencesGeneralDefaultVisibleDistributionPackageComponentPaneKey:@(PKGPreferencesGeneralDistributionPackageComponentPaneSettings),
 									  PKGPreferencesGeneralDefaultVisiblePackageProjectPaneKey:@(PKGPreferencesGeneralPackageProjectPaneProject),
 									  PKGPreferencesGeneralDefaultFilePathReferenceStyleKey:@(PKGFilePathTypeAbsolute),
 									  
@@ -138,7 +138,7 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		
 		_defaultVisibleDistributionProjectPane=[_defaults integerForKey:PKGPreferencesGeneralDefaultVisibleDistributionProjectPaneKey];
 		
-		_defaultVisibleDistributionPackagePane=[_defaults integerForKey:PKGPreferencesGeneralDefaultVisibleDistributionPackagePaneKey];
+		_defaultVisibleDistributionPackageComponentPane=[_defaults integerForKey:PKGPreferencesGeneralDefaultVisibleDistributionPackageComponentPaneKey];
 		
 		_defaultVisiblePackageProjectPane=[_defaults integerForKey:PKGPreferencesGeneralDefaultVisiblePackageProjectPaneKey];
 		
@@ -197,11 +197,11 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 	[_defaults setInteger:inTag forKey:PKGPreferencesGeneralDefaultVisibleDistributionProjectPaneKey];
 }
 
-- (void)setDefaultVisibleDistributionPackagePane:(PKGPreferencesGeneralDistributionPackagePaneTag)inTag
+- (void)setDefaultVisibleDistributionPackageComponentPane:(PKGPreferencesGeneralDistributionPackageComponentPaneTag)inTag
 {
-	_defaultVisibleDistributionPackagePane=inTag;
+	_defaultVisibleDistributionPackageComponentPane=inTag;
 	
-	[_defaults setInteger:inTag forKey:PKGPreferencesGeneralDefaultVisibleDistributionPackagePaneKey];
+	[_defaults setInteger:inTag forKey:PKGPreferencesGeneralDefaultVisibleDistributionPackageComponentPaneKey];
 }
 
 - (void)setDefaultVisiblePackageProjectPane:(PKGPreferencesGeneralPackageProjectPaneTag)inTag
