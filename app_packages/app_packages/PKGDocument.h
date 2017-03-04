@@ -13,10 +13,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "PKGDocumentRegistry.h"
+
 #import "PKGFilePath.h"
 
 @interface PKGDocument : NSDocument <PKGFilePathConverter>
 
 	@property (readonly,copy) NSString * folder;
+
+	@property (readonly) PKGDocumentRegistry * registry;
 
 @end

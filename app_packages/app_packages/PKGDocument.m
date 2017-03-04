@@ -22,6 +22,8 @@
 	PKGDocumentWindowController * _documentWindowController;
 }
 
+	@property (readwrite) PKGDocumentRegistry * registry;
+
 	@property (readonly,copy) NSString * referenceProjectPath;
 
 	@property (readonly,copy) NSString * referenceFolderPath;
@@ -34,6 +36,20 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark -
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_registry=[PKGDocumentRegistry new];
+	}
+	
+	return self;
 }
 
 #pragma mark -
