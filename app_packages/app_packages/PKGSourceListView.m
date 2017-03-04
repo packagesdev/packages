@@ -13,6 +13,17 @@
 
 #import "PKGSourceListView.h"
 
+#import "PKGHighlightWindow.h"
+
+@interface PKGSourceListView ()
+{
+	PKGHighlightWindow * _highlightWindow;
+}
+
+- (void)setHighlighted:(BOOL)inHighlighted;
+
+@end
+
 @implementation PKGSourceListView
 
 - (NSMenu *)menuForEvent:(NSEvent *)inEvent
@@ -33,6 +44,72 @@
 	}
 	
 	return [super menuForEvent:inEvent];
+}
+
+#pragma mark -
+
+- (void)setHighlighted:(BOOL)inHighlighted
+{
+	if (inHighlighted==YES && _highlightWindow==nil)
+	{
+		_highlightWindow=[[PKGHighlightWindow alloc] initForView:self];
+		
+		if (_highlightWindow!=nil)
+		{
+			[self.window addChildWindow:_highlightWindow ordered:NSWindowAbove];
+			
+			[_highlightWindow orderFront:self];
+		}
+		
+		return;
+	}
+	
+	if (inHighlighted==NO && _highlightWindow!=nil)
+	{
+		[self.window removeChildWindow:_highlightWindow];
+		
+		[_highlightWindow orderOut:self];
+		
+		_highlightWindow=nil;
+	}
+}
+
+#pragma mark - Overridden Private Method
+
+- (BOOL)_shouldDoDragUpdateOfViewBasedRowData
+{
+	return NO;
+}
+
+#pragma mark -
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
+{
+	NSDragOperation tDragOperation=[super draggingEntered:sender];
+	
+	if (tDragOperation!=NSDragOperationNone)
+		[self setHighlighted:YES];
+	
+	return tDragOperation;
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
+{
+	[self setHighlighted:NO];
+	
+	return [super performDragOperation:sender];
+}
+
+- (void)draggingExited:(id <NSDraggingInfo>)sender
+{
+	[self setHighlighted:NO];
+	
+	[super draggingExited:sender];
+}
+
+- (void)draggingEnded:(id <NSDraggingInfo>)sender
+{
+	[self setHighlighted:NO];
 }
 
 @end
