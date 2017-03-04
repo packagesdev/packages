@@ -626,7 +626,7 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 	
 	while (tItemPath=[tDirectoryEnumerator nextObject])
 	{
-		NSString * tLastPathComponent=[tItemPath lastPathComponent];
+		NSString * tLastPathComponent=tItemPath.lastPathComponent;
 		
 		if (tLastPathComponent==nil)
 			tLastPathComponent=tItemPath;
