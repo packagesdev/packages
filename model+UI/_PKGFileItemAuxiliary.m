@@ -265,7 +265,7 @@
 	
 	// Excluded
 	
-	NSString * tFileName=[inPath lastPathComponent];
+	NSString * tFileName=inPath.lastPathComponent;
 	PKGFileSystemType tFileSystemType=(self.fileType=='d') ? PKGFileSystemTypeFolder : PKGFileSystemTypeFile;
 	
 	for(PKGFileFilter * tFileFilter in inFileFilters)

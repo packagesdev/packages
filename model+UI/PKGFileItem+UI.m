@@ -142,7 +142,7 @@
 			
 		case PKGFileItemTypeFileSystemItem:
 			
-			return [self.filePath.string lastPathComponent];
+			return self.filePath.string.lastPathComponent;
 			
 		default:
 			
