@@ -180,7 +180,7 @@
 	{
 		if (_projectDirectoryWasChangedByUser==NO)
 		{
-			if (_projectName.length>0 && [[tProjectDirectory lastPathComponent] isEqualToString:_projectName])
+			if (_projectName.length>0 && [tProjectDirectory.lastPathComponent isEqualToString:_projectName])
 				tProjectDirectory=[tProjectDirectory stringByDeletingLastPathComponent];
 			
 			tProjectDirectory=[tProjectDirectory stringByAppendingPathComponent:tProjectName];

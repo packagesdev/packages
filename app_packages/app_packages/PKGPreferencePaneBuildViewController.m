@@ -51,8 +51,6 @@
 
 - (void)refreshTemporaryBuildLocationUI;
 
-- (void)refreshUI;
-
 - (void)setFailoverFolder:(NSString *) inFolderPath;
 
 
@@ -262,7 +260,7 @@
 			
 			// Title
 			
-			[tMenuItem setTitle:[inFolderPath lastPathComponent]];
+			[tMenuItem setTitle:inFolderPath.lastPathComponent];
 		}
 	}
 	

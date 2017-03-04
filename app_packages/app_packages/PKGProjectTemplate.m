@@ -130,7 +130,7 @@ NSString * const PKGProjectOldTemplateEnabledKey=@"ICPROJECT_TEMPLATE_SUPPORTED"
 		_name=tLocalizedInfoDictionary[PKGProjectTemplateNameKey];
 		
 		if (_name==nil)
-			_name=[[_bundle.bundlePath lastPathComponent] stringByDeletingPathExtension];
+			_name=[_bundle.bundlePath.lastPathComponent stringByDeletingPathExtension];
 		
 		// Description
 		
@@ -176,7 +176,7 @@ NSString * const PKGProjectOldTemplateEnabledKey=@"ICPROJECT_TEMPLATE_SUPPORTED"
 		_name=[_bundle objectForInfoDictionaryKey:PKGProjectOldTemplateNameKey];
 		
 		if (_name==nil)
-			_name=[[_bundle.bundlePath lastPathComponent] stringByDeletingPathExtension];
+			_name=[_bundle.bundlePath.lastPathComponent stringByDeletingPathExtension];
 		
 		// Description
 		

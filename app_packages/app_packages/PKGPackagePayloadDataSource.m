@@ -283,7 +283,7 @@
 			}
 			else
 			{
-				NSString * tLastPathComponent=[tPath lastPathComponent];
+				NSString * tLastPathComponent=tPath.lastPathComponent;
 				
 				if ([tPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode *bTreeNode){
 					
@@ -337,7 +337,7 @@
 			}
 			else
 			{
-				NSString * tLastPathComponent=[tPath lastPathComponent];
+				NSString * tLastPathComponent=tPath.lastPathComponent;
 				
 				if ([tPayloadTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode *bTreeNode){
 					

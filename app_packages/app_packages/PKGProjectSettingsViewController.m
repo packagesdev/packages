@@ -144,7 +144,7 @@
 		}
 		else
 		{
-			tMenuItem.title=([tReferenceFolderPath isEqualToString:@"/"]==NO) ? [tReferenceFolderPath lastPathComponent] : @"/";
+			tMenuItem.title=([tReferenceFolderPath isEqualToString:@"/"]==NO) ? tReferenceFolderPath.lastPathComponent : @"/";
 			
 			_buildReferenceFolderPopUpButton.toolTip=tReferenceFolderPath;
 			
@@ -472,7 +472,7 @@
 					
 					if (tMenuItem!=nil)
 					{
-						[tMenuItem setTitle:([tReferenceFolderPath isEqualToString:@"/"]==NO) ? [tReferenceFolderPath lastPathComponent] : @"/"];
+						[tMenuItem setTitle:([tReferenceFolderPath isEqualToString:@"/"]==NO) ? tReferenceFolderPath.lastPathComponent : @"/"];
 							
 						_buildReferenceFolderPopUpButton.toolTip=tReferenceFolderPath;
 							

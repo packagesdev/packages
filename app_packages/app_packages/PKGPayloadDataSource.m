@@ -257,7 +257,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	[inPaths enumerateObjectsUsingBlock:^(NSString * bAbsolutePath,NSUInteger bIndex,BOOL *bOutStop){
 	
-		NSString * tLastPathComponent=[bAbsolutePath lastPathComponent];
+		NSString * tLastPathComponent=bAbsolutePath.lastPathComponent;
 		
 		PKGPayloadTreeNode * tParentNode;
 		NSArray * tSiblings;
@@ -902,7 +902,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		else
 			[inOutlineView setDropItem:inProposedTreeNode dropChildIndex:(tInsertionIndex!=NSNotFound) ? tInsertionIndex : ((inProposedTreeNode==nil) ? self.rootNodes.count : [inProposedTreeNode numberOfChildren])];
 		
-		return NSDragOperationCopy;
+		return YES;
 	
 	};
 	
@@ -921,7 +921,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		NSArray * tFileNamesArray=[tArray WB_arrayByMappingObjectsUsingBlock:^NSString *(NSString * bFilePath,NSUInteger bIndex){
 		
-			return [bFilePath lastPathComponent];
+			return bFilePath.lastPathComponent;
 		}];
 		
 		return (validateFileNames(tFileNamesArray,tFileNamesArray)==YES) ? NSDragOperationCopy : NSDragOperationNone;
