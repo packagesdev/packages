@@ -41,6 +41,8 @@
 
 - (void)_updateLayout;
 
+- (void)refreshUI;
+
 - (IBAction)switchConclusionAction:(id)sender;
 
 - (IBAction)switchAuthenticationMode:(id)sender;
@@ -55,18 +57,71 @@
 
 @implementation PKGPackageSettingsViewController
 
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+	self=[super initWithDocument:inDocument];
+	
+	if (self!=nil)
+	{
+		_tagSectionEnabled=YES;
+		_postInstallationSectionEnabled=YES;
+		_optionsSectionEnabled=YES;
+	}
+	
+	return self;
+}
+
 - (NSUInteger)tag
 {
 	return PKGPreferencesGeneralPackageProjectPaneSettings;
 }
 
+- (void)setTagSectionEnabled:(BOOL)inEnabled
+{
+	if (_tagSectionEnabled!=inEnabled)
+	{
+		_tagSectionEnabled=inEnabled;
+		
+		_identifierTextField.enabled=inEnabled;
+		
+		_versionTextField.enabled=inEnabled;
+	}
+}
+
+- (void)setPostInstallationSectionEnabled:(BOOL)inEnabled
+{
+	if (_postInstallationSectionEnabled!=inEnabled)
+	{
+		_postInstallationSectionEnabled=inEnabled;
+		
+		_conclusionActionPopupButton.enabled=inEnabled;
+	}
+}
+
+- (void)setOptionsSectionEnabled:(BOOL)inEnabled
+{
+	if (_optionsSectionEnabled!=inEnabled)
+	{
+		_optionsSectionEnabled=inEnabled;
+		
+		_authenticationModeCheckbox.enabled=inEnabled;
+		
+		_relocatableCheckbox.enabled=inEnabled;
+		
+		_overwriteDirectoryPermissionsCheckbox.enabled=inEnabled;
+		
+		_followSymbolicLinksCheckbox.enabled=inEnabled;
+		
+		_useHFSPlusCompressionCheckbox.enabled=inEnabled;
+	}
+}
+
 #pragma mark -
 
-- (void)WB_viewWillAppear
+- (void)refreshUI
 {
-	[super WB_viewWillAppear];
-	
-	[self _updateLayout];
+	if (_identifierTextField==nil)
+		return;
 	
 	// Tag Section
 	
@@ -91,11 +146,20 @@
 	_useHFSPlusCompressionCheckbox.state=(self.packageSettings.useHFSPlusCompression==YES)? NSOnState : NSOffState;
 }
 
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
+	
+	[self _updateLayout];
+	
+	[self refreshUI];
+}
+
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
 	
-	[self.view.window makeFirstResponder:_identifierTextField];
+	//[self.view.window makeFirstResponder:_identifierTextField];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 }

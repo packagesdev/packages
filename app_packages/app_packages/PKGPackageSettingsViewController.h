@@ -19,4 +19,10 @@
 
 	@property PKGPackageSettings * packageSettings;
 
+	@property (nonatomic,getter=isTagSectionEnabled) BOOL tagSectionEnabled;
+
+	@property (nonatomic,getter=isPostInstallationSectionEnabled) BOOL postInstallationSectionEnabled;
+
+	@property (nonatomic,getter=isOptionsSectionEnabled) BOOL optionsSectionEnabled;
+
 @end
