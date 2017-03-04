@@ -33,6 +33,7 @@
 
 	@property (weak) id<PKGDistributionProjectSourceListDataSourceDelegate> delegate;
 
++ (NSArray *)supportedDraggedTypes;
 
 - (void)addProjectPackageComponent:(NSOutlineView *)inOutlineView;
 
@@ -40,6 +41,11 @@
 
 - (void)importPackageComponent:(NSOutlineView *)inOutlineView;
 
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenamePackageComponent:(id)inPackageComponentItem as:(NSString *)inNewName;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView renamePackageComponent:(id)inPackageComponentItem as:(NSString *)inNewName;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView duplicateItems:(NSArray *)inItems;
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
 

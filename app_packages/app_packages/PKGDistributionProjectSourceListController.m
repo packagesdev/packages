@@ -28,11 +28,15 @@
 
 #import "PKGEvent.h"
 
-@interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate>
+#import "PKGProjectNameFormatter.h"
+
+@interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate,NSTextFieldDelegate>
 {
 	IBOutlet NSView * _sourceListAuxiliaryView;
 	
 	IBOutlet NSButton * _addButton;
+	
+	PKGProjectNameFormatter * _cachedProjectNameFormatter;
 }
 
 	@property IBOutlet NSMenu * contextualMenu;
@@ -58,9 +62,23 @@
 
 @implementation PKGDistributionProjectSourceListController
 
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+	self=[super initWithDocument:inDocument];
+	
+	if (self!=nil)
+	{
+		_cachedProjectNameFormatter=[PKGProjectNameFormatter new];
+	}
+	
+	return self;
+}
+
 - (void)WB_viewDidLoad
 {
     [super WB_viewDidLoad];
+	
+	[self.outlineView registerForDraggedTypes:[PKGDistributionProjectSourceListDataSource supportedDraggedTypes]];
 	
 	// A COMPLETER
 }
@@ -141,7 +159,12 @@
 
 - (IBAction)duplicate:(id)sender
 {
-	// A COMPLETER
+	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	if (tIndexSet.count<1)
+		return;
+	
+	[self.dataSource outlineView:self.outlineView duplicateItems:[self.outlineView WB_itemsAtRowIndexes:tIndexSet]];
 }
 
 - (IBAction)delete:(id)sender
@@ -205,7 +228,6 @@
 {
 	[self.dataSource importPackageComponent:self.outlineView];
 }
-
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
@@ -278,6 +300,55 @@
 	return YES;
 }
 
+#pragma mark - NSTextFieldDelegate
+
+- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
+{
+	control.formatter=_cachedProjectNameFormatter;
+	
+	return YES;
+}
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+	control.formatter=nil;
+	
+	return YES;
+}
+
+- (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError
+{
+	NSBeep();
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)inNotification
+{
+	NSTextField * tTextField=inNotification.object;
+	
+	if ([tTextField isKindOfClass:NSTextField.class]==NO)
+		return;
+	
+	NSInteger tEditedRow=[self.outlineView rowForView:tTextField];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGDistributionProjectSourceListTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
+	
+	if ([self.dataSource outlineView:self.outlineView shouldRenamePackageComponent:tEditedNode as:tTextField.stringValue]==NO)
+	{
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"sourcelist.name"]];
+		
+		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+		
+		return;
+	}
+	
+	if ([self.dataSource outlineView:self.outlineView renamePackageComponent:tEditedNode as:tTextField.stringValue]==YES)
+		;//[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
+}
+
 #pragma mark - NSOutlineViewDelegate
 
 - (NSView *)outlineView:(NSOutlineView *)inOutlineView viewForTableColumn:(NSTableColumn *)inTableColumn item:(PKGDistributionProjectSourceListTreeNode *)inSourceListTreeNode
@@ -293,7 +364,7 @@
 		
 		tView.imageView.image=tSourceListItem.icon;
 		tView.textField.stringValue=tSourceListItem.label;
-		
+		tView.textField.delegate=nil;
 		
 		return tView;
 	}
@@ -315,6 +386,7 @@
 		tView.imageView.image=tSourceListItem.icon;
 		tView.textField.stringValue=tSourceListItem.label;
 		tView.textField.editable=tSourceListItem.editable;
+		tView.textField.delegate=self;
 		
 		return tView;
 	}
