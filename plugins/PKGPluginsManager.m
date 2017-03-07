@@ -241,7 +241,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 	
 	if (tPlugin==nil)
 	{
-		NSLog(@"[ICPluginsManager createPluginConverterForIdentifier:] No plugin found for identifier %@",inIdentifier);
+		NSLog(@"[PKGPluginsManager createPluginConverterForIdentifier:] No plugin found for identifier %@",inIdentifier);
 		return nil;
 	}
 	
@@ -253,7 +253,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 		
 		if (tPrincipalClass==nil)
 		{
-			NSLog(@"[ICPluginsManager createPluginConverterForIdentifier:] Principal Class not found");
+			NSLog(@"[PKGPluginsManager createPluginConverterForIdentifier:] Principal Class not found");
 			return nil;
 		}
 		
