@@ -23,7 +23,9 @@
 
 #import "PKGFileDeadDropView.h"
 
-@interface PKGDistributionPackageComponentsSettingsViewController () <PKGFileDeadDropViewDelegate>
+#import "PKGLocationTextField.h"
+
+@interface PKGDistributionPackageComponentsSettingsViewController () <PKGFileDeadDropViewDelegate,PKGLocationTextFieldDelegate>
 {
 	IBOutlet PKGPackageSettingsSourceView * _sourceSectionView;
 	
@@ -33,9 +35,11 @@
 	
 	IBOutlet PKGPackageSettingsSourceView * _referenceSectionView;
 	
+	
 	IBOutlet NSView * _tagSectionView;
 	
 	IBOutlet NSView * _postInstallationSectionView;
+	
 	
 	IBOutlet NSView * _locationSectionView;
 	
@@ -43,9 +47,10 @@
 	
 	IBOutlet NSTextField * _locationLabel;
 	
-	IBOutlet NSTextField * _locationTextField;
+	IBOutlet PKGLocationTextField * _locationTextField;
 	
 	IBOutlet NSPopUpButton * _locationPopUpButton;
+	
 	
 	IBOutlet NSView * _optionsSectionView;
 }
@@ -67,6 +72,8 @@
 	_sourceSectionView.backgroundColor=[NSColor colorWithDeviceRed:0.7529 green:0.7843 blue:0.8392 alpha:1.0];
 	
 	_referenceSectionView.backgroundColor=[NSColor colorWithDeviceWhite:0.8392 alpha:1.0];
+	
+	[_locationTextField registerForDraggedTypes:@[NSFilenamesPboardType,NSStringPboardType]];
 }
 
 - (NSUInteger)tag
@@ -130,7 +137,6 @@
 - (void)_updateSectionsLayout
 {
 	NSRect tViewBounds=self.view.bounds;
-	
 	NSRect tSectionFrame;
 	CGFloat tCumulatedHeight=0;
 	
@@ -146,6 +152,8 @@
 			
 			_referenceSectionView.hidden=YES;
 			
+			self.optionsSectionSimplified=NO;
+			
 			break;
 			
 		case PKGPackageComponentTypeImported:
@@ -153,11 +161,8 @@
 			// Source Section
 			
 			tSectionFrame=_sourceSectionView.frame;
-			
 			tCumulatedHeight+=NSHeight(tSectionFrame);
-				
 			tSectionFrame.origin.y=NSMaxY(tViewBounds)-tCumulatedHeight;
-				
 			_sourceSectionView.frame=tSectionFrame;
 				
 			_sourceSectionView.hidden=NO;
@@ -165,6 +170,8 @@
 			// Reference Section
 			
 			_referenceSectionView.hidden=YES;
+			
+			self.optionsSectionSimplified=NO;
 			
 			break;
 			
@@ -177,14 +184,13 @@
 			// Reference Section
 			
 			tSectionFrame=_referenceSectionView.frame;
-			
 			tCumulatedHeight+=NSHeight(tSectionFrame);
-			
 			tSectionFrame.origin.y=NSMaxY(tViewBounds)-tCumulatedHeight;
-				
 			_referenceSectionView.frame=tSectionFrame;
 				
 			_referenceSectionView.hidden=NO;
+			
+			self.optionsSectionSimplified=YES;
 			
 			break;
 	}
@@ -192,43 +198,29 @@
 	// Tag Section
 	
 	tSectionFrame=_tagSectionView.frame;
-	
 	tCumulatedHeight+=NSHeight(tSectionFrame);
-	
 	tSectionFrame.origin.y=NSMaxY(tViewBounds)-tCumulatedHeight;
-	
 	_tagSectionView.frame=tSectionFrame;
-	
-	tCumulatedHeight=NSHeight(tSectionFrame);
 	
 	// Options Section
 	
 	tSectionFrame=_postInstallationSectionView.frame;
-	
 	tCumulatedHeight+=NSHeight(tSectionFrame);
-	
 	tSectionFrame.origin.y=NSMaxY(tViewBounds)-tCumulatedHeight;
-	
 	_postInstallationSectionView.frame=tSectionFrame;
 	
 	// Post-Installation Section
 	
 	tSectionFrame=_locationSectionView.frame;
-	
 	tCumulatedHeight+=NSHeight(tSectionFrame);
-	
 	tSectionFrame.origin.y=NSMaxY(tViewBounds)-tCumulatedHeight;
-	
 	_locationSectionView.frame=tSectionFrame;
 	
 	// Location Section
 	
 	tSectionFrame=_optionsSectionView.frame;
-	
 	tCumulatedHeight+=NSHeight(tSectionFrame);
-	
 	tSectionFrame.origin.y=NSMaxY(tViewBounds)-tCumulatedHeight;
-	
 	_optionsSectionView.frame=tSectionFrame;
 }
 
@@ -271,22 +263,20 @@
 	
 	[_locationPopUpButton selectItemWithTag:tLocationType];
 	
+	_locationLabel.hidden=_locationTextField.hidden=(tLocationType==PKGPackageLocationEmbedded);
+	
 	if (tLocationType==PKGPackageLocationEmbedded)
 	{
-		_locationLabel.hidden=_locationTextField.hidden=YES;
-		
-		//[IBversionTextField_ setNextKeyView:IBidentifierTextField_];
+		_versionTextField.nextKeyView=_identifierTextField;
 	}
 	else
 	{
-		_locationLabel.hidden=_locationTextField.hidden=NO;
+		_versionTextField.nextKeyView=_locationTextField;
 		
-		//[IBversionTextField_ setNextKeyView:IBlocationTextField_];
-		
-		//[IBlocationTextField_ setNextKeyView:IBidentifierTextField_];
+		_locationTextField.nextKeyView=_identifierTextField;
 	}
 	
-	NSString * tLocationPath=self.packageComponent.packageSettings.locationPath;
+	NSString * tLocationPath=self.packageComponent.packageSettings.locationURL;
 	
 	switch(tLocationType)
 	{
@@ -393,136 +383,148 @@
 	{
 		self.packageComponent.packageSettings.locationType=tNewLocationType;
 		
-		/*[dictionary_ setObject:[NSNumber numberWithInteger:tTag] forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION];
+		_locationLabel.hidden=_locationTextField.hidden=(tNewLocationType==PKGPackageLocationEmbedded);
 		
-		if (tTag==ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_EMBEDDED)
+		if (tNewLocationType==PKGPackageLocationEmbedded)
 		{
-			[IBlocationLabel_ setHidden:YES];
+			_locationTextField.stringValue=@"";
 			
-			[IBlocationTextField_ setHidden:YES];
+			_locationTipLabel.stringValue=@"";
 			
-			[IBlocationTextField_ setStringValue:@""];
+			self.packageComponent.packageSettings.locationURL=@"";
 			
-			[IBlocationTip_ setStringValue:@""];
+			_versionTextField.nextKeyView=_identifierTextField;
 			
-			[IBversionTextField_ setNextKeyView:IBidentifierTextField_];
+			[self noteDocumentHasChanged];
+			
+			return;
 		}
-		else
+		
+		_versionTextField.nextKeyView=_locationTextField;
+		 
+		_locationTextField.nextKeyView=_identifierTextField;
+		
+		NSString * tLocationPath=self.packageComponent.packageSettings.locationURL;
+		
+		switch(tNewLocationType)
 		{
-			NSString * tPath;
-			
-			tPath=[dictionary_ objectForKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-			
-			[IBlocationLabel_ setHidden:NO];
-			
-			[IBlocationTextField_ setHidden:NO];
-			
-			[IBversionTextField_ setNextKeyView:IBlocationTextField_];
-			
-			[IBlocationTextField_ setNextKeyView:IBidentifierTextField_];
-			
-			[IBlocationLabel_ setStringValue:NSLocalizedString(@"Path:","")];
-			
-			switch(tTag)
-			{
-				case ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_CUSTOM_PATH:
-					
-					[IBlocationTip_ setStringValue:NSLocalizedString(@"( './' represents the parent folder of the metapackage )",@"")];
-					
-					if (tPath==nil)
+			case PKGPackageLocationCustomPath:
+				
+				_locationTipLabel.stringValue=NSLocalizedString(@"( './' represents the parent folder of the metapackage )",@"");
+				
+				_locationLabel.stringValue=NSLocalizedString(@"Path:","");
+				
+				if (tLocationPath==nil)
+				{
+					tLocationPath=@"";
+				}
+				else
+				{
+					if ([tLocationPath hasPrefix:@"http://"]==YES)
 					{
-						tPath=@"";
-					}
-					else
-					{
-						if ([tPath hasPrefix:@"http://"]==YES)
-						{
-							tPath=[tPath substringFromIndex:7];
-							
-							[dictionary_ setObject:tPath forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-						}
-						else if ([tPath hasPrefix:@"x-disc://"]==YES)
-						{
-							tPath=[tPath substringFromIndex:9];
-							
-							[dictionary_ setObject:tPath forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-						}
-					}
-					
-					break;
-					
-				case ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_HTTP_URL:
-					
-					[IBlocationTip_ setStringValue:NSLocalizedString(@"( URL of the folder containing the package on the HTTP server )",@"")];
-					
-					[IBlocationLabel_ setStringValue:NSLocalizedString(@"URL:","")];
-					
-					if (tPath==nil)
-					{
-						tPath=@"";
-					}
-					else
-					{
-						if ([tPath hasPrefix:@"file:"]==YES)
-						{
-							tPath=[tPath substringFromIndex:5];
-							
-							[dictionary_ setObject:tPath forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-						}
-						else if ([tPath hasPrefix:@"x-disc://"]==YES)
-						{
-							tPath=[tPath substringFromIndex:9];
-							
-							[dictionary_ setObject:tPath forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-						}
-					}
-					
-					break;
-					
-				case ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_REMOVABLE_MEDIA:
-					
-					[IBlocationTip_ setStringValue:@""];
-					
-					if (tPath==nil)
-					{
-						tPath=@"x-disc://";
-					}
-					else
-					{
-						if ([tPath hasPrefix:@"file:"]==YES)
-						{
-							tPath=[tPath substringFromIndex:5];
-							
-							[dictionary_ setObject:tPath forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-						}
-						else if ([tPath hasPrefix:@"http://"]==YES)
-						{
-							tPath=[tPath substringFromIndex:7];
-							
-							[dictionary_ setObject:tPath forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-						}
+						tLocationPath=[tLocationPath substringFromIndex:7];
 						
-						if ([tPath hasPrefix:@"x-disc://"]==NO)
-						{
-							tPath=[@"x-disc://" stringByAppendingString:tPath];
-							
-							[dictionary_ setObject:tPath forKey:ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH];
-						}
+						self.packageComponent.packageSettings.locationURL=tLocationPath;
+					}
+					else if ([tLocationPath hasPrefix:@"x-disc://"]==YES)
+					{
+						tLocationPath=[tLocationPath substringFromIndex:9];
+						
+						self.packageComponent.packageSettings.locationURL=tLocationPath;
+					}
+				}
+				
+				break;
+				
+			case PKGPackageLocationHTTPURL:
+				
+				_locationTipLabel.stringValue=NSLocalizedString(@"( URL of the folder containing the package on the HTTP server )",@"");
+				
+				_locationLabel.stringValue=NSLocalizedString(@"URL:","");
+				
+				if (tLocationPath==nil)
+				{
+					tLocationPath=@"";
+				}
+				else
+				{
+					if ([tLocationPath hasPrefix:@"file:"]==YES)
+					{
+						tLocationPath=[tLocationPath substringFromIndex:5];
+						
+						self.packageComponent.packageSettings.locationURL=tLocationPath;
+					}
+					else if ([tLocationPath hasPrefix:@"x-disc://"]==YES)
+					{
+						tLocationPath=[tLocationPath substringFromIndex:9];
+						
+						self.packageComponent.packageSettings.locationURL=tLocationPath;
+					}
+				}
+				
+				break;
+				
+			case PKGPackageLocationRemovableMedia:
+				
+				_locationTipLabel.stringValue=@"";
+				
+				_locationLabel.stringValue=NSLocalizedString(@"Path:","");
+				
+				if (tLocationPath==nil)
+				{
+					tLocationPath=@"x-disc://";
+				}
+				else
+				{
+					if ([tLocationPath hasPrefix:@"file:"]==YES)
+					{
+						tLocationPath=[tLocationPath substringFromIndex:5];
+						
+						self.packageComponent.packageSettings.locationURL=tLocationPath;
+					}
+					else if ([tLocationPath hasPrefix:@"http://"]==YES)
+					{
+						tLocationPath=[tLocationPath substringFromIndex:7];
+						
+						self.packageComponent.packageSettings.locationURL=tLocationPath;
 					}
 					
-					break;
-			}
+					if ([tLocationPath hasPrefix:@"x-disc://"]==NO)
+					{
+						tLocationPath=[@"x-disc://" stringByAppendingString:tLocationPath];
+						
+						self.packageComponent.packageSettings.locationURL=tLocationPath;
+					}
+				}
+				
+				break;
 			
-			[IBlocationTextField_ setStringValue:tPath];
+			default:
+				break;
 		}
 		
-		// Notify Document Change
-		
-		[self noteDocumentChange];*/
+		_locationTextField.stringValue=tLocationPath;
 	}
+	
+	// Notify Document Change
+	
+	[self noteDocumentHasChanged];
 }
 
-#pragma mark -
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(switchLocationType:))
+	{
+		if (self.packageComponent.type==PKGPackageComponentTypeReference)
+			return (inMenuItem.tag!=PKGPackageLocationEmbedded && inMenuItem.tag!=PKGPackageLocationCustomPath);
+	}
+	
+	return YES;
+}
+
+#pragma mark - PKGFileDeadDropViewDelegate
 
 - (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView validateDropFiles:(NSArray *)inFilenames
 {
@@ -575,10 +577,13 @@
 		return NO;
 	}
 	
+	NSString * tSavedName=self.packageComponent.packageSettings.name;
 	PKGPackageLocationType tSavedLocationType=self.packageComponent.packageSettings.locationType;
 	NSString * tSavedLocationURL=self.packageComponent.packageSettings.locationURL;
 	
 	self.packageComponent.packageSettings=[[PKGPackageSettings alloc] initWithXMLData:tData];
+	
+	self.packageComponent.packageSettings.name=tSavedName;
 	self.packageComponent.packageSettings.locationType=tSavedLocationType;
 	self.packageComponent.packageSettings.locationURL=tSavedLocationURL;
 	
@@ -589,6 +594,162 @@
 	[self noteDocumentHasChanged];
 	
 	return YES;
+}
+
+#pragma mark - PKGFilePathTextFieldDelegate
+
+- (BOOL)locationTextField:(PKGLocationTextField *)inLocationTextField validateDrop:(id <NSDraggingInfo>)inInfo
+{
+	if (inLocationTextField==nil || inInfo==nil)
+		return NO;
+	
+	NSPasteboard * tPasteBoard=[inInfo draggingPasteboard];
+	
+	if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+	{
+		NSString * tString=[tPasteBoard stringForType:NSStringPboardType];
+		
+		if (tString==nil)
+			return NO;
+		
+		switch(self.packageComponent.packageSettings.locationType)
+		{
+			case PKGPackageLocationCustomPath:
+				
+				if ([tString hasPrefix:@"http://"]==NO &&
+					[tString hasPrefix:@"x-disc://"]==NO)
+					return YES;
+				
+				break;
+				
+			case PKGPackageLocationHTTPURL:
+				
+				if ([tString hasPrefix:@"http://"]==YES)
+					return YES;
+				
+				break;
+				
+			case PKGPackageLocationRemovableMedia:
+				
+				if ([tString hasPrefix:@"x-disc://"]==YES)
+					return YES;
+				
+				break;
+				
+			default:
+				break;
+		}
+		
+		return NO;
+	}
+	
+	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+	{
+		if (self.packageComponent.packageSettings.locationType!=PKGPackageLocationCustomPath)
+			return NO;
+		
+		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
+		
+		if (tArray.count!=1)
+			return NO;
+		
+		
+		NSString * tFilePath=tArray.lastObject;
+		BOOL isDirectory;
+				
+		return ([[NSFileManager defaultManager] fileExistsAtPath:tFilePath isDirectory:&isDirectory]==YES && isDirectory==YES);
+	}
+	
+	return NO;
+}
+
+- (BOOL)locationTextField:(PKGLocationTextField *)inLocationTextField acceptDrop:(id <NSDraggingInfo>)inInfo
+{
+	if (inLocationTextField==nil || inInfo==nil)
+		return NO;
+	
+	NSPasteboard * tPasteBoard=[inInfo draggingPasteboard];
+	
+	if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+	{
+		NSString * tString=[tPasteBoard stringForType:NSStringPboardType];
+		
+		if (tString==nil)
+			return NO;
+		
+		if ([tString hasPrefix:@"http://"]==YES)
+		{
+			tString=[tString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			
+			tString=[tString substringFromIndex:7];
+			
+			NSString * tLastComponent=tString.lastPathComponent;
+			
+			if (tLastComponent==nil)
+				return NO;
+			
+			if ([tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)
+			{
+				tString=[tString stringByDeletingLastPathComponent];
+				
+				if (self.packageComponent.type==PKGPackageComponentTypeReference)
+				{
+					tLastComponent=[tLastComponent stringByDeletingPathExtension];
+					
+					self.packageComponent.packageSettings.name=tLastComponent;	// A COMPLETER (Repercuter le changement sur la source list)
+				}
+			}
+			
+			tString=[@"http://" stringByAppendingString:tString];
+		}
+		
+		self.packageComponent.packageSettings.locationURL=tString;
+			
+		_locationTextField.stringValue=tString;
+		
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+		
+		[_locationTextField.target performSelector:_locationTextField.action withObject:_locationTextField];
+		
+		// Notify Document Change
+		
+		[self noteDocumentHasChanged];
+		
+		return YES;
+	}
+	
+	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+	{
+		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
+		
+		if (tArray.count!=1)
+			return NO;
+		
+		NSString * tString=tArray.lastObject;
+		
+		BOOL isDirectory;
+		
+		if ([[NSFileManager defaultManager] fileExistsAtPath:tString isDirectory:&isDirectory]==NO || isDirectory==NO)
+			return NO;
+		
+		self.packageComponent.packageSettings.locationURL=tString;
+		
+		_locationTextField.stringValue=tString;
+		
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+		
+		[_locationTextField.target performSelector:_locationTextField.action withObject:_locationTextField];
+		
+		// Notify Document Change
+		
+		[self noteDocumentHasChanged];
+		
+		return YES;
+	}
+
+	return NO;
 }
 
 @end
