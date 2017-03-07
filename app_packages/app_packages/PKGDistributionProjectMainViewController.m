@@ -258,20 +258,22 @@
 	{
 		[_currentContentsViewController WB_viewWillDisappear];
 		
-		[_currentContentsViewController.view removeFromSuperview];
+		if (_currentContentsViewController!=tNewViewController)
+			[_currentContentsViewController.view removeFromSuperview];
 	
 		[_currentContentsViewController WB_viewDidDisappear];
 	}
 	
+	tNewViewController.view.frame=_contentsView.bounds;
+	
+	[tNewViewController WB_viewWillAppear];
+	
+	if (_currentContentsViewController!=tNewViewController)
+		[_contentsView addSubview:tNewViewController.view];
+	
+	[tNewViewController WB_viewDidAppear];
+	
 	_currentContentsViewController=tNewViewController;
-	
-	_currentContentsViewController.view.frame=_contentsView.bounds;
-	
-	[_currentContentsViewController WB_viewWillAppear];
-	
-	[_contentsView addSubview:_currentContentsViewController.view];
-	
-	[_currentContentsViewController WB_viewDidAppear];
 }
 
 @end

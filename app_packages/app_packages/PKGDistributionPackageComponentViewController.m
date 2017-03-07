@@ -227,8 +227,11 @@
 		[tNewSegmentViewController WB_viewWillAppear];
 	}
 	
-	[tOldView removeFromSuperview];
-	[_contentView addSubview:tNewView];
+	if (tOldView!=tNewView)
+	{
+		[tOldView removeFromSuperview];
+		[_contentView addSubview:tNewView];
+	}
 	
 	if (self.view.window!=nil)
 	{
