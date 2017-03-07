@@ -13,6 +13,8 @@
 
 #import "PKGRequirementViewController.h"
 
+#import "PKGRequirementPanel.h"
+
 NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDidChangeNotification";
 
 @implementation PKGRequirementViewController
@@ -41,7 +43,7 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 
 - (NSDictionary *)defaultSettings
 {
-	NSLog(@"- [%@ defaultSettings] implentation missing",NSStringFromClass([self class]));
+	NSLog(@"- [%@ defaultSettings] implementation missing",NSStringFromClass([self class]));
 	
 	return [NSDictionary dictionary];
 }
@@ -60,10 +62,6 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 	return nil;
 }
 
-- (void)refreshUI
-{
-}
-
 - (BOOL)isResizableWindow
 {
 	return NO;
@@ -79,11 +77,25 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 	return PKGRequirementTypeUndefined;
 }
 
+- (PKGDistributionProject *)project
+{
+	return ((PKGRequirementPanel *)self.view.window).project;
+}
+
+- (id<PKGFilePathConverter>)filePathConverter
+{
+	return ((PKGRequirementPanel *)self.view.window).filePathConverter;
+}
+
 - (void)setNextKeyView:(NSView *)inView
 {
 }
 
 #pragma mark -
+
+- (void)refreshUI
+{
+}
 
 - (void)WB_viewDidAppear
 {

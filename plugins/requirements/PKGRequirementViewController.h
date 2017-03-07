@@ -31,15 +31,15 @@ extern NSString * const PKGRequirementTypeDidChangeNotification;
 
 	@property (nonatomic,readonly) PKGRequirementType requirementType;
 
-	@property (weak,readonly)id<PKGFilePathConverter> filePathConverter;
+	@property (readonly) PKGDistributionProject * project;
+
+	@property (readonly) id<PKGFilePathConverter> filePathConverter;
 
 + (NSDictionary *)pasteboardDictionaryFromDictionary:(NSDictionary *)inDictionary converter:(id<PKGFilePathConverter>)inConverter;
 + (NSDictionary *)dictionaryFromPasteboardDictionary:(NSDictionary *)inPasteboardDictionary converter:(id<PKGFilePathConverter>)inConverter;
 
 
 - (NSDictionary *)defaultSettings;
-
-- (void)refreshUI;
 
 - (void)setNextKeyView:(NSView *) inView;
 
