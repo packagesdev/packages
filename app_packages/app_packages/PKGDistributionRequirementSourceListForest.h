@@ -11,12 +11,23 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGSegmentViewController.h"
 
-#import "PKGDistributionProjectRequirementsAndResources.h"
+#import <Foundation/Foundation.h>
 
-@interface PKGDistributionRequirementsAndResourcesViewController : PKGSegmentViewController
+#import "PKGDistributionRequirementSourceListTreeNode.h"
 
-	@property (nonatomic) PKGDistributionProjectRequirementsAndResources * requirementsAndResources;
+#import "PKGRootNodesProtocol.h"
+
+#import "PKGRequirement.h"
+
+@interface PKGDistributionRequirementSourceListForest : NSObject <PKGRootNodesProtocol>
+
+	@property (nonatomic,readonly) NSMutableArray * rootNodes;
+
+- (instancetype)initWithRequirements:(NSMutableArray *)inRequirements;
+
+- (void)addRequirement:(PKGRequirement *)inRequirement;
+
+- (PKGDistributionRequirementSourceListTreeNode *)treeNodeForRequirement:(PKGRequirement *)inRequirement;
 
 @end

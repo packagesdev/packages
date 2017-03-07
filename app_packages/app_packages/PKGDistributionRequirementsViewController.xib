@@ -10,14 +10,14 @@
                 <outlet property="_addButton" destination="66H-sy-hhP" id="dkC-cy-N3S"/>
                 <outlet property="_editButton" destination="bDH-uT-Sa2" id="F4e-sb-w6N"/>
                 <outlet property="_removeButton" destination="keR-Mp-wmD" id="FK0-Cb-38d"/>
-                <outlet property="tableView" destination="W0C-Bg-gbX" id="iuH-JO-dpI"/>
+                <outlet property="outlineView" destination="4q5-mq-aEm" id="RZg-tt-VKy"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="1" y="0.0" width="586" height="173"/>
+            <rect key="frame" x="0.0" y="6" width="586" height="173"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="g0c-0g-ekH">
@@ -71,104 +71,105 @@
                         <action selector="addRequirement:" target="-2" id="SUe-rO-37R"/>
                     </connections>
                 </button>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="qqB-wI-d91">
-                    <rect key="frame" x="120" y="48" width="445" height="105"/>
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="iK0-YE-Irx">
+                    <rect key="frame" x="120" y="48" width="446" height="105"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" id="4Wr-tK-lRs">
-                        <rect key="frame" x="1" y="1" width="443" height="103"/>
+                    <clipView key="contentView" id="0qs-hN-T1x">
+                        <rect key="frame" x="1" y="1" width="444" height="103"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="W0C-Bg-gbX">
-                                <rect key="frame" x="0.0" y="0.0" width="443" height="0.0"/>
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" floatsGroupRows="NO" indentationMarkerFollowsCell="NO" outlineTableColumn="hRO-D4-ihd" id="4q5-mq-aEm" customClass="PKGOutlineView">
+                                <rect key="frame" x="0.0" y="0.0" width="444" height="103"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="requirement.state" editable="NO" width="20" minWidth="20" maxWidth="20" id="e9e-lO-ryS">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
+                                    <tableColumn identifier="requirement.state" width="20" minWidth="20" maxWidth="20" id="hRO-D4-ihd">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="center" id="ZdD-k9-ooM">
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="bWb-Ev-GzO">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="68Y-N8-JSu" customClass="PKGCheckboxTableCellView">
+                                            <tableCellView id="GPs-Ej-gaU" customClass="PKGCheckboxTableCellView">
                                                 <rect key="frame" x="1" y="1" width="20" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button id="I4b-2E-TYy">
+                                                    <button id="MRn-cp-pK5">
                                                         <rect key="frame" x="0.0" y="0.0" width="20" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="small" state="on" inset="2" id="kUc-OD-fn2">
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="small" state="on" inset="2" id="7Pb-Eo-W7D">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="switchRequirementState:" target="-2" id="gtJ-XI-iCF"/>
+                                                            <action selector="switchRequirementState:" target="-2" id="3Wb-kq-Kvv"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="checkbox" destination="I4b-2E-TYy" id="7qu-wB-IpO"/>
+                                                    <outlet property="checkbox" destination="MRn-cp-pK5" id="Whn-rp-2f1"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="requirement.name" width="417" minWidth="8" maxWidth="5000" id="yvm-Ve-RJR">
+                                    <tableColumn identifier="requirement.name" width="418" minWidth="40" maxWidth="1000" id="lBh-l4-pY6">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="jtz-ey-gHq">
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="3az-8B-im0">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="w4P-sP-Ow3">
-                                                <rect key="frame" x="24" y="1" width="417" height="17"/>
+                                            <tableCellView id="azM-kx-GLG">
+                                                <rect key="frame" x="24" y="1" width="418" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="d3i-eS-2qF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="417" height="17"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="JTw-Kf-Wcc">
+                                                        <rect key="frame" x="0.0" y="0.0" width="418" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="nei-QL-C9e">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="23l-f7-uan">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <action selector="setRequirementName:" target="-2" id="sUh-7T-fmP"/>
+                                                            <action selector="setRequirementName:" target="-2" id="fxE-bC-nSM"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="textField" destination="d3i-eS-2qF" id="4hd-gB-fVa"/>
+                                                    <outlet property="textField" destination="JTw-Kf-Wcc" id="Fql-oL-Wzn"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <outlet property="delegate" destination="-2" id="54B-Oj-BS1"/>
+                                    <outlet property="delegate" destination="-2" id="gou-By-og7"/>
                                 </connections>
-                            </tableView>
+                            </outlineView>
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="QAM-cB-By9">
-                        <rect key="frame" x="-100" y="-100" width="319" height="15"/>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="kh7-DG-FrV">
+                        <rect key="frame" x="1" y="119" width="223" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="TyK-Pt-CWJ">
-                        <rect key="frame" x="428" y="1" width="15" height="103"/>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="dMZ-m7-b4e">
+                        <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>

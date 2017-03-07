@@ -11,12 +11,68 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGSegmentViewController.h"
+#import "PKGDistributionRequirementSourceListGroupItem.h"
 
-#import "PKGDistributionProjectRequirementsAndResources.h"
+@interface PKGDistributionRequirementSourceListGroupItem ()
+{
+	NSString * _label;
+}
 
-@interface PKGDistributionRequirementsAndResourcesViewController : PKGSegmentViewController
+	@property (readwrite) PKGRequirementType groupType;
 
-	@property (nonatomic) PKGDistributionProjectRequirementsAndResources * requirementsAndResources;
+@end
+
+@implementation PKGDistributionRequirementSourceListGroupItem
+
+- (instancetype)initWithGroupType:(PKGRequirementType)inGroupType
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_groupType=inGroupType;
+		
+		switch(_groupType)
+		{
+			case PKGRequirementTypeInstallation:
+				
+				_label=[NSLocalizedString(@"Packages", @"") copy];
+				break;
+				
+			case PKGRequirementTypeTarget:
+				
+				_label=[NSLocalizedString(@"Imported", @"") copy];
+				break;
+				
+			case PKGRequirementTypeUndefined:
+				break;
+		}
+	}
+	
+	return self;
+}
+
+#pragma mark -
+
+- (NSString *)label
+{
+	return [_label copy];
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGDistributionRequirementSourceListGroupItem * nGroupItem=[[[self class] allocWithZone:inZone] init];
+	
+	if (nGroupItem!=nil)
+	{
+		nGroupItem->_label=[self->_label copyWithZone:inZone];
+		
+		nGroupItem.groupType=self.groupType;
+	}
+	
+	return nGroupItem;
+}
 
 @end

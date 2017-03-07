@@ -11,12 +11,35 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGSegmentViewController.h"
+#import <Foundation/Foundation.h>
 
-#import "PKGDistributionProjectRequirementsAndResources.h"
+#import "PKGFilePath.h"
 
-@interface PKGDistributionRequirementsAndResourcesViewController : PKGSegmentViewController
+@class PKGDistributionRequirementSourceListDataSource;
 
-	@property (nonatomic) PKGDistributionProjectRequirementsAndResources * requirementsAndResources;
+@protocol PKGDistributionRequirementSourceListDataSourceDelegate <NSObject>
+
+- (void)sourceListDataDidChange:(PKGDistributionRequirementSourceListDataSource *)inSourceListDataSource;
+
+@end
+
+@interface PKGDistributionRequirementSourceListDataSource : NSObject <NSOutlineViewDataSource>
+
+	@property (nonatomic) NSMutableArray * requirements;
+
+	@property id<PKGFilePathConverter> filePathConverter;
+
+	@property (weak) id<PKGDistributionRequirementSourceListDataSourceDelegate> delegate;
+
+- (void)addRequirement:(NSOutlineView *)inOutlineView;
+- (void)editRequirement:(NSOutlineView *)inOutlineView;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView duplicateItems:(NSArray *)inItems;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
 
 @end
