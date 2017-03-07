@@ -15,6 +15,9 @@
 
 #import "PKGPackagesError.h"
 
+#import "NSDictionary+DeepCopy.h"
+#import "NSDictionary+MutableDeepCopy.h"
+
 NSString * const PKGRequirementEnabledKey=@"STATE";
 
 NSString * const PKGRequirementNameKey=@"NAME";
@@ -239,12 +242,12 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 	if (nRequirement!=nil)
 	{
 		nRequirement.enabled=self.enabled;
-		nRequirement.name=[self.name copy];
-		nRequirement.identifier=[self.identifier copy];
+		nRequirement.name=[self.name copyWithZone:inZone];
+		nRequirement.identifier=[self.identifier copyWithZone:inZone];
 		nRequirement.type=self.type;
 		nRequirement.behavior=self.behavior;
-		nRequirement.messages=[self.messages mutableCopy];	// A AMELIORER (deep copy)
-		nRequirement.settingsRepresentation=[self.settingsRepresentation copy];	// A AMELIORER (deep copy)
+		nRequirement.messages=[self.messages mutableDeepCopy];
+		nRequirement.settingsRepresentation=[self.settingsRepresentation deepCopy];
 	}
 	
 	return nRequirement;
