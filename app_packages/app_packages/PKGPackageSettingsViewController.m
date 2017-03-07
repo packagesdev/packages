@@ -18,11 +18,6 @@
 
 @interface PKGPackageSettingsViewController () <NSControlTextEditingDelegate>
 {
-	IBOutlet NSTextField * _identifierTextField;
-	
-	IBOutlet NSTextField * _versionTextField;
-	
-	
 	IBOutlet NSPopUpButton * _conclusionActionPopupButton;
 	
 	
@@ -39,7 +34,7 @@
 	IBOutlet NSTextField * _useHFSPlusCompressionLabel;
 }
 
-- (void)_updateLayout;
+- (void)_updateAdvancedOptionsVisibility;
 
 - (void)refreshUI;
 
@@ -66,6 +61,8 @@
 		_tagSectionEnabled=YES;
 		_postInstallationSectionEnabled=YES;
 		_optionsSectionEnabled=YES;
+		
+		_optionsSectionSimplified=NO;
 	}
 	
 	return self;
@@ -116,6 +113,33 @@
 	}
 }
 
+- (void)setOptionsSectionSimplified:(BOOL)inSimplified
+{
+	if (_optionsSectionSimplified!=inSimplified)
+	{
+		_optionsSectionSimplified=inSimplified;
+		
+		_relocatableCheckbox.hidden=inSimplified;
+		
+		_overwriteDirectoryPermissionsCheckbox.hidden=inSimplified;
+		
+		_followSymbolicLinksCheckbox.hidden=inSimplified;
+		
+		_useHFSPlusCompressionCheckbox.hidden=inSimplified;
+		
+		NSView * tLowerView=(inSimplified==YES) ? _authenticationModeCheckbox : _followSymbolicLinksCheckbox;
+		
+		NSRect tOptionsSectionFrame=_followSymbolicLinksCheckbox.superview.frame;
+		CGFloat tMaxY=NSMaxY(tOptionsSectionFrame);
+		CGFloat tHeight=tMaxY-(NSMinY(tOptionsSectionFrame)+NSMinY(tLowerView.frame)-20.0);
+			
+		tOptionsSectionFrame.size.height=tHeight;
+		tOptionsSectionFrame.origin.y=tMaxY-tHeight;
+		
+		_followSymbolicLinksCheckbox.superview.frame=tOptionsSectionFrame;
+	}
+}
+
 #pragma mark -
 
 - (void)refreshUI
@@ -150,7 +174,7 @@
 {
 	[super WB_viewWillAppear];
 	
-	[self _updateLayout];
+	[self _updateAdvancedOptionsVisibility];
 	
 	[self refreshUI];
 }
@@ -173,11 +197,11 @@
 
 #pragma mark -
 
-- (void)_updateLayout
+- (void)_updateAdvancedOptionsVisibility
 {
 	BOOL tAdvancedModeEnabled=[PKGApplicationPreferences sharedPreferences].advancedMode;
 	
-	_useHFSPlusCompressionCheckbox.hidden=_useHFSPlusCompressionLabel.hidden=(tAdvancedModeEnabled==NO);
+	_useHFSPlusCompressionCheckbox.hidden=_useHFSPlusCompressionLabel.hidden=(tAdvancedModeEnabled==NO || self.optionsSectionSimplified==YES);
 }
 
 #pragma mark -
@@ -278,7 +302,7 @@
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification
 {
-	[self _updateLayout];
+	[self _updateAdvancedOptionsVisibility];
 }
 
 - (void)controlTextDidChange:(NSNotification *)inNotification

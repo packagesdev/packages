@@ -16,6 +16,11 @@
 #import "PKGPackageSettings.h"
 
 @interface PKGPackageSettingsViewController : PKGSegmentViewController
+{
+	IBOutlet NSTextField * _identifierTextField;
+		
+	IBOutlet NSTextField * _versionTextField;
+}
 
 	@property PKGPackageSettings * packageSettings;
 
@@ -24,5 +29,7 @@
 	@property (nonatomic,getter=isPostInstallationSectionEnabled) BOOL postInstallationSectionEnabled;
 
 	@property (nonatomic,getter=isOptionsSectionEnabled) BOOL optionsSectionEnabled;
+
+	@property (nonatomic,getter=isOptionsSectionSimplified) BOOL optionsSectionSimplified;
 
 @end
