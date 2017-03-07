@@ -103,7 +103,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSArray * tNames=tDictionary[@"Names"];
 	
-	if ([tNames isKindOfClass:[NSArray class]]==NO || [tNames count]==0)
+	if ([tNames isKindOfClass:NSArray.class]==NO || [tNames count]==0)
 		return nil;
 	
 	return [NSSet setWithArray:tNames];
