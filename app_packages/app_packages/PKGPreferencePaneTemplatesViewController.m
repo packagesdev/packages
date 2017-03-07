@@ -88,7 +88,7 @@
 {
 	if (inTableView==_tableView)
 	{
-		NSString * tTableColumnIdentifier=[inTableColumn identifier];
+		NSString * tTableColumnIdentifier=inTableColumn.identifier;
 		NSString * tKey=_keys[inRow];
 		NSTableCellView * tView=[_tableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 		

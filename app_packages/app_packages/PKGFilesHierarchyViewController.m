@@ -290,7 +290,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	if (inOutlineView!=self.outlineView)
 		return nil;
 	
-	NSString * tTableColumnIdentifier=[inTableColumn identifier];
+	NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 	
 	if ([inPayloadTreeNode needsRefresh:_lastRefreshTimeMark]==YES)

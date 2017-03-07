@@ -19,7 +19,7 @@
 
 @interface PKGDistributionProjectSourceListGroupItem : PKGDistributionProjectSourceListItem
 
-	@property (readonly)PKGPackageComponentType groupType;
+	@property (readonly) PKGPackageComponentType groupType;
 
 	@property (readonly,getter=isRemovedWhenEmpty) BOOL removedWhenEmpty;
 

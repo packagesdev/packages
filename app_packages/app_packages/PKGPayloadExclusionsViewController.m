@@ -293,7 +293,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	if (inTableView!=self.tableView)
 		return nil;
 	
-	NSString * tTableColumnIdentifier=[inTableColumn identifier];
+	NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:inRow];

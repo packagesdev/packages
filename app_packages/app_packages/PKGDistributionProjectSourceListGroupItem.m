@@ -18,7 +18,7 @@
 {
 	NSString * _label;
 }
-	@property (readwrite)PKGPackageComponentType groupType;
+	@property (readwrite) PKGPackageComponentType groupType;
 
 @end
 
