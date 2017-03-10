@@ -26,6 +26,8 @@
 	if (self!=nil)
 	{
 		_project=inProject;
+		
+		self.shouldCloseDocument=YES;
 	}
 	
 	return self;
@@ -77,5 +79,7 @@
 	
 	[self.window setContentBorderThickness:33.0 forEdge:NSMinYEdge];
 }
+
+#pragma mark -
 
 @end
