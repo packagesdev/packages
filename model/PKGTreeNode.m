@@ -284,6 +284,16 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return (tMaxChildHeight+1);
 }
 
+- (NSUInteger)numberOfNodes
+{
+	NSUInteger tCount=1;
+	
+	for(PKGTreeNode * tChild in _children)
+		tCount+=[tChild numberOfNodes];
+	
+	return tCount;
+}
+
 - (BOOL)isLeaf
 {
 	return ([self numberOfChildren]==0);
@@ -608,7 +618,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		if (inComparator(inChild,bTreeNode)!=NSOrderedDescending)
 		{
 			[inChild setParent:self];
-			[_children insertObject:inChild atIndex:bIndex];
+			[self->_children insertObject:inChild atIndex:bIndex];
 			
 			tDone=YES;
 			*bOutStop=YES;
@@ -645,7 +655,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		if (tComparisonResult!=NSOrderedDescending)
 		{
 			[inChild setParent:self];
-			[_children insertObject:inChild atIndex:bIndex];
+			[self->_children insertObject:inChild atIndex:bIndex];
 			
 			tDone=YES;
 			*bOutStop=YES;

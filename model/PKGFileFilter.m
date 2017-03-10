@@ -218,7 +218,7 @@ NSString * const PKGFileFilterProtectedKey=@"PROTECTED";
 
 @implementation PKGSeparatorFilter
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	self=[super init];
 	
