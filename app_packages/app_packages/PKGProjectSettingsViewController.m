@@ -51,10 +51,10 @@
 	SFChooseIdentityPanel * _chooseIdentityPanel;
 }
 
-- (IBAction)selectCertificate:(id)sender;
+
 - (void)selectCertificateDidEnd:(NSWindow *) inSheet returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
 
-- (IBAction)removeCertificate:(id)sender;
+
 
 - (void)updateCertificateSeal;
 
@@ -181,7 +181,7 @@
 	
 	[_exclusionsViewController WB_viewDidAppear];
 	
-	[self.view.window makeFirstResponder:_buildNameTextField];
+	//[self.view.window makeFirstResponder:_buildNameTextField];
 }
 
 - (void)WB_viewWillDisappear
@@ -237,15 +237,17 @@
 				CFRelease(tCertificateRef);
 			
 			NSRect tWindowFrame=_certificateSealWindowController.window.frame;
-			NSRect tFrame=self.view.frame;
+			NSRect tFrame=((NSView *)self.view.window.contentView).frame;
 			tWindowFrame.origin=[self.view.window convertRectToScreen:NSMakeRect(NSMaxX(tFrame)-NSWidth(tWindowFrame)+30.0,NSMaxY(tFrame)-48.0,0.0,0.0)].origin;
 			
 			[_certificateSealWindowController.window setFrame:tWindowFrame display:NO];
 			
 			[self.view.window addChildWindow:_certificateSealWindowController.window ordered:NSWindowAbove];
 		}
+
+		[_certificateSealWindowController.window performSelector:@selector(orderFront:) withObject:self afterDelay:0.21];	// A AMELIORER (the default duration is 0.20 for the apparition of the window)
 		
-		[_certificateSealWindowController.window orderFront:self];
+		return;
 	}
 	
 	if (self.projectSettings.certificateName==nil && _certificateSealWindowController!=nil)

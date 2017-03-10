@@ -129,16 +129,7 @@
 
 #pragma mark -
 
-- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
-{
-	// A COMPLETER
-	
-	return YES;
-}
-
-#pragma mark -
-
-- (void)showTabViewWithTag:(PKGPreferencesGeneralDistributionProjectPaneTag) inTag
+- (void)showTabViewWithTag:(PKGPreferencesGeneralDistributionProjectPaneTag)inTag
 {
 	if (_currentContentController!=nil)
 	{
@@ -254,6 +245,32 @@
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionProjectPaneComments];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPaneComments];
+}
+
+- (IBAction)selectCertificate:(id)sender
+{
+	[_projectSettingsController selectCertificate:sender];
+}
+
+- (IBAction)removeCertificate:(id) sender
+{
+	[_projectSettingsController removeCertificate:sender];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=[inMenuItem action];
+	
+	if (tAction==@selector(selectCertificate:) ||
+		tAction==@selector(removeCertificate:))
+	{
+		if ([_currentContentController isKindOfClass:PKGDistributionProjectSettingsViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentController validateMenuItem:inMenuItem];
+	}
+	
+	return YES;
 }
 
 #pragma mark - Notifications

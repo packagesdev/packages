@@ -19,4 +19,7 @@
 
 	@property PKGDistributionProject * project;
 
+- (IBAction)selectCertificate:(id)sender;
+- (IBAction)removeCertificate:(id) sender;
+
 @end

@@ -23,4 +23,7 @@
 
 	@property (nonatomic,readonly) NSString * certificatePanelMessage;
 
+- (IBAction)selectCertificate:(id)sender;
+- (IBAction)removeCertificate:(id)sender;
+
 @end

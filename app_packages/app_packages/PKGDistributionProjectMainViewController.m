@@ -43,11 +43,12 @@
 	
 	PKGDistributionProjectSourceListDataSource * _dataSource;
 	
-	PKGDistributionProjectViewController * _projectViewController;
-	
 	
 	PKGViewController * _currentContentsViewController;
 }
+
+- (IBAction)selectCertificate:(id)sender;
+- (IBAction)removeCertificate:(id) sender;
 
 // Notifications
 
@@ -148,6 +149,32 @@
 - (IBAction)importPackage:(id)sender
 {
 	[_sourceListController importPackage:sender];
+}
+
+- (IBAction)selectCertificate:(id)sender
+{
+	[((PKGDistributionProjectViewController *)_currentContentsViewController) selectCertificate:sender];
+}
+
+- (IBAction)removeCertificate:(id) sender
+{
+	[((PKGDistributionProjectViewController *)_currentContentsViewController) removeCertificate:sender];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *) inMenuItem
+{
+	SEL tAction=[inMenuItem action];
+	
+	if (tAction==@selector(selectCertificate:) ||
+		tAction==@selector(removeCertificate:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionProjectViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	return YES;
 }
 
 #pragma mark - NSSplitViewDelegate
