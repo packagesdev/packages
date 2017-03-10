@@ -31,6 +31,8 @@
 
 - (NSUInteger)height;
 
+- (NSUInteger)numberOfNodes;
+
 - (BOOL)isLeaf;
 
 - (NSIndexPath *)indexPath;
