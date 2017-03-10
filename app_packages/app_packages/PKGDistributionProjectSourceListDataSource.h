@@ -29,7 +29,7 @@
 
 	@property (nonatomic) NSMutableArray * packageComponents;
 
-	@property id<PKGFilePathConverter> filePathConverter;
+	@property (weak) id<PKGFilePathConverter> filePathConverter;
 
 	@property (weak) id<PKGDistributionProjectSourceListDataSourceDelegate> delegate;
 

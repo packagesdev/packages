@@ -34,7 +34,7 @@
 @interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
 	@property NSArray * sibblings;
-	@property id<PKGFilePathConverter> filePathConverter;
+	@property (weak) id<PKGFilePathConverter> filePathConverter;
 
 @end
 

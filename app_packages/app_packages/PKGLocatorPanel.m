@@ -53,7 +53,7 @@
 
 	@property (nonatomic) PKGPayloadTreeNode * payloadTreeNode;
 
-	@property (weak,nonatomic) id<PKGFilePathConverter> filePathConverter;
+	@property (nonatomic,weak) id<PKGFilePathConverter> filePathConverter;
 
 - (void)refreshUI;
 

@@ -27,7 +27,7 @@
 
 	@property (nonatomic) PKGPayloadTreeNode * payloadTreeNode;
 
-	@property (nonatomic,readonly) id<PKGFilePathConverter> filePathConverter;
+	@property (nonatomic,readonly,weak) id<PKGFilePathConverter> filePathConverter;
 
 + (PKGLocatorPanel *)locatorPanel;
 

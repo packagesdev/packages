@@ -27,12 +27,16 @@
 
 	@property (nonatomic) NSMutableArray * requirements;
 
-	@property id<PKGFilePathConverter> filePathConverter;
+	@property (weak) id<PKGFilePathConverter> filePathConverter;
 
 	@property (weak) id<PKGDistributionRequirementSourceListDataSourceDelegate> delegate;
 
+	@property (nonatomic,readonly) NSUInteger numberOfItems;
+
 - (void)addRequirement:(NSOutlineView *)inOutlineView;
 - (void)editRequirement:(NSOutlineView *)inOutlineView;
+
+- (void)outlineView:(NSOutlineView *)inOutlineView setItem:(id)inRequirementItem state:(BOOL)inState;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
 

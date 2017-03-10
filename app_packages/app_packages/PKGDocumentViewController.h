@@ -23,9 +23,9 @@
 
 @interface PKGDocumentViewController : PKGViewController
 
-	@property (nonatomic,readonly) PKGDocument * document;
+	@property (nonatomic,readonly,weak) PKGDocument * document;
 
-	@property (nonatomic,readonly) id<PKGFilePathConverter> filePathConverter;
+	@property (nonatomic,readonly,weak) id<PKGFilePathConverter> filePathConverter;
 
 	@property (nonatomic,readonly) PKGProject * documentProject;
 

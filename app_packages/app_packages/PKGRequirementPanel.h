@@ -25,7 +25,7 @@
 
 	@property (nonatomic,readonly) PKGDistributionProject * project;
 
-	@property (nonatomic,readonly) id<PKGFilePathConverter> filePathConverter;
+	@property (nonatomic,readonly,weak) id<PKGFilePathConverter> filePathConverter;
 
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler;
 

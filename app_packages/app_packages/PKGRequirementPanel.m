@@ -23,7 +23,7 @@
 
 	@property (nonatomic,readwrite) PKGDistributionProject * project;
 
-	@property (nonatomic,readwrite) id<PKGFilePathConverter> filePathConverter;
+	@property (nonatomic,readwrite,weak) id<PKGFilePathConverter> filePathConverter;
 
 - (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
 

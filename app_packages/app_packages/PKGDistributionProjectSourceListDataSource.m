@@ -37,7 +37,7 @@
 }
 
 	@property NSArray * importedPackageComponents;
-	@property id<PKGFilePathConverter> filePathConverter;
+	@property (weak) id<PKGFilePathConverter> filePathConverter;
 
 @end
 
@@ -311,7 +311,7 @@
 		tPackageIdentifier=[NSString stringWithFormat:tFormat,tDefaultIdentifierPrefix,tPackageIdentifier];
 	}
 	
-	tPackageIdentifier=[self.packageComponents uniqueNameWithBaseName:tPackageIdentifier format:@"%@-@lu" options:0 usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+	tPackageIdentifier=[self.packageComponents uniqueNameWithBaseName:tPackageIdentifier format:@"%@-@lu" options:NSCaseInsensitiveSearch usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
 		
 		return bPackageComponent.packageSettings.identifier;
 	}];
@@ -619,7 +619,7 @@
 			*bOutStop=YES;
 		}];
 		
-		NSString * tNewIdentifier=[tTemporaryComponents uniqueNameWithBaseName:tBaseName format:@"%@-%lu" options:0 usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+		NSString * tNewIdentifier=[tTemporaryComponents uniqueNameWithBaseName:tBaseName format:@"%@-%lu" options:NSCaseInsensitiveSearch usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
 			
 			return bPackageComponent.packageSettings.identifier;
 		}];
