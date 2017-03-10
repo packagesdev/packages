@@ -50,6 +50,12 @@ popd
 
 ## Build packages_builder
 
+pushd packages_builder
+
+/usr/bin/xcodebuild clean build -configuration Release -scheme "packages_builder" -derivedDataPath "$ABSOLUTE_BUILD_PATH" CONFIGURATION_BUILD_DIR="$ABSOLUTE_BUILD_PATH"
+
+pushd
+
 
 ## Build the plugins
 
@@ -90,11 +96,19 @@ popd
 
 ## Build the application
 
+pushd app_packages
 
+/usr/bin/xcodebuild clean build -configuration Release -scheme "app_packages" -derivedDataPath "$ABSOLUTE_BUILD_PATH" CONFIGURATION_BUILD_DIR="$ABSOLUTE_BUILD_PATH"
+
+pushd
 
 ## Create the distribution
 
+pushd distribution
 
+/usr/local/bin/packagesbuild Packages.pkgproj
+
+pushd
 
 ## Create the disk image
 
