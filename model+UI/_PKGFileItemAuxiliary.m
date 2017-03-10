@@ -37,7 +37,7 @@
 
 + (NSImage *)cachedGenericFolderIcon;
 
-+ (NSImage *)cachedIconForFileType:(NSString *)inType;
++ (NSImage *)cachedIconForFileType:(NSString *)inType directory:(BOOL)inDirectory;
 
 @end
 
@@ -116,7 +116,7 @@
 	return sCachedGenericFolderIcon;
 }
 
-+ (NSImage *)cachedIconForFileType:(NSString *)inType
++ (NSImage *)cachedIconForFileType:(NSString *)inType directory:(BOOL)inDirectory
 {
 	if (inType==nil)
 		return nil;
@@ -126,7 +126,7 @@
 	
 	dispatch_once(&onceToken, ^{
 	
-		NSArray * tWellKnownTypes=@[@"nib",@"png",@"tiff",@"tif",@"icns",@"rtd",@"rtfd",@"strings",@"plist",@"txt",@"strings"];
+		NSArray * tWellKnownTypes=@[@"nib",@"png",@"tiff",@"tif",@"icns",@"rtd",@"plugin",@"rtfd",@"strings",@"plist",@"txt",@"strings"];
 		NSWorkspace * tSharedWorkspace=[NSWorkspace sharedWorkspace];
 		
 		sIconTypesRespository=[NSMutableDictionary dictionary];
@@ -161,6 +161,9 @@
 	
 	if (tIcon!=nil)
 		return tIcon;
+	
+	if (inDirectory==YES)
+		return nil;
 	
 	tIcon=[[NSWorkspace sharedWorkspace] iconForFileType:inType];
 	
@@ -304,18 +307,14 @@
 	NSString * tPathExtension=[inPath pathExtension];
 	
 	if ([tPathExtension length]>0)
-		tIcon=[_PKGFileItemAuxiliary cachedIconForFileType:tPathExtension];
+		tIcon=[_PKGFileItemAuxiliary cachedIconForFileType:tPathExtension directory:((tStat.st_mode & S_IFMT)==S_IFDIR)];
 	
 	if (tIcon==nil)
 	{
 		if ((tStat.st_mode & S_IFMT)==S_IFDIR)
-		{
 			tIcon=[_PKGFileItemAuxiliary cachedGenericFolderIcon];
-		}
 		else
-		{
 			tIcon=[[NSWorkspace sharedWorkspace] iconForFile:inPath];
-		}
 	}
 	
 	self.icon=tIcon;
