@@ -48,10 +48,6 @@
 	return nil;
 }
 
-- (void)refreshUI
-{
-}
-
 - (BOOL)isResizableWindow
 {
 	return NO;
@@ -72,6 +68,10 @@
 }
 
 #pragma mark -
+
+- (void)refreshUI
+{
+}
 
 - (void)WB_viewDidAppear
 {

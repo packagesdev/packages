@@ -34,8 +34,6 @@
 
 - (NSDictionary *)defaultSettingsWithCommonValues:(NSDictionary *)inDictionary;
 
-- (void)refreshUI;
-
 - (void)setNextKeyView:(NSView *)inView;
 
 - (void)optionKeyStateDidChange:(BOOL)inOptionKeyDown;
