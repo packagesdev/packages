@@ -21,7 +21,7 @@
 
 - (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName usingNameExtractor:(NSString * (^)(id bObject,NSUInteger bIndex))nameExtractor
 {
-	return [self uniqueNameWithBaseName:inBaseName options:0 usingNameExtractor:nameExtractor];
+	return [self uniqueNameWithBaseName:inBaseName options:NSCaseInsensitiveSearch usingNameExtractor:nameExtractor];
 }
 
 - (NSString *)uniqueNameWithBaseName:(NSString *)inBaseName options:(NSStringCompareOptions)inOptions usingNameExtractor:(NSString * (^)(id bObject,NSUInteger bIndex))nameExtractor

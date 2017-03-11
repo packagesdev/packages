@@ -38,7 +38,7 @@
 	
 	}];
 	
-	if ([self isKindOfClass:[NSMutableArray class]]==YES)
+	if ([self isKindOfClass:NSMutableArray.class]==YES)
 		return tMutableArray;
 		
 	return [tMutableArray copy];
@@ -51,7 +51,7 @@
 	
 	NSMutableArray * tMutableArray=[NSMutableArray array];
 	
-	[self enumerateObjectsUsingBlock:^(id bOject,NSUInteger bIndex,BOOL * bOutStop){
+	[self enumerateObjectsUsingBlock:^(id bOject,NSUInteger bIndex,__attribute__((unused))BOOL * bOutStop){
 		
 		id tObject=inBlock(bOject,bIndex);
 		
@@ -60,7 +60,7 @@
 		
 	}];
 	
-	if ([self isKindOfClass:[NSMutableArray class]]==YES)
+	if ([self isKindOfClass:NSMutableArray.class]==YES)
 		return tMutableArray;
 	
 	return [tMutableArray copy];
@@ -73,13 +73,13 @@
 	
 	__block NSMutableArray * tMutableArray=[NSMutableArray array];
 	
-	[self enumerateObjectsUsingBlock:^(id bOject,NSUInteger bIndex,BOOL * bOutStop){
+	[self enumerateObjectsUsingBlock:^(id bOject,NSUInteger bIndex,__attribute__((unused))BOOL * bOutStop){
 		
 		if (inBlock(bOject,bIndex)==YES)
 			[tMutableArray addObject:bOject];
 	}];
 	
-	if ([self isKindOfClass:[NSMutableArray class]]==YES)
+	if ([self isKindOfClass:NSMutableArray.class]==YES)
 		return tMutableArray;
 	
 	return [tMutableArray copy];
@@ -94,7 +94,7 @@
 	if (inArray==nil)
 		return;
 	
-	[inArray enumerateObjectsUsingBlock:^(id bObject,NSUInteger bIndex,BOOL * bOutStop){
+	[inArray enumerateObjectsUsingBlock:^(id bObject,__attribute__((unused))NSUInteger bIndex,__attribute__((unused))BOOL * bOutStop){
 	
 		if ([self containsObject:bObject]==NO)
 			[self addObject:bObject];

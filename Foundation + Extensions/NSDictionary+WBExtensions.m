@@ -3,6 +3,33 @@
 
 @implementation NSDictionary (WBExtensions)
 
+- (instancetype)WB_dictionaryByMappingKeysUsingBlock:(id (^)(id bKey,id bObject))inBlock
+{
+	if (inBlock==nil)
+		return self;
+	
+	__block NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
+	
+	[self enumerateKeysAndObjectsUsingBlock:^(id bKey, id bObject, BOOL *bOutStop) {
+		id tKey=inBlock(bKey,bObject);
+		
+		if (tKey==nil)
+		{
+			*bOutStop=YES;
+			tMutableDictionary=nil;
+		}
+		else
+		{
+			tMutableDictionary[tKey]=bObject;
+		}
+	}];
+	
+	if ([self isKindOfClass:NSMutableDictionary.class]==YES)
+		return tMutableDictionary;
+	
+	return [tMutableDictionary copy];
+}
+
 - (instancetype)WB_dictionaryByMappingObjectsUsingBlock:(id (^)(id bKey,id bObject))inBlock
 {
 	if (inBlock==nil)
@@ -24,7 +51,7 @@
 		}
 	}];
 	
-	if ([self isKindOfClass:[NSMutableDictionary class]]==YES)
+	if ([self isKindOfClass:NSMutableDictionary.class]==YES)
 		return tMutableDictionary;
 	
 	return [tMutableDictionary copy];
@@ -44,7 +71,7 @@
 			tMutableDictionary[bKey]=tObject;
 	}];
 	
-	if ([self isKindOfClass:[NSMutableDictionary class]]==YES)
+	if ([self isKindOfClass:NSMutableDictionary.class]==YES)
 		return tMutableDictionary;
 	
 	return [tMutableDictionary copy];
@@ -64,7 +91,7 @@
 			tMutableDictionary[bKey]=bObject;
 	}];
 	
-	if ([self isKindOfClass:[NSMutableDictionary class]]==YES)
+	if ([self isKindOfClass:NSMutableDictionary.class]==YES)
 		return tMutableDictionary;
 	
 	return [tMutableDictionary copy];
