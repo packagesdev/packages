@@ -13,7 +13,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGProjectBuilder.h"
 
-#import "OHSHITManager.h"
+//#import "OHSHITManager.h"
 
 #include <CoreServices/CoreServices.h>
 #import <Security/Security.h>
@@ -609,9 +609,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (void)build
 {
-	NSString * tOhShitFile=[[_buildOrder.projectPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"OHSHIT_SimulatedFailures.plist"];
+	/*NSString * tOhShitFile=[[_buildOrder.projectPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"OHSHIT_SimulatedFailures.plist"];
 	
-	[[OHSHITManager sharedManager] setStorageFailuresList:[OHSHITManager storageFailuresListFromFileAtPath:tOhShitFile]];
+	[[OHSHITManager sharedManager] setStorageFailuresList:[OHSHITManager storageFailuresListFromFileAtPath:tOhShitFile]];*/
 	
 	[self postStep:PKGBuildStepProject beginEvent:[PKGBuildInfoEvent eventWithFilePath:_buildOrder.projectPath]];
 
