@@ -4,3 +4,6 @@
 [submodule "goldin"]
 	path = goldin
 	url = https://github.com/packagesdev/goldin
+[submodule "ohshit"]
+	path = ohshit
+	url = git://github.com/packagesdev/ohshit.git
