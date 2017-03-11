@@ -66,6 +66,8 @@
 		F4B3CC3B1D0D5F6A000B5F5F /* NSArray+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */; };
 		F4B3FF001CB5A72900A605F1 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B3FEFF1CB5A72900A605F1 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F4D1F94A1D2B101300890A21 /* PKGRequirementFailureMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D1F9491D2B101300890A21 /* PKGRequirementFailureMessage.m */; };
+		F4E877611E72127600C47505 /* NSDictionary+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E877601E72127600C47505 /* NSDictionary+DeepCopy.m */; };
+		F4E8776C1E72127E00C47505 /* NSDictionary+MutableDeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E8776B1E72127E00C47505 /* NSDictionary+MutableDeepCopy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +238,10 @@
 		F4B3FEFF1CB5A72900A605F1 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = "../RegexKitLite-1.2/RegexKitLite.m"; sourceTree = "<group>"; };
 		F4D1F9481D2B101300890A21 /* PKGRequirementFailureMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementFailureMessage.h; path = ../model/PKGRequirementFailureMessage.h; sourceTree = "<group>"; };
 		F4D1F9491D2B101300890A21 /* PKGRequirementFailureMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementFailureMessage.m; path = ../model/PKGRequirementFailureMessage.m; sourceTree = "<group>"; };
+		F4E8775F1E72127600C47505 /* NSDictionary+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+DeepCopy.h"; path = "../Foundation + Extensions/NSDictionary+DeepCopy.h"; sourceTree = "<group>"; };
+		F4E877601E72127600C47505 /* NSDictionary+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+DeepCopy.m"; path = "../Foundation + Extensions/NSDictionary+DeepCopy.m"; sourceTree = "<group>"; };
+		F4E8776A1E72127E00C47505 /* NSDictionary+MutableDeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+MutableDeepCopy.h"; path = "../Foundation + Extensions/NSDictionary+MutableDeepCopy.h"; sourceTree = "<group>"; };
+		F4E8776B1E72127E00C47505 /* NSDictionary+MutableDeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+MutableDeepCopy.m"; path = "../Foundation + Extensions/NSDictionary+MutableDeepCopy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +444,10 @@
 			children = (
 				F4B3CC391D0D5F6A000B5F5F /* NSArray+WBExtensions.h */,
 				F4B3CC3A1D0D5F6A000B5F5F /* NSArray+WBExtensions.m */,
+				F4E8775F1E72127600C47505 /* NSDictionary+DeepCopy.h */,
+				F4E877601E72127600C47505 /* NSDictionary+DeepCopy.m */,
+				F4E8776A1E72127E00C47505 /* NSDictionary+MutableDeepCopy.h */,
+				F4E8776B1E72127E00C47505 /* NSDictionary+MutableDeepCopy.m */,
 				F46FA1931DB97407001D3FA8 /* NSDictionary+WBExtensions.h */,
 				F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */,
 				F481B3791CBD8ACF0063F4CD /* NSString+Packages.h */,
@@ -556,6 +566,7 @@
 				F4A7862E1CB4674600FC07B8 /* PKGChoicesForest.m in Sources */,
 				F4A7863E1CB4674600FC07B8 /* PKGPresentationBackgroundSettings.m in Sources */,
 				F4A7864B1CB4674600FC07B8 /* PKGDistributionProjectRequirementsAndResources.m in Sources */,
+				F4E8776C1E72127E00C47505 /* NSDictionary+MutableDeepCopy.m in Sources */,
 				F4A7863F1CB4674600FC07B8 /* PKGPresentationInstallationTypeStepSettings.m in Sources */,
 				F4A786311CB4674600FC07B8 /* PKGFileFilter.m in Sources */,
 				F4A7863C1CB4674600FC07B8 /* PKGPayloadBundleItem.m in Sources */,
@@ -572,6 +583,7 @@
 				F4A7863B1CB4674600FC07B8 /* PKGPackageSettings.m in Sources */,
 				F4A786441CB4674600FC07B8 /* PKGPresentationStepSettings.m in Sources */,
 				F481B37A1CBD8ACF0063F4CD /* NSString+Packages.m in Sources */,
+				F4E877611E72127600C47505 /* NSDictionary+DeepCopy.m in Sources */,
 				F4A786411CB4674600FC07B8 /* PKGPresentationLocalizableStepSettings.m in Sources */,
 				F4A7864E1CB4674600FC07B8 /* PKGResourcesForest.m in Sources */,
 				F4A786421CB4674600FC07B8 /* PKGPresentationReadMeStepSettings.m in Sources */,
