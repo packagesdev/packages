@@ -27,6 +27,7 @@
 		F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerOS/Icon_32@2x.png"; sourceTree = "<group>"; };
 		F4B1AAD21C8A5054006EE235 /* PKGRequirementViewControllerOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerOS.h; path = PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.h; sourceTree = "<group>"; };
 		F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerOS.m; path = PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.m; sourceTree = "<group>"; };
+		F4DDA9A61E59B5790080EFAD /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F4F5D0AE1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_OS+Constants.h"; path = "../PKGRequirement_OS+Constants.h"; sourceTree = "<group>"; };
 		F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_OS+Constants.m"; path = "../PKGRequirement_OS+Constants.m"; sourceTree = "<group>"; };
 		F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				F48DDE2A1CE3D9F2004B9A29 /* Model */,
+				F4DDA9A61E59B5790080EFAD /* NSViewController+WBExtensions.h */,
 				F4F5D0B21CC97AB60075C2EF /* PKGViewController.h */,
 				F4F5D0B31CC97CB00075C2EF /* PKGRequirementViewController.h */,
 			);

@@ -265,8 +265,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tState==NSOnState)
 	{
-		/*if ([self.project isFlat]==YES)
-			_embeddedWarningLabel.hidden=NO;*/
+		if ([self.project isFlat]==YES)
+			_embeddedWarningLabel.hidden=NO;
 	}
 	
 	// Script Path
@@ -391,8 +391,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 				_embedCheckBox.enabled=NO;
 				
-				/*if ([self.project isFlat]==YES)
-					_embeddedWarningLabel.hidden=NO;*/
+				if ([self.project isFlat]==YES)
+					_embeddedWarningLabel.hidden=NO;
 			}
 			else
 			{
@@ -443,8 +443,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tState==NSOnState)
 	{
-		/*if ([self.project isFlat]==YES)
-			_embeddedWarningLabel.hidden=NO;*/
+		if ([self.project isFlat]==YES)
+			_embeddedWarningLabel.hidden=NO;
 	}
 }
 

@@ -13,6 +13,8 @@
 	IBOutlet NSSegmentedControl * _IntelArchitectureSegmentedControl;
 	
 	IBOutlet NSPopUpButton * _minimumCPUFrequencyPopupButton;
+	
+	NSMutableDictionary * _settings;
 }
 
 - (IBAction)switchMinimumCPUCoresCount:(id) sender;
@@ -29,20 +31,34 @@
 
 @implementation PKGRequirementViewControllerCPU
 
-- (NSString *)nibName
+- (void)WB_viewDidLoad
 {
-	return @"MainView";
+	[super WB_viewDidLoad];
 }
 
-- (void)updateUI
+#pragma mark -
+
+- (void)setSettings:(NSDictionary *)inSettings
 {
-	NSNumber * tNumber;
-	NSInteger tTag;
-	NSInteger tSubTag;
+	_settings=[inSettings mutableCopy];
 	
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	return [_settings copy];
+}
+
+#pragma mark -
+
+- (void)refreshUI
+{
 	// Minimum Number of CPU Cores
 	
-	tNumber=self.settings[PKGRequirementCPUMinimumCPUCoresCountKey];
+	NSNumber * tNumber=_settings[PKGRequirementCPUMinimumCPUCoresCountKey];
+	NSInteger tTag;
+	NSInteger tSubTag;
 	
 	if (tNumber==nil)
 		tTag=1;
@@ -53,7 +69,7 @@
 	
 	// CPU Family
 	
-	tNumber=[self.settings objectForKey:PKGRequirementCPUArchitectureFamilyKey];
+	tNumber=_settings[PKGRequirementCPUArchitectureFamilyKey];
 	
 	tTag=(tNumber==nil) ? 1 : [tNumber integerValue];
 	
@@ -63,13 +79,13 @@
 	
 	if (tTag==PKGRequirementCPUFamilyIntel)
 	{
-		[_PowerPCArchitectureSegmentedControl setEnabled:NO];
+		_PowerPCArchitectureSegmentedControl.enabled=NO;
 		
 		[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
 	}
 	else
 	{
-		tNumber=[self.settings objectForKey:PKGRequirementCPUPowerPCArchitectureTypeKey];
+		tNumber=_settings[PKGRequirementCPUPowerPCArchitectureTypeKey];
 		
 		tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
 	
@@ -80,13 +96,13 @@
 	
 	if (tTag==PKGRequirementCPUFamilyPowerPC)
 	{
-		[_IntelArchitectureSegmentedControl setEnabled:NO];
+		_IntelArchitectureSegmentedControl.enabled=NO;
 		
 		[_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
 	}
 	else
 	{
-		tNumber=[self.settings objectForKey:PKGRequirementCPUIntelArchitectureTypeKey];
+		tNumber=_settings[PKGRequirementCPUIntelArchitectureTypeKey];
 		
 		tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
 	
@@ -95,7 +111,7 @@
 	
 	// Minimum CPU Frequency
 	
-	tNumber=self.settings[PKGRequirementCPUMinimumFrequencyKey];
+	tNumber=_settings[PKGRequirementCPUMinimumFrequencyKey];
 	
 	tTag=(tNumber==nil) ? CPU_MINIMUM_FREQUENCY : [tNumber integerValue];
 	
@@ -120,78 +136,78 @@
 
 #pragma mark -
 
-- (IBAction)switchMinimumCPUCoresCount:(id) sender
+- (IBAction)switchMinimumCPUCoresCount:(NSSegmentedControl *) sender
 {
-	NSInteger tTag=[[sender cell] tagForSegment:[sender selectedSegment]];
+	NSInteger tTag=[[sender cell] tagForSegment:sender.selectedSegment];
 	
-	self.settings[PKGRequirementCPUMinimumCPUCoresCountKey]=@(tTag);
+	_settings[PKGRequirementCPUMinimumCPUCoresCountKey]=@(tTag);
 }
 
-- (IBAction)switchCPUArchitecture:(id) sender
+- (IBAction)switchCPUArchitecture:(NSSegmentedControl *) sender
 {
-	NSInteger tTag=[[sender cell] tagForSegment:[sender selectedSegment]];
+	NSInteger tTag=[[sender cell] tagForSegment:sender.selectedSegment];
 	
-	NSNumber * tNumber=self.settings[PKGRequirementCPUArchitectureFamilyKey];
+	NSNumber * tNumber=_settings[PKGRequirementCPUArchitectureFamilyKey];
 	
 	if (tNumber!=nil && [tNumber integerValue]!=tTag)
 	{
-		self.settings[PKGRequirementCPUArchitectureFamilyKey]=@(tTag);
+		_settings[PKGRequirementCPUArchitectureFamilyKey]=@(tTag);
 			
 			// PowerPC Type
 			
 		if (tTag==PKGRequirementCPUFamilyIntel)
 		{
-			[_PowerPCArchitectureSegmentedControl setEnabled:NO];
+			_PowerPCArchitectureSegmentedControl.enabled=NO;
 			
-			self.settings[PKGRequirementCPUPowerPCArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
+			_settings[PKGRequirementCPUPowerPCArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
 			
 			[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
 		}
 		else
 		{
-			[_PowerPCArchitectureSegmentedControl setEnabled:YES];
+			_PowerPCArchitectureSegmentedControl.enabled=YES;
 			
-			[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:[self.settings[PKGRequirementCPUPowerPCArchitectureTypeKey] integerValue]];
+			[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:[_settings[PKGRequirementCPUPowerPCArchitectureTypeKey] integerValue]];
 		}
 		
 		// Intel
 		
 		if (tTag==PKGRequirementCPUFamilyPowerPC)
 		{
-			[_IntelArchitectureSegmentedControl setEnabled:NO];
+			_IntelArchitectureSegmentedControl.enabled=NO;
 			
-			self.settings[PKGRequirementCPUIntelArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
+			_settings[PKGRequirementCPUIntelArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
 			
 			[_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
 		}
 		else
 		{
-			[_IntelArchitectureSegmentedControl setEnabled:YES];
+			_IntelArchitectureSegmentedControl.enabled=YES;
 			
-			[_IntelArchitectureSegmentedControl selectSegmentWithTag:[self.settings[PKGRequirementCPUIntelArchitectureTypeKey] integerValue]];
+			[_IntelArchitectureSegmentedControl selectSegmentWithTag:[_settings[PKGRequirementCPUIntelArchitectureTypeKey] integerValue]];
 		}
 	}
 }
 
-- (IBAction)switchPowerPCArchitecture:(id) sender
+- (IBAction)switchPowerPCArchitecture:(NSSegmentedControl *) sender
 {
-	NSInteger tTag=[[sender cell] tagForSegment:[sender selectedSegment]];
+	NSInteger tTag=[[sender cell] tagForSegment:sender.selectedSegment];
 	
-	self.settings[PKGRequirementCPUPowerPCArchitectureTypeKey]=@(tTag);
+	_settings[PKGRequirementCPUPowerPCArchitectureTypeKey]=@(tTag);
 }
 
-- (IBAction)switchIntelArchitecture:(id) sender
+- (IBAction)switchIntelArchitecture:(NSSegmentedControl *) sender
 {
-	NSInteger tTag=[[sender cell] tagForSegment:[sender selectedSegment]];
+	NSInteger tTag=[[sender cell] tagForSegment:sender.selectedSegment];
 	
-	self.settings[PKGRequirementCPUIntelArchitectureTypeKey]=@(tTag);
+	_settings[PKGRequirementCPUIntelArchitectureTypeKey]=@(tTag);
 }
 
-- (IBAction)switchMinimumCPUFrequency:(id) sender
+- (IBAction)switchMinimumCPUFrequency:(NSPopUpButton *) sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementCPUMinimumFrequencyKey]=@(tTag);
+	_settings[PKGRequirementCPUMinimumFrequencyKey]=@(tTag);
 }
 
 @end

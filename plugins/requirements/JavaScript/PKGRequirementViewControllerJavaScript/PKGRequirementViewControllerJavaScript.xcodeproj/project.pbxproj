@@ -13,13 +13,6 @@
 		F4F30DF41C879DA700C8DB5B /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F30DF21C879DA700C8DB5B /* Icon_32@2x.png */; };
 		F4F30DF61C879DAE00C8DB5B /* JavaScript_Help_DispatchList.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4F30DF51C879DAE00C8DB5B /* JavaScript_Help_DispatchList.plist */; };
 		F4F30DFE1C879DD000C8DB5B /* PKGRequirementViewControllerJavaScript.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F30DFD1C879DD000C8DB5B /* PKGRequirementViewControllerJavaScript.m */; };
-		F4F5D08B1CC975D10075C2EF /* NSRangeUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D0881CC975D10075C2EF /* NSRangeUtilities.m */; };
-		F4F5D08C1CC975D10075C2EF /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D08A1CC975D10075C2EF /* NSString+Ranges.m */; };
-		F4F5D08F1CC975D90075C2EF /* ICSourceTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D08E1CC975D90075C2EF /* ICSourceTextView.m */; };
-		F4F5D0921CC975E00075C2EF /* ICGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D0911CC975E00075C2EF /* ICGutterView.m */; };
-		F4F5D0951CC975E60075C2EF /* ICSourceTextView+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D0941CC975E60075C2EF /* ICSourceTextView+Constants.m */; };
-		F4F5D0981CC975FB0075C2EF /* ICSourceTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D0971CC975FB0075C2EF /* ICSourceTextViewDelegate.m */; };
-		F4F5D09B1CC976020075C2EF /* ICJavaScriptFunctionPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D09A1CC976020075C2EF /* ICJavaScriptFunctionPopUpButton.m */; };
 		F4F5D09E1CC976130075C2EF /* PKGRequirement_JavaScript+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D09C1CC976130075C2EF /* PKGRequirement_JavaScript+Constants.m */; };
 		F4F5D0A31CC977900075C2EF /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F5D0A11CC977900075C2EF /* MainView.xib */; };
 /* End PBXBuildFile section */
@@ -29,7 +22,10 @@
 		F4451B5D1C7BBD3400516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B5F1C7BBD3800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4451B611C7BBD3D00516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F46DCE971E5CF9CC00794DF9 /* PKGTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableView.h; path = ../../../../shared/PKGTableView.h; sourceTree = "<group>"; };
+		F46DCE9C1E5D132B00794DF9 /* ICSourceTextTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextTopView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h; sourceTree = "<group>"; };
 		F48DDE3B1CE3DD30004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4CA27001E5A48CC00E196EB /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F4F30DF11C879DA700C8DB5B /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerJavaScript/Icon_32.png; sourceTree = "<group>"; };
 		F4F30DF21C879DA700C8DB5B /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerJavaScript/Icon_32@2x.png"; sourceTree = "<group>"; };
 		F4F30DF51C879DAE00C8DB5B /* JavaScript_Help_DispatchList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = JavaScript_Help_DispatchList.plist; path = PKGRequirementViewControllerJavaScript/JavaScript_Help_DispatchList.plist; sourceTree = "<group>"; };
@@ -37,20 +33,11 @@
 		F4F30DFC1C879DD000C8DB5B /* PKGRequirementViewControllerJavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerJavaScript.h; path = PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript.h; sourceTree = "<group>"; };
 		F4F30DFD1C879DD000C8DB5B /* PKGRequirementViewControllerJavaScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerJavaScript.m; path = PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript.m; sourceTree = "<group>"; };
 		F4F5D0861CC975AE0075C2EF /* PKGRequirementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewController.h; path = ../../PKGRequirementViewController.h; sourceTree = "<group>"; };
-		F4F5D0871CC975D10075C2EF /* NSRangeUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSRangeUtilities.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/NSRangeUtilities.h; sourceTree = "<group>"; };
-		F4F5D0881CC975D10075C2EF /* NSRangeUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSRangeUtilities.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/NSRangeUtilities.m; sourceTree = "<group>"; };
-		F4F5D0891CC975D10075C2EF /* NSString+Ranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Ranges.h"; path = "../../../../JavaScriptEditor/JavaScriptEditor/NSString+Ranges.h"; sourceTree = "<group>"; };
-		F4F5D08A1CC975D10075C2EF /* NSString+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Ranges.m"; path = "../../../../JavaScriptEditor/JavaScriptEditor/NSString+Ranges.m"; sourceTree = "<group>"; };
 		F4F5D08D1CC975D90075C2EF /* ICSourceTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView.h; sourceTree = "<group>"; };
-		F4F5D08E1CC975D90075C2EF /* ICSourceTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextView.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView.m; sourceTree = "<group>"; };
 		F4F5D0901CC975E00075C2EF /* ICGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICGutterView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICGutterView.h; sourceTree = "<group>"; };
-		F4F5D0911CC975E00075C2EF /* ICGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICGutterView.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICGutterView.m; sourceTree = "<group>"; };
 		F4F5D0931CC975E60075C2EF /* ICSourceTextView+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ICSourceTextView+Constants.h"; path = "../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView+Constants.h"; sourceTree = "<group>"; };
-		F4F5D0941CC975E60075C2EF /* ICSourceTextView+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ICSourceTextView+Constants.m"; path = "../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView+Constants.m"; sourceTree = "<group>"; };
 		F4F5D0961CC975FB0075C2EF /* ICSourceTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextViewDelegate.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.h; sourceTree = "<group>"; };
-		F4F5D0971CC975FB0075C2EF /* ICSourceTextViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSourceTextViewDelegate.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.m; sourceTree = "<group>"; };
 		F4F5D0991CC976020075C2EF /* ICJavaScriptFunctionPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICJavaScriptFunctionPopUpButton.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICJavaScriptFunctionPopUpButton.h; sourceTree = "<group>"; };
-		F4F5D09A1CC976020075C2EF /* ICJavaScriptFunctionPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICJavaScriptFunctionPopUpButton.m; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICJavaScriptFunctionPopUpButton.m; sourceTree = "<group>"; };
 		F4F5D09C1CC976130075C2EF /* PKGRequirement_JavaScript+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_JavaScript+Constants.m"; path = "../PKGRequirement_JavaScript+Constants.m"; sourceTree = "<group>"; };
 		F4F5D09D1CC976130075C2EF /* PKGRequirement_JavaScript+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_JavaScript+Constants.h"; path = "../PKGRequirement_JavaScript+Constants.h"; sourceTree = "<group>"; };
 		F4F5D09F1CC976210075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
@@ -154,6 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				F48DDE3A1CE3DD29004B9A29 /* Model */,
+				F4CA27001E5A48CC00E196EB /* NSViewController+WBExtensions.h */,
+				F46DCE971E5CF9CC00794DF9 /* PKGTableView.h */,
 				F4F5D0A01CC976350075C2EF /* PKGViewController.h */,
 				F4F5D0861CC975AE0075C2EF /* PKGRequirementViewController.h */,
 			);
@@ -171,20 +160,12 @@
 		F4B9B98D1C90D0A100BF3D6F /* JavaScript Editor */ = {
 			isa = PBXGroup;
 			children = (
-				F4F5D0871CC975D10075C2EF /* NSRangeUtilities.h */,
-				F4F5D0881CC975D10075C2EF /* NSRangeUtilities.m */,
-				F4F5D0891CC975D10075C2EF /* NSString+Ranges.h */,
-				F4F5D08A1CC975D10075C2EF /* NSString+Ranges.m */,
 				F4F5D0901CC975E00075C2EF /* ICGutterView.h */,
-				F4F5D0911CC975E00075C2EF /* ICGutterView.m */,
 				F4F5D0931CC975E60075C2EF /* ICSourceTextView+Constants.h */,
-				F4F5D0941CC975E60075C2EF /* ICSourceTextView+Constants.m */,
+				F46DCE9C1E5D132B00794DF9 /* ICSourceTextTopView.h */,
 				F4F5D08D1CC975D90075C2EF /* ICSourceTextView.h */,
-				F4F5D08E1CC975D90075C2EF /* ICSourceTextView.m */,
 				F4F5D0961CC975FB0075C2EF /* ICSourceTextViewDelegate.h */,
-				F4F5D0971CC975FB0075C2EF /* ICSourceTextViewDelegate.m */,
 				F4F5D0991CC976020075C2EF /* ICJavaScriptFunctionPopUpButton.h */,
-				F4F5D09A1CC976020075C2EF /* ICJavaScriptFunctionPopUpButton.m */,
 			);
 			name = "JavaScript Editor";
 			sourceTree = "<group>";
@@ -254,14 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4F5D09B1CC976020075C2EF /* ICJavaScriptFunctionPopUpButton.m in Sources */,
-				F4F5D0921CC975E00075C2EF /* ICGutterView.m in Sources */,
-				F4F5D08F1CC975D90075C2EF /* ICSourceTextView.m in Sources */,
-				F4F5D0951CC975E60075C2EF /* ICSourceTextView+Constants.m in Sources */,
-				F4F5D08B1CC975D10075C2EF /* NSRangeUtilities.m in Sources */,
-				F4F5D0981CC975FB0075C2EF /* ICSourceTextViewDelegate.m in Sources */,
 				F4F30DFE1C879DD000C8DB5B /* PKGRequirementViewControllerJavaScript.m in Sources */,
-				F4F5D08C1CC975D10075C2EF /* NSString+Ranges.m in Sources */,
 				F4F5D09E1CC976130075C2EF /* PKGRequirement_JavaScript+Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

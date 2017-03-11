@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2016, Stephane Sudre
+Copyright (c) 2008-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -22,6 +22,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	IBOutlet NSPopUpButton * _diskTypePopupButton;
 	
 	IBOutlet NSSegmentedControl * _distributionSegmentedControl;
+	
+	NSMutableDictionary * _settings;
 }
 
 - (IBAction)switchDiskType:(id) sender;
@@ -34,11 +36,25 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGRequirementViewControllerOS
 
-- (void)updateUI
+#pragma mark -
+
+- (void)setSettings:(NSDictionary *)inSettings
+{
+	_settings=[inSettings mutableCopy];
+	
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	return [_settings copy];
+}
+
+- (void)refreshUI
 {
 	// Disk Type
 	
-	NSNumber * tNumber=self.settings[PKGRequirementOSTargetDiskKey];
+	NSNumber * tNumber=_settings[PKGRequirementOSTargetDiskKey];
 	
 	NSInteger tTag;
 	
@@ -51,7 +67,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Minimum Version
 	
-	tNumber=self.settings[PKGRequirementOSMinimumVersionKey];
+	tNumber=_settings[PKGRequirementOSMinimumVersionKey];
 	
 	if (tNumber==nil)
 		tTag=PKGRequirementOSMinimumVersionLeopard;
@@ -64,13 +80,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tTag==PKGRequirementOSMinimumVersionNotInstalled)
 	{
-		[_distributionSegmentedControl setEnabled:NO];
+		_distributionSegmentedControl.enabled=NO;
 		
 		[_distributionSegmentedControl selectSegmentWithTag:PKGRequirementOSDistributionAny];
 	}
 	else
 	{
-		tNumber=self.settings[PKGRequirementOSDistributionKey];
+		tNumber=_settings[PKGRequirementOSDistributionKey];
 	
 		if (tNumber==nil)
 			tTag=PKGRequirementOSDistributionAny;
@@ -92,7 +108,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (PKGRequirementType)requirementType
 {
-	NSNumber * tNumber=self.settings[PKGRequirementOSTargetDiskKey];
+	NSNumber * tNumber=_settings[PKGRequirementOSTargetDiskKey];
 	
 	if (tNumber!=nil)
 	{
@@ -110,15 +126,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (BOOL)validateMenuItem:(NSMenuItem *) inMenuItem
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {    
-    if ([inMenuItem action]==@selector(switchMinimumVersion:))
+    if (inMenuItem.action==@selector(switchMinimumVersion:))
     {
-		if ([inMenuItem tag]==PKGRequirementOSMinimumVersionNotInstalled)
+		if (inMenuItem.tag==PKGRequirementOSMinimumVersionNotInstalled)
 		{
 			NSInteger tTag;
 			
-			NSNumber * tNumber=self.settings[PKGRequirementOSTargetDiskKey];
+			NSNumber * tNumber=_settings[PKGRequirementOSTargetDiskKey];
 			
 			if (tNumber==nil)
 				tTag=PKGRequirementOSTargetDestinationDisk;
@@ -134,56 +150,56 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (IBAction)switchDiskType:(id) sender
+- (IBAction)switchDiskType:(NSPopUpButton *)sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementOSTargetDiskKey]=@(tTag);
+	_settings[PKGRequirementOSTargetDiskKey]=@(tTag);
 	
 	if (tTag==PKGRequirementOSTargetStartupDisk)
 	{
-		NSNumber * tNumber=self.settings[PKGRequirementOSMinimumVersionKey];
+		NSNumber * tNumber=_settings[PKGRequirementOSMinimumVersionKey];
 		
 		tTag=[tNumber integerValue];
 		
 		if (tTag==PKGRequirementOSMinimumVersionNotInstalled)
 		{
-			self.settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionLeopard);
+			_settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionLeopard);
 			
 			[_minimumVersionPopupButton selectItemWithTag:PKGRequirementOSMinimumVersionLeopard];
 		}
 		
-		[_distributionSegmentedControl setEnabled:YES];
+		_distributionSegmentedControl.enabled=YES;
 	}
 	
 	[self noteCheckTypeChange];
 }
 
-- (IBAction)switchMinimumVersion:(id) sender
+- (IBAction)switchMinimumVersion:(NSPopUpButton *)sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementOSMinimumVersionKey]=@(tTag);
+	_settings[PKGRequirementOSMinimumVersionKey]=@(tTag);
 	
 	if (tTag==PKGRequirementOSMinimumVersionNotInstalled)
 	{
-		self.settings[PKGRequirementOSDistributionKey]=@(PKGRequirementOSDistributionAny);
+		_settings[PKGRequirementOSDistributionKey]=@(PKGRequirementOSDistributionAny);
 		
-		[_distributionSegmentedControl setEnabled:NO];
+		_distributionSegmentedControl.enabled=NO;
 		
 		[_distributionSegmentedControl selectSegmentWithTag:PKGRequirementOSDistributionAny];
 	}
 	else
 	{
-		[_distributionSegmentedControl setEnabled:YES];
+		_distributionSegmentedControl.enabled=YES;
 	}
 }
 
-- (IBAction)switchDistribution:(id) sender
+- (IBAction)switchDistribution:(NSSegmentedControl *)sender
 {
-	NSInteger tTag=[[sender cell] tagForSegment:[sender selectedSegment]];
+	NSInteger tTag=[[sender cell] tagForSegment:sender.selectedSegment];
 	
-	self.settings[PKGRequirementOSDistributionKey]=@(tTag);
+	_settings[PKGRequirementOSDistributionKey]=@(tTag);
 }
 
 @end

@@ -23,6 +23,8 @@
 	// Data
 	
 	NSMutableArray * _cachedFiles;
+	
+	NSMutableDictionary * _settings;
 }
 
 - (void)_mergeFiles:(NSArray *)inPaths;
@@ -30,31 +32,28 @@
 - (void)_removeSelectedFiles;
 
 
-- (IBAction)switchSelector:(id) sender;
+- (IBAction)switchSelector:(id)sender;
 
-- (IBAction)switchCondition:(id) sender;
+- (IBAction)switchCondition:(id)sender;
 
-- (IBAction)switchDiskType:(id) sender;
+- (IBAction)switchDiskType:(id)sender;
 
 
-- (IBAction)addFile:(id) sender;
+- (IBAction)addFile:(id)sender;
 
-- (IBAction)addExistingFile:(id) sender;
+- (IBAction)addExistingFile:(id)sender;
 
-- (IBAction)removeFile:(id) sender;
+- (IBAction)removeFile:(id)sender;
 
 @end
 
 
 @implementation PKGRequirementViewControllerFiles
 
-- (NSString *)nibName
+- (void)WB_viewDidLoad
 {
-	return @"MainView";
-}
-
-- (void)awakeFromNib
-{
+	[super WB_viewDidLoad];
+	
 	// Path Names
     
     NSTableColumn * tTableColumn = [_tableView tableColumnWithIdentifier:@"Path"];
@@ -65,25 +64,38 @@
 		
 		if (tTextFieldCell!=nil)
 		{
-			PKGAbsolutePathFormatter * tFormatter=[PKGAbsolutePathFormatter new];
+			tTextFieldCell.formatter=[PKGAbsolutePathFormatter new];
 			
-			[tTextFieldCell setFormatter:tFormatter];
-			
-			[tTextFieldCell setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]];
+			tTextFieldCell.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
 		}
 	}
 	
 	[_tableView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 }
 
-- (void)updateUI
+#pragma mark -
+
+- (void)setSettings:(NSDictionary *)inSettings
 {
-	NSNumber * tNumber;
+	_settings=[inSettings mutableCopy];
+	
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	return [_settings copy];
+}
+
+#pragma mark -
+
+- (void)refreshUI
+{
 	NSInteger tTag;
 	
 	// Selector
 	
-	tNumber=self.settings[PKGRequirementFilesSelectorKey];
+	NSNumber * tNumber=_settings[PKGRequirementFilesSelectorKey];
 	
 	tTag=(tNumber==nil) ? PKGRequirementFilesSelectorAny : [tNumber integerValue];
 	
@@ -91,7 +103,7 @@
 	
 	// Condition
 	
-	tNumber=self.settings[PKGRequirementFilesConditionKey];
+	tNumber=_settings[PKGRequirementFilesConditionKey];
 	
 	tTag=(tNumber==nil) ? PKGRequirementFilesConditionExist : [tNumber integerValue];
 	
@@ -99,7 +111,7 @@
 	
 	// Disk Type
 	
-	tNumber=self.settings[PKGRequirementFilesTargetDiskKey];
+	tNumber=_settings[PKGRequirementFilesTargetDiskKey];
 	
 	tTag=(tNumber==nil) ? PKGRequirementFilesTargetDestinationDisk : [tNumber integerValue];
 
@@ -107,7 +119,7 @@
 	
 	// Files
 	
-	_cachedFiles=[self.settings[PKGRequirementFilesListKey] mutableCopy];
+	_cachedFiles=[_settings[PKGRequirementFilesListKey] mutableCopy];
 	
 	[_cachedFiles sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	
@@ -132,7 +144,7 @@
 
 - (PKGRequirementType)requirementType
 {
-	NSNumber * tNumber=self.settings[PKGRequirementFilesTargetDiskKey];
+	NSNumber * tNumber=_settings[PKGRequirementFilesTargetDiskKey];
 	
 	if (tNumber!=nil)
 	{
@@ -157,17 +169,17 @@
 
 - (void)setNextKeyView:(NSView *) inView
 {
-	[_tableView setNextKeyView:inView];
+	_tableView.nextKeyView=inView;
 }
 
 #pragma mark -
 
 - (void)_mergeFiles:(NSArray *)inPaths
 {
-	if ([inPaths count]==0)
+	if (inPaths.count==0)
 		return;
 	
-	NSUInteger tCount=[_cachedFiles count];
+	NSUInteger tCount=_cachedFiles.count;
 	
 	[_cachedFiles WB_mergeWithArray:inPaths];
 	
@@ -209,25 +221,25 @@
 
 #pragma mark -
 
-- (IBAction)switchSelector:(id) sender
+- (IBAction)switchSelector:(NSPopUpButton *) sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementFilesSelectorKey]=@(tTag);
+	_settings[PKGRequirementFilesSelectorKey]=@(tTag);
 }
 
-- (IBAction)switchCondition:(id) sender
+- (IBAction)switchCondition:(NSPopUpButton *) sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementFilesConditionKey]=@(tTag);
+	_settings[PKGRequirementFilesConditionKey]=@(tTag);
 }
 
-- (IBAction)switchDiskType:(id) sender
+- (IBAction)switchDiskType:(NSPopUpButton *) sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementFilesTargetDiskKey]=@(tTag);
+	_settings[PKGRequirementFilesTargetDiskKey]=@(tTag);
 }
 
 #pragma mark -

@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">14F1713</string>
-		<string key="IBDocument.InterfaceBuilderVersion">7525</string>
+		<string key="IBDocument.SystemVersion">14F2109</string>
+		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">7525</string>
+			<string key="NS.object.0">7706</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
@@ -1082,7 +1082,7 @@
 					<string key="superclassName">PKGRequirementViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../ICRequirementUI_CPU/PKGRequirementViewControllerCPU.h</string>
+						<string key="minorKey">../PKGRequirementViewControllerCPU/PKGRequirementViewControllerCPU.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1147,7 +1147,7 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../ICRequirementUI_CPU/PKGRequirementViewControllerCPU.m</string>
+						<string key="minorKey">../PKGRequirementViewControllerCPU/PKGRequirementViewControllerCPU.m</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

@@ -37,6 +37,12 @@
 		F4970BDE1CD01B2B007CF76F /* PKGFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGFilePath.h; path = ../../../../model/PKGFilePath.h; sourceTree = "<group>"; };
 		F4BCF2441CE2A0EA005C3501 /* PKGObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGObjectProtocol.h; path = ../../../../model/PKGObjectProtocol.h; sourceTree = "<group>"; };
 		F4C829D61CCECD7A008FB226 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4CA26EA1E5A3E2000E196EB /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
+		F4CA26FB1E5A3EE800E196EB /* PKGTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableView.h; path = ../../../../shared/PKGTableView.h; sourceTree = "<group>"; };
+		F4CA26FC1E5A3EED00E196EB /* PKGTableViewDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableViewDataSource.h; path = ../../../../shared/PKGTableViewDataSource.h; sourceTree = "<group>"; };
+		F4CA26FD1E5A3EF700E196EB /* PKGCheckboxTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGCheckboxTableCellView.h; path = ../../../../shared/PKGCheckboxTableCellView.h; sourceTree = "<group>"; };
+		F4CA26FE1E5A456B00E196EB /* NSArray+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSArray+WBExtensions.h"; path = "../../../../Foundation + Extensions/NSArray+WBExtensions.h"; sourceTree = "<group>"; };
+		F4CA26FF1E5A475400E196EB /* NSTableView+Selection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTableView+Selection.h"; path = "../../../../AppKit + Extensions/NSTableView+Selection.h"; sourceTree = "<group>"; };
 		F4E7D27A11EDE4AE00D54D7C /* PKGFilePathTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGFilePathTextField.h; path = ../../../../shared/PKGFilePathTextField.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -134,10 +140,16 @@
 		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
 			isa = PBXGroup;
 			children = (
+				F4CA26FF1E5A475400E196EB /* NSTableView+Selection.h */,
+				F4CA26FE1E5A456B00E196EB /* NSArray+WBExtensions.h */,
 				F4970BDF1CD01B2F007CF76F /* Model */,
+				F4CA26EA1E5A3E2000E196EB /* NSViewController+WBExtensions.h */,
 				F4E7D27A11EDE4AE00D54D7C /* PKGFilePathTextField.h */,
 				F44314E11CCABFCB009C6E82 /* PKGViewController.h */,
 				F44314E21CCABFD6009C6E82 /* PKGRequirementViewController.h */,
+				F4CA26FD1E5A3EF700E196EB /* PKGCheckboxTableCellView.h */,
+				F4CA26FC1E5A3EED00E196EB /* PKGTableViewDataSource.h */,
+				F4CA26FB1E5A3EE800E196EB /* PKGTableView.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

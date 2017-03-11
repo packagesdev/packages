@@ -20,6 +20,7 @@
 /* Begin PBXFileReference section */
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4451B781C7BC12D00516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F474AFC21E59147F00483129 /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F48DDE331CE3DC06004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4ABD05B1CC81C1F00C69CA2 /* PKGRequirement_DiskSpace+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_DiskSpace+Constants.m"; path = "../PKGRequirement_DiskSpace+Constants.m"; sourceTree = "<group>"; };
 		F4ABD05D1CC81C2300C69CA2 /* PKGRequirement_DiskSpace+Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_DiskSpace+Constants.h"; path = "../PKGRequirement_DiskSpace+Constants.h"; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				F48DDE321CE3DBFD004B9A29 /* Model */,
+				F474AFC21E59147F00483129 /* NSViewController+WBExtensions.h */,
 				F4ABD0601CC81C4300C69CA2 /* PKGViewController.h */,
 				F4ABD05E1CC81C2D00C69CA2 /* PKGRequirementViewController.h */,
 			);

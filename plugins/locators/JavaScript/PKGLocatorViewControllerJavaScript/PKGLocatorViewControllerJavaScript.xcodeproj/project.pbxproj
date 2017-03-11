@@ -19,6 +19,7 @@
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4035DB01CC6D5F200184576 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGLocatorViewControllerJavaScript/Icon_32.png; sourceTree = "<group>"; };
 		F4035DB11CC6D5F200184576 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGLocatorViewControllerJavaScript/Icon_32@2x.png"; sourceTree = "<group>"; };
+		F43D57AC1E72307F00B584A2 /* PKGFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGFilePath.h; path = ../../../../model/PKGFilePath.h; sourceTree = "<group>"; };
 		F46DCEC11E5D1E2800794DF9 /* PKGTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableView.h; path = ../../../../shared/PKGTableView.h; sourceTree = "<group>"; };
 		F494B95D1E4D316A0000EBC4 /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F498F7AB1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewControllerJavaScript.h; path = PKGLocatorViewControllerJavaScript/PKGLocatorViewControllerJavaScript.h; sourceTree = "<group>"; };
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				F4A20CC31CC2612F004D9CC1 /* SharedConfigurationSettings.xcconfig */,
+				F43D57AD1E72308200B584A2 /* Model */,
 				F46CB3D60E8AF7F300F0B8E2 /* Common Source */,
 				F409B0C70E8C4BCD005D9E86 /* Shared Source */,
 				F4AA485D1CC2304D006CC13E /* JavaScript Editor */,
@@ -130,6 +132,14 @@
 				F4AA48781CC231A3006CC13E /* PKGLocator_JavaScript+Constants.m */,
 			);
 			name = "Shared Source";
+			sourceTree = "<group>";
+		};
+		F43D57AD1E72308200B584A2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F43D57AC1E72307F00B584A2 /* PKGFilePath.h */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {

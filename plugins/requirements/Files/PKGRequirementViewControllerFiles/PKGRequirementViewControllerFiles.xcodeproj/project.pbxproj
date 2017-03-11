@@ -22,6 +22,7 @@
 		F44C84201CE550590027B91C /* PKGAbsolutePathFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGAbsolutePathFormatter.h; path = ../../../../shared/PKGAbsolutePathFormatter.h; sourceTree = "<group>"; };
 		F44C84211CE5508E0027B91C /* PKGAbsolutePathFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGAbsolutePathFormatter.m; path = ../../../../shared/PKGAbsolutePathFormatter.m; sourceTree = "<group>"; };
 		F4742E241D59223700FD1966 /* NSArray+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSArray+WBExtensions.h"; path = "../../../../Foundation + Extensions/NSArray+WBExtensions.h"; sourceTree = "<group>"; };
+		F474AFC31E5916BB00483129 /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F48DDE2F1CE3DB36004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4AA70AE1CC82C51008096D0 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4AA70AF1CC82C74008096D0 /* PKGRequirement_Files+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_Files+Constants.h"; path = "../PKGRequirement_Files+Constants.h"; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
 			isa = PBXGroup;
 			children = (
+				F474AFC31E5916BB00483129 /* NSViewController+WBExtensions.h */,
 				F4742E241D59223700FD1966 /* NSArray+WBExtensions.h */,
 				F44C84201CE550590027B91C /* PKGAbsolutePathFormatter.h */,
 				F44C84211CE5508E0027B91C /* PKGAbsolutePathFormatter.m */,

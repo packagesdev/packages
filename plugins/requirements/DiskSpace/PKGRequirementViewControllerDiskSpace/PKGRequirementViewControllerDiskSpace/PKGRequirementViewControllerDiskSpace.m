@@ -6,9 +6,11 @@
 
 @interface PKGRequirementViewControllerDiskSpace ()
 {
-	IBOutlet NSTextField * IBminimumValue_;
+	IBOutlet NSTextField * _minimumValueTextField;
 	
-	IBOutlet NSPopUpButton * IBunit_;
+	IBOutlet NSPopUpButton * _unitPopUpButton;
+	
+	NSMutableDictionary * _settings;
 }
 
 - (IBAction)setMinimumValue:(id) sender;
@@ -19,40 +21,49 @@
 
 @implementation PKGRequirementViewControllerDiskSpace
 
-- (NSString *)nibName
+- (void)WB_viewDidLoad
 {
-	return @"MainView";
-}
-
-- (void)awakeFromNib
-{
-	PKGDiskSpaceFormatter * tFormatter=[PKGDiskSpaceFormatter new];
+	[super WB_viewDidLoad];
 	
-	[IBminimumValue_ setFormatter:tFormatter];
+	_minimumValueTextField.formatter=[PKGDiskSpaceFormatter new];
 }
 
-- (void)updateUI
+- (void)setSettings:(NSDictionary *)inSettings
+{
+	_settings=[inSettings mutableCopy];
+	
+	[self refreshUI];
+}
+
+- (NSDictionary *)settings
+{
+	return [_settings copy];
+}
+
+#pragma mark -
+
+- (void)refreshUI
 {
 	// Minimum Size Value
 		
-	NSNumber * tNumber=self.settings[PKGRequirementDiskSpaceMinimumSizeValueKey];
+	NSNumber * tNumber=_settings[PKGRequirementDiskSpaceMinimumSizeValueKey];
 	NSString * tStringValue=@"100";
 	
 	if (tNumber!=nil)
 		tStringValue=[tNumber stringValue];
 	
-	[IBminimumValue_ setStringValue:tStringValue];
+	_minimumValueTextField.stringValue=tStringValue;
 	
 	// Minimum Size Unit
 	
-	tNumber=self.settings[PKGRequirementDiskSpaceMinimumSizeUnitKey];
+	tNumber=_settings[PKGRequirementDiskSpaceMinimumSizeUnitKey];
 	
 	NSInteger tTag=PKGRequirementDiskSpaceSizeUnitMB;
 	
 	if (tNumber!=nil)
 		tTag=[tNumber integerValue];
 	
-	[IBunit_ selectItemWithTag:tTag];
+	[_unitPopUpButton selectItemWithTag:tTag];
 }
 
 #pragma mark -
@@ -72,12 +83,12 @@
 
 - (NSView *)previousKeyView
 {
-	return IBminimumValue_;
+	return _minimumValueTextField;
 }
 
 - (void)setNextKeyView:(NSView *) inView
 {
-	[IBminimumValue_ setNextKeyView:inView];
+	_minimumValueTextField.nextKeyView=inView;
 }
 
 - (void)control:(NSControl *) inControl didFailToValidatePartialString:(NSString *) inPartialString errorDescription:(NSString *) inError
@@ -88,18 +99,18 @@
 
 #pragma mark -
 
-- (IBAction)setMinimumValue:(id) sender
+- (IBAction)setMinimumValue:(NSTextField *) sender
 {
-	NSString * tStringValue=[IBminimumValue_ stringValue];
+	NSString * tStringValue=_minimumValueTextField.stringValue;
 	
-	self.settings[PKGRequirementDiskSpaceMinimumSizeValueKey]=@([tStringValue intValue]);
+	_settings[PKGRequirementDiskSpaceMinimumSizeValueKey]=@([tStringValue intValue]);
 }
 
-- (IBAction)switchUnit:(id) sender
+- (IBAction)switchUnit:(NSPopUpButton *) sender
 {
-	NSInteger tTag=[[sender selectedItem] tag];
+	NSInteger tTag=sender.selectedItem.tag;
 	
-	self.settings[PKGRequirementDiskSpaceMinimumSizeUnitKey]=@(tTag);
+	_settings[PKGRequirementDiskSpaceMinimumSizeUnitKey]=@(tTag);
 }
 
 @end
