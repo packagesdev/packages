@@ -227,11 +227,11 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
-	SEL tSelector=inMenuItem.action;
+	SEL tAction=inMenuItem.action;
 	
 	// Set Default Location
 	
-	if (tSelector==@selector(setDefaultDestination:))
+	if (tAction==@selector(setDefaultDestination:))
 	{
 		NSOutlineView * tOutlineView=_filesHierarchyViewController.outlineView;
 		NSIndexSet * tClickedOrSelectedIndexes=tOutlineView.WB_selectedOrClickedRowIndexes;
@@ -249,7 +249,7 @@
 	
 	// Show|Hide Hidden Folders
 	
-	if (tSelector==@selector(switchHiddenFolderTemplatesVisibility:))
+	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:))
 	{
 		[inMenuItem setTitle:(self.payload.hiddenFolderTemplatesIncluded==YES) ? NSLocalizedString(@"Hide Hidden Folders", @"") : NSLocalizedString(@"Show Hidden Folders", @"")];
 		 

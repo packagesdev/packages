@@ -324,13 +324,13 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
-	SEL tSelector=inMenuItem.action;
+	SEL tAction=inMenuItem.action;
 	
-	if (tSelector==@selector(showInFinder:) ||
-		tSelector==@selector(openWithFinder:))
+	if (tAction==@selector(showInFinder:) ||
+		tAction==@selector(openWithFinder:))
 		return self.installationScriptPath.isSet;
 	
-	if (tSelector==@selector(switchPathType:))
+	if (tAction==@selector(switchPathType:))
 		return YES;
 	
 	return YES;

@@ -195,7 +195,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
-	NSInteger tNewFileType=[sender selectedTag];
+	NSInteger tNewFileType=sender.selectedTag;
 	
 	if (tFilter.predicate.fileType==tNewFileType)
 		return;
@@ -267,9 +267,9 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
-	SEL tSelector=inMenuItem.action;
+	SEL tAction=inMenuItem.action;
 
-	if (tSelector==@selector(delete:))
+	if (tAction==@selector(delete:))
 	{
 		NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
 		

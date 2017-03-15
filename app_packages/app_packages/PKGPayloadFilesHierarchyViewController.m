@@ -93,7 +93,7 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
-	SEL tSelector=inMenuItem.action;
+	SEL tAction=inMenuItem.action;
 	
 	// A COMPLETER
 	

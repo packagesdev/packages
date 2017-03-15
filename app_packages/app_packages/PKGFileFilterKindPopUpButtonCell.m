@@ -30,7 +30,7 @@
 		tDestinationRect.origin.x=tMinX+8.0;
 		tDestinationRect.origin.y=round(tMiddleY-tDestinationRect.size.height*0.5-0.5);
 		
-		[tImage drawInRect:tDestinationRect fromRect:tImageRect operation:NSCompositeSourceOver fraction:([self isEnabled]==YES) ? 1.0 : 0.5 respectFlipped:YES hints:@{}];
+		[tImage drawInRect:tDestinationRect fromRect:tImageRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:@{}];
 		
 		tDestinationRect.origin.x+=tImageRect.size.width+4;
 	}
