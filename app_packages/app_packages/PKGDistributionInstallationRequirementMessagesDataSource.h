@@ -1,0 +1,6 @@
+
+#import "PKGDistributionRequirementMessagesDataSource.h"
+
+@interface PKGDistributionInstallationRequirementMessagesDataSource : PKGDistributionRequirementMessagesDataSource
+
+@end

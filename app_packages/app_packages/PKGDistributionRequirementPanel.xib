@@ -11,10 +11,10 @@
                 <outlet property="_cancelButton" destination="M1u-sW-Is4" id="X3b-hf-oPs"/>
                 <outlet property="_checkTypeView" destination="UwO-JB-YgQ" id="fvt-QH-EN0"/>
                 <outlet property="_okButton" destination="kGW-Kb-1db" id="uN9-7i-m59"/>
-                <outlet property="_requirementPlaceHolderView" destination="4mv-d5-3ip" id="ydf-sx-xXB"/>
                 <outlet property="_requirementTypeCheckBox" destination="4yR-uc-VNH" id="l1W-7n-h8y"/>
                 <outlet property="_requirementTypeIcon" destination="fyH-Wc-PSp" id="dfh-7c-pNx"/>
                 <outlet property="_requirementTypePopUpButton" destination="MMe-ly-j6o" id="Nbj-aR-QrG"/>
+                <outlet property="requirementPlaceHolderView" destination="4mv-d5-3ip" id="nbo-bu-jHm"/>
                 <outlet property="window" destination="5KD-Ym-9xb" id="7e7-97-p7B"/>
             </connections>
         </customObject>

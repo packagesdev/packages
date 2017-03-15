@@ -30,7 +30,9 @@
 #import "PKGRequirementPluginsManager.h"
 #import "PKGDistributionRequirementPanel.h"
 
-@interface PKGDistributionRequirementsViewController () <NSTableViewDelegate>
+NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistributionRequirementsDataDidChangeNotification";
+
+@interface PKGDistributionRequirementsViewController () <NSTableViewDelegate,NSTextFieldDelegate>
 {
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
@@ -43,7 +45,6 @@
 - (IBAction)editRequirement:(id)sender;
 
 - (IBAction)switchRequirementState:(NSButton *)sender;
-- (IBAction)setRequirementName:(id)sender;
 
 @end
 
@@ -67,6 +68,19 @@
 		self.outlineView.dataSource=_dataSource;
 }
 
+- (CGFloat)maximumViewHeight
+{
+	NSUInteger tNumberOfRows=self.dataSource.numberOfItems;
+	
+	if (tNumberOfRows<3)
+		tNumberOfRows=3;
+	
+	CGFloat tRowHeight=self.outlineView.rowHeight;
+	NSSize tIntercellSpacing=self.outlineView.intercellSpacing;
+	
+	return NSHeight(self.view.frame)-NSHeight(self.outlineView.enclosingScrollView.frame)+tRowHeight*tNumberOfRows+(tNumberOfRows-1)*tIntercellSpacing.height+4.0;
+}
+
 #pragma mark -
 
 - (void)WB_viewWillAppear
@@ -80,14 +94,14 @@
 {
 	[super WB_viewDidAppear];
 	
-	_addButton.enabled=YES;
-	_removeButton.enabled=NO;
-	
 	[self.outlineView reloadData];
 	
 	[self.outlineView expandItem:nil expandChildren:YES];
 	
 	// Restore selection
+	
+	_addButton.enabled=YES;		// A VIRER
+	_removeButton.enabled=NO;
 	
 	// A COMPLETER
 }
@@ -97,8 +111,6 @@
 	[super WB_viewWillDisappear];
 	
 	// Save selection
-	
-	// A COMPLETER
 	
 	// A COMPLETER
 }
@@ -114,68 +126,12 @@
 
 - (IBAction)switchRequirementState:(NSButton *)sender
 {
-	/*NSInteger tEditedRow=[self.tableView rowForView:sender];
+	NSInteger tRow=[self.outlineView rowForView:sender];
 	
-	if (tEditedRow==-1)
+	if (tRow==-1)
 		return;
 	
-	PKGRequirement * tRequirement=[self.requirementsDataSource tableView:self.tableView itemAtRow:tEditedRow];
-	
-	BOOL tNewState=(sender.state==NSOnState);
-	
-	if (tRequirement.isEnabled==tNewState)
-		return;
-	
-	tRequirement.enabled=tNewState;
-	
-	[self noteDocumentHasChanged];*/
-}
-
-- (IBAction)setRequirementName:(NSTextField *)sender
-{
-	/*PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
-	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
-	NSMutableArray * tLocators=tBundleItem.locators;
-	
-	NSInteger tRow=[self.tableView rowForView:sender];
-	
-	if (tRow==-1 || tRow>tLocators.count)
-		return;
-	
-	
-	NSString * tNewName=sender.stringValue;
-	
-	if ([tLocators indexOfObjectPassingTest:^BOOL(PKGLocator * bLocator,NSUInteger bIndex,BOOL * bOutStop){
-		
-		if (bIndex==tRow)
-			return NO;
-		
-		return ([bLocator.name isEqualToString:tNewName]);
-		
-	}]!=NSNotFound)
-	{
-		NSBeep();
-		
-		NSAlert * tAlert=[NSAlert new];
-		tAlert.alertStyle=NSCriticalAlertStyle;
-		tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),tNewName];
-		tAlert.informativeText=NSLocalizedString(@"Please choose a different name.",@"");
-		
-		[tAlert runModal];
-		
-		[self.tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
-									  columnIndexes:[NSIndexSet indexSetWithIndex:[self.tableView columnWithIdentifier:@"requirement.name"]]];
-		
-		return;
-	}
-	
-	PKGLocator * tLocator=tLocators[tRow];
-	tLocator.name=tNewName;
-	
-	[_locatorsTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
-								  columnIndexes:[NSIndexSet indexSetWithIndex:[_locatorsTableView columnWithIdentifier:@"locator.name"]]];
-	
-	[self noteDocumentHasChanged];*/
+	[self.dataSource outlineView:self.outlineView setItem:[self.outlineView itemAtRow:tRow] state:(sender.state==NSOnState)];
 }
 
 - (IBAction)addRequirement:(id)sender
@@ -189,9 +145,9 @@
 	if (tRow==-1)
 		return;
 	
-	[self.outlineView scrollRowToVisible:tRow];
+	//[self.view.window makeFirstResponder:self.outlineView];
 	
-	[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"requirement.name"] row:tRow withEvent:nil select:YES];
+	[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"requirement"] row:tRow withEvent:nil select:YES];
 }
 
 - (IBAction)duplicate:(id)sender
@@ -273,7 +229,51 @@
 	return YES;
 }
 
-#pragma mark - NSTableViewDelegate
+#pragma mark - NSTextFieldDelegate
+
+- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
+{
+	return YES;
+}
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+	return YES;
+}
+
+- (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError
+{
+	NSBeep();
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)inNotification
+{
+	NSTextField * tTextField=inNotification.object;
+	
+	if ([tTextField isKindOfClass:NSTextField.class]==NO)
+		return;
+	
+	NSInteger tEditedRow=[self.outlineView rowForView:tTextField];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGDistributionRequirementSourceListTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
+	
+	if ([self.dataSource outlineView:self.outlineView shouldRenameRequirement:tEditedNode as:tTextField.stringValue]==NO)
+	{
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"requirement"]];
+		
+		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+		
+		return;
+	}
+	
+	[self.dataSource outlineView:self.outlineView renameRequirement:tEditedNode as:tTextField.stringValue];
+}
+
+#pragma mark - NSOutlineViewDelegate
 
 - (NSView *)outlineView:(NSOutlineView *)inOutlineView viewForTableColumn:(NSTableColumn *)inTableColumn item:(PKGDistributionRequirementSourceListTreeNode *)inSourceListTreeNode
 {
@@ -284,41 +284,35 @@
 	
 	if ([tSourceListItem isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES)
 	{
-		/*NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
+		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
+		tView.backgroundStyle=NSBackgroundStyleDark;
 		tView.textField.stringValue=tSourceListItem.label;
-		tView.textField.controlSize=NSMiniControlSize;
 		
-		return tView;*/
-		
-		return nil;
+		return tView;
 	}
 	
 	if ([tSourceListItem isKindOfClass:PKGDistributionRequirementSourceListRequirementItem.class]==YES)
 	{
 		NSString * tTableColumnIdentifier=inTableColumn.identifier;
-		NSTableCellView * tTableCellView=[inOutlineView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
+		NSTableCellView * tTableCellView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
 		
 		PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *)tSourceListItem).requirement;
 		
 		if (tRequirement==nil)
 			return nil;
 		
-		if ([tTableColumnIdentifier isEqualToString:@"requirement.state"]==YES)
+		if ([tTableColumnIdentifier isEqualToString:@"requirement"]==YES)
 		{
 			PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 			
 			tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? NSOnState : NSOffState;
 			
-			return tCheckBoxView;
-		}
-		
-		if ([tTableColumnIdentifier isEqualToString:@"requirement.name"]==YES)
-		{
-			tTableCellView.textField.stringValue=tRequirement.name;
-			tTableCellView.textField.editable=YES;
+			tCheckBoxView.textField.stringValue=tRequirement.name;
+			tCheckBoxView.textField.editable=YES;
+			tCheckBoxView.textField.delegate=self;
 			
-			return tTableCellView;
+			return tCheckBoxView;
 		}
 	}
 	
@@ -363,6 +357,8 @@
 - (void)sourceListDataDidChange:(PKGDistributionRequirementSourceListDataSource *)inSourceListDataSource
 {
 	[self noteDocumentHasChanged];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGDistributionRequirementsDataDidChangeNotification object:self userInfo:nil];
 }
 
 #pragma mark - Notifications

@@ -15,6 +15,12 @@
 
 #import "PKGRequirementWindowController.h"
 
+#import "PKGDistributionRequirementBehaviorViewController.h"
+#import "PKGDistributionInstallationRequirementBehaviorViewController.h"
+#import "PKGDistributionVolumeRequirementBehaviorViewController.h"
+
+#import "PKGDistributionInstallationRequirementMessagesDataSource.h"
+
 @interface PKGDistributionRequirementWindowController : PKGRequirementWindowController
 {
 	IBOutlet NSView * _checkTypeView;
@@ -22,11 +28,15 @@
 	IBOutlet NSButton * _requirementTypeCheckBox;
 
 	IBOutlet NSView * _behaviorPlaceHolderView;
+	
+	PKGDistributionRequirementBehaviorViewController * _currentBehaviorController;
+	
+	PKGRequirementType _cachedRequirementCheckType;
 }
 
 - (IBAction)switchRequirementCheckType:(id)sender;
 
-- (void)showBehaviorViewForCheckType:(int)inRequirementCheckType;
+- (void)showBehaviorViewForCheckType:(PKGRequirementType)inRequirementCheckType;
 
 // Notifications
 
@@ -43,21 +53,202 @@
 
 #pragma mark -
 
-- (IBAction)switchRequirementCheckType:(id)sender
+- (void)showRequirementViewControllerWithIdentifier:(NSString *)inIdentifier
 {
-	// A COMPLETER
+	if (self.currentRequirementViewController!=nil)
+		[[NSNotificationCenter defaultCenter] removeObserver:self
+														name:PKGRequirementTypeDidChangeNotification
+													  object:self.currentRequirementViewController];
+	
+	[super showRequirementViewControllerWithIdentifier:inIdentifier];
+	
+	if (self.currentRequirementViewController!=nil)
+	{
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(requirementCheckTypeDidChange:)
+													 name:PKGRequirementTypeDidChangeNotification
+												   object:self.currentRequirementViewController];
+		
+		[self requirementCheckTypeDidChange:nil];
+	}
+	
+	NSView * tPreviousKeyView=[self.currentRequirementViewController previousKeyView];
+	
+	if (tPreviousKeyView!=nil)
+	{
+		[_currentBehaviorController.tableView setNextKeyView:tPreviousKeyView];
+		
+		[self.currentRequirementViewController setNextKeyView:_currentBehaviorController.tableView];
+		
+		[self.window makeFirstResponder:tPreviousKeyView];
+	}
+	else
+	{
+		[self.window makeFirstResponder:_currentBehaviorController.tableView];
+	}
 }
 
-- (void)showBehaviorViewForCheckType:(int)inRequirementCheckType
+- (IBAction)switchRequirementCheckType:(id)sender
 {
-	// A COMPLETER
+	PKGRequirementType tRequirementCheckType=([sender state]==NSOnState) ? PKGRequirementTypeTarget : PKGRequirementTypeInstallation;
+	
+	if (_cachedRequirementCheckType!=tRequirementCheckType)
+	{
+		self.requirement.type=tRequirementCheckType;
+		
+		_cachedRequirementCheckType=tRequirementCheckType;
+		
+		// Update Behavior View
+		
+		[self showBehaviorViewForCheckType:_cachedRequirementCheckType];
+	}
+}
+
+- (void)showBehaviorViewForCheckType:(PKGRequirementType)inRequirementCheckType
+{
+	//self.window.contentMinSize=NSMakeSize(defaultContentWidth_,50.0);
+	
+	if (_currentBehaviorController!=nil)
+	{
+		if ([_currentBehaviorController PKG_viewCanBeRemoved]==NO)
+			return;
+		
+		[_currentBehaviorController WB_viewWillDisappear];
+		
+		[_currentBehaviorController.view removeFromSuperview];
+
+		[_currentBehaviorController WB_viewDidDisappear];
+		
+		_currentBehaviorController=nil;
+	}
+	
+	if (inRequirementCheckType==PKGRequirementTypeTarget)
+	{
+		/*PKGDistributionInstallationRequirementMessagesDataSource * tDataSource=[PKGDistributionInstallationRequirementMessagesDataSource new];
+		tDataSource.messages=self.requirement.messages;*/
+		
+		_currentBehaviorController=[PKGDistributionVolumeRequirementBehaviorViewController new];
+		//_currentBehaviorController.dataSource=tDataSource;
+	}
+	else if (inRequirementCheckType==PKGRequirementTypeInstallation)
+	{
+		PKGDistributionInstallationRequirementMessagesDataSource * tDataSource=[PKGDistributionInstallationRequirementMessagesDataSource new];
+		tDataSource.messages=self.requirement.messages;
+		
+		_currentBehaviorController=[PKGDistributionInstallationRequirementBehaviorViewController new];
+		_currentBehaviorController.dataSource=tDataSource;
+	}
+	else
+	{
+		// A COMPLETER
+	}
+	
+	if (_currentBehaviorController==nil)
+	{
+		NSLog(@"[PKGDistributionRequirementWindowController showBehaviorViewForCheckType:] Missing controller for Check Type: %ld",(long)inRequirementCheckType);
+		
+		return;
+	}
+
+	NSRect tNewWindowFrame;
+	NSRect tComputeRect;
+	
+	NSView * tBehaviorView=_currentBehaviorController.view;
+	
+	NSRect tBounds=_behaviorPlaceHolderView.bounds;
+	
+	NSRect tCurrentViewBounds=tBehaviorView.bounds;
+	
+	tCurrentViewBounds.size.width=NSWidth(tBounds);
+	
+	[tBehaviorView setFrame:tCurrentViewBounds];
+	
+	NSRect tOldWindowFrame=self.window.frame;
+	
+	tComputeRect=NSMakeRect(0,0,0,NSHeight(tCurrentViewBounds)-NSHeight(tBounds));
+	
+	tComputeRect=[NSWindow frameRectForContentRect:tComputeRect styleMask:NSBorderlessWindowMask];
+	
+	tNewWindowFrame.size=NSMakeSize(tOldWindowFrame.size.width,NSHeight(tOldWindowFrame)+NSHeight(tComputeRect));
+	
+	tNewWindowFrame.origin.x=NSMinX(tOldWindowFrame);
+	tNewWindowFrame.origin.y=NSMaxY(tOldWindowFrame)-NSHeight(tNewWindowFrame);
+	
+	// Initialize View widgets
+	
+	//[_currentBehaviorController initializeWithDictionary:dictionary_ parentController:self];
+	
+	[_currentBehaviorController WB_viewWillAppear];
+	
+	[_behaviorPlaceHolderView addSubview:tBehaviorView];
+	
+	[_currentBehaviorController WB_viewDidAppear];
+	
+	_behaviorPlaceHolderView.autoresizingMask=NSViewWidthSizable+NSViewHeightSizable;
+	
+	self.requirementPlaceHolderView.autoresizingMask=NSViewMinYMargin+NSViewWidthSizable;
+	
+	_checkTypeView.autoresizingMask=NSViewMinYMargin+NSViewWidthSizable;
+	
+	[self.window setFrame:tNewWindowFrame display:YES animate:NO];
+	
+	self.requirementPlaceHolderView.autoresizingMask=NSViewWidthSizable+NSViewHeightSizable;
+	
+	_checkTypeView.autoresizingMask=NSViewMaxYMargin+NSViewWidthSizable;
+	
+	_behaviorPlaceHolderView.autoresizingMask=NSViewMaxYMargin+NSViewWidthSizable;
+
+	
+	[self updateMinMaxWindowSize];
 }
 
 #pragma mark - Notifications
 
 - (void)requirementCheckTypeDidChange:(NSNotification *)inNotification
 {
-	// A COMPLETER
+	PKGRequirementType tRequirementCheckType=self.currentRequirementViewController.requirementType;
+	
+	if (tRequirementCheckType==PKGRequirementTypeUndefined)
+	{
+		_requirementTypeCheckBox.enabled=YES;
+		
+		tRequirementCheckType=((self.requirement.type==PKGRequirementTypeUndefined) ? PKGRequirementTypeInstallation : self.requirement.type);
+		
+		_requirementTypeCheckBox.state=(tRequirementCheckType==PKGRequirementTypeTarget) ? NSOnState : NSOffState;
+	}
+	else
+	{
+		_requirementTypeCheckBox.enabled=NO;
+		
+		self.requirement.type=tRequirementCheckType;
+		
+		if (tRequirementCheckType==PKGRequirementTypeTarget)
+		{
+			_requirementTypeCheckBox.state=NSOnState;
+		}
+		else if (tRequirementCheckType==PKGRequirementTypeInstallation)
+		{
+			_requirementTypeCheckBox.state=NSOffState;
+		}
+		else
+		{
+			NSLog(@"[PKGDistributionRequirementWindowController requirementCheckTypeDidChange:] Unsupported Requirement Check Type");
+		}
+	}
+	
+	
+	if (_cachedRequirementCheckType!=tRequirementCheckType)
+	{
+		_cachedRequirementCheckType=tRequirementCheckType;
+		
+		// Update Behavior View
+		
+		[self showBehaviorViewForCheckType:_cachedRequirementCheckType];
+	}
+	else
+	{
+		[self updateMinMaxWindowSize];
+	}
 }
 
 @end

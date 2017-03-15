@@ -15,34 +15,31 @@
 
 #import "PKGPluginsManager+AppKit.h"
 
-#import "PKGRequirementViewController.h"
+
 
 #import "PKGRequirementPluginsManager.h"
 
 #import "PKGEvent.h"
 
 @interface PKGRequirementWindowController ()
-
 {
 	IBOutlet NSImageView * _requirementTypeIcon;
 	
 	IBOutlet NSPopUpButton * _requirementTypePopUpButton;
-	
-	IBOutlet NSView * _requirementPlaceHolderView;
 	
 	IBOutlet NSButton * _okButton;
 	
 	IBOutlet NSButton * _cancelButton;
 	
 	
-	
-	
 	CGFloat _defaultContentWidth;
-	
-	PKGRequirementViewController * _currentRequirementViewController;
 	
 	NSMutableDictionary * _cachedSettingsRepresentations;
 }
+
+	@property (readwrite) IBOutlet NSView * requirementPlaceHolderView;
+
+	@property (readwrite) PKGRequirementViewController * currentRequirementViewController;
 
 - (void)showRequirementViewControllerWithIdentifier:(NSString *)inIdentifier;
 
@@ -315,6 +312,12 @@
 	
 	// Set Min and Max window size
 	
+	[self updateMinMaxWindowSize];
+	
+	}
+
+- (void)updateMinMaxWindowSize
+{
 	NSSize tSize=((NSView *)self.window.contentView).frame.size;
 	
 	if (_currentRequirementViewController.isResizableWindow==YES)
@@ -335,6 +338,7 @@
 		self.window.contentMinSize=tSize;
 		self.window.contentMaxSize=tSize;
 	}
+
 }
 
 #pragma mark -

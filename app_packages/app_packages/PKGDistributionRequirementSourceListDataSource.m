@@ -50,6 +50,13 @@
 	}
 }
 
+#pragma mark -
+
+- (NSUInteger)numberOfItems
+{
+	return _forest.numberOfNodes;
+}
+
 #pragma mark - NSOutlineViewDataSource
 
 - (NSInteger)outlineView:(NSOutlineView *)inOutlineView numberOfChildrenOfItem:(PKGTreeNode *)inTreeNode
@@ -158,6 +165,22 @@
 	}];
 }
 
+- (void)outlineView:(NSOutlineView *)inOutlineView setItem:(PKGDistributionRequirementSourceListTreeNode *)inRequirementTreeNode state:(BOOL)inState
+{
+	if (inOutlineView==nil || inRequirementTreeNode==nil)
+		return;
+	
+	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=[inRequirementTreeNode representedObject];
+	PKGRequirement * tRequirement=tRequirementItem.requirement;
+	
+	if (tRequirement.isEnabled==inState)
+		return;
+	
+	tRequirement.enabled=inState;
+	
+	[self.delegate sourceListDataDidChange:self];
+}
+
 - (void)outlineView:(NSOutlineView *)inOutlineView addRequirement:(PKGRequirement *)inRequirement
 {
 	if (inRequirement==nil)
@@ -192,13 +215,15 @@
 	if (tMutableSet.count==0)
 		return;
 	
-	[self.delegate sourceListDataDidChange:self];
+	
 	
 	// Post Notification
 	
 	// A COMPLETER
 	
 	[inOutlineView reloadData];
+	
+	[self.delegate sourceListDataDidChange:self];
 	
 	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
 	
@@ -227,7 +252,24 @@
 	if (inOutlineView==nil || inRequirementTreeNode==nil || inNewName==nil)
 		return NO;
 	
-	// A COMPLETER
+	PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *) [inRequirementTreeNode representedObject]).requirement;
+	NSString * tName=tRequirement.name;
+	
+	if ([tName compare:inNewName]==NSOrderedSame)
+		return NO;
+	
+	if ([tName caseInsensitiveCompare:inNewName]!=NSOrderedSame)
+	{
+		NSUInteger tLength=inNewName.length;
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inRequirementTreeNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView columnWithIdentifier:@"requirement"]];
+		
+		if (tLength==0)
+		{
+			[inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+			return NO;
+		}
+	}
 	
 	return YES;
 }
@@ -237,7 +279,21 @@
 	if (inOutlineView==nil || inRequirementTreeNode==nil || inNewName==nil)
 		return NO;
 	
-	// A COMPLETER
+	PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *) [inRequirementTreeNode representedObject]).requirement;
+	
+	tRequirement.name=inNewName;
+	
+	[inOutlineView reloadData];
+	
+	[self.delegate sourceListDataDidChange:self];
+	
+	NSInteger tSelectedRow=[inOutlineView rowForItem:inRequirementTreeNode];
+	
+	if (tSelectedRow!=-1)
+	{
+		[inOutlineView scrollRowToVisible:tSelectedRow];
+		[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tSelectedRow] byExtendingSelection:NO];
+	}
 	
 	return YES;
 }
@@ -295,16 +351,6 @@
 	if (inOutlineView==nil || inItems.count==0)
 		return;
 	
-	// Save the selection if needed
-	
-	NSArray * tSavedSelectedItems=nil;
-	
-	if (inItems.count==1)
-	{
-		if ([inOutlineView isRowSelected:[inOutlineView rowForItem:inItems[0]]]==NO)
-			tSavedSelectedItems=[inOutlineView WB_selectedItems];
-	}
-	
 	// Remove the requirements
 	
 	for(PKGTreeNode * tTreeNode in inItems)
@@ -328,7 +374,7 @@
 		
 		if ([tGroupItem isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES)
 		{
-			if (tTreeNode.numberOfChildren==0 && tGroupItem.groupType!=PKGPackageComponentTypeProject)
+			if (tTreeNode.numberOfChildren==0)
 				[tRemovableSet addObject:tTreeNode];
 		}
 	}
@@ -336,26 +382,11 @@
 	for(PKGDistributionRequirementSourceListTreeNode * tTreeNode in tRemovableSet)
 		[_forest.rootNodes removeObject:tTreeNode];
 	
-	[self.delegate sourceListDataDidChange:self];
-	
 	[inOutlineView deselectAll:nil];
 	
 	[inOutlineView reloadData];
 	
-	if (tSavedSelectedItems!=nil)
-	{
-		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
-		
-		for(id tItem in tSavedSelectedItems)
-		{
-			NSInteger tIndex=[inOutlineView rowForItem:tItem];
-			
-			if (tIndex!=-1)
-				[tMutableIndexSet addIndex:tIndex];
-		}
-		
-		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
-	}
+	[self.delegate sourceListDataDidChange:self];
 }
 
 @end
