@@ -57,6 +57,8 @@
 
 - (void)_updateSectionsLayout;
 
+- (IBAction)switchImportReferenceStyle:(id)sender;
+
 - (IBAction)switchLocationType:(id)sender;
 
 @end
@@ -371,6 +373,27 @@
 }
 
 #pragma mark -
+
+- (IBAction)switchImportReferenceStyle:(NSPopUpButton *)sender
+{
+	PKGFilePathType tNewType=sender.selectedItem.tag;
+	
+	if (tNewType!=self.packageComponent.importPath.type)
+	{
+		if ([self.filePathConverter shiftTypeOfFilePath:self.packageComponent.importPath toType:tNewType]==NO)
+		{
+			// A COMPLETER
+			
+			return;
+		}
+		
+		_sourceTextField.stringValue=self.packageComponent.importPath.string;
+		
+		// Notify Document Change
+		
+		[self noteDocumentHasChanged];
+	}
+}
 
 - (IBAction)switchLocationType:(NSPopUpButton *)sender
 {
