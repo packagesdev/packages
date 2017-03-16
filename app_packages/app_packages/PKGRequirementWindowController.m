@@ -45,8 +45,6 @@
 
 - (IBAction)switchRequirementType:(id)sender;
 
-- (IBAction)endDialog:(id)sender;
-
 @end
 
 @implementation PKGRequirementWindowController

@@ -158,10 +158,19 @@
 			return;
 		}
 		
-		[self.requirements removeObject:tOriginalRequirement];
-		[tTreeNode removeFromParent];
+		dispatch_async(dispatch_get_main_queue(), ^{
+		
+			[self.requirements removeObject:tOriginalRequirement];
 			
-		[self outlineView:inOutlineView addRequirement:tEditedRequirement];
+			PKGDistributionRequirementSourceListTreeNode * tParentNode=(PKGDistributionRequirementSourceListTreeNode *)[tTreeNode parent];
+			
+			[tTreeNode removeFromParent];
+			
+			if ([tParentNode numberOfChildren]==0)
+				[_forest.rootNodes removeObject:tParentNode];
+			
+			[self outlineView:inOutlineView addRequirement:tEditedRequirement];
+		});
 	}];
 }
 

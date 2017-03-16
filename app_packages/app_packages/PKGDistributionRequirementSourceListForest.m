@@ -88,6 +88,16 @@
 
 #pragma mark -
 
+- (NSUInteger)numberOfNodes
+{
+	NSUInteger tCount=0;
+	
+	for(PKGTreeNode * tTreeNode in self.rootNodes)
+		tCount+=[tTreeNode numberOfNodes];
+	
+	return tCount;
+}
+
 - (void)addRequirement:(PKGRequirement *)inRequirement
 {
 	if (inRequirement==nil)
@@ -105,7 +115,7 @@
 		return (((PKGDistributionRequirementSourceListGroupItem *)tItem).groupType==tRequirementType);
 	}];
 	
-	PKGDistributionRequirementSourceListTreeNode * tGroupNode=(tGroupIndex==NSNotFound) ? [[PKGDistributionRequirementSourceListTreeNode alloc] initWithRepresentedObject:[[PKGDistributionRequirementSourceListGroupItem alloc] initWithGroupType:inRequirement.type] children:nil] : self.rootNodes[tGroupIndex];
+	PKGDistributionRequirementSourceListTreeNode * tGroupNode=(tGroupIndex==NSNotFound) ? [[PKGDistributionRequirementSourceListTreeNode alloc] initWithRepresentedObject:[[PKGDistributionRequirementSourceListGroupItem alloc] initWithGroupType:tRequirementType] children:nil] : self.rootNodes[tGroupIndex];
 	
 	if (tGroupNode==nil)
 		return;

@@ -19,7 +19,7 @@
 #import "PKGDistributionInstallationRequirementBehaviorViewController.h"
 #import "PKGDistributionVolumeRequirementBehaviorViewController.h"
 
-#import "PKGDistributionInstallationRequirementMessagesDataSource.h"
+#import "PKGDistributionRequirementMessagesDataSource.h"
 
 @interface PKGDistributionRequirementWindowController : PKGRequirementWindowController
 {
@@ -45,6 +45,18 @@
 @end
 
 @implementation PKGDistributionRequirementWindowController
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_cachedRequirementCheckType=PKGRequirementTypeUndefined;
+	}
+	
+	return self;
+}
 
 - (NSString *)windowNibName
 {
@@ -124,15 +136,15 @@
 	
 	if (inRequirementCheckType==PKGRequirementTypeTarget)
 	{
-		/*PKGDistributionInstallationRequirementMessagesDataSource * tDataSource=[PKGDistributionInstallationRequirementMessagesDataSource new];
-		tDataSource.messages=self.requirement.messages;*/
+		PKGDistributionRequirementMessagesDataSource * tDataSource=[PKGDistributionRequirementMessagesDataSource new];
+		tDataSource.messages=self.requirement.messages;
 		
 		_currentBehaviorController=[PKGDistributionVolumeRequirementBehaviorViewController new];
-		//_currentBehaviorController.dataSource=tDataSource;
+		_currentBehaviorController.dataSource=tDataSource;
 	}
 	else if (inRequirementCheckType==PKGRequirementTypeInstallation)
 	{
-		PKGDistributionInstallationRequirementMessagesDataSource * tDataSource=[PKGDistributionInstallationRequirementMessagesDataSource new];
+		PKGDistributionRequirementMessagesDataSource * tDataSource=[PKGDistributionRequirementMessagesDataSource new];
 		tDataSource.messages=self.requirement.messages;
 		
 		_currentBehaviorController=[PKGDistributionInstallationRequirementBehaviorViewController new];
@@ -149,7 +161,7 @@
 		
 		return;
 	}
-
+	
 	NSRect tNewWindowFrame;
 	NSRect tComputeRect;
 	
@@ -182,6 +194,8 @@
 	
 	[_behaviorPlaceHolderView addSubview:tBehaviorView];
 	
+	_currentBehaviorController.requirementBehavior=self.requirement.behavior;
+	
 	[_currentBehaviorController WB_viewDidAppear];
 	
 	_behaviorPlaceHolderView.autoresizingMask=NSViewWidthSizable+NSViewHeightSizable;
@@ -200,6 +214,13 @@
 
 	
 	[self updateMinMaxWindowSize];
+}
+
+- (IBAction)endDialog:(NSButton *)sender
+{
+	self.requirement.behavior=_currentBehaviorController.requirementBehavior;
+	
+	[super endDialog:sender];
 }
 
 #pragma mark - Notifications

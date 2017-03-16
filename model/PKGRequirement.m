@@ -246,7 +246,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		nRequirement.identifier=[self.identifier copyWithZone:inZone];
 		nRequirement.type=self.type;
 		nRequirement.behavior=self.behavior;
-		nRequirement.messages=[self.messages mutableDeepCopy];
+		nRequirement.messages=[self.messages mutableCopy];
 		nRequirement.settingsRepresentation=[self.settingsRepresentation deepCopy];
 	}
 	

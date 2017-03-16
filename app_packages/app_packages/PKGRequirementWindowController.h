@@ -27,6 +27,8 @@
 
 	@property (readonly) PKGRequirementViewController * currentRequirementViewController;
 
+- (IBAction)endDialog:(id)sender;
+
 - (void)refreshUI;
 
 - (void)showRequirementViewControllerWithIdentifier:(NSString *)inIdentifier;
