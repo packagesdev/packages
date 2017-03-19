@@ -107,14 +107,18 @@
 - (NSString *)filePath
 {
 	if (self.parent==nil)
-		return @"/";
+	{
+		PKGFileItem * tFileItem=[self representedObject];
+
+		return tFileItem.fileName;
+	}
 	
 	PKGPayloadTreeNode * tPayloadTreeNode=self;
 	NSMutableString * tMutableString=[NSMutableString string];
 	
 	do
 	{
-		PKGFileItem * tFileItem=tPayloadTreeNode.representedObject;
+		PKGFileItem * tFileItem=[tPayloadTreeNode representedObject];
 		
 		NSString * tFileName=tFileItem.fileName;
 		
@@ -133,7 +137,6 @@
 	
 	return [tMutableString copy];
 }
-
 
 - (BOOL)isHiddenTemplateNode
 {
