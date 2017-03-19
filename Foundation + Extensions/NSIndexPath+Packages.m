@@ -22,7 +22,7 @@
 	
 	NSArray * tIndexComponents=[inStringRepresentation componentsSeparatedByString:@":"];
 	
-	NSUInteger tLength=[tIndexComponents count];
+	NSUInteger tLength=tIndexComponents.count;
 	
 	if (tLength==0)
 		return [self init];
@@ -63,7 +63,7 @@
 			[tMutableString appendFormat:@"%llu:",(unsigned long long)tIndex];
 		}
 		
-		[tMutableString deleteCharactersInRange:NSMakeRange([tMutableString length]-1, 1)];
+		[tMutableString deleteCharactersInRange:NSMakeRange(tMutableString.length-1, 1)];
 	}
 	
 	return [tMutableString copy];
