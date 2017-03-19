@@ -21,7 +21,7 @@
 
 #import "PKGCertificateSealWindowController.h"
 
-#import "PKGFilePathTextField.h"
+
 
 #import "PKGCertificatesUtilities.h"
 
@@ -33,8 +33,6 @@
 @interface PKGProjectSettingsViewController () <PKGFilePathTextFieldDelegate>
 {
 	IBOutlet NSTextField * _buildNameTextField;
-	
-	IBOutlet PKGFilePathTextField * _buildPathTextField;
 	
 	IBOutlet NSPopUpButton * _buildReferenceFolderPopUpButton;
 	
@@ -50,6 +48,8 @@
 	
 	SFChooseIdentityPanel * _chooseIdentityPanel;
 }
+
+	@property (readwrite) IBOutlet PKGFilePathTextField * buildPathTextField;
 
 
 - (void)selectCertificateDidEnd:(NSWindow *) inSheet returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
@@ -122,7 +122,7 @@
 	
 	// Build Path
 	
-	_buildPathTextField.filePath=self.projectSettings.buildPath;
+	self.buildPathTextField.filePath=self.projectSettings.buildPath;
 	
 	// Reference Folder
 	
@@ -431,7 +431,7 @@
 				
 				self.projectSettings.buildPath=tFilePath;
 				
-				[_buildPathTextField setFilePath:self.projectSettings.buildPath];
+				self.buildPathTextField.filePath=self.projectSettings.buildPath;
 				
 				[self noteDocumentHasChanged];
 			}
@@ -611,7 +611,7 @@
 
 - (BOOL)filePathTextField:(PKGFilePathTextField *)inFilePathTextField shouldAcceptFile:(NSString *)inPath
 {
-	if (inFilePathTextField==_buildPathTextField)
+	if (inFilePathTextField==self.buildPathTextField)
 	{
 		BOOL isDirectory;
 		

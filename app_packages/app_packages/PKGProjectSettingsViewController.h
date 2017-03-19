@@ -15,7 +15,11 @@
 
 #import "PKGProjectSettings.h"
 
+#import "PKGFilePathTextField.h"
+
 @interface PKGProjectSettingsViewController : PKGSegmentViewController
+
+	@property (readonly) PKGFilePathTextField * buildPathTextField;
 
 	@property (nonatomic) PKGProjectSettings * projectSettings;
 
