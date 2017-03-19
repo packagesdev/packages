@@ -26,9 +26,7 @@
 	if (tAttributes==nil)
 	{
 		if (tError!=nil)
-		{
-			// A COMPLETER
-		}
+			NSLog(@"Unable to get the attributes of \"%@\" : %@ ",inPath,tError.description);
 		
 		return nil;
 	}
