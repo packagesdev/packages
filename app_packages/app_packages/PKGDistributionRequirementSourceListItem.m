@@ -15,20 +15,6 @@
 
 @implementation PKGDistributionRequirementSourceListItem
 
-#pragma mark - PKGObjectProtocol
-
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
-{
-	return [self init];
-}
-
-- (NSMutableDictionary *)representation
-{
-	return [NSMutableDictionary dictionary];
-}
-
-#pragma mark -
-
 - (NSString *)label
 {
 	return nil;

@@ -13,45 +13,31 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGFilePath.h"
+#import "PKGDistributionRequirementSourceListNode.h"
 
-@class PKGDistributionRequirementSourceListDataSource;
+#import "PKGRequirement.h"
 
-@protocol PKGDistributionRequirementSourceListDataSourceDelegate <NSObject>
+@interface PKGDistributionRequirementSourceListFlatTree : NSObject
 
-- (void)sourceListDataDidChange:(PKGDistributionRequirementSourceListDataSource *)inSourceListDataSource;
+	@property (readonly) NSUInteger count;
 
-@end
-
-@interface PKGDistributionRequirementSourceListDataSource : NSObject <NSTableViewDataSource>
-
-	@property (nonatomic) NSMutableArray * requirements;
-
-	@property (weak) id<PKGFilePathConverter> filePathConverter;
-
-	@property (weak) id<PKGDistributionRequirementSourceListDataSourceDelegate> delegate;
-
-	@property (nonatomic,readonly) NSUInteger numberOfItems;
-
-+ (NSArray *)supportedDraggedTypes;
-
-- (void)addRequirement:(NSTableView *)inTableView;
-- (void)editRequirement:(NSTableView *)inTableView;
-
-- (void)tableView:(NSTableView *)inTableView  setItem:(id)inRequirementItem state:(BOOL)inState;
+- (instancetype)initWithRequirements:(NSMutableArray *)inRequirements;
 
 
-- (id)itemAtIndex:(NSUInteger)inIndex;
-- (NSArray *)itemsAtIndexes:(NSIndexSet *)inIndexSet;
+- (PKGDistributionRequirementSourceListNode *)nodeAtIndex:(NSUInteger)inIndex;
 
-- (NSInteger)rowForItem:(id)inItem;
+- (NSArray *)nodesAtIndexes:(NSIndexSet *)inIndexes;
 
-- (BOOL)tableView:(NSTableView *)inTableView  shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
+- (NSUInteger)indexOfNode:(PKGDistributionRequirementSourceListNode *)inNode;
 
-- (BOOL)tableView:(NSTableView *)inTableView  renameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
+- (void)insertNodes:(NSArray *)inNodes atIndexes:(NSIndexSet *)inIndexes;
 
-- (void)tableView:(NSTableView *)inTableView duplicateItems:(NSArray *)inItems;
+- (void)removeNode:(PKGDistributionRequirementSourceListNode *)inNode;
 
-- (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems;
+- (void)removeNodesInArray:(NSArray *)inArray;
+
+- (void)addRequirement:(PKGRequirement *)inRequirement;
+
+- (PKGDistributionRequirementSourceListNode *)treeNodeForRequirement:(PKGRequirement *)inRequirement;
 
 @end

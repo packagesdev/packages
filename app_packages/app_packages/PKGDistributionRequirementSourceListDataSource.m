@@ -13,8 +13,8 @@
 
 #import "PKGDistributionRequirementSourceListDataSource.h"
 
-#import "PKGDistributionRequirementSourceListForest.h"
-#import "PKGDistributionRequirementSourceListTreeNode.h"
+#import "PKGDistributionRequirementSourceListFlatTree.h"
+#import "PKGDistributionRequirementSourceListNode.h"
 #import "PKGDistributionRequirementSourceListGroupItem.h"
 #import "PKGDistributionRequirementSourceListRequirementItem.h"
 
@@ -28,17 +28,33 @@
 
 #import "NSArray+UniqueName.h"
 
+#import "NSIndexSet+Analysis.h"
+
+NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.packages.internal.distribution.requirements";
+
 @interface PKGDistributionRequirementSourceListDataSource ()
 {
-	PKGDistributionRequirementSourceListForest * _forest;
+	PKGDistributionRequirementSourceListFlatTree * _flatTree;
+	
+	NSIndexSet * _internalDragData;
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView addRequirement:(PKGRequirement *)inRequirement;
-- (void)outlineView:(NSOutlineView *)inOutlineView addRequirements:(NSArray *)inRequirements;
+- (void)tableView:(NSTableView *)inTableView addRequirement:(PKGRequirement *)inRequirement;
+- (void)tableView:(NSTableView *)inTableView addRequirements:(NSArray *)inRequirements;
 
 @end
 
 @implementation PKGDistributionRequirementSourceListDataSource
+
++ (NSArray *)supportedDraggedTypes
+{
+	return @[NSFilenamesPboardType,PKGDistributionRequirementInternalPboardType];
+}
+
+- (void)dealloc
+{
+	_internalDragData=nil;
+}
 
 - (void)setRequirements:(NSMutableArray *)inRequirements
 {
@@ -46,7 +62,7 @@
 	{
 		_requirements=inRequirements;
 		
-		_forest=[[PKGDistributionRequirementSourceListForest alloc] initWithRequirements:_requirements];
+		_flatTree=[[PKGDistributionRequirementSourceListFlatTree alloc] initWithRequirements:_requirements];
 	}
 }
 
@@ -54,39 +70,144 @@
 
 - (NSUInteger)numberOfItems
 {
-	return _forest.numberOfNodes;
+	return _flatTree.count;
 }
 
-#pragma mark - NSOutlineViewDataSource
+#pragma mark - NSTableViewDataSource
 
-- (NSInteger)outlineView:(NSOutlineView *)inOutlineView numberOfChildrenOfItem:(PKGTreeNode *)inTreeNode
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)inTableView
 {
-	if (inTreeNode==nil)
-		return _forest.rootNodes.count;
+	if (_flatTree==nil)
+		return 0;
 	
-	return inTreeNode.numberOfChildren;
-}
-
-- (id)outlineView:(NSOutlineView *)inOutlineView child:(NSInteger)inIndex ofItem:(PKGTreeNode *)inTreeNode
-{
-	if (inTreeNode==nil)
-		return _forest.rootNodes[inIndex];
-	
-	return [inTreeNode descendantNodeAtIndex:inIndex];
-}
-
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView isItemExpandable:(PKGTreeNode *)inTreeNode
-{
-	return ([inTreeNode isLeaf]==NO);
+	return _flatTree.count;
 }
 
 #pragma mark - Drag and Drop support
 
-// A COMPLETER
+- (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
+{
+	NSMutableSet * tMutableSet=[NSMutableSet set];
+	
+	NSArray * tItems=[_flatTree nodesAtIndexes:inRowIndexes];
+	
+	for(PKGDistributionRequirementSourceListNode * tNode in tItems)
+	{
+		PKGDistributionRequirementSourceListNode * tParent=tNode.parent;
+		
+		if (tParent==nil)
+			return NO;
+		
+		[tMutableSet addObject:tParent];
+	}
+	
+	if (tMutableSet.count!=1)	// Only one type of requirements in a drag
+		return NO;
+	
+	_internalDragData=inRowIndexes;	// A COMPLETER (Find how to empty it when the drag and drop is done)
+	
+	[inPasteboard declareTypes:@[PKGDistributionRequirementInternalPboardType] owner:self];		// Make the external drag a promised case since it will be less usual IMHO
+	
+	[inPasteboard setData:[NSData data] forType:PKGDistributionRequirementInternalPboardType];
+	
+	return YES;
+}
+
+- (NSDragOperation)tableView:(NSTableView *)inTableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)inRow proposedDropOperation:(NSTableViewDropOperation)inDropOperation
+{
+	if (inDropOperation==NSTableViewDropOn)
+		return NSDragOperationNone;
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	// Internal Drag
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGDistributionRequirementInternalPboardType]]!=nil && [info draggingSource]==inTableView)
+	{
+		PKGDistributionRequirementSourceListNode * tDroppedNode=[_flatTree nodeAtIndex:_internalDragData.firstIndex];
+		NSUInteger tFirstDroppableRow=[_flatTree indexOfNode:tDroppedNode.parent];
+		NSUInteger tLastDroppableRow=tDroppedNode.parent.numberOfChildren+tFirstDroppableRow;
+		
+		NSLog(@"%ld %ld",(long)tFirstDroppableRow,(long)tLastDroppableRow);
+		
+		if (inRow<tFirstDroppableRow || inRow>(tLastDroppableRow+1))
+			return NSDragOperationNone;
+		
+		if ([_internalDragData WB_containsOnlyOneRange]==YES)
+		{
+			NSUInteger tFirstIndex=_internalDragData.firstIndex;
+			NSUInteger tLastIndex=_internalDragData.lastIndex;
+			
+			if (inRow>=tFirstIndex && inRow<=(tLastIndex+1))
+				return NSDragOperationNone;
+		}
+		else
+		{
+			if ([_internalDragData containsIndex:(inRow-1)]==YES)
+				return NSDragOperationNone;
+		}
+		
+		return NSDragOperationMove;
+	}
+	
+	// A COMPLETER
+	
+	return NSDragOperationNone;
+}
+
+- (BOOL)tableView:(NSTableView *)inTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)inRow dropOperation:(NSTableViewDropOperation)inDropOperation
+{
+	if (inTableView==nil)
+		return NO;
+	
+	// Internal drag and drop
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGDistributionRequirementInternalPboardType]]!=nil && [info draggingSource]==inTableView)
+	{
+		NSArray * tNodes=[_flatTree nodesAtIndexes:_internalDragData];
+		PKGDistributionRequirementSourceListNode * tParent=((PKGDistributionRequirementSourceListNode *)tNodes.lastObject).parent;
+		
+		[_flatTree removeNodesInArray:tNodes];
+		
+		NSUInteger tIndex=[_internalDragData firstIndex];
+		
+		while (tIndex!=NSNotFound)
+		{
+			if (tIndex<inRow)
+				inRow--;
+			
+			tIndex=[_internalDragData indexGreaterThanIndex:tIndex];
+		}
+		
+		[_flatTree insertNodes:tNodes atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inRow, tNodes.count)]];
+		
+		for(PKGDistributionRequirementSourceListNode * tNode in tNodes)
+			tNode.parent=tParent;
+		
+		_internalDragData=nil;
+		
+		[inTableView deselectAll:nil];
+		
+		[self.delegate sourceListDataDidChange:self];
+		
+		[inTableView reloadData];
+		
+		[inTableView selectRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inRow,_internalDragData.count)]
+				 byExtendingSelection:NO];
+		
+		return YES;
+	}
+	
+	// A COMPLETER
+	
+	return NO;
+}
 
 #pragma mark -
 
-- (void)addRequirement:(NSOutlineView *)inOutlineView
+- (void)addRequirement:(NSTableView *)inTableView
 {
 	PKGRequirement * tNewRequirement=[PKGRequirement new];
 	
@@ -96,7 +217,7 @@
 	tRequirementPanel.prompt=NSLocalizedString(@"Add", @"");
 	tRequirementPanel.requirement=tNewRequirement;
 	
-	[tRequirementPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bResult) {
+	[tRequirementPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bResult) {
 		
 		if (bResult==PKGPanelCancelButton)
 			return;
@@ -115,15 +236,15 @@
 			tNewRequirement.name=@"";
 		}
 		
-		[self outlineView:inOutlineView addRequirement:tNewRequirement];
+		[self tableView:inTableView addRequirement:tNewRequirement];
 	}];
 }
 
-- (void)editRequirement:(NSOutlineView *)inOutlineView
+- (void)editRequirement:(NSTableView *)inTableView
 {
-	NSUInteger tIndex=inOutlineView.WB_selectedOrClickedRowIndexes.firstIndex;
-	PKGDistributionRequirementSourceListTreeNode * tTreeNode=[inOutlineView itemAtRow:tIndex];
-	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)[tTreeNode representedObject];
+	NSUInteger tIndex=inTableView.WB_selectedOrClickedRowIndexes.firstIndex;
+	PKGDistributionRequirementSourceListNode * tTreeNode=[_flatTree nodeAtIndex:tIndex];
+	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)tTreeNode.representedObject;
 	PKGRequirement * tOriginalRequirement=tRequirementItem.requirement;
 	PKGRequirement * tEditedRequirement=[tOriginalRequirement copy];
 
@@ -131,7 +252,7 @@
 
 	tRequirementPanel.requirement=tEditedRequirement;
 
-	[tRequirementPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bResult) {
+	[tRequirementPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bResult) {
 
 		if (bResult==PKGPanelCancelButton)
 				return;
@@ -162,24 +283,41 @@
 		
 			[self.requirements removeObject:tOriginalRequirement];
 			
-			PKGDistributionRequirementSourceListTreeNode * tParentNode=(PKGDistributionRequirementSourceListTreeNode *)[tTreeNode parent];
+			[_flatTree removeNode:tTreeNode];
 			
-			[tTreeNode removeFromParent];
-			
-			if ([tParentNode numberOfChildren]==0)
-				[_forest.rootNodes removeObject:tParentNode];
-			
-			[self outlineView:inOutlineView addRequirement:tEditedRequirement];
+			[self tableView:inTableView addRequirement:tEditedRequirement];
 		});
 	}];
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView setItem:(PKGDistributionRequirementSourceListTreeNode *)inRequirementTreeNode state:(BOOL)inState
+#pragma mark -
+
+- (id)itemAtIndex:(NSUInteger)inIndex
 {
-	if (inOutlineView==nil || inRequirementTreeNode==nil)
+	return [_flatTree nodeAtIndex:inIndex];
+}
+
+- (NSArray *)itemsAtIndexes:(NSIndexSet *)inIndexSet
+{
+	return [_flatTree nodesAtIndexes:inIndexSet];
+}
+
+- (NSInteger)rowForItem:(id)inItem
+{
+	if (inItem==nil)
+		return -1;
+	
+	NSUInteger tIndex=[_flatTree indexOfNode:inItem];
+	
+	return (tIndex==NSNotFound) ? -1 : tIndex;
+}
+
+- (void)tableView:(NSTableView *)inTableView setItem:(PKGDistributionRequirementSourceListNode *)inRequirementTreeNode state:(BOOL)inState
+{
+	if (inTableView==nil || inRequirementTreeNode==nil)
 		return;
 	
-	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=[inRequirementTreeNode representedObject];
+	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=inRequirementTreeNode.representedObject;
 	PKGRequirement * tRequirement=tRequirementItem.requirement;
 	
 	if (tRequirement.isEnabled==inState)
@@ -190,17 +328,17 @@
 	[self.delegate sourceListDataDidChange:self];
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView addRequirement:(PKGRequirement *)inRequirement
+- (void)tableView:(NSTableView *)inTableView addRequirement:(PKGRequirement *)inRequirement
 {
 	if (inRequirement==nil)
 		return;
 	
-	[self outlineView:inOutlineView addRequirements:@[inRequirement]];
+	[self tableView:inTableView addRequirements:@[inRequirement]];
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView addRequirements:(NSArray *)inRequirements
+- (void)tableView:(NSTableView *)inTableView addRequirements:(NSArray *)inRequirements
 {
-	if (inOutlineView==nil || inRequirements.count==0)
+	if (inTableView==nil || inRequirements.count==0)
 		return;
 	
 	NSMutableSet * tMutableSet=[NSMutableSet set];
@@ -216,7 +354,7 @@
 		
 		[self.requirements addObject:tRequirement];
 		
-		[_forest addRequirement:tRequirement];
+		[_flatTree addRequirement:tRequirement];
 		
 		[tMutableSet addObject:tRequirement];
 	}
@@ -225,12 +363,9 @@
 		return;
 	
 	
+	[inTableView reloadData];
 	
 	// Post Notification
-	
-	// A COMPLETER
-	
-	[inOutlineView reloadData];
 	
 	[self.delegate sourceListDataDidChange:self];
 	
@@ -238,12 +373,9 @@
 	
 	for(PKGRequirement * tRequirement in tMutableSet)
 	{
-		PKGDistributionRequirementSourceListTreeNode * tTreeNode=[_forest treeNodeForRequirement:tRequirement];
+		PKGDistributionRequirementSourceListNode * tTreeNode=[_flatTree treeNodeForRequirement:tRequirement];
 		
-		if ([inOutlineView isItemExpanded:tTreeNode.parent]==NO)
-			[inOutlineView expandItem:tTreeNode.parent];
-		
-		NSInteger tSelectedRow=(tTreeNode==nil) ? 0 : [inOutlineView rowForItem:tTreeNode];
+		NSInteger tSelectedRow=(tTreeNode==nil) ? 0 : [_flatTree indexOfNode:tTreeNode];
 		
 		if (tSelectedRow==-1)
 			tSelectedRow=0;
@@ -251,17 +383,17 @@
 		[tMutableIndexSet addIndex:tSelectedRow];
 	}
 	
-	[inOutlineView scrollRowToVisible:(tMutableIndexSet.firstIndex==NSNotFound) ? 0 : tMutableIndexSet.firstIndex];
+	[inTableView scrollRowToVisible:(tMutableIndexSet.firstIndex==NSNotFound) ? 0 : tMutableIndexSet.firstIndex];
 	
-	[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+	[inTableView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameRequirement:(PKGDistributionRequirementSourceListTreeNode *)inRequirementTreeNode as:(NSString *)inNewName
+- (BOOL)tableView:(NSTableView *)inTableView shouldRenameRequirement:(PKGDistributionRequirementSourceListNode *)inRequirementTreeNode as:(NSString *)inNewName
 {
-	if (inOutlineView==nil || inRequirementTreeNode==nil || inNewName==nil)
+	if (inTableView==nil || inRequirementTreeNode==nil || inNewName==nil)
 		return NO;
 	
-	PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *) [inRequirementTreeNode representedObject]).requirement;
+	PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *) inRequirementTreeNode.representedObject).requirement;
 	NSString * tName=tRequirement.name;
 	
 	if ([tName compare:inNewName]==NSOrderedSame)
@@ -270,12 +402,12 @@
 	if ([tName caseInsensitiveCompare:inNewName]!=NSOrderedSame)
 	{
 		NSUInteger tLength=inNewName.length;
-		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inRequirementTreeNode]];
-		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView columnWithIdentifier:@"requirement"]];
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[_flatTree indexOfNode:inRequirementTreeNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inTableView columnWithIdentifier:@"requirement"]];
 		
 		if (tLength==0)
 		{
-			[inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+			[inTableView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
 			return NO;
 		}
 	}
@@ -283,40 +415,40 @@
 	return YES;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameRequirement:(PKGDistributionRequirementSourceListTreeNode *)inRequirementTreeNode as:(NSString *)inNewName
+- (BOOL)tableView:(NSTableView *)inTableView renameRequirement:(PKGDistributionRequirementSourceListNode *)inRequirementTreeNode as:(NSString *)inNewName
 {
-	if (inOutlineView==nil || inRequirementTreeNode==nil || inNewName==nil)
+	if (inTableView==nil || inRequirementTreeNode==nil || inNewName==nil)
 		return NO;
 	
-	PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *) [inRequirementTreeNode representedObject]).requirement;
+	PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *) inRequirementTreeNode.representedObject).requirement;
 	
 	tRequirement.name=inNewName;
 	
-	[inOutlineView reloadData];
+	[inTableView reloadData];
 	
 	[self.delegate sourceListDataDidChange:self];
 	
-	NSInteger tSelectedRow=[inOutlineView rowForItem:inRequirementTreeNode];
+	NSInteger tSelectedRow=[_flatTree indexOfNode:inRequirementTreeNode];
 	
 	if (tSelectedRow!=-1)
 	{
-		[inOutlineView scrollRowToVisible:tSelectedRow];
-		[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tSelectedRow] byExtendingSelection:NO];
+		[inTableView scrollRowToVisible:tSelectedRow];
+		[inTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tSelectedRow] byExtendingSelection:NO];
 	}
 	
 	return YES;
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView duplicateItems:(NSArray *)inItems
+- (void)tableView:(NSTableView *)inTableView duplicateItems:(NSArray *)inItems
 {
-	if (inOutlineView==nil || inItems.count==0)
+	if (inTableView==nil || inItems.count==0)
 		return;
 	
 	__block NSMutableArray * tTemporaryComponents=[self.requirements mutableCopy];
 	
-	NSArray * tDuplicatedPackageComponents=[inItems WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGRequirement *(PKGDistributionRequirementSourceListTreeNode * bSourceListTreeNode, NSUInteger bIndex) {
+	NSArray * tDuplicatedPackageComponents=[inItems WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGRequirement *(PKGDistributionRequirementSourceListNode * bSourceListNode, NSUInteger bIndex) {
 		
-		PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=[bSourceListTreeNode representedObject];
+		PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=bSourceListNode.representedObject;
 		
 		PKGRequirement * tNewRequirement=[tRequirementItem.requirement copy];
 		
@@ -352,48 +484,30 @@
 		return tNewRequirement;
 	}];
 	
-	[self outlineView:inOutlineView addRequirements:tDuplicatedPackageComponents];
+	[self tableView:inTableView addRequirements:tDuplicatedPackageComponents];
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems
+- (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems
 {
-	if (inOutlineView==nil || inItems.count==0)
+	if (inTableView==nil || inItems.count==0)
 		return;
 	
 	// Remove the requirements
 	
-	for(PKGTreeNode * tTreeNode in inItems)
+	for(PKGDistributionRequirementSourceListNode * tSourceListNode in inItems)
 	{
-		PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=[tTreeNode representedObject];
+		PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=tSourceListNode.representedObject;
 		
 		// A COMPLETER
 		
 		[_requirements removeObject:tRequirementItem.requirement];
 		
-		[tTreeNode removeFromParent];
+		[_flatTree removeNode:tSourceListNode];
 	}
 	
-	// Remove some groups if they don't have any descendant nodes
+	[inTableView deselectAll:nil];
 	
-	NSMutableSet * tRemovableSet=[NSMutableSet set];
-	
-	for(PKGDistributionRequirementSourceListTreeNode * tTreeNode in _forest.rootNodes)
-	{
-		PKGDistributionRequirementSourceListGroupItem * tGroupItem=[tTreeNode representedObject];
-		
-		if ([tGroupItem isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES)
-		{
-			if (tTreeNode.numberOfChildren==0)
-				[tRemovableSet addObject:tTreeNode];
-		}
-	}
-	
-	for(PKGDistributionRequirementSourceListTreeNode * tTreeNode in tRemovableSet)
-		[_forest.rootNodes removeObject:tTreeNode];
-	
-	[inOutlineView deselectAll:nil];
-	
-	[inOutlineView reloadData];
+	[inTableView reloadData];
 	
 	[self.delegate sourceListDataDidChange:self];
 }

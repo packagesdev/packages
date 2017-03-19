@@ -227,6 +227,16 @@
 	
 	_currentRequirementViewController=[[PKGRequirementPluginsManager defaultManager] createPluginUIControllerForIdentifier:inIdentifier];
 	
+	if (_currentRequirementViewController==nil)
+	{
+		NSAlert * tAlert=[NSAlert new];
+		tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The UI plugin for the requirement type (%@) could not be found", @""),inIdentifier];
+		
+		[tAlert runModal];
+		
+		return;
+	}
+	
 	if (_cachedSettingsRepresentations[inIdentifier]!=nil)
 	{
 		self.requirement.settingsRepresentation=_cachedSettingsRepresentations[inIdentifier];
@@ -239,12 +249,6 @@
 	
 	_currentRequirementViewController.settings=self.requirement.settingsRepresentation;
 	
-	if (_currentRequirementViewController==nil)
-	{
-		// A COMPLETER
-		
-		return;
-	}
 	
 	NSRect tBounds=_requirementPlaceHolderView.bounds;
 	

@@ -13,9 +13,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGObjectProtocol.h"
-
-@interface PKGDistributionRequirementSourceListItem : NSObject <PKGObjectProtocol,NSCopying>
+@interface PKGDistributionRequirementSourceListItem : NSObject <NSCopying>
 
 	@property (nonatomic,readonly,copy) NSString * label;
 

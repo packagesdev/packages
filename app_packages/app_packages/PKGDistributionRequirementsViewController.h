@@ -15,10 +15,14 @@
 
 #import "PKGDistributionRequirementSourceListDataSource.h"
 
+extern NSString * const PKGDistributionRequirementsDataDidChangeNotification;
+
 @interface PKGDistributionRequirementsViewController : PKGDocumentViewController <PKGDistributionRequirementSourceListDataSourceDelegate>
 
-	@property IBOutlet NSOutlineView * outlineView;
+	@property (readonly) NSTableView * tableView;
 
 	@property (nonatomic) PKGDistributionRequirementSourceListDataSource * dataSource;
+
+	@property (nonatomic,readonly) CGFloat maximumViewHeight;
 
 @end

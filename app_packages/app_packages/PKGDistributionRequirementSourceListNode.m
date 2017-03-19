@@ -11,47 +11,68 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+#import "PKGDistributionRequirementSourceListNode.h"
 
-#import "PKGFilePath.h"
+@interface PKGDistributionRequirementSourceListNode ()
 
-@class PKGDistributionRequirementSourceListDataSource;
+	@property (readwrite) NSUInteger numberOfChildren;
 
-@protocol PKGDistributionRequirementSourceListDataSourceDelegate <NSObject>
-
-- (void)sourceListDataDidChange:(PKGDistributionRequirementSourceListDataSource *)inSourceListDataSource;
 
 @end
 
-@interface PKGDistributionRequirementSourceListDataSource : NSObject <NSTableViewDataSource>
+@implementation PKGDistributionRequirementSourceListNode
 
-	@property (nonatomic) NSMutableArray * requirements;
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_parent=nil;
+	}
+	
+	return self;
+}
 
-	@property (weak) id<PKGFilePathConverter> filePathConverter;
+- (instancetype)initWithRepresentedObject:(id<NSObject,NSCopying>)inRepresentedObject
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_representedObject=inRepresentedObject;
+		
+		_parent=nil;
+	}
+	
+	return self;
+}
 
-	@property (weak) id<PKGDistributionRequirementSourceListDataSourceDelegate> delegate;
+- (void)dealloc
+{
+	if (_parent!=nil)
+		_parent.numberOfChildren-=1;
+}
 
-	@property (nonatomic,readonly) NSUInteger numberOfItems;
+#pragma mark -
 
-+ (NSArray *)supportedDraggedTypes;
+- (void)setParent:(PKGDistributionRequirementSourceListNode *)inParent
+{
+	if (_parent!=inParent)
+	{
+		if (_parent!=nil)
+			_parent.numberOfChildren-=1;
+		
+		_parent=inParent;
+		
+		if (inParent!=nil)
+			inParent.numberOfChildren+=1;
+	}
+}
 
-- (void)addRequirement:(NSTableView *)inTableView;
-- (void)editRequirement:(NSTableView *)inTableView;
-
-- (void)tableView:(NSTableView *)inTableView  setItem:(id)inRequirementItem state:(BOOL)inState;
-
-
-- (id)itemAtIndex:(NSUInteger)inIndex;
-- (NSArray *)itemsAtIndexes:(NSIndexSet *)inIndexSet;
-
-- (NSInteger)rowForItem:(id)inItem;
-
-- (BOOL)tableView:(NSTableView *)inTableView  shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
-
-- (BOOL)tableView:(NSTableView *)inTableView  renameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
-
-- (void)tableView:(NSTableView *)inTableView duplicateItems:(NSArray *)inItems;
-
-- (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems;
+- (BOOL)isLeaf
+{
+	return (self.parent!=nil);
+}
 
 @end

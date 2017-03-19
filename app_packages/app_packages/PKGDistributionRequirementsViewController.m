@@ -13,12 +13,12 @@
 
 #import "PKGDistributionRequirementsViewController.h"
 
-#import "PKGDistributionRequirementSourceListTreeNode.h"
+#import "PKGDistributionRequirementSourceListNode.h"
 
 #import "PKGDistributionRequirementSourceListGroupItem.h"
 #import "PKGDistributionRequirementSourceListRequirementItem.h"
 
-#import "NSOutlineView+Selection.h"
+#import "NSTableView+Selection.h"
 #import "NSAlert+block.h"
 
 #import "PKGCheckboxTableCellView.h"
@@ -39,6 +39,8 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	IBOutlet NSButton * _editButton;
 }
 
+	@property (readwrite) IBOutlet NSTableView * tableView;
+
 - (IBAction)addRequirement:(id)sender;
 - (IBAction)duplicate:(id)sender;
 - (IBAction)delete:(id)sender;
@@ -54,18 +56,18 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 {
     [super WB_viewDidLoad];
 	
-	// A COMPLETER
+	[self.tableView registerForDraggedTypes:[PKGDistributionRequirementSourceListDataSource supportedDraggedTypes]];
 }
 
 #pragma mark -
 
-- (void)setDataSource:(id<NSOutlineViewDataSource>)inDataSource
+- (void)setDataSource:(id<NSTableViewDataSource>)inDataSource
 {
 	_dataSource=inDataSource;
 	_dataSource.delegate=self;
 	
-	if (self.outlineView!=nil)
-		self.outlineView.dataSource=_dataSource;
+	if (self.tableView!=nil)
+		self.tableView.dataSource=_dataSource;
 }
 
 - (CGFloat)maximumViewHeight
@@ -75,10 +77,10 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	if (tNumberOfRows<3)
 		tNumberOfRows=3;
 	
-	CGFloat tRowHeight=self.outlineView.rowHeight;
-	NSSize tIntercellSpacing=self.outlineView.intercellSpacing;
+	CGFloat tRowHeight=self.tableView.rowHeight;
+	NSSize tIntercellSpacing=self.tableView.intercellSpacing;
 	
-	return NSHeight(self.view.frame)-NSHeight(self.outlineView.enclosingScrollView.frame)+tRowHeight*tNumberOfRows+(tNumberOfRows-1)*tIntercellSpacing.height+4.0;
+	return NSHeight(self.view.frame)-NSHeight(self.tableView.enclosingScrollView.frame)+tRowHeight*tNumberOfRows+(tNumberOfRows-1)*tIntercellSpacing.height+4.0;
 }
 
 #pragma mark -
@@ -87,23 +89,21 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 {
 	[super WB_viewWillAppear];
 	
-	self.outlineView.dataSource=self.dataSource;
+	self.tableView.dataSource=self.dataSource;
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
 	
-	[self.outlineView reloadData];
-	
-	[self.outlineView expandItem:nil expandChildren:YES];
+	[self.tableView reloadData];
 	
 	// Restore selection
 	
+	// A COMPLETER
+	
 	_addButton.enabled=YES;		// A VIRER
 	_removeButton.enabled=NO;
-	
-	// A COMPLETER
 }
 
 - (void)WB_viewWillDisappear
@@ -126,43 +126,43 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 
 - (IBAction)switchRequirementState:(NSButton *)sender
 {
-	NSInteger tRow=[self.outlineView rowForView:sender];
+	NSInteger tRow=[self.tableView rowForView:sender];
 	
 	if (tRow==-1)
 		return;
 	
-	[self.dataSource outlineView:self.outlineView setItem:[self.outlineView itemAtRow:tRow] state:(sender.state==NSOnState)];
+	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtIndex:tRow] state:(sender.state==NSOnState)];
 }
 
 - (IBAction)addRequirement:(id)sender
 {
-	[self.dataSource addRequirement:self.outlineView];
+	[self.dataSource addRequirement:self.tableView];
 	
 	// Enter edition mode
 	
-	NSInteger tRow=self.outlineView.selectedRow;
+	NSInteger tRow=self.tableView.selectedRow;
 	
 	if (tRow==-1)
 		return;
 	
-	//[self.view.window makeFirstResponder:self.outlineView];
+	//[self.view.window makeFirstResponder:self.tableView];
 	
-	[self.outlineView editColumn:[self.outlineView columnWithIdentifier:@"requirement"] row:tRow withEvent:nil select:YES];
+	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"requirement"] row:tRow withEvent:nil select:YES];
 }
 
 - (IBAction)duplicate:(id)sender
 {
-	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
 	
 	if (tIndexSet.count<1)
 		return;
 	
-	[self.dataSource outlineView:self.outlineView duplicateItems:[self.outlineView WB_itemsAtRowIndexes:tIndexSet]];
+	[self.dataSource tableView:self.tableView duplicateItems:[self.dataSource itemsAtIndexes:tIndexSet]];
 }
 
 - (IBAction)delete:(id)sender
 {
-	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
 	
 	if (tIndexSet.count<1)
 		return;
@@ -179,20 +179,20 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
 		
-		[self.dataSource outlineView:self.outlineView removeItems:[self.outlineView WB_itemsAtRowIndexes:tIndexSet]];
+		[self.dataSource tableView:self.tableView removeItems:[self.dataSource itemsAtIndexes:tIndexSet]];
 	}];
 }
 
 - (IBAction)editRequirement:(id)sender
 {
-	[self.dataSource editRequirement:self.outlineView];
+	[self.dataSource editRequirement:self.tableView];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
 	SEL tAction=inMenuItem.action;
 	
-	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
 	
 	BOOL (^validateSelection)(NSIndexSet *) = ^BOOL(NSIndexSet * bSelectionIndex)
 	{
@@ -200,8 +200,8 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 		
 		[bSelectionIndex enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 			
-			PKGDistributionRequirementSourceListTreeNode * tSourceListTreeNode=[self.outlineView itemAtRow:bIndex];
-			PKGDistributionRequirementSourceListRequirementItem * tSourceListItem=tSourceListTreeNode.representedObject;
+			PKGDistributionRequirementSourceListNode * tSourceListNode=[self.dataSource itemAtIndex:bIndex];
+			PKGDistributionRequirementSourceListRequirementItem * tSourceListItem=tSourceListNode.representedObject;
 			
 			if ([tSourceListItem isKindOfClass:PKGDistributionRequirementSourceListRequirementItem.class]==NO)
 			{
@@ -253,38 +253,39 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	if ([tTextField isKindOfClass:NSTextField.class]==NO)
 		return;
 	
-	NSInteger tEditedRow=[self.outlineView rowForView:tTextField];
+	NSInteger tEditedRow=[self.tableView rowForView:tTextField];
 	
 	if (tEditedRow==-1)
 		return;
 	
-	PKGDistributionRequirementSourceListTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
+	PKGDistributionRequirementSourceListNode * tEditedNode=[self.dataSource itemAtIndex:tEditedRow];
 	
-	if ([self.dataSource outlineView:self.outlineView shouldRenameRequirement:tEditedNode as:tTextField.stringValue]==NO)
+	if ([self.dataSource tableView:self.tableView shouldRenameRequirement:tEditedNode as:tTextField.stringValue]==NO)
 	{
-		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
-		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"requirement"]];
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.dataSource rowForItem:tEditedNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.tableView columnWithIdentifier:@"requirement"]];
 		
-		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+		[self.tableView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
 		
 		return;
 	}
 	
-	[self.dataSource outlineView:self.outlineView renameRequirement:tEditedNode as:tTextField.stringValue];
+	[self.dataSource tableView:self.tableView renameRequirement:tEditedNode as:tTextField.stringValue];
 }
 
-#pragma mark - NSOutlineViewDelegate
+#pragma mark - NSTableViewDelegate
 
-- (NSView *)outlineView:(NSOutlineView *)inOutlineView viewForTableColumn:(NSTableColumn *)inTableColumn item:(PKGDistributionRequirementSourceListTreeNode *)inSourceListTreeNode
+- (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {
-	if (inOutlineView!=self.outlineView)
+	if (inTableView!=self.tableView)
 		return nil;
 	
-	PKGDistributionRequirementSourceListItem * tSourceListItem=inSourceListTreeNode.representedObject;
+	PKGDistributionRequirementSourceListNode * tSourceListNode=[self.dataSource itemAtIndex:inRow];
+	PKGDistributionRequirementSourceListItem * tSourceListItem=tSourceListNode.representedObject;
 	
 	if ([tSourceListItem isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES)
 	{
-		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
+		NSTableCellView * tView=[inTableView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
 		tView.backgroundStyle=NSBackgroundStyleDark;
 		tView.textField.stringValue=tSourceListItem.label;
@@ -295,7 +296,7 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	if ([tSourceListItem isKindOfClass:PKGDistributionRequirementSourceListRequirementItem.class]==YES)
 	{
 		NSString * tTableColumnIdentifier=inTableColumn.identifier;
-		NSTableCellView * tTableCellView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
+		NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:@"DataCell" owner:self];
 		
 		PKGRequirement * tRequirement=((PKGDistributionRequirementSourceListRequirementItem *)tSourceListItem).requirement;
 		
@@ -320,28 +321,25 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView isGroupItem:(PKGDistributionRequirementSourceListTreeNode *)inSourceListTreeNode
+- (BOOL)tableView:(NSTableView *)inTableView isGroupRow:(NSInteger)inRow
 {
-	if (inOutlineView!=self.outlineView)
-		return nil;
+	if (self.tableView!=inTableView)
+		return NO;
 	
-	return ([inSourceListTreeNode.representedObject isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES);
+	PKGDistributionRequirementSourceListNode * tSourceListNode=[self.dataSource itemAtIndex:inRow];
+	
+	return ([tSourceListNode.representedObject isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES);
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldShowOutlineCellForItem:(id)inItem
-{
-	return NO;
-}
 
-- (NSIndexSet *)outlineView:(NSOutlineView *)inOutlineView selectionIndexesForProposedSelection:(NSIndexSet *)inProposedSelectionIndexes
+- (NSIndexSet *)tableView:(NSTableView *)inTableView selectionIndexesForProposedSelection:(NSIndexSet *)inProposedSelectionIndexes
 {
 	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
 	
 	[inProposedSelectionIndexes enumerateIndexesUsingBlock:^(NSUInteger bIndex,BOOL * bOutStop){
 		
-		PKGDistributionRequirementSourceListTreeNode * tSourceListTreeNode=[inOutlineView itemAtRow:bIndex];
-		
-		PKGDistributionRequirementSourceListItem * tSourceListItem=[tSourceListTreeNode representedObject];
+		PKGDistributionRequirementSourceListNode * tSourceListNode=[self.dataSource itemAtIndex:bIndex];
+		PKGDistributionRequirementSourceListItem * tSourceListItem=tSourceListNode.representedObject;
 		
 		if ([tSourceListItem isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES)
 			return;
@@ -363,12 +361,12 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 
 #pragma mark - Notifications
 
-- (void)outlineViewSelectionDidChange:(NSNotification *)inNotification
+- (void)tableViewSelectionDidChange:(NSNotification *)inNotification
 {
-	if (inNotification.object!=self.outlineView)
+	if (inNotification.object!=self.tableView)
 		return;
 	
-	NSIndexSet * tSelectionIndexSet=self.outlineView.selectedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.tableView.selectedRowIndexes;
 	
 	// Delete button state
 	

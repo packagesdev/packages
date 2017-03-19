@@ -13,45 +13,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGFilePath.h"
+@interface PKGDistributionRequirementSourceListNode : NSObject
 
-@class PKGDistributionRequirementSourceListDataSource;
+	@property id<NSObject,NSCopying> representedObject;
 
-@protocol PKGDistributionRequirementSourceListDataSourceDelegate <NSObject>
+	@property (nonatomic,weak) PKGDistributionRequirementSourceListNode * parent;
 
-- (void)sourceListDataDidChange:(PKGDistributionRequirementSourceListDataSource *)inSourceListDataSource;
+	@property (readonly,getter=isLeaf) BOOL leaf;
 
-@end
+	@property (readonly) NSUInteger numberOfChildren;
 
-@interface PKGDistributionRequirementSourceListDataSource : NSObject <NSTableViewDataSource>
-
-	@property (nonatomic) NSMutableArray * requirements;
-
-	@property (weak) id<PKGFilePathConverter> filePathConverter;
-
-	@property (weak) id<PKGDistributionRequirementSourceListDataSourceDelegate> delegate;
-
-	@property (nonatomic,readonly) NSUInteger numberOfItems;
-
-+ (NSArray *)supportedDraggedTypes;
-
-- (void)addRequirement:(NSTableView *)inTableView;
-- (void)editRequirement:(NSTableView *)inTableView;
-
-- (void)tableView:(NSTableView *)inTableView  setItem:(id)inRequirementItem state:(BOOL)inState;
-
-
-- (id)itemAtIndex:(NSUInteger)inIndex;
-- (NSArray *)itemsAtIndexes:(NSIndexSet *)inIndexSet;
-
-- (NSInteger)rowForItem:(id)inItem;
-
-- (BOOL)tableView:(NSTableView *)inTableView  shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
-
-- (BOOL)tableView:(NSTableView *)inTableView  renameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
-
-- (void)tableView:(NSTableView *)inTableView duplicateItems:(NSArray *)inItems;
-
-- (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems;
+- (instancetype)initWithRepresentedObject:(id<NSObject,NSCopying>)inRepresentedObject;
 
 @end
