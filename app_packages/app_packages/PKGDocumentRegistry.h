@@ -11,4 +11,7 @@
 
 - (void)removeObjectForKey:(NSString *)inKey;
 
+- (id)objectForKeyedSubscript:(id)inKey;
+- (void)setObject:(id)inObject forKeyedSubscript:(id)inKey;
+
 @end

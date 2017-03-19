@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -20,6 +20,8 @@ extern NSString * const PKGPayloadItemsPboardType;
 @class PKGPayloadDataSource;
 
 @protocol PKGPayloadDataSourceDelegate <NSObject>
+
+- (NSMutableDictionary *)disclosedDictionary;
 
 - (void)payloadDataDidChange:(PKGPayloadDataSource *)inPayloadDataSource;
 
@@ -85,7 +87,7 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 - (void)outlineView:(NSOutlineView *)inOutlineView contractItem:(id)inItem;
 
-- (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object;
+- (void)expandByDefault:(NSOutlineView *)inOutlineView;
 
 - (void)outlineView:(NSOutlineView *)inOutlineView transformItemIfNeeded:(id)inItem;
 

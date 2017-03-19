@@ -80,6 +80,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	NSArray * _optimizedFilesFilters;
 	
 	NSTimeInterval _lastRefreshTimeMark;
+	
+	BOOL _restoringDiscloseStates;
 }
 
 - (IBAction)showInFinder:(id)sender;
@@ -141,6 +143,20 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 - (BOOL)highlightExcludedItems
 {
 	return [PKGApplicationPreferences sharedPreferences].highlightExcludedFiles;
+}
+
+- (NSString *)disclosedStateKey
+{
+	return [NSString stringWithFormat:self.disclosedStateFormatKey,@""/*cachedPackageUUID_*/];
+}
+
+- (NSString *)disclosedStateFormatKey
+{
+	return @"toto %@";
+	
+	//NSString * const ICFILE_HIERARCHY_DISCLOSED_STATE=@"ui.package[%@].files.disclosed";
+	
+	return nil;
 }
 
 #pragma mark -
@@ -212,7 +228,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	[self refreshHierarchy];
 	
-	[self.hierarchyDataSource outlineView:self.outlineView restoreExpansionsState:nil];
+	
 	
 	
 	
@@ -235,6 +251,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 - (void)refreshHierarchy
 {
 	[self.outlineView reloadData];
+	
+	[self restoreDisclosedStates];
 }
 
 #pragma mark -
@@ -260,6 +278,55 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	_informationLabel=(inInformationLabel!=nil) ? [inInformationLabel copy] : @"";
 	
 	[self refreshUI];
+}
+
+#pragma mark - Restoration
+
+- (void)restoreDisclosedStates
+{
+	NSDictionary * tDictionary=self.documentRegistry[self.disclosedStateKey];
+	
+	if (tDictionary.count==0)
+	{
+		[self.hierarchyDataSource expandByDefault:self.outlineView];
+		
+		return;
+	}
+	
+	__block __weak void (^_weakDiscloseNodeAndDescendantsIfNeeded)(PKGPayloadTreeNode *);
+	__block void(^_discloseNodeAndDescendantsIfNeeded)(PKGPayloadTreeNode *);
+	
+	_discloseNodeAndDescendantsIfNeeded = ^(PKGPayloadTreeNode * bTreeNode)
+	{
+		if (bTreeNode==nil)
+			return;
+		
+		if ([bTreeNode isLeaf]==YES)
+			return;
+		
+		NSString * tFilePath=bTreeNode.filePath;
+		
+		[self.outlineView expandItem:bTreeNode];
+		
+		// Check children
+		
+		NSArray * tChildren=[bTreeNode children];
+		
+		for(PKGPayloadTreeNode * tTreeNode in tChildren)
+			_weakDiscloseNodeAndDescendantsIfNeeded(tTreeNode);
+		
+		if (tDictionary[tFilePath]==nil)
+			[self.outlineView collapseItem:bTreeNode];
+	};
+	
+	_weakDiscloseNodeAndDescendantsIfNeeded = _discloseNodeAndDescendantsIfNeeded;
+	
+	_restoringDiscloseStates=YES;
+	
+	for(PKGPayloadTreeNode * tTreeNode in self.hierarchyDataSource.rootNodes)
+		_discloseNodeAndDescendantsIfNeeded(tTreeNode);
+	
+	_restoringDiscloseStates=NO;
 }
 
 #pragma mark -
@@ -740,6 +807,11 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 #pragma mark - PKGPayloadDataSourceDelegate
 
+- (NSMutableDictionary *)disclosedDictionary
+{
+	return self.documentRegistry[self.disclosedStateKey];
+}
+
 - (void)payloadDataDidChange:(PKGPayloadDataSource *)inPayloadDataSource
 {
 	[self noteDocumentHasChanged];
@@ -829,6 +901,95 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	}];
 	
 	// A COMPLETER
+}
+
+- (void)outlineViewItemDidExpand:(NSNotification *)inNotification
+{
+	if (_restoringDiscloseStates==YES)
+		return;
+	
+	if (inNotification.object!=self.outlineView)
+		return;
+	
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	if (tUserInfo==nil)
+		return;
+	
+	PKGPayloadTreeNode * tTreeNode=(PKGPayloadTreeNode *) tUserInfo[@"NSObject"];
+	if (tTreeNode==nil)
+		return;
+	
+	NSString * tFilePath=tTreeNode.filePath;
+	
+	NSString * tKey=[self disclosedStateKey];
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
+	
+	if (tDisclosedDictionary==nil)
+	{
+		tDisclosedDictionary=[NSMutableDictionary dictionary];
+		self.documentRegistry[tKey]=tDisclosedDictionary;
+	}
+	
+	if (tDisclosedDictionary!=nil)
+		tDisclosedDictionary[tFilePath]=@(YES);
+}
+
+- (void)outlineViewItemWillCollapse:(NSNotification *)inNotification
+{
+	if (_restoringDiscloseStates==YES)
+		return;
+	
+	if (inNotification.object!=self.outlineView)
+		return;
+	
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	if (tUserInfo==nil)
+		return;
+	
+	PKGPayloadTreeNode * tTreeNode=(PKGPayloadTreeNode *) tUserInfo[@"NSObject"];
+	if (tTreeNode==nil)
+		return;
+	
+	NSString * tFilePath=tTreeNode.filePath;
+	
+	NSString * tKey=[self disclosedStateKey];
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
+	
+	if (tDisclosedDictionary==nil)
+	{
+		tDisclosedDictionary=[NSMutableDictionary dictionary];
+		self.documentRegistry[tKey]=tDisclosedDictionary;
+	}
+	
+	// Check if the option key is down or not
+	
+	NSEvent * tCurrentEvent=[NSApp currentEvent];
+	
+	if (tCurrentEvent==nil || (([tCurrentEvent modifierFlags] & NSAlternateKeyMask)==0))
+	{
+		if ([tFilePath isEqualToString:@"/"]==NO)
+		{
+			// Check the parents state
+			
+			NSString * tParentPath=tFilePath;
+			
+			do
+			{
+				tParentPath=[tParentPath stringByDeletingLastPathComponent];
+				
+				NSNumber * tNumber=tDisclosedDictionary[tParentPath];
+				
+				if (tNumber==nil)	// Parent is hidden
+					return;
+				
+				if ([tParentPath isEqualToString:@"/"]==YES)
+					break;
+			}
+			while (1);
+		}
+	}
+	
+	[tDisclosedDictionary removeObjectForKey:tFilePath];
 }
 
 - (void)highlightExludedFilesStateDidChange:(NSNotification *)inNotification

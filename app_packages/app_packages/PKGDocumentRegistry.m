@@ -72,6 +72,31 @@
 
 #pragma mark -
 
+- (id)objectForKeyedSubscript:(id)inKey
+{
+	if (inKey==nil)
+		return nil;
+	
+	return _dictionary[inKey];
+}
+
+- (void)setObject:(id)inObject forKeyedSubscript:(id)inKey
+{
+	if (inObject==nil)
+	{
+		[self removeObjectForKey:inKey];
+		
+		return;
+	}
+	
+	if (inKey==nil)
+		return;
+	
+	_dictionary[inKey]=inObject;
+}
+
+#pragma mark -
+
 - (void)removeObjectForKey:(NSString *)inKey
 {
 	if (inKey==nil)

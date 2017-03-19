@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -515,6 +515,28 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(PKGPayloadTreeNode *)inNewFolderTreeNode as:(NSString *)inNewName
 {
+	NSMutableDictionary * tDisclosedDictionary=[self.delegate disclosedDictionary];
+	NSArray * tAllKeys=tDisclosedDictionary.allKeys;
+	
+	NSString * tOldFilePath=inNewFolderTreeNode.filePath;
+	NSUInteger tLength=tOldFilePath.length;
+	NSString * tNewFilePath=[[tOldFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:inNewName];
+	NSNumber * tSharedNumber=@(YES);
+	
+	// Update the disclosed state dictionary
+	
+	for(NSString * tKey in tAllKeys)
+	{
+		if ([tKey hasPrefix:tOldFilePath]==YES)
+		{
+			[tDisclosedDictionary removeObjectForKey:tKey];
+			
+			NSString * tNewKey=[tNewFilePath stringByAppendingString:[tKey substringFromIndex:tLength]];
+			
+			tDisclosedDictionary[tNewKey]=tSharedNumber;
+		}
+	}
+	
 	[inNewFolderTreeNode setNewFolderName:inNewName];
 	
 	[self outlineView:inOutlineView transformItemIfNeeded:inNewFolderTreeNode];	// We may have to tranform the item (if the extension is removed/added)
@@ -536,7 +558,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	if (inOutlineView==nil || inItems==nil)
 		return;
 	
-	// Save the selection if needed
+	// Save the selection (if it's a control-click outside the selection)
 	
 	NSArray * tSavedSelectedItems=nil;
 	
@@ -546,10 +568,34 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			tSavedSelectedItems=[inOutlineView WB_selectedItems];
 	}
 	
+	NSMutableDictionary * tDisclosedDictionary=[self.delegate disclosedDictionary];
+	NSMutableArray * tAllKeys=[tDisclosedDictionary.allKeys mutableCopy];
+	
 	NSArray * tMinimumCover=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];
 	
-	for(PKGTreeNode * tTreeNode in tMinimumCover)
+	for(PKGPayloadTreeNode * tTreeNode in tMinimumCover)
 	{
+		// Remove the appropriate entries from the disclosed state dictionary
+		
+		if ([tTreeNode isLeaf]==NO)
+		{
+			NSString * tFilePath=tTreeNode.filePath;
+			
+			NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+			
+			[tAllKeys enumerateObjectsUsingBlock:^(NSString * bKey, NSUInteger bIndex, BOOL *bOutStop) {
+				
+				if ([bKey hasPrefix:tFilePath]==YES)
+				{
+					[tMutableIndexSet addIndex:bIndex];
+					[tDisclosedDictionary removeObjectForKey:bKey];
+				}
+			}];
+			 
+			[tAllKeys removeObjectsAtIndexes:tMutableIndexSet];
+		}
+		
+		
 		PKGTreeNode * tParentNode=tTreeNode.parent;
 		
 		// Replace the node with another one if needed
@@ -586,6 +632,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	[inOutlineView reloadData];
 	
+	// Restore the selection (if ctrl click outside the selection)
+	
 	if (tSavedSelectedItems!=nil)
 	{
 		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
@@ -600,8 +648,6 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
 	}
-	
-	// A COMPLETER (mise a jour de la selection si clicked en dehors de la selection)
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView expandItem:(PKGPayloadTreeNode *)inPayloadTreeNode options:(PKGPayloadExpandOptions)inOptions
@@ -719,7 +765,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	[inOutlineView reloadItem:inPayloadTreeNode];
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object
+- (void)expandByDefault:(NSOutlineView *)inOutlineView
 {
 }
 
@@ -992,14 +1038,38 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		return NO;
 	
 	if (inProposedTreeNode==nil && self.editableRootNodes==NO)
-		return NSDragOperationNone;
+		return NO;
 	
 	// Internal drag and drop
 	
 	if ([info draggingSource]==inOutlineView)
 	{
-		for(PKGTreeNode * tPayloadTreeNode in _internalDragData)
+		NSMutableDictionary * tDisclosedStateDictionary=[self.delegate disclosedDictionary];
+		NSNumber * tSharedNumber=@(YES);
+
+		for(PKGPayloadTreeNode * tPayloadTreeNode in _internalDragData)
 		{
+			NSMutableSet * tDisclosedNodesSet=[NSMutableSet set];
+			
+			// Save the disclosed nodes
+			
+			[tPayloadTreeNode enumerateNodesUsingBlock:^(PKGPayloadTreeNode * bPayloadTreeNode,BOOL * bOutStop){
+			
+				if ([bPayloadTreeNode isLeaf]==YES)
+					return;
+				
+				NSString * tFilePath=bPayloadTreeNode.filePath;
+				
+				if (tDisclosedStateDictionary[tFilePath]!=nil)
+				{
+					[tDisclosedNodesSet addObject:bPayloadTreeNode];
+					
+					[tDisclosedStateDictionary removeObjectForKey:tFilePath];
+				}
+			}];
+			
+			// Move the node
+			
 			if (tPayloadTreeNode.parent!=nil)
 				[tPayloadTreeNode removeFromParent];
 			else
@@ -1009,6 +1079,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
 			else
 				[tPayloadTreeNode insertAsSiblingOfChildren:self.rootNodes ofNode:nil sortedUsingSelector:@selector(compareName:)];
+			
+			// Add the disclosed nodes with the new key
+			
+			for(PKGPayloadTreeNode * tDisclosedNode in tDisclosedNodesSet)
+				tDisclosedStateDictionary[tDisclosedNode.filePath]=tSharedNumber;
 		}
 		
 		[inOutlineView deselectAll:nil];
@@ -1019,6 +1094,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		if (inProposedTreeNode!=nil && [inOutlineView isItemExpanded:inProposedTreeNode]==NO)
 			[inOutlineView expandItem:inProposedTreeNode];
+		
+		// Restore selection
 		
 		NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
 		

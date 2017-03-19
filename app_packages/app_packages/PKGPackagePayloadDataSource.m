@@ -145,6 +145,8 @@
 	}
 	else
 	{
+		NSMutableDictionary * tDisclosedStatesDictionary=[self.delegate disclosedDictionary];
+		
 		NSMutableArray * tMutableArray=self.rootNodes;
 		NSUInteger tCount=tMutableArray.count;
 		
@@ -152,8 +154,16 @@
 		{
 			PKGPayloadTreeNode * tRootNode=(PKGPayloadTreeNode *)[tMutableArray[tIndex-1] filterRecursivelyUsingBlock:^BOOL(PKGPayloadTreeNode * bPayloadTreeNode){
 			
-				return (bPayloadTreeNode.isHiddenTemplateNode==NO || bPayloadTreeNode==self.installLocationNode || [bPayloadTreeNode numberOfChildren]>0);
-			
+				BOOL tResult=(bPayloadTreeNode.isHiddenTemplateNode==NO || bPayloadTreeNode==self.installLocationNode || [bPayloadTreeNode numberOfChildren]>0);
+				
+				if (tResult==YES)
+				{
+					// Remove the entry from the disclosed state dictionary if needed
+					
+					[tDisclosedStatesDictionary removeObjectForKey:bPayloadTreeNode.filePath];
+				}
+				
+				return tResult;
 			}
 																										 maximumDepth:(self.hiddenTemplateFoldersTreeHeight==0) ? NSNotFound : self.hiddenTemplateFoldersTreeHeight];
 			
@@ -183,13 +193,9 @@
 	[self.delegate payloadDataDidChange:self];
 }
 
-- (void)outlineView:(NSOutlineView *)inOutlineView restoreExpansionsState:(id)object
+- (void)expandByDefault:(NSOutlineView *)inOutlineView
 {
-	if (object!=nil)
-	{
-		[super outlineView:inOutlineView restoreExpansionsState:object];
-		return;
-	}
+	[super expandByDefault:inOutlineView];
 	
 	// Expand the ancestors of file system items or new folder items
 	
@@ -197,7 +203,6 @@
 	
 	__block __weak void (^_weakExpandAncestorsOfItemsIfNeeded)(NSArray *,NSMutableArray *);
 	__block void(^_expandAncestorsOfItemsIfNeeded)(NSArray *,NSMutableArray *);
-	__block BOOL tFoundNonTemplateNodes=NO;
 	
 	_expandAncestorsOfItemsIfNeeded = ^(NSArray * bItems,NSMutableArray * bExpansionStack)
 	{
@@ -213,8 +218,6 @@
 			}
 			else
 			{
-				tFoundNonTemplateNodes=YES;
-				
 				// Expand Ancestors
 				
 				NSUInteger tCount=bExpansionStack.count;
@@ -238,19 +241,18 @@
 	
 	_expandAncestorsOfItemsIfNeeded(self.rootNodes,[NSMutableArray array]);
 	
-	if (tFoundNonTemplateNodes==NO)
-	{
-		// expand / and /Library
-		
-		PKGPayloadTreeNode * tRootNode=[self.rootNodes lastObject];
-		
+
+	// expand / and /Library
+	
+	PKGPayloadTreeNode * tRootNode=[self.rootNodes lastObject];
+	
+	if ([inOutlineView isItemExpanded:tRootNode]==NO)
 		[inOutlineView expandItem:tRootNode];
-		
-		PKGPayloadTreeNode *tLibraryNode=[tRootNode descendantNodeAtPath:@"/Library"];
-		
-		if (tLibraryNode!=nil)
-			[inOutlineView expandItem:tLibraryNode];
-	}
+	
+	PKGPayloadTreeNode *tLibraryNode=[tRootNode descendantNodeAtPath:@"/Library"];
+	
+	if (tLibraryNode!=nil && [inOutlineView isItemExpanded:tLibraryNode]==NO)
+		[inOutlineView expandItem:tLibraryNode];
 }
 
 
