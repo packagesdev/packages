@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -33,8 +33,6 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 - (PKGTreeNode *)deepCopyWithZone:(NSZone *)inZone;
 
 - (void)setParent:(PKGTreeNode *)inParent;
-
-- (BOOL)_enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block;
 
 @end
 
@@ -71,6 +69,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if (self!=nil)
 	{
 		_representedObject=inRepresentedObject;
+		_parent=nil;
 		
 		if (inChildren!=nil)
 		{
@@ -206,14 +205,14 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 #pragma mark -
 
-- (NSString *)description
+/*- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	
 	// A COMPLETER
 	
 	return tDescription;
-}
+}*/
 
 - (PKGTreeNode *)deepCopy
 {
@@ -765,26 +764,63 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 #pragma mark -
 
-- (BOOL)_enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block
-{
-	BOOL tBlockDidStop=NO;
-
-	(void)block(self.representedObject,&tBlockDidStop);
-	if (tBlockDidStop==YES)
-		return NO;
-
-	for(PKGTreeNode * tTreeNode in self.children)
-	{
-		if ([tTreeNode _enumerateRepresentedObjectsRecursivelyUsingBlock:block]==NO)
-			return NO;
-	}
-	
-	return YES;
-}
-																													  																																												
 - (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block
 {
-	[self _enumerateRepresentedObjectsRecursivelyUsingBlock:block];
+	typedef void (^_recursiveBlock)(id<PKGObjectProtocol>,BOOL *);
+	
+	__block __weak BOOL (^_weakEnumerateRepresentedObjectsRecursively)(PKGTreeNode *,_recursiveBlock);
+	__block BOOL(^_enumerateRepresentedObjectsRecursively)(PKGTreeNode *,_recursiveBlock);
+	
+	
+	_enumerateRepresentedObjectsRecursively = ^BOOL(PKGTreeNode * bTreeNode,_recursiveBlock bBlock)
+	{
+		BOOL tBlockDidStop=NO;
+		
+		(void)block([bTreeNode representedObject],&tBlockDidStop);
+		if (tBlockDidStop==YES)
+			return NO;
+		
+		for(PKGTreeNode * tTreeNode in [bTreeNode children])
+		{
+			if (_weakEnumerateRepresentedObjectsRecursively(tTreeNode,bBlock)==NO)
+				return NO;
+		}
+		
+		return YES;
+	};
+	
+	_weakEnumerateRepresentedObjectsRecursively = _enumerateRepresentedObjectsRecursively;
+	
+	_enumerateRepresentedObjectsRecursively(self,block);
+}
+
+- (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block
+{
+	typedef void (^_recursiveBlock)(id,BOOL *);
+	
+	__block __weak BOOL (^_weakEnumerateNodesRecursively)(PKGTreeNode *,_recursiveBlock);
+	__block BOOL(^_enumerateNodesRecursively)(PKGTreeNode *,_recursiveBlock);
+	
+	_enumerateNodesRecursively = ^BOOL(PKGTreeNode * bTreeNode,_recursiveBlock bBlock)
+	{
+		BOOL tBlockDidStop=NO;
+		
+		(void)block(bTreeNode,&tBlockDidStop);
+		if (tBlockDidStop==YES)
+			return NO;
+		
+		for(PKGTreeNode * tTreeNode in [bTreeNode children])
+		{
+			if (_weakEnumerateNodesRecursively(tTreeNode,bBlock)==NO)
+				return NO;
+		}
+		
+		return YES;
+	};
+	
+	_weakEnumerateNodesRecursively = _enumerateNodesRecursively;
+	
+	_enumerateNodesRecursively(self,block);
 }
 
 @end
