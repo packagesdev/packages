@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">14F1912</string>
-		<string key="IBDocument.InterfaceBuilderVersion">7525</string>
+		<string key="IBDocument.SystemVersion">14F2109</string>
+		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">7525</string>
+			<string key="NS.object.0">7706</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
@@ -790,6 +790,54 @@
 										<int key="NSTag">101200</int>
 										<reference key="NSTarget" ref="545669423"/>
 									</object>
+									<object class="NSMenuItem" id="764697049">
+										<reference key="NSMenu" ref="423133677"/>
+										<string key="NSTitle">10.12.1</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="427356430"/>
+										<reference key="NSMixedImage" ref="275849936"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<int key="NSTag">101201</int>
+										<reference key="NSTarget" ref="545669423"/>
+									</object>
+									<object class="NSMenuItem" id="354319971">
+										<reference key="NSMenu" ref="423133677"/>
+										<string key="NSTitle">10.12.2</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="427356430"/>
+										<reference key="NSMixedImage" ref="275849936"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<int key="NSTag">101202</int>
+										<reference key="NSTarget" ref="545669423"/>
+									</object>
+									<object class="NSMenuItem" id="869811731">
+										<reference key="NSMenu" ref="423133677"/>
+										<string key="NSTitle">10.12.3</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="427356430"/>
+										<reference key="NSMixedImage" ref="275849936"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<int key="NSTag">101203</int>
+										<reference key="NSTarget" ref="545669423"/>
+									</object>
+									<object class="NSMenuItem" id="820176046">
+										<reference key="NSMenu" ref="423133677"/>
+										<string key="NSTitle">10.12.4</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="427356430"/>
+										<reference key="NSMixedImage" ref="275849936"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<int key="NSTag">101204</int>
+										<reference key="NSTarget" ref="545669423"/>
+									</object>
 								</array>
 							</object>
 							<int key="NSPreferredEdge">3</int>
@@ -805,6 +853,7 @@
 						<string key="NSFrame">{{329, 17}, {203, 25}}</string>
 						<reference key="NSSuperview" ref="458994404"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="730402023">
 							<int key="NSCellFlags">75497472</int>
@@ -1245,6 +1294,10 @@
 							<reference ref="232981240"/>
 							<reference ref="1038571868"/>
 							<reference ref="507859685"/>
+							<reference ref="764697049"/>
+							<reference ref="354319971"/>
+							<reference ref="869811731"/>
+							<reference ref="820176046"/>
 						</array>
 						<reference key="parent" ref="545669423"/>
 					</object>
@@ -1538,6 +1591,26 @@
 						<reference key="object" ref="507859685"/>
 						<reference key="parent" ref="423133677"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">245</int>
+						<reference key="object" ref="764697049"/>
+						<reference key="parent" ref="423133677"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">246</int>
+						<reference key="object" ref="354319971"/>
+						<reference key="parent" ref="423133677"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">247</int>
+						<reference key="object" ref="869811731"/>
+						<reference key="parent" ref="423133677"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">248</int>
+						<reference key="object" ref="820176046"/>
+						<reference key="parent" ref="423133677"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1610,6 +1683,10 @@
 				<string key="241.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="242.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="243.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="245.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="246.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="247.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="248.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="5.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="71.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1625,7 +1702,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">244</int>
+			<int key="maxID">248</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1634,7 +1711,7 @@
 					<string key="superclassName">PKGViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../PKGRequirementViewController.h</string>
+						<string key="minorKey">../../../PKGRequirementViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1642,7 +1719,7 @@
 					<string key="superclassName">PKGRequirementViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerOS/PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.h</string>
+						<string key="minorKey">../PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1687,7 +1764,7 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerOS/PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.m</string>
+						<string key="minorKey">../PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.m</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1695,7 +1772,7 @@
 					<string key="superclassName">NSViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../shared/PKGViewController.h</string>
+						<string key="minorKey">../../../../../shared/PKGViewController.h</string>
 					</object>
 				</object>
 			</array>
