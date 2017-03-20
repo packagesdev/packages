@@ -39,8 +39,8 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 	NSIndexSet * _internalDragData;
 }
 
-- (void)tableView:(NSTableView *)inTableView addRequirement:(PKGRequirement *)inRequirement;
-- (void)tableView:(NSTableView *)inTableView addRequirements:(NSArray *)inRequirements;
+- (void)tableView:(NSTableView *)inTableView addRequirement:(PKGRequirement *)inRequirement completionHandler:(void(^)(BOOL))handler;
+- (void)tableView:(NSTableView *)inTableView addRequirements:(NSArray *)inRequirements completionHandler:(void(^)(BOOL))handler;
 
 @end
 
@@ -207,7 +207,7 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 
 #pragma mark -
 
-- (void)addRequirement:(NSTableView *)inTableView
+- (void)tableView:(NSTableView *)inTableView addNewRequirementWithCompletionHandler:(void(^)(BOOL))handler
 {
 	PKGRequirement * tNewRequirement=[PKGRequirement new];
 	
@@ -236,7 +236,7 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 			tNewRequirement.name=@"";
 		}
 		
-		[self tableView:inTableView addRequirement:tNewRequirement];
+		[self tableView:inTableView addRequirement:tNewRequirement completionHandler:handler];
 	}];
 }
 
@@ -285,7 +285,7 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 			
 			[_flatTree removeNode:tTreeNode];
 			
-			[self tableView:inTableView addRequirement:tEditedRequirement];
+			[self tableView:inTableView addRequirement:tEditedRequirement completionHandler:nil];
 		});
 	}];
 }
@@ -328,18 +328,23 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 	[self.delegate sourceListDataDidChange:self];
 }
 
-- (void)tableView:(NSTableView *)inTableView addRequirement:(PKGRequirement *)inRequirement
+- (void)tableView:(NSTableView *)inTableView addRequirement:(PKGRequirement *)inRequirement completionHandler:(void(^)(BOOL))handler
 {
 	if (inRequirement==nil)
 		return;
 	
-	[self tableView:inTableView addRequirements:@[inRequirement]];
+	[self tableView:inTableView addRequirements:@[inRequirement] completionHandler:handler];
 }
 
-- (void)tableView:(NSTableView *)inTableView addRequirements:(NSArray *)inRequirements
+- (void)tableView:(NSTableView *)inTableView addRequirements:(NSArray *)inRequirements completionHandler:(void(^)(BOOL))handler
 {
 	if (inTableView==nil || inRequirements.count==0)
+	{
+		if (handler!=nil)
+			handler(NO);
+		
 		return;
+	}
 	
 	NSMutableSet * tMutableSet=[NSMutableSet set];
 	
@@ -360,8 +365,12 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 	}
 	
 	if (tMutableSet.count==0)
+	{
+		if (handler!=nil)
+			handler(NO);
+		
 		return;
-	
+	}
 	
 	[inTableView reloadData];
 	
@@ -386,6 +395,9 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 	[inTableView scrollRowToVisible:(tMutableIndexSet.firstIndex==NSNotFound) ? 0 : tMutableIndexSet.firstIndex];
 	
 	[inTableView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+	
+	if (handler!=nil)
+		handler(YES);
 }
 
 - (BOOL)tableView:(NSTableView *)inTableView shouldRenameRequirement:(PKGDistributionRequirementSourceListNode *)inRequirementTreeNode as:(NSString *)inNewName
@@ -484,7 +496,7 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 		return tNewRequirement;
 	}];
 	
-	[self tableView:inTableView addRequirements:tDuplicatedPackageComponents];
+	[self tableView:inTableView addRequirements:tDuplicatedPackageComponents completionHandler:nil];
 }
 
 - (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems

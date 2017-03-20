@@ -136,18 +136,20 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 
 - (IBAction)addRequirement:(id)sender
 {
-	[self.dataSource addRequirement:self.tableView];
+	[self.dataSource tableView:self.tableView addNewRequirementWithCompletionHandler:^(BOOL bSucceeded){
 	
-	// Enter edition mode
-	
-	NSInteger tRow=self.tableView.selectedRow;
-	
-	if (tRow==-1)
-		return;
-	
-	//[self.view.window makeFirstResponder:self.tableView];
-	
-	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"requirement"] row:tRow withEvent:nil select:YES];
+		if (bSucceeded==NO)
+			return;
+		
+		// Enter edition mode
+		
+		NSInteger tRow=self.tableView.selectedRow;
+		
+		if (tRow==-1)
+			return;
+		
+		[self.tableView editColumn:[self.tableView columnWithIdentifier:@"requirement"] row:tRow withEvent:nil select:YES];
+	}];
 }
 
 - (IBAction)duplicate:(id)sender

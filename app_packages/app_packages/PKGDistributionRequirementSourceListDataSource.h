@@ -35,7 +35,7 @@
 
 + (NSArray *)supportedDraggedTypes;
 
-- (void)addRequirement:(NSTableView *)inTableView;
+- (void)tableView:(NSTableView *)inTableView addNewRequirementWithCompletionHandler:(void(^)(BOOL succeeded))handler;
 - (void)editRequirement:(NSTableView *)inTableView;
 
 - (void)tableView:(NSTableView *)inTableView  setItem:(id)inRequirementItem state:(BOOL)inState;
@@ -46,9 +46,9 @@
 
 - (NSInteger)rowForItem:(id)inItem;
 
-- (BOOL)tableView:(NSTableView *)inTableView  shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
+- (BOOL)tableView:(NSTableView *)inTableView shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
 
-- (BOOL)tableView:(NSTableView *)inTableView  renameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
+- (BOOL)tableView:(NSTableView *)inTableView renameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
 
 - (void)tableView:(NSTableView *)inTableView duplicateItems:(NSArray *)inItems;
 
