@@ -98,12 +98,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView identifier="HeaderCell" id="FNd-o8-zau" customClass="PKGRequirementGroupTableCellView">
+                                            <tableCellView identifier="HeaderCell" id="FNd-o8-zau">
                                                 <rect key="frame" x="0.0" y="0.0" width="443" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="NIU-LN-BC8">
-                                                        <rect key="frame" x="21" y="3" width="421" height="14"/>
+                                                        <rect key="frame" x="21" y="3" width="419" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="6hG-3y-rug">
                                                             <font key="font" metaFont="smallSystemBold"/>

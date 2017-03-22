@@ -21,6 +21,7 @@
 #import "NSTableView+Selection.h"
 #import "NSAlert+block.h"
 
+#import "PKGTableGroupRowView.h"
 #import "PKGCheckboxTableCellView.h"
 
 #import "PKGRequirement.h"
@@ -276,6 +277,28 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 }
 
 #pragma mark - NSTableViewDelegate
+
+- (NSTableRowView *)tableView:(NSTableView *)inTableView rowViewForRow:(NSInteger)inRow
+{
+	if (inTableView!=self.tableView)
+		return nil;
+	
+	PKGDistributionRequirementSourceListNode * tSourceListNode=[self.dataSource itemAtIndex:inRow];
+	PKGDistributionRequirementSourceListItem * tSourceListItem=tSourceListNode.representedObject;
+	
+	if ([tSourceListItem isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==NO)
+		return nil;
+	
+	PKGTableGroupRowView * tGroupView=[inTableView makeViewWithIdentifier:PKGTableGroupRowViewIdentifier owner:self];
+	
+	if (tGroupView!=nil)
+		return tGroupView;
+	
+	tGroupView=[[PKGTableGroupRowView alloc] initWithFrame:NSZeroRect];
+	tGroupView.identifier=PKGTableGroupRowViewIdentifier;
+	
+	return tGroupView;
+}
 
 - (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {

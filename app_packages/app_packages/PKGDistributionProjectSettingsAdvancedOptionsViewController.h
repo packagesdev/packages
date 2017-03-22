@@ -1,8 +1,18 @@
 
-#import "PKGViewController.h"
+#import "PKGDocumentViewController.h"
 
-@interface PKGDistributionProjectSettingsAdvancedOptionsViewController : PKGViewController
+#import "PKGDistributionProjectSettings.h"
+
+#import "PKGDistributionProjectSettingsAdvancedOptionsDataSource.h"
+
+@interface PKGDistributionProjectSettingsAdvancedOptionsViewController : PKGDocumentViewController <PKGDistributionProjectSettingsAdvancedOptionsDataSourceDelegate>
 
 	@property (readonly) NSOutlineView * outlineView;
+
+	@property (nonatomic) PKGDistributionProjectSettingsAdvancedOptionsDataSource * advancedOptionsDataSource;
+
+	@property (nonatomic,readonly) CGFloat maximumViewHeight;
+
+- (void)refreshHierarchy;
 
 @end
