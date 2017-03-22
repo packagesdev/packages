@@ -143,7 +143,7 @@
 {
 	[super WB_viewDidAppear];
 	
-	[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
+	//[self.view.window makeFirstResponder:_filesHierarchyViewController.outlineView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView];
 	
