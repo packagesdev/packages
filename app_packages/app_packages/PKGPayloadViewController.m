@@ -126,8 +126,6 @@
 	}
 	
 	[_filesHierarchyViewController WB_viewWillAppear];
-	
-	// A COMPLETER
 }
 
 - (void)WB_viewDidAppear

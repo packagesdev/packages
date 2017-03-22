@@ -19,4 +19,6 @@
 
 	@property PKGPackagePayload * payload;
 
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+
 @end

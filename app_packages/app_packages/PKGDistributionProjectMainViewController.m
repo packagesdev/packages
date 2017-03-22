@@ -50,6 +50,8 @@
 - (IBAction)selectCertificate:(id)sender;
 - (IBAction)removeCertificate:(id) sender;
 
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+
 // Notifications
 
 - (void)sourceListSelectionDidChange:(NSNotification *)inNotification;
@@ -161,6 +163,11 @@
 	[((PKGDistributionProjectViewController *)_currentContentsViewController) removeCertificate:sender];
 }
 
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
+{
+	[((PKGDistributionPackageComponentViewController *)_currentContentsViewController) switchHiddenFolderTemplatesVisibility:sender];
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem *) inMenuItem
 {
 	SEL tAction=[inMenuItem action];
@@ -169,6 +176,14 @@
 		tAction==@selector(removeCertificate:))
 	{
 		if ([_currentContentsViewController isKindOfClass:PKGDistributionProjectViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionPackageComponentViewController.class]==NO)
 			return NO;
 		
 		return [_currentContentsViewController validateMenuItem:inMenuItem];

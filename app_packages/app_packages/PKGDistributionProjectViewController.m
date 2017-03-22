@@ -28,9 +28,9 @@
 {
 	IBOutlet NSSegmentedControl * _segmentedControl;
 	
-	IBOutlet NSView * _contentView;
+	IBOutlet NSView * _contentsView;
 	
-	PKGSegmentViewController * _currentContentController;
+	PKGSegmentViewController * _currentContentsViewController;
 	
 	PKGDistributionProjectSettingsViewController * _projectSettingsController;
 	PKGDistributionRequirementsAndResourcesViewController * _requirementsAndResourcesController;
@@ -95,34 +95,34 @@
 	[_segmentedControl selectSegmentWithTag:tTag];
 	[self showTabViewWithTag:tTag];
 	
-	[_currentContentController WB_viewWillAppear];
+	[_currentContentsViewController WB_viewWillAppear];
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
 	
-	[_currentContentController WB_viewDidAppear];
+	[_currentContentsViewController WB_viewDidAppear];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
 	
-	[_currentContentController WB_viewWillDisappear];
+	[_currentContentsViewController WB_viewWillDisappear];
 }
 
 - (void)WB_viewDidDisappear
 {
 	[super WB_viewDidDisappear];
 	
-	[_currentContentController WB_viewDidDisappear];
+	[_currentContentsViewController WB_viewDidDisappear];
 }
 
 - (BOOL)PKG_viewCanBeRemoved
 {
-	if (_currentContentController!=nil)
-		return [_currentContentController PKG_viewCanBeRemoved];
+	if (_currentContentsViewController!=nil)
+		return [_currentContentsViewController PKG_viewCanBeRemoved];
 	
 	return YES;
 }
@@ -131,11 +131,11 @@
 
 - (void)showTabViewWithTag:(PKGPreferencesGeneralDistributionProjectPaneTag)inTag
 {
-	if (_currentContentController!=nil)
+	if (_currentContentsViewController!=nil)
 	{
-		if ([_currentContentController PKG_viewCanBeRemoved]==NO)
+		if ([_currentContentsViewController PKG_viewCanBeRemoved]==NO)
 		{
-			[_segmentedControl selectSegmentWithTag:_currentContentController.tag];
+			[_segmentedControl selectSegmentWithTag:_currentContentsViewController.tag];
 			
 			return;
 		}
@@ -194,37 +194,39 @@
 			break;
 	}
 	
-	if (_currentContentController==tNewSegmentViewController)
+	if (_currentContentsViewController==tNewSegmentViewController)
 		return;
 	
-	NSView * tOldView=_currentContentController.view;
+	NSView * tOldView=_currentContentsViewController.view;
 	NSView * tNewView=tNewSegmentViewController.view;
 	
-	tNewView.frame=_contentView.bounds;
+	tNewView.frame=_contentsView.bounds;
 	
 	if (self.view.window!=nil)
 	{
-		[_currentContentController WB_viewWillDisappear];
+		[_currentContentsViewController WB_viewWillDisappear];
 		[tNewSegmentViewController WB_viewWillAppear];
 	}
 	
 	[tOldView removeFromSuperview];
-	[_contentView addSubview:tNewView];
+	[_contentsView addSubview:tNewView];
 	
 	if (self.view.window!=nil)
 	{
 		[tNewSegmentViewController WB_viewDidAppear];
-		[_currentContentController WB_viewDidDisappear];
+		[_currentContentsViewController WB_viewDidDisappear];
 	}
 	
-	_currentContentController=tNewSegmentViewController;
+	_currentContentsViewController=tNewSegmentViewController;
 	
 	[self.documentRegistry setInteger:inTag forKey:@"ui.project.selected.segment"];
+	
+	[self.view.window makeFirstResponder:_currentContentsViewController];
 }
 
-- (IBAction)showTabView:(id)sender
+- (IBAction)showTabView:(NSSegmentedControl *)sender
 {
-	[self showTabViewWithTag:[sender selectedSegment]];
+	[self showTabViewWithTag:sender.selectedSegment];
 }
 
 #pragma mark -
@@ -264,10 +266,10 @@
 	if (tAction==@selector(selectCertificate:) ||
 		tAction==@selector(removeCertificate:))
 	{
-		if ([_currentContentController isKindOfClass:PKGDistributionProjectSettingsViewController.class]==NO)
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionProjectSettingsViewController.class]==NO)
 			return NO;
 		
-		return [_currentContentController validateMenuItem:inMenuItem];
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
 	}
 	
 	return YES;

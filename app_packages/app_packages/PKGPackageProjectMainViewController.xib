@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPackageProjectMainViewController">
             <connections>
-                <outlet property="_contentView" destination="r1k-GZ-Jmo" id="Yn5-wk-ety"/>
+                <outlet property="_contentsView" destination="r1k-GZ-Jmo" id="bG9-0e-VDF"/>
                 <outlet property="_segmentedControl" destination="1Pk-bt-4W1" id="dyM-xH-7uY"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>

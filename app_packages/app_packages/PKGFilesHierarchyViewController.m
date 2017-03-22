@@ -84,6 +84,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	BOOL _restoringDiscloseStates;
 }
 
+	@property (readwrite) IBOutlet NSOutlineView * outlineView;
+
 - (IBAction)showInFinder:(id)sender;
 
 - (IBAction)addFiles:(id)sender;

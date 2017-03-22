@@ -139,9 +139,22 @@
 
 #pragma mark -
 
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
+{
+	[_payloadController switchHiddenFolderTemplatesVisibility:sender];
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
-	// A COMPLETER
+	SEL tAction=[inMenuItem action];
+	
+	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:))
+	{
+		if ([_currentContentController isKindOfClass:PKGPackagePayloadViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentController validateMenuItem:inMenuItem];
+	}
 	
 	return YES;
 }
@@ -242,11 +255,13 @@
 	_currentContentController=tNewSegmentViewController;
 	
 	[self.documentRegistry setInteger:inTag forKey:[NSString stringWithFormat:@"ui.package[%@].selected.segment",self.packageComponent.UUID]];
+	
+	[self.view.window makeFirstResponder:_currentContentController];
 }
 
-- (IBAction)showTabView:(id)sender
+- (IBAction)showTabView:(NSSegmentedControl *)sender
 {
-	[self showTabViewWithTag:[sender selectedSegment]];
+	[self showTabViewWithTag:sender.selectedSegment];
 }
 
 #pragma mark -
