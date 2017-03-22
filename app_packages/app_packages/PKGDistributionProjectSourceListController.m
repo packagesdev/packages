@@ -272,8 +272,7 @@
 		});
 	}
 	
-	if (tAction==@selector(renamePackage:) ||
-		tAction==@selector(exportPackageAsProject:))
+	if (tAction==@selector(exportPackageAsProject:))
 	{
 		if (tSelectionIndexSet.count!=1)
 			return NO;
@@ -449,7 +448,7 @@
 	
 	if ([tNumber boolValue]==YES)
 	{
-		_addButton.image=[NSImage imageNamed:@"NSAddTemplate"];
+		_addButton.image=[NSImage imageNamed:@"packageReferenceAdd"];
 		_addButton.action=@selector(addPackageReference:);
 	}
 	else
