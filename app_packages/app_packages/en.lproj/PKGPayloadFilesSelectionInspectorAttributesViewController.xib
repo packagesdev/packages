@@ -74,7 +74,7 @@
                         <action selector="switchGroup:" target="-2" id="sKH-Bp-GgI"/>
                     </connections>
                 </popUpButton>
-                <scrollView horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" id="jCL-66-s0X" userLabel="Permissions">
+                <scrollView horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" id="jCL-66-s0X" userLabel="Permissions">
                     <rect key="frame" x="72" y="20" width="180" height="66"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" id="TQB-DU-Oxt">
@@ -269,7 +269,7 @@
                         <action selector="switchPermissions:" target="-2" id="haZ-EK-DAr"/>
                     </connections>
                 </popUpButton>
-                <scrollView toolTip="Special Bits. If you don't know what they are for, don't even think about modifying them" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" id="xKl-iq-ekY" userLabel="Special Bits">
+                <scrollView toolTip="Special Bits. If you don't know what they are for, don't even think about modifying them" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" id="xKl-iq-ekY" userLabel="Special Bits">
                     <rect key="frame" x="252" y="20" width="93" height="66"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" id="gkJ-yV-kmy">
