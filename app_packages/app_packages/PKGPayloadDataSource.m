@@ -187,7 +187,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		tPosixPermissions=(mode_t)((NSNumber *)tFileAttributes[NSFilePosixPermissions]).unsignedIntegerValue;
 		
-		PKGFileItem * nFileItem=[PKGFileItem fileSystemItemWithFilePath:tFilePath uid:tUid gid:tGid permissions:tPosixPermissions];
+		PKGFileItem * nFileItem=[[PKGPayloadTreeNode representedObjectClassForFileSystemItemAtPath:tAbsolutePath] fileSystemItemWithFilePath:tFilePath uid:tUid gid:tGid permissions:tPosixPermissions];
 		
 		PKGPayloadTreeNode * nFileSystemItemNode=[[PKGPayloadTreeNode alloc] initWithRepresentedObject:nFileItem children:nil];
 		
@@ -311,7 +311,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		if (tFilePath==nil)
 			return;
 		
-		PKGFileItem * tFileItem=[PKGFileItem fileSystemItemWithFilePath:tFilePath uid:tUid gid:tGid permissions:tPosixPermissions];
+		PKGFileItem * tFileItem=[[PKGPayloadTreeNode representedObjectClassForFileSystemItemAtPath:bAbsolutePath] fileSystemItemWithFilePath:tFilePath uid:tUid gid:tGid permissions:tPosixPermissions];
 		
 		PKGPayloadTreeNode * nFileSystemItemNode=[[PKGPayloadTreeNode alloc] initWithRepresentedObject:tFileItem children:nil];
 		
@@ -748,6 +748,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	// Restore Selection
 	
+	// A COMPLETER
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView contractItem:(PKGPayloadTreeNode *)inPayloadTreeNode
@@ -755,10 +756,18 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	if (inOutlineView==nil || inPayloadTreeNode==nil)
 		return;
 	
-	
 	[inOutlineView collapseItem:inPayloadTreeNode];
 	
 	[inPayloadTreeNode contract];
+	
+	NSMutableDictionary * tDisclosedStateDictionary=[self.delegate disclosedDictionary];
+	NSString * tFilePath=inPayloadTreeNode.filePath;
+	
+	for(NSString * tKey in [tDisclosedStateDictionary allKeys])
+	{
+		if ([tKey hasPrefix:tFilePath]==YES)
+			[tDisclosedStateDictionary removeObjectForKey:tKey];
+	}
 	
 	[self.delegate payloadDataDidChange:self];
 	
