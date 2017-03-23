@@ -19,9 +19,19 @@ NSString * const PKGTableGroupRowViewIdentifier=@"PKGTableGroupRowViewIdentifier
 
 - (void)drawRect:(NSRect)inDirtyRect
 {
+	// Background
+	
 	[[NSColor colorWithDeviceRed:155.0/255.0 green:178.0/255.0 blue:232.0/255.0 alpha:1.0] set];
 	
 	NSRectFill(inDirtyRect);
+	
+	// Bottom line
+	
+	NSRect tBounds=self.bounds;
+	
+	[[NSColor whiteColor] setStroke];
+	
+	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMinY(tBounds)) toPoint:NSMakePoint(NSMaxX(tBounds),NSMinY(tBounds))];
 }
 
 @end
