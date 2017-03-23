@@ -44,7 +44,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="cgf-eP-9VM">
-                    <rect key="frame" x="18" y="240" width="46" height="14"/>
+                    <rect key="frame" x="18" y="240" width="54" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Version" id="qjK-cO-QML">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -64,7 +64,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="tca-PT-I0c">
-                    <rect key="frame" x="18" y="186" width="54" height="14"/>
+                    <rect key="frame" x="18" y="186" width="65" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Locators" id="JYP-uq-Q8x">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -90,7 +90,7 @@
                         <rect key="frame" x="1" y="1" width="298" height="123"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" floatsGroupRows="NO" id="b4k-AC-nXC">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" floatsGroupRows="NO" id="b4k-AC-nXC" customClass="PKGTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="287" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="1"/>
