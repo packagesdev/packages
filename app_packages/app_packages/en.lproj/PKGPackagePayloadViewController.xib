@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PKGPayloadViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGPackagePayloadViewController">
             <connections>
                 <outlet property="_defaultDestinationLabel" destination="s7D-3l-TUe" id="Uiy-5s-ZYa"/>
                 <outlet property="_defaultDestinationSetButton" destination="LMp-WX-7rj" id="3sM-sE-QoO"/>

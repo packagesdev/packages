@@ -15,7 +15,7 @@
 
 #import "PKGPackageComponent.h"
 
-@interface PKGDistributionPackageComponentsSettingsViewController : PKGPackageSettingsViewController
+@interface PKGPackageComponentSettingsViewController : PKGPackageSettingsViewController
 
 	@property (nonatomic) PKGPackageComponent * packageComponent;
 

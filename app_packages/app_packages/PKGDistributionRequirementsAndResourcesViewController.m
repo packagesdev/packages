@@ -30,6 +30,7 @@
 {
 	IBOutlet NSButton * _rootVolumeOnlyCheckbox;
 	
+	IBOutlet NSView * _requirementsSectioniew;
 	IBOutlet NSView * _requirementsPlaceHolderView;
 	
 	IBOutlet NSView * _hierarchyPlaceHolderView;
@@ -46,6 +47,8 @@
 	
 	PKGDistributionRequirementSourceListDataSource * _requirementsSourceListDataSource;
 	PKGPayloadDataSource * _resourcesDataSource;
+	
+	CGFloat _cachedHierarchyPlaceHolderViewInitialHeight;
 }
 
 - (IBAction)switchRootVolumeOnlyRequirement:(id)sender;
@@ -54,10 +57,49 @@
 
 - (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification;
 
+- (void)viewLayoutShouldChange:(NSNotification *)inNotification;
+- (void)viewFrameDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGDistributionRequirementsAndResourcesViewController
 
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+	self=[super initWithDocument:inDocument];
+	
+	if (self!=nil)
+	{
+		// Requirements
+		
+		_requirementsSourceListDataSource=[PKGDistributionRequirementSourceListDataSource new];
+		_requirementsSourceListDataSource.filePathConverter=self.filePathConverter;
+		
+		_requirementsViewController=[[PKGDistributionRequirementsViewController alloc] initWithDocument:inDocument];
+		_requirementsViewController.dataSource=_requirementsSourceListDataSource;
+		
+		_requirementsSourceListDataSource.delegate=_requirementsViewController;
+		
+		// Additional Resources
+		
+		_resourcesDataSource=[PKGPayloadDataSource new];
+		_resourcesDataSource.editableRootNodes=YES;
+		_resourcesDataSource.filePathConverter=self.filePathConverter;
+		
+		_filesHierarchyViewController=[PKGFilesHierarchyViewController new];
+		
+		_filesHierarchyViewController.label=NSLocalizedString(@"Additional Resources", @"");
+		_filesHierarchyViewController.informationLabel=NSLocalizedString(@"These resources can be used by the above requirements and scripts \nor the requirements for the choices of the Installation Type step.", @"");
+		_filesHierarchyViewController.disclosedStateKey=@"ui.distribution.additionalResources.disclosed";
+		_filesHierarchyViewController.hierarchyDataSource=_resourcesDataSource;
+		
+		_resourcesDataSource.delegate=_filesHierarchyViewController;
+	}
+	
+	return self;
+}
+
+#pragma mark -
 
 - (NSUInteger)tag
 {
@@ -68,11 +110,11 @@
 {
     [super WB_viewDidLoad];
 	
+	_cachedHierarchyPlaceHolderViewInitialHeight=NSHeight(_hierarchyPlaceHolderView.frame);
+	
 	// A COMPLETER
 	
 	// Requirements
-	
-	_requirementsViewController=[[PKGDistributionRequirementsViewController alloc] initWithDocument:self.document];
 	
 	_requirementsViewController.view.frame=_requirementsPlaceHolderView.bounds;
 	
@@ -80,16 +122,9 @@
 	
 	// Files Hierarchy
 	
-	_filesHierarchyViewController=[PKGFilesHierarchyViewController new];
-	
-	_filesHierarchyViewController.label=NSLocalizedString(@"Additional Resources", @"");
-	_filesHierarchyViewController.informationLabel=NSLocalizedString(@"These resources can be used by the above requirements and scripts \nor the requirements for the choices of the Installation Type step.", @"");
-	
 	_filesHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
 	
 	[_hierarchyPlaceHolderView addSubview:_filesHierarchyViewController.view];
-	
-	
 }
 
 #pragma mark -
@@ -100,16 +135,9 @@
 	{
 		_requirementsAndResources=inRequirementsAndResources;
 		
-		_requirementsSourceListDataSource=[PKGDistributionRequirementSourceListDataSource new];
 		_requirementsSourceListDataSource.requirements=self.requirementsAndResources.requirements;
-		_requirementsSourceListDataSource.delegate=_requirementsViewController;
-		_requirementsSourceListDataSource.filePathConverter=self.filePathConverter;
 		
-		_resourcesDataSource=[PKGPayloadDataSource new];
-		_resourcesDataSource.editableRootNodes=YES;
 		_resourcesDataSource.rootNodes=self.requirementsAndResources.resourcesForest.rootNodes;
-		_resourcesDataSource.delegate=_filesHierarchyViewController;
-		_resourcesDataSource.filePathConverter=self.filePathConverter;
 	}
 }
 
@@ -119,14 +147,8 @@
 {
 	[super WB_viewWillAppear];
 	
-	_requirementsViewController.dataSource=_requirementsSourceListDataSource;
-	
 	[_requirementsViewController WB_viewWillAppear];
-	
-	_filesHierarchyViewController.hierarchyDataSource=_resourcesDataSource;
-	if (_resourcesDataSource!=nil)
-		_resourcesDataSource.delegate=_filesHierarchyViewController;
-	
+
 	[_filesHierarchyViewController WB_viewWillAppear];
 }
 
@@ -148,12 +170,21 @@
 	
 	[self fileHierarchySelectionDidChange:[NSNotification notificationWithName:NSOutlineViewSelectionDidChangeNotification object:_filesHierarchyViewController.outlineView]];
 
+	
+	[self viewLayoutShouldChange:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewLayoutShouldChange:) name:PKGDistributionRequirementsDataDidChangeNotification object:_requirementsViewController];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self.view];
+	
 	//[self.view.window makeFirstResponder:_requirementsViewController.outlineView];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGDistributionRequirementsDataDidChangeNotification object:_requirementsViewController];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];
 	
 	[_requirementsViewController WB_viewWillDisappear];
 	
@@ -254,6 +285,42 @@
 	}
 	
 	// A COMPLETER
+}
+
+- (void)viewLayoutShouldChange:(NSNotification *)inNotification
+{
+	[self viewFrameDidChange:nil];
+}
+
+- (void)viewFrameDidChange:(NSNotification *)inNotification
+{
+	NSRect tBounds=self.view.bounds;
+	NSRect tRequirementsFrame=_requirementsSectioniew.frame;
+	NSRect tResourcesFrame=_hierarchyPlaceHolderView.frame;
+	
+	CGFloat tAvailableHeight=NSHeight(tBounds)-_cachedHierarchyPlaceHolderViewInitialHeight;
+	CGFloat tMaximumRequirementsHeight=NSHeight(tRequirementsFrame)-NSHeight(_requirementsPlaceHolderView.frame)+_requirementsViewController.maximumViewHeight;
+	
+	if (tMaximumRequirementsHeight<tAvailableHeight)
+	{
+		tRequirementsFrame.size.height=tMaximumRequirementsHeight;
+		tResourcesFrame.size.height=NSHeight(tBounds)-tRequirementsFrame.size.height;
+	}
+	else
+	{
+		tRequirementsFrame.size.height=tAvailableHeight;
+		tResourcesFrame.size.height=_cachedHierarchyPlaceHolderViewInitialHeight;
+	}
+	
+	tResourcesFrame.origin.y=0.0f;
+	
+	tRequirementsFrame.origin.y=NSMaxY(tResourcesFrame);
+	
+	_requirementsSectioniew.frame=tRequirementsFrame;
+	_hierarchyPlaceHolderView.frame=tResourcesFrame;
+	
+	if (inNotification==nil)
+		[self.view setNeedsDisplay:YES];
 }
 
 @end

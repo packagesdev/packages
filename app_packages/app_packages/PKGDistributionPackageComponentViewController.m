@@ -3,13 +3,15 @@
 
 #import "PKGApplicationPreferences.h"
 
-#import "PKGDistributionPackageComponentsSettingsViewController.h"
-#import "PKGPackagePayloadViewController.h"
-#import "PKGPackageScriptsAndResourcesViewController.h"
+#import "PKGPackageComponentSettingsViewController.h"
+#import "PKGPackageComponentPayloadViewController.h"
+#import "PKGPackageComponentScriptsAndResourcesViewController.h"
 
 #import "PKGPackageComponent+Safe.h"
 
 #import "NSAlert+Block.h"
+
+#import "PKGPackageComponent+UI.h"
 
 @interface PKGDistributionPackageComponentViewController ()
 {
@@ -19,9 +21,9 @@
 	
 	PKGSegmentViewController * _currentContentController;
 	
-	PKGDistributionPackageComponentsSettingsViewController * _settingsController;
-	PKGPackagePayloadViewController *_payloadController;
-	PKGPackageScriptsAndResourcesViewController *_scriptsAndResourcesViewController;
+	PKGPackageComponentSettingsViewController * _settingsController;
+	PKGPackageComponentPayloadViewController *_payloadController;
+	PKGPackageComponentScriptsAndResourcesViewController *_scriptsAndResourcesViewController;
 }
 
 - (void)showTabViewWithTag:(PKGPreferencesGeneralDistributionPackageComponentPaneTag) inTag;
@@ -150,7 +152,7 @@
 	
 	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:))
 	{
-		if ([_currentContentController isKindOfClass:PKGPackagePayloadViewController.class]==NO)
+		if ([_currentContentController isKindOfClass:PKGPackageComponentPayloadViewController.class]==NO)
 			return NO;
 		
 		return [_currentContentController validateMenuItem:inMenuItem];
@@ -181,7 +183,7 @@
 			
 			if (_settingsController==nil)
 			{
-				_settingsController=[[PKGDistributionPackageComponentsSettingsViewController alloc] initWithDocument:self.document];
+				_settingsController=[[PKGPackageComponentSettingsViewController alloc] initWithDocument:self.document];
 				_settingsController.packageComponent=self.packageComponent;
 			}
 			
@@ -193,8 +195,9 @@
 			
 			if (_payloadController==nil)
 			{
-				_payloadController=[[PKGPackagePayloadViewController alloc] initWithDocument:self.document];
+				_payloadController=[[PKGPackageComponentPayloadViewController alloc] initWithDocument:self.document];
 				_payloadController.payload=self.packageComponent.payload_safe;
+				_payloadController.payloadHierarchyViewController.disclosedStateKey=self.packageComponent.payloadDisclosedStatesKey;
 				
 				if (_payloadController.payload==nil)
 				{
@@ -217,8 +220,9 @@
 			
 			if (_scriptsAndResourcesViewController==nil)
 			{
-				_scriptsAndResourcesViewController=[[PKGPackageScriptsAndResourcesViewController alloc] initWithDocument:self.document];
+				_scriptsAndResourcesViewController=[[PKGPackageComponentScriptsAndResourcesViewController alloc] initWithDocument:self.document];
 				_scriptsAndResourcesViewController.scriptsAndResources=self.packageComponent.scriptsAndResources_safe;
+				_scriptsAndResourcesViewController.additionalResourcesHierarchyViewController.disclosedStateKey=self.packageComponent.additionalResourcesDisclosedStatesKey;
 			}
 			
 			tNewSegmentViewController=_scriptsAndResourcesViewController;

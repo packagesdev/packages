@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1080</int>
+		<int key="IBDocument.SystemTarget">101000</int>
 		<string key="IBDocument.SystemVersion">14F2109</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
@@ -28,7 +28,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.Metadata"/>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="186119602">
 			<object class="NSCustomObject" id="948299736">
-				<string key="NSClassName">PKGDistributionPackageComponentsSettingsViewController</string>
+				<string key="NSClassName">PKGPackageComponentSettingsViewController</string>
 			</object>
 			<object class="NSCustomObject" id="574731937">
 				<string key="NSClassName">FirstResponder</string>
@@ -37,7 +37,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="614911292">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSCustomView" id="94003052">
@@ -49,7 +49,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{13, 15}, {137, 17}}</string>
 								<reference key="NSSuperview" ref="94003052"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="585508910"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="665174899">
@@ -82,7 +81,6 @@
 						</array>
 						<string key="NSFrame">{{0, 514}, {584, 44}}</string>
 						<reference key="NSSuperview" ref="614911292"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1813214"/>
 						<string key="NSClassName">PKGPackageSettingsSourceView</string>
 						<string key="NSExtension">NSView</string>
@@ -96,7 +94,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{51, 54}, {66, 17}}</string>
 								<reference key="NSSuperview" ref="585508910"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="423748102"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="252497374">
@@ -124,7 +121,6 @@
 								<int key="NSvFlags">258</int>
 								<string key="NSFrame">{{122, 52}, {442, 22}}</string>
 								<reference key="NSSuperview" ref="585508910"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="231233348"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="635569293">
@@ -158,7 +154,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{51, 22}, {66, 17}}</string>
 								<reference key="NSSuperview" ref="585508910"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="193460035"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="547675003">
@@ -178,7 +173,6 @@
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{122, 20}, {255, 22}}</string>
 								<reference key="NSSuperview" ref="585508910"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="989116738"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="449360318">
@@ -199,7 +193,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{20, 90}, {38, 18}}</string>
 								<reference key="NSSuperview" ref="585508910"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="246568885"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="237574119">
@@ -224,7 +217,6 @@
 						</array>
 						<string key="NSFrame">{{0, 386}, {584, 128}}</string>
 						<reference key="NSSuperview" ref="614911292"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="351702214"/>
 						<string key="NSClassName">WBWhiteView</string>
 						<string key="NSExtension">NSView</string>
@@ -238,7 +230,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{120, 84}, {266, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="236050385"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="325677409">
@@ -264,7 +255,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{20, 116}, {59, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="403522152"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="382056281">
@@ -291,7 +281,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{120, 40}, {218, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="155255017"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="915133982">
@@ -319,7 +308,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{428, 84}, {171, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="153195638"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="689187726">
@@ -344,7 +332,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{601, 86}, {131, 14}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1003306919"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="528222512">
@@ -374,7 +361,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{120, 18}, {154, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
-								<reference key="NSWindow"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="765518907">
 									<int key="NSCellFlags">67108864</int>
@@ -397,7 +383,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{120, 62}, {95, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="854914523"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="266561660">
@@ -420,7 +405,6 @@
 						</array>
 						<string key="NSFrameSize">{584, 154}</string>
 						<reference key="NSSuperview" ref="614911292"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="220522824"/>
 						<string key="NSClassName">WBLightGrayView</string>
 						<string key="NSExtension">NSView</string>
@@ -434,7 +418,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{20, 67}, {196, 18}}</string>
 								<reference key="NSSuperview" ref="989116738"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="60838356"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="24393022">
@@ -461,7 +444,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{26, 22}, {92, 17}}</string>
 								<reference key="NSSuperview" ref="989116738"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="757746175"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="868394857">
@@ -481,7 +463,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{120, 16}, {188, 26}}</string>
 								<reference key="NSSuperview" ref="989116738"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="363511317"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="675748649">
@@ -575,7 +556,6 @@
 						</array>
 						<string key="NSFrame">{{0, 281}, {584, 105}}</string>
 						<reference key="NSSuperview" ref="614911292"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="66380770"/>
 						<string key="NSClassName">WBLightGrayView</string>
 						<string key="NSExtension">NSView</string>
@@ -589,7 +569,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{20, 89}, {66, 18}}</string>
 								<reference key="NSSuperview" ref="363511317"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1002747393"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="75165943">
@@ -616,7 +595,6 @@
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{119, 49}, {172, 26}}</string>
 								<reference key="NSSuperview" ref="363511317"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="154130576"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="102876949">
@@ -702,7 +680,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{68, 55}, {49, 17}}</string>
 								<reference key="NSSuperview" ref="363511317"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="924128748"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="1027139415">
@@ -722,7 +699,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{68, 22}, {49, 17}}</string>
 								<reference key="NSSuperview" ref="363511317"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1052586169"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="90989016">
@@ -742,7 +718,6 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{122, 20}, {442, 22}}</string>
 								<reference key="NSSuperview" ref="363511317"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="81029474"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="54010287">
@@ -763,7 +738,6 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{303, 55}, {264, 14}}</string>
 								<reference key="NSSuperview" ref="363511317"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="296335984"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="107526168">
@@ -785,7 +759,6 @@
 						</array>
 						<string key="NSFrame">{{0, 154}, {584, 127}}</string>
 						<reference key="NSSuperview" ref="614911292"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="146167231"/>
 						<string key="NSClassName">WBWhiteView</string>
 						<string key="NSExtension">NSView</string>
@@ -799,7 +772,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{11, 15}, {129, 17}}</string>
 								<reference key="NSSuperview" ref="59871820"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="868559023"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="739023217">
@@ -823,7 +795,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{140, 11}, {40, 26}}</string>
 								<reference key="NSSuperview" ref="59871820"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="645168841"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="795105097">
@@ -833,60 +804,6 @@
 									<reference key="NSControlView" ref="868559023"/>
 									<int key="NSButtonFlags">100679680</int>
 									<int key="NSButtonFlags2">1</int>
-									<object class="NSImage" key="NSNormalImage">
-										<int key="NSImageFlags">549650432</int>
-										<string key="NSSize">{1, 1}</string>
-										<array class="NSMutableArray" key="NSReps">
-											<array>
-												<integer value="0"/>
-												<object class="NSBitmapImageRep">
-													<object class="NSData" key="NSTIFFRepresentation">
-														<bytes key="NS.bytes">TU0AKgAAAAoAAAAOAQAAAwAAAAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAA
-AQYAAwAAAAEAAQAAAREABAAAAAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAA
-ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABh3MABwAAB7wAAAC4
-AAAAAAAAB7xhcHBsAiAAAG1udHJHUkFZWFlaIAfQAAIADgAMAAAAAGFjc3BBUFBMAAAAAG5vbmUAAAAA
-AAAAAAAAAAAAAAAAAAD21gABAAAAANMtYXBwbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAABWRlc2MAAADAAAAAb2RzY20AAAEwAAAGLmNwcnQAAAdgAAAAOHd0cHQAAAeY
-AAAAFGtUUkMAAAesAAAADmRlc2MAAAAAAAAAFUdlbmVyaWMgR3JheSBQcm9maWxlAAAAAAAAAAAAAAAV
-R2VuZXJpYyBHcmF5IFByb2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAABtbHVjAAAAAAAAAB4AAAAMc2tTSwAAACoAAAF4ZGFESwAAADQAAAGiY2FFUwAAACwAAAHW
-cHRCUgAAACoAAAICdWtVQQAAACwAAAIsZnJGVQAAACoAAAJYaHVIVQAAAC4AAAKCemhUVwAAABAAAAKw
-bmJOTwAAACwAAALAY3NDWgAAACQAAALsaGVJTAAAACAAAAMQaXRJVAAAAC4AAAMwcm9STwAAACQAAANe
-ZGVERQAAADoAAAOCa29LUgAAABgAAAO8c3ZTRQAAAC4AAAPUemhDTgAAABAAAAQCamFKUAAAABYAAAQS
-ZWxHUgAAACQAAAQocHRQTwAAADgAAARMbmxOTAAAACoAAASEZXNFUwAAACgAAASudGhUSAAAACQAAATW
-dHJUUgAAACIAAAT6ZmlGSQAAACwAAAUcaHJIUgAAADoAAAVIcGxQTAAAADYAAAWCcnVSVQAAACYAAAW4
-YXJFRwAAACgAAAXeZW5VUwAAACgAAAYGAFYBYQBlAG8AYgBlAGMAbgD9ACAAcwBpAHYA/QAgAHAAcgBv
-AGYAaQBsAEcAZQBuAGUAcgBlAGwAIABnAHIA5QB0AG8AbgBlAGIAZQBzAGsAcgBpAHYAZQBsAHMAZQBQ
-AGUAcgBmAGkAbAAgAGQAZQAgAGcAcgBpAHMAIABnAGUAbgDoAHIAaQBjAFAAZQByAGYAaQBsACAAQwBp
-AG4AegBhACAARwBlAG4A6QByAGkAYwBvBBcEMAQzBDAEOwRMBD0EOAQ5ACAEPwRABD4ERAQwBDkEOwAg
-AEcAcgBhAHkAUAByAG8AZgBpAGwAIABnAOkAbgDpAHIAaQBxAHUAZQAgAGcAcgBpAHMAwQBsAHQAYQBs
-AOEAbgBvAHMAIABzAHoA/AByAGsAZQAgAHAAcgBvAGYAaQBskBp1KHBwlo6Ccl9pY8+P8ABHAGUAbgBl
-AHIAaQBzAGsAIABnAHIA5QB0AG8AbgBlAHAAcgBvAGYAaQBsAE8AYgBlAGMAbgD9ACABYQBlAGQA/QAg
-AHAAcgBvAGYAaQBsBeQF6AXVBeQF2QXcACAARwByAGEAeQAgBdsF3AXcBdkAUAByAG8AZgBpAGwAbwAg
-AGcAcgBpAGcAaQBvACAAZwBlAG4AZQByAGkAYwBvAFAAcgBvAGYAaQBsACAAZwByAGkAIABnAGUAbgBl
-AHIAaQBjAEEAbABsAGcAZQBtAGUAaQBuAGUAcwAgAEcAcgBhAHUAcwB0AHUAZgBlAG4ALQBQAHIAbwBm
-AGkAbMd8vBgAIABHAHIAYQB5ACDVBLhc0wzHfABHAGUAbgBlAHIAaQBzAGsAIABnAHIA5QBzAGsAYQBs
-AGUAcAByAG8AZgBpAGxmbpAacHBepmPPj/Blh072TgCCLDCwMOwwpDDXMO0w1TChMKQw6wOTA7UDvQO5
-A7oDzAAgA8ADwQO/A8YDrwO7ACADswO6A8EDuQBQAGUAcgBmAGkAbAAgAGcAZQBuAOkAcgBpAGMAbwAg
-AGQAZQAgAGMAaQBuAHoAZQBuAHQAbwBzAEEAbABnAGUAbQBlAGUAbgAgAGcAcgBpAGoAcwBwAHIAbwBm
-AGkAZQBsAFAAZQByAGYAaQBsACAAZwByAGkAcwAgAGcAZQBuAOkAcgBpAGMAbw5CDhsOIw5EDh8OJQ5M
-DioONQ5ADhcOMg4XDjEOSA4nDkQOGwBHAGUAbgBlAGwAIABHAHIAaQAgAFAAcgBvAGYAaQBsAGkAWQBs
-AGUAaQBuAGUAbgAgAGgAYQByAG0AYQBhAHAAcgBvAGYAaQBpAGwAaQBHAGUAbgBlAHIAaQENAGsAaQAg
-AHAAcgBvAGYAaQBsACAAcwBpAHYAaQBoACAAdABvAG4AbwB2AGEAVQBuAGkAdwBlAHIAcwBhAGwAbgB5
-ACAAcAByAG8AZgBpAGwAIABzAHoAYQByAG8BWwBjAGkEHgQxBEkEOAQ5ACAEQQQ1BEAESwQ5ACAEPwRA
-BD4ERAQ4BDsETAZFBkQGQQAgBioGOQYxBkoGQQAgAEcAcgBhAHkAIAYnBkQGOQYnBkUARwBlAG4AZQBy
-AGkAYwAgAEcAcgBhAHkAIABQAHIAbwBmAGkAbABlAAB0ZXh0AAAAAENvcHlyaWdodCAyMDA3IEFwcGxl
-IEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUQABAAAAARbMY3VydgAAAAAAAAAB
-Ac0AAA</bytes>
-													</object>
-												</object>
-											</array>
-										</array>
-										<object class="NSColor" key="NSColor">
-											<int key="NSColorSpace">3</int>
-											<bytes key="NSWhite">MCAwAA</bytes>
-										</object>
-									</object>
 									<string key="NSAlternateContents"/>
 									<object class="NSMutableString" key="NSKeyEquivalent">
 										<characters key="NS.bytes"/>
@@ -926,7 +843,6 @@ Ac0AAA</bytes>
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{186, 15}, {381, 17}}</string>
 								<reference key="NSSuperview" ref="59871820"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="94003052"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="113881108">
@@ -948,15 +864,12 @@ Ac0AAA</bytes>
 						</array>
 						<string key="NSFrame">{{0, 514}, {584, 44}}</string>
 						<reference key="NSSuperview" ref="614911292"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="557649730"/>
 						<string key="NSClassName">PKGPackageSettingsSourceView</string>
 						<string key="NSExtension">NSView</string>
 					</object>
 				</array>
 				<string key="NSFrameSize">{584, 558}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="59871820"/>
 				<string key="NSClassName">PKGPackageSettingsView</string>
 				<string key="NSExtension">NSView</string>
@@ -1850,107 +1763,6 @@ Ac0AAA</bytes>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">PKGDistributionPackageComponentsSettingsViewController</string>
-					<string key="superclassName">PKGPackageSettingsViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGDistributionPackageComponentsSettingsViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGDistributionPackageComponentsSettingsViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="switchImportReferenceStyle:">id</string>
-						<string key="switchLocationType:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="switchImportReferenceStyle:">
-							<string key="name">switchImportReferenceStyle:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchLocationType:">
-							<string key="name">switchLocationType:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="_locationLabel">NSTextField</string>
-						<string key="_locationPopUpButton">NSPopUpButton</string>
-						<string key="_locationSectionView">NSView</string>
-						<string key="_locationTextField">PKGLocationTextField</string>
-						<string key="_locationTipLabel">NSTextField</string>
-						<string key="_optionsSectionView">NSView</string>
-						<string key="_postInstallationSectionView">NSView</string>
-						<string key="_referenceSectionView">PKGPackageSettingsSourceView</string>
-						<string key="_sourceReferenceStylePopUpButton">NSPopUpButton</string>
-						<string key="_sourceSectionView">PKGPackageSettingsSourceView</string>
-						<string key="_sourceTextField">NSTextField</string>
-						<string key="_tagSectionView">NSView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="_locationLabel">
-							<string key="name">_locationLabel</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_locationPopUpButton">
-							<string key="name">_locationPopUpButton</string>
-							<string key="candidateClassName">NSPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_locationSectionView">
-							<string key="name">_locationSectionView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_locationTextField">
-							<string key="name">_locationTextField</string>
-							<string key="candidateClassName">PKGLocationTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_locationTipLabel">
-							<string key="name">_locationTipLabel</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_optionsSectionView">
-							<string key="name">_optionsSectionView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_postInstallationSectionView">
-							<string key="name">_postInstallationSectionView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_referenceSectionView">
-							<string key="name">_referenceSectionView</string>
-							<string key="candidateClassName">PKGPackageSettingsSourceView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_sourceReferenceStylePopUpButton">
-							<string key="name">_sourceReferenceStylePopUpButton</string>
-							<string key="candidateClassName">NSPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_sourceSectionView">
-							<string key="name">_sourceSectionView</string>
-							<string key="candidateClassName">PKGPackageSettingsSourceView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_sourceTextField">
-							<string key="name">_sourceTextField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_tagSectionView">
-							<string key="name">_tagSectionView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGDistributionPackageComponentsSettingsViewController.m</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGDocumentViewController</string>
-					<string key="superclassName">PKGViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGDocumentViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">PKGFileDeadDropView</string>
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1988,124 +1800,6 @@ Ac0AAA</bytes>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGPackageSettingsView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGPackageSettingsViewController</string>
-					<string key="superclassName">PKGSegmentViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="_identifierTextField">NSTextField</string>
-						<string key="_versionTextField">NSTextField</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="_identifierTextField">
-							<string key="name">_identifierTextField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_versionTextField">
-							<string key="name">_versionTextField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGPackageSettingsViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGPackageSettingsViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="switchAuthenticationMode:">id</string>
-						<string key="switchConclusionAction:">id</string>
-						<string key="switchFollowSymbolicLinks:">id</string>
-						<string key="switchOverwriteDirectoryPermissions:">id</string>
-						<string key="switchRelocatable:">id</string>
-						<string key="switchuseHFSPlusCompression:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="switchAuthenticationMode:">
-							<string key="name">switchAuthenticationMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchConclusionAction:">
-							<string key="name">switchConclusionAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchFollowSymbolicLinks:">
-							<string key="name">switchFollowSymbolicLinks:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchOverwriteDirectoryPermissions:">
-							<string key="name">switchOverwriteDirectoryPermissions:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchRelocatable:">
-							<string key="name">switchRelocatable:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="switchuseHFSPlusCompression:">
-							<string key="name">switchuseHFSPlusCompression:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="_authenticationModeCheckbox">NSButton</string>
-						<string key="_conclusionActionPopupButton">NSPopUpButton</string>
-						<string key="_followSymbolicLinksCheckbox">NSButton</string>
-						<string key="_overwriteDirectoryPermissionsCheckbox">NSButton</string>
-						<string key="_relocatableCheckbox">NSButton</string>
-						<string key="_useHFSPlusCompressionCheckbox">NSButton</string>
-						<string key="_useHFSPlusCompressionLabel">NSTextField</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="_authenticationModeCheckbox">
-							<string key="name">_authenticationModeCheckbox</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_conclusionActionPopupButton">
-							<string key="name">_conclusionActionPopupButton</string>
-							<string key="candidateClassName">NSPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_followSymbolicLinksCheckbox">
-							<string key="name">_followSymbolicLinksCheckbox</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_overwriteDirectoryPermissionsCheckbox">
-							<string key="name">_overwriteDirectoryPermissionsCheckbox</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_relocatableCheckbox">
-							<string key="name">_relocatableCheckbox</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_useHFSPlusCompressionCheckbox">
-							<string key="name">_useHFSPlusCompressionCheckbox</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_useHFSPlusCompressionLabel">
-							<string key="name">_useHFSPlusCompressionLabel</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGPackageSettingsViewController.m</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGSegmentViewController</string>
-					<string key="superclassName">PKGDocumentViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGSegmentViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGViewController</string>
-					<string key="superclassName">NSViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../shared/PKGViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2252,25 +1946,6 @@ Ac0AAA</bytes>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSViewController</string>
-					<string key="superclassName">NSResponder</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">view</string>
-						<string key="NS.object.0">NSView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">view</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">view</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSViewController.h</string>
 					</object>
 				</object>
 			</array>
