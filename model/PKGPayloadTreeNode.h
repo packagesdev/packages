@@ -17,6 +17,8 @@
 
 @interface PKGPayloadTreeNode : PKGTreeNode
 
++ (Class)representedObjectClassForFileSystemItemAtPath:(NSString *)inPath;
+
 - (void)contract;
 
 - (PKGPayloadTreeNode *)createMissingDescendantsForPath:(NSString *)inPath;

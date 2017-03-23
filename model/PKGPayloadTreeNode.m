@@ -7,7 +7,7 @@
 
 @implementation PKGPayloadTreeNode
 
-- (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
+- (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation
 {
 	if (inRepresentation!=nil)
 	{
@@ -16,6 +16,29 @@
 	}
 	
 	return PKGFileItem.class;
+}
+
++ (Class)representedObjectClassForFileSystemItemAtPath:(NSString *)inPath
+{
+	NSError * tError=nil;
+	NSDictionary * tAttributesDictionary=[[NSFileManager defaultManager] attributesOfItemAtPath:inPath error:&tError];
+	
+	if (tAttributesDictionary==nil)
+	{
+		return PKGFileItem.class;
+	}
+	
+	if ([tAttributesDictionary[NSFileType] isEqualToString:NSFileTypeDirectory]==NO)
+		return PKGFileItem.class;
+	
+	// Check whether there is a Info.plist file with a bundle identifier if the directory's contents is not disclosed
+	
+	NSBundle * tBundle=[NSBundle bundleWithPath:inPath];
+	
+	if (tBundle.bundleIdentifier.length==0)
+		return PKGFileItem.class;
+	
+	return PKGPayloadBundleItem.class;
 }
 
 #pragma mark -
