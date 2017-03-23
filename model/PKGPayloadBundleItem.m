@@ -55,6 +55,14 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	return NO;
 }
 
++ (instancetype)fileSystemItemWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions
+{
+	if (inFilePath==nil)
+		return nil;
+	
+	return [[PKGPayloadBundleItem alloc] initWithFilePath:inFilePath uid:inUid gid:inGid permissions:inPermissions];
+}
+
 #pragma mark -
 
 - (instancetype)initWithFileItem:(PKGFileItem *)inFileItem
@@ -63,6 +71,18 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 		return nil;
 	
 	self=[super initWithFileItem:inFileItem];
+	
+	if (self!=nil)
+	{
+		_locators=[NSMutableArray array];
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions
+{
+	self=[super initWithFilePath:inFilePath uid:inUid gid:inGid permissions:inPermissions];
 	
 	if (self!=nil)
 	{

@@ -53,4 +53,6 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 
 - (instancetype)initWithFileItem:(PKGFileItem *)inFileItem;
 
+- (instancetype)initWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
+
 @end
