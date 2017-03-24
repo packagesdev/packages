@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -273,6 +273,12 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Cgr-WT-MgQ"/>
+                <menuItem title="Contract" id="O84-uE-F7W">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="contract:" target="-2" id="ali-Ep-Ujg"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Expand" id="pnt-vx-zGz">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Expand" id="uGj-nR-pir">
