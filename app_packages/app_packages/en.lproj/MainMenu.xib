@@ -548,6 +548,11 @@
                             <menuItem isSeparatorItem="YES" id="389">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
+                            <menuItem title="Contract" id="cpc-sB-m4y">
+                                <connections>
+                                    <action selector="contract:" target="-1" id="LIv-hw-2Lx"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Expand" id="392">
                                 <menu key="submenu" title="Expand" id="393">
                                     <items>
