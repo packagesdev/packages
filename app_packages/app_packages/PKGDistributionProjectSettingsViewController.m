@@ -24,8 +24,6 @@
 	CGFloat _cachedBuildSectionViewInitialHeight;
 }
 
-- (void)_updateLayout;
-
 - (IBAction)setBuildFormat:(id)sender;
 
 // Notifications
@@ -83,12 +81,14 @@
 {
 	[super WB_viewWillAppear];
 	
-	[self _updateLayout];
+	_advancedOptionsPlaceHolderView.autoresizingMask=NSViewWidthSizable|NSViewHeightSizable;
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
+	
+	[self updateLayout];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
 }
@@ -97,13 +97,22 @@
 {
 	[super WB_viewWillDisappear];
 	
+	_advancedOptionsPlaceHolderView.autoresizingMask=NSViewWidthSizable|NSViewMinYMargin;	// Hack to avoid some resizing issues when the window is resized and the controller view is not visible.
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[super WB_viewDidDisappear];
 }
 
 #pragma mark -
 
-- (void)_updateLayout
+- (void)updateLayout
 {
+	[super updateLayout];
+	
 	BOOL tAdvancedModeEnabled=[PKGApplicationPreferences sharedPreferences].advancedMode;
 	
 	if (tAdvancedModeEnabled==NO)
@@ -125,7 +134,7 @@
 		
 		NSRect tSectionFrame=_buildSectionView.frame;
 		
-		tSectionFrame.origin.y=0;
+		tSectionFrame.origin.y=0.0;
 		tSectionFrame.size.height=NSHeight(tViewBounds);
 		
 		_buildSectionView.frame=tSectionFrame;
@@ -170,7 +179,7 @@
 		CGFloat tAvailableHeight=NSHeight(tBounds)-_cachedBuildSectionViewInitialHeight;
 		
 		NSRect tAdvancedOptionsFrame=_advancedOptionsPlaceHolderView.frame;
-		tAdvancedOptionsFrame.origin.y=0.0f;
+		tAdvancedOptionsFrame.origin.y=0.0;
 		
 		if (tMaximumAdvancedOptionsHeight<tAvailableHeight)
 		{
@@ -220,7 +229,7 @@
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification
 {
-	[self _updateLayout];
+	[self updateLayout];
 }
 
 @end

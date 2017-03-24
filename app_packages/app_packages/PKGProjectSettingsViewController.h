@@ -30,4 +30,6 @@
 - (IBAction)selectCertificate:(id)sender;
 - (IBAction)removeCertificate:(id)sender;
 
+- (void)updateLayout;
+
 @end

@@ -17,15 +17,15 @@
             <rect key="frame" x="0.0" y="6" width="692" height="209"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="iiA-tU-oZW">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="iiA-tU-oZW">
                     <rect key="frame" x="154" y="20" width="518" height="135"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="9Us-is-eb6">
-                        <rect key="frame" x="1" y="1" width="501" height="133"/>
+                        <rect key="frame" x="1" y="1" width="516" height="133"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" viewBased="YES" floatsGroupRows="NO" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="i5t-dm-pXQ" id="rk2-Dy-PBe" customClass="PKGAdvancedOptionsOutlineView">
-                                <rect key="frame" x="0.0" y="0.0" width="539" height="133"/>
+                                <rect key="frame" x="0.0" y="0.0" width="539" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -49,7 +49,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="hOQ-zi-YdN">
-                                                        <rect key="frame" x="6" y="2" width="220" height="14"/>
+                                                        <rect key="frame" x="4" y="2" width="220" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="lWn-4U-H3q">
                                                             <font key="font" metaFont="smallSystemBold"/>
@@ -67,7 +67,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="5xn-Ee-MRn">
-                                                        <rect key="frame" x="1" y="2" width="220" height="14"/>
+                                                        <rect key="frame" x="1" y="2" width="222" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" id="7gO-8q-cnq">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -100,7 +100,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button id="YwL-yj-Ijv">
-                                                        <rect key="frame" x="-1" y="1" width="18" height="18"/>
+                                                        <rect key="frame" x="-1" y="0.0" width="18" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" controlSize="mini" state="on" inset="2" id="uPh-2L-DaU">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -116,10 +116,10 @@
                                                 <rect key="frame" x="192" y="1" width="307" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="zKT-Bg-abM">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="zKT-Bg-abM">
                                                         <rect key="frame" x="2" y="2" width="272" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Pq0-qm-aTx">
+                                                        <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="Pq0-qm-aTx">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -144,7 +144,7 @@
                         <rect key="frame" x="-100" y="-100" width="532" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="nIH-U5-O3T">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="nIH-U5-O3T">
                         <rect key="frame" x="527" y="1" width="15" height="97"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

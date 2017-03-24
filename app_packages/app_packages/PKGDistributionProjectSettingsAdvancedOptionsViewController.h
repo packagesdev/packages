@@ -11,6 +11,8 @@
 
 	@property (nonatomic) PKGDistributionProjectSettingsAdvancedOptionsDataSource * advancedOptionsDataSource;
 
+	@property NSMutableDictionary * advancedOptionsSettings;
+
 	@property (nonatomic,readonly) CGFloat maximumViewHeight;
 
 - (void)refreshHierarchy;

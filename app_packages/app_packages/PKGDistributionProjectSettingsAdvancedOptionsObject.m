@@ -1,9 +1,10 @@
 
 #import "PKGDistributionProjectSettingsAdvancedOptionsObject.h"
 
-#import "PKGPackagesError.h"
-
 #import "PKGDistributionProjectSettingsAdvancedOptionsHeader.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionsBoolean.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionsString.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionsList.h"
 
 NSString * const PKGDistributionProjectSettingsAdvancedOptionsObjectTypeKey=@"TYPE";
 NSString * const PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey=@"TITLE";
@@ -92,11 +93,22 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey=@"T
 		
 		PKGDistributionProjectSettingsAdvancedOptionsObject * tObject=nil;
 		
-		//if ([tTypeName isEqualToString:@"Header"]==YES)
+		if ([tTypeName isEqualToString:@"Boolean"]==YES)
+		{
+			tObject=[[PKGDistributionProjectSettingsAdvancedOptionsBoolean alloc] initWithRepresentation:bRepresentation error:&tError];
+		}
+		else if ([tTypeName isEqualToString:@"String"]==YES)
+		{
+			tObject=[[PKGDistributionProjectSettingsAdvancedOptionsString alloc] initWithRepresentation:bRepresentation error:&tError];
+		}
+		else if ([tTypeName isEqualToString:@"List"]==YES)
+		{
+			tObject=[[PKGDistributionProjectSettingsAdvancedOptionsList alloc] initWithRepresentation:bRepresentation error:&tError];
+		}
+		else if ([tTypeName isEqualToString:@"Header"]==YES)
 		{
 			tObject=[[PKGDistributionProjectSettingsAdvancedOptionsHeader alloc] initWithRepresentation:bRepresentation error:&tError];
 		}
-		
 		
 		if (tObject==nil)
 		{
@@ -119,17 +131,19 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey=@"T
 	return [tRegistry copy];
 }
 
+#pragma mark -
+
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	self=[super init];
 	
 	if (self!=nil)
 	{
-		NSString * tTtile=inRepresentation[PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey];
+		NSString * tTitle=inRepresentation[PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey];
 		
-		PKGFullCheckStringValueForKey(tTtile,PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey);
+		PKGFullCheckStringValueForKey(tTitle,PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey);
 		
-		_title=[tTtile copy];
+		_title=[tTitle copy];
 	}
 	
 	return self;
@@ -138,6 +152,13 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsObjectTitleKey=@"T
 - (NSMutableDictionary *)representation
 {
 	return [NSMutableDictionary dictionary];
+}
+
+#pragma mark -
+
+- (BOOL)supportsAdvancedEditor
+{
+	return NO;
 }
 
 @end

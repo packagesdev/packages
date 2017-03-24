@@ -1,0 +1,6 @@
+
+#import "PKGDistributionProjectSettingsAdvancedOptionsObject.h"
+
+@interface PKGDistributionProjectSettingsAdvancedOptionsList : PKGDistributionProjectSettingsAdvancedOptionsObject
+
+@end

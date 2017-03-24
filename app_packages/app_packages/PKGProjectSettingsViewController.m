@@ -69,6 +69,10 @@
 
 - (IBAction)setFilterPayloadOnly:(id)sender;
 
+// Notifications
+
+- (void)viewFrameDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGProjectSettingsViewController
@@ -170,6 +174,8 @@
 {
 	[super WB_viewWillAppear];
 	
+	[self updateLayout];
+	
 	[_exclusionsViewController WB_viewWillAppear];
 }
 
@@ -181,12 +187,16 @@
 	
 	[_exclusionsViewController WB_viewDidAppear];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self.view];
+	
 	//[self.view.window makeFirstResponder:_buildNameTextField];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];
 	
 	if (_certificateSealWindowController!=nil)
 	{
@@ -205,6 +215,18 @@
 	[super WB_viewDidDisappear];
 	
 	[_exclusionsViewController WB_viewDidDisappear];
+}
+
+- (void)updateLayout
+{
+	if (_certificateSealWindowController!=nil)
+	{
+		NSRect tWindowFrame=_certificateSealWindowController.window.frame;
+		NSRect tFrame=((NSView *)self.view.window.contentView).frame;
+		tWindowFrame.origin=[self.view.window convertRectToScreen:NSMakeRect(NSMaxX(tFrame)-NSWidth(tWindowFrame)+30.0,NSMaxY(tFrame)-48.0,0.0,0.0)].origin;
+		
+		[_certificateSealWindowController.window setFrameOrigin:tWindowFrame.origin];
+	}
 }
 
 #pragma mark -
@@ -619,6 +641,13 @@
 	}
 	
 	return NO;
+}
+
+#pragma mark - Notifications
+
+- (void)viewFrameDidChange:(NSNotification *)inNotification
+{
+	[self updateLayout];
 }
 
 @end

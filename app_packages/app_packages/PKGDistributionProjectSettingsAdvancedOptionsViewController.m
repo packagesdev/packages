@@ -6,9 +6,13 @@
 #import "PKGDistributionProjectSettingsAdvancedOptionsItem.h"
 
 #import "PKGTableGroupRowView.h"
+#import "PKGCheckboxTableCellView.h"
 
 #import "PKGDistributionProjectSettingsAdvancedOptionsObject.h"
 #import "PKGDistributionProjectSettingsAdvancedOptionsHeader.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionsBoolean.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionsString.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionsList.h"
 
 @interface PKGDistributionProjectSettingsAdvancedOptionsViewController () <NSOutlineViewDelegate>
 {
@@ -16,6 +20,8 @@
 }
 
 	@property (readwrite) IBOutlet NSOutlineView * outlineView;
+
+- (IBAction)editWithEditor:(id)sender;
 
 @end
 
@@ -25,6 +31,8 @@
 {
 	[super WB_viewDidLoad];
 
+	self.outlineView.doubleAction=@selector(editWithEditor:);
+	
 	// A COMPLETER
 }
 
@@ -59,7 +67,25 @@
 {
 	[self.outlineView reloadData];
 	
+	[self.outlineView expandItem:nil expandChildren:YES];	// A COMPLETER
+	
 	//[self restoreDisclosedStates];
+}
+
+#pragma mark -
+
+- (IBAction)editWithEditor:(id)sender
+{
+	NSUInteger tClickedColumn=self.outlineView.clickedColumn;
+	
+	if (tClickedColumn!=[self.outlineView columnWithIdentifier:@"advanced.value"])
+		return;
+	
+	NSLog(@"good column double-clicked");
+	
+	NSUInteger tClickedRow=self.outlineView.clickedRow;
+	
+	// A COMPLETER
 }
 
 #pragma mark -
@@ -115,7 +141,7 @@
 	NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	
 	PKGDistributionProjectSettingsAdvancedOptionsObject * tObject=[self.advancedOptionsDataSource advancedOptionsObjectForItem:inAdvancedOptionsTreeNode];
-	
+	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[inAdvancedOptionsTreeNode representedObject];
 	if ([inAdvancedOptionsTreeNode isLeaf]==NO)
 	{
 		PKGDistributionProjectSettingsAdvancedOptionsHeader * tHeader=(PKGDistributionProjectSettingsAdvancedOptionsHeader *)tObject;
@@ -139,11 +165,101 @@
 	
 	if ([tTableColumnIdentifier isEqualToString:@"advanced.value"]==YES)
 	{
-		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
+		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsBoolean.class]==YES)
+		{
+			PKGCheckboxTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.checkbox" owner:self];
+			
+			NSNumber * tNumberValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
+			
+			if (tNumberValue==nil)
+			{
+				tView.checkbox.state=NSOffState;
+				return tView;
+			}
+
+			if ([tNumberValue isKindOfClass:NSNumber.class]==NO)
+			{
+				NSLog(@"Invalid type of value (%@) for key \"%@\": NSNumber expected",NSStringFromClass([tNumberValue class]),tRepresentedObject.itemID);
+				
+				tView.checkbox.state=NSOffState;
+			}
+			else
+			{
+				tView.checkbox.state=[tNumberValue boolValue];
+			}
+			
+			return tView;
+		}
 		
-		tView.textField.stringValue=@"lorem ipsum";
+		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsString.class]==YES)
+		{
+			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
+			
+			NSString * tStringValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
+			
+			if (tStringValue==nil)
+			{
+				tView.textField.stringValue=@"";
+				return tView;
+			}
+			
+			if ([tStringValue isKindOfClass:NSString.class]==NO)
+			{
+				NSLog(@"Invalid type of value (%@) for key \"%@\": NSString expected",NSStringFromClass([tStringValue class]),tRepresentedObject.itemID);
+				
+				tView.textField.stringValue=@"";
+			}
+			else
+			{
+				tView.textField.stringValue=tStringValue;
+			}
+			
+			return tView;
+		}
 		
-		return tView;
+		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsList.class]==YES)
+		{
+			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
+			
+			NSArray * tArrayValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
+			
+			if (tArrayValue==nil)
+			{
+				tView.textField.stringValue=@"";
+				return tView;
+			}
+
+			if ([tArrayValue isKindOfClass:NSArray.class]==NO)
+			{
+				NSLog(@"Invalid type of value (%@) for key \"%@\": NSArray expected",NSStringFromClass([tArrayValue class]),tRepresentedObject.itemID);
+				
+				tView.textField.stringValue=@"";
+			}
+			else
+			{
+				NSUInteger tCount=tArrayValue.count;
+				
+				switch(tCount)
+				{
+					case 0:
+						
+						tView.textField.stringValue=@"";
+						break;
+						
+					case 1:
+						
+						tView.textField.stringValue=tArrayValue[0];
+						break;
+						
+					default:
+						
+						tView.textField.stringValue=[tArrayValue componentsJoinedByString:@" "];
+						break;
+				}
+			}
+			
+			return tView;
+		}
 	}
 	
 	return nil;
@@ -153,8 +269,6 @@
 {
 	if (inOutlineView!=self.outlineView || inAdvancedOptionsTreeNode==nil)
 		return NO;
-	
-	// A COMPLETER
 	
 	return ([inAdvancedOptionsTreeNode isLeaf]==NO);
 }
