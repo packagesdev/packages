@@ -37,7 +37,7 @@
                 <popUpButton verticalHuggingPriority="750" id="102">
                     <rect key="frame" x="529" y="224" width="37" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="only" alignment="center" lineBreakMode="clipping" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="106" id="146">
+                    <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="only" alignment="center" lineBreakMode="clipping" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="104" id="146">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="103">
@@ -51,7 +51,7 @@
                                 <menuItem isSeparatorItem="YES" id="105">
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </menuItem>
-                                <menuItem title="Reveal in Finder" id="104">
+                                <menuItem title="Show in Finder" id="104">
                                     <connections>
                                         <action selector="revealScriptPathInFinder:" target="-2" id="132"/>
                                     </connections>
@@ -145,7 +145,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="59">
-                    <rect key="frame" x="108" y="204" width="168" height="18"/>
+                    <rect key="frame" x="108" y="204" width="175" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Embed script in distribution" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="137">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -175,7 +175,7 @@
                         <rect key="frame" x="1" y="17" width="453" height="86"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="hfR-Fq-pys" viewBased="YES" floatsGroupRows="NO" id="gqT-9h-W0d">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="hfR-Fq-pys" viewBased="YES" floatsGroupRows="NO" id="gqT-9h-W0d" customClass="PKGTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="453" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -206,8 +206,14 @@
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="switchArgumentState:" target="-2" id="XiO-p8-pB5"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="checkbox" destination="Lht-2S-SZy" id="XGn-9R-zCz"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -236,6 +242,9 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <action selector="setArgumentValue:" target="-2" id="xcs-vn-uic"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <connections>

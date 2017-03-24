@@ -43,7 +43,7 @@
 
 - (IBAction)addExistingFile:(id)sender;
 
-- (IBAction)removeFile:(id)sender;
+- (IBAction)delete:(id)sender;
 
 @end
 
@@ -70,7 +70,7 @@
 		}
 	}
 	
-	[_tableView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+	[_tableView registerForDraggedTypes:@[NSFilenamesPboardType]];
 }
 
 #pragma mark -
@@ -123,9 +123,8 @@
 	
 	[_cachedFiles sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	
-	[_addButton setEnabled:YES];
-	
-	[_removeButton setEnabled:NO];
+	_addButton.enabled=YES;
+	_removeButton.enabled=NO;
 	
 	[_tableView reloadData];
 	
@@ -247,7 +246,7 @@
 - (NSInteger)numberOfRowsInTableView:(NSTableView *) inTableView
 {
 	if (inTableView==_tableView)
-		return [_cachedFiles count];
+		return _cachedFiles.count;
 	
 	return 0;
 }
@@ -255,7 +254,7 @@
 - (id)tableView:(NSTableView *) inTableView objectValueForTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
 {
 	if (inTableView==_tableView)
-		return [_cachedFiles objectAtIndex:inRowIndex];
+		return _cachedFiles[inRowIndex];
 	
 	return nil;
 }
@@ -299,30 +298,6 @@
 
 #pragma mark -
 
-- (BOOL)tableView:(NSTableView *) inTableView validateAction:(SEL) inSelector
-{
-	if (inTableView==_tableView)
-	{
-		if (inSelector==@selector(delete:))
-			return [_removeButton isEnabled];
-	}
-	
-	return NO;
-}
-
-- (void)tableView:(NSTableView *) inTableView deleteSelectedRowsWithConfirmationRequired:(BOOL) inConfirmationRequired
-{
-	if (inTableView==_tableView)
-	{
-		if (inConfirmationRequired==YES)
-			[self removeFile:_removeButton];
-		else
-			[self _removeSelectedFiles];
-	}
-}
-
-#pragma mark -
-
 - (NSDragOperation)tableView:(NSTableView*) inTableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger) inRow proposedDropOperation:(NSTableViewDropOperation) inOperation
 {
 	if (inTableView==_tableView)
@@ -331,7 +306,7 @@
 		{
 			NSPasteboard * tPasteBoard=[info draggingPasteboard];
 		
-			if ([tPasteBoard availableTypeFromArray:[NSArray arrayWithObject:NSFilenamesPboardType]]!=nil)
+			if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 			{
 				NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
 							
@@ -359,7 +334,7 @@
 		{
 			NSPasteboard * tPasteBoard=[info draggingPasteboard];
 		
-			if ([tPasteBoard availableTypeFromArray:[NSArray arrayWithObject:NSFilenamesPboardType]]!=nil)
+			if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 			{
 				NSArray * tArray=[tPasteBoard propertyListForType:NSFilenamesPboardType];
 				
@@ -437,9 +412,9 @@
 
 
 
-- (IBAction)removeFile:(id) sender
+- (IBAction)delete:(id) sender
 {
-	NSAlert * tAlert=[[NSAlert alloc] init];
+	NSAlert * tAlert=[NSAlert new];
 	
 	if ([_tableView numberOfSelectedRows]==1)
 		tAlert.messageText=NSLocalizedStringFromTableInBundle(@"Do you really want to remove this item?",@"Localizable",[NSBundle bundleForClass:[self class]],@"No comment");
@@ -457,10 +432,10 @@
 
 #pragma mark -
 
-- (void) tableViewSelectionDidChange:(NSNotification *) inNotification
+- (void)tableViewSelectionDidChange:(NSNotification *) inNotification
 {
-    if ([inNotification object]==_tableView)
-		[_removeButton setEnabled:([_tableView numberOfSelectedRows]!=0)];
+    if (inNotification.object==_tableView)
+		_removeButton.enabled=(_tableView.numberOfSelectedRows!=0);
 }
 
 @end
