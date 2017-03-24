@@ -213,8 +213,8 @@
 	
 	if (self.view.window!=nil)
 	{
-		[tNewSegmentViewController WB_viewDidAppear];
 		[_currentContentsViewController WB_viewDidDisappear];
+		[tNewSegmentViewController WB_viewDidAppear];
 	}
 	
 	_currentContentsViewController=tNewSegmentViewController;
