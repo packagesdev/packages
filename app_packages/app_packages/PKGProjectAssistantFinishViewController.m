@@ -131,7 +131,7 @@
 	
 	[self.assistantController.assistantSettings setObject:_projectName forKey:PKGProjectTemplateAssistantSettingsProjectNameKey];
 	
-	[self.assistantController.assistantSettings setObject:[_projectDirectoryTextField stringValue] forKey:PKGProjectTemplateAssistantSettingsProjectDirectoryKey];
+	[self.assistantController.assistantSettings setObject:_projectDirectoryTextField.stringValue forKey:PKGProjectTemplateAssistantSettingsProjectDirectoryKey];
 	
 	return YES;
 }
