@@ -94,17 +94,17 @@
                         <menu key="menu" title="OtherViews" id="vfr-Hc-CyX">
                             <items>
                                 <menuItem title="Source:" hidden="YES" id="KCW-22-juU"/>
-                                <menuItem title="Show in Finder" id="1A3-d3-WD0">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <connections>
-                                        <action selector="showInFinder:" target="-2" id="c7k-6B-TQJ"/>
-                                    </connections>
-                                </menuItem>
-                                <menuItem isSeparatorItem="YES" tag="2" id="d9Y-by-qj1"/>
                                 <menuItem title="Choose…" tag="1" id="JZQ-rK-JUB">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <connections>
                                         <action selector="chooseFileSystemItemSource:" target="-2" id="j5q-uI-PDr"/>
+                                    </connections>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" tag="2" id="d9Y-by-qj1"/>
+                                <menuItem title="Show in Finder" id="1A3-d3-WD0">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <connections>
+                                        <action selector="showInFinder:" target="-2" id="c7k-6B-TQJ"/>
                                     </connections>
                                 </menuItem>
                             </items>
