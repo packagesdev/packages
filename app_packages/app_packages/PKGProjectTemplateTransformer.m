@@ -285,7 +285,7 @@ NSString * const PKGProjectTemplateTransformerYearKey=@"YEAR";
 		return;
 	}
 	
-	NSString * tNewProjectFilePath=[[tProjectDirectory stringByAppendingPathComponent:self.outputDocumentName] stringByAppendingPathExtension:@".pkgproj"];
+	NSString * tNewProjectFilePath=[[tProjectDirectory stringByAppendingPathComponent:self.outputDocumentName] stringByAppendingPathExtension:@"pkgproj"];
 	
 	if ([tData writeToFile:tNewProjectFilePath options:NSDataWritingAtomic error:&tError]==NO)
 	{
