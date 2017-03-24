@@ -30,9 +30,7 @@ extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
 
 	@property (nonatomic,copy) NSString * informationLabel;
 
-
-	@property (readonly,copy) NSString * disclosedStateKey;
-	@property (readonly,copy) NSString * disclosedStateFormatKey;
+	@property (copy) NSString * disclosedStateKey;
 
 
 - (BOOL)highlightExcludedItems;

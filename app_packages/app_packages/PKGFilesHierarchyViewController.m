@@ -147,20 +147,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	return [PKGApplicationPreferences sharedPreferences].highlightExcludedFiles;
 }
 
-- (NSString *)disclosedStateKey
-{
-	return [NSString stringWithFormat:self.disclosedStateFormatKey,@""/*cachedPackageUUID_*/];
-}
-
-- (NSString *)disclosedStateFormatKey
-{
-	return @"toto %@";
-	
-	//NSString * const ICFILE_HIERARCHY_DISCLOSED_STATE=@"ui.package[%@].files.disclosed";
-	
-	return nil;
-}
-
 #pragma mark -
 
 - (void)refreshUI
