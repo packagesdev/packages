@@ -102,7 +102,7 @@
 {
 	NSString * tPath=[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation;
 	
-	[_temporaryBuildLocationTextField setStringValue:tPath];
+	_temporaryBuildLocationTextField.stringValue=tPath;
 	
 	NSImage * tImage;
 	BOOL isDirectory;
@@ -112,18 +112,18 @@
 		tImage=[[NSWorkspace sharedWorkspace] iconForFile:tPath];
 		
 		if (isDirectory==NO)
-			[_temporaryBuildLocationTextField setTextColor:[NSColor redColor]];
+			_temporaryBuildLocationTextField.textColor=[NSColor redColor];
 	}
 	else
 	{
 		tImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kQuestionMarkIcon)];
 		
-		[_temporaryBuildLocationTextField setTextColor:[NSColor redColor]];
+		_temporaryBuildLocationTextField.textColor=[NSColor redColor];
 	}
 	
-	[tImage setSize:NSMakeSize(32.0f,32.0f)];
+	tImage.size=NSMakeSize(32.0f,32.0f);
 	
-	[_temporaryBuildLocationIconImageView setImage:tImage];
+	_temporaryBuildLocationIconImageView.image=tImage;
 }
 
 - (void)refreshUI
@@ -140,11 +140,11 @@
 	
 	NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
 	
-	[_playSoundOnSuccessPopUpButton selectItemWithTag:([tSoundName length]==0) ? -1 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
+	[_playSoundOnSuccessPopUpButton selectItemWithTag:(tSoundName.length==0) ? -1 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
 	
 	tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
 	
-	[_playSoundOnErrorsPopUpButton selectItemWithTag:([tSoundName length]==0) ? -1 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
+	[_playSoundOnErrorsPopUpButton selectItemWithTag:(tSoundName.length==0) ? -1 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
 	
 	// Quick Build
 	
@@ -181,7 +181,7 @@
 	if (tMenu==nil)
 		return nil;
 	
-	if ([tMutableSet count]==0)
+	if (tMutableSet.count==0)
 		return tMenu;
 	
 	// Sort by Names
@@ -194,7 +194,7 @@
 	
 	if (tMenuItem!=nil)
 	{
-		[tMenuItem setTag:-1];
+		tMenuItem.tag=-1;
 		
 		[tMenu addItem:tMenuItem];
 	}
@@ -254,13 +254,13 @@
 			NSImage * tImage=[[NSWorkspace sharedWorkspace] iconForFile:inFolderPath];
 			
 			if (tImage!=nil)
-				[tImage setSize:NSMakeSize(16.0,16.0)];
+				tImage.size=NSMakeSize(16.0,16.0);
 			
-			[tMenuItem setImage:tImage];
+			tMenuItem.image=tImage;
 			
 			// Title
 			
-			[tMenuItem setTitle:inFolderPath.lastPathComponent];
+			tMenuItem.title=inFolderPath.lastPathComponent;
 		}
 	}
 	
@@ -292,13 +292,13 @@
 	
 	if (tTag==-1)
 	{
-		if ([tOldSoundName length]>0)
+		if (tOldSoundName.length>0)
 			[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild=@"";
 		
 		return;
 	}
 	
-	NSString * tSoundName=[tMenuItem title];
+	NSString * tSoundName=tMenuItem.title;
 		
 	[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild=tSoundName;
 	
@@ -313,13 +313,13 @@
 	
 	if (tTag==-1)
 	{
-		if ([tOldSoundName length]>0)
+		if (tOldSoundName.length>0)
 			[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild=@"";
 		
 		return;
 	}
 
-	NSString * tSoundName=[tMenuItem title];
+	NSString * tSoundName=tMenuItem.title;
 	
 	[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild=tSoundName;
 	
@@ -342,8 +342,7 @@
 	
 	NSString * tPath=[[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild stringByExpandingTildeInPath];
 	
-	if (tPath!=nil)
-		tOpenPanel.directoryURL=[NSURL fileURLWithPath:tPath];
+	tOpenPanel.directoryURL=[NSURL fileURLWithPath:(tPath==nil) ? NSHomeDirectory() : tPath];
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
@@ -390,9 +389,9 @@
 
 #pragma mark - PKGFileDeadDropViewDelegate
 
-- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView validateDropFiles:(NSArray *) inFilenames
+- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView validateDropFiles:(NSArray *)inFilenames
 {
-	if ([inFilenames count]!=1)
+	if (inFilenames.count!=1)
 		return NO;
 	
 	BOOL isDirectory;
@@ -400,9 +399,9 @@
 	return ([[NSFileManager defaultManager] fileExistsAtPath:[inFilenames objectAtIndex:0] isDirectory:&isDirectory]==YES && isDirectory==YES);
 }
 
-- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView acceptDropFiles:(NSArray *) inFilenames
+- (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView acceptDropFiles:(NSArray *)inFilenames
 {
-	if ([inFilenames count]!=1)
+	if (inFilenames.count!=1)
 		return NO;
 	
 	[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation=[inFilenames firstObject];
