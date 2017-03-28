@@ -13,16 +13,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import <Cocoa/Cocoa.h>
 
-@class PKGPresentationImageView;
-
-@protocol PKGPresentationImageViewDelegate
-
-- (void)presentationImageView:(PKGPresentationImageView *)inImageView imagePathDidChange:(NSString *)inPath;
-
-@end
-
-@interface PKGPresentationImageView : NSImageView
-
-    @property (weak) id<PKGPresentationImageViewDelegate> presentationDelegate;
+@interface PKGPresentationPaneTitleView : NSTextField
 
 @end

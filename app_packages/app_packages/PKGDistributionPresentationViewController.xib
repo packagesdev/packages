@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionPresentationViewController">
+            <connections>
+                <outlet property="view" destination="ubu-JD-nBY" id="Yqo-3r-MeT"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="ubu-JD-nBY" userLabel="View">
+            <rect key="frame" x="0.0" y="0.0" width="1026" height="557"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="W8C-CG-VnG">
+                    <rect key="frame" x="0.0" y="0.0" width="663" height="557"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <customView id="CJS-WC-FsH">
+                            <rect key="frame" x="125" y="15" width="332" height="64"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </customView>
+                        <box title="Preview in" id="93a-6P-7jl" customClass="PKGPresentationBox">
+                            <rect key="frame" x="465" y="16" width="169" height="62"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <view key="contentView">
+                                <rect key="frame" x="2" y="2" width="165" height="43"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <popUpButton id="Std-QZ-R8U">
+                                        <rect key="frame" x="13" y="7" width="139" height="27"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <popUpButtonCell key="cell" type="bevel" title="Item3" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="auo-Rg-LbI" id="w45-lG-GZF">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemBold"/>
+                                            <menu key="menu" title="OtherViews" id="Ubp-hP-DNe">
+                                                <items>
+                                                    <menuItem title="Item1" id="IaC-AG-dcZ"/>
+                                                    <menuItem title="Item2" id="kGa-ob-hiR"/>
+                                                    <menuItem title="Item3" state="on" id="auo-Rg-LbI"/>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                    </popUpButton>
+                                </subviews>
+                            </view>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <font key="titleFont" metaFont="systemBold" size="12"/>
+                        </box>
+                        <box title="Plugins" id="XID-uv-CCZ" customClass="PKGPresentationBox">
+                            <rect key="frame" x="27" y="16" width="92" height="62"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view key="contentView">
+                                <rect key="frame" x="2" y="2" width="88" height="42"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button toolTip="Remove an Installer Plugin" id="TgB-fm-dKh" customClass="PKGPresentationPluginButton">
+                                        <rect key="frame" x="47" y="9" width="26" height="26"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="KQL-Xn-kvu" customClass="PKGPresentationPluginButtonCell">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button toolTip="Add an Installer Plugin." id="RSd-7n-yQE" customClass="PKGPresentationPluginButton">
+                                        <rect key="frame" x="17" y="9" width="26" height="26"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" inset="2" id="vHe-Gd-f7f" customClass="PKGPresentationPluginButtonCell">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </subviews>
+                            </view>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <font key="titleFont" metaFont="systemBold"/>
+                        </box>
+                        <customView id="Lek-J1-cyi" customClass="PKGPresentationWindowView">
+                            <rect key="frame" x="10" y="88" width="640" height="451"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <imageView id="8v1-qd-0Tf">
+                                    <rect key="frame" x="218" y="430" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="MeI-5L-96K"/>
+                                </imageView>
+                                <textField verticalHuggingPriority="750" id="LQw-ij-jHR">
+                                    <rect key="frame" x="239" y="430" width="179" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="tug-WL-KM2">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <customView id="r9y-27-Gl9" customClass="PKGPresentationImageView">
+                                    <rect key="frame" x="10" y="9" width="620" height="418"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" id="Bj5-td-sYZ">
+                                            <rect key="frame" x="273" y="10" width="98" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="ms1-S3-Eeh">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                        <button verticalHuggingPriority="750" id="MSe-d8-GPH">
+                                            <rect key="frame" x="175" y="10" width="98" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="fbn-eI-RNU">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                        <button verticalHuggingPriority="750" id="hj5-nv-vct">
+                                            <rect key="frame" x="410" y="10" width="98" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="Y1N-VJ-qUA">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                        <button verticalHuggingPriority="750" id="5XG-tp-MLF">
+                                            <rect key="frame" x="508" y="10" width="98" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="9lu-Ev-Jth">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                        <customView id="LV5-xr-d27" customClass="PKGPresentationListView">
+                                            <rect key="frame" x="18" y="50" width="154" height="332"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                        </customView>
+                                        <textField verticalHuggingPriority="750" id="u6l-Pd-zlH" customClass="PKGPresentationPaneTitleView">
+                                            <rect key="frame" x="181" y="389" width="418" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="ZpR-gg-CYN">
+                                                <font key="font" metaFont="systemBold" size="14"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <customView id="WHD-ej-XMP">
+                                            <rect key="frame" x="181" y="50" width="418" height="331"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </customView>
+                                    </subviews>
+                                </customView>
+                            </subviews>
+                        </customView>
+                    </subviews>
+                </customView>
+                <customView id="ZOF-Zs-xgm" customClass="PKGRightInspectorView">
+                    <rect key="frame" x="663" y="0.0" width="363" height="557"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                    <subviews>
+                        <customView id="LZz-Ff-z4a">
+                            <rect key="frame" x="1" y="0.0" width="362" height="516"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </customView>
+                        <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="Tcw-Fr-S4f">
+                            <rect key="frame" x="0.0" y="513" width="363" height="5"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <font key="titleFont" metaFont="system"/>
+                        </box>
+                        <popUpButton verticalHuggingPriority="750" id="JtG-ef-AvS">
+                            <rect key="frame" x="79" y="524" width="205" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" title="Title" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="rii-xD-hne" id="HmX-OJ-DcB">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystem"/>
+                                <menu key="menu" title="OtherViews" id="fDV-pc-UMZ">
+                                    <items>
+                                        <menuItem title="Title" state="on" keyEquivalent="0" id="rii-xD-hne">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Background" tag="1" keyEquivalent="1" id="vnX-kz-fk5">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Introduction" tag="2" keyEquivalent="2" id="Ya8-Jg-uoN">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Read Me" tag="3" keyEquivalent="3" id="XIn-YI-NVt">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                        </menuItem>
+                                        <menuItem title="License" tag="4" keyEquivalent="4" id="bsv-2L-uMy">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Installation Type" tag="5" keyEquivalent="5" id="B8k-6Q-uWx">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Summary" tag="6" keyEquivalent="6" id="63K-FH-E0y">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" title=" " tag="-555" id="BvZ-QB-c3s">
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Installer Plugin" tag="-1" id="lwa-2B-2KC">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                        </popUpButton>
+                    </subviews>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="563" y="390.5"/>
+        </customView>
+    </objects>
+</document>
