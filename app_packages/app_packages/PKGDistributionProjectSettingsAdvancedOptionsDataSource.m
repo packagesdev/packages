@@ -103,6 +103,11 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 
 #pragma mark -
 
+- (id)rootNode
+{
+	return _tree.rootNode;
+}
+
 - (NSUInteger)numberOfItems
 {
 	return _tree.rootNode.numberOfNodes;

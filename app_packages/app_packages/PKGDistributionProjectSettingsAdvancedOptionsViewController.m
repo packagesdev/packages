@@ -1,3 +1,15 @@
+/*
+ Copyright (c) 2017, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGDistributionProjectSettingsAdvancedOptionsViewController.h"
 
@@ -14,12 +26,20 @@
 #import "PKGDistributionProjectSettingsAdvancedOptionsString.h"
 #import "PKGDistributionProjectSettingsAdvancedOptionsList.h"
 
+NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKey=@"ui.project.settings.options.advanced.disclosed";
+
 @interface PKGDistributionProjectSettingsAdvancedOptionsViewController () <NSOutlineViewDelegate>
 {
 	BOOL _restoringDiscloseStates;
 }
 
 	@property (readwrite) IBOutlet NSOutlineView * outlineView;
+
+- (void)refreshHierarchy;
+
+- (IBAction)setBooleanOptionValue:(id)sender;
+- (IBAction)setStringOptionValue:(id)sender;
+- (IBAction)setListOptionValue:(id)sender;
 
 - (IBAction)editWithEditor:(id)sender;
 
@@ -32,8 +52,6 @@
 	[super WB_viewDidLoad];
 
 	self.outlineView.doubleAction=@selector(editWithEditor:);
-	
-	// A COMPLETER
 }
 
 #pragma mark -
@@ -43,15 +61,11 @@
 	[super WB_viewWillAppear];
 	
 	self.outlineView.dataSource=self.advancedOptionsDataSource;
-	
-	// A COMPLETER
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
-	
-	// A COMPLETER
 	
 	[self refreshHierarchy];
 }
@@ -67,12 +81,57 @@
 {
 	[self.outlineView reloadData];
 	
-	[self.outlineView expandItem:nil expandChildren:YES];	// A COMPLETER
-	
-	//[self restoreDisclosedStates];
+	[self restoreDisclosedStates];
 }
 
 #pragma mark -
+
+- (IBAction)setBooleanOptionValue:(NSButton *)sender
+{
+	NSUInteger tEditedRow=[self.outlineView rowForView:sender];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
+	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
+	
+	self.advancedOptionsSettings[tRepresentedObject.itemID]=@(sender.state==NSOnState);
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)setStringOptionValue:(NSTextField *)sender
+{
+	NSUInteger tEditedRow=[self.outlineView rowForView:sender];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
+	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
+	
+	self.advancedOptionsSettings[tRepresentedObject.itemID]=sender.stringValue;
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)setListOptionValue:(NSTextField *)sender
+{
+	NSUInteger tEditedRow=[self.outlineView rowForView:sender];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
+	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
+	
+	NSArray * tArray=[sender.stringValue componentsSeparatedByString:@" "];
+	
+	self.advancedOptionsSettings[tRepresentedObject.itemID]=(tArray==nil) ? @[] : tArray;
+	
+	[self noteDocumentHasChanged];
+}
 
 - (IBAction)editWithEditor:(id)sender
 {
@@ -110,6 +169,56 @@
 	NSSize tIntercellSpacing=self.outlineView.intercellSpacing;
 	
 	return NSHeight(self.view.frame)-NSHeight(self.outlineView.enclosingScrollView.frame)+tRowHeight*tNumberOfRows+(tNumberOfRows-1)*tIntercellSpacing.height+4.0;
+}
+
+#pragma mark - Restoration
+
+- (void)restoreDisclosedStates
+{
+	NSDictionary * tDictionary=self.documentRegistry[PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKey];
+	
+	if (tDictionary.count==0)
+	{
+		[self.outlineView expandItem:nil expandChildren:YES];
+		
+		return;
+	}
+	
+	__block __weak void (^_weakDiscloseNodeAndDescendantsIfNeeded)(PKGDistributionProjectSettingsAdvancedOptionsTreeNode *);
+	__block void(^_discloseNodeAndDescendantsIfNeeded)(PKGDistributionProjectSettingsAdvancedOptionsTreeNode *);
+	
+	_discloseNodeAndDescendantsIfNeeded = ^(PKGDistributionProjectSettingsAdvancedOptionsTreeNode * bTreeNode)
+	{
+		if (bTreeNode==nil)
+			return;
+		
+		if ([bTreeNode isLeaf]==YES)
+			return;
+		
+		PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[bTreeNode representedObject];
+		
+		NSString * tFilePath=tRepresentedObject.itemID;
+		
+		[self.outlineView expandItem:bTreeNode];
+		
+		// Check children
+		
+		NSArray * tChildren=[bTreeNode children];
+		
+		for(PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tTreeNode in tChildren)
+			_weakDiscloseNodeAndDescendantsIfNeeded(tTreeNode);
+		
+		if (tDictionary[tFilePath]==nil)
+			[self.outlineView collapseItem:bTreeNode];
+	};
+	
+	_weakDiscloseNodeAndDescendantsIfNeeded = _discloseNodeAndDescendantsIfNeeded;
+	
+	_restoringDiscloseStates=YES;
+	
+	_discloseNodeAndDescendantsIfNeeded(_advancedOptionsDataSource.rootNode);
+	
+	_restoringDiscloseStates=NO;
 }
 
 #pragma mark - NSOutlineViewDelegate
@@ -168,6 +277,8 @@
 		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsBoolean.class]==YES)
 		{
 			PKGCheckboxTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.checkbox" owner:self];
+			tView.checkbox.action=@selector(setBooleanOptionValue:);
+			tView.checkbox.target=self;
 			
 			NSNumber * tNumberValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
 			
@@ -194,6 +305,8 @@
 		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsString.class]==YES)
 		{
 			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
+			tView.textField.action=@selector(setStringOptionValue:);
+			tView.textField.target=self;
 			
 			NSString * tStringValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
 			
@@ -220,6 +333,8 @@
 		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsList.class]==YES)
 		{
 			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
+			tView.textField.action=@selector(setListOptionValue::);
+			tView.textField.target=self;
 			
 			NSArray * tArrayValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
 			
@@ -284,6 +399,91 @@
 		
 		return [tNode isLeaf];
 	}];
+}
+
+- (void)outlineViewItemDidExpand:(NSNotification *)inNotification
+{
+	if (_restoringDiscloseStates==YES)
+		return;
+	
+	if (inNotification.object!=self.outlineView)
+		return;
+	
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	if (tUserInfo==nil)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tTreeNode=(PKGDistributionProjectSettingsAdvancedOptionsTreeNode *) tUserInfo[@"NSObject"];
+	if (tTreeNode==nil)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tTreeNode representedObject];
+	NSString * tNodePath=tRepresentedObject.itemID;
+	
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKey];
+	
+	if (tDisclosedDictionary==nil)
+	{
+		tDisclosedDictionary=[NSMutableDictionary dictionary];
+		self.documentRegistry[PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKey]=tDisclosedDictionary;
+	}
+	
+	tDisclosedDictionary[tNodePath]=@(YES);
+}
+
+- (void)outlineViewItemWillCollapse:(NSNotification *)inNotification
+{
+	if (_restoringDiscloseStates==YES)
+		return;
+	
+	if (inNotification.object!=self.outlineView)
+		return;
+	
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	if (tUserInfo==nil)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tTreeNode=(PKGDistributionProjectSettingsAdvancedOptionsTreeNode *) tUserInfo[@"NSObject"];
+	if (tTreeNode==nil)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tTreeNode representedObject];
+	NSString * tNodePath=tRepresentedObject.itemID;
+	
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKey];
+	
+	if (tDisclosedDictionary==nil)
+		return;
+	
+	// Check if the option key is down or not
+	
+	NSEvent * tCurrentEvent=[NSApp currentEvent];
+	
+	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & NSAlternateKeyMask)==0))
+	{
+		if ([tNodePath isEqualToString:@"installer-script"]==NO)
+		{
+			// Check the parents state
+			
+			NSString * tParentPath=tNodePath;
+			
+			do
+			{
+				tParentPath=[tParentPath stringByDeletingPathExtension];
+				
+				NSNumber * tNumber=tDisclosedDictionary[tParentPath];
+				
+				if (tNumber==nil)	// Parent is hidden
+					return;
+				
+				if ([tParentPath isEqualToString:@"installer-script"]==YES)
+					break;
+			}
+			while (1);
+		}
+	}
+	
+	[tDisclosedDictionary removeObjectForKey:tNodePath];
 }
 
 #pragma mark - PKGDistributionProjectSettingsAdvancedOptionsDataSourceDelegate

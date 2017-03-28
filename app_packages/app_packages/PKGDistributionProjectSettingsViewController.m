@@ -153,8 +153,11 @@
 		
 		if (_advancedOptionsViewController==nil)
 		{
+			PKGDistributionProjectSettings * tDistributionProjectSettings=(PKGDistributionProjectSettings *)self.projectSettings;
+			
 			_advancedOptionsViewController=[[PKGDistributionProjectSettingsAdvancedOptionsViewController alloc] initWithDocument:self.document];
 			_advancedOptionsViewController.advancedOptionsDataSource=_dataSource;
+			_advancedOptionsViewController.advancedOptionsSettings=tDistributionProjectSettings.advancedOptions;
 			_dataSource.delegate=_advancedOptionsViewController;
 			
 			NSRect tBounds=_advancedOptionsPlaceHolderView.bounds;

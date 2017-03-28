@@ -27,6 +27,8 @@
 
 	@property (nonatomic,readonly) NSUInteger numberOfItems;
 
+	@property (nonatomic,readonly) id rootNode;
+
 - (id)advancedOptionsObjectForItem:(id)inItem;
 
 @end
