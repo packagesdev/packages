@@ -16,6 +16,7 @@
 #import "PKGApplicationPreferences.h"
 
 #import "PKGDistributionProjectSettingsViewController.h"
+#import "PKGDistributionPresentationViewController.h"
 #import "PKGDistributionRequirementsAndResourcesViewController.h"
 #import "PKGDistributionCommentsViewController.h"
 
@@ -33,6 +34,7 @@
 	PKGSegmentViewController * _currentContentsViewController;
 	
 	PKGDistributionProjectSettingsViewController * _projectSettingsController;
+	PKGDistributionPresentationViewController * _presentationController;
 	PKGDistributionRequirementsAndResourcesViewController * _requirementsAndResourcesController;
 	PKGDistributionCommentsViewController * _commentsController;
 }
@@ -42,6 +44,7 @@
 - (IBAction)showTabView:(id)sender;
 
 - (IBAction)showProjectSettingsTab:(id)sender;
+- (IBAction)showPresentationTab:(id)sender;
 - (IBAction)showRequirementsAndResourcesTab:(id)sender;
 - (IBAction)showCommentsTab:(id)sender;
 
@@ -159,13 +162,13 @@
 			
 		case PKGPreferencesGeneralDistributionProjectPanePresentation:
 			
-			/*if (_settingsController==nil)
+			if (_presentationController==nil)
 			{
-				_settingsController=[[PKGPackageSettingsViewController alloc] initWithDocument:self.document];
-				_settingsController.packageSettings=((id<PKGPackageObjectProtocol>) self.project).packageSettings;
+				_presentationController=[[PKGDistributionPresentationViewController alloc] initWithDocument:self.document];
+				//_presentationController.packageSettings=((id<PKGPackageObjectProtocol>) self.project).packageSettings;
 			}
 			
-			tNewSegmentViewController=_settingsController;*/
+			tNewSegmentViewController=_presentationController;
 			
 			break;
 			
@@ -235,6 +238,12 @@
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionProjectPaneSettings];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPaneSettings];
+}
+
+- (IBAction)showPresentationTab:(id)sender
+{
+	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionProjectPanePresentation];
+	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPanePresentation];
 }
 
 - (IBAction)showRequirementsAndResourcesTab:(id)sender
