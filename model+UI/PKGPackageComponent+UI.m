@@ -13,6 +13,16 @@
 	return [NSString stringWithFormat:@"ui.package[%@].additionalResources.disclosed",self.UUID];
 }
 
+- (NSString *)payloadSelectionStatesKey
+{
+	return [NSString stringWithFormat:@"ui.package[%@].payload.selection",self.UUID];
+}
+
+- (NSString *)additionalResourcesSelectionStatesKey
+{
+	return [NSString stringWithFormat:@"ui.package[%@].additionalResources.selection",self.UUID];
+}
+
 #pragma mark -
 
 - (NSString *)referencedPathUsingConverter:(id<PKGFilePathConverter>)inPathConverter
@@ -24,6 +34,12 @@
 {
 	return @[self.payloadDisclosedStatesKey,
 			 self.additionalResourcesDisclosedStatesKey];
+}
+
+- (NSArray *)selectionStatesKeys
+{
+	return @[self.payloadSelectionStatesKey,
+			 self.additionalResourcesSelectionStatesKey];
 }
 
 @end
