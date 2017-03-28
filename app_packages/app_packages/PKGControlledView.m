@@ -24,18 +24,18 @@
 	{
 #endif
 	
-	NSResponder * tResponder=self.nextResponder;
-	
-	if ([tResponder isKindOfClass:NSViewController.class]==YES)
-	{
-		NSViewController * tViewController=(NSViewController *)tResponder;
+		NSResponder * tResponder=self.nextResponder;
 		
-		if (self==tViewController.view)
+		if ([tResponder isKindOfClass:NSViewController.class]==YES)
 		{
-			tViewController.nextResponder=inNextResponder;
-			return;
+			NSViewController * tViewController=(NSViewController *)tResponder;
+			
+			if (self==tViewController.view)
+			{
+				tViewController.nextResponder=inNextResponder;
+				return;
+			}
 		}
-	}
 	
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)
 	}
