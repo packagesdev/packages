@@ -10,8 +10,8 @@
                 <outlet property="_addButton" destination="pkA-8s-sQY" id="PQ0-lq-k4S"/>
                 <outlet property="_allowDowngradeCheckBox" destination="ufl-Qi-HWd" id="jYE-CI-hUw"/>
                 <outlet property="_editButton" destination="TNQ-dw-vWW" id="P02-wP-Dgb"/>
-                <outlet property="_locatorsTableView" destination="b4k-AC-nXC" id="cj8-AV-5ZJ"/>
                 <outlet property="_removeButton" destination="nS5-pJ-Xkr" id="Un3-0e-qZ1"/>
+                <outlet property="tableView" destination="b4k-AC-nXC" id="moy-za-J8d"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -83,21 +83,21 @@
                         <action selector="editLocator:" target="-2" id="YQq-K4-h7n"/>
                     </connections>
                 </button>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" id="qrb-l8-LNc">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="qrb-l8-LNc">
                     <rect key="frame" x="39" y="48" width="300" height="125"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="aID-jX-e2j">
                         <rect key="frame" x="1" y="1" width="298" height="123"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" floatsGroupRows="NO" id="b4k-AC-nXC" customClass="PKGTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="287" height="0.0"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" viewBased="YES" floatsGroupRows="NO" id="b4k-AC-nXC" customClass="PKGTableView">
+                                <rect key="frame" x="0.0" y="0.0" width="301" height="123"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="3" height="1"/>
+                                <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="locator.state" editable="NO" width="20" minWidth="20" maxWidth="20" id="9ke-VJ-c16">
+                                    <tableColumn identifier="locator.value" editable="NO" width="298" minWidth="200" maxWidth="1000" id="9ke-VJ-c16">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -109,12 +109,12 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <prototypeCellViews>
-                                            <tableCellView id="b7y-4s-vNk" customClass="PKGCheckboxTableCellView">
-                                                <rect key="frame" x="1" y="0.0" width="20" height="15"/>
+                                            <tableCellView identifier="locator.value" id="b7y-4s-vNk" customClass="PKGCheckboxTableCellView">
+                                                <rect key="frame" x="1" y="1" width="298" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button id="0Sb-M1-lso">
-                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="15"/>
+                                                        <rect key="frame" x="0.0" y="2" width="20" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="mini" state="on" inset="2" id="I26-75-qTf">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -124,44 +124,22 @@
                                                             <action selector="switchLocatorState:" target="-2" id="NHq-0y-nay"/>
                                                         </connections>
                                                     </button>
-                                                </subviews>
-                                                <connections>
-                                                    <outlet property="checkbox" destination="0Sb-M1-lso" id="dHc-Rr-qOy"/>
-                                                </connections>
-                                            </tableCellView>
-                                        </prototypeCellViews>
-                                    </tableColumn>
-                                    <tableColumn identifier="locator.name" width="261" minWidth="40" maxWidth="1000" id="61Q-Ks-fis">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
-                                        </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="S7g-sy-sPu">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <prototypeCellViews>
-                                            <tableCellView id="Orf-bW-vaH">
-                                                <rect key="frame" x="24" y="0.0" width="261" height="15"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" id="Z1a-MM-CBM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="261" height="15"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" id="X7c-WO-ZMA">
+                                                        <rect key="frame" x="22" y="2" width="275" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="wtM-cd-ZH8">
+                                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="ifB-pO-XD0">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <action selector="setLocatorName:" target="-2" id="G3K-BG-hej"/>
+                                                            <action selector="setLocatorName:" target="-2" id="OTN-fP-6he"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="textField" destination="Z1a-MM-CBM" id="BWY-HV-EQK"/>
+                                                    <outlet property="checkbox" destination="0Sb-M1-lso" id="dHc-Rr-qOy"/>
+                                                    <outlet property="textField" destination="X7c-WO-ZMA" id="sJa-SQ-b5w"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>

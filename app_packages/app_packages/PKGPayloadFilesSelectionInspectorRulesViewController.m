@@ -26,16 +26,24 @@
 #import "PKGLocatorPluginsManager.h"
 #import "PKGLocatorPanel.h"
 
+#import "NSIndexSet+Analysis.h"
+
+// TODO: Use a sub view controller for the locators (and a data source)
+
+NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.internal.bundle.locators";
+
 @interface PKGPayloadFilesSelectionInspectorRulesViewController () <NSTableViewDataSource,NSTableViewDelegate>
 {
 	IBOutlet NSButton * _allowDowngradeCheckBox;
 	
-	IBOutlet NSTableView * _locatorsTableView;
-	
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
 	IBOutlet NSButton * _editButton;
+	
+	NSIndexSet * _internalDragData;
 }
+
+	@property IBOutlet NSTableView * tableView;
 
 - (IBAction)switchAllowDowngrade:(id)sender;
 
@@ -54,15 +62,8 @@
 {
 	[super WB_viewDidLoad];
 	
-	// A COMPLETER
+	[self.tableView registerForDraggedTypes:@[PKGBundleLocatorsInternalPboardType]];
 }
-
-/*- (void)WB_viewWillDisappear
-{
-	[super WB_viewWillDisappear];
-	
-	[_locatorsTableView endEditing:nil];
-}*/
 
 - (void)refreshSingleSelection
 {
@@ -78,9 +79,7 @@
 	
 	// Locators
 	
-	// A COMPLETER
-	
-	[_locatorsTableView reloadData];
+	[self.tableView reloadData];
 }
 
 #pragma mark -
@@ -101,7 +100,7 @@
 	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 	NSMutableArray * tLocators=tBundleItem.locators;
 	
-	NSInteger tRow=[_locatorsTableView rowForView:sender];
+	NSInteger tRow=[self.tableView rowForView:sender];
 	
 	if (tRow==-1 || tRow>tLocators.count)
 		return;
@@ -123,7 +122,7 @@
 	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 	NSMutableArray * tLocators=tBundleItem.locators;
 	
-	NSInteger tRow=[_locatorsTableView rowForView:sender];
+	NSInteger tRow=[self.tableView rowForView:sender];
 	
 	if (tRow==-1 || tRow>tLocators.count)
 		return;
@@ -149,8 +148,8 @@
 		
 		[tAlert runModal];
 		
-		[_locatorsTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
-									  columnIndexes:[NSIndexSet indexSetWithIndex:[_locatorsTableView columnWithIdentifier:@"locator.name"]]];
+		[self.tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
+								  columnIndexes:[NSIndexSet indexSetWithIndex:[self.tableView columnWithIdentifier:@"locator.value"]]];
 		
 		return;
 	}
@@ -158,15 +157,17 @@
 	PKGLocator * tLocator=tLocators[tRow];
 	tLocator.name=tNewName;
 	
-	[_locatorsTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
-								  columnIndexes:[NSIndexSet indexSetWithIndex:[_locatorsTableView columnWithIdentifier:@"locator.name"]]];
+	[self.tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow]
+							  columnIndexes:[NSIndexSet indexSetWithIndex:[self.tableView columnWithIdentifier:@"locator.value"]]];
 	
 	[self noteDocumentHasChanged];
 }
 
 - (IBAction)addLocator:(id)sender
 {
-	PKGLocator * tNewLocator=[[PKGLocator alloc] init];
+	[self.view.window makeFirstResponder:self.tableView];
+	
+	PKGLocator * tNewLocator=[PKGLocator new];
 	
 	tNewLocator.identifier=@"fr.whitebox.Packages.locator.standard";
 	
@@ -203,14 +204,14 @@
 		
 		NSInteger tRow=tBundleItem.locators.count-1;
 		
-		[_locatorsTableView reloadData];
+		[self.tableView reloadData];
 		
-		[_locatorsTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
+		[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
 		
-		[_locatorsTableView editColumn:[_locatorsTableView columnWithIdentifier:@"locator.name"]
-								   row:tRow
-							 withEvent:nil
-								select:YES];
+		[self.tableView editColumn:[self.tableView columnWithIdentifier:@"locator.value"]
+							   row:tRow
+						 withEvent:nil
+							select:YES];
 		
 		[self noteDocumentHasChanged];
 	}];
@@ -218,12 +219,12 @@
 
 - (IBAction)delete:(id)sender
 {
-	NSIndexSet * tIndexSet=_locatorsTableView.WB_selectedOrClickedRowIndexes;
+	NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
 	
 	if (tIndexSet.count<1)
 		return;
 	
-	NSAlert * tAlert=[[NSAlert alloc] init];
+	NSAlert * tAlert=[NSAlert new];
 	tAlert.messageText=(tIndexSet.count==1) ? NSLocalizedString(@"Do you really want to remove this locator?",@"No comment") : NSLocalizedString(@"Do you really want to remove these locators?",@"No comment");
 	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"No comment");
 	
@@ -240,9 +241,9 @@
 		
 		[tBundleItem.locators removeObjectsAtIndexes:tIndexSet];
 		
-		[_locatorsTableView deselectAll:self];
+		[self.tableView deselectAll:self];
 		
-		[_locatorsTableView reloadData];
+		[self.tableView reloadData];
 		
 		[self noteDocumentHasChanged];
 	}];
@@ -250,10 +251,12 @@
 
 - (IBAction)editLocator:(id)sender
 {
+	[self.view.window makeFirstResponder:self.tableView];
+	
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 	
-	PKGLocator * tOriginalLocator=tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex];
+	PKGLocator * tOriginalLocator=tBundleItem.locators[self.tableView.WB_selectedOrClickedRowIndexes.firstIndex];
 	PKGLocator * tEditedLocator=[tOriginalLocator copy];
 	
 	PKGLocatorPanel * tLocatorPanel=[PKGLocatorPanel locatorPanel];
@@ -269,7 +272,7 @@
 		if ([tEditedLocator isEqualToLocator:tOriginalLocator]==YES)
 			return;
 		
-		tBundleItem.locators[_locatorsTableView.WB_selectedOrClickedRowIndexes.firstIndex]=[tEditedLocator copy];
+		tBundleItem.locators[self.tableView.WB_selectedOrClickedRowIndexes.firstIndex]=[tEditedLocator copy];
 		
 		[self noteDocumentHasChanged];
 	}];
@@ -279,7 +282,7 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)inTableView
 {
-	if (inTableView==_locatorsTableView)
+	if (inTableView==self.tableView)
 	{
 		PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 		PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
@@ -290,46 +293,129 @@
 	return 0;
 }
 
+#pragma mark - Drag and Drop support
+
+- (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
+{
+	_internalDragData=inRowIndexes;	// A COMPLETER (Find how to empty it when the drag and drop is canceled)
+	
+	[inPasteboard declareTypes:@[PKGBundleLocatorsInternalPboardType] owner:self];
+	
+	[inPasteboard setData:[NSData data] forType:PKGBundleLocatorsInternalPboardType];
+	
+	return YES;
+}
+
+- (NSDragOperation)tableView:(NSTableView *)inTableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)inRow proposedDropOperation:(NSTableViewDropOperation)inDropOperation
+{
+	if (inDropOperation==NSTableViewDropOn)
+		return NSDragOperationNone;
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	// Internal Drag
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGBundleLocatorsInternalPboardType]]!=nil && [info draggingSource]==inTableView)
+	{
+		if ([_internalDragData WB_containsOnlyOneRange]==YES)
+		{
+			NSUInteger tFirstIndex=_internalDragData.firstIndex;
+			NSUInteger tLastIndex=_internalDragData.lastIndex;
+			
+			if (inRow>=tFirstIndex && inRow<=(tLastIndex+1))
+				return NSDragOperationNone;
+		}
+		else
+		{
+			if ([_internalDragData containsIndex:(inRow-1)]==YES)
+				return NSDragOperationNone;
+		}
+		
+		return NSDragOperationMove;
+	}
+	
+	return NSDragOperationNone;
+}
+
+- (BOOL)tableView:(NSTableView *)inTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)inRow dropOperation:(NSTableViewDropOperation)inDropOperation
+{
+	if (inTableView==nil)
+		return NO;
+	
+	// Internal drag and drop
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGBundleLocatorsInternalPboardType]]!=nil && [info draggingSource]==inTableView)
+	{
+		PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
+		PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
+		
+		NSArray * tObjects=[tBundleItem.locators objectsAtIndexes:_internalDragData];
+		
+		[tBundleItem.locators removeObjectsAtIndexes:_internalDragData];
+		
+		NSUInteger tIndex=[_internalDragData firstIndex];
+		
+		while (tIndex!=NSNotFound)
+		{
+			if (tIndex<inRow)
+				inRow--;
+			
+			tIndex=[_internalDragData indexGreaterThanIndex:tIndex];
+		}
+		
+		NSIndexSet * tNewIndexSet=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inRow, _internalDragData.count)];
+		
+		[tBundleItem.locators insertObjects:tObjects atIndexes:tNewIndexSet];
+		
+		_internalDragData=nil;
+		
+		[inTableView deselectAll:nil];
+		
+		//[self.delegate sourceListDataDidChange:self];
+		
+		[inTableView reloadData];
+		
+		[inTableView selectRowIndexes:tNewIndexSet
+				 byExtendingSelection:NO];
+		
+		return YES;
+	}
+	
+	return NO;
+}
+
 #pragma mark - NSTableViewDelegate
 
 - (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {
-	if (inTableView==_locatorsTableView)
+	if (inTableView==self.tableView)
 	{
 		PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 		PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 		
 		PKGLocator * tLocator=tBundleItem.locators[inRow];
 		
-		NSString * tTableColumnIdentifier=inTableColumn.identifier;
-		NSTableCellView * tCellView=[_locatorsTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
+		PKGCheckboxTableCellView * tCellView=[self.tableView makeViewWithIdentifier:@"locator.value" owner:self];
 		
-		if ([tTableColumnIdentifier isEqualToString:@"locator.state"]==YES)
-		{
-			NSButton * tCheckBox=((PKGCheckboxTableCellView *)tCellView).checkbox;
-			tCheckBox.state=(tLocator.isEnabled==YES) ? NSOnState : NSOffState;
+		tCellView.checkbox.state=(tLocator.isEnabled==YES) ? NSOnState : NSOffState;
+		tCellView.textField.stringValue=tLocator.name;
 			
-			return tCellView;
-		}
-		
-		if ([tTableColumnIdentifier isEqualToString:@"locator.name"]==YES)
-		{
-			NSTextField * tTextField=tCellView.textField;
-			tTextField.stringValue=tLocator.name;
-			
-			return tCellView;
-		}
+		return tCellView;
 	}
 	
 	return nil;
 }
 
+// Notifications
+
 - (void)tableViewSelectionDidChange:(NSNotification *)inNotification
 {
-	if (inNotification.object!=_locatorsTableView)
+	if (inNotification.object!=self.tableView)
 		return;
 	
-	NSIndexSet * tSelectionIndexSet=_locatorsTableView.selectedRowIndexes;
+	NSIndexSet * tSelectionIndexSet=self.tableView.selectedRowIndexes;
 	
 	// Delete button state
 	

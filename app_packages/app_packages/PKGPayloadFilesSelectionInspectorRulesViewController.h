@@ -15,4 +15,6 @@
 
 @interface PKGPayloadFilesSelectionInspectorRulesViewController : PKGFilesSelectionInspectorTabViewItemViewController
 
+	@property (readonly) NSTableView * tableView;
+
 @end
