@@ -333,32 +333,36 @@
 
 - (IBAction)switchQuickBuildFailoverFolder:(id)sender
 {
-	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
+	// Use dispatch_async to fluidify the animation (because of NSPopUpButton stupidity)
 	
-	tOpenPanel.canChooseFiles=NO;
-	tOpenPanel.canChooseDirectories=YES;
-	tOpenPanel.canCreateDirectories=YES;
-	tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
-	
-	NSString * tPath=[[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild stringByExpandingTildeInPath];
-	
-	tOpenPanel.directoryURL=[NSURL fileURLWithPath:(tPath==nil) ? NSHomeDirectory() : tPath];
-	
-	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
 		
-		if (bResult==NSFileHandlingPanelOKButton)
-		{
-			NSString * tPath=tOpenPanel.URL.path;
+		tOpenPanel.canChooseFiles=NO;
+		tOpenPanel.canChooseDirectories=YES;
+		tOpenPanel.canCreateDirectories=YES;
+		tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
+		
+		NSString * tPath=[[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild stringByExpandingTildeInPath];
+		
+		tOpenPanel.directoryURL=[NSURL fileURLWithPath:(tPath==nil) ? NSHomeDirectory() : tPath];
+		
+		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild=tPath;
-			
-			[self setFailoverFolder:tPath];
-		}
-		else
-		{
-			[_quickBuildFailoverFolderPopUpButton selectItemWithTag:0];
-		}
-	}];
+			if (bResult==NSFileHandlingPanelOKButton)
+			{
+				NSString * tPath=tOpenPanel.URL.path;
+				
+				[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild=tPath;
+				
+				[self setFailoverFolder:tPath];
+			}
+			else
+			{
+				[_quickBuildFailoverFolderPopUpButton selectItemWithTag:0];
+			}
+		}];
+	});
 }
 
 - (IBAction)setTemporaryBuildLocation:(id)sender
