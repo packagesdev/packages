@@ -91,6 +91,7 @@
 		_filesHierarchyViewController.label=NSLocalizedString(@"Additional Resources", @"");
 		_filesHierarchyViewController.informationLabel=NSLocalizedString(@"These resources can be used by the above requirements and scripts \nor the requirements for the choices of the Installation Type step.", @"");
 		_filesHierarchyViewController.disclosedStateKey=@"ui.distribution.additionalResources.disclosed";
+		_filesHierarchyViewController.selectionStateKey=@"ui.distribution.additionalResources.selection";
 		_filesHierarchyViewController.hierarchyDataSource=_resourcesDataSource;
 		
 		_resourcesDataSource.delegate=_filesHierarchyViewController;

@@ -50,6 +50,51 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return 0;
 }
 
+- (id)itemAtPath:(NSString *)inPath
+{
+	if (inPath==nil)
+		return nil;
+	
+	NSMutableArray * tComponents=[[inPath componentsSeparatedByString:@"/"] mutableCopy];
+	NSUInteger tCount=tComponents.count;
+	
+	if (tCount==0)
+		return nil;
+	
+	if ([inPath hasPrefix:@"/"]==YES)
+		[tComponents replaceObjectAtIndex:0 withObject:@"/"];
+	
+	NSString * tComponent=tComponents.firstObject;
+	
+	NSUInteger tIndex=[self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode, NSUInteger bIndex, BOOL *bOutStop) {
+		
+		return [bTreeNode.fileName isEqualToString:tComponent];
+	}];
+	
+	if (tIndex==NSNotFound)
+		return nil;
+	
+	PKGPayloadTreeNode * tTreeNode=self.rootNodes[tIndex];
+	
+	if (tCount==1)
+		return tTreeNode;
+	
+	[tComponents removeObjectAtIndex:0];
+	
+	for(NSString * tComponent in tComponents)
+	{
+		tTreeNode=(PKGPayloadTreeNode *)[tTreeNode descendantNodeMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
+					
+			return [bTreeNode.fileName isEqualToString:tComponent];
+		}];
+		
+		if (tTreeNode==nil)
+			return nil;
+	}
+	
+	return tTreeNode;
+}
+
 - (id)surrogateItemForItem:(id)inItem
 {
 	return nil;

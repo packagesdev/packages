@@ -86,6 +86,11 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 	@property (readwrite) IBOutlet NSOutlineView * outlineView;
 
+- (void)restoreDisclosedStates;
+
+- (void)archiveSelection;
+- (void)restoreSelection;
+
 - (IBAction)showInFinder:(id)sender;
 
 - (IBAction)addFiles:(id)sender;
@@ -219,7 +224,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	
 	
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
@@ -229,7 +233,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
 	[super WB_viewWillDisappear];
 	
-	// A COMPLETER
+	[self archiveSelection];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
 	
@@ -241,6 +245,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	[self.outlineView reloadData];
 	
 	[self restoreDisclosedStates];
+	
+	[self restoreSelection];
 }
 
 #pragma mark -
@@ -319,6 +325,60 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 #pragma mark -
 
+- (void)archiveSelection
+{
+	NSIndexSet * tIndexSet=[self.outlineView selectedRowIndexes];
+	
+	if (tIndexSet==nil)
+		return;
+	
+	__block NSMutableArray * tMutableArray=[NSMutableArray array];
+	
+	[tIndexSet enumerateIndexesUsingBlock:^(NSUInteger bIndex, BOOL *bOutStop) {
+		
+		PKGPayloadTreeNode * tTreeNode=[self.outlineView itemAtRow:bIndex];
+		
+		if (tTreeNode==nil)
+			return;
+		
+		NSString * tPath=tTreeNode.filePath;
+		
+		if (tPath!=nil)
+		{
+			[tMutableArray addObject:tPath];
+		}
+	}];
+	
+	self.documentRegistry[self.selectionStateKey]=tMutableArray;
+}
+
+- (void)restoreSelection
+{
+	NSArray * tArray=self.documentRegistry[self.selectionStateKey];
+	
+	if (tArray.count==0)
+		return;
+	
+	__block NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+	
+	[tArray enumerateObjectsUsingBlock:^(NSString * bFilePath, NSUInteger bIndex, BOOL *bOutStop) {
+		
+		PKGPayloadTreeNode * tTreeNode=[self.hierarchyDataSource itemAtPath:bFilePath];
+		
+		if (tTreeNode==nil)
+			return;
+		
+		NSInteger tRow=[self.outlineView rowForItem:tTreeNode];
+		
+		if (tRow!=-1)
+			[tMutableIndexSet addIndex:tRow];
+	}];
+	
+	[self.outlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+}
+
+#pragma mark -
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDeleteItems:(NSArray *)inItems
 {
 	if (inOutlineView==nil || inItems==nil)
@@ -338,7 +398,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	return YES;
 }
 
-#pragma mark -
+#pragma mark - NSOutlineViewDelegate
 
 - (NSView *)outlineView:(NSOutlineView *)inOutlineView viewForTableColumn:(NSTableColumn *)inTableColumn item:(PKGPayloadTreeNode *)inPayloadTreeNode
 {
@@ -953,7 +1013,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	NSEvent * tCurrentEvent=[NSApp currentEvent];
 	
-	if (tCurrentEvent==nil || (([tCurrentEvent modifierFlags] & NSAlternateKeyMask)==0))
+	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & NSAlternateKeyMask)==0))
 	{
 		if ([tFilePath isEqualToString:@"/"]==NO)
 		{

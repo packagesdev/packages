@@ -32,6 +32,8 @@ extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
 
 	@property (copy) NSString * disclosedStateKey;
 
+	@property (copy) NSString * selectionStateKey;
+
 
 - (BOOL)highlightExcludedItems;
 

@@ -81,6 +81,7 @@
 		_payloadHierarchyViewController.label=@"Payload";
 		_payloadHierarchyViewController.hierarchyDataSource=_dataSource;
 		_payloadHierarchyViewController.disclosedStateKey=@"ui.package.payload.disclosed";
+		_payloadHierarchyViewController.selectionStateKey=@"ui.package.payload.selection";
 	}
 	
 	return self;

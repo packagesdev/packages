@@ -59,6 +59,8 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 + (NSArray *)supportedDraggedTypes;
 
+- (id)itemAtPath:(NSString *)inPath;
+
 - (id)surrogateItemForItem:(id)inItem;
 
 - (NSArray *)siblingsOfItem:(id)inItem;

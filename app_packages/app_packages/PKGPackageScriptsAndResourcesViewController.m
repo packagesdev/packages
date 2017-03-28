@@ -76,6 +76,7 @@
 		_additionalResourcesHierarchyViewController.informationLabel=NSLocalizedString(@"These resources can be used by the pre and post-installation scripts.", @"");
 		_additionalResourcesHierarchyViewController.hierarchyDataSource=_dataSource;
 		_additionalResourcesHierarchyViewController.disclosedStateKey=@"ui.package.additionalResources.disclosed";
+		_additionalResourcesHierarchyViewController.selectionStateKey=@"ui.package.additionalResources.selection";
 	}
 	
 	return self;

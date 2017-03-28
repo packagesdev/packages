@@ -198,6 +198,7 @@
 				_payloadController=[[PKGPackageComponentPayloadViewController alloc] initWithDocument:self.document];
 				_payloadController.payload=self.packageComponent.payload_safe;
 				_payloadController.payloadHierarchyViewController.disclosedStateKey=self.packageComponent.payloadDisclosedStatesKey;
+				_payloadController.payloadHierarchyViewController.selectionStateKey=self.packageComponent.payloadSelectionStatesKey;
 				
 				if (_payloadController.payload==nil)
 				{
@@ -223,6 +224,7 @@
 				_scriptsAndResourcesViewController=[[PKGPackageComponentScriptsAndResourcesViewController alloc] initWithDocument:self.document];
 				_scriptsAndResourcesViewController.scriptsAndResources=self.packageComponent.scriptsAndResources_safe;
 				_scriptsAndResourcesViewController.additionalResourcesHierarchyViewController.disclosedStateKey=self.packageComponent.additionalResourcesDisclosedStatesKey;
+				_scriptsAndResourcesViewController.additionalResourcesHierarchyViewController.selectionStateKey=self.packageComponent.additionalResourcesSelectionStatesKey;
 			}
 			
 			tNewSegmentViewController=_scriptsAndResourcesViewController;
