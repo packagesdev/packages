@@ -137,6 +137,8 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 
 - (IBAction)addRequirement:(id)sender
 {
+	[self.view.window makeFirstResponder:self.tableView];
+	
 	[self.dataSource tableView:self.tableView addNewRequirementWithCompletionHandler:^(BOOL bSucceeded){
 	
 		if (bSucceeded==NO)
@@ -155,6 +157,8 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 
 - (IBAction)duplicate:(id)sender
 {
+	[self.view.window makeFirstResponder:self.tableView];
+	
 	NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
 	
 	if (tIndexSet.count<1)
@@ -188,6 +192,8 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 
 - (IBAction)editRequirement:(id)sender
 {
+	[self.view.window makeFirstResponder:self.tableView];
+	
 	[self.dataSource editRequirement:self.tableView];
 }
 
