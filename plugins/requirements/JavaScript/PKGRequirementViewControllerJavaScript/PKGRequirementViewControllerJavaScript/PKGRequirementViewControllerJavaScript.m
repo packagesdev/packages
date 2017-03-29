@@ -41,7 +41,7 @@
 - (IBAction)setParameterValue:(id)sender;
 
 - (IBAction)addParameter:(id)sender;
-- (IBAction)removeParameters:(id)sender;
+- (IBAction)delete:(id)sender;
 
 - (IBAction)switchReturnValue:(id)sender;
 
@@ -57,24 +57,6 @@
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
-	
-	/*NSTableColumn * tTableColumn = nil;
-	
-	// Path Names
-    
-    tTableColumn = [_argumentsTableView tableColumnWithIdentifier:@"Value"];
-	
-	if (tTableColumn!=nil)
-	{
-		NSCell * tTextFieldCell;
-		
-		tTextFieldCell = [tTableColumn dataCell];
-		
-		if (tTextFieldCell!=nil)
-		{
-			[tTextFieldCell setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]];
-		}
-	}*/
 	
 	// Register for Notifications
 	
@@ -115,7 +97,7 @@
 	
 	if (tString!=nil)
 	{
-		[_sourceTextView setString:tString];
+		_sourceTextView.string=tString;
 
 		[_sourceTextViewDelegate textDidChange:nil];
 		[_sourceTextView IC_textDidChange:nil];
@@ -125,7 +107,7 @@
 	
 	tString=_settings[PKGRequirementJavaScriptFunctionKey];
 	
-	[_functionsComboBox setStringValue:tString ? : @""];
+	_functionsComboBox.stringValue=tString ? : @"";
 	
 	// Parameters
 	
@@ -181,7 +163,7 @@
 
 - (void)setNextKeyView:(NSView *)inView
 {
-	[_argumentsTableView setNextKeyView:inView];
+	_argumentsTableView.nextKeyView=inView;
 }
 
 #pragma mark -
@@ -241,27 +223,16 @@
 	if (inTableView!=_argumentsTableView)
 		return nil;
 	
-	NSString * tTableColumnIdentifier=[inTableColumn identifier];
+	NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 	
-	if ([tTableColumnIdentifier isEqualToString:@"parameter"]==YES)
-	{
-		if (inRow<_cachedParameters.count)
-		{
-			NSString * tParameter=_cachedParameters[inRow];
-			
-			tTableCellView.textField.stringValue=tParameter;
-		}
-		
-		if (inRow<_cachedFunctionPrototypeParameters.count)
-		{
-			tTableCellView.textField.placeholderString=_cachedFunctionPrototypeParameters[inRow];
-		}
-		
-		return tTableCellView;
-	}
+	if (inRow<_cachedParameters.count)
+		tTableCellView.textField.stringValue=_cachedParameters[inRow];
 	
-	return nil;
+	if (inRow<_cachedFunctionPrototypeParameters.count)
+		tTableCellView.textField.placeholderString=_cachedFunctionPrototypeParameters[inRow];
+	
+	return tTableCellView;
 }
 
 #pragma mark -
@@ -270,7 +241,7 @@
 {
 	[self controlTextDidChange:[NSNotification notificationWithName:NSTextDidChangeNotification object:_functionsComboBox]];
 	
-	NSString * tString=[_functionsComboBox stringValue];
+	NSString * tString=_functionsComboBox.stringValue;
 	
 	if (tString!=nil)
 		_settings[PKGRequirementJavaScriptFunctionKey]=tString;
@@ -324,7 +295,7 @@
 	}
 }
 
-- (IBAction)removeParameters:(id)sender
+- (IBAction)delete:(id)sender
 {
 	NSIndexSet * tIndexSet=_argumentsTableView.selectedRowIndexes;
 	
@@ -352,7 +323,7 @@
 	if ([inNotification object]!=_functionsComboBox)
 		return;
 	
-	NSString * tFunctionName=[_functionsComboBox stringValue];
+	NSString * tFunctionName=_functionsComboBox.stringValue;
 	
 	_cachedFunctionPrototypeParameters=nil;
 	
@@ -368,7 +339,7 @@
 
 	_cachedFunctionPrototypes=[[_sourceTextViewDelegate sortedFunctionsList] copy];
 	
-	NSString * tFunctionName=[_functionsComboBox stringValue];
+	NSString * tFunctionName=_functionsComboBox.stringValue;
 	
 	[_functionsComboBox reloadData];
 	
@@ -385,7 +356,7 @@
     if (inNotification.object!=_argumentsTableView)
 		return;
 	
-	_removeButton.enabled=([_argumentsTableView numberOfSelectedRows]!=0);
+	_removeButton.enabled=(_argumentsTableView.numberOfSelectedRows!=0);
 }
 
 - (void)showDocumentationForKeyword:(NSNotification *) inNotification
@@ -417,7 +388,7 @@
 				
 				if (tCount==1)
 				{
-					NSDictionary * tDictionary=[tOccurrences firstObject];
+					NSDictionary * tDictionary=tOccurrences.firstObject;
 					
 					NSString * tURLString=tDictionary[@"URL"];
 					
