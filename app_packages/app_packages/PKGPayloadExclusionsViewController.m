@@ -55,6 +55,8 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	NSImage * _cachedSmallFileFolderIcon;
 }
 
+	@property (readwrite) IBOutlet NSTableView * tableView;
+
 - (IBAction)switchFilterState:(id)sender;
 - (IBAction)setPredicatePattern:(id)sender;
 - (IBAction)switchPredicateFileType:(id)sender;

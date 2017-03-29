@@ -17,7 +17,7 @@
 
 @interface PKGPayloadExclusionsViewController : PKGDocumentViewController <PKGTableViewDataSourceDelegate>
 
-	@property (strong) IBOutlet NSTableView * tableView;
+	@property (readonly) IBOutlet NSTableView * tableView;
 
 	@property (nonatomic) PKGTableViewDataSource * fileFiltersDataSource;
 
