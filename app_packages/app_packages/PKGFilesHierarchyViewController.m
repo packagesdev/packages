@@ -107,6 +107,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (void)highlightExludedFilesStateDidChange:(NSNotification *)inNotification;
 
+- (void)windowDidResignMain:(NSNotification *)inNotification;
 - (void)windowDidBecomeMain:(NSNotification *)inNotification;
 
 @end
@@ -204,7 +205,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	[self refreshUI];
 	
-	
 	// A COMPLETER
 }
 
@@ -226,6 +226,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightExludedFilesStateDidChange:) name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:self.view.window];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
@@ -237,6 +238,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification object:nil];
 	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
@@ -361,9 +363,9 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	__block NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
 	
-	[tArray enumerateObjectsUsingBlock:^(NSString * bFilePath, NSUInteger bIndex, BOOL *bOutStop) {
+	[tArray enumerateObjectsUsingBlock:^(NSString * bItemPath, NSUInteger bIndex, BOOL *bOutStop) {
 		
-		PKGPayloadTreeNode * tTreeNode=[self.hierarchyDataSource itemAtPath:bFilePath];
+		PKGPayloadTreeNode * tTreeNode=[self.hierarchyDataSource itemAtPath:bItemPath];
 		
 		if (tTreeNode==nil)
 			return;
@@ -1047,11 +1049,18 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	[self.outlineView reloadData];
 }
 
+- (void)windowDidResignMain:(NSNotification *)inNotification
+{
+	[self archiveSelection];
+}
+
 - (void)windowDidBecomeMain:(NSNotification *)inNotification
 {
 	_lastRefreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
 	
 	[self.outlineView reloadData];
+	
+	[self restoreSelection];
 }
 
 @end

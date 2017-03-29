@@ -16,4 +16,6 @@
 
 @interface PKGOutlineView : NSOutlineView
 
+	@property (copy) NSString * selectionStatesKey;
+
 @end
