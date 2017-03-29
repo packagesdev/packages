@@ -1,3 +1,16 @@
+/*
+ Copyright (c) 2017, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 #import "PKGRequirementViewControllerFiles.h"
 
 #import "PKGRequirement_Files+Constants.h"
@@ -5,8 +18,9 @@
 #import "PKGAbsolutePathFormatter.h"
 
 #import "NSArray+WBExtensions.h"
+#import "NSTableView+Selection.h"
 
-@interface PKGRequirementViewControllerFiles ()
+@interface PKGRequirementViewControllerFiles () <NSTableViewDataSource,NSTableViewDelegate,NSTextFieldDelegate>
 {
 	IBOutlet NSPopUpButton * _selectorPopupButton;
 	
@@ -21,6 +35,8 @@
 	IBOutlet NSButton * _removeButton;
 	
 	// Data
+	
+	PKGAbsolutePathFormatter * _cachedFormatter;
 	
 	NSMutableArray * _cachedFiles;
 	
@@ -38,6 +54,8 @@
 
 - (IBAction)switchDiskType:(id)sender;
 
+- (IBAction)setFilePath:(id)sender;
+
 
 - (IBAction)addFile:(id)sender;
 
@@ -50,25 +68,23 @@
 
 @implementation PKGRequirementViewControllerFiles
 
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_cachedFormatter=[PKGAbsolutePathFormatter new];
+	}
+	
+	return self;
+}
+
+#pragma mark -
+
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
-	
-	// Path Names
-    
-    NSTableColumn * tTableColumn = [_tableView tableColumnWithIdentifier:@"Path"];
-	
-	if (tTableColumn!=nil)
-	{
-		NSCell * tTextFieldCell= [tTableColumn dataCell];
-		
-		if (tTextFieldCell!=nil)
-		{
-			tTextFieldCell.formatter=[PKGAbsolutePathFormatter new];
-			
-			tTextFieldCell.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
-		}
-	}
 	
 	[_tableView registerForDraggedTypes:@[NSFilenamesPboardType]];
 }
@@ -182,7 +198,7 @@
 	
 	[_cachedFiles WB_mergeWithArray:inPaths];
 	
-	if ([_cachedFiles count]==tCount)
+	if (_cachedFiles.count==tCount)
 		return;
 	
 	[_cachedFiles sortUsingSelector:@selector(caseInsensitiveCompare:)];
@@ -220,30 +236,80 @@
 
 #pragma mark -
 
-- (IBAction)switchSelector:(NSPopUpButton *) sender
+- (IBAction)switchSelector:(NSPopUpButton *)sender
 {
 	NSInteger tTag=sender.selectedItem.tag;
 	
 	_settings[PKGRequirementFilesSelectorKey]=@(tTag);
 }
 
-- (IBAction)switchCondition:(NSPopUpButton *) sender
+- (IBAction)switchCondition:(NSPopUpButton *)sender
 {
 	NSInteger tTag=sender.selectedItem.tag;
 	
 	_settings[PKGRequirementFilesConditionKey]=@(tTag);
 }
 
-- (IBAction)switchDiskType:(NSPopUpButton *) sender
+- (IBAction)switchDiskType:(NSPopUpButton *)sender
 {
 	NSInteger tTag=sender.selectedItem.tag;
 	
 	_settings[PKGRequirementFilesTargetDiskKey]=@(tTag);
+	
+	[self noteCheckTypeChange];
 }
 
-#pragma mark -
+- (IBAction)setFilePath:(NSTextField *)sender
+{
+	NSUInteger tEditedRow=[_tableView rowForView:sender];
+	
+	if (tEditedRow==-1)
+		return;
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *) inTableView
+	NSString * tNewFilePath=sender.stringValue;
+	
+	NSUInteger tIndex=[_cachedFiles indexOfObject:tNewFilePath];
+	
+	if (tIndex==tEditedRow)
+		return;
+	
+	if (tIndex!=NSNotFound)
+	{
+		NSBeep();
+		
+		[_tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tEditedRow] columnIndexes:[NSIndexSet indexSetWithIndex:[_tableView columnWithIdentifier:@"file.path"]]];
+		
+		return;
+	}
+	
+	_cachedFiles[tEditedRow]=tNewFilePath;
+	
+	[_cachedFiles sortUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	[_tableView deselectAll:self];
+	
+	[_tableView reloadData];
+	
+	[_tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:[_cachedFiles indexOfObject:tNewFilePath]] byExtendingSelection:NO];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(delete:))
+	{
+		NSIndexSet * tIndexSet=_tableView.WB_selectedOrClickedRowIndexes;
+		
+		return (tIndexSet.count>0);
+	}
+	
+	return YES;
+}
+
+#pragma mark - NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)inTableView
 {
 	if (inTableView==_tableView)
 		return _cachedFiles.count;
@@ -251,43 +317,24 @@
 	return 0;
 }
 
-- (id)tableView:(NSTableView *) inTableView objectValueForTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
-{
-	if (inTableView==_tableView)
-		return _cachedFiles[inRowIndex];
-	
-	return nil;
-}
+#pragma mark - NSTableViewDelegate
 
-- (void)tableView:(NSTableView *) inTableView setObjectValue:(id) object forTableColumn:(NSTableColumn *) inTableColumn row:(NSInteger) inRowIndex
+- (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {
-	if (inTableView==_tableView)
-	{
-		if (_cachedFiles!=nil)
-		{
-			NSUInteger tIndex=[_cachedFiles indexOfObject:object];
-			
-			if (tIndex!=inRowIndex)
-			{
-				if (tIndex!=NSNotFound)
-				{
-					NSBeep();
-					
-					return;
-				}
-				
-				[_cachedFiles replaceObjectAtIndex:inRowIndex withObject:object];
-					
-				[_cachedFiles sortUsingSelector:@selector(caseInsensitiveCompare:)];
-			
-				[_tableView deselectAll:self];
-			
-				[_tableView reloadData];
-			
-				[_tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:[_cachedFiles indexOfObject:object]] byExtendingSelection:NO];
-			}
-		}
-	}
+	if (inTableView!=_tableView || inTableColumn==nil)
+		return nil;
+	
+	if (inRow>=_cachedFiles.count)
+		return nil;
+	
+	NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:@"file.path" owner:self];
+	
+	tTableCellView.textField.editable=YES;
+	tTableCellView.textField.formatter=_cachedFormatter;
+	tTableCellView.textField.stringValue=_cachedFiles[inRow];
+	tTableCellView.textField.delegate=self;
+	
+	return tTableCellView;
 }
 
 - (void)control:(NSControl *) inControl didFailToValidatePartialString:(NSString *) inPartialString errorDescription:(NSString *) inError
@@ -298,27 +345,24 @@
 
 #pragma mark -
 
-- (NSDragOperation)tableView:(NSTableView*) inTableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger) inRow proposedDropOperation:(NSTableViewDropOperation) inOperation
+- (NSDragOperation)tableView:(NSTableView*)inTableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)inRow proposedDropOperation:(NSTableViewDropOperation)inOperation
 {
-	if (inTableView==_tableView)
+	if (inTableView!=_tableView || _cachedFiles==nil)
+		return NSDragOperationNone;
+
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+
+	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 	{
-		if (_cachedFiles!=nil)
+		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
+					
+		for(NSString * tPath in tArray)
 		{
-			NSPasteboard * tPasteBoard=[info draggingPasteboard];
-		
-			if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+			if ([_cachedFiles containsObject:tPath]==NO)
 			{
-				NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
-							
-				for(NSString * tPath in tArray)
-				{
-					if ([_cachedFiles containsObject:tPath]==NO)
-					{
-						[_tableView setDropRow:-1 dropOperation:NSTableViewDropOn];
-						
-						return NSDragOperationCopy;
-					}
-				}
+				[_tableView setDropRow:-1 dropOperation:NSTableViewDropOn];
+				
+				return NSDragOperationCopy;
 			}
 		}
 	}
@@ -326,32 +370,28 @@
 	return NSDragOperationNone;
 }
 
-- (BOOL)tableView:(NSTableView*) inTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger) inRow dropOperation:(NSTableViewDropOperation) inOperation
+- (BOOL)tableView:(NSTableView*) inTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)inRow dropOperation:(NSTableViewDropOperation)inOperation
 {
-	if (inTableView==_tableView)
+	if (inTableView!=_tableView || _cachedFiles==nil)
+		return NO;
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+
+	if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 	{
-		if (_cachedFiles!=nil)
-		{
-			NSPasteboard * tPasteBoard=[info draggingPasteboard];
+		NSArray * tArray=[tPasteBoard propertyListForType:NSFilenamesPboardType];
 		
-			if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
-			{
-				NSArray * tArray=[tPasteBoard propertyListForType:NSFilenamesPboardType];
-				
-				[self _mergeFiles:tArray];
-				
-				return YES;
-			}
-		}
+		[self _mergeFiles:tArray];
+		
+		return YES;
 	}
 	
 	return NO;
 }
 
-
 #pragma mark -
 
-- (void)optionKeyStateDidChange:(BOOL) isOptionKeyPressed
+- (void)optionKeyStateDidChange:(BOOL)isOptionKeyPressed
 {
 	if (isOptionKeyPressed==YES)
 		[_addButton setAction:@selector(addExistingFile:)];
@@ -361,7 +401,7 @@
 
 - (IBAction)addFile:(id) sender
 {
-	NSUInteger tRowIndex=[_cachedFiles count];
+	NSUInteger tRowIndex=_cachedFiles.count;
 
 	[_cachedFiles addObject:@"/"];
 	
@@ -377,13 +417,7 @@
 - (IBAction)addExistingFile:(id) sender
 {
 	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
-	
-	if (tOpenPanel==nil)
-	{
-		// A COMPLETER
-		
-		return;
-	}
+
 	NSString * tLabel=NSLocalizedStringFromTableInBundle(@"Add",@"Localizable",[NSBundle bundleForClass:[self class]],@"No comment");
 	
 	tOpenPanel.canChooseDirectories=YES;
@@ -410,9 +444,7 @@
 	}];
 }
 
-
-
-- (IBAction)delete:(id) sender
+- (IBAction)delete:(id)sender
 {
 	NSAlert * tAlert=[NSAlert new];
 	
@@ -430,9 +462,9 @@
 		[self _removeSelectedFiles];
 }
 
-#pragma mark -
+#pragma mark - Notifications
 
-- (void)tableViewSelectionDidChange:(NSNotification *) inNotification
+- (void)tableViewSelectionDidChange:(NSNotification *)inNotification
 {
     if (inNotification.object==_tableView)
 		_removeButton.enabled=(_tableView.numberOfSelectedRows!=0);
