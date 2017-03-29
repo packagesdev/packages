@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 	{
 		_buildOrder=[inBuildOrder copy];
 		
-		_buildNotificationCenter=[[PKGBuildNotificationCenter alloc] init];
+		_buildNotificationCenter=[PKGBuildNotificationCenter new];
 		
 		_handshakelistener=[NSXPCListener anonymousListener];
 		_handshakelistener.delegate=self;

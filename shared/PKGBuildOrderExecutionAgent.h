@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,6 @@
 #import "PKGBuildNotificationCenter.h"
 
 
-
 @interface PKGBuildOrderExecutionAgent : NSObject
 
 	@property (readonly) PKGBuildOrder * buildOrder;
@@ -30,7 +29,7 @@
 	@property (nonatomic, copy) PKGBuildCompletionHandler completionHandler;
 
 
-- (instancetype) initWithBuildOrder:(PKGBuildOrder *)inBuildOrder;
+- (instancetype)initWithBuildOrder:(PKGBuildOrder *)inBuildOrder;
 
 - (void)abortExecution;
 
