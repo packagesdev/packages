@@ -13,7 +13,14 @@
 
 #import "PKGTableViewDataSource.h"
 
+#import "NSIndexSet+Analysis.h"
+
+NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.packages.internal.array";
+
 @interface PKGTableViewDataSource ()
+{
+	NSIndexSet * _internalDragData;
+}
 
 	@property (readwrite) NSMutableArray * items;
 
@@ -33,7 +40,7 @@
 	return self;
 }
 
-#pragma mark -
+#pragma mark - NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)inTableView
 {
@@ -41,6 +48,96 @@
 		return 0;
 	
 	return self.items.count;
+}
+
+#pragma mark - Drag and Drop support
+
+- (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
+{
+	_internalDragData=inRowIndexes;	// A COMPLETER (Find how to empty it when the drag and drop is canceled)
+	
+	[inPasteboard declareTypes:@[PPKGTableViewDataSourceInternalPboardType] owner:self];
+	
+	[inPasteboard setData:[NSData data] forType:PPKGTableViewDataSourceInternalPboardType];
+	
+	return YES;
+}
+
+- (NSDragOperation)tableView:(NSTableView *)inTableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)inRow proposedDropOperation:(NSTableViewDropOperation)inDropOperation
+{
+	if (inDropOperation==NSTableViewDropOn)
+		return NSDragOperationNone;
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	// Internal Drag
+	
+	if ([tPasteBoard availableTypeFromArray:@[PPKGTableViewDataSourceInternalPboardType]]!=nil && [info draggingSource]==inTableView)
+	{
+		if ([_internalDragData WB_containsOnlyOneRange]==YES)
+		{
+			NSUInteger tFirstIndex=_internalDragData.firstIndex;
+			NSUInteger tLastIndex=_internalDragData.lastIndex;
+			
+			if (inRow>=tFirstIndex && inRow<=(tLastIndex+1))
+				return NSDragOperationNone;
+		}
+		else
+		{
+			if ([_internalDragData containsIndex:(inRow-1)]==YES)
+				return NSDragOperationNone;
+		}
+		
+		return NSDragOperationMove;
+	}
+	
+	return NSDragOperationNone;
+}
+
+- (BOOL)tableView:(NSTableView *)inTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)inRow dropOperation:(NSTableViewDropOperation)inDropOperation
+{
+	if (inTableView==nil)
+		return NO;
+	
+	// Internal drag and drop
+	
+	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	
+	if ([tPasteBoard availableTypeFromArray:@[PPKGTableViewDataSourceInternalPboardType]]!=nil && [info draggingSource]==inTableView)
+	{
+		NSArray * tObjects=[self.items objectsAtIndexes:_internalDragData];
+		
+		[self.items removeObjectsAtIndexes:_internalDragData];
+		
+		NSUInteger tIndex=[_internalDragData firstIndex];
+		
+		while (tIndex!=NSNotFound)
+		{
+			if (tIndex<inRow)
+				inRow--;
+			
+			tIndex=[_internalDragData indexGreaterThanIndex:tIndex];
+		}
+		
+		NSIndexSet * tNewIndexSet=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inRow, _internalDragData.count)];
+		
+		[self.items insertObjects:tObjects atIndexes:tNewIndexSet];
+		
+		_internalDragData=nil;
+		
+		[inTableView deselectAll:nil];
+		
+		[self.delegate dataDidChange:self];
+		
+		[inTableView reloadData];
+		
+		[inTableView selectRowIndexes:tNewIndexSet
+				 byExtendingSelection:NO];
+		
+		return YES;
+	}
+	
+	return NO;
 }
 
 #pragma mark -

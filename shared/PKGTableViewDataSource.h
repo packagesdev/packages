@@ -13,6 +13,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * const PPKGTableViewDataSourceInternalPboardType;
+
 @class PKGTableViewDataSource;
 
 @protocol PKGTableViewDataSourceDelegate <NSObject>
