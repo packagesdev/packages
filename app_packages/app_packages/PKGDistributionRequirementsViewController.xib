@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1217" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionRequirementsViewController">
@@ -99,11 +99,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="HeaderCell" id="FNd-o8-zau">
-                                                <rect key="frame" x="0.0" y="0.0" width="443" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="441" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="NIU-LN-BC8">
-                                                        <rect key="frame" x="21" y="3" width="419" height="14"/>
+                                                        <rect key="frame" x="21" y="0.0" width="420" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="6hG-3y-rug">
                                                             <font key="font" metaFont="smallSystemBold"/>
@@ -117,13 +117,13 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="DataCell" id="Um9-2e-AE6" customClass="PKGCheckboxTableCellView">
-                                                <rect key="frame" x="1" y="1" width="443" height="17"/>
+                                                <rect key="frame" x="1" y="18" width="441" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button id="o2B-gT-Mfv">
-                                                        <rect key="frame" x="-1" y="1" width="21" height="19"/>
+                                                        <rect key="frame" x="0.0" y="1" width="20" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="mini" state="on" inset="2" id="cJM-Km-G7i">
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" controlSize="mini" state="on" inset="2" id="cJM-Km-G7i">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="miniSystem"/>
                                                         </buttonCell>
@@ -132,7 +132,7 @@
                                                         </connections>
                                                     </button>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="A75-VN-OC7">
-                                                        <rect key="frame" x="20" y="2" width="422" height="14"/>
+                                                        <rect key="frame" x="23" y="0.0" width="418" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="tIg-8T-uRL">
                                                             <font key="font" metaFont="smallSystem"/>

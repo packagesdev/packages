@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">14F2009</string>
-		<string key="IBDocument.InterfaceBuilderVersion">7525</string>
+		<string key="IBDocument.SystemVersion">14F2315</string>
+		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">7525</string>
+			<string key="NS.object.0">7706</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
@@ -99,7 +99,7 @@
 													<object class="NSTextField" id="295292874">
 														<reference key="NSNextResponder" ref="654169008"/>
 														<int key="NSvFlags">266</int>
-														<string key="NSFrameSize">{206, 17}</string>
+														<string key="NSFrameSize">{206, 15}</string>
 														<reference key="NSSuperview" ref="654169008"/>
 														<reference key="NSWindow"/>
 														<reference key="NSNextKeyView" ref="390543703"/>
@@ -122,7 +122,7 @@
 														<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 													</object>
 												</array>
-												<string key="NSFrame">{{1, 0}, {206, 17}}</string>
+												<string key="NSFrame">{{1, 0}, {206, 15}}</string>
 												<reference key="NSSuperview" ref="765321290"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="295292874"/>
@@ -134,9 +134,10 @@
 													<object class="NSTextField" id="94653478">
 														<reference key="NSNextResponder" ref="390543703"/>
 														<int key="NSvFlags">266</int>
-														<string key="NSFrameSize">{193, 17}</string>
+														<string key="NSFrameSize">{193, 15}</string>
 														<reference key="NSSuperview" ref="390543703"/>
 														<reference key="NSWindow"/>
+														<reference key="NSNextKeyView"/>
 														<string key="NSAntiCompressionPriority">{250, 750}</string>
 														<bool key="NSEnabled">YES</bool>
 														<object class="NSTextFieldCell" key="NSCell" id="757649710">
@@ -156,7 +157,7 @@
 														<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 													</object>
 												</array>
-												<string key="NSFrame">{{210, 0}, {193, 17}}</string>
+												<string key="NSFrame">{{210, 0}, {193, 15}}</string>
 												<reference key="NSSuperview" ref="765321290"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="94653478"/>
@@ -165,7 +166,7 @@
 										<string key="NSFrameSize">{405, 112}</string>
 										<reference key="NSSuperview" ref="1049199690"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="680088344"/>
+										<reference key="NSNextKeyView" ref="654169008"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -271,7 +272,7 @@
 												<bytes key="NSWhite">MC41AA</bytes>
 											</object>
 										</object>
-										<double key="NSRowHeight">17</double>
+										<double key="NSRowHeight">15</double>
 										<int key="NSTvFlags">1388314624</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
@@ -341,14 +342,14 @@
 						<string key="NSFrame">{{29, 20}, {407, 130}}</string>
 						<reference key="NSSuperview" ref="441468351"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1049199690"/>
+						<reference key="NSNextKeyView" ref="680088344"/>
 						<int key="NSsFlags">1051154</int>
 						<reference key="NSVScroller" ref="333635317"/>
 						<reference key="NSHScroller" ref="680088344"/>
 						<reference key="NSContentView" ref="1049199690"/>
 						<reference key="NSHeaderClipView" ref="202805974"/>
 						<reference key="NSCornerView" ref="218798455"/>
-						<bytes key="NSScrollAmts">QSAAAEEgAABBiAAAQYgAAA</bytes>
+						<bytes key="NSScrollAmts">QSAAAEEgAABBcAAAQXAAAA</bytes>
 						<double key="NSMinMagnification">0.25</double>
 						<double key="NSMaxMagnification">4</double>
 						<double key="NSMagnification">1</double>
@@ -594,7 +595,6 @@
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="64.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="YES" key="64.ibExternalAutomaticallyCalculatesRowSizeFromViewHeight"/>
 				<string key="65.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="65.isInViewBasedMode"/>
 				<array key="65.prototypeCellViews">
@@ -666,10 +666,18 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PKGPreferencePaneViewController</string>
-					<string key="superclassName">NSViewController</string>
+					<string key="superclassName">PKGViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGPreferencePaneViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../../shared/PKGViewController.h</string>
 					</object>
 				</object>
 			</array>

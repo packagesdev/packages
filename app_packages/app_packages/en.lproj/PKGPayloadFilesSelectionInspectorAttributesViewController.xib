@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -139,7 +139,7 @@
                                                     <button id="0au-pw-XlO">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="mini" state="on" inset="2" id="PN7-5a-2ZO" customClass="PKGCheckButtonCell">
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" controlSize="mini" state="on" inset="2" id="PN7-5a-2ZO" customClass="PKGCheckButtonCell">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="miniSystem"/>
                                                         </buttonCell>
@@ -170,7 +170,7 @@
                                                     <button id="j7w-X1-Tgb">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="mini" state="on" inset="2" id="heF-tr-Z0j" customClass="PKGCheckButtonCell">
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" controlSize="mini" state="on" inset="2" id="heF-tr-Z0j" customClass="PKGCheckButtonCell">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="miniSystem"/>
                                                         </buttonCell>
@@ -201,7 +201,7 @@
                                                     <button id="IL6-Oj-1fh">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="mini" state="on" inset="2" id="bU1-AZ-10G" customClass="PKGCheckButtonCell">
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" controlSize="mini" state="on" inset="2" id="bU1-AZ-10G" customClass="PKGCheckButtonCell">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="miniSystem"/>
                                                         </buttonCell>
@@ -302,7 +302,7 @@
                                                     <button id="YVU-Zh-JkX">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" controlSize="mini" state="on" inset="2" id="gFe-JD-jiH" customClass="PKGCheckButtonCell">
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" controlSize="mini" state="on" inset="2" id="gFe-JD-jiH" customClass="PKGCheckButtonCell">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="miniSystem"/>
                                                         </buttonCell>

@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">14F2109</string>
+		<string key="IBDocument.SystemVersion">14F2315</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -48,7 +48,7 @@
 					<object class="NSButton" id="168041780">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{30, 199}, {309, 18}}</string>
+						<string key="NSFrame">{{30, 202}, {309, 18}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="494006790"/>
@@ -86,7 +86,7 @@
 					<object class="NSButton" id="83898426">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{30, 221}, {195, 18}}</string>
+						<string key="NSFrame">{{30, 224}, {195, 18}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="168041780"/>
@@ -291,10 +291,10 @@
 												<reference key="NSNextKeyView" ref="1014364333"/>
 											</object>
 										</array>
-										<string key="NSFrameSize">{567, 135}</string>
+										<string key="NSFrameSize">{567, 138}</string>
 										<reference key="NSSuperview" ref="445274087"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="519573169"/>
+										<reference key="NSNextKeyView" ref="41611730"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -394,7 +394,7 @@
 										<int key="NSTableViewGroupRowStyle">1</int>
 									</object>
 								</array>
-								<string key="NSFrame">{{1, 1}, {567, 135}}</string>
+								<string key="NSFrame">{{1, 1}, {567, 138}}</string>
 								<reference key="NSSuperview" ref="494006790"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="868410268"/>
@@ -433,10 +433,10 @@
 								<double key="NSPercent">0.99047619104385376</double>
 							</object>
 						</array>
-						<string key="NSFrame">{{37, 50}, {569, 137}}</string>
+						<string key="NSFrame">{{37, 50}, {569, 140}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="41611730"/>
+						<reference key="NSNextKeyView" ref="445274087"/>
 						<int key="NSsFlags">150034</int>
 						<reference key="NSVScroller" ref="804484922"/>
 						<reference key="NSHScroller" ref="41611730"/>
@@ -507,7 +507,7 @@
 					<object class="NSTextField" id="486209048">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 246}, {221, 17}}</string>
+						<string key="NSFrame">{{17, 249}, {221, 17}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="83898426"/>
@@ -551,7 +551,7 @@
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 					</object>
 				</array>
-				<string key="NSFrameSize">{626, 274}</string>
+				<string key="NSFrameSize">{626, 277}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="486209048"/>
@@ -1008,7 +1008,7 @@
 				<string key="156.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="157.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="88.IBNSViewMetadataGestureRecognizers" ref="0"/>
-				<string key="88.IBPersistedLastKnownCanvasPosition">{171, 328}</string>
+				<string key="88.IBPersistedLastKnownCanvasPosition">{171, 329.5}</string>
 				<string key="88.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="89.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="90.CustomClassName">PKGInstallationRequirementMessageTableView</string>

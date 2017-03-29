@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">14F2109</string>
+		<string key="IBDocument.SystemVersion">14F2315</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -372,6 +372,7 @@
 														<string key="NSFrameSize">{415, 17}</string>
 														<reference key="NSSuperview" ref="1028832704"/>
 														<reference key="NSWindow"/>
+														<reference key="NSNextKeyView" ref="607617159"/>
 														<string key="NSAntiCompressionPriority">{250, 750}</string>
 														<bool key="NSEnabled">YES</bool>
 														<object class="NSTextFieldCell" key="NSCell" id="241764629">
@@ -394,6 +395,7 @@
 												<string key="NSFrame">{{1, 1}, {415, 17}}</string>
 												<reference key="NSSuperview" ref="1028837824"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="979774447"/>
 											</object>
 										</array>
 										<string key="NSFrameSize">{418, 65}</string>
@@ -517,7 +519,7 @@
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="825367745"/>
-						<int key="NSsFlags">133138</int>
+						<int key="NSsFlags">149522</int>
 						<reference key="NSVScroller" ref="607617159"/>
 						<reference key="NSHScroller" ref="968019404"/>
 						<reference key="NSContentView" ref="825367745"/>
@@ -624,7 +626,7 @@
 					<object class="NSTextField" id="478821054">
 						<reference key="NSNextResponder" ref="519150601"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{63, 162}, {62, 17}}</string>
+						<string key="NSFrame">{{55, 162}, {70, 17}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="269887282"/>
@@ -644,7 +646,7 @@
 					<object class="NSTextField" id="107130934">
 						<reference key="NSNextResponder" ref="519150601"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{50, 132}, {75, 17}}</string>
+						<string key="NSFrame">{{35, 132}, {90, 17}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="32529179"/>
@@ -722,7 +724,7 @@
 					<object class="NSTextField" id="325363494">
 						<reference key="NSNextResponder" ref="519150601"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{16, 22}, {109, 17}}</string>
+						<string key="NSFrame">{{8, 22}, {117, 17}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="12518669"/>
@@ -836,14 +838,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">removeParameters:</string>
-						<reference key="source" ref="676968352"/>
-						<reference key="destination" ref="639521346"/>
-					</object>
-					<int key="connectionID">155</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">setFunctionName:</string>
 						<reference key="source" ref="676968352"/>
 						<reference key="destination" ref="269887282"/>
@@ -929,6 +923,14 @@
 						<reference key="destination" ref="979774447"/>
 					</object>
 					<int key="connectionID">193</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">delete:</string>
+						<reference key="source" ref="676968352"/>
+						<reference key="destination" ref="639521346"/>
+					</object>
+					<int key="connectionID">198</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1409,7 +1411,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">197</int>
+			<int key="maxID">198</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1460,48 +1462,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">ICSourceTextView</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="_shiftLeft:">NSArray</string>
-						<string key="_shiftRight:">NSArray</string>
-						<string key="shiftLeft:">id</string>
-						<string key="shiftRight:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="_shiftLeft:">
-							<string key="name">_shiftLeft:</string>
-							<string key="candidateClassName">NSArray</string>
-						</object>
-						<object class="IBActionInfo" key="_shiftRight:">
-							<string key="name">_shiftRight:</string>
-							<string key="candidateClassName">NSArray</string>
-						</object>
-						<object class="IBActionInfo" key="shiftLeft:">
-							<string key="name">shiftLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="shiftRight:">
-							<string key="name">shiftRight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">_gutterView</string>
-						<string key="NS.object.0">ICGutterView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">_gutterView</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">_gutterView</string>
-							<string key="candidateClassName">ICGutterView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView.m</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">ICSourceTextViewDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
@@ -1518,38 +1478,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ICSourceTextViewDelegate</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">showFunction:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showFunction:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showFunction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="_functionsPopupButton">ICJavaScriptFunctionPopUpButton</string>
-						<string key="_textView">NSTextView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="_functionsPopupButton">
-							<string key="name">_functionsPopupButton</string>
-							<string key="candidateClassName">ICJavaScriptFunctionPopUpButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_textView">
-							<string key="name">_textView</string>
-							<string key="candidateClassName">NSTextView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.m</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1572,7 +1500,7 @@
 					<string key="className">PKGRequirementViewControllerJavaScript</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addParameter:">id</string>
-						<string key="removeParameters:">id</string>
+						<string key="delete:">id</string>
 						<string key="setFunctionName:">id</string>
 						<string key="setParameterValue:">id</string>
 						<string key="switchReturnValue:">id</string>
@@ -1582,8 +1510,8 @@
 							<string key="name">addParameter:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="removeParameters:">
-							<string key="name">removeParameters:</string>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="setFunctionName:">
@@ -1675,14 +1603,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSApplication.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSArray</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Foundation.framework/Headers/NSArray.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
