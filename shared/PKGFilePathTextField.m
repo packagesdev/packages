@@ -154,8 +154,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		
-		[[self target] performSelector:[self action]
-							withObject:self];
+		[self.target performSelector:self.action withObject:self];
 		
 #pragma clang diagnostic pop
 	}
@@ -176,17 +175,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if ([tPasteBoard.types containsObject:NSFilenamesPboardType]==YES)
 	{
-		NSDragOperation sourceDragMask= [sender draggingSourceOperationMask];
+		NSDragOperation sourceDragMask=[sender draggingSourceOperationMask];
 		
 		if ((sourceDragMask & NSDragOperationCopy)==NSDragOperationCopy)
 		{
 			NSArray * tFiles=[tPasteBoard propertyListForType:NSFilenamesPboardType];
 			
-			if ([tFiles count]==1)
+			if (tFiles.count==1)
 			{
 				id<PKGFilePathTextFieldDelegate> tDelegate=(id<PKGFilePathTextFieldDelegate>)self.delegate;
 					
-				if ([tDelegate filePathTextField:self shouldAcceptFile:tFiles[0]]==YES)
+				if ([tDelegate filePathTextField:self shouldAcceptFile:tFiles.lastObject]==YES)
 					return NSDragOperationCopy;
 			}
 		}
@@ -206,7 +205,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		NSArray *tFiles=[tPasteBoard propertyListForType:NSFilenamesPboardType];
 		
-		if ([tFiles count]==1)
+		if (tFiles.count==1)
 		{
 			if (self.pathConverter==nil)
 			{
@@ -214,7 +213,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				return NO;
 			}
 			
-			PKGFilePath * tFilePath=[self.pathConverter filePathForAbsolutePath:tFiles[0] type:self.filePath.type];
+			PKGFilePath * tFilePath=[self.pathConverter filePathForAbsolutePath:tFiles.lastObject type:self.filePath.type];
 			
 			if (tFilePath!=nil)
 			{
@@ -226,8 +225,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 				
-				[[self target] performSelector:[self action]
-									withObject:self];
+				[self.target performSelector:self.action withObject:self];
 				
 #pragma clang diagnostic pop
 				
