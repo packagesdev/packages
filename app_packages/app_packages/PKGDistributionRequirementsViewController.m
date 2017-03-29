@@ -57,6 +57,8 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 {
     [super WB_viewDidLoad];
 	
+	self.tableView.doubleAction=@selector(editRequirement:);
+	
 	[self.tableView registerForDraggedTypes:[PKGDistributionRequirementSourceListDataSource supportedDraggedTypes]];
 }
 

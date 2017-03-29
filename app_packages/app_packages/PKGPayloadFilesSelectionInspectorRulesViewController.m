@@ -62,6 +62,8 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 {
 	[super WB_viewDidLoad];
 	
+	self.tableView.doubleAction=@selector(editLocator:);
+	
 	[self.tableView registerForDraggedTypes:@[PKGBundleLocatorsInternalPboardType]];
 }
 
