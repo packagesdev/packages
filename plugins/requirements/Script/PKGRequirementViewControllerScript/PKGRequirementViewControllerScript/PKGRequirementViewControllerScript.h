@@ -15,4 +15,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface PKGRequirementViewControllerScript : PKGRequirementViewController
 
+	@property (readonly) IBOutlet NSTableView * tableView;
+
 @end

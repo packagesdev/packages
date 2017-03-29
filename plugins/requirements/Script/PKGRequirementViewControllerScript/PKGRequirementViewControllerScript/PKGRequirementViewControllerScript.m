@@ -106,8 +106,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	IBOutlet NSButton * _embedCheckBox;
 	
 	IBOutlet NSTextField * _embeddedWarningLabel;
-	
-	IBOutlet NSTableView * _tableView;
+
 	
 	IBOutlet NSButton * _addButton;
 	
@@ -126,11 +125,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSMutableDictionary * _settings;
 }
 
+	@property (readwrite) IBOutlet NSTableView * tableView;
+
 - (IBAction)updateScriptPath:(id)sender;
 
 - (IBAction)selectScriptPath:(id)sender;
 
-- (IBAction)revealScriptPathInFinder:(id)sender;
+- (IBAction)showInFinder:(id)sender;
 
 - (IBAction)switchEmbed:(id) sender;
 
@@ -197,6 +198,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	[super WB_viewDidLoad];
 	
+	[self.tableView registerForDraggedTypes:@[PPKGTableViewDataSourceInternalPboardType]];
+	
 	// Return Value
 	
 	_returnValueTextField.formatter=[PKGIntegerFormatter new];
@@ -206,7 +209,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	[super WB_viewWillAppear];
 	
-	_tableView.dataSource=_dataSource;
+	self.tableView.dataSource=_dataSource;
 }
 
 - (void)WB_viewDidAppear
@@ -216,7 +219,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	_addButton.enabled=YES;
 	_removeButton.enabled=NO;
 	
-	[_tableView reloadData];
+	[self.tableView reloadData];
 }
 
 #pragma mark -
@@ -232,7 +235,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	_dataSource=[[PKGTableViewDataSource alloc] initWithItems:_arguments];
 	
-	_tableView.dataSource=_dataSource;
+	self.tableView.dataSource=_dataSource;
 	
 	[self refreshUI];
 }
@@ -281,14 +284,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		_settings[PKGRequirementScriptPathKey]=[NSDictionary dictionary];
 		
-		tFilePath=[[PKGFilePath alloc] init];
+		tFilePath=[PKGFilePath new];
 	}
 	
 	if (tFilePath!=nil)
 	{
-		[_scriptPathTextField setFilePath:tFilePath];
+		_scriptPathTextField.filePath=tFilePath;
 		
-		
+
 		PKGFilePathType tType=tFilePath.type;
 		
 		if (tType!=PKGFilePathTypeAbsolute)
@@ -296,7 +299,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			_settings[PKGRequirementScriptEmbeddedKey]=@(YES);
 						  
 			_embedCheckBox.enabled=NO;
-
 			_embedCheckBox.state=NSOnState;
 		}
 		else
@@ -311,9 +313,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	_removeButton.enabled=NO;
 	
-	[_tableView reloadData];
+	[self.tableView reloadData];
 	
-	[_tableView deselectAll:self];
+	[self.tableView deselectAll:self];
 	
 	// Comparator
 	
@@ -359,7 +361,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)setNextKeyView:(NSView *) inView
 {
-	[_returnValueTextField setNextKeyView:inView];
+	_returnValueTextField.nextKeyView=inView;
 }
 
 #pragma mark -
@@ -372,7 +374,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tFilePath!=nil)
 	{
-		PKGFilePath * tNewFilePath=[_scriptPathTextField filePath];
+		PKGFilePath * tNewFilePath=_scriptPathTextField.filePath;
 		
 		if (tNewFilePath==nil)
 		{
@@ -410,7 +412,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     
 	tOpenPanel.prompt=NSLocalizedStringFromTableInBundle(@"Choose", @"Localizable", [NSBundle bundleForClass:[self class]], @"No comment");
 	
-	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:[_scriptPathTextField filePath]];
+	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:_scriptPathTextField.filePath];
 	
 	tOpenPanel.directoryURL=[NSURL fileURLWithPath:tAbsolutePath];
  
@@ -418,9 +420,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		if (bResult==NSFileHandlingPanelOKButton)
 		{
-			PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:[tOpenPanel.URL path] type:[_scriptPathTextField filePath].type];
+			PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:tOpenPanel.URL.path type:_scriptPathTextField.filePath.type];
 			
-			[_scriptPathTextField setFilePath:tNewFilePath];
+			_scriptPathTextField.filePath=tNewFilePath;
 			
 			[self updateScriptPath:_scriptPathTextField];
 		}
@@ -428,7 +430,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 }
 
-- (IBAction)revealScriptPathInFinder:(id) sender
+- (IBAction)showInFinder:(id) sender
 {
     [[NSWorkspace sharedWorkspace] selectFile:[self.filePathConverter absolutePathForFilePath:[_scriptPathTextField filePath]] inFileViewerRootedAtPath:@""];
 }
@@ -450,12 +452,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction)switchArgumentState:(NSButton *)sender
 {
-	NSInteger tEditedRow=[_tableView rowForView:sender];
+	NSInteger tEditedRow=[self.tableView rowForView:sender];
 	
 	if (tEditedRow==-1)
 		return;
 	
-	PKGScriptArgument * tScriptArgument=[_dataSource tableView:_tableView itemAtRow:tEditedRow];
+	PKGScriptArgument * tScriptArgument=[_dataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
 	BOOL tNewState=(sender.state==NSOnState);
 	
@@ -467,28 +469,39 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction)setArgumentValue:(NSTextField *)sender
 {
-	NSInteger tEditedRow=[_tableView rowForView:sender];
+	NSInteger tEditedRow=[self.tableView rowForView:sender];
 	
 	if (tEditedRow==-1)
 		return;
 	
-	PKGScriptArgument * tScriptArgument=[_dataSource tableView:_tableView itemAtRow:tEditedRow];
+	PKGScriptArgument * tScriptArgument=[_dataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
 	tScriptArgument.value=sender.stringValue;
 }
 
-- (IBAction)addArgument:(id) sender
+- (IBAction)addArgument:(id)sender
 {
+	[self.view.window makeFirstResponder:self.tableView];
+	
 	PKGScriptArgument * tScriptArgument=[PKGScriptArgument new];
 	
-	[_dataSource tableView:_tableView addItem:tScriptArgument];
+	[_dataSource tableView:self.tableView addItem:tScriptArgument];
 	
-	[_tableView editColumn:[_tableView columnWithIdentifier:@"argument.value"] row:_tableView.selectedRow withEvent:nil select:YES];
+	// Enter edition mode
+	
+	NSInteger tRow=self.tableView.selectedRow;
+	
+	if (tRow==-1)
+		return;
+	
+	[self.tableView scrollRowToVisible:tRow];
+	
+	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"argument.value"] row:tRow withEvent:nil select:YES];
 }
 
-- (IBAction)delete:(id) sender
+- (IBAction)delete:(id)sender
 {
-	[_dataSource tableView:_tableView removeItems:[_dataSource tableView:_tableView itemsAtRowIndexes:_tableView.WB_selectedOrClickedRowIndexes]];
+	[_dataSource tableView:self.tableView removeItems:[_dataSource tableView:self.tableView itemsAtRowIndexes:self.tableView.WB_selectedOrClickedRowIndexes]];
 }
 
 - (IBAction)switchComparator:(NSPopUpButton *) sender
@@ -498,11 +511,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	_settings[PKGRequirementScriptReturnValueComparatorKey]=@(tTag);
 }
 
-- (IBAction)setReturnValue:(id) sender
+- (IBAction)setReturnValue:(id)sender
 {
-	NSString * tStringValue=[_returnValueTextField stringValue];
+	NSString * tStringValue=_returnValueTextField.stringValue;
 	
-	NSNumber * tNumber=[NSNumber numberWithInteger:[tStringValue integerValue]];
+	NSNumber * tNumber=@([tStringValue integerValue]);
 	
 	if (tNumber!=nil)
 		_settings[PKGRequirementScriptReturnValueKey]=tNumber;
@@ -512,7 +525,19 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	SEL tAction=inMenuItem.action;
 	
-	// A COMPLETER
+	if (tAction==@selector(delete:))
+	{
+		NSIndexSet * tIndexSet=self.tableView.WB_selectedOrClickedRowIndexes;
+		
+		return (tIndexSet.count>0);
+	}
+	
+	if (tAction==@selector(showInFinder:))
+	{
+		PKGFilePath * tNewFilePath=_scriptPathTextField.filePath;
+		
+		return (tNewFilePath.string.length>0);
+	}
 	
 	return YES;
 }
@@ -521,35 +546,25 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSView *)tableView:(NSTableView *)inTableView viewForTableColumn:(NSTableColumn *)inTableColumn row:(NSInteger)inRow
 {
-	if (inTableView!=_tableView)
+	if (inTableView!=self.tableView)
 		return nil;
 	
-	NSString * tTableColumnIdentifier=[inTableColumn identifier];
+	NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 	
-	PKGScriptArgument * tScriptArgument=[_dataSource tableView:_tableView itemAtRow:inRow];
+	PKGScriptArgument * tScriptArgument=[_dataSource tableView:self.tableView itemAtRow:inRow];
 	
 	if (tScriptArgument==nil)
 		return nil;
 	
-	if ([tTableColumnIdentifier isEqualToString:@"argument.state"]==YES)
-	{
-		PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
+	PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 		
-		tCheckBoxView.checkbox.state=(tScriptArgument.state==YES) ? NSOnState : NSOffState;
+	tCheckBoxView.checkbox.state=(tScriptArgument.state==YES) ? NSOnState : NSOffState;
 		
-		return tCheckBoxView;
-	}
-	
-	if ([tTableColumnIdentifier isEqualToString:@"argument.value"]==YES)
-	{
-		tTableCellView.textField.stringValue=tScriptArgument.value;
-		tTableCellView.textField.editable=YES;
+	tTableCellView.textField.stringValue=tScriptArgument.value;
+	tTableCellView.textField.editable=YES;
 		
-		return tTableCellView;
-	}
-	
-	return nil;
+	return tCheckBoxView;
 }
 
 #pragma mark - NSControlTextEditingDelegate
@@ -576,10 +591,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)tableViewSelectionDidChange:(NSNotification *) inNotification
 {
-    if (inNotification.object!=_tableView)
+    if (inNotification.object!=self.tableView)
 		return;
 	
-	_removeButton.enabled=(_tableView.numberOfSelectedRows>0);
+	_removeButton.enabled=(self.tableView.numberOfSelectedRows>0);
 }
 
 @end
