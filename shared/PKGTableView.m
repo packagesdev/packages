@@ -29,7 +29,7 @@
 		{
 			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:@"" action:@selector(delete:) keyEquivalent:@""];
 		
-			if ([tTarget validateMenuItem:tMenuItem]==YES)
+			if ([tTarget respondsToSelector:@selector(validateMenuItem)]==NO || [tTarget validateMenuItem:tMenuItem]==YES)
 				[NSApp sendAction:@selector(delete:) to:tTarget from:self];
 		
 			return;
