@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -47,12 +47,11 @@
 
 - (IBAction)showTabView:(id)sender;
 
-- (IBAction)showSettingsTab:(id)sender;
-- (IBAction)showPayloadTab:(id)sender;
-- (IBAction)showScriptsAndResourcesTab:(id)sender;
-- (IBAction)showCommentsTab:(id)sender;
+// Project Menu
 
-- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+- (IBAction)upgradeToDistribution:(id)sender;
+
+
 
 // Notifications
 
@@ -119,28 +118,6 @@
 {
 	if (_currentContentsViewController!=nil)
 		return [_currentContentsViewController PKG_viewCanBeRemoved];
-	
-	return YES;
-}
-
-#pragma mark - 
-
-- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
-{
-	[((PKGPackagePayloadViewController *)_currentContentsViewController) switchHiddenFolderTemplatesVisibility:sender];
-}
-
-- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
-{
-	SEL tAction=[inMenuItem action];
-	
-	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:))
-	{
-		if ([_currentContentsViewController isKindOfClass:PKGPackagePayloadViewController.class]==NO)
-			return NO;
-		
-		return [_currentContentsViewController validateMenuItem:inMenuItem];
-	}
 	
 	return YES;
 }
@@ -263,30 +240,163 @@
 	[self showTabViewWithTag:sender.selectedSegment];
 }
 
-#pragma mark -
+#pragma mark - View Menu
 
-- (IBAction)showSettingsTab:(id)sender
+- (IBAction)showProjectSettingsTab:(id)sender
+{
+	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPaneProject];
+	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPaneProject];
+}
+
+- (IBAction)showPackageSettingsTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPaneSettings];
 	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPaneSettings];
 }
 
-- (IBAction)showPayloadTab:(id)sender
+- (IBAction)showPackagePayloadTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPanePayload];
 	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPanePayload];
 }
 
-- (IBAction)showScriptsAndResourcesTab:(id)sender
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPaneScriptsAndResources];
 	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPaneScriptsAndResources];
 }
 
-- (IBAction)showCommentsTab:(id)sender
+- (IBAction)showProjectCommentsTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralPackageProjectPaneComments];
 	[self showTabViewWithTag:PKGPreferencesGeneralPackageProjectPaneComments];
+}
+
+#pragma mark - Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(addFiles:) withObject:sender];
+}
+
+- (IBAction)addNewFolder:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(addNewFolder:) withObject:sender];
+}
+
+- (IBAction)expandOneLevel:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expandOneLevel:) withObject:sender];
+}
+
+- (IBAction)expand:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expand:) withObject:sender];
+}
+
+- (IBAction)expandAll:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expandAll:) withObject:sender];
+}
+
+- (IBAction)contract:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(contract:) withObject:sender];
+}
+
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(switchHiddenFolderTemplatesVisibility:) withObject:sender];
+}
+
+- (IBAction)setDefaultDestination:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(switchHiddenFolderTemplatesVisibility:) withObject:sender];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=[inMenuItem action];
+	
+	// View Menu
+	
+	if (tAction==@selector(showDistributionPresentationTab:) ||
+		tAction==@selector(showDistributionRequirementsAndResourcesTab:))
+	{
+		inMenuItem.hidden=YES;
+		inMenuItem.keyEquivalentModifierMask=0;
+		inMenuItem.keyEquivalent=@"";
+		
+		return NO;
+	}
+	
+	if (tAction==@selector(showProjectSettingsTab:) ||
+		tAction==@selector(showPackageSettingsTab:) ||
+		tAction==@selector(showPackagePayloadTab:) ||
+		tAction==@selector(showPackageScriptsAndResourcesTab:) ||
+		tAction==@selector(showProjectCommentsTab:))
+	{
+		inMenuItem.keyEquivalentModifierMask=NSCommandKeyMask;
+		inMenuItem.hidden=NO;
+	
+		if (tAction==@selector(showProjectSettingsTab:))
+		{
+			inMenuItem.title=NSLocalizedString(@"Project",@"");
+			inMenuItem.keyEquivalent=@"1";
+		}
+		else if (tAction==@selector(showPackageSettingsTab:))
+		{
+			inMenuItem.keyEquivalent=@"2";
+		}
+		else if (tAction==@selector(showPackagePayloadTab:))
+		{
+			inMenuItem.keyEquivalent=@"3";
+		}
+		else if (tAction==@selector(showPackageScriptsAndResourcesTab:))
+		{
+			inMenuItem.keyEquivalent=@"4";
+		}
+		else if (tAction==@selector(showProjectCommentsTab:))
+		{
+			inMenuItem.keyEquivalent=@"5";
+		}
+		
+		return YES;
+	}
+	
+	// Hierarchy Menu
+	
+	if (tAction==@selector(addFiles:) ||
+		tAction==@selector(addNewFolder:) ||
+		tAction==@selector(expandOneLevel:) ||
+		tAction==@selector(expand:) ||
+		tAction==@selector(expandAll:) ||
+		tAction==@selector(contract:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGPackagePayloadViewController.class]==NO &&
+			[_currentContentsViewController isKindOfClass:PKGPackageScriptsAndResourcesViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:) ||
+		tAction==@selector(setDefaultDestination:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGPackagePayloadViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	return YES;
+}
+
+#pragma mark - Project Menu
+
+- (IBAction)upgradeToDistribution:(id)sender
+{
+	// A COMPLETER
 }
 
 #pragma mark - Notifications

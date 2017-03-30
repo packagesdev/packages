@@ -23,6 +23,6 @@
 
 	@property (readonly) PKGPayloadFilesHierarchyViewController * payloadHierarchyViewController;
 
-- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+
 
 @end

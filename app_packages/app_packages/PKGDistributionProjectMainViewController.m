@@ -50,8 +50,6 @@
 - (IBAction)selectCertificate:(id)sender;
 - (IBAction)removeCertificate:(id) sender;
 
-- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
-
 // Notifications
 
 - (void)sourceListSelectionDidChange:(NSNotification *)inNotification;
@@ -131,7 +129,71 @@
 	[_sourceListController WB_viewDidDisappear];
 }
 
-#pragma mark -
+#pragma mark - View Menu
+
+- (IBAction)showProjectSettingsTab:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(showProjectSettingsTab:) withObject:sender];
+}
+
+- (IBAction)showDistributionPresentationTab:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(showDistributionPresentationTab:) withObject:sender];
+}
+
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(showDistributionRequirementsAndResourcesTab:) withObject:sender];
+}
+
+- (IBAction)showProjectCommentsTab:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(showProjectCommentsTab:) withObject:sender];
+}
+
+#pragma mark - Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(addFiles) withObject:sender];
+}
+
+- (IBAction)addNewFolder:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(addNewFolder) withObject:sender];
+}
+
+- (IBAction)expandOneLevel:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expandOneLevel) withObject:sender];
+}
+
+- (IBAction)expand:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expand) withObject:sender];
+}
+
+- (IBAction)expandAll:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expandAll) withObject:sender];
+}
+
+- (IBAction)contract:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(contract) withObject:sender];
+}
+
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(switchHiddenFolderTemplatesVisibility) withObject:sender];
+}
+
+- (IBAction)setDefaultDestination:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(setDefaultDestination:) withObject:sender];
+}
+
+#pragma mark - Project Menu
 
 - (IBAction)showProject:(id)sender
 {
@@ -163,27 +225,91 @@
 	[((PKGDistributionProjectViewController *)_currentContentsViewController) removeCertificate:sender];
 }
 
-- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
-{
-	[((PKGDistributionPackageComponentViewController *)_currentContentsViewController) switchHiddenFolderTemplatesVisibility:sender];
-}
-
-- (BOOL)validateMenuItem:(NSMenuItem *) inMenuItem
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
 	SEL tAction=[inMenuItem action];
 	
-	if (tAction==@selector(selectCertificate:) ||
-		tAction==@selector(removeCertificate:))
+	// View Menu
+	
+	if (tAction==@selector(showProjectSettingsTab:) ||
+		tAction==@selector(showDistributionPresentationTab:) ||
+		tAction==@selector(showDistributionRequirementsAndResourcesTab:) ||
+		tAction==@selector(showProjectCommentsTab:))
 	{
 		if ([_currentContentsViewController isKindOfClass:PKGDistributionProjectViewController.class]==NO)
+		{
+			inMenuItem.hidden=YES;
+			inMenuItem.keyEquivalentModifierMask=0;
+			inMenuItem.keyEquivalent=@"";
+			
+			return NO;
+		}
+		
+		inMenuItem.keyEquivalentModifierMask=NSCommandKeyMask;
+		inMenuItem.hidden=NO;
+		
+		if (tAction==@selector(showProjectSettingsTab:))
+		{
+			inMenuItem.title=NSLocalizedString(@"Settings",@"");
+			inMenuItem.keyEquivalent=@"1";
+		}
+		else if (tAction==@selector(showDistributionPresentationTab:))
+		{
+			inMenuItem.keyEquivalent=@"2";
+		}
+		else if (tAction==@selector(showDistributionRequirementsAndResourcesTab:))
+		{
+			inMenuItem.keyEquivalent=@"3";
+		}
+		else if (tAction==@selector(showProjectCommentsTab:))
+		{
+			inMenuItem.keyEquivalent=@"4";
+		}
+		
+		return YES;
+	}
+	
+	if (tAction==@selector(showPackageSettingsTab:) ||
+		tAction==@selector(showPackagePayloadTab:) ||
+		tAction==@selector(showPackageScriptsAndResourcesTab:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionPackageComponentViewController.class]==NO)
+		{
+			inMenuItem.hidden=YES;
+			inMenuItem.keyEquivalentModifierMask=0;
+			inMenuItem.keyEquivalent=@"";
+			
+			return NO;
+		}
+		
+		inMenuItem.hidden=NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	// Hierarchy Menu
+	
+	if (tAction==@selector(addFiles:) ||
+		tAction==@selector(addNewFolder:) ||
+		tAction==@selector(expandOneLevel:) ||
+		tAction==@selector(expand:) ||
+		tAction==@selector(expandAll:) ||
+		tAction==@selector(contract:) ||
+		tAction==@selector(switchHiddenFolderTemplatesVisibility:) ||
+		tAction==@selector(setDefaultDestination:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionPackageComponentViewController.class]==NO)
 			return NO;
 		
 		return [_currentContentsViewController validateMenuItem:inMenuItem];
 	}
 	
-	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:))
+	// Project Menu
+	
+	if (tAction==@selector(selectCertificate:) ||
+		tAction==@selector(removeCertificate:))
 	{
-		if ([_currentContentsViewController isKindOfClass:PKGDistributionPackageComponentViewController.class]==NO)
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionProjectViewController.class]==NO)
 			return NO;
 		
 		return [_currentContentsViewController validateMenuItem:inMenuItem];

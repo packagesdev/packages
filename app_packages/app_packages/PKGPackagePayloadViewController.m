@@ -51,9 +51,19 @@
 
 - (IBAction)switchPayloadType:(id)sender;
 
-- (IBAction)setDefaultDestination:(id)sender;
+// Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender;
+- (IBAction)addNewFolder:(id)sender;
+
+- (IBAction)expandOneLevel:(id)sender;
+- (IBAction)expand:(id)sender;
+- (IBAction)expandAll:(id)sender;
+- (IBAction)contract:(id)sender;
 
 - (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+
+- (IBAction)setDefaultDestination:(id)sender;
 
 // Notifications
 
@@ -218,6 +228,36 @@
 	[self noteDocumentHasChanged];
 }
 
+- (IBAction)addFiles:(id)sender
+{
+	[_payloadHierarchyViewController addFiles:sender];
+}
+
+- (IBAction)addNewFolder:(id)sender
+{
+	[_payloadHierarchyViewController addNewFolder:sender];
+}
+
+- (IBAction)expandOneLevel:(id)sender
+{
+	[_payloadHierarchyViewController expandOneLevel:sender];
+}
+
+- (IBAction)expand:(id)sender
+{
+	[_payloadHierarchyViewController expand:sender];
+}
+
+- (IBAction)expandAll:(id)sender
+{
+	[_payloadHierarchyViewController expandAll:sender];
+}
+
+- (IBAction)contract:(id)sender
+{
+	[_payloadHierarchyViewController contract:sender];
+}
+
 - (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
 {
 	self.payload.hiddenFolderTemplatesIncluded=!self.payload.hiddenFolderTemplatesIncluded;
@@ -229,8 +269,6 @@
 	
 	[self noteDocumentHasChanged];
 }
-
-#pragma mark -
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
@@ -263,7 +301,15 @@
 		 return YES;
 	}
 	
-	// A COMPLETER
+	if (tAction==@selector(addFiles:) ||
+		tAction==@selector(addNewFolder:) ||
+		tAction==@selector(expandOneLevel:) ||
+		tAction==@selector(expand:) ||
+		tAction==@selector(expandAll:) ||
+		tAction==@selector(contract:))
+	{
+		return [_payloadHierarchyViewController validateMenuItem:inMenuItem];
+	}
 	
 	return YES;
 }

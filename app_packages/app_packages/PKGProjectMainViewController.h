@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -18,5 +18,30 @@
 @interface PKGProjectMainViewController : PKGDocumentViewController
 
 	@property PKGProject * project;
+
+// View Menu
+
+- (IBAction)showDistributionPresentationTab:(id)sender;
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;
+
+- (IBAction)showProjectSettingsTab:(id)sender;
+- (IBAction)showProjectCommentsTab:(id)sender;
+
+- (IBAction)showPackageSettingsTab:(id)sender;
+- (IBAction)showPackagePayloadTab:(id)sender;
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender;
+
+// Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender;
+- (IBAction)addNewFolder:(id)sender;
+- (IBAction)expandOneLevel:(id)sender;
+- (IBAction)expand:(id)sender;
+- (IBAction)expandAll:(id)sender;
+- (IBAction)contract:(id)sender;
+
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+
+- (IBAction)setDefaultDestination:(id)sender;
 
 @end

@@ -7,6 +7,4 @@
 
 	@property PKGPackageComponent * packageComponent;
 
-- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
-
 @end

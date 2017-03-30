@@ -44,9 +44,9 @@
 - (IBAction)showTabView:(id)sender;
 
 - (IBAction)showProjectSettingsTab:(id)sender;
-- (IBAction)showPresentationTab:(id)sender;
-- (IBAction)showRequirementsAndResourcesTab:(id)sender;
-- (IBAction)showCommentsTab:(id)sender;
+- (IBAction)showDistributionPresentationTab:(id)sender;
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;
+- (IBAction)showProjectCommentsTab:(id)sender;
 
 // Notifications
 
@@ -232,7 +232,7 @@
 	[self showTabViewWithTag:sender.selectedSegment];
 }
 
-#pragma mark -
+#pragma mark - View Menu
 
 - (IBAction)showProjectSettingsTab:(id)sender
 {
@@ -240,23 +240,25 @@
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPaneSettings];
 }
 
-- (IBAction)showPresentationTab:(id)sender
+- (IBAction)showDistributionPresentationTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionProjectPanePresentation];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPanePresentation];
 }
 
-- (IBAction)showRequirementsAndResourcesTab:(id)sender
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionProjectPaneRequirementsAndResources];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPaneRequirementsAndResources];
 }
 
-- (IBAction)showCommentsTab:(id)sender
+- (IBAction)showProjectCommentsTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionProjectPaneComments];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPaneComments];
 }
+
+#pragma mark - Project Menu
 
 - (IBAction)selectCertificate:(id)sender
 {

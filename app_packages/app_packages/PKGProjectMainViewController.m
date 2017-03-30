@@ -21,6 +21,72 @@
 
 @implementation PKGProjectMainViewController
 
+#pragma mark - View Menu
+
+- (IBAction)showDistributionPresentationTab:(id)sender
+{
+}
+
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender
+{
+}
+
+- (IBAction)showProjectSettingsTab:(id)sender
+{
+}
+
+- (IBAction)showProjectCommentsTab:(id)sender
+{
+}
+
+- (IBAction)showPackageSettingsTab:(id)sender
+{
+}
+
+- (IBAction)showPackagePayloadTab:(id)sender
+{
+}
+
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender
+{
+}
+
+#pragma mark - Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender
+{
+}
+
+- (IBAction)addNewFolder:(id)sender
+{
+}
+
+- (IBAction)expandOneLevel:(id)sender
+{
+}
+
+- (IBAction)expand:(id)sender
+{
+}
+
+- (IBAction)expandAll:(id)sender
+{
+}
+
+- (IBAction)contract:(id)sender
+{
+}
+
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
+{
+}
+
+- (IBAction)setDefaultDestination:(id)sender
+{
+}
+
+#pragma mark - Project Menu
+
 - (IBAction)build:(id)sender
 {
 	// A COMPLETER

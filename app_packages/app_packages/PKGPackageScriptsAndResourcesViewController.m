@@ -52,6 +52,17 @@
 
 	@property (readwrite) PKGFilesHierarchyViewController * additionalResourcesHierarchyViewController;
 
+// Hierarchy Menu
+
+// Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender;
+- (IBAction)addNewFolder:(id)sender;
+- (IBAction)expandOneLevel:(id)sender;
+- (IBAction)expand:(id)sender;
+- (IBAction)expandAll:(id)sender;
+- (IBAction)contract:(id)sender;
+
 // Notifications
 
 - (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification;
@@ -182,6 +193,55 @@
 	[_preInstallationScriptViewController WB_viewDidDisappear];
 	[_postInstallationScriptViewController WB_viewDidDisappear];
 	[_additionalResourcesHierarchyViewController WB_viewDidDisappear];
+}
+
+#pragma mark -
+
+- (IBAction)addFiles:(id)sender
+{
+	[_additionalResourcesHierarchyViewController addFiles:sender];
+}
+
+- (IBAction)addNewFolder:(id)sender
+{
+	[_additionalResourcesHierarchyViewController addNewFolder:sender];
+}
+
+- (IBAction)expandOneLevel:(id)sender
+{
+	[_additionalResourcesHierarchyViewController expandOneLevel:sender];
+}
+
+- (IBAction)expand:(id)sender
+{
+	[_additionalResourcesHierarchyViewController expand:sender];
+}
+
+- (IBAction)expandAll:(id)sender
+{
+	[_additionalResourcesHierarchyViewController expandAll:sender];
+}
+
+- (IBAction)contract:(id)sender
+{
+	[_additionalResourcesHierarchyViewController contract:sender];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(addFiles:) ||
+		tAction==@selector(addNewFolder:) ||
+		tAction==@selector(expandOneLevel:) ||
+		tAction==@selector(expand:) ||
+		tAction==@selector(expandAll:) ||
+		tAction==@selector(contract:))
+	{
+		return [_additionalResourcesHierarchyViewController validateMenuItem:inMenuItem];
+	}
+	
+	return YES;
 }
 
 #pragma mark - Notifications

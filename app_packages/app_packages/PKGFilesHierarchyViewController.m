@@ -93,15 +93,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (IBAction)showInFinder:(id)sender;
 
-- (IBAction)addFiles:(id)sender;
-- (IBAction)addNewFolder:(id)sender;
-
 - (IBAction)delete:(id)sender;
-
-- (IBAction)expandOneLevel:(id)sender;
-- (IBAction)expand:(id)sender;
-- (IBAction)expandAll:(id)sender;
-- (IBAction)contract:(id)sender;
 
 // Notifications
 

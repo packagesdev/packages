@@ -17,9 +17,9 @@
 {
 	IBOutlet NSSegmentedControl * _segmentedControl;
 	
-	IBOutlet NSView * _contentView;
+	IBOutlet NSView * _contentsView;
 	
-	PKGSegmentViewController * _currentContentController;
+	PKGSegmentViewController * _currentContentsViewController;
 	
 	PKGPackageComponentSettingsViewController * _settingsController;
 	PKGPackageComponentPayloadViewController *_payloadController;
@@ -30,9 +30,28 @@
 
 - (IBAction)showTabView:(id)sender;
 
-- (IBAction)showSettingsTab:(id)sender;
-- (IBAction)showPayloadTab:(id)sender;
-- (IBAction)showScriptsAndResourcesTab:(id)sender;
+// View Menu
+
+- (IBAction)showProjectSettingsTab:(id)sender;
+- (IBAction)showDistributionPresentationTab:(id)sender;
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;
+
+- (IBAction)showPackageSettingsTab:(id)sender;
+- (IBAction)showPackagePayloadTab:(id)sender;
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender;
+
+// Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender;
+- (IBAction)addNewFolder:(id)sender;
+- (IBAction)expandOneLevel:(id)sender;
+- (IBAction)expand:(id)sender;
+- (IBAction)expandAll:(id)sender;
+- (IBAction)contract:(id)sender;
+
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender;
+
+- (IBAction)setDefaultDestination:(id)sender;
 
 // Notifications
 
@@ -105,58 +124,34 @@
 	[_segmentedControl selectSegmentWithTag:tTag];
 	[self showTabViewWithTag:tTag];
 	
-	[_currentContentController WB_viewWillAppear];
+	[_currentContentsViewController WB_viewWillAppear];
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
 	
-	
-	
-	[_currentContentController WB_viewDidAppear];
+	[_currentContentsViewController WB_viewDidAppear];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
 	
-	[_currentContentController WB_viewWillDisappear];
+	[_currentContentsViewController WB_viewWillDisappear];
 }
 
 - (void)WB_viewDidDisappear
 {
 	[super WB_viewDidDisappear];
 	
-	[_currentContentController WB_viewDidDisappear];
+	[_currentContentsViewController WB_viewDidDisappear];
 }
 
 - (BOOL)PKG_viewCanBeRemoved
 {
-	if (_currentContentController!=nil)
-		return [_currentContentController PKG_viewCanBeRemoved];
-	
-	return YES;
-}
-
-#pragma mark -
-
-- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
-{
-	[_payloadController switchHiddenFolderTemplatesVisibility:sender];
-}
-
-- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
-{
-	SEL tAction=[inMenuItem action];
-	
-	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:))
-	{
-		if ([_currentContentController isKindOfClass:PKGPackageComponentPayloadViewController.class]==NO)
-			return NO;
-		
-		return [_currentContentController validateMenuItem:inMenuItem];
-	}
+	if (_currentContentsViewController!=nil)
+		return [_currentContentsViewController PKG_viewCanBeRemoved];
 	
 	return YES;
 }
@@ -165,11 +160,11 @@
 
 - (void)showTabViewWithTag:(PKGPreferencesGeneralDistributionPackageComponentPaneTag) inTag
 {
-	if (_currentContentController!=nil)
+	if (_currentContentsViewController!=nil)
 	{
-		if ([_currentContentController PKG_viewCanBeRemoved]==NO)
+		if ([_currentContentsViewController PKG_viewCanBeRemoved]==NO)
 		{
-			[_segmentedControl selectSegmentWithTag:_currentContentController.tag];
+			[_segmentedControl selectSegmentWithTag:_currentContentsViewController.tag];
 			
 			return;
 		}
@@ -232,37 +227,37 @@
 			break;
 	}
 	
-	if (_currentContentController==tNewSegmentViewController)
+	if (_currentContentsViewController==tNewSegmentViewController)
 		return;
 	
-	NSView * tOldView=_currentContentController.view;
+	NSView * tOldView=_currentContentsViewController.view;
 	NSView * tNewView=tNewSegmentViewController.view;
 	
-	tNewView.frame=_contentView.bounds;
+	tNewView.frame=_contentsView.bounds;
 	
 	if (self.view.window!=nil)
 	{
-		[_currentContentController WB_viewWillDisappear];
+		[_currentContentsViewController WB_viewWillDisappear];
 		[tNewSegmentViewController WB_viewWillAppear];
 	}
 	
 	if (tOldView!=tNewView)
 	{
 		[tOldView removeFromSuperview];
-		[_contentView addSubview:tNewView];
+		[_contentsView addSubview:tNewView];
 	}
 	
 	if (self.view.window!=nil)
 	{
 		[tNewSegmentViewController WB_viewDidAppear];
-		[_currentContentController WB_viewDidDisappear];
+		[_currentContentsViewController WB_viewDidDisappear];
 	}
 	
-	_currentContentController=tNewSegmentViewController;
+	_currentContentsViewController=tNewSegmentViewController;
 	
 	[self.documentRegistry setInteger:inTag forKey:[NSString stringWithFormat:@"ui.package[%@].selected.segment",self.packageComponent.UUID]];
 	
-	[self.view.window makeFirstResponder:_currentContentController];
+	[self.view.window makeFirstResponder:_currentContentsViewController];
 }
 
 - (IBAction)showTabView:(NSSegmentedControl *)sender
@@ -270,24 +265,144 @@
 	[self showTabViewWithTag:sender.selectedSegment];
 }
 
-#pragma mark -
+#pragma mark - View Menu
 
-- (IBAction)showSettingsTab:(id)sender
+- (IBAction)showProjectSettingsTab:(id)sender
+{
+}
+
+- (IBAction)showDistributionPresentationTab:(id)sender
+{
+}
+
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender
+{
+}
+
+- (IBAction)showPackageSettingsTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionPackageComponentPaneSettings];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionPackageComponentPaneSettings];
 }
 
-- (IBAction)showPayloadTab:(id)sender
+- (IBAction)showPackagePayloadTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionPackageComponentPanePayload];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionPackageComponentPanePayload];
 }
 
-- (IBAction)showScriptsAndResourcesTab:(id)sender
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender
 {
 	[_segmentedControl selectSegmentWithTag:PKGPreferencesGeneralDistributionPackageComponentPaneScriptsAndResources];
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionPackageComponentPaneScriptsAndResources];
+}
+
+
+#pragma mark - Hierarchy Menu
+
+- (IBAction)addFiles:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(addFiles:) withObject:sender];
+}
+
+- (IBAction)addNewFolder:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(addNewFolder:) withObject:sender];
+}
+
+- (IBAction)expandOneLevel:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expandOneLevel:) withObject:sender];
+}
+
+- (IBAction)expand:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expand:) withObject:sender];
+}
+
+- (IBAction)expandAll:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(expandAll:) withObject:sender];
+}
+
+- (IBAction)contract:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(contract:) withObject:sender];
+}
+
+- (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(switchHiddenFolderTemplatesVisibility:) withObject:sender];
+}
+
+- (IBAction)setDefaultDestination:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(setDefaultDestination:) withObject:sender];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=[inMenuItem action];
+	
+	// View Menu
+	
+	if (tAction==@selector(showProjectSettingsTab:) ||
+		tAction==@selector(showDistributionPresentationTab:) ||
+		tAction==@selector(showDistributionRequirementsAndResourcesTab:) ||
+		tAction==@selector(showProjectCommentsTab:))
+	{
+		inMenuItem.hidden=YES;
+		
+		return NO;
+	}
+	
+	if (tAction==@selector(showPackageSettingsTab:) ||
+		tAction==@selector(showPackagePayloadTab:) ||
+		tAction==@selector(showPackageScriptsAndResourcesTab:))
+	{
+		inMenuItem.keyEquivalentModifierMask=NSCommandKeyMask;
+		inMenuItem.hidden=NO;
+		
+		if (tAction==@selector(showPackageSettingsTab:))
+		{
+			inMenuItem.keyEquivalent=@"1";
+			return YES;
+		}
+		
+		if (tAction==@selector(showPackagePayloadTab:))
+			inMenuItem.keyEquivalent=@"2";
+		else
+			inMenuItem.keyEquivalent=@"3";
+		
+		return (self.packageComponent.type==PKGPackageComponentTypeProject);
+	}
+	
+	// Hierarchy Menu
+	
+	if (tAction==@selector(addFiles:) ||
+		tAction==@selector(addNewFolder:) ||
+		tAction==@selector(expandOneLevel:) ||
+		tAction==@selector(expand:) ||
+		tAction==@selector(expandAll:) ||
+		tAction==@selector(contract:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGPackageComponentPayloadViewController.class]==NO &&
+			[_currentContentsViewController isKindOfClass:PKGPackageComponentScriptsAndResourcesViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	if (tAction==@selector(switchHiddenFolderTemplatesVisibility:) ||
+		tAction==@selector(setDefaultDestination:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGPackageComponentPayloadViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	return YES;
 }
 
 #pragma mark - Notifications

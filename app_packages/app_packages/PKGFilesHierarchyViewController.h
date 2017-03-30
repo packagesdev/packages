@@ -41,5 +41,13 @@ extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldDeleteItems:(NSArray *)inItems;
 
+- (IBAction)addFiles:(id)sender;
+- (IBAction)addNewFolder:(id)sender;
+
+- (IBAction)expandOneLevel:(id)sender;
+- (IBAction)expand:(id)sender;
+- (IBAction)expandAll:(id)sender;
+- (IBAction)contract:(id)sender;
+
 @end
 

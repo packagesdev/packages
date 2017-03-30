@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
@@ -417,78 +417,46 @@
                 <menuItem title="View" id="514">
                     <menu key="submenu" title="View" id="515">
                         <items>
-                            <menuItem title="Project" id="3gj-op-e0k">
+                            <menuItem title="Settings" id="4GH-70-vqq">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Project" id="aPp-8F-s8v">
-                                    <items>
-                                        <menuItem title="Settings" keyEquivalent="1" id="Sn2-hg-Q3i"/>
-                                        <menuItem title="Presentation" keyEquivalent="2" id="L9x-Wq-fpr"/>
-                                        <menuItem title="Requirements &amp; Resources" keyEquivalent="3" id="UoC-Ht-ibp"/>
-                                        <menuItem title="Comments" keyEquivalent="4" id="n0J-jd-Ao0"/>
-                                    </items>
-                                </menu>
+                                <connections>
+                                    <action selector="showProjectSettingsTab:" target="-1" id="UZ2-nS-STD"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Presentation" id="8DV-tu-QyH">
+                            <menuItem title="Presentation" id="Q2h-Ng-51G">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Presentation" id="hzj-cr-oeO">
-                                    <items>
-                                        <menuItem title="Title" keyEquivalent="0" id="e26-NQ-kxI">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Background" keyEquivalent="1" id="AFF-ee-7MQ">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Introduction" keyEquivalent="2" id="afX-pf-6Ls">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Read Me" keyEquivalent="3" id="jNP-sd-drJ">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                        <menuItem title="License" keyEquivalent="4" id="nkV-qD-BYo">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Installation Type" keyEquivalent="5" id="BrE-cI-WTw">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Summary" keyEquivalent="6" id="7N6-2f-SyT">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                    </items>
-                                </menu>
+                                <connections>
+                                    <action selector="showDistributionPresentationTab:" target="-1" id="mPl-FA-Uze"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Package" id="i4X-Ay-yAv">
+                            <menuItem title="Requirements &amp; Resources" id="GKK-s6-B5w">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Package" id="OqJ-Ta-tDS">
-                                    <items>
-                                        <menuItem title="Settings" keyEquivalent="1" id="rX2-vj-nbu"/>
-                                        <menuItem title="Payload" keyEquivalent="2" id="Fun-Vi-69U"/>
-                                        <menuItem title="Scripts" keyEquivalent="3" id="kVM-vg-WbC"/>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Project" keyEquivalent="0" id="520">
                                 <connections>
-                                    <action selector="showProjectSettingsTab:" target="-1" id="3ac-zo-8CT"/>
+                                    <action selector="showDistributionRequirementsAndResourcesTab:" target="-1" id="7Sq-Ax-OWL"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Settings" keyEquivalent="1" id="AZF-P7-daH">
+                            <menuItem title="Settings" id="AZF-P7-daH">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showSettingsTab:" target="-1" id="KAz-sz-vAa"/>
+                                    <action selector="showPackageSettingsTab:" target="-1" id="hUT-4k-ivZ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Payload" keyEquivalent="2" id="ZX8-Y3-209">
+                            <menuItem title="Payload" id="ZX8-Y3-209">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showPayloadTab:" target="-1" id="WTV-xX-nIF"/>
+                                    <action selector="showPackagePayloadTab:" target="-1" id="Jjn-yz-4f6"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Scripts" keyEquivalent="3" id="Meo-ps-80I">
+                            <menuItem title="Scripts" id="Meo-ps-80I">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showScriptsAndResourcesTab:" target="-1" id="acL-MX-R5u"/>
+                                    <action selector="showPackageScriptsAndResourcesTab:" target="-1" id="1V9-2O-AHo"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Comments" keyEquivalent="4" id="CB6-KB-smY">
+                            <menuItem title="Comments" id="CB6-KB-smY">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showCommentsTab:" target="-1" id="QdJ-7m-QVh"/>
+                                    <action selector="showProjectCommentsTab:" target="-1" id="7sG-eX-If0"/>
                                 </connections>
                             </menuItem>
                         </items>

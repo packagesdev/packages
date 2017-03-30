@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2016, Stephane Sudre
+Copyright (c) 2007-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -25,18 +25,49 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface PKGApplicationController ()
 
+// Application Menu
+
+- (IBAction)showAboutBox:(id) sender;
+
+- (IBAction)showPreferences:(id) sender;
+
+// File Menu
+
+- (IBAction)newProject:(id) sender;
+
+// View Menu
+
+- (IBAction)showDistributionPresentationTab:(id)sender;
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;
+
+- (IBAction)showProjectSettingsTab:(id)sender;
+- (IBAction)showProjectCommentsTab:(id)sender;
+
+- (IBAction)showPackageSettingsTab:(id)sender;
+- (IBAction)showPackagePayloadTab:(id)sender;
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender;
+
+// Help Menu
+
+- (IBAction)showPackageFormatDocumentation:(id) sender;
+- (IBAction)showUserGuide:(id) sender;
+
+- (IBAction)sendFeedback:(id) sender;
+
+- (IBAction)showPackagesWebSite:(id) sender;
+
 @end
 
 @implementation PKGApplicationController
 
-- (void) awakeFromNib
+- (void)awakeFromNib
 {
 	// A COMPLETER
 }
 
 #pragma mark -
 
-- (BOOL) applicationShouldOpenUntitledFile:(NSApplication *) sender
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
     self.launchedNormally=YES;
 		
@@ -46,24 +77,58 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return NO;
 }
 
-#pragma mark -
+#pragma mark - Application Menu
 
-- (IBAction)showAboutBox:(id) sender
+- (IBAction)showAboutBox:(id)sender
 {
 	[PKGAboutBoxWindowController showAbouxBox];
 }
 
-- (IBAction)showPreferences:(id) sender
+- (IBAction)showPreferences:(id)sender
 {
     [PKGPreferencesWindowController showPreferences];
 }
 
-- (IBAction)newProject:(id) sender
+#pragma mark - File Menu
+
+- (IBAction)newProject:(id)sender
 {
     [NSApp runModalForWindow:[PKGProjectTemplateAssistantWindowController new].window];
 }
 
-- (IBAction) showPackageFormatDocumentation:(id) sender
+#pragma mark - View Menu
+
+- (IBAction)showDistributionPresentationTab:(id)sender
+{
+}
+
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender
+{
+}
+
+- (IBAction)showProjectSettingsTab:(id)sender
+{
+}
+
+- (IBAction)showProjectCommentsTab:(id)sender
+{
+}
+
+- (IBAction)showPackageSettingsTab:(id)sender
+{
+}
+
+- (IBAction)showPackagePayloadTab:(id)sender
+{
+}
+
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender
+{
+}
+
+#pragma mark - Help Menu
+
+- (IBAction)showPackageFormatDocumentation:(id)sender
 {
     // Try local first
     
@@ -90,7 +155,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     }*/
 }
 
-- (IBAction)showUserGuide:(id) sender
+- (IBAction)showUserGuide:(id)sender
 {
 	NSURL * tURL=[NSURL URLWithString:NSLocalizedString(@"http://s.sudre.free.fr/Software/documentation/Packages/en/index.html",@"No comment")];
     
@@ -99,9 +164,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 }
 
-- (IBAction)sendFeedback:(id) sender
+- (IBAction)sendFeedback:(id)sender
 {
-	NSDictionary * tDictionary=[[NSBundle mainBundle] infoDictionary];
+	NSDictionary * tDictionary=[NSBundle mainBundle].infoDictionary;
 	
 	NSString * tString=[NSString stringWithFormat:NSLocalizedString(@"mailto:dev.packages@gmail.com?subject=[Packages%%20%@]%%20Feedback%%20(build%%20%@)",@"No comment"),tDictionary[@"CFBundleShortVersionString"],
 																																				tDictionary[@"CFBundleVersion"]];
@@ -111,7 +176,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[[NSWorkspace sharedWorkspace] openURL:tURL];
 }
 
-- (IBAction)showPackagesWebSite:(id) sender
+- (IBAction)showPackagesWebSite:(id)sender
 {
     NSURL * tURL=[NSURL URLWithString:NSLocalizedString(@"http://s.sudre.free.fr/Software/Packages/about.html",@"No comment")];
     
@@ -119,9 +184,58 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[[NSWorkspace sharedWorkspace] openURL:tURL];
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=[inMenuItem action];
+	
+	// View Menu
+	
+	if (tAction==@selector(showPackageSettingsTab:) ||
+		tAction==@selector(showPackagePayloadTab:) ||
+		tAction==@selector(showPackageScriptsAndResourcesTab:))
+	{
+		inMenuItem.hidden=YES;
+		inMenuItem.keyEquivalentModifierMask=0;
+		inMenuItem.keyEquivalent=@"";
+		
+		return NO;
+	}
+	
+	if (tAction==@selector(showProjectSettingsTab:) ||
+		tAction==@selector(showDistributionPresentationTab:) ||
+		tAction==@selector(showDistributionRequirementsAndResourcesTab:) ||
+		tAction==@selector(showProjectCommentsTab:))
+	{
+		inMenuItem.keyEquivalentModifierMask=NSCommandKeyMask;
+		inMenuItem.hidden=NO;
+		
+		if (tAction==@selector(showProjectSettingsTab:))
+		{
+			inMenuItem.title=NSLocalizedString(@"Settings",@"");
+			inMenuItem.keyEquivalent=@"1";
+		}
+		else if (tAction==@selector(showDistributionPresentationTab:))
+		{
+			inMenuItem.keyEquivalent=@"2";
+		}
+		else if (tAction==@selector(showDistributionRequirementsAndResourcesTab:))
+		{
+			inMenuItem.keyEquivalent=@"3";
+		}
+		else if (tAction==@selector(showProjectCommentsTab:))
+		{
+			inMenuItem.keyEquivalent=@"4";
+		}
+		
+		return NO;
+	}
+	
+	return YES;
+}
+
 #pragma mark -
 
-- (NSError *) application:(NSApplication *) inApplication willPresentError:(NSError *) inError
+- (NSError *)application:(NSApplication *)inApplication willPresentError:(NSError *)inError
 {
 	/*if (inError!=nil)
 	{
@@ -169,18 +283,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return inError;
 }
 
-- (void) applicationWillFinishLaunching:(NSNotification *) inNotification
+- (void) applicationWillFinishLaunching:(NSNotification *)inNotification
 {
 	//[ICDocumentController sharedDocumentController];
 }
 
-- (void) applicationDidFinishLaunching:(NSNotification *) inNotification
+- (void) applicationDidFinishLaunching:(NSNotification *)inNotification
 {
 	[WBRemoteVersionChecker sharedChecker];
 	
-	NSArray * tCurrentlyOpenedDocuments=[[NSDocumentController sharedDocumentController] documents];
+	NSArray * tCurrentlyOpenedDocuments=((NSDocumentController *)[NSDocumentController sharedDocumentController]).documents;
 
-	if (tCurrentlyOpenedDocuments==nil || [tCurrentlyOpenedDocuments count]==0)
+	if (tCurrentlyOpenedDocuments==nil || tCurrentlyOpenedDocuments.count==0)
 	{
 		self.launchedNormally=YES;
 		
