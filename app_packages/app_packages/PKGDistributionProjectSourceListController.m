@@ -373,7 +373,7 @@
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
 		tView.textField.stringValue=tSourceListItem.label;
-		tView.textField.controlSize=NSMiniControlSize;
+		((NSTextFieldCell *)tView.textField.cell).controlSize=NSMiniControlSize;
 		
 		return tView;
 	}
