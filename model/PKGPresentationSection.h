@@ -17,12 +17,23 @@
 
 #import "PKGFilePath.h"
 
+extern NSString * const PKGPresentationSectionIntroductionName;
+extern NSString * const PKGPresentationSectionReadMeName;
+extern NSString * const PKGPresentationSectionLicenseName;
+extern NSString * const PKGPresentationSectionTargetName;
+extern NSString * const PKGPresentationSectionPackageSelectionName;
+extern NSString * const PKGPresentationSectionInstallName;
+extern NSString * const PKGPresentationSectionFinishUpName;
 
 @interface PKGPresentationSection : NSObject <PKGObjectProtocol>
+
+	@property (readonly) NSString * installerPluginName;
 
 	@property (nonatomic,readonly,copy) NSString * name;
 
 	@property PKGFilePath * pluginPath;
+
++ (NSArray *)defaultSectionsList;
 
 - (instancetype)initWithPluginPath:(PKGFilePath *)inPath;
 

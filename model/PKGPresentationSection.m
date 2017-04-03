@@ -58,7 +58,7 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 
 @interface PKGPresentationSection ()
 
-	@property NSString * installerPluginName;
+	@property (readwrite) NSString * installerPluginName;
 
 	@property (nonatomic,readwrite) NSString * name;
 
@@ -70,7 +70,27 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 
 @implementation PKGPresentationSection
 
-+ (NSString *) _sectionNameForInstallerPluginNamed:(NSString *)inBundleName
++ (NSArray *)defaultSectionsList
+{
+	NSArray * tDefaultSectionNames=@[PKGPresentationSectionIntroductionPluginName,
+									 PKGPresentationSectionReadMePluginName,
+									 PKGPresentationSectionLicensePluginName,
+									 PKGPresentationSectionTargetPluginName,
+									 PKGPresentationSectionPackageSelectionPluginName,
+									 PKGPresentationSectionInstallPluginName,
+									 PKGPresentationSectionFinishUpPluginName];
+	
+	return [tDefaultSectionNames WB_arrayByMappingObjectsUsingBlock:^PKGPresentationSection *(NSString * bSectionName, NSUInteger bIndex) {
+		PKGPresentationSection * tPresentationSection=[PKGPresentationSection new];
+		
+		tPresentationSection.installerPluginName=bSectionName;
+		tPresentationSection.name=[PKGPresentationSection _sectionNameForInstallerPluginNamed:bSectionName];
+		
+		return tPresentationSection;
+	}];
+}
+
++ (NSString *)_sectionNameForInstallerPluginNamed:(NSString *)inBundleName
 {
 	if (inBundleName==nil)
 		return nil;
