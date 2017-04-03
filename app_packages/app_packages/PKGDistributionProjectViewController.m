@@ -165,7 +165,8 @@
 			if (_presentationController==nil)
 			{
 				_presentationController=[[PKGDistributionPresentationViewController alloc] initWithDocument:self.document];
-				//_presentationController.packageSettings=((id<PKGPackageObjectProtocol>) self.project).packageSettings;
+				_presentationController.distributionProject=self.project;
+				_presentationController.presentationSettings=self.project.presentationSettings;
 			}
 			
 			tNewSegmentViewController=_presentationController;

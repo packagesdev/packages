@@ -7,6 +7,17 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionPresentationViewController">
             <connections>
+                <outlet property="_backgroundView" destination="r9y-27-Gl9" id="vul-jt-rrs"/>
+                <outlet property="_continueButton" destination="5XG-tp-MLF" id="P1R-Ug-faa"/>
+                <outlet property="_goBackButton" destination="hj5-nv-vct" id="WZG-6G-0vU"/>
+                <outlet property="_listView" destination="LV5-xr-d27" id="mNN-Fl-3Ov"/>
+                <outlet property="_pluginAddButton" destination="RSd-7n-yQE" id="wog-Ih-dZH"/>
+                <outlet property="_pluginRemoveButton" destination="TgB-fm-dKh" id="Fek-ek-k0H"/>
+                <outlet property="_printButton" destination="MSe-d8-GPH" id="Pqn-Bf-WCq"/>
+                <outlet property="_proxyIconView" destination="8v1-qd-0Tf" id="hRS-MD-lZs"/>
+                <outlet property="_rightView" destination="ZOF-Zs-xgm" id="puu-VS-6Jw"/>
+                <outlet property="_saveButton" destination="Bj5-td-sYZ" id="OqN-WK-3JK"/>
+                <outlet property="_windowTitleLabel" destination="LQw-ij-jHR" id="HLE-mE-CxG"/>
                 <outlet property="view" destination="ubu-JD-nBY" id="Yqo-3r-MeT"/>
             </connections>
         </customObject>
@@ -66,6 +77,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="removePlugin:" target="-2" id="HBa-nr-4Pe"/>
+                                        </connections>
                                     </button>
                                     <button toolTip="Add an Installer Plugin." id="RSd-7n-yQE" customClass="PKGPresentationPluginButton">
                                         <rect key="frame" x="17" y="9" width="26" height="26"/>
@@ -74,6 +88,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="addPlugin:" target="-2" id="gPL-yx-CZp"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </view>
