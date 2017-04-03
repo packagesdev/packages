@@ -229,7 +229,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 		return [bLocator representation];
 	}];
 	
-	if ([tLocatorsRepresentation count]>0)
+	if (tLocatorsRepresentation.count>0)
 		tRepresentation[PKGPayloadBundleItemLocatorsKey]=tLocatorsRepresentation;
 	
 	return tRepresentation;

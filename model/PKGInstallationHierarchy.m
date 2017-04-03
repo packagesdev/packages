@@ -161,7 +161,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 		
 	}];
 	
-	[tDescription appendFormat:@"  Removed Packages(%lu):\n\n",(unsigned long)[self.removedPackagesChoices count]];
+	[tDescription appendFormat:@"  Removed Packages(%lu):\n\n",(unsigned long)self.removedPackagesChoices.count];
 	
 	[self.removedPackagesChoices enumerateKeysAndObjectsUsingBlock:^(NSString * bPackageUUID,__attribute__((unused))PKGChoiceItem * bChoiceItem,__attribute__((unused))BOOL *bOutStop){
 	

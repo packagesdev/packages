@@ -1015,8 +1015,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	NSSet * tPackagesToBeBuilt=[tInstallationTypeStepSettings allPackagesUUIDs];
 	
-	if ([tPackagesToBeBuilt count]>0)
-		[self postCurrentStepInfoEvent:[PKGBuildInfoEvent infoEventWithPackagesCount:[tPackagesToBeBuilt count]]];
+	if (tPackagesToBeBuilt.count>0)
+		[self postCurrentStepInfoEvent:[PKGBuildInfoEvent infoEventWithPackagesCount:tPackagesToBeBuilt.count]];
 	
 	BOOL tBuildFlatPackage=(_buildFormat==PKGProjectBuildFormatFlat);
 	
@@ -1350,7 +1350,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		return NO;
 	}
 	
-	if ([tPackageName length]==0)
+	if (tPackageName.length==0)
 	{
 		// String is Empty
 		
@@ -1433,14 +1433,14 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	[inDictionary enumerateKeysAndObjectsUsingBlock:^(NSString * bKey,id bValue,BOOL *bOutStop){
 	
-		if ([bValue isKindOfClass:[NSString class]]==YES && [(NSString *)bValue length]==0)
+		if ([bValue isKindOfClass:NSString.class]==YES && [(NSString *)bValue length]==0)
 			return;
 		
 		id tAttribute=nil;
 		
 		NSArray * tKeyPath=[bKey componentsSeparatedByString:@":"];
 		
-		if ([tKeyPath count]!=2)
+		if (tKeyPath.count!=2)
 		{
 			// A COMPLETER
 			
@@ -1453,7 +1453,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSArray * tElementsPathArray=[tKeyPath[0] componentsSeparatedByString:@"."];
 		
-		NSUInteger tCount=[tElementsPathArray count];
+		NSUInteger tCount=tElementsPathArray.count;
 		
 		if (tCount==0)
 		{
@@ -1473,7 +1473,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			NSArray * tArray=[tParentElement elementsForName:tElementName];
 			
-			if ([tArray count]==0)
+			if (tArray.count==0)
 			{
 				// Create the element
 				
@@ -1488,15 +1488,15 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSString * tString=nil;
 		
-		if ([bValue isKindOfClass:[NSNumber class]]==YES)
+		if ([bValue isKindOfClass:NSNumber.class]==YES)
 		{
 			tString=([bValue boolValue]==YES) ? @"true" : @"false";
 		}
-		else if ([bValue isKindOfClass:[NSString class]]==YES)
+		else if ([bValue isKindOfClass:NSString.class]==YES)
 		{
 			tString=bValue;
 		}
-		else if ([bValue isKindOfClass:[NSArray class]]==YES)
+		else if ([bValue isKindOfClass:NSArray.class]==YES)
 		{
 			tString=[bValue componentsJoinedByString:@","];
 			
@@ -1545,22 +1545,22 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		id tValue=tAdvancedOptionsDictionary[@"installer-gui-script:minSpecVersion"];
 	
-		if ([tValue isKindOfClass:[NSString class]]==YES && [(NSString *)tValue length]>0)
+		if ([tValue isKindOfClass:NSString.class]==YES && [(NSString *)tValue length]>0)
 			tMinSpecVersionSet=YES;
 		
 		NSNumber * tDomainsAnywhereValue=tAdvancedOptionsDictionary[@"installer-gui-script.domains:enable_anywhere"];
 		
-		if (tDomainsAnywhereValue!=nil && [tDomainsAnywhereValue isKindOfClass:[NSNumber class]]==NO)
+		if (tDomainsAnywhereValue!=nil && [tDomainsAnywhereValue isKindOfClass:NSNumber.class]==NO)
 			return NO;
 		
 		NSNumber * tDomainsLocalSystemValue=tAdvancedOptionsDictionary[@"installer-gui-script.domains:enable_localSystem"];
 		
-		if (tDomainsLocalSystemValue!=nil && [tDomainsLocalSystemValue isKindOfClass:[NSNumber class]]==NO)
+		if (tDomainsLocalSystemValue!=nil && [tDomainsLocalSystemValue isKindOfClass:NSNumber.class]==NO)
 			return NO;
 		
 		NSNumber * tDomainsCurrentUserHomeValue=tAdvancedOptionsDictionary[@"installer-gui-script.domains:enable_currentUserHome"];
 		
-		if (tDomainsCurrentUserHomeValue!=nil && [tDomainsCurrentUserHomeValue isKindOfClass:[NSNumber class]]==NO)
+		if (tDomainsCurrentUserHomeValue!=nil && [tDomainsCurrentUserHomeValue isKindOfClass:NSNumber.class]==NO)
 			return NO;
 		
 		if (([tDomainsAnywhereValue boolValue]==YES || [tDomainsLocalSystemValue boolValue]==YES || [tDomainsCurrentUserHomeValue boolValue]==YES) &&
@@ -1612,7 +1612,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	PKGResourcesForest * tResourcesForest=tRequirementsAndResources.resourcesForest;
 	
-	if ([tResourcesForest.rootNodes count]==0)
+	if (tResourcesForest.rootNodes.count==0)
 		return YES;
 	
 	[self postStep:PKGBuildStepDistributionResources beginEvent:nil];
@@ -1766,7 +1766,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (inLocalizationsDictionary==nil || inName==nil || outErrorMessage==NULL)
 		return NO;
 	
-	if ([inLocalizationsDictionary count]==0)
+	if (inLocalizationsDictionary.count==0)
 		return YES;
 	
 	(*outErrorMessage)=[NSString stringWithFormat:@"REQUIREMENT_FAILED_MESSAGE_%@",[inName uppercaseString]];
@@ -1856,7 +1856,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		return bRequirement.enabled;
 	}];
 	
-	if ([tRequirementsArray count]==0)
+	if (tRequirementsArray.count==0)
 		return YES;
 	
 	[self postStep:PKGBuildStepDistributionInstallationRequirements beginEvent:nil];
@@ -1996,7 +1996,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSSet * tNewConstantsNamesSet=[tJavaScriptInformation unknownConstantsNameInSet:[tRequirementConverter sharedConstantsNames]];
 		
-		if ([tNewConstantsNamesSet count]>0)
+		if (tNewConstantsNamesSet.count>0)
 		{
 			NSString * tString=[tRequirementConverter constantsForNames:tNewConstantsNamesSet];
 			
@@ -2031,14 +2031,14 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSDictionary * tAttributesDictionary=[tRequirementConverter requiredOptionsValuesWithParameters:tRequirementSettingsRepresentation];
 
-		if ([tAttributesDictionary count]>0)
+		if (tAttributesDictionary.count>0)
 			[_buildInformation.requirementsOptions addEntriesFromDictionary:tAttributesDictionary];
 		
 		// Get the list of resources to add
 		
 		NSArray * tExtraResources=[tRequirementConverter requiredAdditionalResourcesWithParameters:tRequirementSettingsRepresentation];
 		
-		if ([tExtraResources count]>0)
+		if (tExtraResources.count>0)
 			[_buildInformation.resourcesExtras addObjectsFromArray:tExtraResources];
 		
 		tIndex++;
@@ -2048,7 +2048,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		NSString * tLocalizationKeyPrefix;
 		BOOL noErrorMessage=NO;
 		
-		if ([tLocalizations count]==0)
+		if (tLocalizations.count==0)
 		{
 			noErrorMessage=YES;
 		}
@@ -2385,14 +2385,14 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (NSString *)finalDocumentNameForLocalizationsDirectories:(NSArray *)inLocalizationsDirectories usingBaseName:(NSString *)inBaseName extension:(NSString *)inExtension
 {
-	if (inBaseName==nil || [inLocalizationsDirectories count]==0)
+	if (inBaseName==nil || inLocalizationsDirectories.count==0)
 		return nil;
 	
 	NSString * tFileName=([inExtension length]==0)? inBaseName : [inBaseName stringByAppendingPathExtension:inExtension];
 	NSString * tFileNameFormat=([inExtension length]==0)? [inBaseName stringByAppendingString:@"_%lu"]: [[inBaseName stringByAppendingString:@"_%lu"] stringByAppendingPathExtension:inExtension];
 	
 	NSUInteger tAttemptCount=0;
-	NSUInteger tCount=[inLocalizationsDirectories count];
+	NSUInteger tCount=inLocalizationsDirectories.count;
 	
 	while (tAttemptCount<PKGRenamingAttemptsMax)
 	{
@@ -2430,7 +2430,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)setDocumentName:(NSString *)inName localizations:(NSDictionary *)inLocalizations
 {
-	if (inName==nil || [inLocalizations count]==0)
+	if (inName==nil || inLocalizations.count==0)
 		return NO;
 	
 	NSDictionary * tLocalizedPathDictionary=[self localizedPathDictionaryForLocalizations:inLocalizations];
@@ -2438,7 +2438,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (tLocalizedPathDictionary==nil)
 		return NO;
 	
-	if ([tLocalizedPathDictionary count]==0)
+	if (tLocalizedPathDictionary.count==0)
 		return YES;
 	
 	NSArray * tAllLlocalizationsDirectories=[tLocalizedPathDictionary allKeys];
@@ -2505,7 +2505,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	NSXMLNode * tNode;
 	
-	if ([tLocalizations count]==0)	// Use the name of the project
+	if (tLocalizations.count==0)	// Use the name of the project
 	{
 		// Use the name of the project
 		
@@ -2568,7 +2568,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				}
 			}
 			
-			if (tLocalizationFound==NO && [tDefaultLocalizedTitlesDictionary count]>0)
+			if (tLocalizationFound==NO && tDefaultLocalizedTitlesDictionary.count>0)
 				tDefaultLocalizedTitle=[[tDefaultLocalizedTitlesDictionary allValues] objectAtIndex:0];
 			
 			tDefaultLanguageDictionary[tKey]=tDefaultLocalizedTitle;
@@ -2773,7 +2773,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	NSDictionary * tLocalizations=tPresentationWelcomeSettings.localizations;
 	
-	if ([tLocalizations count]==0)
+	if (tLocalizations.count==0)
 		return YES;
 	
 	[self postStep:PKGBuildStepDistributionWelcomeMessage beginEvent:nil];
@@ -2793,7 +2793,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	NSDictionary * tLocalizations=tPresentationReadMeSettings.localizations;
 	
-	if ([tLocalizations count]==0)
+	if (tLocalizations.count==0)
 		return YES;
 	
 	[self postStep:PKGBuildStepDistributionReadMeMessage beginEvent:nil];
@@ -2817,7 +2817,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		NSDictionary * tLocalizations=tPresentationLicenseSettings.localizations;
 		
-		if ([tLocalizations count]==0)
+		if (tLocalizations.count==0)
 			return YES;
 		
 		[self postStep:PKGBuildStepDistributionLicenseMessage beginEvent:nil];
@@ -2846,7 +2846,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		tSlaString=tLicenseTemplate.slaReference;
 	}
 	
-	if ([tLocalizations count]==0)
+	if (tLocalizations.count==0)
 	{
 		// Missing Templates
 		
@@ -2920,7 +2920,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (tLocalizedPathDictionary==nil)
 		return NO;
 	
-	if ([tLocalizedPathDictionary count]==0)
+	if (tLocalizedPathDictionary.count==0)
 	{
 		[self postCurrentStepSuccessEvent:nil];
 		
@@ -3029,7 +3029,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	NSDictionary * tLocalizations=tPresentationSummarySettings.localizations;
 	
-	if ([tLocalizations count]==0)
+	if (tLocalizations.count==0)
 		return YES;
 	
 	[self postStep:PKGBuildStepDistributionConclusionMessage beginEvent:nil];
@@ -3228,7 +3228,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 			if ([tJavaScriptInformation containsFunctionNamed:bSharedRequirementFunctionName]==NO)
 			{
-				if ([bImplementationCode length]>0)
+				if (bImplementationCode.length>0)
 					[tJavaScriptInformation addFunctionName:bSharedRequirementFunctionName implementation:bImplementationCode];
 			}
 		}];
@@ -3237,7 +3237,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSSet * tNewConstantsNamesSet=[tJavaScriptInformation unknownConstantsNameInSet:[tRequirementConverter sharedConstantsNames]];
 		
-		if ([tNewConstantsNamesSet count]>0)
+		if (tNewConstantsNamesSet.count>0)
 		{
 			NSString * tString=[tRequirementConverter constantsForNames:tNewConstantsNamesSet];
 			
@@ -3270,14 +3270,14 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 		tAttributesDictionary=[tRequirementConverter requiredOptionsValuesWithParameters:tRequirementSettingsRepresentation];
 
-		if ([tAttributesDictionary count]>0)
+		if (tAttributesDictionary.count>0)
 			[_buildInformation.requirementsOptions addEntriesFromDictionary:tAttributesDictionary];
 		
 		// Get the list of attributes to set
 		
 		tExtraResources=[tRequirementConverter requiredAdditionalResourcesWithParameters:tRequirementSettingsRepresentation];
 		
-		if ([tExtraResources count]>0)
+		if (tExtraResources.count>0)
 			[_buildInformation.resourcesExtras addObjectsFromArray:tExtraResources];
 		
 		tIndex++;
@@ -3300,7 +3300,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			NSDictionary * tLocalizations=tRequirement.messages;
 			NSString * tErrorMessage=nil;
 			
-			if ([tLocalizations count]>0)
+			if (tLocalizations.count>0)
 			{
 				NSMutableDictionary * tLocalizationsDictionary=_buildInformation.localizations;
 				
@@ -3864,7 +3864,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			return bRequirement.enabled;
 		}];
 		
-		if ([tEnabledRequirementsArray count]>0)
+		if (tEnabledRequirementsArray.count>0)
 		{
 			if ([self setRequirementsFunctionForChoiceName:inName withArray:tEnabledRequirementsArray functionName:&tRequirementFunctionName]==NO)
 			{
@@ -4011,7 +4011,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			NSArray * tComponents=[tChoiceReadableID componentsSeparatedByString:@"_"];
 			
-			NSUInteger tCount=[tComponents count];
+			NSUInteger tCount=tComponents.count;
 				
 			if (tCount>2)
 			{
@@ -4029,7 +4029,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSDictionary * tLocalizations=tChoiceItem.localizedTitles;
 		
-		if ([tLocalizations count]>0)
+		if (tLocalizations.count>0)
 		{
 			__block BOOL tAtLeastOneLocalizedTitle=NO;
 			
@@ -4074,7 +4074,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		tLocalizations=tChoiceItem.localizedDescriptions;
 		
-		if ([tLocalizations count]>0)
+		if (tLocalizations.count>0)
 		{
 			__block BOOL tAtLeastOneLocalizedDescription=NO;
 			
@@ -4318,7 +4318,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 {
 	NSArray * tJavaScriptFunctionsArray=_buildInformation.javaScriptInformation.functions;
 	
-	if ([tJavaScriptFunctionsArray count]==0)
+	if (tJavaScriptFunctionsArray.count==0)
 		return;
 	
 	[self postStep:PKGBuildStepDistributionJavaScript beginEvent:nil];
@@ -4978,14 +4978,14 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		}
 	}];
 	
-	if ([tScriptsElement childCount]>0)
+	if (tScriptsElement.childCount>0)
 		[tPackageInfoElement addChild:tScriptsElement];
 	
 	// bundle-version
 	
 	NSArray * tArray=inBuildPackageAttributes.bundlesVersions;
 	
-	if ([tArray count]>0)
+	if (tArray.count>0)
 	{
 		NSXMLElement * tBundleVersionElement=(NSXMLElement *) [NSXMLNode elementWithName:@"bundle-version"];
 		
@@ -4996,7 +4996,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			return NO;
 		}
 		
-		if ([tBundleVersionElement childCount]>0)
+		if (tBundleVersionElement.childCount>0)
 			[tPackageInfoElement addChild:tBundleVersionElement];
 	}
 	
@@ -5006,7 +5006,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		NSDictionary * tDictionary=inBuildPackageAttributes.bundlesLocators;
 		
-		if ([tDictionary count]>0)
+		if (tDictionary.count>0)
 		{
 			NSXMLNode * tComment=[NSXMLNode commentWithStringValue:@"+==========================+\n    |         Locators         |\n    +==========================+"];
 			[tPackageInfoElement addChild:tComment];
@@ -5707,7 +5707,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	PKGPackageScriptsAndResources * tPackageScriptAndResources=inPackageObject.scriptsAndResources;
 	
-	if (tPackageScriptAndResources!=nil || [tBuildPackageAttributes.bundlesScripts count]>0)
+	if (tPackageScriptAndResources!=nil || tBuildPackageAttributes.bundlesScripts.count>0)
 	{
 		if ([self buildScriptsAndResources:tPackageScriptAndResources forPackageUUID:tPackageUUID atPath:tPackageFolderPath]==NO)
 		{
@@ -6030,10 +6030,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		tSearchIndex++;
 	}
 	
-	if ([tLocatorElement childCount]==0)
+	if (tLocatorElement.childCount==0)
 		return YES;
 	
-	if ([tSearchIDsArray count]==1)
+	if (tSearchIDsArray.count==1)
 	{
 		// A TESTER
 		
@@ -6206,7 +6206,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			else
 				[inElement addChild:tBundleElement];
 			
-			if ([tChildren count]>0)
+			if (tChildren.count>0)
 			{
 				[self addBundleFromArray:tChildren toElement:tBundleElement withPath:tPath packageInfoElement:inPackageInfoElement downgradableBundles:inDowngradableArray];
 			}
@@ -7216,7 +7216,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					return (bLocator.isEnabled==YES);
 				}];
 				
-				if ([tFilteredLocatorsArray count]>0)
+				if (tFilteredLocatorsArray.count>0)
 					(inBuildPackageAttributes.bundlesLocators)[tBundleIdentifier]=tFilteredLocatorsArray;
 			}
 			
@@ -7424,7 +7424,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
         }
     }
 	
-	if ([tMutableArray count]>0)
+	if (tMutableArray.count>0)
 	{
 		PKGBuildPackageAttributes * tBuildPackageAttributes=_buildInformation.packagesAttributes[inPackageUUID];
 		

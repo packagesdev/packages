@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -107,9 +107,7 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 		}
 		else
 		{
-			// Build the defaults
-			
-			// A COMPLETER
+			_sections=[NSMutableArray array];
 		}
 		
 		// Title
@@ -329,7 +327,7 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 	[tDescription appendString:@"Presentation Settings:\n"];
 	[tDescription appendString:@"---------------------\n\n"];
 	
-	if ([self.sections count]>0)
+	if (self.sections.count>0)
 	{
 		[tDescription appendString:@"  Sections Order:\n"];
 		

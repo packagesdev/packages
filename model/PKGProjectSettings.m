@@ -202,7 +202,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	if (self.certificateKeychainPath!=nil)
 		tCertificateRepresentation[PKGProjectSettingsCertificateKeyChainPathKey]=self.certificateKeychainPath;
 		
-	if ([tCertificateRepresentation count]>0)
+	if (tCertificateRepresentation.count>0)
 		tRepresentation[PKGProjectSettingsCertificateKey]=tCertificateRepresentation;
 	
 	
@@ -235,7 +235,7 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		[tDescription appendFormat:@"  Certificate KeyChain Path: %@\n\n",(self.certificateKeychainPath!=nil)? self.certificateKeychainPath : PKGProjectSettingsDefaultKeyChainPath];
 	}
 	
-	[tDescription appendFormat:@"  Exclusions(%lu):\n\n",(unsigned long) [self.filesFilters count]];
+	[tDescription appendFormat:@"  Exclusions(%lu):\n\n",(unsigned long) self.filesFilters.count];
 	
 	for(PKGFileFilter * tFileFilter in self.filesFilters)
 	{

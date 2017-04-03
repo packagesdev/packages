@@ -27,10 +27,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)PKG_stringByRelativizingToPath:(NSString *)inReferencePath
 {
-	if ([inReferencePath length]==0)
+	if (inReferencePath.length==0)
 		return [self copy];
 	
-	if ([self length]==0)
+	if (self.length==0)
 		return @"";
 	
 	if ([inReferencePath isEqualToString:@"/"]==YES)
@@ -45,8 +45,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (tComponents==nil || tReferencePathComponents==nil)
 		return [self copy];
 	
-	NSUInteger tCount=[tComponents count];
-	NSUInteger tReferenceCount=[tReferencePathComponents count];
+	NSUInteger tCount=tComponents.count;
+	NSUInteger tReferenceCount=tReferencePathComponents.count;
 	
 	NSUInteger i;
 	
@@ -91,10 +91,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)PKG_stringByAbsolutingWithPath:(NSString *)inReferencePath
 {
-	if ([inReferencePath length]==0)
+	if (inReferencePath.length==0)
 		return [self copy];
 	
-	if ([self length]==0)
+	if (self.length==0)
 		return @"";
 	
 	if ([self characterAtIndex:0]=='/' || [inReferencePath characterAtIndex:0]!='/')
@@ -107,32 +107,29 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSArray * tComponents=[self componentsSeparatedByString:@"/"];
 	
-	if (tComponents!=nil)
+	NSUInteger tCount=tComponents.count;
+	
+	for(NSUInteger i=0;i<tCount;i++)
 	{
-		NSUInteger tCount=[tComponents count];
+		NSString * tComponent=tComponents[i];
 		
-		for(NSUInteger i=0;i<tCount;i++)
+		if ([tComponent isEqualToString:@".."]==YES)
 		{
-			NSString * tComponent=tComponents[i];
+			if ([tAbsolutePath isEqualToString:@"/"]==YES)
+				return nil;
 			
-			if ([tComponent isEqualToString:@".."]==YES)
-			{
-				if ([tAbsolutePath isEqualToString:@"/"]==YES)
-					return nil;
-				
-				tAbsolutePath=[tAbsolutePath stringByDeletingLastPathComponent];
-			}
-			else if ([tComponent isEqualToString:@"."]==YES)
-			{
-				continue;
-			}
-			else
-			{
-				for(;i<tCount;i++)
-					tAbsolutePath=[tAbsolutePath stringByAppendingPathComponent:tComponents[i]];
-				
-				break;
-			}
+			tAbsolutePath=[tAbsolutePath stringByDeletingLastPathComponent];
+		}
+		else if ([tComponent isEqualToString:@"."]==YES)
+		{
+			continue;
+		}
+		else
+		{
+			for(;i<tCount;i++)
+				tAbsolutePath=[tAbsolutePath stringByAppendingPathComponent:tComponents[i]];
+			
+			break;
 		}
 	}
     

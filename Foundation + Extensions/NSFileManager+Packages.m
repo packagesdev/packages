@@ -243,7 +243,7 @@ extended_attributes_bail:
 
 - (BOOL)PKG_setExtendedAttributes:(NSDictionary *)inExtendedAttributes ofItemAtPath:(NSString *)inPath error:(NSError *__autoreleasing *)outError
 {
-	if ([inExtendedAttributes count]==0)
+	if (inExtendedAttributes.count==0)
 		return YES;
 	
 	if (inPath==nil)

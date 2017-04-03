@@ -172,7 +172,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 	
 	[tDescription appendFormat:@"  Install on startup volume only: %@\n",(self.rootVolumeOnlyRequirement==YES) ? @"Yes" : @"No"];
 	
-	[tDescription appendFormat:@"  Requirements (%lu):\n",(unsigned long)[self.requirements count]];
+	[tDescription appendFormat:@"  Requirements (%lu):\n",(unsigned long)self.requirements.count];
 	
 	for(PKGRequirement * tRequirement in self.requirements)
 		[tDescription appendString:[tRequirement description]];

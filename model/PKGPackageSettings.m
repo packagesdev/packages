@@ -95,7 +95,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	
 	NSArray * tNodes=[tXMLDocument nodesForXPath:@"pkg-info" error:&tError];
 	
-	if ([tNodes count]==0)
+	if (tNodes.count==0)
 	{
 		
 		return nil;
@@ -207,13 +207,13 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		
 		tNodes=[tXMLDocument nodesForXPath:@"pkg-info/payload" error:&tError];
 		
-		if ([tNodes count]>0)
+		if (tNodes.count>0)
 		{
 			tElement=(NSXMLElement *) tNodes[0];
 			
 			if (tElement!=nil)
 			{
-				tAttributes=[tElement attributes];
+				tAttributes=tElement.attributes;
 				
 				for (NSXMLNode * tAttributeNode in tAttributes)
 				{

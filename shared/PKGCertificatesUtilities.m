@@ -53,7 +53,7 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 
 + (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath
 {
-	if ([inName length]==0)
+	if (inName.length==0)
 		return NULL;
 	
 	NSArray * tKeychainPaths=((inPath!=nil) ? @[inPath] : nil);
@@ -87,8 +87,8 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 											  (id)kSecReturnRef:@(YES),
 											  (id)kSecMatchLimit:(id)kSecMatchLimitOne} mutableCopy];
 	
-	if ([tSecKeychainArray count]>0)
-		[tQueryDictionary setObject:tSecKeychainArray forKey:(__bridge NSString *)kSecMatchSearchList];
+	if (tSecKeychainArray.count>0)
+		tQueryDictionary[(__bridge NSString *)kSecMatchSearchList]=tSecKeychainArray;
 	
 	
 	SecIdentityRef tResult=NULL;

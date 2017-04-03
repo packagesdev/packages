@@ -363,7 +363,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 	
 	[tDescription appendFormat:@"    Enabled: %@\n",(self.enabled==YES)? @"Yes" : @"No"];
 	
-	[tDescription appendFormat:@"    Predicates(%lu):\n\n",(unsigned long)[self.predicates count]];
+	[tDescription appendFormat:@"    Predicates(%lu):\n\n",(unsigned long)self.predicates.count];
 	
 	for(PKGFilePredicate * tPredicate in self.predicates)
 	{
@@ -391,7 +391,7 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 
 - (PKGFilePredicate *)predicate
 {
-	if ([self.predicates count]==1)
+	if (self.predicates.count==1)
 		return self.predicates[0];
 	
 	return [PKGFilePredicate new];

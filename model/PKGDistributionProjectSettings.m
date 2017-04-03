@@ -95,7 +95,7 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 	
 	// Advanced Options
 	
-	if ([self.advancedOptions count]>0)
+	if (self.advancedOptions.count>0)
 		tRepresentation[PKGDistributionProjectAdvancedOptionsKey]=[self.advancedOptions copy];
 	
 	return tRepresentation;

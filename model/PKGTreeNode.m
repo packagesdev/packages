@@ -197,7 +197,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		return [bTreeNode representation];
 	}];
 	
-	if ([tChildrenRepresentation count]>0)
+	if (tChildrenRepresentation.count>0)
 		tRepresentation[PKGTreeNodeChildrenKey]=tChildrenRepresentation;
 	
 	return tRepresentation;
@@ -327,7 +327,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (NSUInteger)numberOfChildren
 {
-	return [_children count];
+	return _children.count;
 }
 
 - (NSArray *)children
@@ -363,7 +363,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (PKGTreeNode *)descendantNodeAtIndex:(NSUInteger)inIndex
 {
-	if (inIndex>=[_children count])
+	if (inIndex>=_children.count)
 		return nil;
 	
 	return [_children objectAtIndex:inIndex];
@@ -522,7 +522,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (void)insertChildren:(NSArray *)inChildren atIndex:(NSUInteger)inIndex
 {
-	if ([inChildren count]==0 || inIndex>_children.count)
+	if (inChildren.count==0 || inIndex>_children.count)
 		return;
 	
 	[inChildren makeObjectsPerformSelector:@selector(setParent:) withObject:self];
@@ -670,7 +670,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (void)removeChildAtIndex:(NSUInteger)inIndex
 {
-	if (inIndex>=[_children count])
+	if (inIndex>=_children.count)
 		return;
 	
 	PKGTreeNode * tTreeNode=_children[inIndex];
@@ -682,7 +682,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 - (void)removeChildrenAtIndexes:(NSIndexSet *)inIndexSet
 {
-	if (inIndexSet==nil || [inIndexSet lastIndex]>=[_children count])
+	if (inIndexSet==nil || inIndexSet.lastIndex>=_children.count)
 		return;
 	
 	[_children enumerateObjectsAtIndexes:inIndexSet options:0 usingBlock:^(PKGTreeNode *bTreeNode,__attribute__((unused))NSUInteger bIndex,__attribute__((unused))BOOL * boutStop){
@@ -739,7 +739,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	NSMutableArray * tNodeQueue = [NSMutableArray arrayWithArray:inArray];
 	PKGTreeNode *tTreeNode = nil;
 	
-	while ([tNodeQueue count])
+	while (tNodeQueue.count)
 	{
 		tTreeNode = tNodeQueue[0];
 		[tNodeQueue removeObjectAtIndex:0];

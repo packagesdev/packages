@@ -358,7 +358,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	tRepresentation[PKGChoicePackageItemPackageUUIDKey]=self.packageUUUID;
 	
-	if ([self.requirements count]>0)
+	if (self.requirements.count>0)
 	{
 		tRepresentation[PKGChoicePackageItemRequirementsKey]=[self.requirements WB_arrayByMappingObjectsUsingBlock:^id(PKGRequirement * bRequirement,__attribute__((unused))NSUInteger bIndex){
 		
@@ -379,7 +379,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	[tDescription appendFormat:@"Package UUID: %@\n",self.packageUUUID];
 	
-	[tDescription appendFormat:@"Requirements(%lu):\n",(unsigned long)[self.requirements count]];
+	[tDescription appendFormat:@"Requirements(%lu):\n",(unsigned long)self.requirements.count];
 	
 	for(PKGRequirement * tRequirement in self.requirements)
 	{
