@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -33,8 +33,7 @@
 
 	@property (readonly) NSMutableDictionary * sharedProjectData;
 
-
-- (BOOL)isFlat;
+	@property (readonly,nonatomic,getter=isFlat) BOOL flat;
 
 - (PKGPackageComponent *)packageComponentWithUUID:(NSString *)inUUID;
 
