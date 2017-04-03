@@ -135,4 +135,25 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	return tDescription;
 }
 
+#pragma mark -
+
+- (BOOL)isCustomized
+{
+	if (self.licenseType==PKGLicenseTypeTemplate)
+		return YES;
+	
+	if (self.licenseType==PKGLicenseTypeCustom)
+	{
+		for(NSString * tLanguageKey in self.localizations)
+		{
+			PKGFilePath * tFilePath=self.localizations[tLanguageKey];
+		
+			if (tFilePath.isSet==YES)
+				return YES;
+		}
+	}
+	
+	return NO;
+}
+
 @end

@@ -24,12 +24,12 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 
 @implementation PKGPresentationLocalizableStepSettings
 
-+ (Class) valueClass
++ (Class)valueClass
 {
 	return NSObject.class;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -74,7 +74,7 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[super representation];
 	
@@ -85,7 +85,7 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 
 #pragma mark -
 
-- (NSString *) description
+- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	
@@ -103,6 +103,13 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 	}];
 	
 	return tDescription;
+}
+
+#pragma mark -
+
+- (BOOL)isCustomized
+{
+	return (self.localizations.count>0);
 }
 
 @end
