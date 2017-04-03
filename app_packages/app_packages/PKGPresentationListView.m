@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2014, Stephane Sudre
+Copyright (c) 2007-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,7 +13,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGPresentationListView.h"
 
-#import "PKGInstallerAppBundle.h"
+#import "PKGInstallerApp.h"
 
 #define PKGPresentationListViewMoreRowHeight	20.0
 
@@ -123,11 +123,11 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		
         sLabelOriginX=ICPRESENTATIONLISTVIEW_ROW_X_OFFSET;
 		
-		PKGInstallerAppBundle * tBundle=[PKGInstallerAppBundle installerAppBundle];
+		PKGInstallerApp * tInstallerApp=[PKGInstallerApp installerApp];
 		
-        if ([tBundle isVersion6_1OrLater]==NO)
+        if ([tInstallerApp isVersion6_1OrLater]==NO)
         {
-            NSSize tBulletSize=[[tBundle imageForResource:@"DotBlue"] size];
+            NSSize tBulletSize=tInstallerApp.currentStepDot.size;
          
             sLabelOriginX+=tBulletSize.width+4.0;
         }
@@ -151,15 +151,15 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 	{
 		_trackingRect=NSZeroRect;
 	
-		PKGInstallerAppBundle * tBundle=[PKGInstallerAppBundle installerAppBundle];
+		PKGInstallerApp * tInstallerApp=[PKGInstallerApp installerApp];
 		
-		if ([tBundle isVersion6_1OrLater]==NO)
+		if ([tInstallerApp isVersion6_1OrLater]==NO)
 		{
-			_unselectedPaneImage=[tBundle imageForResource:@"DotGray"];
+			_unselectedPaneImage=tInstallerApp.anteriorStepDot;
 			
-			_selectedPaneImage=[tBundle imageForResource:@"DotBlue"];
+			_selectedPaneImage=tInstallerApp.currentStepDot;
 		
-			_unProcessedPaneImage=[tBundle imageForResource:@"DotGrayDisabled"];
+			_unProcessedPaneImage=tInstallerApp.posteriorStepDot;
 		}
 		
 		_currentDropStep=-1;
@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
     
     NSFont * tFont;
     
-    if ((inStep<_selectedStep && [[PKGInstallerAppBundle installerAppBundle] isVersion6_1OrLater]==NO) ||
+    if ((inStep<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
         inStep==_selectedStep)
         tFont=[NSFont boldSystemFontOfSize:13.0];
     else
@@ -352,7 +352,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
                                  
                                  // Draw the bullet
                                  
-                                 if ([[PKGInstallerAppBundle installerAppBundle] isVersion6_1OrLater]==NO)
+                                 if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
 								 {
                                     NSImage * tBulletImage=((inStep==_selectedStep) ? _selectedPaneImage : ((inStep < _selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
 								  
@@ -387,7 +387,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 								 {
 									 NSFont * tFont;
                                      
-                                     if ((inStep<_selectedStep && [[PKGInstallerAppBundle installerAppBundle] isVersion6_1OrLater]==NO) ||
+                                     if ((inStep<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
                                          inStep==_selectedStep)
                                          tFont=[NSFont boldSystemFontOfSize:13.0];
                                      else
@@ -492,7 +492,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		
 	[NSGraphicsContext saveGraphicsState];
 	
-	if ([[PKGInstallerAppBundle installerAppBundle] isVersion6_1OrLater]==NO)
+	if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
 	{
 		tBulletImage=_selectedPaneImage;
 		
@@ -630,7 +630,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		{
 			tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
 	
-			if ((tIndex<_selectedStep && [[PKGInstallerAppBundle installerAppBundle] isVersion6_1OrLater]==NO) ||
+			if ((tIndex<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
 				tIndex==_selectedStep)
 				tFont=[NSFont boldSystemFontOfSize:13.0];
 			else
@@ -778,7 +778,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		if (_currentDropStep!=-1 && _currentDropStep==tIndex)
             drawDropLine(tFrame);
 		
-		if ((tIndex<_selectedStep && [[PKGInstallerAppBundle installerAppBundle] isVersion6_1OrLater]==NO) ||
+		if ((tIndex<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
 			tIndex==_selectedStep)
 			tFont=[NSFont boldSystemFontOfSize:13.0];
 		else
@@ -833,7 +833,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		
 		if (tIndex!=_mouseSelectedStep || _mouseSelectedStepPushed==NO)
 		{
-			if ([[PKGInstallerAppBundle installerAppBundle] isVersion6_1OrLater]==NO)
+			if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
 			{
 				NSImage * tBulletProcessedImage=((tIndex==_selectedStep) ? _selectedPaneImage : ((tIndex < _selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
 			

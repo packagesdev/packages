@@ -13,9 +13,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGPresentationImageView.h"
 
-//#import "NSFileManager+fileTypes.h"
+#import "NSFileManager+FileTypes.h"
 
-//#import "ICBackgroundUtilities.h"
+#import "PKGPresentationBackgroundSettings+UI.h"
 
 #import <ApplicationServices/ApplicationServices.h>
 
@@ -44,9 +44,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 }
 
-#pragma mark -
+#pragma mark - NSDraggingDestination
 
-/*- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
     NSPasteboard * tPasteBoard = [sender draggingPasteboard];
 
@@ -65,7 +65,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     
     NSString * tFilePath=tFiles.lastObject;
     
-    BOOL tImageFormatSupported=[[NSFileManager defaultManager] IC_fileAtPath:tFilePath matchesTypes:[ICBackgroundUtilities backgroundImageTypes]];
+    BOOL tImageFormatSupported=[[NSFileManager defaultManager] WB_fileAtPath:tFilePath matchesTypes:[PKGPresentationBackgroundSettings backgroundImageTypes]];
     
     if (tImageFormatSupported==NO)
     {
@@ -78,7 +78,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             NSString * tImageUTI=(__bridge NSString *) CGImageSourceGetType(tSourceRef);
             
             if (tImageUTI!=nil)
-                tImageFormatSupported=[[ICBackgroundUtilities backgroundImageUTIs] containsObject:tImageUTI];
+                tImageFormatSupported=[[PKGPresentationBackgroundSettings backgroundImageUTIs] containsObject:tImageUTI];
             
             // Release Memory
             
@@ -142,6 +142,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)concludeDragOperation:(id <NSDraggingInfo>)sender
 {
-}*/
+}
 
 @end
