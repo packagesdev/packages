@@ -108,9 +108,9 @@
 	
 	// Draw the Path Type icon
 
-	NSImage * tReferenceIcon=[PKGReferencePopupButtonCell leftCapForReferenceStyle:[tMenuItem tag] controlSize:[self controlSize]];
+	NSImage * tReferenceIcon=[PKGReferencePopupButtonCell leftCapForReferenceStyle:[tMenuItem tag] controlSize:self.controlSize];
 	NSRect tRect;
-	tRect.origin=NSMakePoint(NSMinX(inFrame)+2.0f,NSMinY(inFrame)+((inControlView.controlSize==NSRegularControlSize) ? 2.0f : 1.0f));
+	tRect.origin=NSMakePoint(NSMinX(inFrame)+2.0f,NSMinY(inFrame)+((self.controlSize==NSRegularControlSize) ? 2.0f : 1.0f));
 	tRect.size=tReferenceIcon.size;
 	
 	[tReferenceIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];
