@@ -15,4 +15,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface PKGPresentationWindowView : NSView
 
+	@property (nonatomic,copy) NSString * title;
+
+	@property (nonatomic) NSImage * proxyIcon;
+
 @end
