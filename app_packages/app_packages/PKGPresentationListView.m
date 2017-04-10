@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 	PKGPresentationListViewMouseModeDrag
 };
 
+NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentationListViewSelectionDidChangeNotification";
+
 //#define LIST_DEBUG_VIEW 1
 
 @interface PKGPresentationListView ()
@@ -52,8 +54,6 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 	
 	NSTrackingRectTag _trackingTag;
 	NSRect _trackingRect;
-	
-	NSInteger _selectedStep;
 	
 	// Mouse Down
 	
@@ -87,6 +87,8 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 	
 	NSDragOperation _currentDragOperation;
 }
+
+	@property (readwrite) NSInteger selectedStep;
 
 + (NSCursor *)sharedUnselectableCursor;
 
@@ -201,8 +203,8 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
     
     NSFont * tFont;
     
-    if ((inStep<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
-        inStep==_selectedStep)
+    if ((inStep<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+        inStep==self.selectedStep)
         tFont=[NSFont boldSystemFontOfSize:13.0];
     else
         tFont=[NSFont systemFontOfSize:13.0];
@@ -310,16 +312,11 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 
 #pragma mark -
 
-- (NSInteger)selectedStep
-{
-	return _selectedStep;
-}
-
 - (void)selectStep:(NSInteger)inStep
 {
-	if (_selectedStep!=inStep)
+	if (self.selectedStep!=inStep)
 	{
-		_selectedStep=inStep;
+		self.selectedStep=inStep;
 		
 		_shouldSeeSelectedStep=YES;
 		
@@ -329,6 +326,8 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 
 - (void)reloadData
 {
+	[self.window invalidateCursorRectsForView:self];
+	
 	[self setNeedsDisplay:YES];
 }
 
@@ -354,7 +353,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
                                  
                                  if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
 								 {
-                                    NSImage * tBulletImage=((inStep==_selectedStep) ? _selectedPaneImage : ((inStep < _selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
+                                    NSImage * tBulletImage=((inStep==self.selectedStep) ? _selectedPaneImage : ((inStep < self.selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
 								  
                                     NSSize tBulletSize=[tBulletImage size];
 								  
@@ -364,13 +363,13 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 								 {
 									 NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,tHeight-(PKGPresentationListViewDefaultRowHeight+2.0*PKGPresentationListViewBulletRadius)*0.5,2.0*PKGPresentationListViewBulletRadius,2.0*PKGPresentationListViewBulletRadius)];
 									 
-									 if (inStep==_selectedStep)
+									 if (inStep==self.selectedStep)
 									 {
 										 [[NSColor colorWithDeviceRed:0.4 green:0.7 blue:0.94 alpha:1.0] setFill];
 									 }
 									 else
 									 {
-										 if (inStep < _selectedStep)
+										 if (inStep < self.selectedStep)
 											 [[NSColor colorWithDeviceWhite:0.65 alpha:1.0] setFill];
 										 else
 											 [[NSColor colorWithDeviceWhite:0.85 alpha:1.0] setFill];
@@ -387,13 +386,13 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 								 {
 									 NSFont * tFont;
                                      
-                                     if ((inStep<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
-                                         inStep==_selectedStep)
+                                     if ((inStep<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+                                         inStep==self.selectedStep)
                                          tFont=[NSFont boldSystemFontOfSize:13.0];
                                      else
                                          tFont=[NSFont systemFontOfSize:13.0];
                                      
-                                     NSColor * tColor= (inStep >_selectedStep) ? [NSColor colorWithDeviceWhite:0.0 alpha: 0.5] : [NSColor blackColor];
+                                     NSColor * tColor= (inStep >self.selectedStep) ? [NSColor colorWithDeviceWhite:0.0 alpha: 0.5] : [NSColor blackColor];
 									 
 									 NSDictionary * tFontAttributes=@{NSFontAttributeName:tFont,
 																	  NSForegroundColorAttributeName:tColor};
@@ -512,16 +511,16 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 	
 	CGFloat tMaxHeight=NSHeight(tBounds)-2*PKGPresentationListViewMoreRowHeight;
 	
-	if (_selectedStep<0 || _selectedStep>=tNumberOfSteps)
-		_selectedStep=0;
+	if (self.selectedStep<0 || self.selectedStep>=tNumberOfSteps)
+		self.selectedStep=0;
 	
 	if (_shouldSeeSelectedStep==YES)
 	{
 		tFont=[NSFont boldSystemFontOfSize:13.0];
 		
-		tMinStepIndex=tMaxStepIndex=_selectedStep;
+		tMinStepIndex=tMaxStepIndex=self.selectedStep;
 	
-		tStepTitle=[self.dataSource presentationListView:self objectForStep:_selectedStep];
+		tStepTitle=[self.dataSource presentationListView:self objectForStep:self.selectedStep];
 	
 		tHeight=[self heightOfString:tStepTitle forFont:tFont andMaxWidth:tTextMaxWidth];
 		
@@ -532,11 +531,11 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		
 		_shouldSeeSelectedStep=NO;
 		
-		if (_firstVisibleStep>_selectedStep)
+		if (_firstVisibleStep>self.selectedStep)
 		{
 			tFont=[NSFont systemFontOfSize:13.0];
 			
-			tIndex=_selectedStep+1;
+			tIndex=self.selectedStep+1;
 			
 			while (tIndex<tNumberOfSteps && tHeight<tMaxHeight)
 			{
@@ -561,7 +560,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		}
 		else
 		{
-			tIndex=_selectedStep-1;
+			tIndex=self.selectedStep-1;
 		
 			while (tIndex>=_firstVisibleStep && tHeight<tMaxHeight)
 			{
@@ -588,7 +587,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 			{
 				tFont=[NSFont systemFontOfSize:13.0];
 				
-				tIndex=_selectedStep+1;
+				tIndex=self.selectedStep+1;
 				
 				while (tIndex<tNumberOfSteps && tHeight<tMaxHeight)
 				{
@@ -630,8 +629,8 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		{
 			tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
 	
-			if ((tIndex<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
-				tIndex==_selectedStep)
+			if ((tIndex<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+				tIndex==self.selectedStep)
 				tFont=[NSFont boldSystemFontOfSize:13.0];
 			else
 				tFont=[NSFont systemFontOfSize:13.0];
@@ -778,8 +777,8 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		if (_currentDropStep!=-1 && _currentDropStep==tIndex)
             drawDropLine(tFrame);
 		
-		if ((tIndex<_selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
-			tIndex==_selectedStep)
+		if ((tIndex<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+			tIndex==self.selectedStep)
 			tFont=[NSFont boldSystemFontOfSize:13.0];
 		else
 			tFont=[NSFont systemFontOfSize:13.0];
@@ -807,7 +806,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 			
 			[tBezierPath stroke];
 		}
-		else if (tIndex==_selectedStep && _mouseSelectedStepPushed==NO)
+		else if (tIndex==self.selectedStep && _mouseSelectedStepPushed==NO)
 		{
 			CGFloat tBakckgroundHeight=(tStepHeight==PKGPresentationListViewDefaultRowHeight) ? PKGPresentationListViewDefaultRowHeight+1.0 : tStepHeight+11.0;
 			
@@ -835,7 +834,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		{
 			if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
 			{
-				NSImage * tBulletProcessedImage=((tIndex==_selectedStep) ? _selectedPaneImage : ((tIndex < _selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
+				NSImage * tBulletProcessedImage=((tIndex==self.selectedStep) ? _selectedPaneImage : ((tIndex < self.selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
 			
 				if (tWillBeVisible==NO)
 				{
@@ -857,13 +856,13 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 			{
 				NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,NSMinY(tFrame)-(PKGPresentationListViewDefaultRowHeight+2.0*PKGPresentationListViewBulletRadius)*0.5,2.0*PKGPresentationListViewBulletRadius,2.0*PKGPresentationListViewBulletRadius)];
 				
-				if (tIndex==_selectedStep)
+				if (tIndex==self.selectedStep)
 				{
 					[[NSColor colorWithDeviceRed:0.4 green:0.7 blue:0.94 alpha:1.0] setFill];
 				}
 				else
 				{
-					if (tIndex < _selectedStep)
+					if (tIndex < self.selectedStep)
 						[[NSColor colorWithDeviceWhite:0.65 alpha:1.0] setFill];
 					else
 						[[NSColor colorWithDeviceWhite:0.85 alpha:1.0] setFill];
@@ -914,7 +913,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 		{
 			NSColor * tColor;
 			
-			if (tIndex >_selectedStep)
+			if (tIndex >self.selectedStep)
 			{
 				if (tWillBeVisible==YES)
 					tColor=[NSColor colorWithDeviceWhite:0.0 alpha: 0.5];
@@ -1064,7 +1063,9 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 					
 					if ([self.delegate respondsToSelector:@selector(presentationListViewSelectionDidChange:)]==YES)
 					{
-						[self.delegate presentationListViewSelectionDidChange:nil];
+						NSNotification * tNotification=[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:self];
+						
+						[self.delegate presentationListViewSelectionDidChange:tNotification];
 						
 						// A COMPLETER
 					}
@@ -1173,7 +1174,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationListViewMouseMode)
 						
 						/*NSDraggingItem * tDraggingItem=[[NSDraggingItem alloc] initWithPasteboardWriter:nil];
 						
-						[tDraggingItem setDraggingFrame:<#(NSRect)#> contents:];
+						[tDraggingItem setDraggingFrame:tStepFrame contents:[self imageOfStep:_mouseSelectedStep]];
 						
 						
 						NSDraggingSession * tDragginSession=[self beginDraggingSessionWithItems:@[tDraggingItem] event:inEvent source:self];
