@@ -25,6 +25,6 @@
 - (instancetype)initWithBundle:(NSBundle *)inBundle;
 
 
-- (NSString *)sectionTitleForLanguage:(NSString *)inLanguage;
+- (NSString *)sectionTitleForLocalization:(NSString *)inLocalization;
 
 @end

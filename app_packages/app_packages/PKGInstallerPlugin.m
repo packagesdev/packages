@@ -22,7 +22,7 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 	NSMutableDictionary * _localizations;
 }
 
-- (NSDictionary *)localizationForLanguage:(NSString *)inLanguage;
+- (NSDictionary *)localizedStringsForLocalization:(NSString *)inLocalization;
 
 @end
 
@@ -52,6 +52,8 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 	if (self!=nil)
 	{
 		_bundle=inBundle;
+		
+		_localizations=[NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -59,16 +61,17 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 
 #pragma mark -
 
-- (NSDictionary *)localizationForLanguage:(NSString *)inLanguage
+- (NSDictionary *)localizedStringsForLocalization:(NSString *)inLocalization
 {
-	if (inLanguage==nil)
+	if (inLocalization==nil)
 		return nil;
 	
 	NSMutableDictionary * tLocalizedDictionary=[NSMutableDictionary dictionary];
 	
-	NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLanguage];
+	NSString * tEnglishLanguage=[[PKGLanguageConverter sharedConverter] englishFromISO:inLocalization];
+	NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLocalization];
 	
-	NSString * tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:inLanguage];
+	NSString * tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tEnglishLanguage];
 	
 	if (tPath==nil)
 		tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
@@ -81,7 +84,7 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 			[tLocalizedDictionary addEntriesFromDictionary:tLocalizableDictionary];
 	}
 	
-	tPath=[_bundle pathForResource:@"InfoPlist" ofType:@"strings" inDirectory:nil forLocalization:inLanguage];
+	tPath=[_bundle pathForResource:@"InfoPlist" ofType:@"strings" inDirectory:nil forLocalization:tEnglishLanguage];
 	
 	if (tPath==nil)
 		tPath=[_bundle pathForResource:@"InfoPlist" ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
@@ -99,23 +102,45 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 
 #pragma mark -
 
-- (NSString *)sectionTitleForLanguage:(NSString *)inLanguage
+- (NSString *)sectionTitleForLocalization:(NSString *)inLocalization
 {
-	if (inLanguage==nil)
+	if (inLocalization==nil)
 		return nil;
 	
-	NSDictionary * tLocalization=_localizations[inLanguage];
+	NSDictionary * tLocalizedStrings=_localizations[inLocalization];
 	
-	if (tLocalization!=nil)
-		return tLocalization[PKGInstallerPluginSectionTitleKey];
+	if (tLocalizedStrings!=nil)
+		return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
 	
-	tLocalization=[self localizationForLanguage:inLanguage];
+	tLocalizedStrings=[self localizedStringsForLocalization:inLocalization];
 	
-	if (tLocalization!=nil)
+	if (tLocalizedStrings.count>0)
 	{
-		_localizations[inLanguage]=tLocalization;
+		_localizations[inLocalization]=tLocalizedStrings;
 		
-		return tLocalization[PKGInstallerPluginSectionTitleKey];
+		return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
+	}
+	
+	NSArray * tPreferedLocalizations=(__bridge_transfer NSArray *) CFBundleCopyPreferredLocalizationsFromArray((__bridge CFArrayRef) _localizations.allKeys);
+	
+	if (tPreferedLocalizations==nil)
+		return nil;
+	
+	for(NSString * tLocalization in tPreferedLocalizations)
+	{
+		tLocalizedStrings=_localizations[tLocalization];
+		
+		if (tLocalizedStrings!=nil)
+			return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
+		
+		tLocalizedStrings=[self localizedStringsForLocalization:tLocalization];
+		
+		if (tLocalizedStrings.count>0)
+		{
+			_localizations[tLocalization]=tLocalizedStrings;
+			
+			return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
+		}
 	}
 	
 	return nil;

@@ -13,18 +13,41 @@
 
 #import "PKGInstallerApp.h"
 
+#import "NSArray+WBExtensions.h"
+
+#import "PKGLanguageConverter.h"
+
 NSString * const PKGInstallerAppVersionNumber6_1=@"6.1.0";	// OS X 10.10
 
 NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.app";
+
+@interface PKGInstallerAppLocalization ()
+
+	@property (readwrite,copy) NSString * englishName;
+
+	@property (readwrite,copy) NSString * localizedName;
+
+	@property (readwrite) NSImage * flagIcon;
+
+@end
+
+@implementation PKGInstallerAppLocalization
+
+@end
+
 
 @interface PKGInstallerApp ()
 {
 	NSBundle * _bundle;
 	
 	NSMutableDictionary * _pluginsRegistry;
+	
+	NSMutableDictionary * _localizations;
 }
 
 - (NSComparisonResult)compareVersion:(NSString *)inShortVersionString;
+
+- (NSDictionary *)localizationForLanguage:(NSString *)inLanguage;
 
 @end
 
@@ -132,7 +155,7 @@ NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.ap
 	if (tInstallerPlugin!=nil)
 		return tInstallerPlugin;
 	
-	NSURL * tPlugInsDirectoryURL=[_bundle builtInPlugInsURL];
+	NSURL * tPlugInsDirectoryURL=_bundle.builtInPlugInsURL;
 	
 	if (tPlugInsDirectoryURL==nil)
 		return nil;
@@ -145,6 +168,100 @@ NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.ap
 		_pluginsRegistry[inSectionName]=tInstallerPlugin;
 	
 	return tInstallerPlugin;
+}
+
+- (NSArray *)supportedLocalizations
+{
+	NSArray * tLocalizations=[_bundle localizations];
+	
+	NSMutableArray * tSupportedLocalizations=[[tLocalizations WB_arrayByMappingObjectsLenientlyUsingBlock:^id(NSString * bLanguage, NSUInteger bIndex) {
+		
+		if ([bLanguage isEqualToString:@"Base"]==YES)
+			return nil;
+		
+		NSString * tEnglishLanguageName=[[PKGLanguageConverter sharedConverter] englishFromISO:bLanguage];
+		NSString * tISOLanguageName=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:bLanguage];
+		
+		NSImage * tImage=[NSImage imageNamed:[NSString stringWithFormat:@"flag_%@",tISOLanguageName]];
+		
+		PKGInstallerAppLocalization * tInstallerAppLocalization=[PKGInstallerAppLocalization new];
+		
+		tInstallerAppLocalization.englishName=tEnglishLanguageName;
+		tInstallerAppLocalization.localizedName=NSLocalizedStringFromTable(tEnglishLanguageName,@"Languages",@"");
+		tInstallerAppLocalization.flagIcon=tImage;
+		
+		return tInstallerAppLocalization;
+		
+	}] mutableCopy];
+	
+	[tSupportedLocalizations sortUsingComparator:^NSComparisonResult(PKGInstallerAppLocalization * bLocalization1, PKGInstallerAppLocalization * bLocalization2) {
+		
+		return [bLocalization1.localizedName caseInsensitiveCompare:bLocalization2.localizedName];
+	}];
+	
+	return [tSupportedLocalizations copy];
+}
+
+- (NSDictionary *)localizationForLanguage:(NSString *)inLanguage
+{
+	if (inLanguage==nil)
+		return nil;
+	
+	NSMutableDictionary * tLocalizedDictionary=[NSMutableDictionary dictionary];
+	
+	NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLanguage];
+	
+	NSString * tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:inLanguage];
+	
+	if (tPath==nil)
+		tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
+	
+	if (tPath!=nil)
+	{
+		NSDictionary * tLocalizableDictionary=[[NSDictionary alloc] initWithContentsOfFile:tPath];
+		
+		if (tLocalizableDictionary!=nil)
+			[tLocalizedDictionary addEntriesFromDictionary:tLocalizableDictionary];
+	}
+	
+	/*tPath=[_bundle pathForResource:@"InfoPlist" ofType:@"strings" inDirectory:nil forLocalization:inLanguage];
+	
+	if (tPath==nil)
+		tPath=[_bundle pathForResource:@"InfoPlist" ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
+	
+	if (tPath!=nil)
+	{
+		NSDictionary * tLocalizableDictionary=[[NSDictionary alloc] initWithContentsOfFile:tPath];
+		
+		if (tLocalizableDictionary!=nil)
+			[tLocalizedDictionary addEntriesFromDictionary:tLocalizableDictionary];
+	}*/
+	
+	return [tLocalizedDictionary copy];
+}
+
+#pragma mark -
+
+- (NSString *)localizedStringForKey:(NSString *)inKey localization:(NSString *)inLocalization
+{
+	if (inKey==nil || inLocalization==nil)
+		return nil;
+	
+	NSDictionary * tLocalization=_localizations[inLocalization];
+	
+	if (tLocalization!=nil)
+		return tLocalization[inKey];
+	
+	tLocalization=[self localizationForLanguage:inLocalization];
+	
+	if (tLocalization!=nil)
+	{
+		_localizations[inLocalization]=tLocalization;
+		
+		return tLocalization[inKey];
+	}
+	
+	return nil;
 }
 
 @end

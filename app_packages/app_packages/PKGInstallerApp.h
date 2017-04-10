@@ -22,6 +22,16 @@ typedef NS_ENUM(NSUInteger, PKGInstallerAppPackageType)
 	PKGInstallerAppDistrbutionFlat=2
 };
 
+@interface PKGInstallerAppLocalization : NSObject
+
+	@property (readonly,copy) NSString * englishName;
+
+	@property (readonly,copy) NSString * localizedName;
+
+	@property (readonly) NSImage * flagIcon;
+
+@end
+
 @interface PKGInstallerApp : NSObject
 
 	@property (nonatomic,readonly) NSImage * anteriorStepDot;
@@ -37,5 +47,9 @@ typedef NS_ENUM(NSUInteger, PKGInstallerAppPackageType)
 - (PKGInstallerPlugin *)pluginWithSectionName:(NSString *)inSectionName;
 
 - (NSImage *)iconForPackageType:(PKGInstallerAppPackageType)inPackageType;
+
+- (NSArray *)supportedLocalizations;
+
+- (NSString *)localizedStringForKey:(NSString *)inKey localization:(NSString *)inLocalization;
 
 @end
