@@ -13,6 +13,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * PKGPresentationListViewSelectionDidChangeNotification;
+
 @protocol PKGPresentationListViewDelegate;
 @protocol PKGPresentationListViewDataSource;
 
@@ -22,7 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 	@property (weak) id <PKGPresentationListViewDelegate> delegate;
 
-- (NSInteger)selectedStep;
+	@property (readonly) NSInteger selectedStep;
 
 - (void)selectStep:(NSInteger)inStep;
 
