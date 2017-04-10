@@ -34,7 +34,6 @@
 @interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
 	@property NSArray * sibblings;
-	@property (weak) id<PKGFilePathConverter> filePathConverter;
 
 @end
 
@@ -495,7 +494,6 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	_openPanelDelegate=[PKGFilesHierarchyOpenPanelDelegate new];
 	
-	_openPanelDelegate.filePathConverter=self.filePathConverter;
 	_openPanelDelegate.sibblings=(tParentNode==nil) ? self.hierarchyDataSource.rootNodes : tParentNode.children;
 	
 	tOpenPanel.delegate=_openPanelDelegate;
@@ -522,27 +520,27 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 	
-		if (bResult==NSFileHandlingPanelOKButton)
+		if (bResult!=NSFileHandlingPanelOKButton)
+			return;
+		
+		if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
 		{
-			if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
-			{
-				tKeepOwnerAndGroup=tOwnershipAndReferenceStyleViewController.keepOwnerAndGroup;
-				tReferenceStyle=tOwnershipAndReferenceStyleViewController.referenceStyle;
-			}
+			tKeepOwnerAndGroup=tOwnershipAndReferenceStyleViewController.keepOwnerAndGroup;
+			tReferenceStyle=tOwnershipAndReferenceStyleViewController.referenceStyle;
+		}
+		
+		NSArray * tPaths=[tOpenPanel.URLs WB_arrayByMappingObjectsUsingBlock:^(NSURL * bURL,NSUInteger bIndex){
 			
-			NSArray * tPaths=[tOpenPanel.URLs WB_arrayByMappingObjectsUsingBlock:^(NSURL * bURL,NSUInteger bIndex){
-				
-				return bURL.path;
-			}];
-			
-			if ([self.hierarchyDataSource outlineView:self.outlineView
-										 addFileNames:tPaths
-										referenceType:tReferenceStyle
-											toParents:(tParentNode==nil) ? nil : @[tParentNode]
-											  options:(tKeepOwnerAndGroup==YES) ? PKGPayloadAddKeepOwnership : 0]==YES)
-			{
-				[self noteDocumentHasChanged];
-			}
+			return bURL.path;
+		}];
+		
+		if ([self.hierarchyDataSource outlineView:self.outlineView
+									 addFileNames:tPaths
+									referenceType:tReferenceStyle
+										toParents:(tParentNode==nil) ? nil : @[tParentNode]
+										  options:(tKeepOwnerAndGroup==YES) ? PKGPayloadAddKeepOwnership : 0]==YES)
+		{
+			[self noteDocumentHasChanged];
 		}
 	}];
 }
