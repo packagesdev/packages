@@ -57,7 +57,10 @@
 {
 	[super WB_viewDidLoad];
 	
-    _collectionView.content=_projectTemplates;
+	_collectionView.target=self.assistantController;
+	_collectionView.action=@selector(next:);
+	
+	_collectionView.content=_projectTemplates;
 	
 	if (_selectedIndex==NSNotFound)
 		return;
