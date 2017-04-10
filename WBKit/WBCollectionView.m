@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -78,6 +78,12 @@ NSString * const WBCollectionViewSelectionDidChangeNotification=@"WBCollectionVi
 			return;
 		}
 	}
+}
+
+- (void)insertNewline:(id)sender
+{
+	if (self.target!=nil && self.action!=nil)
+		[NSApp sendAction:self.action to:self.target from:self];
 }
 
 @end

@@ -29,6 +29,9 @@ extern NSString * const WBCollectionViewSelectionDidChangeNotification;
 
 @interface WBCollectionView : NSCollectionView
 
+	@property (weak) id target;
+	@property SEL action;
+
 - (void)WB_selectItemAtIndex:(NSUInteger)inIndex;
 
 @end
