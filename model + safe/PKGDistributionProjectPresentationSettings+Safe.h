@@ -19,6 +19,8 @@
 
 - (PKGPresentationBackgroundSettings *)backgroundSettings_safe;
 
+- (PKGPresentationTitleSettings *)titleSettings_safe;
+
 - (PKGPresentationReadMeStepSettings *)readMeSettings_safe;
 
 - (PKGPresentationLicenseStepSettings *)licenseSettings_safe;

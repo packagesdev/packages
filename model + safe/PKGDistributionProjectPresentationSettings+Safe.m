@@ -38,6 +38,16 @@
 	return self.backgroundSettings;
 }
 
+- (PKGPresentationTitleSettings *)titleSettings_safe
+{
+	if (self.titleSettings==nil)
+	{
+		self.titleSettings=[PKGPresentationTitleSettings new];
+	}
+	
+	return self.titleSettings;
+}
+
 - (PKGPresentationReadMeStepSettings *)readMeSettings_safe
 {
 	if (self.readMeSettings==nil)
