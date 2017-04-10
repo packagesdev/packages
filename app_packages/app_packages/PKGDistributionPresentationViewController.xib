@@ -8,16 +8,17 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionPresentationViewController">
             <connections>
                 <outlet property="_backgroundView" destination="r9y-27-Gl9" id="vul-jt-rrs"/>
+                <outlet property="_chapterTitleView" destination="u6l-Pd-zlH" id="fEi-el-3Kf"/>
                 <outlet property="_continueButton" destination="5XG-tp-MLF" id="P1R-Ug-faa"/>
                 <outlet property="_goBackButton" destination="hj5-nv-vct" id="WZG-6G-0vU"/>
+                <outlet property="_languagePreviewPopUpButton" destination="Std-QZ-R8U" id="7v3-aO-eyF"/>
                 <outlet property="_listView" destination="LV5-xr-d27" id="mNN-Fl-3Ov"/>
                 <outlet property="_pluginAddButton" destination="RSd-7n-yQE" id="wog-Ih-dZH"/>
                 <outlet property="_pluginRemoveButton" destination="TgB-fm-dKh" id="Fek-ek-k0H"/>
                 <outlet property="_printButton" destination="MSe-d8-GPH" id="Pqn-Bf-WCq"/>
-                <outlet property="_proxyIconView" destination="8v1-qd-0Tf" id="hRS-MD-lZs"/>
                 <outlet property="_rightView" destination="ZOF-Zs-xgm" id="puu-VS-6Jw"/>
                 <outlet property="_saveButton" destination="Bj5-td-sYZ" id="OqN-WK-3JK"/>
-                <outlet property="_windowTitleLabel" destination="LQw-ij-jHR" id="HLE-mE-CxG"/>
+                <outlet property="_windowView" destination="Lek-J1-cyi" id="0zN-Hv-uXo"/>
                 <outlet property="view" destination="ubu-JD-nBY" id="Yqo-3r-MeT"/>
             </connections>
         </customObject>
@@ -45,17 +46,18 @@
                                     <popUpButton id="Std-QZ-R8U">
                                         <rect key="frame" x="13" y="7" width="139" height="27"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <popUpButtonCell key="cell" type="bevel" title="Item3" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="auo-Rg-LbI" id="w45-lG-GZF">
+                                        <popUpButtonCell key="cell" type="bevel" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="IaC-AG-dcZ" id="w45-lG-GZF">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold"/>
                                             <menu key="menu" title="OtherViews" id="Ubp-hP-DNe">
                                                 <items>
-                                                    <menuItem title="Item1" id="IaC-AG-dcZ"/>
-                                                    <menuItem title="Item2" id="kGa-ob-hiR"/>
-                                                    <menuItem title="Item3" state="on" id="auo-Rg-LbI"/>
+                                                    <menuItem title="Item1" state="on" id="IaC-AG-dcZ"/>
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <connections>
+                                            <action selector="switchPreviewLanguage:" target="-2" id="s46-V1-4qM"/>
+                                        </connections>
                                     </popUpButton>
                                 </subviews>
                             </view>
@@ -102,20 +104,6 @@
                             <rect key="frame" x="10" y="88" width="640" height="451"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <imageView id="8v1-qd-0Tf">
-                                    <rect key="frame" x="218" y="430" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="MeI-5L-96K"/>
-                                </imageView>
-                                <textField verticalHuggingPriority="750" id="LQw-ij-jHR">
-                                    <rect key="frame" x="239" y="430" width="179" height="17"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="tug-WL-KM2">
-                                        <font key="font" metaFont="system"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
                                 <customView id="r9y-27-Gl9" customClass="PKGPresentationImageView">
                                     <rect key="frame" x="10" y="9" width="620" height="418"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
