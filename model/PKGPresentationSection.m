@@ -15,6 +15,8 @@
 
 #import "PKGPackagesError.h"
 
+#import "NSArray+WBExtensions.h"
+
 NSString * const PKGPresentationSectionViewControllerClassNameKey_Deprecated=@"ICPRESENTATION_CHAPTER_VIEW_CONTROLLER_CLASS";
 
 NSString * const PKGPresentationSectionPluginPathKey=@"ICPRESENTATION_CHAPTER_VIEW_CONTROLLER_INSTALLERPLUGIN_PATH";
