@@ -38,7 +38,7 @@
 
 #endif
 
-- (void) dealloc
+- (void)dealloc
 {
 	// Remove observer
 	
