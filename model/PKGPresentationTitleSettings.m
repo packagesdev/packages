@@ -20,6 +20,11 @@
 	return NSString.class;
 }
 
+- (BOOL)isValueSet:(NSString *)inValue
+{
+	return (inValue.length>0);
+}
+
 #pragma mark -
 
 - (NSString *) description

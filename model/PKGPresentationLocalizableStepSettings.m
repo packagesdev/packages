@@ -22,11 +22,36 @@
 
 NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 
+@interface PKGPresentationLocalizableStepSettings ()
+
+	@property (readwrite) NSMutableDictionary * localizations;
+
+@end
+
 @implementation PKGPresentationLocalizableStepSettings
 
 + (Class)valueClass
 {
 	return NSObject.class;
+}
+
+- (BOOL)isValueSet:(id)inValue
+{
+	return NO;
+}
+
+#pragma mark -
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_localizations=[NSMutableDictionary dictionary];
+	}
+	
+	return self;
 }
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError

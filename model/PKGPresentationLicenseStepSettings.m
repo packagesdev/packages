@@ -30,6 +30,13 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	return PKGFilePath.class;
 }
 
+- (BOOL)isValueSet:(PKGFilePath *)inValue
+{
+	return inValue.isSet;
+}
+
+#pragma mark -
+
 - (id)init
 {
 	self=[super init];

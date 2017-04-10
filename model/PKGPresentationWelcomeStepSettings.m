@@ -22,6 +22,11 @@
 	return PKGFilePath.class;
 }
 
+- (BOOL)isValueSet:(PKGFilePath *)inValue
+{
+	return inValue.isSet;
+}
+
 #pragma mark -
 
 - (NSString *) description

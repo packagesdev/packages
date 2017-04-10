@@ -15,10 +15,12 @@
 
 @interface PKGPresentationLocalizableStepSettings : PKGPresentationStepSettings
 
-	@property NSMutableDictionary * localizations;
+	@property (readonly) NSMutableDictionary * localizations;
 
 	@property (readonly,nonatomic,getter=isCustomized) BOOL customized;
 
 + (Class)valueClass;
+
+- (BOOL)isValueSet:(id)inValue;
 
 @end
