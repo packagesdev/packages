@@ -144,59 +144,59 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 + (id) localizedValueForLanguage:(NSString *) inLanguage inLocalizations:(NSArray *) inLocalizationsArray lookForBestMatch:(BOOL) inLookForBestMatch
 {
+	if (inLanguage==nil || inLocalizationsArray==nil)
+		return nil;
+	
 	id tLocalizedValue=nil;
 	
-	if (inLanguage!=nil && inLocalizationsArray!=nil)
+	NSArray * tAvailableLocalizations=[PKGLocalizationUtilities localizationsFromLocalizationsArray:inLocalizationsArray];
+	
+	if (tAvailableLocalizations!=nil)
 	{
-		NSArray * tAvailableLocalizations=[PKGLocalizationUtilities localizationsFromLocalizationsArray:inLocalizationsArray];
+		NSUInteger tIndex=[tAvailableLocalizations indexOfObject:inLanguage];
 		
-		if (tAvailableLocalizations!=nil)
+		if (tIndex==NSNotFound && inLookForBestMatch==YES)
 		{
-			NSUInteger tIndex=[tAvailableLocalizations indexOfObject:inLanguage];
+			// Try with the ISO name
 			
-			if (tIndex==NSNotFound && inLookForBestMatch==YES)
+			inLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLanguage];
+			
+			tIndex=[tAvailableLocalizations indexOfObject:inLanguage];
+		
+			if (tIndex==NSNotFound)
 			{
-				// Try with the ISO name
-				
-				inLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLanguage];
-				
-				tIndex=[tAvailableLocalizations indexOfObject:inLanguage];
+				NSArray * tPreferedLocalizations=(NSArray *) CFBundleCopyPreferredLocalizationsFromArray((CFArrayRef) tAvailableLocalizations);
 			
-				if (tIndex==NSNotFound)
+				if (tPreferedLocalizations!=nil)
 				{
-					NSArray * tPreferedLocalizations=(NSArray *) CFBundleCopyPreferredLocalizationsFromArray((CFArrayRef) tAvailableLocalizations);
-				
-					if (tPreferedLocalizations!=nil)
+					for(NSString * tLanguage in tPreferedLocalizations)
 					{
-						for(NSString * tLanguage in tPreferedLocalizations)
+						tIndex=[tAvailableLocalizations indexOfObject:tLanguage];
+						
+						if (tIndex!=NSNotFound)
 						{
-							tIndex=[tAvailableLocalizations indexOfObject:tLanguage];
+							break;
+						}
+						else
+						{
+							NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:tLanguage];
 							
+							tIndex=[tAvailableLocalizations indexOfObject:tISOLanguage];
+						
 							if (tIndex!=NSNotFound)
-							{
 								break;
-							}
-							else
-							{
-								NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:tLanguage];
-								
-								tIndex=[tAvailableLocalizations indexOfObject:tISOLanguage];
-							
-								if (tIndex!=NSNotFound)
-									break;
-							}
 						}
 					}
 				}
-            }
-			
-			if (tIndex!=NSNotFound)
-			{
-				NSDictionary * tDictionary=[inLocalizationsArray objectAtIndex:tIndex];
-				
-				if (tDictionary!=nil)
-					tLocalizedValue=tDictionary[ICDOCUMENT_VALUE];
 			}
+		}
+		
+		if (tIndex!=NSNotFound)
+		{
+			NSDictionary * tDictionary=[inLocalizationsArray objectAtIndex:tIndex];
+			
+			if (tDictionary!=nil)
+				tLocalizedValue=tDictionary[ICDOCUMENT_VALUE];
 		}
 	}
 	
