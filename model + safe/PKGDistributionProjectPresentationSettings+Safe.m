@@ -48,6 +48,17 @@
 	return self.titleSettings;
 }
 
+- (PKGPresentationWelcomeStepSettings *)welcomeSettings_safe
+{
+	if (self.welcomeSettings==nil)
+	{
+		self.welcomeSettings=[PKGPresentationWelcomeStepSettings new];
+	}
+	
+	return self.welcomeSettings;
+	
+}
+
 - (PKGPresentationReadMeStepSettings *)readMeSettings_safe
 {
 	if (self.readMeSettings==nil)
@@ -68,6 +79,16 @@
 	
 	return self.licenseSettings;
 
+}
+
+- (PKGPresentationSummaryStepSettings *)summarySettings_safe
+{
+	if (self.summarySettings==nil)
+	{
+		self.summarySettings=[PKGPresentationSummaryStepSettings new];
+	}
+	
+	return self.summarySettings;
 }
 
 @end

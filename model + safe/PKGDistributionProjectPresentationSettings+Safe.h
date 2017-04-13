@@ -21,8 +21,12 @@
 
 - (PKGPresentationTitleSettings *)titleSettings_safe;
 
+- (PKGPresentationWelcomeStepSettings *)welcomeSettings_safe;
+
 - (PKGPresentationReadMeStepSettings *)readMeSettings_safe;
 
 - (PKGPresentationLicenseStepSettings *)licenseSettings_safe;
+
+- (PKGPresentationSummaryStepSettings *)summarySettings_safe;
 
 @end
