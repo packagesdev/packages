@@ -17,6 +17,8 @@
 
 #import "PKGLanguageConverter.h"
 
+#import "PKGPresentationSection.h"
+
 NSString * const PKGInstallerAppVersionNumber6_1=@"6.1.0";	// OS X 10.10
 
 NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.app";
@@ -160,7 +162,9 @@ NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.ap
 	if (tPlugInsDirectoryURL==nil)
 		return nil;
 	
-	NSURL * tPluginURL=[[tPlugInsDirectoryURL URLByAppendingPathComponent:inSectionName] URLByAppendingPathExtension:@"bundle"];
+	NSString * tPluginName=[PKGPresentationSection installerPluginNameForSectionName:inSectionName];
+	
+	NSURL * tPluginURL=[[tPlugInsDirectoryURL URLByAppendingPathComponent:tPluginName] URLByAppendingPathExtension:@"bundle"];
 	
 	tInstallerPlugin=[[PKGInstallerPlugin alloc] initWithBundleAtURL:tPluginURL];
 	
