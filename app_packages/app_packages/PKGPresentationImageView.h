@@ -17,7 +17,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @protocol PKGPresentationImageViewDelegate
 
-- (void)presentationImageView:(PKGPresentationImageView *)inImageView imagePathDidChange:(NSString *)inPath;
+- (NSDragOperation)presentationImageView:(PKGPresentationImageView *)inImageView validateDrop:(id <NSDraggingInfo>)info;
+
+- (BOOL)presentationImageView:(PKGPresentationImageView *)inImageView acceptDrop:(id <NSDraggingInfo>)info;
 
 @end
 

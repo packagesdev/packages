@@ -13,13 +13,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGPresentationImageView.h"
 
-#import "NSFileManager+FileTypes.h"
-
-#import "PKGPresentationBackgroundSettings+UI.h"
-
-#import <ApplicationServices/ApplicationServices.h>
-
-
 @interface PKGPresentationImageView ()
 {
     BOOL _highlighted;
@@ -48,80 +41,27 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
-    NSPasteboard * tPasteBoard = [sender draggingPasteboard];
-
-    if ([[tPasteBoard types] containsObject:NSFilenamesPboardType]==YES)
-        return NSDragOperationNone;
-    
-    NSDragOperation sourceDragMask= [sender draggingSourceOperationMask];
-    
-    if ((sourceDragMask & NSDragOperationCopy)==0)
-        return NSDragOperationNone;
-    
-    NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
-
-    if (tFiles.count!=1)
-        return NSDragOperationNone;
-    
-    NSString * tFilePath=tFiles.lastObject;
-    
-    BOOL tImageFormatSupported=[[NSFileManager defaultManager] WB_fileAtPath:tFilePath matchesTypes:[PKGPresentationBackgroundSettings backgroundImageTypes]];
-    
-    if (tImageFormatSupported==NO)
-    {
-        NSURL * tURL = [NSURL fileURLWithPath:tFilePath];
-        
-        CGImageSourceRef tSourceRef = CGImageSourceCreateWithURL((__bridge CFURLRef) tURL, NULL);
-        
-        if (tSourceRef!=NULL)
-        {
-            NSString * tImageUTI=(__bridge NSString *) CGImageSourceGetType(tSourceRef);
-            
-            if (tImageUTI!=nil)
-                tImageFormatSupported=[[PKGPresentationBackgroundSettings backgroundImageUTIs] containsObject:tImageUTI];
-            
-            // Release Memory
-            
-            CFRelease(tSourceRef);
-        }
-    }
-    
-    if (tImageFormatSupported==NO)
-        return NSDragOperationNone;
-    
-    _highlighted=YES;
-
-    [self setNeedsDisplay:YES];
-
-    return NSDragOperationCopy;
+	if (self.presentationDelegate==nil)
+		return NSDragOperationNone;
+	
+	NSDragOperation tOperation=[self.presentationDelegate presentationImageView:self validateDrop:sender];
+	
+	if (tOperation!=NSDragOperationNone)
+	{
+		_highlighted=YES;
+		
+		[self setNeedsDisplay:YES];
+	}
+	
+	return tOperation;
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
-    NSPasteboard * tPasteBoard= [sender draggingPasteboard];
-
-    if ([[tPasteBoard types] containsObject:NSFilenamesPboardType]==NO)
-        return NO;
-    
-    NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
-    
-    if (tFiles.count!=1)
-        return NO;
-    
-    NSString * tFilePath=tFiles.lastObject;
-    
-    NSImage * tImage=[[NSImage alloc] initWithContentsOfFile:tFilePath];
-    
-    if (tImage!=nil)
-    {
-        [self.presentationDelegate presentationImageView:self imagePathDidChange:tFilePath];
-        
-        self.image=tImage;
-        
-        return YES;
-    }
+	if (self.presentationDelegate==nil)
+		return NO;
 	
-    return NO;
+	return [self.presentationDelegate presentationImageView:self acceptDrop:sender];
 }
 
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender

@@ -7,13 +7,19 @@
 
 #import "PKGPresentationImageView.h"
 
+#import "PKGPresentationPaneTitleView.h"
+
 #import "PKGRightInspectorView.h"
 
 #import "PKGDistributionProjectPresentationSettings+Safe.h"
 
 #import "PKGPresentationTitleSettings.h"
 
+#import "PKGPresentationSection+UI.h"
+
 #import "PKGPresentationLocalizableStepSettings+UI.h"
+
+#import "PKGPresentationBackgroundSettings+UI.h"
 
 #import "PKGInstallerApp.h"
 
@@ -27,12 +33,18 @@
 
 #import "NSIndexSet+Analysis.h"
 
+#import "NSFileManager+FileTypes.h"
+
 #import "PKGPresentationPluginButton.h"
 
 #import "PKGApplicationPreferences.h"
 
 #import "PKGOwnershipAndReferenceStyleViewController.h"
 #import "PKGOwnershipAndReferenceStylePanel.h"
+
+#import "PKGPresentationInspectorItem.h"
+
+#import "PKGPresentationSectionViewController.h"
 
 @interface PKGDistributionPresentationOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 {
@@ -98,6 +110,8 @@ NSString * const PKGDistributionPresentationCurrentPreviewLanguage=@"ui.project.
 
 NSString * const PKGDistributionPresentationSelectedStep=@"ui.project.presentation.step.selected";
 
+NSString * const PKGDistributionPresentationInspectedItem=@"ui.project.presentation.item.inspected";
+
 NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whitebox.packages.internal.distribution.presentation.sections";
 
 @interface PKGDistributionPresentationViewController () <PKGPresentationImageViewDelegate,PKGPresentationListViewDataSource,PKGPresentationListViewDelegate>
@@ -108,7 +122,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	IBOutlet PKGPresentationListView * _listView;
 	
-	IBOutlet NSTextField * _chapterTitleView;
+	IBOutlet PKGPresentationPaneTitleView * _pageTitleView;
+	
+	IBOutlet NSView * _sectionContentsView;
 	
 	IBOutlet NSButton * _printButton;
 	
@@ -118,13 +134,21 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	IBOutlet NSButton * _continueButton;
 	
-	IBOutlet PKGRightInspectorView * _rightView;
-	
 	
 	IBOutlet PKGPresentationPluginButton * _pluginAddButton;
 	IBOutlet PKGPresentationPluginButton * _pluginRemoveButton;
 	
+	IBOutlet NSView * _accessoryPlaceHolderView;
+	
 	IBOutlet NSPopUpButton * _languagePreviewPopUpButton;
+	
+	
+	IBOutlet PKGRightInspectorView * _rightView;
+	
+	IBOutlet NSPopUpButton * _inspectorPopUpButton;
+	
+	
+	PKGPresentationSectionViewController * _currentSectionViewController;
 	
 	
 	PKGDistributionPresentationOpenPanelDelegate * _openPanelDelegate;
@@ -134,6 +158,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	NSString * _currentPreviewLanguage;
 	
 	NSIndexSet * _internalDragData;
+	
+	NSArray * _navigationButtons;
 }
 
 - (void)updateBackgroundView;
@@ -143,6 +169,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (IBAction)removePlugin:(id)sender;
 
 - (IBAction)switchPreviewLanguage:(NSPopUpButton *)sender;
+
+- (IBAction)switchInspectedView:(id)sender;
+
+- (void)showViewForSection:(PKGPresentationSection *)inPresentationSection;
 
 @end
 
@@ -166,10 +196,14 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	_backgroundView.presentationDelegate=self;
 	
+	[_backgroundView registerForDraggedTypes:@[NSFilenamesPboardType]];
+	
 	_listView.dataSource=self;
 	_listView.delegate=self;
 	
 	[_listView registerForDraggedTypes:@[PKGDistributionPresentationSectionsInternalPboardType,NSFilenamesPboardType]];
+	
+	_navigationButtons=@[_printButton,_saveButton,_goBackButton,_continueButton];
 	
 	// Plugin Buttons
 	
@@ -282,9 +316,12 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	// Refresh Chapter Title View
 	
-	/*NSString * tPaneTitle=[currentViewController_ paneTitleForLanguage:currentPreviewLanguage_];
+	if (_currentSectionViewController!=nil)
+	{
+		NSString * tPaneTitle=[_currentSectionViewController sectionPaneTitle];
 	
-	_chapterTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";*/
+		_pageTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";
+	}
 	
 	// Refresh Fake Window Title
 	
@@ -335,7 +372,29 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		// List View
 		
+		NSNumber * tNumber=self.documentRegistry[PKGDistributionPresentationSelectedStep];
+		
 		[_listView reloadData];
+		
+		[_listView selectStep:(tNumber!=nil) ? [tNumber integerValue] : 0];
+		
+		// Show the Section view
+		
+		// A COMPLETER
+		
+		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
+		
+		// Inspector
+		
+		tNumber=self.documentRegistry[PKGDistributionPresentationInspectedItem];
+		
+		PKGPresentationInspectorItemTag * tItemTag=(tNumber!=nil) ? [tNumber integerValue] : PKGPresentationInspectorItemIntroduction;
+		
+		[_inspectorPopUpButton selectItemWithTag:tItemTag];
+		
+		// Show Inspected View
+		
+		// A COMPLETER
 		
 		// Language PopUpButton
 		
@@ -574,26 +633,152 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		self.documentRegistry[PKGDistributionPresentationCurrentPreviewLanguage]=[_currentPreviewLanguage copy];
 		
+		// Refresh Section View
+		
+		if (_currentSectionViewController!=nil)
+		{
+			_currentSectionViewController.localization=_currentPreviewLanguage;
+			
+			// Refresh Buttons
+			
+			[_currentSectionViewController updateButtons:_navigationButtons];
+		}
+		
 		// Refresh Window title and Pane title
 		
 		[self updateTitleViews];
-		
-		
-		/*if (currentViewController_!=nil)
-		{
-			// Refresh Buttons
-			
-			[currentViewController_ prepareButtons:navigationButtonsArray_ forLanguage:_currentPreviewLanguage];
-			
-			// Refresh Pane View
-			
-			[currentViewController_ refreshViewForLanguage:_currentPreviewLanguage];
-		}*/
 		
 		// Refresh List View
 		
 		[_listView reloadData];
 	}
+}
+
+- (IBAction)switchInspectedView:(NSPopUpButton *)sender
+{
+	NSInteger tTag=sender.selectedItem.tag;
+	
+	NSInteger tSelectedStep=_listView.selectedStep;
+	
+	PKGPresentationSection * tSelectedPresentationSection=self.presentationSettings.sections[tSelectedStep];
+	
+	if (tTag!=tSelectedPresentationSection.inspectorItemTag)
+	{
+		PKGPresentationInspectorItemTag tSectionTag=tTag;
+		
+		if (tSectionTag==PKGPresentationInspectorItemTitle ||
+			tSectionTag==PKGPresentationInspectorItemBackground)
+			tSectionTag=PKGPresentationInspectorItemIntroduction;
+		
+		NSUInteger tIndex=[self.presentationSettings.sections indexOfObjectPassingTest:^BOOL(PKGPresentationSection * bPresentationSection, NSUInteger bIndex, BOOL *bOutStop) {
+			
+			return (bPresentationSection.inspectorItemTag==tSectionTag);
+			
+		}];
+						   
+		if (tIndex==NSNotFound)
+		{
+			// A COMPLETER
+			
+			return;
+		}
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			
+			[_listView selectStep:tIndex];
+			
+			[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
+			
+			// Show the Inspector View
+			
+			// A COMPLETER
+			
+			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
+		});
+	}
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(switchInspectedView:))
+	{
+		return (inMenuItem.tag!=PKGPresentationInspectorItemPlugIn);
+	}
+	
+	return YES;
+}
+
+#pragma mark -
+
+- (void)showViewForSection:(PKGPresentationSection *)inPresentationSection
+{
+	Class tNewClass=[inPresentationSection viewControllerClass];
+	
+	if (_currentSectionViewController!=nil)
+	{
+		if ([_currentSectionViewController class]==tNewClass)
+		{
+		
+			// A COMPLETER
+		
+			return;
+			
+		}
+		
+		[_currentSectionViewController WB_viewWillDisappear];
+		
+		[_accessoryPlaceHolderView setSubviews:@[]];
+		
+		[_currentSectionViewController.view removeFromSuperview];
+		
+		[_currentSectionViewController WB_viewDidDisappear];
+	}
+	
+	PKGPresentationSectionViewController * tNewSectionViewController=nil;
+	
+	if (inPresentationSection.pluginPath==nil)
+		tNewSectionViewController=[[[inPresentationSection viewControllerClass] alloc] initWithDocument:self.document presentationSettings:self.presentationSettings];
+	else
+		tNewSectionViewController=[[[inPresentationSection viewControllerClass] alloc] initWithDocument:self.document presentationSection:inPresentationSection];
+	
+	if (tNewSectionViewController==nil)
+	{
+		// A COMPLETER
+	}
+	
+	// Set the appropriate localization
+	
+	tNewSectionViewController.localization=_currentPreviewLanguage;
+	
+	
+	tNewSectionViewController.view.frame=_sectionContentsView.bounds;
+	
+	[tNewSectionViewController WB_viewWillAppear];
+	
+	[_sectionContentsView addSubview:tNewSectionViewController.view];
+	
+	// Title view
+	
+	NSString * tPaneTitle=[tNewSectionViewController sectionPaneTitle];
+	
+	_pageTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";
+	
+	// Buttons
+	
+	[tNewSectionViewController updateButtons:_navigationButtons];
+	
+	// Accessory view
+	
+	if (tNewSectionViewController.accessoryView!=nil)
+	{
+		// A COMPLETER
+	}
+	
+	[tNewSectionViewController WB_viewDidAppear];
+	
+	_currentSectionViewController=tNewSectionViewController;
 }
 
 #pragma mark - PKGPresentationListViewDataSource
@@ -639,7 +824,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}
 	else
 	{
-		return [[[PKGInstallerApp installerApp] pluginWithSectionName:tPresentationSection.installerPluginName] sectionTitleForLocalization:_currentPreviewLanguage];
+		return [[[PKGInstallerApp installerApp] pluginWithSectionName:tPresentationSection.name] sectionTitleForLocalization:_currentPreviewLanguage];
 	}
 	
 	return nil;
@@ -881,8 +1066,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	PKGPresentationSection * tPresentationSection=self.presentationSettings.sections[inStep];
 	
-	return  ([tPresentationSection.name isEqualToString:PKGPresentationSectionTargetName]==NO &&
-			 [tPresentationSection.name isEqualToString:PKGPresentationSectionInstallName]==NO);
+	return  ([tPresentationSection.name isEqualToString:PKGPresentationSectionDestinationSelectName]==NO &&
+			 [tPresentationSection.name isEqualToString:PKGPresentationSectionInstallationName]==NO);
 }
 
 - (BOOL)presentationListView:(PKGPresentationListView *)inPresentationListView stepWillBeVisible:(NSInteger)inStep
@@ -910,9 +1095,90 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 #pragma mark - PKGPresentationImageViewDelegate
 
-- (void)presentationImageView:(PKGPresentationImageView *)inImageView imagePathDidChange:(NSString *)inPath
+- (NSDragOperation)presentationImageView:(PKGPresentationImageView *)inImageView validateDrop:(id <NSDraggingInfo>)info
 {
-	// A COMPLETER
+	if (inImageView!=_backgroundView)
+		return NSDragOperationNone;
+	
+	NSPasteboard * tPasteBoard = [info draggingPasteboard];
+	
+	if ([[tPasteBoard types] containsObject:NSFilenamesPboardType]==NO)
+		return NSDragOperationNone;
+	
+	NSDragOperation sourceDragMask= [info draggingSourceOperationMask];
+	
+	if ((sourceDragMask & NSDragOperationCopy)==0)
+		return NSDragOperationNone;
+	
+	NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
+	
+	if (tFiles.count!=1)
+		return NSDragOperationNone;
+	
+	NSString * tFilePath=tFiles.lastObject;
+	
+	BOOL tImageFormatSupported=[[NSFileManager defaultManager] WB_fileAtPath:tFilePath matchesTypes:[PKGPresentationBackgroundSettings backgroundImageTypes]];
+	
+	if (tImageFormatSupported==NO)
+	{
+		NSURL * tURL = [NSURL fileURLWithPath:tFilePath];
+		
+		CGImageSourceRef tSourceRef = CGImageSourceCreateWithURL((__bridge CFURLRef) tURL, NULL);
+		
+		if (tSourceRef!=NULL)
+		{
+			NSString * tImageUTI=(__bridge NSString *) CGImageSourceGetType(tSourceRef);
+			
+			if (tImageUTI!=nil)
+				tImageFormatSupported=[[PKGPresentationBackgroundSettings backgroundImageUTIs] containsObject:tImageUTI];
+			
+			// Release Memory
+			
+			CFRelease(tSourceRef);
+		}
+	}
+	
+	if (tImageFormatSupported==NO)
+		return NSDragOperationNone;
+	
+	return NSDragOperationCopy;
+}
+
+- (BOOL)presentationImageView:(PKGPresentationImageView *)inImageView acceptDrop:(id <NSDraggingInfo>)info
+{
+	if (inImageView!=_backgroundView)
+		return NO;
+	
+	NSPasteboard * tPasteBoard= [info draggingPasteboard];
+	
+	if ([[tPasteBoard types] containsObject:NSFilenamesPboardType]==NO)
+		return NO;
+	
+	NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
+	
+	if (tFiles.count!=1)
+		return NO;
+	
+	NSString * tPath=tFiles.lastObject;
+	
+	NSImage * tImage=[[NSImage alloc] initWithContentsOfFile:tPath];
+	
+	if (tImage!=nil)
+	{
+		_backgroundView.image=tImage;
+		
+		//self.presentationSettings.backgroundSettings.imagePath=[self.filePathConverter filePathForAbsolutePath:tPath type:<#(PKGFilePathType)#>]
+		
+		// Post Notification
+		
+		// A COMPLETER
+		
+		[self noteDocumentHasChanged];
+		
+		return YES;
+	}
+	
+	return NO;
 }
 
 #pragma mark - Notifications
@@ -943,11 +1209,44 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	if (tSelectedStep<0 || tSelectedStep>=self.presentationSettings.sections.count)
 		return;
 	
+	self.documentRegistry[PKGDistributionPresentationSelectedStep]=@(tSelectedStep);
+	
 	PKGPresentationSection * tSelectedPresentationSection=self.presentationSettings.sections[tSelectedStep];
 	
 	_pluginRemoveButton.enabled=(tSelectedPresentationSection.pluginPath!=nil);
 	
+	// Show the Section View
+	
+	[self showViewForSection:tSelectedPresentationSection];
+	
 	// A COMPLETER
+	
+	// Inspector
+	
+	if (inNotification.userInfo==nil)
+	{
+		PKGPresentationInspectorItemTag tTag=tSelectedPresentationSection.inspectorItemTag;
+	
+		if (((NSInteger)tTag)==-1)
+		{
+			// A COMPLETER
+		
+			NSLog(@"");
+		}
+		else
+		{
+			[_inspectorPopUpButton selectItemWithTag:tTag];
+		
+			if (tTag==PKGPresentationInspectorItemPlugIn)
+				[_inspectorPopUpButton selectedItem].enabled=NO;
+		
+			// Show the Inspector View
+			
+			// A COMPLETER
+		
+			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
+		}
+	}
 }
 
 @end
