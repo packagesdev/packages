@@ -40,21 +40,21 @@ NSString * const PKGPresentationSectionLicenseName=@"License";
 NSString * const PKGPresentationSectionLicensePluginName=@"License";
 NSString * const PKGPresentationSectionLicenseViewControllerClassName_Deprecated=@"ICPresentationViewLicenseController";
 
-NSString * const PKGPresentationSectionTargetName=@"Target";
-NSString * const PKGPresentationSectionTargetPluginName=@"TargetSelect";
-NSString * const PKGPresentationSectionTargetViewControllerClassName_Deprecated=@"ICPresentationViewDestinationSelectController";
+NSString * const PKGPresentationSectionDestinationSelectName=@"DestinationSelect";
+NSString * const PKGPresentationSectionDestinationSelectPluginName=@"TargetSelect";
+NSString * const PKGPresentationSectionDestinationSelectViewControllerClassName_Deprecated=@"ICPresentationViewDestinationSelectController";
 
-NSString * const PKGPresentationSectionPackageSelectionName=@"PackageSelection";
-NSString * const PKGPresentationSectionPackageSelectionPluginName=@"PackageSelection";
-NSString * const PKGPresentationSectionPackageSelectionViewControllerClassName_Deprecated=@"ICPresentationViewInstallationTypeController";
+NSString * const PKGPresentationSectionInstallationTypeName=@"InstallationType";
+NSString * const PKGPresentationSectionInstallationTypePluginName=@"PackageSelection";
+NSString * const PKGPresentationSectionInstallationTypeViewControllerClassName_Deprecated=@"ICPresentationViewInstallationTypeController";
 
-NSString * const PKGPresentationSectionInstallName=@"Install";
-NSString * const PKGPresentationSectionInstallPluginName=@"Install";
-NSString * const PKGPresentationSectionInstallViewControllerClassName_Deprecated=@"ICPresentationViewInstallationController";
+NSString * const PKGPresentationSectionInstallationName=@"Installation";
+NSString * const PKGPresentationSectionInstallationPluginName=@"Install";
+NSString * const PKGPresentationSectionInstallationViewControllerClassName_Deprecated=@"ICPresentationViewInstallationController";
 
-NSString * const PKGPresentationSectionFinishUpName=@"FinishUp";
-NSString * const PKGPresentationSectionFinishUpPluginName=@"Summary";
-NSString * const PKGPresentationSectionFinishUpViewControllerClassName_Deprecated=@"ICPresentationViewSummaryController";
+NSString * const PKGPresentationSectionSummaryName=@"Summary";
+NSString * const PKGPresentationSectionSummaryPluginName=@"Summary";
+NSString * const PKGPresentationSectionSummaryViewControllerClassName_Deprecated=@"ICPresentationViewSummaryController";
 
 NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=@"ICPresentationViewInstallerPluginController";
 
@@ -77,10 +77,10 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 	NSArray * tDefaultSectionNames=@[PKGPresentationSectionIntroductionPluginName,
 									 PKGPresentationSectionReadMePluginName,
 									 PKGPresentationSectionLicensePluginName,
-									 PKGPresentationSectionTargetPluginName,
-									 PKGPresentationSectionPackageSelectionPluginName,
-									 PKGPresentationSectionInstallPluginName,
-									 PKGPresentationSectionFinishUpPluginName];
+									 PKGPresentationSectionDestinationSelectPluginName,
+									 PKGPresentationSectionInstallationTypePluginName,
+									 PKGPresentationSectionInstallationPluginName,
+									 PKGPresentationSectionSummaryPluginName];
 	
 	return [tDefaultSectionNames WB_arrayByMappingObjectsUsingBlock:^PKGPresentationSection *(NSString * bSectionName, NSUInteger bIndex) {
 		PKGPresentationSection * tPresentationSection=[PKGPresentationSection new];
@@ -103,14 +103,35 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 		sSectionNameForInstallerPluginNameDictionary = @{PKGPresentationSectionIntroductionPluginName:PKGPresentationSectionIntroductionName,
 														 PKGPresentationSectionReadMePluginName:PKGPresentationSectionReadMeName,
 														 PKGPresentationSectionLicensePluginName:PKGPresentationSectionLicenseName,
-														 PKGPresentationSectionTargetPluginName:PKGPresentationSectionTargetName,
-														 PKGPresentationSectionPackageSelectionPluginName:PKGPresentationSectionPackageSelectionName,
-														 PKGPresentationSectionInstallPluginName:PKGPresentationSectionInstallName,
-														 PKGPresentationSectionFinishUpPluginName:PKGPresentationSectionFinishUpName
+														 PKGPresentationSectionDestinationSelectPluginName:PKGPresentationSectionDestinationSelectName,
+														 PKGPresentationSectionInstallationTypePluginName:PKGPresentationSectionInstallationTypeName,
+														 PKGPresentationSectionInstallationPluginName:PKGPresentationSectionInstallationName,
+														 PKGPresentationSectionSummaryPluginName:PKGPresentationSectionSummaryName
 										};
 	});
 	
 	return sSectionNameForInstallerPluginNameDictionary[inBundleName];
+}
+
++ (NSString *)installerPluginNameForSectionName:(NSString *)inSectionName
+{
+	if (inSectionName==nil)
+		return nil;
+	
+	static NSDictionary *sInstallerPluginNameForSectionNameDictionary = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sInstallerPluginNameForSectionNameDictionary = @{PKGPresentationSectionIntroductionName:PKGPresentationSectionIntroductionPluginName,
+														 PKGPresentationSectionReadMeName:PKGPresentationSectionReadMePluginName,
+														 PKGPresentationSectionLicenseName:PKGPresentationSectionLicensePluginName,
+														 PKGPresentationSectionDestinationSelectName:PKGPresentationSectionDestinationSelectPluginName,
+														 PKGPresentationSectionInstallationTypeName:PKGPresentationSectionInstallationTypePluginName,
+														 PKGPresentationSectionInstallationName:PKGPresentationSectionInstallationPluginName,
+														 PKGPresentationSectionSummaryName:PKGPresentationSectionSummaryPluginName
+														 };
+	});
+	
+	return sInstallerPluginNameForSectionNameDictionary[inSectionName];
 }
 
 - (instancetype)initWithPluginPath:(PKGFilePath *)inPath
@@ -246,10 +267,10 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 		sClassNameForNameDictionary = @{PKGPresentationSectionIntroductionName:PKGPresentationSectionIntroductionViewControllerClassName_Deprecated,
 										PKGPresentationSectionReadMeName:PKGPresentationSectionReadMeNameViewControllerClassName_Deprecated,
 										PKGPresentationSectionLicenseName:PKGPresentationSectionLicenseViewControllerClassName_Deprecated,
-										PKGPresentationSectionTargetName:PKGPresentationSectionTargetViewControllerClassName_Deprecated,
-										PKGPresentationSectionPackageSelectionName:PKGPresentationSectionPackageSelectionViewControllerClassName_Deprecated,
-										PKGPresentationSectionInstallName:PKGPresentationSectionInstallViewControllerClassName_Deprecated,
-										PKGPresentationSectionFinishUpName:PKGPresentationSectionFinishUpViewControllerClassName_Deprecated
+										PKGPresentationSectionDestinationSelectName:PKGPresentationSectionDestinationSelectViewControllerClassName_Deprecated,
+										PKGPresentationSectionInstallationTypeName:PKGPresentationSectionInstallationTypeViewControllerClassName_Deprecated,
+										PKGPresentationSectionInstallationName:PKGPresentationSectionInstallationViewControllerClassName_Deprecated,
+										PKGPresentationSectionSummaryName:PKGPresentationSectionSummaryViewControllerClassName_Deprecated
 										};
 	});
 	

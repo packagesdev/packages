@@ -20,10 +20,10 @@
 extern NSString * const PKGPresentationSectionIntroductionName;
 extern NSString * const PKGPresentationSectionReadMeName;
 extern NSString * const PKGPresentationSectionLicenseName;
-extern NSString * const PKGPresentationSectionTargetName;
-extern NSString * const PKGPresentationSectionPackageSelectionName;
-extern NSString * const PKGPresentationSectionInstallName;
-extern NSString * const PKGPresentationSectionFinishUpName;
+extern NSString * const PKGPresentationSectionDestinationSelectName;
+extern NSString * const PKGPresentationSectionInstallationTypeName;
+extern NSString * const PKGPresentationSectionInstallationName;
+extern NSString * const PKGPresentationSectionSummaryName;
 
 @interface PKGPresentationSection : NSObject <PKGObjectProtocol>
 
@@ -34,6 +34,8 @@ extern NSString * const PKGPresentationSectionFinishUpName;
 	@property PKGFilePath * pluginPath;
 
 + (NSArray *)defaultSectionsList;
+
++ (NSString *)installerPluginNameForSectionName:(NSString *)inSectionName;
 
 - (instancetype)initWithPluginPath:(PKGFilePath *)inPath;
 
