@@ -1,0 +1,361 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4C52A251E9EE51E00ED82ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4C52A231E9EE51E00ED82ED /* Localizable.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F4A5EE0C1E9EE4EE00A73843 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4AED1D11E9EE31A007B5031 /* InstallerSimulator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstallerSimulator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4C52A241E9EE51E00ED82ED /* ar */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1358E1E9EE53B0017DCB9 /* ca */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1358F1E9EE5430017DCB9 /* cs */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135901E9EE5460017DCB9 /* da */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135911E9EE54D0017DCB9 /* Dutch */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Dutch; path = Dutch.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135921E9EE5590017DCB9 /* el */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135931E9EE55D0017DCB9 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135941E9EE5650017DCB9 /* fi */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135951E9EE5690017DCB9 /* French */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135961E9EE56D0017DCB9 /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135971E9EE5720017DCB9 /* he */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135981E9EE5750017DCB9 /* hr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135991E9EE5780017DCB9 /* hu */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1359A1E9EE57C0017DCB9 /* id */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1359B1E9EE5810017DCB9 /* Italian */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1359C1E9EE5840017DCB9 /* Japanese */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1359D1E9EE5880017DCB9 /* ko */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1359E1E9EE58E0017DCB9 /* ms */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D1359F1E9EE5920017DCB9 /* no */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A01E9EE5970017DCB9 /* pl */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A11E9EE59D0017DCB9 /* pt_PT */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = pt_PT; path = pt_PT.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A21E9EE5A10017DCB9 /* pt */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A31E9EE5A80017DCB9 /* ro */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A41E9EE5B80017DCB9 /* ru */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A51E9EE5BD0017DCB9 /* sk */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A61E9EE5C20017DCB9 /* Spanish */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A71E9EE5D20017DCB9 /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A81E9EE5D60017DCB9 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135A91E9EE5DA0017DCB9 /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135AA1E9EE5DF0017DCB9 /* uk */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135AB1E9EE5E30017DCB9 /* vi */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135AC1E9EE5EB0017DCB9 /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135AD1E9EE5EF0017DCB9 /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4DA62331E9F899B007E5319 /* es_MX */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es_MX; path = es_MX.lproj/Localizable.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F4AED1CE1E9EE31A007B5031 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F4AED1C81E9EE31A007B5031 = {
+			isa = PBXGroup;
+			children = (
+				F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */,
+				F4AED1D31E9EE31A007B5031 /* InstallerSimulator */,
+				F4AED1D21E9EE31A007B5031 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F4AED1D21E9EE31A007B5031 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4AED1D11E9EE31A007B5031 /* InstallerSimulator.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4AED1D31E9EE31A007B5031 /* InstallerSimulator */ = {
+			isa = PBXGroup;
+			children = (
+				F4AED1D41E9EE31A007B5031 /* Supporting Files */,
+			);
+			path = InstallerSimulator;
+			sourceTree = "<group>";
+		};
+		F4AED1D41E9EE31A007B5031 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4A5EE0C1E9EE4EE00A73843 /* Info.plist */,
+				F4C52A231E9EE51E00ED82ED /* Localizable.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F4AED1D01E9EE31A007B5031 /* InstallerSimulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4AED1D81E9EE31A007B5031 /* Build configuration list for PBXNativeTarget "InstallerSimulator" */;
+			buildPhases = (
+				F4AED1CD1E9EE31A007B5031 /* Sources */,
+				F4AED1CE1E9EE31A007B5031 /* Frameworks */,
+				F4AED1CF1E9EE31A007B5031 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InstallerSimulator;
+			productName = InstallerSimulator;
+			productReference = F4AED1D11E9EE31A007B5031 /* InstallerSimulator.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F4AED1C91E9EE31A007B5031 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = WhiteBox;
+				TargetAttributes = {
+					F4AED1D01E9EE31A007B5031 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = F4AED1CC1E9EE31A007B5031 /* Build configuration list for PBXProject "InstallerSimulator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				ar,
+				ca,
+				cs,
+				da,
+				Dutch,
+				el,
+				English,
+				fi,
+				French,
+				German,
+				he,
+				hr,
+				hu,
+				id,
+				Italian,
+				Japanese,
+				ko,
+				ms,
+				no,
+				pl,
+				pt_PT,
+				pt,
+				ro,
+				ru,
+				sk,
+				Spanish,
+				sv,
+				th,
+				tr,
+				uk,
+				vi,
+				zh_CN,
+				zh_TW,
+				es_MX,
+			);
+			mainGroup = F4AED1C81E9EE31A007B5031;
+			productRefGroup = F4AED1D21E9EE31A007B5031 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F4AED1D01E9EE31A007B5031 /* InstallerSimulator */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F4AED1CF1E9EE31A007B5031 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4C52A251E9EE51E00ED82ED /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F4AED1CD1E9EE31A007B5031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F4C52A231E9EE51E00ED82ED /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4C52A241E9EE51E00ED82ED /* ar */,
+				F4D1358E1E9EE53B0017DCB9 /* ca */,
+				F4D1358F1E9EE5430017DCB9 /* cs */,
+				F4D135901E9EE5460017DCB9 /* da */,
+				F4D135911E9EE54D0017DCB9 /* Dutch */,
+				F4D135921E9EE5590017DCB9 /* el */,
+				F4D135931E9EE55D0017DCB9 /* English */,
+				F4D135941E9EE5650017DCB9 /* fi */,
+				F4D135951E9EE5690017DCB9 /* French */,
+				F4D135961E9EE56D0017DCB9 /* German */,
+				F4D135971E9EE5720017DCB9 /* he */,
+				F4D135981E9EE5750017DCB9 /* hr */,
+				F4D135991E9EE5780017DCB9 /* hu */,
+				F4D1359A1E9EE57C0017DCB9 /* id */,
+				F4D1359B1E9EE5810017DCB9 /* Italian */,
+				F4D1359C1E9EE5840017DCB9 /* Japanese */,
+				F4D1359D1E9EE5880017DCB9 /* ko */,
+				F4D1359E1E9EE58E0017DCB9 /* ms */,
+				F4D1359F1E9EE5920017DCB9 /* no */,
+				F4D135A01E9EE5970017DCB9 /* pl */,
+				F4D135A11E9EE59D0017DCB9 /* pt_PT */,
+				F4D135A21E9EE5A10017DCB9 /* pt */,
+				F4D135A31E9EE5A80017DCB9 /* ro */,
+				F4D135A41E9EE5B80017DCB9 /* ru */,
+				F4D135A51E9EE5BD0017DCB9 /* sk */,
+				F4D135A61E9EE5C20017DCB9 /* Spanish */,
+				F4D135A71E9EE5D20017DCB9 /* sv */,
+				F4D135A81E9EE5D60017DCB9 /* th */,
+				F4D135A91E9EE5DA0017DCB9 /* tr */,
+				F4D135AA1E9EE5DF0017DCB9 /* uk */,
+				F4D135AB1E9EE5E30017DCB9 /* vi */,
+				F4D135AC1E9EE5EB0017DCB9 /* zh_CN */,
+				F4D135AD1E9EE5EF0017DCB9 /* zh_TW */,
+				F4DA62331E9F899B007E5319 /* es_MX */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F4AED1D61E9EE31A007B5031 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Debug;
+		};
+		F4AED1D71E9EE31A007B5031 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Release;
+		};
+		F4AED1D91E9EE31A007B5031 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = InstallerSimulator/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		F4AED1DA1E9EE31A007B5031 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = InstallerSimulator/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F4AED1CC1E9EE31A007B5031 /* Build configuration list for PBXProject "InstallerSimulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4AED1D61E9EE31A007B5031 /* Debug */,
+				F4AED1D71E9EE31A007B5031 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4AED1D81E9EE31A007B5031 /* Build configuration list for PBXNativeTarget "InstallerSimulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4AED1D91E9EE31A007B5031 /* Debug */,
+				F4AED1DA1E9EE31A007B5031 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4AED1C91E9EE31A007B5031 /* Project object */;
+}
