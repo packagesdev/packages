@@ -27,4 +27,8 @@
 
 - (NSString *)sectionTitleForLocalization:(NSString *)inLocalization;
 
+- (NSString *)pageTitleForLocalization:(NSString *)inLocalization;
+
+- (NSString *)stringForKey:(NSString *)inKey localization:(NSString *)inLocalization;
+
 @end

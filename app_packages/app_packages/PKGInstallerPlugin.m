@@ -17,6 +17,8 @@
 
 NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 
+NSString * const PKGInstallerPluginPageTitleKey=@"PageTitle";
+
 @interface PKGInstallerPlugin ()
 {
 	NSMutableDictionary * _localizations;
@@ -104,13 +106,23 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 
 - (NSString *)sectionTitleForLocalization:(NSString *)inLocalization
 {
+	return [self stringForKey:PKGInstallerPluginSectionTitleKey localization:inLocalization];
+}
+
+- (NSString *)pageTitleForLocalization:(NSString *)inLocalization
+{
+	return [self stringForKey:PKGInstallerPluginPageTitleKey localization:inLocalization];
+}
+
+- (NSString *)stringForKey:(NSString *)inKey localization:(NSString *)inLocalization
+{
 	if (inLocalization==nil)
 		return nil;
 	
 	NSDictionary * tLocalizedStrings=_localizations[inLocalization];
 	
 	if (tLocalizedStrings!=nil)
-		return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
+		return tLocalizedStrings[inKey];
 	
 	tLocalizedStrings=[self localizedStringsForLocalization:inLocalization];
 	
@@ -118,7 +130,7 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 	{
 		_localizations[inLocalization]=tLocalizedStrings;
 		
-		return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
+		return tLocalizedStrings[inKey];
 	}
 	
 	NSArray * tPreferedLocalizations=(__bridge_transfer NSArray *) CFBundleCopyPreferredLocalizationsFromArray((__bridge CFArrayRef) _localizations.allKeys);
@@ -131,7 +143,7 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 		tLocalizedStrings=_localizations[tLocalization];
 		
 		if (tLocalizedStrings!=nil)
-			return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
+			return tLocalizedStrings[inKey];
 		
 		tLocalizedStrings=[self localizedStringsForLocalization:tLocalization];
 		
@@ -139,7 +151,7 @@ NSString * const PKGInstallerPluginSectionTitleKey=@"InstallerSectionTitle";
 		{
 			_localizations[tLocalization]=tLocalizedStrings;
 			
-			return tLocalizedStrings[PKGInstallerPluginSectionTitleKey];
+			return tLocalizedStrings[inKey];
 		}
 	}
 	
