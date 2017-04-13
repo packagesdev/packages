@@ -14,7 +14,7 @@
 	
 	NSMutableDictionary * tAvailableLocalizations=[self.localizations WB_filteredDictionaryUsingBlock:^BOOL(NSString * bLanguage, id bValue) {
 		
-		return  [self isValueSet:bValue];
+		return [self isValueSet:bValue];
 	}];
 	
 	if (tAvailableLocalizations.count==0)
