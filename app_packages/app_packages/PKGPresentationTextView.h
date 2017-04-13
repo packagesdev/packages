@@ -13,8 +13,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import <Cocoa/Cocoa.h>
 
-@protocol PKGPresentationTextViewDelegate;
+@class PKGPresentationTextView;
 
+@protocol PKGPresentationTextViewDelegate
+
+- (NSDragOperation)presentationTextView:(PKGPresentationTextView *)inPresentationTextView validateDrop:(id <NSDraggingInfo>)info;
+
+- (BOOL)presentationTextView:(PKGPresentationTextView *)inPresentationTextView acceptDrop:(id <NSDraggingInfo>)info;
+
+@end
 
 @interface PKGPresentationTextView : NSTextView
 
@@ -22,9 +29,3 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @end
 
-
-@protocol PKGPresentationTextViewDelegate
-
-- (void)presentationTextView:(PKGPresentationTextView *)inPresentationTextView documentPathDidChange:(NSString *)inPath;
-
-@end
