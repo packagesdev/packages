@@ -25,4 +25,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)nativeForEnglish:(NSString *)inEnglishName;
 
+- (NSString *)englishForNative:(NSString *)inNativeName;
+
 @end

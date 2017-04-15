@@ -18,7 +18,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSDictionary * _ISOToEnglishDictionary;
 	NSDictionary * _englishToISODictionary;
 
-	NSDictionary * _conversionDictionary;
+	NSDictionary * _englishToNativeDictionary;
+	
+	NSDictionary * _nativeToEnglishDictionary;
 }
 
 	@property (readwrite) NSArray * allEnglishNames;
@@ -44,7 +46,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     
     if (self!=nil)
     {
-        _conversionDictionary=[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"NativeLanguages" ofType:@"plist"]];
+        _englishToNativeDictionary=[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"NativeLanguages" ofType:@"plist"]];
+		
+		NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
+		
+		[_englishToNativeDictionary enumerateKeysAndObjectsUsingBlock:^(id bKey, id bObject, BOOL *bOutStop) {
+			
+			tMutableDictionary[bObject]=bKey;
+			
+		}];
+		
+		_nativeToEnglishDictionary=[tMutableDictionary copy];
 		
 		_allEnglishNames=@[@"Arabic",
 						   @"Brazilian Portuguese",
@@ -216,12 +228,22 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)nativeForEnglish:(NSString *)inEnglishName
 {
-	NSString * tNative=_conversionDictionary[inEnglishName];
+	NSString * tNativeName=_englishToNativeDictionary[inEnglishName];
 
-	if (tNative==nil)
-		tNative=inEnglishName;
+	if (tNativeName==nil)
+		tNativeName=inEnglishName;
 
-	return tNative;
+	return tNativeName;
+}
+
+- (NSString *)englishForNative:(NSString *)inNativeName
+{
+	NSString * tEnglishName=_nativeToEnglishDictionary[inNativeName];
+	
+	if (tEnglishName==nil)
+		tEnglishName=inNativeName;
+	
+	return tEnglishName;
 }
 
 @end
