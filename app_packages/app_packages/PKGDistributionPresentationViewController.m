@@ -1,3 +1,15 @@
+/*
+ Copyright (c) 2017, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGDistributionPresentationViewController.h"
 
@@ -11,6 +23,8 @@
 
 #import "PKGRightInspectorView.h"
 
+#import "PKGPresentationPluginButton.h"
+
 #import "PKGDistributionProjectPresentationSettings+Safe.h"
 
 #import "PKGPresentationTitleSettings.h"
@@ -23,7 +37,7 @@
 
 #import "PKGInstallerApp.h"
 
-#import "PKGInstallerPlugin.h"
+#import "PKGPresentationInspectorItem.h"
 
 #import "PKGLocalizationUtilities.h"
 
@@ -35,16 +49,16 @@
 
 #import "NSFileManager+FileTypes.h"
 
-#import "PKGPresentationPluginButton.h"
-
 #import "PKGApplicationPreferences.h"
 
 #import "PKGOwnershipAndReferenceStyleViewController.h"
 #import "PKGOwnershipAndReferenceStylePanel.h"
 
-#import "PKGPresentationInspectorItem.h"
+
 
 #import "PKGPresentationSectionViewController.h"
+
+#import "PKGPresentationSectionLicenseViewController.h"
 
 @interface PKGDistributionPresentationOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 {
@@ -174,6 +188,14 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 - (void)showViewForSection:(PKGPresentationSection *)inPresentationSection;
 
+// Notifications
+
+- (void)windowStateDidChange:(NSNotification *)inNotification;
+
+- (void)selectedLicenseNativeLocalizationDidChange:(NSNotification *)inNotification;
+
+- (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGDistributionPresentationViewController
@@ -244,11 +266,16 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	if (_presentationSettings!=inPresentationSettings)
 	{
+		if (_presentationSettings!=nil)
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
+		
 		_presentationSettings=inPresentationSettings;
 		
 		[self.presentationSettings sections_safe];	// Useful to make sure there is a list of steps;
 	
 		[self refreshUI];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundImageSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
 	}
 }
 
@@ -364,8 +391,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		[self updateBackgroundView];
 		
-		// A COMPLETER
-		
 		// Title Views
 		
 		[self updateTitleViews];
@@ -379,8 +404,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		[_listView selectStep:(tNumber!=nil) ? [tNumber integerValue] : 0];
 		
 		// Show the Section view
-		
-		// A COMPLETER
 		
 		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
 		
@@ -436,19 +459,19 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}
 	
 	[self refreshUI];
-	
-	// A COMPLETER
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
 	
-	// A COMPLETER
+	// Register for notifications
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedLicenseNativeLocalizationDidChange:) name:PKGSelectedLicenseNativeLocalizationDidChangeNotification object:self.document];
 }
 
 - (void)WB_viewWillDisappear
@@ -459,14 +482,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
 	
-	// A COMPLETER
-}
-
-- (void)WB_viewDidDisappear
-{
-	[super WB_viewDidDisappear];
-	
-	// A COMPLETER
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGSelectedLicenseNativeLocalizationDidChangeNotification object:self.document];
 }
 
 #pragma mark -
@@ -1029,8 +1045,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 				[IBinstallationStepsView_ setNeedsDisplay:YES];
 			}*/
 			
-			[self noteDocumentHasChanged];
-			
 			return YES;
 		};
 		
@@ -1051,7 +1065,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			importPlugins(tPanel.referenceStyle);
 		}];
 		
-		return YES;		// It may at the end not be accepted by the completion handler from the sheet
+		return YES;		// It may at the end be not accepted by the completion handler from the sheet
 	}
 	
 	return NO;
@@ -1163,36 +1177,62 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	NSImage * tImage=[[NSImage alloc] initWithContentsOfFile:tPath];
 	
-	if (tImage!=nil)
-	{
+	if (tImage==nil)
+		return NO;
+	
+	PKGFilePath * tFilePath=nil;
+	
+	void (^finalizeSetBackgroundImagePath)(PKGFilePath *) = ^(PKGFilePath * bFilePath) {
+		
+		self.presentationSettings.backgroundSettings.imagePath=bFilePath;
+		
 		_backgroundView.image=tImage;
 		
-		//self.presentationSettings.backgroundSettings.imagePath=[self.filePathConverter filePathForAbsolutePath:tPath type:<#(PKGFilePathType)#>]
-		
-		// Post Notification
-		
-		// A COMPLETER
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.presentationSettings.backgroundSettings userInfo:@{}];
 		
 		[self noteDocumentHasChanged];
+	};
+	
+	if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
+	{
+		PKGOwnershipAndReferenceStylePanel * tPanel=[PKGOwnershipAndReferenceStylePanel ownershipAndReferenceStylePanel];
+		
+		tPanel.canChooseOwnerAndGroupOptions=NO;
+		tPanel.keepOwnerAndGroup=NO;
+		tPanel.referenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		
+		[tPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode){
+			
+			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+				return;
+			
+			PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:tPath type:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle];
+			
+			finalizeSetBackgroundImagePath(tNewFilePath);
+		}];
 		
 		return YES;
 	}
 	
-	return NO;
+	tFilePath=[self.filePathConverter filePathForAbsolutePath:tPath type:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle];
+	
+	finalizeSetBackgroundImagePath(tFilePath);
+	
+	return YES;
 }
 
 #pragma mark - Notifications
 
 - (void)windowStateDidChange:(NSNotification *)inNotification
 {
-	/*if ([[currentViewController_ className] isEqualToString:@"ICPresentationViewInstallerPluginController"]==YES)
+	if ([[_currentSectionViewController className] isEqualToString:@"PKGPresentationSectionInstallerPluginViewController"]==YES)
 	{
 		// Refresh Chapter Title View
 		
-		NSString * tPaneTitle=[currentViewController_ paneTitleForLanguage:_currentPreviewLanguage];
-		
-		[IBchapterTitleView_ setStringValue:(tPaneTitle!=nil) ? tPaneTitle : @""];
-	}*/
+		NSString * tPaneTitle=[_currentSectionViewController sectionPaneTitle];
+	 
+		_pageTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";
+	}
 	
 	// Refresh Background
 	
@@ -1218,8 +1258,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	// Show the Section View
 	
 	[self showViewForSection:tSelectedPresentationSection];
-	
-	// A COMPLETER
 	
 	// Inspector
 	
@@ -1247,6 +1285,18 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
 		}
 	}
+}
+
+- (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification
+{
+	[self updateBackgroundView];
+}
+
+- (void)selectedLicenseNativeLocalizationDidChange:(NSNotification *)inNotification
+{
+	NSString * tPaneTitle=[_currentSectionViewController sectionPaneTitle];
+	
+	_pageTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";
 }
 
 @end

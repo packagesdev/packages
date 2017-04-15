@@ -85,7 +85,7 @@
 		
 		tInspectorItem.localizedTitle=NSLocalizedString(@"License",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemLicense;
-		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionViewController");
+		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionLicenseViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
 		
 		[tMutableArray addObject:tInspectorItem];

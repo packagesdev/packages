@@ -1,7 +1,7 @@
 
-#import "PKGPresentationSectionSummaryViewDropView.h"
+#import "PKGPresentationSectionTextDocumentViewDropView.h"
 
-@implementation PKGPresentationSectionSummaryViewDropView
+@implementation PKGPresentationSectionTextDocumentViewDropView
 
 - (void)drawRect:(NSRect)inRect
 {

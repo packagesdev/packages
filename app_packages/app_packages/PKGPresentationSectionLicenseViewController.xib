@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationSectionLicenseViewController">
+            <connections>
+                <outlet property="_defaultContentsView" destination="iWB-tz-JsP" id="1kC-hX-5cg"/>
+                <outlet property="_languagePopupButton" destination="7En-9d-OVh" id="ZRb-19-4G7"/>
+                <outlet property="_licenseView" destination="oU3-W6-kMc" id="NjP-dn-3IO"/>
+                <outlet property="_stepNotDisplayedLabel" destination="LNq-sZ-yrp" id="qjc-0F-dbo"/>
+                <outlet property="textView" destination="f1s-fN-nX2" id="htn-ZM-gIW"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="653" height="475"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="iWB-tz-JsP" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                    <rect key="frame" x="0.0" y="0.0" width="653" height="475"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <textField verticalHuggingPriority="750" id="LNq-sZ-yrp">
+                            <rect key="frame" x="0.0" y="225" width="653" height="24"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="JJm-kn-sKg">
+                                <font key="font" metaFont="system" size="19"/>
+                                <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                </customView>
+                <customView id="oU3-W6-kMc">
+                    <rect key="frame" x="0.0" y="0.0" width="653" height="475"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="IS8-vz-Mtw">
+                            <rect key="frame" x="1" y="435" width="652" height="5"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <font key="titleFont" metaFont="system"/>
+                        </box>
+                        <popUpButton verticalHuggingPriority="750" id="7En-9d-OVh">
+                            <rect key="frame" x="219" y="443" width="216" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" title=" " bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="my2-P5-Rpi" id="0rw-fR-9qI">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" title="OtherViews" id="S9y-6M-mT5">
+                                    <items>
+                                        <menuItem title=" " state="on" id="my2-P5-Rpi"/>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <action selector="switchLicenseLocalization:" target="-2" id="icB-qK-57D"/>
+                            </connections>
+                        </popUpButton>
+                        <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Egz-In-4Mp">
+                            <rect key="frame" x="1" y="1" width="651" height="436"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <clipView key="contentView" id="OXD-bK-glg">
+                                <rect key="frame" x="0.0" y="0.0" width="636" height="436"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textView editable="NO" horizontallyResizable="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="f1s-fN-nX2" customClass="PKGPresentationTextView">
+                                        <rect key="frame" x="0.0" y="0.0" width="636" height="436"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="minSize" width="636" height="436"/>
+                                        <size key="maxSize" width="651" height="10000000"/>
+                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <size key="minSize" width="636" height="436"/>
+                                        <size key="maxSize" width="651" height="10000000"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </clipView>
+                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="6vt-sj-8N7">
+                                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </scroller>
+                            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="DkN-1T-qnm">
+                                <rect key="frame" x="224" y="1" width="15" height="133"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </scroller>
+                        </scrollView>
+                    </subviews>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="612.5" y="558.5"/>
+        </customView>
+    </objects>
+</document>
