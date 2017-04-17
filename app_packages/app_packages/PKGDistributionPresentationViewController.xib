@@ -147,7 +147,7 @@
                                             <rect key="frame" x="18" y="50" width="154" height="332"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                         </customView>
-                                        <customView id="WHD-ej-XMP" customClass="PKGPresentationContentsView">
+                                        <customView id="WHD-ej-XMP">
                                             <rect key="frame" x="181" y="50" width="418" height="331"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </customView>
