@@ -789,7 +789,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	if (tNewSectionViewController.accessoryView!=nil)
 	{
-		// A COMPLETER
+		NSRect tBounds=_accessoryPlaceHolderView.bounds;
+		
+		tNewSectionViewController.accessoryView.frame=tBounds;
+		
+		[_accessoryPlaceHolderView addSubview:tNewSectionViewController.accessoryView];
 	}
 	
 	[tNewSectionViewController WB_viewDidAppear];
