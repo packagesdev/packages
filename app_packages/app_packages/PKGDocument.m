@@ -81,6 +81,11 @@
 	return tReferenceProjectPath;
 }
 
+- (PKGProject *)project
+{
+	return _documentWindowController.project;
+}
+
 #pragma mark -
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError

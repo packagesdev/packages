@@ -17,10 +17,14 @@
 
 #import "PKGFilePath.h"
 
+#import "PKGProject.h"
+
 @interface PKGDocument : NSDocument <PKGFilePathConverter>
 
 	@property (readonly,copy) NSString * folder;
 
 	@property (readonly) PKGDocumentRegistry * registry;
+
+	@property (readonly) PKGProject * project;
 
 @end

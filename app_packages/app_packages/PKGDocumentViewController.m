@@ -53,7 +53,7 @@
 
 - (PKGProject *)documentProject
 {
-	return ((PKGDocumentWindowController *) self.view.window.windowController).project;
+	return self.document.project;
 }
 
 - (PKGDocumentRegistry *)documentRegistry
