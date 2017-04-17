@@ -39,6 +39,6 @@ extern NSString * const PKGPresentationInstallationTypeInvisibleHierarchyKey;
 
 - (PKGInstallationHierarchy *)installerHierarchy;
 
-- (NSSet *) allPackagesUUIDs;
+- (NSSet *)allPackagesUUIDs;
 
 @end
