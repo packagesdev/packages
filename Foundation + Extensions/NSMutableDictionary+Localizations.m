@@ -1,20 +1,20 @@
 
-#import "PKGPresentationLocalizableStepSettings+UI.h"
+#import "NSMutableDictionary+Localizations.h"
 
 #import "NSDictionary+WBExtensions.h"
 
 #import "PKGLanguageConverter.h"
 
-@implementation PKGPresentationLocalizableStepSettings (UI)
+@implementation NSMutableDictionary (PKG_Localizations)
 
-- (id)valueForLocalization:(NSString *)inLocalization exactMatch:(BOOL)inExactMatch
+- (id)valueForLocalization:(NSString *)inLocalization exactMatch:(BOOL)inExactMatch valueSetChecker:(BOOL (^)(id))valueChecker
 {
 	if (inLocalization==nil)
 		return nil;
 	
-	NSMutableDictionary * tAvailableLocalizations=[self.localizations WB_filteredDictionaryUsingBlock:^BOOL(NSString * bLanguage, id bValue) {
+	NSMutableDictionary * tAvailableLocalizations=[self WB_filteredDictionaryUsingBlock:^BOOL(NSString * bLanguage, id bValue) {
 		
-		return [self isValueSet:bValue];
+		return valueChecker(bValue);
 	}];
 	
 	if (tAvailableLocalizations.count==0)
