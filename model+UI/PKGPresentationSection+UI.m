@@ -56,7 +56,7 @@
 												   PKGPresentationSectionIntroductionName:@"PKGPresentationSectionIntroductionViewController",
 												   PKGPresentationSectionReadMeName:@"PKGPresentationSectionReadMeViewController",
 												   PKGPresentationSectionLicenseName:@"PKGPresentationSectionLicenseViewController",
-												   PKGPresentationSectionInstallationTypeName:@"PKGPresentationSectionViewController",
+												   PKGPresentationSectionInstallationTypeName:@"PKGPresentationSectionInstallationTypeViewController",
 												   PKGPresentationSectionSummaryName:@"PKGPresentationSectionSummaryViewController"
 												   };
 	});
