@@ -320,7 +320,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (void)archiveSelection
 {
-	NSIndexSet * tIndexSet=[self.outlineView selectedRowIndexes];
+	NSIndexSet * tIndexSet=self.outlineView.selectedRowIndexes;
 	
 	if (tIndexSet==nil)
 		return;
