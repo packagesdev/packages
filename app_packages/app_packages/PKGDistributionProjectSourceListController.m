@@ -23,6 +23,7 @@
 #import "NSAlert+block.h"
 
 #import "PKGPackageComponent+UI.h"
+#import "PKGInstallationHierarchy+UI.h"
 
 #import "PKGDocumentWindowController.h"
 
@@ -57,6 +58,8 @@
 // Notifications
 
 - (void)optionKeyDidChange:(NSNotification *)inNotification;
+
+- (void)removedPackagesListDidChange:(NSNotification *)inNotification;
 
 @end
 
@@ -108,14 +111,24 @@
 	
 	[self.outlineView expandItem:nil expandChildren:YES];
 	
+	// A COMPLETER
+	
+	// Register for Notifications
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionKeyDidChange:) name:PKGOptionKeyDidChangeStateNotification object:self.view.window];
 	
-	// A COMPLETER
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedPackagesListDidChange:) name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
+
+	
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGOptionKeyDidChangeStateNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 	
 	[_sourceListAuxiliaryView removeFromSuperview];
 	
@@ -380,10 +393,13 @@
 	
 	if ([tSourceListItem isKindOfClass:PKGDistributionProjectSourceListPackageComponentItem.class]==YES)
 	{
+		PKGDistributionProjectSourceListPackageComponentItem * tComponentItem=(PKGDistributionProjectSourceListPackageComponentItem *)tSourceListItem;
+		
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
 		
 		tView.imageView.image=tSourceListItem.icon;
 		tView.textField.stringValue=tSourceListItem.label;
+		tView.textField.textColor=([self.dataSource.removedPackagesUUIDs containsObject:tComponentItem.packageComponent.UUID]==YES) ? [NSColor grayColor] : [NSColor blackColor];
 		tView.textField.editable=tSourceListItem.editable;
 		tView.textField.delegate=self;
 		
@@ -456,6 +472,20 @@
 		_addButton.image=[NSImage imageNamed:@"NSAddTemplate"];
 		_addButton.action=@selector(addPackage:);
 	}
+}
+
+- (void)removedPackagesListDidChange:(NSNotification *)inNotification
+{
+	self.dataSource.removedPackagesUUIDs=inNotification.userInfo[PKGInstallationHierarchyRemovedPackagesUUIDsKey];
+	
+	//NSIndexSet * tSelectedIndexes=self.outlineView.selectedRowIndexes;
+	
+	NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfRows)];
+	NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"sourcelist.name"]];
+	
+	[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+	
+	//[self.outlineView selectRowIndexes:tSelectedIndexes byExtendingSelection:NO];
 }
 
 @end

@@ -29,6 +29,8 @@
 
 	@property (nonatomic) NSMutableArray * packageComponents;
 
+	@property (nonatomic) NSArray * removedPackagesUUIDs;
+
 	@property (weak) id<PKGFilePathConverter> filePathConverter;
 
 	@property (weak) id<PKGDistributionProjectSourceListDataSourceDelegate> delegate;

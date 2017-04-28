@@ -13,6 +13,8 @@
 
 #import "PKGDistributionProjectSourceListDataSource.h"
 
+#import "PKGPackageComponent+UI.h"
+
 #import "PKGDistributionProjectSourceListForest.h"
 #import "PKGDistributionProjectSourceListTreeNode.h"
 #import "PKGDistributionProjectSourceListGroupItem.h"
@@ -662,6 +664,8 @@
 		// A COMPLETER
 		
 		[_packageComponents removeObject:tPackageComponentItem.packageComponent];
+		
+		//tPackageComponentItem.packageComponent.disclosedStatesKeys	// A COMPLETER (retirer les entrees)
 		
 		[tTreeNode removeFromParent];
 	}
