@@ -192,8 +192,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 - (void)windowStateDidChange:(NSNotification *)inNotification;
 
-- (void)selectedLicenseNativeLocalizationDidChange:(NSNotification *)inNotification;
-
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification;
 
 @end
@@ -465,24 +463,31 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	[super WB_viewDidAppear];
 	
+	[_currentSectionViewController WB_viewDidAppear];
+	
 	// Register for notifications
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedLicenseNativeLocalizationDidChange:) name:PKGSelectedLicenseNativeLocalizationDidChangeNotification object:self.document];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
 	
+	[_currentSectionViewController WB_viewWillDisappear];
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGSelectedLicenseNativeLocalizationDidChangeNotification object:self.document];
+}
+
+- (void)WB_viewDidDisappear
+{
+	[super WB_viewDidDisappear];
+
+	[_currentSectionViewController WB_viewDidDisappear];
 }
 
 #pragma mark -
@@ -1294,13 +1299,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification
 {
 	[self updateBackgroundView];
-}
-
-- (void)selectedLicenseNativeLocalizationDidChange:(NSNotification *)inNotification
-{
-	NSString * tPaneTitle=[_currentSectionViewController sectionPaneTitle];
-	
-	_pageTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";
 }
 
 @end
