@@ -34,11 +34,11 @@
 
 - (void)drawRect:(NSRect)inRect
 {
-	/*if (self.dashedBorder==NO)
+	if (self.dashedBorder==NO)
 	{
 		[super drawRect:inRect];
 		return;
-	}*/
+	}
 	
 	NSRect tBounds=self.bounds;
 	const CGFloat tDash[2]={2.0,2.0};
@@ -50,12 +50,12 @@
 	[tBezierPath lineToPoint:NSMakePoint(0.0,NSMaxY(tBounds))];
 	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(tBounds))];
 	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),0.0)];
-	
+	[tBezierPath closePath];
 	
 	[[NSColor colorWithDeviceWhite:0.530 alpha:1.0] setStroke];
 	[tBezierPath stroke];
 	
-	if ([self.documentView isKindOfClass:NSTextView.class]==YES)
+	/*if ([self.documentView isKindOfClass:NSTextView.class]==YES)
 	{
 		tBezierPath=[NSBezierPath bezierPath];
 		
@@ -64,7 +64,7 @@
 		
 		[[NSColor colorWithDeviceWhite:0.209 alpha:1.0] setStroke];
 		[tBezierPath stroke];
-	}
+	}*/
 }
 
 @end

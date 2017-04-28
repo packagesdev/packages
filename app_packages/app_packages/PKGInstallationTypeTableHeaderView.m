@@ -29,7 +29,7 @@
 
 - (void)drawRect:(NSRect)inRect
 {
-	//if (self.dashedBorder==YES)
+	if (self.dashedBorder==YES)
 	{
 		NSRect tBounds=self.bounds;
 		const CGFloat tDash[2]={2.0,2.0};
