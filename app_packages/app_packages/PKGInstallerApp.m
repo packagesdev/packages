@@ -88,6 +88,11 @@ NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.ap
 
 #pragma mark -
 
+- (NSString *)bundlePath
+{
+	return _bundle.bundlePath;
+}
+
 - (NSImage *)iconForPackageType:(PKGInstallerAppPackageType)inPackageType
 {
 	switch(inPackageType)

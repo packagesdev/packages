@@ -40,6 +40,8 @@ typedef NS_ENUM(NSUInteger, PKGInstallerAppPackageType)
 
 	@property (nonatomic,readonly) NSImage * posteriorStepDot;
 
+	@property (nonatomic,readonly,copy) NSString * bundlePath;
+
 + (PKGInstallerApp *)installerApp;
 
 - (BOOL)isVersion6_1OrLater;
