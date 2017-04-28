@@ -13,8 +13,6 @@
 
 #import "PKGPresentationSectionTextDocumentViewController.h"
 
-extern NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification;
-
 @interface PKGPresentationSectionLicenseViewController : PKGPresentationSectionTextDocumentViewController
 
 @end

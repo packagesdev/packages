@@ -25,8 +25,6 @@
 
 #import "PKGInstallerSimulatorBundle.h"
 
-NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKGSelectedLicenseNativeLocalizationDidChangeNotification";
-
 @interface PKGPresentationSectionLicenseViewController ()
 {
 	IBOutlet PKGPresentationSectionTextDocumentViewDropView * _defaultContentsView;
@@ -41,10 +39,8 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 	
 	NSString * _cachedLicenseLocalization;
 	
-	NSArray * _cachedButtonsArray;
+	//NSArray * _cachedButtonsArray;
 }
-
-- (void)updateLicenseButtonsForNativeLocalization:(NSString *)inNativeLocalization;
 
 - (void)refreshLicenseUIForNativeLocalization:(NSString *)inNativeLocalization;
 
@@ -88,10 +84,7 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 
 - (NSString *)sectionPaneTitle
 {
-	if (_cachedLicenseLocalization==nil)
-		return nil;
-	
-	return [[[PKGInstallerApp installerApp] pluginWithSectionName:PKGPresentationSectionLicenseName] pageTitleForLocalization:[[PKGLanguageConverter sharedConverter] englishForNative:_cachedLicenseLocalization]];
+	return [[[PKGInstallerApp installerApp] pluginWithSectionName:PKGPresentationSectionReadMeName] pageTitleForLocalization:self.localization];
 }
 
 #pragma mark -
@@ -119,20 +112,18 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 
 #pragma mark -
 
-- (void)updateLicenseButtonsForNativeLocalization:(NSString *)inNativeLocalization
+- (void)updateButtons:(NSArray *)inButtonsArray
 {
-	if (inNativeLocalization==nil || _cachedButtonsArray.count!=4)
+	if (self.localization==nil || inButtonsArray.count!=4)
 		return;
-	
-	NSString * tEnglishLocalizationName=[[PKGLanguageConverter sharedConverter] englishForNative:inNativeLocalization];
 	
 	// Print / Customize
 	
-	NSButton * tButton=_cachedButtonsArray[PKGPresentationSectionButtonPrint];
+	NSButton * tButton=inButtonsArray[PKGPresentationSectionButtonPrint];
 	
 	tButton.hidden=NO;
 	
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Print..." localization:tEnglishLocalizationName];
+	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Print..." localization:self.localization];
 	
 	NSRect tFrame=tButton.frame;
 	
@@ -151,11 +142,11 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 	
 	// Save
 	
-	tButton=_cachedButtonsArray[PKGPresentationSectionButtonSave];
+	tButton=inButtonsArray[PKGPresentationSectionButtonSave];
 	
 	tButton.hidden=NO;
 	
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Save..." localization:tEnglishLocalizationName];
+	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Save..." localization:self.localization];
 	
 	tFrame=tButton.frame;
 	
@@ -174,10 +165,10 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 	
 	// Continue
 	
-	tButton=_cachedButtonsArray[PKGPresentationSectionButtonContinue];
+	tButton=inButtonsArray[PKGPresentationSectionButtonContinue];
 	
 	tButton.hidden=NO;
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Continue" localization:tEnglishLocalizationName];
+	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Continue" localization:self.localization];
 	
 	tFrame=tButton.frame;
 	
@@ -200,10 +191,10 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 	
 	// Go Back
 	
-	tButton=_cachedButtonsArray[PKGPresentationSectionButtonGoBack];
+	tButton=inButtonsArray[PKGPresentationSectionButtonGoBack];
 	
 	tButton.hidden=NO;
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Go Back" localization:tEnglishLocalizationName];
+	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Go Back" localization:self.localization];
 	
 	tFrame=[tButton frame];
 	
@@ -223,21 +214,9 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 	[tButton.superview setNeedsDisplay:YES];
 }
 
-- (void)updateButtons:(NSArray *)inButtonsArray
-{
-	if (self.localization==nil || inButtonsArray.count!=4)
-		return;
-	
-	_cachedButtonsArray=inButtonsArray;
-	
-	[self updateLicenseButtonsForNativeLocalization:_cachedLicenseLocalization];
-}
-
 - (void)refreshLicenseUIForNativeLocalization:(NSString *)inNativeLocalization
 {
 	NSDictionary * tLocalizations=nil;
-	
-	[self updateLicenseButtonsForNativeLocalization:inNativeLocalization];
 	
 	switch (_settings.licenseType)
 	{
@@ -397,8 +376,6 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 	[_languagePopupButton selectItemWithTitle:_cachedLicenseLocalization];
 	
 	[self refreshLicenseUIForNativeLocalization:_cachedLicenseLocalization];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:PKGSelectedLicenseNativeLocalizationDidChangeNotification object:self.document userInfo:@{@"NativeLocalization":_cachedLicenseLocalization}];
 }
 
 #pragma mark -
@@ -413,10 +390,6 @@ NSString * const PKGSelectedLicenseNativeLocalizationDidChangeNotification=@"PKG
 	_cachedLicenseLocalization=tSelectedLocalization;
 	
 	[self refreshLicenseUIForNativeLocalization:_cachedLicenseLocalization];
-	
-	[self updateLicenseButtonsForNativeLocalization:_cachedLicenseLocalization];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:PKGSelectedLicenseNativeLocalizationDidChangeNotification object:self.document userInfo:@{@"NativeLocalization":_cachedLicenseLocalization}];
 }
 
 #pragma mark - PKGPresentationTextViewDelegate
