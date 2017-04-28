@@ -38,7 +38,8 @@ typedef NS_ENUM(NSUInteger, PKGChoiceItemType)
 
 	@property PKGChoiceItemOptions * options;
 
-- (PKGChoiceItemType)type;
+
+	@property (nonatomic,readonly) PKGChoiceItemType type;
 
 @end
 
