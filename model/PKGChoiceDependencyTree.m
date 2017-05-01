@@ -69,7 +69,7 @@
 	{
 		if (_cachedRepresentation!=nil)
 		{
-			_rootNode=[[PKGChoiceDependencyTreeNode alloc] initWithRepresentation:_cachedRepresentation error:NULL];
+			_rootNode=[PKGChoiceDependencyTreeNode dependencyTreeNodeWithRepresentation:_cachedRepresentation error:NULL];
 			
 			_cachedRepresentation=nil;
 		}

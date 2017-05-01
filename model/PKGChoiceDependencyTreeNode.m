@@ -15,9 +15,37 @@
 
 #import "PKGPackagesError.h"
 
+NSString * const PKGChoiceDependencyTreeLogicNodeTopChildKey=@"TOP";
+
+NSString * const PKGChoiceDependencyTreeLogicNodeOperatorKey=@"OPERATOR";
+
+NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
+
+
+NSString * const PKGChoiceDependencyTreePredicateNodeChoiceUUIDKey=@"UUID";
+
+NSString * const PKGChoiceDependencyTreePredicateNodeOperatorKey=@"COMPARATOR";
+
+NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
+
+
 @implementation PKGChoiceDependencyTreeNode
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
++ (id)dependencyTreeNodeWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+{
+	if (inRepresentation[PKGChoiceDependencyTreeLogicNodeTopChildKey]!=nil)
+		return [[PKGChoiceDependencyTreeLogicNode alloc] initWithRepresentation:inRepresentation error:outError];
+	
+	if (inRepresentation[PKGChoiceDependencyTreePredicateNodeChoiceUUIDKey]!=nil)
+		return [[PKGChoiceDependencyTreePredicateNode alloc] initWithRepresentation:inRepresentation error:outError];
+
+	if (outError!=NULL)
+		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValue userInfo:nil];
+	
+	return nil;
+}
+
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -40,6 +68,11 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	_parentNode=nil;
+}
+
 - (NSMutableDictionary *)representation
 {
 	return [NSMutableDictionary dictionary];
@@ -48,15 +81,11 @@
 @end
 
 
-NSString * const PKGChoiceDependencyTreeLogicNodeTopChildKey=@"TOP";
 
-NSString * const PKGChoiceDependencyTreeLogicNodeOperatorKey=@"OPERATOR";
-
-NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
 
 @implementation PKGChoiceDependencyTreeLogicNode
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -64,7 +93,7 @@ NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
 	
 	if (self!=nil)
 	{
-		_topChildNode=[[PKGChoiceDependencyTreeNode alloc] initWithRepresentation:inRepresentation[PKGChoiceDependencyTreeLogicNodeTopChildKey] error:&tError];
+		_topChildNode=[PKGChoiceDependencyTreeNode dependencyTreeNodeWithRepresentation:inRepresentation[PKGChoiceDependencyTreeLogicNodeTopChildKey] error:&tError];
 		
 		if (_topChildNode==nil)
 		{
@@ -88,6 +117,8 @@ NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
 			return nil;
 		}
 		
+		_topChildNode.parentNode=self;
+		
 		NSNumber * tNumber=inRepresentation[PKGChoiceDependencyTreeLogicNodeOperatorKey];
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGChoiceDependencyTreeLogicNodeOperatorKey);
@@ -106,7 +137,7 @@ NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
 			return nil;
 		}
 		
-		_bottomChildNode=[[PKGChoiceDependencyTreeNode alloc] initWithRepresentation:inRepresentation[PKGChoiceDependencyTreeLogicNodeBottomChildKey] error:&tError];
+		_bottomChildNode=[PKGChoiceDependencyTreeNode dependencyTreeNodeWithRepresentation:inRepresentation[PKGChoiceDependencyTreeLogicNodeBottomChildKey] error:&tError];
 		
 		if (_bottomChildNode==nil)
 		{
@@ -129,6 +160,8 @@ NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
 			
 			return nil;
 		}
+		
+		_bottomChildNode.parentNode=self;
 	}
 	else
 	{
@@ -155,16 +188,12 @@ NSString * const PKGChoiceDependencyTreeLogicNodeBottomChildKey=@"BOTTOM";
 @end
 
 
-NSString * const PKGChoiceDependencyTreePredicateNodeChoiceUUIDKey=@"UUID";
 
-NSString * const PKGChoiceDependencyTreePredicateNodeOperatorKey=@"COMPARATOR";
-
-NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 
 
 @implementation PKGChoiceDependencyTreePredicateNode
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	

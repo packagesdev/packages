@@ -19,6 +19,10 @@
 
 @interface PKGChoiceDependencyTreeNode : NSObject <PKGObjectProtocol>
 
+	@property PKGChoiceDependencyTreeNode * parentNode;
+
++ (id)dependencyTreeNodeWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError;
+
 @end
 
 
