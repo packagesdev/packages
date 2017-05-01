@@ -13,6 +13,10 @@
 
 #import "PKGPackageComponent+UI.h"
 
+NSString * const PKGPackageComponentUUIDsPboardType=@"fr.whitebox.packages.components.uuids";
+
+NSString * const PKGPackageComponentPromisedPboardType=@"fr.whitebox.packages.components";
+
 @implementation PKGPackageComponent (UI)
 
 - (NSString *)payloadDisclosedStatesKey

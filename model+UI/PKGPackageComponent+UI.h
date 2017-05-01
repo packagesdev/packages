@@ -13,6 +13,10 @@
 
 #import "PKGPackageComponent.h"
 
+extern NSString * const PKGPackageComponentUUIDsPboardType;
+
+extern NSString * const PKGPackageComponentPromisedPboardType;
+
 @interface PKGPackageComponent (UI)
 
 	@property (nonatomic,readonly) NSString * payloadDisclosedStatesKey;
