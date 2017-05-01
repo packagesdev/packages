@@ -141,7 +141,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 	if (inTreeNode==nil)
 		return _tree.rootNodes[inIndex];
 	
-	return [inTreeNode descendantNodeAtIndex:inIndex];
+	return [inTreeNode childNodeAtIndex:inIndex];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView isItemExpandable:(PKGTreeNode *)inTreeNode
