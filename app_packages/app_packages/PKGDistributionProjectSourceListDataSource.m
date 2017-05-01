@@ -13,7 +13,10 @@
 
 #import "PKGDistributionProjectSourceListDataSource.h"
 
+#import "PKGDistributionProject+Edition.h"
+
 #import "PKGPackageComponent+UI.h"
+#import "PKGDistributionProject+UI.h"
 
 #import "PKGDistributionProjectSourceListForest.h"
 #import "PKGDistributionProjectSourceListTreeNode.h"
@@ -110,16 +113,16 @@
 
 + (NSArray *)supportedDraggedTypes
 {
-	return @[NSFilenamesPboardType];
+	return @[NSFilenamesPboardType,PKGPackageComponentPromisedPboardType];
 }
 
-- (void)setPackageComponents:(NSMutableArray *)inPackageComponents
+- (void)setDistributionProject:(PKGDistributionProject *)inDistributionProject
 {
-	if (_packageComponents!=inPackageComponents)
+	if (_distributionProject!=inDistributionProject)
 	{
-		_packageComponents=inPackageComponents;
+		_distributionProject=inDistributionProject;
 		
-		_forest=[[PKGDistributionProjectSourceListForest alloc] initWithPackageComponents:inPackageComponents];
+		_forest=[[PKGDistributionProjectSourceListForest alloc] initWithPackageComponents:_distributionProject.packageComponents];
 	}
 }
 
@@ -138,7 +141,7 @@
 	if (inTreeNode==nil)
 		return _forest.rootNodes[inIndex];
 	
-	return [inTreeNode descendantNodeAtIndex:inIndex];
+	return [inTreeNode childNodeAtIndex:inIndex];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView isItemExpandable:(PKGTreeNode *)inTreeNode
@@ -150,23 +153,37 @@
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView writeItems:(NSArray*)inItems toPasteboard:(NSPasteboard*)inPasteboard
 {
-	/*for(PKGPayloadTreeNode * tTreeNode in inItems)
-	{
-		if ([tTreeNode isTemplateNode]==YES)
-			return NO;
-	}
+	if (inOutlineView==nil)
+		return NO;
 	
-	_internalDragData=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];	// A COMPLETER (Find how to empty it when the drag and drop is done)
+	NSArray * tFilteredItems=[inItems WB_filteredArrayUsingBlock:^BOOL(PKGDistributionProjectSourceListTreeNode * bTreeNode, NSUInteger bIndex) {
+		return [bTreeNode isPackageComponentNode];
+	}];
 	
-	[inPasteboard declareTypes:@[PKGPayloadItemsInternalPboardType,PKGPayloadItemsPboardType] owner:self];		// Make the external drag a promised case since it will be less usual IMHO
+	if (tFilteredItems.count==0)
+		return NO;
 	
-	[inPasteboard setData:[NSData data] forType:PKGPayloadItemsInternalPboardType];*/
+	NSArray * tComponentsUUIDS=[tFilteredItems WB_arrayByMappingObjectsUsingBlock:^id(PKGDistributionProjectSourceListTreeNode * bTreeNode, NSUInteger bIndex) {
+		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem=bTreeNode.representedObject;
+		
+		return tPackageComponentItem.packageComponent.UUID;
+	}];
 	
-	return NO;
+	if (tComponentsUUIDS.count==0)
+		return NO;
+	
+	[inPasteboard declareTypes:@[PKGPackageComponentUUIDsPboardType,PKGPackageComponentPromisedPboardType] owner:self];
+	
+	[inPasteboard setPropertyList:tComponentsUUIDS forType:PKGPackageComponentUUIDsPboardType];
+	
+	return YES;
 }
 
-- (NSDragOperation)outlineView:(NSOutlineView*)inOutlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(PKGPayloadTreeNode *)inProposedTreeNode proposedChildIndex:(NSInteger)inChildIndex
+- (NSDragOperation)outlineView:(NSOutlineView*)inOutlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(PKGDistributionProjectSourceListTreeNode *)inProposedTreeNode proposedChildIndex:(NSInteger)inChildIndex
 {
+	if (inOutlineView==nil)
+		return NSDragOperationNone;
+	
 	if (inProposedTreeNode==nil)
 		return NSDragOperationNone;
 	
@@ -185,10 +202,7 @@
 			return NSDragOperationNone;
 		}
 		
-		NSArray * tAlreadyImportedPaths=[[self.packageComponents WB_filteredArrayUsingBlock:^BOOL(PKGPackageComponent * bPackageComponent,NSUInteger bIndex){
-		
-			return (bPackageComponent.type==PKGPackageComponentTypeImported);
-		}] WB_arrayByMappingObjectsUsingBlock:^(PKGPackageComponent * bPackageComponent,NSUInteger bIndex){
+		NSArray * tAlreadyImportedPaths=[self.distributionProject.importedPackageComponents WB_arrayByMappingObjectsUsingBlock:^(PKGPackageComponent * bPackageComponent,NSUInteger bIndex){
 		
 			return [self.filePathConverter absolutePathForFilePath:bPackageComponent.importPath];
 		}];
@@ -217,7 +231,7 @@
 	return NSDragOperationNone;
 }
 
-- (BOOL)outlineView:(NSOutlineView*)inOutlineView acceptDrop:(id <NSDraggingInfo>)info item:(PKGPayloadTreeNode *)inProposedTreeNode childIndex:(NSInteger)inChildIndex
+- (BOOL)outlineView:(NSOutlineView*)inOutlineView acceptDrop:(id <NSDraggingInfo>)info item:(PKGDistributionProjectSourceListTreeNode *)inProposedTreeNode childIndex:(NSInteger)inChildIndex
 {
 	if (inOutlineView==nil)
 		return NO;
@@ -242,7 +256,7 @@
 			
 			PKGFilePathType tFileType=tPanel.referenceStyle;
 			
-			__block NSMutableArray * tTemporaryComponents=[self.packageComponents mutableCopy];
+			__block NSMutableArray * tTemporaryComponents=[self.distributionProject.packageComponents mutableCopy];
 			
 			NSArray * tImportedPackageComponents=[tArray WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGPackageComponent *(NSString * bImportPath, NSUInteger bIndex) {
 				
@@ -286,7 +300,7 @@
 	
 	// Name
 	
-	NSString * tName=[self.packageComponents uniqueNameWithBaseName:NSLocalizedString(@"untitled package",@"No comment") usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+	NSString * tName=[self.distributionProject.packageComponents uniqueNameWithBaseName:NSLocalizedString(@"untitled package",@"No comment") usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
 	
 		return bPackageComponent.packageSettings.name;
 	}];
@@ -313,7 +327,7 @@
 		tPackageIdentifier=[NSString stringWithFormat:tFormat,tDefaultIdentifierPrefix,tPackageIdentifier];
 	}
 	
-	tPackageIdentifier=[self.packageComponents uniqueNameWithBaseName:tPackageIdentifier format:@"%@-@lu" options:NSCaseInsensitiveSearch usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+	tPackageIdentifier=[self.distributionProject.packageComponents uniqueNameWithBaseName:tPackageIdentifier format:@"%@-@lu" options:NSCaseInsensitiveSearch usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
 		
 		return bPackageComponent.packageSettings.identifier;
 	}];
@@ -327,7 +341,7 @@
 {
 	PKGPackageComponent * tProjectComponent=[PKGPackageComponent referenceComponent];
 	
-	NSString * tName=[self.packageComponents uniqueNameWithBaseName:NSLocalizedString(@"untitled package",@"No comment") usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
+	NSString * tName=[self.distributionProject.packageComponents uniqueNameWithBaseName:NSLocalizedString(@"untitled package",@"No comment") usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
 		
 		return bPackageComponent.packageSettings.name;
 	}];
@@ -348,10 +362,7 @@
 	tImportPanel.canCreateDirectories=NO;
 	tImportPanel.prompt=NSLocalizedString(@"Import", @"");
 	
-	NSArray * tImportedPackageComponents=[self.packageComponents WB_filteredArrayUsingBlock:^BOOL(PKGPackageComponent * bPackageComponent, NSUInteger bIndex) {
-		
-		return (bPackageComponent.type==PKGPackageComponentTypeImported);
-	}];
+	NSArray * tImportedPackageComponents=self.distributionProject.importedPackageComponents;
 	
 	_importPanelDelegate=[PKGPackagesImportPanelDelegate new];
 	
@@ -378,7 +389,7 @@
 		
 		PKGFilePathType tFileType=tOwnershipAndReferenceStyleViewController.referenceStyle;
 		
-		__block NSMutableArray * tTemporaryComponents=[NSMutableArray arrayWithArray:self.packageComponents];
+		__block NSMutableArray * tTemporaryComponents=[NSMutableArray arrayWithArray:self.distributionProject.packageComponents];
 		
 		NSArray * tImportedPackageComponents=[tImportPanel.URLs WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGPackageComponent *(NSURL * bImportURL, NSUInteger bIndex) {
 			
@@ -421,19 +432,12 @@
 	if (inOutlineView==nil || inPackageComponents.count==0)
 		return;
 	
+	[self.distributionProject addPackageComponents:inPackageComponents];
+	
 	NSMutableSet * tMutableSet=[NSMutableSet set];
 	
 	for(PKGPackageComponent * tPackageComponent in inPackageComponents)
 	{
-		if ([self.packageComponents containsObject:tPackageComponent]==YES)
-		{
-			// A COMPLETER
-			
-			continue;
-		}
-
-		[self.packageComponents addObject:tPackageComponent];
-		
 		[_forest addPackageComponent:tPackageComponent];
 		
 		[tMutableSet addObject:tPackageComponent];
@@ -520,7 +524,7 @@
 			return NO;
 		}
 		
-		if ([self.packageComponents indexesOfObjectsPassingTest:^BOOL(PKGPackageComponent * bPackageComponent,NSUInteger bIndex,BOOL * bOutStop){
+		if ([self.distributionProject.packageComponents indexesOfObjectsPassingTest:^BOOL(PKGPackageComponent * bPackageComponent,NSUInteger bIndex,BOOL * bOutStop){
 			
 			return ([bPackageComponent.packageSettings.name caseInsensitiveCompare:inNewName]==NSOrderedSame);
 			
@@ -569,7 +573,7 @@
 	if (inOutlineView==nil || inItems.count==0)
 		return;
 	
-	__block NSMutableArray * tTemporaryComponents=[self.packageComponents mutableCopy];
+	__block NSMutableArray * tTemporaryComponents=[self.distributionProject.packageComponents mutableCopy];
 	
 	NSArray * tDuplicatedPackageComponents=[inItems WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGPackageComponent *(PKGDistributionProjectSourceListTreeNode * bSourceListTreeNode, NSUInteger bIndex) {
 
@@ -655,38 +659,17 @@
 	
 	NSInteger tFirstIndex=[inOutlineView rowForItem:inItems[0]];
 	
-	// Remove the packages
 	
-	for(PKGTreeNode * tTreeNode in inItems)
-	{
-		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem=[tTreeNode representedObject];
+	NSArray * tRemovedPackageComponents=[inItems WB_arrayByMappingObjectsUsingBlock:^id(PKGTreeNode * bTreeNode, NSUInteger bIndex) {
 		
-		// A COMPLETER
+		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem=[bTreeNode representedObject];
 		
-		[_packageComponents removeObject:tPackageComponentItem.packageComponent];
-		
-		//tPackageComponentItem.packageComponent.disclosedStatesKeys	// A COMPLETER (retirer les entrees)
-		
-		[tTreeNode removeFromParent];
-	}
+		return tPackageComponentItem.packageComponent;
+	}];
 	
-	// Remove some groups if they don't have any descendant nodes
+	[self.distributionProject removePackageComponents:tRemovedPackageComponents];
 	
-	NSMutableSet * tRemovableSet=[NSMutableSet set];
-	
-	for(PKGDistributionProjectSourceListTreeNode * tTreeNode in _forest.rootNodes)
-	{
-		PKGDistributionProjectSourceListGroupItem * tGroupItem=[tTreeNode representedObject];
-		
-		if ([tGroupItem isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==YES)
-		{
-			if (tTreeNode.numberOfChildren==0 && tGroupItem.groupType!=PKGPackageComponentTypeProject)
-				[tRemovableSet addObject:tTreeNode];
-		}
-	}
-	
-	for(PKGDistributionProjectSourceListTreeNode * tTreeNode in tRemovableSet)
-		[_forest.rootNodes removeObject:tTreeNode];
+	[_forest removeNodes:inItems];
 	
 	[self.delegate sourceListDataDidChange:self];
 	
@@ -734,6 +717,10 @@
 	}
 	
 	inOutlineView.allowsEmptySelection=NO;
+	
+	// Post Notification to trigger the appropiate cleaning operations in the project
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.filePathConverter userInfo:@{@"Objects":tRemovedPackageComponents}];
 }
 
 @end

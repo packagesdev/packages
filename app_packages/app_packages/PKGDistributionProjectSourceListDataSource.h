@@ -17,6 +17,8 @@
 
 #import "PKGPackageComponent.h"
 
+#import "PKGDistributionProject.h"
+
 @class PKGDistributionProjectSourceListDataSource;
 
 @protocol PKGDistributionProjectSourceListDataSourceDelegate <NSObject>
@@ -27,7 +29,7 @@
 
 @interface PKGDistributionProjectSourceListDataSource : NSObject <NSOutlineViewDataSource>
 
-	@property (nonatomic) NSMutableArray * packageComponents;
+	@property (nonatomic) PKGDistributionProject * distributionProject;
 
 	@property (nonatomic) NSArray * removedPackagesUUIDs;
 
