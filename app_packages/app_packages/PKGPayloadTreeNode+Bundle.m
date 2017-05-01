@@ -74,16 +74,16 @@
 	
 	// This will also work for the PKGFileItemTypeNewFolder case
 	
-	// Check whether there is a Info.plist file with a bundle identifier in the descendants
+	// Check whether there is a Info.plist file with a bundle identifier in the children
 	
-	PKGPayloadTreeNode * tInfoPListNode=(PKGPayloadTreeNode *)[self descendantNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
+	PKGPayloadTreeNode * tInfoPListNode=(PKGPayloadTreeNode *)[self childNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
 		
 		PKGFileItem * tRepresentedChildObject=bChildNode.representedObject;
 		
 		if (tRepresentedChildObject.type!=PKGFileItemTypeFileSystemItem)
-			return NO_value;
+			return NO;
 		
-		return ([tRepresentedChildObject.filePath.string isEqualToString:@"Info.plist"]) ? YES_value : NO_value;
+		return ([tRepresentedChildObject.filePath.string isEqualToString:@"Info.plist"]) ? YES : NO;
 	}];
 	
 	if (tInfoPListNode!=nil)
@@ -126,7 +126,7 @@
 		}
 	}
 	
-	PKGPayloadTreeNode * tContentsNode=(PKGPayloadTreeNode *)[self descendantNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
+	PKGPayloadTreeNode * tContentsNode=(PKGPayloadTreeNode *)[self childNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
 		
 		PKGFileItem * tRepresentedChildObject=bChildNode.representedObject;
 		
@@ -196,7 +196,7 @@
 		}
 	}
 	
-	tInfoPListNode=(PKGPayloadTreeNode *)[self descendantNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
+	tInfoPListNode=(PKGPayloadTreeNode *)[self childNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
 		
 		PKGFileItem * tRepresentedChildObject=bChildNode.representedObject;
 		
