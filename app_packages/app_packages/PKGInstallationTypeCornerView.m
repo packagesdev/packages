@@ -46,11 +46,11 @@
 	}
 }
 
-- (void)setShowPackagesNames:(BOOL)inShowPackagesNames
+- (void)setMixedState:(BOOL)inMixedState
 {
-	if (_showPackagesNames!=inShowPackagesNames)
+	if (_mixedState!=inMixedState)
 	{
-		_showPackagesNames=inShowPackagesNames;
+		_mixedState=inMixedState;
 		
 		[self setNeedsDisplay:YES];
 	}
@@ -90,7 +90,7 @@
 	
 	[_drawCell drawWithFrame:tBounds inView:self];
 	
-	if (self.showPackagesNames==YES)
+	if (self.mixedState==YES)
 	{
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
 	

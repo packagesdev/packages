@@ -17,6 +17,6 @@
 
 	@property (nonatomic) BOOL dashedBorder;
 
-	@property (nonatomic) BOOL showPackagesNames;
+	@property (nonatomic) BOOL mixedState;
 
 @end
