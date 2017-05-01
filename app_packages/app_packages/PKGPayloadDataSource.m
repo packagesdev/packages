@@ -83,7 +83,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	for(NSString * tComponent in tComponents)
 	{
-		tTreeNode=(PKGPayloadTreeNode *)[tTreeNode descendantNodeMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
+		tTreeNode=(PKGPayloadTreeNode *)[tTreeNode childNodeMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
 					
 			return [bTreeNode.fileName isEqualToString:tComponent];
 		}];
@@ -842,7 +842,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	if (inTreeNode==nil)
 		return self.rootNodes[inIndex];
 	
-	return [inTreeNode descendantNodeAtIndex:inIndex];
+	return [inTreeNode childNodeAtIndex:inIndex];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView isItemExpandable:(PKGTreeNode *)inTreeNode
