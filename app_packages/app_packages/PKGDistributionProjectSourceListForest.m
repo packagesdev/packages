@@ -150,7 +150,7 @@
 		
 		if (((PKGDistributionProjectSourceListGroupItem *)tItem).groupType==inPackageComponent.type)
 		{
-			return (PKGDistributionProjectSourceListTreeNode *)[tTreeNode descendantNodeMatching:^BOOL(PKGDistributionProjectSourceListTreeNode *bComponentTreeNode){
+			return (PKGDistributionProjectSourceListTreeNode *)[tTreeNode childNodeMatching:^BOOL(PKGDistributionProjectSourceListTreeNode *bComponentTreeNode){
 			
 				PKGDistributionProjectSourceListPackageComponentItem * tComponentItem=[bComponentTreeNode representedObject];
 				
@@ -161,6 +161,45 @@
 	}
 	
 	return nil;
+}
+
+- (void)removeNode:(PKGDistributionProjectSourceListTreeNode *)inNode
+{
+	if (inNode==nil)
+		return;
+	
+	[self removeNodes:@[inNode]];
+}
+
+- (void)removeNodes:(NSArray *)inNodes
+{
+	if (inNodes.count==0)
+		return;
+	
+	// Remove the packages from the hierarchy
+	
+	for(PKGTreeNode * tTreeNode in inNodes)
+	{
+		[tTreeNode removeFromParent];
+	}
+	
+	// Remove some groups if they don't have any descendant nodes
+	
+	NSMutableSet * tRemovableSet=[NSMutableSet set];
+	
+	for(PKGDistributionProjectSourceListTreeNode * tTreeNode in self.rootNodes)
+	{
+		PKGDistributionProjectSourceListGroupItem * tGroupItem=[tTreeNode representedObject];
+		
+		if ([tGroupItem isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==YES)
+		{
+			if (tTreeNode.numberOfChildren==0 && tGroupItem.groupType!=PKGPackageComponentTypeProject)
+				[tRemovableSet addObject:tTreeNode];
+		}
+	}
+	
+	for(PKGDistributionProjectSourceListTreeNode * tTreeNode in tRemovableSet)
+		[self.rootNodes removeObject:tTreeNode];
 }
 
 @end

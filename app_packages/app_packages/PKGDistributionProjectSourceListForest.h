@@ -29,4 +29,8 @@
 
 - (PKGDistributionProjectSourceListTreeNode *)treeNodeForPackageComponent:(PKGPackageComponent *)inPackageComponent;
 
+- (void)removeNode:(PKGDistributionProjectSourceListTreeNode *)inNode;
+
+- (void)removeNodes:(NSArray *)inNodes;
+
 @end
