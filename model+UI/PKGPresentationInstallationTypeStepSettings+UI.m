@@ -53,7 +53,7 @@
 								  };
 	});
 	
-	return sHierarchyTypesForNames[inName];
+	return [sHierarchyTypesForNames[inName] integerValue];
 }
 
 @end
