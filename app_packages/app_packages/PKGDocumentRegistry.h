@@ -25,6 +25,7 @@
 - (void)setInteger:(NSInteger)inInteger forKey:(NSString *)inKey;
 
 - (void)removeObjectForKey:(NSString *)inKey;
+- (void)removeObjectForKeys:(NSArray *)inKeys;
 
 - (id)objectForKeyedSubscript:(id)inKey;
 - (void)setObject:(id)inObject forKeyedSubscript:(id)inKey;

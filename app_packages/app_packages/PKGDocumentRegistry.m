@@ -138,4 +138,12 @@
 	[_dictionary removeObjectForKey:inKey];
 }
 
+- (void)removeObjectForKeys:(NSArray *)inKeys
+{
+	if (inKeys.count==0)
+		return;
+	
+	[_dictionary removeObjectsForKeys:inKeys];
+}
+
 @end
