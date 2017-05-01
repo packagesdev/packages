@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, PKGChoiceState)
 
 	@property PKGChoiceState state;
 
-	@property PKGChoiceItemOptionsDependencies * stateDependencies;
+	@property PKGChoiceItemOptionsDependencies * stateDependencies;	// can be nil
 
 	@property (getter=isHidden) BOOL hidden;
 
