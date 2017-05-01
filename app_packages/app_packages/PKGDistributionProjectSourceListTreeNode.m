@@ -15,6 +15,8 @@
 
 #import "PKGDistributionProjectSourceListGroupItem.h"
 
+#import "PKGDistributionProjectSourceListPackageComponentItem.h"
+
 @implementation PKGDistributionProjectSourceListTreeNode
 
 #pragma mark -
@@ -22,6 +24,11 @@
 - (BOOL)isLeaf
 {
 	return ([self.representedObject isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==NO);
+}
+
+- (BOOL)isPackageComponentNode
+{
+	return ([self.representedObject isKindOfClass:PKGDistributionProjectSourceListPackageComponentItem.class]==YES);
 }
 
 @end

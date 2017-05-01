@@ -15,4 +15,6 @@
 
 @interface PKGDistributionProjectSourceListTreeNode : PKGTreeNode
 
+- (BOOL)isPackageComponentNode;
+
 @end
