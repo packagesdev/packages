@@ -74,7 +74,7 @@
 	if (tCount==0)
 		return @[];
 	
-	NSMutableArray * tChoicePackageItems=[NSMutableArray array];
+	NSMutableArray * tPackagesChoiceTreeNodes=[NSMutableArray array];
 	__block NSUInteger tFoundCount=0;
 	
 	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes)
@@ -82,14 +82,16 @@
 		if (tFoundCount==tCount)
 			break;
 		
-		[tTreeNode enumerateRepresentedObjectsRecursivelyUsingBlock:^(PKGChoicePackageItem * bChoicePackageItem, BOOL *bOutStop) {
+		[tTreeNode enumerateNodesUsingBlock:^(PKGChoiceTreeNode * bPackageChoiceTreeNode, BOOL *bOutStop) {
 			
-			if ([bChoicePackageItem isKindOfClass:PKGChoicePackageItem.class]==NO)
+			PKGChoicePackageItem * tChoicePackageItem=[bPackageChoiceTreeNode representedObject];
+			
+			if ([tChoicePackageItem isKindOfClass:PKGChoicePackageItem.class]==NO)
 				return;
 			
-			if ([inPackageComponentUUIDs containsObject:bChoicePackageItem.packageUUUID]==YES)
+			if ([inPackageComponentUUIDs containsObject:tChoicePackageItem.packageUUUID]==YES)
 			{
-				[tChoicePackageItems addObject:bChoicePackageItem];
+				[tPackagesChoiceTreeNodes addObject:bPackageChoiceTreeNode];
 				tFoundCount++;
 				
 				if (tFoundCount==tCount)
@@ -98,7 +100,7 @@
 		}];
 	}
 	
-	return [tChoicePackageItems copy];
+	return [tPackagesChoiceTreeNodes copy];
 }
 
 - (NSArray *)removeChoiceTreeNodes:(NSArray *)inChoiceTreeNodes
