@@ -361,14 +361,6 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return NO;
 }
 
-- (PKGTreeNode *)descendantNodeAtIndex:(NSUInteger)inIndex
-{
-	if (inIndex>=_children.count)
-		return nil;
-	
-	return [_children objectAtIndex:inIndex];
-}
-
 - (PKGTreeNode *)descendantNodeAtIndexPath:(NSIndexPath *)inIndexPath
 {
 	// A COMPLETER
@@ -376,7 +368,15 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return nil;
 }
 
-- (PKGTreeNode *)descendantNodeMatching:(BOOL (^)(id bTreeNode))inBlock
+- (PKGTreeNode *)childNodeAtIndex:(NSUInteger)inIndex
+{
+	if (inIndex>=_children.count)
+		return nil;
+	
+	return [_children objectAtIndex:inIndex];
+}
+
+- (PKGTreeNode *)childNodeMatching:(BOOL (^)(id bTreeNode))inBlock
 {
 	if (inBlock==nil)
 		return nil;
@@ -746,7 +746,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		
 		PKGTreeNode *tTreeNodeParent=[tTreeNode parent];
 		
-		while ( tTreeNodeParent && [tNodeQueue indexOfObjectIdenticalTo:tTreeNodeParent]!=NSNotFound)
+		while (tTreeNodeParent && [tNodeQueue indexOfObjectIdenticalTo:tTreeNodeParent]!=NSNotFound)
 		{
 			[tNodeQueue removeObjectIdenticalTo: tTreeNode];
 			tTreeNode = tTreeNodeParent;

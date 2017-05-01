@@ -212,7 +212,7 @@
 	
 	for(NSUInteger tIndex=0;tIndex<tCount;tIndex++)
 	{
-		if ([((PKGPayloadTreeNode *)[self descendantNodeAtIndex:tIndex]) containsNoTemplateDescendantNodes]==YES)
+		if ([((PKGPayloadTreeNode *)[self childNodeAtIndex:tIndex]) containsNoTemplateDescendantNodes]==YES)
 			return YES;
 	}
 	
