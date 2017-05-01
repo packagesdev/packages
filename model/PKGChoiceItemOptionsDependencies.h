@@ -28,8 +28,8 @@ typedef NS_ENUM(NSUInteger, PKGEnabledStateDependencyType)
 
 	@property PKGEnabledStateDependencyType enabledStateDependencyType;
 
-	@property PKGChoiceDependencyTree * enabledStateDependenciesTree;
+	@property PKGChoiceDependencyTree * enabledStateDependenciesTree;	// can be nil
 
-	@property PKGChoiceDependencyTree * selectedStateDependenciesTree;
+	@property PKGChoiceDependencyTree * selectedStateDependenciesTree;	// can be nil
 
 @end
