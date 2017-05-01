@@ -334,4 +334,14 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 	return nil;
 }
 
+#pragma mark -
+
+- (NSArray *)importedPackageComponents
+{
+	return [self.packageComponents WB_filteredArrayUsingBlock:^BOOL(PKGPackageComponent * bPackageComponent,NSUInteger bIndex){
+		
+		return (bPackageComponent.type==PKGPackageComponentTypeImported);
+	}];
+}
+
 @end

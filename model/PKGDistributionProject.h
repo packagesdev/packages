@@ -39,4 +39,6 @@
 
 - (PKGPackageComponent *)packageComponentWithIdentifier:(NSString *)inIdentifier;
 
+	@property (nonatomic,readonly) NSArray * importedPackageComponents;
+
 @end
