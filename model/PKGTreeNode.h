@@ -73,13 +73,16 @@
 - (void)removeChildAtIndex:(NSUInteger)inIndex;
 - (void)removeChildrenAtIndexes:(NSIndexSet *)inIndexSet;
 - (void)removeChild:(PKGTreeNode *)inChild;
-- (void)removeChildren;
+- (void)removeChildrenInArray:(NSArray *)inArray;
+- (void)removeAllChildren;
 - (void)removeFromParent;
 
 - (void)sortChildrenUsingComparator:(NSComparator)inComparator;
 - (void)sortChildrenUsingSelector:(SEL)inSelector;
 
 + (NSArray *)minimumNodeCoverFromNodesInArray:(NSArray *)inArray;
+
++ (BOOL)nodesAreSiblings:(NSArray *)inTreeNodes;
 
 - (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block;
 

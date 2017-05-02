@@ -708,7 +708,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	if ([self _expandItem:inPayloadTreeNode atPath:[inPayloadTreeNode referencedPathUsingConverter:self.filePathConverter] options:inOptions]==NO)
 	{
-		[inPayloadTreeNode removeChildren];
+		[inPayloadTreeNode removeAllChildren];
 		
 		NSBeep();
 		
@@ -761,7 +761,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			
 			if ([self _expandItem:tItem atPath:[tItem referencedPathUsingConverter:self.filePathConverter] options:PKGPayloadExpandRecursively]==NO)
 			{
-				[tItem removeChildren];
+				[tItem removeAllChildren];
 				continue;
 			}
 			

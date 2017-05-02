@@ -698,13 +698,35 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if (inChild==nil)
 		return;
 	
+	NSUInteger tIndex=[_children indexOfObjectIdenticalTo:inChild];
+	
+	if (tIndex==NSNotFound)
+		return;
+	
 	[inChild setParent:nil];
-	[_children removeObjectIdenticalTo:inChild];
+	[_children removeObjectAtIndex:tIndex];
 }
 
-- (void)removeChildren
+- (void)removeChildrenInArray:(NSArray *)inArray
 {
-	[_children makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+	NSMutableIndexSet * tIndexSet=[NSMutableIndexSet indexSet];
+	
+	[inArray enumerateObjectsUsingBlock:^(PKGTreeNode * bObject, NSUInteger bIndex, BOOL *bOutStop) {
+		
+		if ([_children containsObject:bObject]==YES)
+		{
+			[tIndexSet addIndex:bIndex];
+			
+			[bObject setParent:nil];
+		}
+	}];
+	
+	[_children removeObjectsAtIndexes:tIndexSet];
+}
+
+- (void)removeAllChildren
+{
+	[_children makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
 	[_children removeAllObjects];
 }
 
@@ -760,6 +782,27 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	}
 	
 	return [tMinimumNodeCover copy];
+}
+
++ (BOOL)nodesAreSiblings:(NSArray *)inTreeNodes
+{
+	NSUInteger tCount=inTreeNodes.count;
+	
+	if (tCount==0)
+		return NO;
+	
+	if (tCount==1)
+		return YES;
+	
+	PKGTreeNode * tParentNode=[((PKGTreeNode *)inTreeNodes[0]) parent];
+	
+	for(NSUInteger tIndex=1;tIndex<tCount;tIndex++)
+	{
+		if (tParentNode!=[((PKGTreeNode *)inTreeNodes[tIndex]) parent])
+			return NO;
+	}
+	
+	return YES;
 }
 
 #pragma mark -

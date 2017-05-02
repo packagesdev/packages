@@ -57,7 +57,7 @@
 
 - (void)contract
 {
-	[self removeChildren];
+	[self removeAllChildren];
 	
 	PKGFileItem * tFileItem=self.representedObject;
 	tFileItem.contentsDisclosed=NO;
