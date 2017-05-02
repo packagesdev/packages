@@ -32,9 +32,9 @@ typedef NS_ENUM(NSUInteger, PKGChoiceItemType)
 
 	@property (readonly,copy) NSString * UUID;
 
-	@property NSMutableDictionary * localizedTitles;
+	@property (readonly) NSMutableDictionary * localizedTitles;
 
-	@property NSMutableDictionary * localizedDescriptions;
+	@property (readonly) NSMutableDictionary * localizedDescriptions;
 
 	@property PKGChoiceItemOptions * options;
 
