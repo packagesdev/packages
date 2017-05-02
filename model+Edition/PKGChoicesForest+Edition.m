@@ -17,7 +17,7 @@
 
 @interface PKGChoicesForest (Edition_Private)
 
-- (void)_embedSibblings:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren;
+- (PKGChoiceTreeNode *)_embedSiblings:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren;
 
 - (void)_removeDependendenciesToChoiceUUIDs:(NSArray *)inChoicesUUID;
 
@@ -25,19 +25,85 @@
 
 @implementation PKGChoicesForest (Edition)
 
-- (void)embedSibblings:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren
+- (PKGChoiceTreeNode *)_embedSiblings:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren
 {
-	// A COMPLETER
+	if (inChoiceTreeNodes.count==0 || inItemName==nil)
+		return nil;
+	
+	PKGChoiceTreeNode * tParentNode=(PKGChoiceTreeNode *)[inChoiceTreeNodes[0] parent];
+	NSUInteger tInsertionIndex=0;
+	
+	
+	
+	PKGChoiceGroupItem * tChoiceGroupItem=[PKGChoiceGroupItem new];
+	tChoiceGroupItem.localizedTitles[@"English"]=inItemName;
+	
+	tChoiceGroupItem.options.hideChildren=inHideChildren;
+	tChoiceGroupItem.options.state=(inHideChildren==NO) ? PKGSelectedChoiceState : PKGEnabledChoiceGroupState;
+	
+	PKGChoiceTreeNode * tGroupTreeNode=[[PKGChoiceTreeNode alloc] initWithRepresentedObject:tChoiceGroupItem children:nil];
+	
+	if (tParentNode==nil)
+	{
+		tInsertionIndex=[self.rootNodes indexOfObjectIdenticalTo:inChoiceTreeNodes[0]];
+		
+		if (tInsertionIndex==NSNotFound)
+		{
+			NSLog(@"Unable to find index of first selected choice");
+			return nil;
+		}
+		
+		[self.rootNodes removeObjectsInArray:inChoiceTreeNodes];
+		[self.rootNodes insertObject:tGroupTreeNode atIndex:tInsertionIndex];
+	}
+	else
+	{
+		tInsertionIndex=[tParentNode indexOfChildIdenticalTo:inChoiceTreeNodes[0]];
+		
+		if (tInsertionIndex==NSNotFound)
+		{
+			NSLog(@"Unable to find index of first selected choice");
+			return nil;
+		}
+		
+		[tParentNode removeChildrenInArray:inChoiceTreeNodes];
+		[tParentNode insertChild:tGroupTreeNode atIndex:tInsertionIndex];
+	}
+	
+	[tGroupTreeNode addChildren:inChoiceTreeNodes];
+	
+	if (inHideChildren==YES)
+	{
+		[inChoiceTreeNodes enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bTreeNode, NSUInteger idx, BOOL *stop) {
+			
+			PKGChoicePackageItem * tChoiceItem=[bTreeNode representedObject];
+			
+			tChoiceItem.options.state=PKGSelectedChoiceState;
+			tChoiceItem.options.hidden=NO;
+			tChoiceItem.options.stateDependencies=nil;
+		}];
+		
+		NSArray * tAllChoiceUUIDs=[inChoiceTreeNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGChoiceTreeNode * bChoiceTreeNode, NSUInteger bIndex) {
+			
+			PKGChoiceItem * tChoiceItem=bChoiceTreeNode.representedObject;
+			
+			return tChoiceItem.UUID;
+		}];
+		
+		[self _removeDependendenciesToChoiceUUIDs:tAllChoiceUUIDs];
+	}
+	
+	return tGroupTreeNode;
 }
 
-- (void)embedSibblings:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName
+- (PKGChoiceTreeNode *)embedSiblings:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName
 {
-	[self _embedSibblings:inChoiceTreeNodes inChoiceGroupNamed:inGroupName hideChildren:NO];
+	return [self _embedSiblings:inChoiceTreeNodes inChoiceGroupNamed:inGroupName hideChildren:NO];
 }
 
-- (void)mergeSibblings:(NSArray *)inChoiceTreeNodes asChoiceNamed:(NSString *)inChoiceName
+- (PKGChoiceTreeNode *)mergeSiblings:(NSArray *)inChoiceTreeNodes asChoiceNamed:(NSString *)inChoiceName
 {
-	[self _embedSibblings:inChoiceTreeNodes inChoiceGroupNamed:inChoiceName hideChildren:YES];
+	return [self _embedSiblings:inChoiceTreeNodes inChoiceGroupNamed:inChoiceName hideChildren:YES];
 }
 
 - (BOOL)containsChoiceForPackageComponentUUID:(NSString *)inPackageComponentUUID

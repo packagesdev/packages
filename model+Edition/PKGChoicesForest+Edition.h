@@ -15,9 +15,9 @@
 
 @interface PKGChoicesForest (Edition)
 
-- (void)embedSibblings:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName;
+- (PKGChoiceTreeNode *)embedSiblings:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName;
 
-- (void)mergeSibblings:(NSArray *)inChoiceTreeNodes asChoiceNamed:(NSString *)inChoiceName;
+- (PKGChoiceTreeNode *)mergeSiblings:(NSArray *)inChoiceTreeNodes asChoiceNamed:(NSString *)inChoiceName;
 
 - (BOOL)containsChoiceForPackageComponentUUID:(NSString *)inPackageComponentUUID;
 
