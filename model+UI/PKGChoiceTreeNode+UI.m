@@ -94,6 +94,13 @@
 	return NO;
 }
 
+- (BOOL)isPackageChoice
+{
+	PKGChoiceItem * tChoiceItem=self.representedObject;
+	
+	return (tChoiceItem.type==PKGChoiceItemTypePackage);
+}
+
 - (BOOL)isMergedPackageChoice
 {
 	PKGChoiceItem * tChoiceItem=self.representedObject;

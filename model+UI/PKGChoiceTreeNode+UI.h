@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, PKGChoiceSelectedState) {
 
 	@property (nonatomic,readonly,getter=isEnabled) BOOL enabled;
 
+	@property (nonatomic,readonly,getter=isPackageChoice) BOOL packageChoice;
+
 	@property (nonatomic,readonly,getter=isMergedPackageChoice) BOOL mergedPackageChoice;
 
 	@property (nonatomic,readonly) PKGChoiceSelectedState selectedState;
