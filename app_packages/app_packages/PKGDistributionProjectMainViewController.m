@@ -31,6 +31,11 @@
 
 #import "NSOutlineView+Selection.h"
 
+#import "PKGPackageComponent+UI.h"
+#import "PKGDistributionProject+UI.h"
+
+#import "PKGPresentationInstallationTypeStepSettings+Edition.h"
+
 @interface PKGDistributionProjectMainViewController () <NSSplitViewDelegate>
 {
 	IBOutlet NSSplitView * _splitView;
@@ -53,6 +58,8 @@
 // Notifications
 
 - (void)sourceListSelectionDidChange:(NSNotification *)inNotification;
+
+- (void)packageComponentsDidRemove:(NSNotification *)inNotification;
 
 @end
 
@@ -95,7 +102,7 @@
 	
 	PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)self.project;
 	
-	_dataSource.packageComponents=tDistributionProject.packageComponents;
+	_dataSource.distributionProject=tDistributionProject;
 	
 	_dataSource.delegate=_sourceListController;
 	
@@ -110,6 +117,8 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceListSelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_sourceListController.outlineView];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(packageComponentsDidRemove:) name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
+	
 	[_sourceListController WB_viewDidAppear];
 }
 
@@ -118,6 +127,8 @@
 	[super WB_viewWillDisappear];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
 	
 	[_sourceListController WB_viewWillDisappear];
 }
@@ -442,6 +453,22 @@
 	[tNewViewController WB_viewDidAppear];
 	
 	_currentContentsViewController=tNewViewController;
+}
+
+- (void)packageComponentsDidRemove:(NSNotification *)inNotification
+{
+	NSArray * tComponents=inNotification.userInfo[@"Objects"];
+	
+	// Remove the registry records for the package components
+	
+	for(PKGPackageComponent * tPackageComponent in tComponents)
+	{
+		NSArray * tKeys=tPackageComponent.disclosedStatesKeys;
+		
+		[self.documentRegistry removeObjectForKeys:tKeys];
+	}
+	
+	// A COMPLETER
 }
 
 @end
