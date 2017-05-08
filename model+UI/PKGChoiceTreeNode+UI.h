@@ -21,7 +21,11 @@ typedef NS_ENUM(NSInteger, PKGChoiceSelectedState) {
 
 	@property (nonatomic,readonly,getter=isPackageChoice) BOOL packageChoice;
 
-	@property (nonatomic,readonly,getter=isMergedPackageChoice) BOOL mergedPackageChoice;
+	@property (nonatomic,readonly,getter=isGenuineGroupChoice) BOOL genuineChoice;
+
+	@property (nonatomic,readonly,getter=isMergedPackagesChoice) BOOL mergedPackagesChoice;
+
+	@property (nonatomic,readonly,getter=isMergedIntoPackagesChoice) BOOL mergedIntoPackagesChoice;
 
 	@property (nonatomic,readonly) PKGChoiceSelectedState selectedState;
 
@@ -30,5 +34,7 @@ typedef NS_ENUM(NSInteger, PKGChoiceSelectedState) {
 	@property (nonatomic,readonly,copy) NSString * choiceAction;
 
 - (NSString *)titleForLocalization:(NSString *)inLocalization;
+
+- (NSString *)descriptionForLocalization:(NSString *)inLocalization;
 
 @end

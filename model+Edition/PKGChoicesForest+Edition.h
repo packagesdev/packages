@@ -15,7 +15,9 @@
 
 @interface PKGChoicesForest (Edition)
 
-- (PKGChoiceTreeNode *)embedSiblings:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName;
+- (PKGChoiceTreeNode *)groupChoiceTreeNodes:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName;
+
+- (void)ungroupChildrenOfGroup:(PKGChoiceTreeNode *)inGroupChoiceTreeNode;
 
 - (PKGChoiceTreeNode *)mergeSiblings:(NSArray *)inChoiceTreeNodes asChoiceNamed:(NSString *)inChoiceName;
 
@@ -27,6 +29,6 @@
 
 - (void)removeDependendenciesToChoiceTreeNodes:(NSArray *)inChoiceTreeNodes;
 
-
+- (BOOL)moveChoiceTreeNodes:(NSArray *)inChoiceTreeNodes asChildrenOf:(PKGChoiceTreeNode *)inParentChoiceTreeNode atIndex:(NSUInteger)inIndex;
 
 @end

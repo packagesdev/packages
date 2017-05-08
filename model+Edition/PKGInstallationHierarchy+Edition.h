@@ -19,6 +19,6 @@
 
 - (void)removeAllReferencesToPackageComponentUUIDs:(NSArray *)inPackageComponentsUUIDs;
 
-- (void)insertBackPackageComponentUUIDs:(NSArray *)inPackageComponentsUUIDs asChildrenOfNode:(PKGChoiceTreeNode *)inTreeNode index:(NSUInteger)inIndex;
+- (NSArray *)insertBackPackageComponentUUIDs:(NSArray *)inPackageComponentsUUIDs asChildrenOfNode:(PKGChoiceTreeNode *)inTreeNode index:(NSUInteger)inIndex;
 
 @end

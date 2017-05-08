@@ -17,14 +17,14 @@
 
 - (NSString *)choiceUUID
 {
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	
 	return tChoiceItem.UUID;
 }
 
 - (NSString *)packageUUID
 {
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	
 	if (tChoiceItem.type!=PKGChoiceItemTypePackage)
 		return nil;
@@ -34,14 +34,14 @@
 
 - (BOOL)isEnabled
 {
-	if (self.isMergedPackageChoice==YES)
+	if (self.isMergedIntoPackagesChoice==YES)
 	{
 		PKGChoiceTreeNode * tParentNode=((PKGChoiceTreeNode *)[self parent]);
 	
 		return tParentNode.isEnabled;
 	}
 	
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	
 	PKGChoiceState tState=tChoiceItem.options.state;
 	
@@ -74,7 +74,7 @@
 
 - (BOOL)isInvisible
 {
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	
 	if (tChoiceItem.type==PKGChoiceItemTypePackage && [self isInHiddenGroup]==YES)
 	{
@@ -96,14 +96,34 @@
 
 - (BOOL)isPackageChoice
 {
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	
 	return (tChoiceItem.type==PKGChoiceItemTypePackage);
 }
 
-- (BOOL)isMergedPackageChoice
+- (BOOL)isGenuineGroupChoice
 {
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
+	
+	if (tChoiceItem.type!=PKGChoiceItemTypeGroup)
+		return NO;
+	
+	return (tChoiceItem.options.hideChildren==NO);
+}
+
+- (BOOL)isMergedPackagesChoice
+{
+	PKGChoiceItem * tChoiceItem=[self representedObject];
+	
+	if (tChoiceItem.type!=PKGChoiceItemTypeGroup)
+		return NO;
+	
+	return (tChoiceItem.options.hideChildren==YES);
+}
+
+- (BOOL)isMergedIntoPackagesChoice
+{
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	
 	if (tChoiceItem.type!=PKGChoiceItemTypePackage)
 		return NO;
@@ -113,7 +133,7 @@
 
 - (PKGChoiceSelectedState)selectedState
 {
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	PKGChoiceItemOptions * tOptions=tChoiceItem.options;
 	PKGChoiceState tState=tOptions.state;
 	
@@ -161,7 +181,7 @@
 
 - (NSString *)choiceAction
 {
-	PKGChoiceItem * tChoiceItem=self.representedObject;
+	PKGChoiceItem * tChoiceItem=[self representedObject];
 	
 	if (tChoiceItem.type==PKGChoiceItemTypeGroup)
 		return (tChoiceItem.options.hideChildren==NO) ? @"" : @"-";
@@ -171,9 +191,17 @@
 
 - (NSString *)titleForLocalization:(NSString *)inLocalization
 {
-	return [((PKGChoiceItem *)self.representedObject).localizedTitles valueForLocalization:inLocalization exactMatch:NO valueSetChecker:^BOOL(NSString * bTitle){
+	return [((PKGChoiceItem *)[self representedObject]).localizedTitles valueForLocalization:inLocalization exactMatch:NO valueSetChecker:^BOOL(NSString * bTitle){
 		
 		return (bTitle.length>0);
+	}];
+}
+
+- (NSString *)descriptionForLocalization:(NSString *)inLocalization
+{
+	return [((PKGChoiceItem *)[self representedObject]).localizedDescriptions valueForLocalization:inLocalization exactMatch:NO valueSetChecker:^BOOL(NSString * bDescription){
+		
+		return (bDescription.length>0);
 	}];
 }
 

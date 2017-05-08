@@ -55,10 +55,10 @@
 	// A COMPLETER
 }
 
-- (void)insertBackPackageComponentUUIDs:(NSArray *)inPackageComponentsUUIDs asChildrenOfNode:(PKGChoiceTreeNode *)inTreeNode index:(NSUInteger)inIndex
+- (NSArray *)insertBackPackageComponentUUIDs:(NSArray *)inPackageComponentsUUIDs asChildrenOfNode:(PKGChoiceTreeNode *)inTreeNode index:(NSUInteger)inIndex
 {
 	if (inPackageComponentsUUIDs.count==0)
-		return;
+		return @[];
 	
 	NSMutableArray * tChoicesArray=[NSMutableArray array];
 	
@@ -70,7 +70,7 @@
 		{
 			NSLog(@"Choice for package component \"%@\" could not be found. Internal incoherency.",tPackageComponentUUID);
 			
-			return;
+			return @[];
 		}
 		
 		[tChoicesArray addObject:tChoiceTreeNode];
@@ -86,6 +86,8 @@
 	{
 		[inTreeNode insertChildren:tChoicesArray atIndex:inIndex];
 	}
+	
+	return tChoicesArray;
 }
 
 @end

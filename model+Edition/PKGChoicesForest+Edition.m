@@ -17,15 +17,15 @@
 
 @interface PKGChoicesForest (Edition_Private)
 
-- (PKGChoiceTreeNode *)_embedSiblings:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren;
+- (PKGChoiceTreeNode *)_embedChoiceTreeNodes:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren;
 
-- (void)_removeDependendenciesToChoiceUUIDs:(NSArray *)inChoicesUUID;
++ (void)_removeDependenciesOfChoices:(NSArray *)inChoiceTreeNodes toChoiceUUIDs:(NSArray *)inChoicesUUID;
 
 @end
 
 @implementation PKGChoicesForest (Edition)
 
-- (PKGChoiceTreeNode *)_embedSiblings:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren
+- (PKGChoiceTreeNode *)_embedChoiceTreeNodes:(NSArray *)inChoiceTreeNodes inChoiceGroupNamed:(NSString *)inItemName hideChildren:(BOOL)inHideChildren
 {
 	if (inChoiceTreeNodes.count==0 || inItemName==nil)
 		return nil;
@@ -33,13 +33,11 @@
 	PKGChoiceTreeNode * tParentNode=(PKGChoiceTreeNode *)[inChoiceTreeNodes[0] parent];
 	NSUInteger tInsertionIndex=0;
 	
-	
-	
 	PKGChoiceGroupItem * tChoiceGroupItem=[PKGChoiceGroupItem new];
 	tChoiceGroupItem.localizedTitles[@"English"]=inItemName;
 	
 	tChoiceGroupItem.options.hideChildren=inHideChildren;
-	tChoiceGroupItem.options.state=(inHideChildren==NO) ? PKGSelectedChoiceState : PKGEnabledChoiceGroupState;
+	tChoiceGroupItem.options.state=(inHideChildren==YES) ? PKGSelectedChoiceState : PKGEnabledChoiceGroupState;
 	
 	PKGChoiceTreeNode * tGroupTreeNode=[[PKGChoiceTreeNode alloc] initWithRepresentedObject:tChoiceGroupItem children:nil];
 	
@@ -90,20 +88,57 @@
 			return tChoiceItem.UUID;
 		}];
 		
-		[self _removeDependendenciesToChoiceUUIDs:tAllChoiceUUIDs];
+		[PKGChoicesForest _removeDependenciesOfChoices:self.rootNodes toChoiceUUIDs:tAllChoiceUUIDs];
 	}
 	
 	return tGroupTreeNode;
 }
 
-- (PKGChoiceTreeNode *)embedSiblings:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName
+- (PKGChoiceTreeNode *)groupChoiceTreeNodes:(NSArray *)inChoiceTreeNodes inGroupNamed:(NSString *)inGroupName
 {
-	return [self _embedSiblings:inChoiceTreeNodes inChoiceGroupNamed:inGroupName hideChildren:NO];
+	return [self _embedChoiceTreeNodes:inChoiceTreeNodes inChoiceGroupNamed:inGroupName hideChildren:NO];
+}
+
+- (void)ungroupChildrenOfGroup:(PKGChoiceTreeNode *)inGroupChoiceTreeNode
+{
+	if (inGroupChoiceTreeNode==nil)
+		return;
+	
+	PKGChoiceTreeNode * tParentNode=(PKGChoiceTreeNode *)[inGroupChoiceTreeNode parent];
+	NSUInteger tIndex=NSNotFound;
+	
+	if (tParentNode==nil)
+		tIndex=[self.rootNodes indexOfObject:inGroupChoiceTreeNode];
+	else
+		tIndex=[tParentNode indexOfChildIdenticalTo:inGroupChoiceTreeNode];
+	
+	if (tIndex==NSNotFound)
+	{
+	}
+	
+	NSArray * tChildren=[inGroupChoiceTreeNode children];
+	
+	if (tParentNode==nil)
+	{
+		[self.rootNodes removeObjectAtIndex:tIndex];
+	
+		[self.rootNodes insertObjects:tChildren atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(tIndex, tChildren.count)]];
+	}
+	else
+	{
+		[tParentNode removeChildAtIndex:tIndex];
+		
+		[tParentNode insertChildren:tChildren atIndex:tChildren];
+	}
+	
+	// Remove dependencies to group
+	
+	[self removeDependendenciesToChoiceTreeNodes:@[inGroupChoiceTreeNode]];
 }
 
 - (PKGChoiceTreeNode *)mergeSiblings:(NSArray *)inChoiceTreeNodes asChoiceNamed:(NSString *)inChoiceName
 {
-	return [self _embedSiblings:inChoiceTreeNodes inChoiceGroupNamed:inChoiceName hideChildren:YES];
+	return [self _embedChoiceTreeNodes:inChoiceTreeNodes inChoiceGroupNamed:inChoiceName hideChildren:YES];
 }
 
 - (BOOL)containsChoiceForPackageComponentUUID:(NSString *)inPackageComponentUUID
@@ -207,12 +242,12 @@
 	return [tAdditionalTreeNodesRemoved copy];
 }
 
-- (void)_removeDependendenciesToChoiceUUIDs:(NSArray *)inChoicesUUID
++ (void)_removeDependenciesOfChoices:(NSArray *)inChoiceTreeNodes toChoiceUUIDs:(NSArray *)inChoicesUUID
 {
 	if (inChoicesUUID.count==0)
 		return;
 	
-	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes)
+	for(PKGChoiceTreeNode * tTreeNode in inChoiceTreeNodes)
 	{
 		[tTreeNode enumerateRepresentedObjectsRecursivelyUsingBlock:^(PKGChoiceItem * bChoiceItem, BOOL *bOutStop) {
 			
@@ -250,7 +285,75 @@
 		return tChoiceItem.UUID;
 	}];
 	
-	[self _removeDependendenciesToChoiceUUIDs:tAllChoiceUUIDs];
+	[PKGChoicesForest _removeDependenciesOfChoices:self.rootNodes toChoiceUUIDs:tAllChoiceUUIDs];
+}
+
+- (BOOL)moveChoiceTreeNodes:(NSArray *)inChoiceTreeNodes asChildrenOf:(PKGChoiceTreeNode *)inParentChoiceTreeNode atIndex:(NSUInteger)inIndex
+{
+	if (inChoiceTreeNodes.count==0)
+		return NO;
+	
+	for(PKGChoiceTreeNode * tChoiceTreeNode in inChoiceTreeNodes)
+	{
+		PKGChoiceTreeNode * tParentTreeNode=(PKGChoiceTreeNode *)[tChoiceTreeNode parent];
+	
+		if (tParentTreeNode==inParentChoiceTreeNode)
+		{
+			NSUInteger tIndex=NSNotFound;
+			
+			if (tParentTreeNode==nil)
+				tIndex=[self.rootNodes indexOfObject:tChoiceTreeNode];
+			else
+				tIndex=[tParentTreeNode indexOfChildIdenticalTo:tChoiceTreeNode];
+			
+			if (tIndex==NSNotFound)
+			{
+				NSLog(@"Choice is not a child of its supposed parent. This makes no sense. Aborting move operation.");
+				
+				return NO;
+			}
+			
+			if (inIndex>0 && inIndex>=tIndex)
+				inIndex--;
+		}
+		
+		if (tParentTreeNode==nil)
+			[self.rootNodes removeObject:tChoiceTreeNode];
+		else
+			[tParentTreeNode removeChild:tChoiceTreeNode];
+	}
+	
+	for(PKGChoiceTreeNode * tChoiceTreeNode in inChoiceTreeNodes)
+	{
+		if (inParentChoiceTreeNode==nil)
+			[self.rootNodes insertObject:tChoiceTreeNode atIndex:inIndex];
+		else
+			[inParentChoiceTreeNode insertChild:tChoiceTreeNode atIndex:inIndex];
+		
+		inIndex++;
+	}
+	
+	if (inParentChoiceTreeNode!=nil)
+	{
+		// We need to remove the dependencies to the new ancestors (to avoid dependency cycles)
+		
+		PKGChoiceTreeNode * tParentTreeNode=inParentChoiceTreeNode;
+		NSMutableArray * tAncestorsChoiceUUIDs=[NSMutableArray array];
+		
+		do
+		{
+			PKGChoiceItem * tChoiceItem=[tParentTreeNode representedObject];
+			
+			[tAncestorsChoiceUUIDs addObject:tChoiceItem.UUID];
+			 
+			 tParentTreeNode=(PKGChoiceTreeNode *)[tParentTreeNode parent];
+		}
+		while (tParentTreeNode!=nil);
+		
+		[PKGChoicesForest _removeDependenciesOfChoices:inChoiceTreeNodes toChoiceUUIDs:tAncestorsChoiceUUIDs];
+	}
+	
+	return YES;
 }
 
 @end
