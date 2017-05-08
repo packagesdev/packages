@@ -45,7 +45,7 @@
 
 - (BOOL)isLeaf
 {
-	PKGFileItem * tFileItem=self.representedObject;
+	PKGFileItem * tFileItem=[self representedObject];
 	
 	if (tFileItem.type!=PKGFileItemTypeFileSystemItem)
 		return NO;
