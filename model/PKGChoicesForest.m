@@ -27,6 +27,13 @@
 	return PKGChoicePackageItem.class;
 }
 
+- (BOOL)isLeaf
+{
+	PKGChoiceItem * tChoiceItem=[self representedObject];
+	
+	return (tChoiceItem.type!=PKGChoiceItemTypeGroup);
+}
+
 - (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
