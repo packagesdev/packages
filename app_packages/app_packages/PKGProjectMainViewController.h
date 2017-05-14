@@ -15,9 +15,13 @@
 
 #import "PKGProject.h"
 
+#define PKGViewMenuItemTag	-3
+
 @interface PKGProjectMainViewController : PKGDocumentViewController
 
 	@property PKGProject * project;
+
+- (void)updateViewMenu;
 
 // View Menu
 

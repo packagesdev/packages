@@ -90,8 +90,6 @@
 	_sourceListController.view.frame=_sourceListPlaceHolderView.bounds;
 	
 	[_sourceListPlaceHolderView addSubview:_sourceListController.view];
-	
-	// A COMPLETER
 }
 
 #pragma mark -
@@ -160,6 +158,21 @@
 - (IBAction)showProjectCommentsTab:(id)sender
 {
 	[_currentContentsViewController performSelector:@selector(showProjectCommentsTab:) withObject:sender];
+}
+
+- (IBAction)showPackageSettingsTab:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(showPackageSettingsTab:) withObject:sender];
+}
+
+- (IBAction)showPackagePayloadTab:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(showPackagePayloadTab:) withObject:sender];
+}
+
+- (IBAction)showPackageScriptsAndResourcesTab:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(showPackageScriptsAndResourcesTab:) withObject:sender];
 }
 
 #pragma mark - Hierarchy Menu
@@ -453,6 +466,8 @@
 	[tNewViewController WB_viewDidAppear];
 	
 	_currentContentsViewController=tNewViewController;
+	
+	[self updateViewMenu];
 }
 
 - (void)packageComponentsDidRemove:(NSNotification *)inNotification

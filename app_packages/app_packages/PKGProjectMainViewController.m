@@ -21,6 +21,18 @@
 
 @implementation PKGProjectMainViewController
 
+- (void)updateViewMenu
+{
+	NSMenu * tMenuBar=[NSApp mainMenu];
+	
+	NSMenu * tViewMenu=[tMenuBar itemWithTag:PKGViewMenuItemTag].submenu;
+	
+	for(NSMenuItem * tMenuItem in tViewMenu.itemArray)
+	{
+		[self validateMenuItem:tMenuItem];
+	}
+}
+
 #pragma mark - View Menu
 
 - (IBAction)showDistributionPresentationTab:(id)sender
