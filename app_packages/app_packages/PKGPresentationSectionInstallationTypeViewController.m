@@ -238,6 +238,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	[super WB_viewWillAppear];
 	
 	_showRawNames=[self.documentRegistry boolForKey:PKGPresentationSectionInstallationTypeShowRawNamesKey];
+	_cornerView.mixedState=_showRawNames;
 	
 	NSString * tCurrentHierarchyName=self.documentRegistry[PKGPresentationSectionInstallationTypeCurrentHierarchyKey];
 	
@@ -990,7 +991,9 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	if (tAction==@selector(switchShowRawNames:))
 	{
-		// A COMPLETER
+		inMenuItem.title=(_showRawNames==YES) ? NSLocalizedString(@"Hide Raw Names",@"") : NSLocalizedString(@"Show Raw Names", @"");
+		
+		return YES;
 	}
 	
 	return NO;
