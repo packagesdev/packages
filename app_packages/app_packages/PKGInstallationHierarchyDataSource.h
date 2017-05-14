@@ -19,7 +19,7 @@ extern NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType;
 
 	@property (nonatomic) PKGInstallationHierarchy * installationHierarchy;
 
-	@property (weak) id<PKGInstallationHierarchyDataSourceDelegate> delegate;
+	@property (nonatomic,weak) id<PKGInstallationHierarchyDataSourceDelegate> delegate;
 
 + (NSArray *)supportedDraggedTypes;
 

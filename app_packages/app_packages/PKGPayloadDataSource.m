@@ -24,6 +24,8 @@
 
 #include <sys/stat.h>
 
+#import "NSObject+Conformance.h"
+
 NSString * const PKGPayloadItemsPboardType=@"fr.whitebox.packages.payload.items";
 NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.internal.payload.items";
 
@@ -44,6 +46,27 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 {
 	return @[NSFilenamesPboardType,PKGPayloadItemsPboardType,PKGPayloadItemsInternalPboardType];
 }
+
+#pragma mark -
+
+- (void)setDelegate:(id<PKGPayloadDataSourceDelegate>)inDelegate
+{
+	if (_delegate==inDelegate)
+		return;
+	
+	if (inDelegate==nil)
+	{
+		_delegate=nil;
+		return;
+	}
+	
+	if ([((NSObject *)inDelegate) WB_doesReallyConformToProtocol:@protocol(PKGPayloadDataSourceDelegate)]==NO)
+		return;
+	
+	_delegate=inDelegate;
+}
+
+#pragma mark -
 
 - (PKGFileAttributesOptions)managedAttributes
 {

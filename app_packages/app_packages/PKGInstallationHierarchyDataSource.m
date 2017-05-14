@@ -12,6 +12,8 @@
 #import "PKGChoicesForest+Edition.h"
 #import "PKGInstallationHierarchy+Edition.h"
 
+#import "NSObject+Conformance.h"
+
 NSString * const PKGInstallationHierarchyChoicesInternalPboardType=@"fr.whitebox.packages.internal.installation.hierarchy.choices";
 NSString * const PKGInstallationHierarchyHiddenPackagesInternalPboardType=@"fr.whitebox.packages.internal.installation.hierarchy.hidden.packages";
 NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.packages.internal.installation.hierarchy.choiceUUIDs";
@@ -40,6 +42,23 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 		
 		_forest=inInstallationHierarchy.choicesForest;
 	}
+}
+
+- (void)setDelegate:(id<PKGInstallationHierarchyDataSourceDelegate>)inDelegate
+{
+	if (_delegate==inDelegate)
+		return;
+	
+	if (inDelegate==nil)
+	{
+		_delegate=nil;
+		return;
+	}
+	
+	if ([((NSObject *)inDelegate) WB_doesReallyConformToProtocol:@protocol(PKGInstallationHierarchyDataSourceDelegate)]==NO)
+		return;
+	
+	_delegate=inDelegate;
 }
 
 #pragma mark -

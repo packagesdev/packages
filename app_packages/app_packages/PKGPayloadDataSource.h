@@ -53,7 +53,7 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 	@property id<PKGFilePathConverter> filePathConverter;
 
-	@property (weak) id<PKGPayloadDataSourceDelegate> delegate;
+	@property (nonatomic,weak) id<PKGPayloadDataSourceDelegate> delegate;
 
 	@property (readonly,nonatomic) PKGFileAttributesOptions managedAttributes;
 
