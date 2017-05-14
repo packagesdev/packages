@@ -13,6 +13,11 @@
 
 #import "PKGPresentationBackgroundSettings.h"
 
+typedef NS_ENUM(NSInteger, PKGPresentationBackgroundSettingsBackgroundType) {
+	PKGPresentationBackgroundSettingsDefaultBackground,
+	PKGPresentationBackgroundSettingsCustomBackground
+};
+
 @interface PKGPresentationBackgroundSettings (UI)
 
 + (NSArray *)backgroundImageTypes;
