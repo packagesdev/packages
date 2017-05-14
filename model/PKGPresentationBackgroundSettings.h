@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, PKGImageScaling)
 
 	@property BOOL showCustomImage;
 
-	@property PKGFilePath * imagePath;
+	@property PKGFilePath * imagePath;	// can be nil
 
 	@property PKGImageAlignment imageAlignment;
 
