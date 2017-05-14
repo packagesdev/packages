@@ -11,37 +11,46 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+#import "PKGPresentationInspectorViewController.h"
 
-typedef NS_ENUM(NSInteger, PKGPresentationInspectorItemTag) {
-	PKGPresentationInspectorItemTitle,
-	PKGPresentationInspectorItemBackground,
-	PKGPresentationInspectorItemIntroduction,
-	PKGPresentationInspectorItemReadMe,
-	PKGPresentationInspectorItemLicense,
-	PKGPresentationInspectorItemInstallationType,
-	PKGPresentationInspectorItemSummary,
-	PKGPresentationInspectorItemPlugIn
-};
 
-@interface PKGPresentationInspectorItem : NSObject
+@implementation PKGPresentationInspectorViewController
 
-	@property (readonly,copy) NSString * localizedTitle;
+- (instancetype)initWithDocument:(PKGDocument *)inDocument presentationSection:(PKGPresentationSection *)inPresentationSection
+{
+	return [super initWithDocument:inDocument];
+}
 
-	@property (readonly) PKGPresentationInspectorItemTag tag;
+- (instancetype)initWithDocument:(PKGDocument *)inDocument presentationSettings:(PKGDistributionProjectPresentationSettings *)inPresentationSettings
+{
+	return [super initWithDocument:inDocument];
+}
 
-	@property (readonly) Class viewControllerClass;
+#pragma mark -
 
-	@property (readonly) Class inspectorViewControllerClass;
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	[self refreshUI];
+	
+	// Register for Notifications
 
-+ (NSArray *)inspectorItems;
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+}
 
-+ (PKGPresentationInspectorItem *)inspectorItemForTag:(PKGPresentationInspectorItemTag) inTag;
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+}
 
-+ (Class)viewControllerClassForTag:(PKGPresentationInspectorItemTag) inTag;
+#pragma mark - Notifications
 
-+ (Class)inspectorViewControllerClassForTag:(PKGPresentationInspectorItemTag) inTag;
-
-+ (PKGPresentationInspectorItemTag)tagForViewControllerClass:(Class)inClass;
+- (void)settingsDidChange:(NSNotification *)inNotification
+{
+	// to be implemented by the subclasses
+}
 
 @end

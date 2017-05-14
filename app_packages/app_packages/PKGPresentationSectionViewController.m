@@ -66,8 +66,6 @@
 	NSLog(@"Should be implemented in subclass of PKGPresentationSectionViewController");
 }
 
-
-
 - (void)updateButtons:(NSArray *)inButtonsArray
 {
 	if (_localization==nil || inButtonsArray.count!=4)

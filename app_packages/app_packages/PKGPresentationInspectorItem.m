@@ -42,7 +42,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Title",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemTitle;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionIntroductionViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationTitleInspectorViewController");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -53,7 +53,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Background",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemBackground;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionIntroductionViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationBackgroundInspectorViewController");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -64,7 +64,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Introduction",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemIntroduction;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionIntroductionViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -75,7 +75,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Read Me",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemReadMe;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionReadMeViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -86,7 +86,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"License",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemLicense;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionLicenseViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -97,7 +97,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Installation Type",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemInstallationType;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionInstallationTypeViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -108,7 +108,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Summary",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemSummary;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionSummaryViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
 		[tMutableArray addObject:tInspectorItem];
 		
 		// Plugin
@@ -118,7 +118,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Installer Plugin",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemPlugIn;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionInstallerPluginViewController");
-		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationInstallerPluginInspectorViewController");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -127,6 +127,21 @@
 	
 	return sInspectorItems;
 }
+
++ (PKGPresentationInspectorItem *)inspectorItemForTag:(PKGPresentationInspectorItemTag) inTag
+{
+	NSArray * tArray=[PKGPresentationInspectorItem inspectorItems];
+	
+	NSUInteger tIndex=[tArray indexOfObjectPassingTest:^BOOL(PKGPresentationInspectorItem * bInspectorItem, NSUInteger bIndex, BOOL *bOutStop) {
+		return (bInspectorItem.tag==inTag);
+	}];
+	
+	if (tIndex==NSNotFound)
+		return nil;
+	
+	return ((PKGPresentationInspectorItem *)tArray[tIndex]);
+}
+
 
 + (Class)viewControllerClassForTag:(PKGPresentationInspectorItemTag) inTag
 {

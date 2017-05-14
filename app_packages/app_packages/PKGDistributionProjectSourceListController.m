@@ -333,6 +333,18 @@
 	NSBeep();
 }
 
+- (BOOL)control:(NSControl *)control didFailToFormatString:(NSString *)string errorDescription:(NSString *)error
+{
+	NSLog(@"didFailToFormatString:");
+	
+	return YES;
+}
+
+- (void)controlTextDidChange:(NSNotification *)inNotification
+{
+	NSLog(@"controlTextDidChange:");
+}
+
 - (void)controlTextDidEndEditing:(NSNotification *)inNotification
 {
 	NSTextField * tTextField=inNotification.object;

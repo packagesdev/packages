@@ -728,7 +728,7 @@
 		[tWorkSpace selectFile:[tTreeNode referencedPathUsingConverter:self.filePathConverter] inFileViewerRootedAtPath:@""];
 }
 
-- (IBAction)chooseFileSystemItemSource:(id)sender;
+- (IBAction)chooseFileSystemItemSource:(id)sender
 {
 	PKGPayloadTreeNode * tSelectedNode=[self.selectedItems lastObject];
 	

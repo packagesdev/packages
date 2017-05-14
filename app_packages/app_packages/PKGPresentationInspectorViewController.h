@@ -11,37 +11,22 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+#import "PKGDocumentViewController.h"
 
-typedef NS_ENUM(NSInteger, PKGPresentationInspectorItemTag) {
-	PKGPresentationInspectorItemTitle,
-	PKGPresentationInspectorItemBackground,
-	PKGPresentationInspectorItemIntroduction,
-	PKGPresentationInspectorItemReadMe,
-	PKGPresentationInspectorItemLicense,
-	PKGPresentationInspectorItemInstallationType,
-	PKGPresentationInspectorItemSummary,
-	PKGPresentationInspectorItemPlugIn
-};
+#import "PKGDistributionProjectPresentationSettings.h"
 
-@interface PKGPresentationInspectorItem : NSObject
+#import "PKGPresentationStepSettings+UI.h"
 
-	@property (readonly,copy) NSString * localizedTitle;
+@interface PKGPresentationInspectorViewController : PKGDocumentViewController
 
-	@property (readonly) PKGPresentationInspectorItemTag tag;
+	@property (nonatomic,readonly) PKGPresentationStepSettings * settings;
 
-	@property (readonly) Class viewControllerClass;
+- (instancetype)initWithDocument:(PKGDocument *)inDocument presentationSection:(PKGPresentationSection *)inPresentationSection;
 
-	@property (readonly) Class inspectorViewControllerClass;
+- (instancetype)initWithDocument:(PKGDocument *)inDocument presentationSettings:(PKGDistributionProjectPresentationSettings *)inPresentationSettings;
 
-+ (NSArray *)inspectorItems;
+// Notifications
 
-+ (PKGPresentationInspectorItem *)inspectorItemForTag:(PKGPresentationInspectorItemTag) inTag;
-
-+ (Class)viewControllerClassForTag:(PKGPresentationInspectorItemTag) inTag;
-
-+ (Class)inspectorViewControllerClassForTag:(PKGPresentationInspectorItemTag) inTag;
-
-+ (PKGPresentationInspectorItemTag)tagForViewControllerClass:(Class)inClass;
+- (void)settingsDidChange:(NSNotification *)inNotification;
 
 @end

@@ -57,68 +57,9 @@
 
 
 #import "PKGPresentationSectionViewController.h"
+#import "PKGPresentationInspectorViewController.h"
 
-#import "PKGPresentationSectionLicenseViewController.h"
-
-@interface PKGDistributionPresentationOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
-{
-	NSFileManager * _fileManager;
-}
-
-	@property NSArray * plugInsPaths;
-
-@end
-
-@implementation PKGDistributionPresentationOpenPanelDelegate
-
-- (instancetype)init
-{
-	self=[super init];
-	
-	if (self!=nil)
-	{
-		_fileManager=[NSFileManager defaultManager];
-	}
-	
-	return self;
-}
-
-- (BOOL)panel:(NSOpenPanel *)inPanel shouldEnableURL:(NSURL *)inURL
-{
-	if (inURL.isFileURL==NO)
-		return NO;
-	
-	NSString * tPath=inURL.path;
-	
-	if ([tPath.pathExtension caseInsensitiveCompare:@"bundle"]==NSOrderedSame)
-	{
-		if ([self.plugInsPaths indexOfObjectPassingTest:^BOOL(NSString * bPlugInPath,NSUInteger bIndex,BOOL * bOutStop){
-			
-			return ([bPlugInPath caseInsensitiveCompare:tPath]==NSOrderedSame);
-			
-		}]!=NSNotFound)
-			return NO;
-		
-		BOOL isDirectory;
-		
-		[_fileManager fileExistsAtPath:tPath isDirectory:&isDirectory];
-		
-		if (isDirectory==NO)
-			return NO;
-		
-		NSBundle * tBundle=[NSBundle bundleWithPath:tPath];
-		
-		return [[tBundle objectForInfoDictionaryKey:@"InstallerSectionTitle"] isKindOfClass:NSString.class];
-	}
-	
-	BOOL isDirectory;
-	
-	[_fileManager fileExistsAtPath:tPath isDirectory:&isDirectory];
-	
-	return (isDirectory==YES);
-}
-
-@end
+#import "PKGDistributionPresentationInstallerPluginOpenPanelDelegate.h"
 
 NSString * const PKGDistributionPresentationCurrentPreviewLanguage=@"ui.project.presentation.preview.language";
 
@@ -161,11 +102,12 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	IBOutlet NSPopUpButton * _inspectorPopUpButton;
 	
+	IBOutlet NSView * _inspectorContentsView;
 	
 	PKGPresentationSectionViewController * _currentSectionViewController;
+	PKGPresentationInspectorViewController * _currentInspectorViewController;
 	
-	
-	PKGDistributionPresentationOpenPanelDelegate * _openPanelDelegate;
+	PKGDistributionPresentationInstallerPluginOpenPanelDelegate * _openPanelDelegate;
 	
 	NSArray * _supportedLocalizations;
 	
@@ -187,10 +129,13 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (IBAction)switchInspectedView:(id)sender;
 
 - (void)showViewForSection:(PKGPresentationSection *)inPresentationSection;
+- (void)showViewForInspectorItem:(PKGPresentationInspectorItem *)inInspectorItem;
 
 // Notifications
 
 - (void)windowStateDidChange:(NSNotification *)inNotification;
+
+- (void)titleSettingsDidChange:(NSNotificationCenter *)inNotification;
 
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification;
 
@@ -265,13 +210,19 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	if (_presentationSettings!=inPresentationSettings)
 	{
 		if (_presentationSettings!=nil)
+		{
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings titleSettings_safe]];
+			
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
+		}
 		
 		_presentationSettings=inPresentationSettings;
 		
 		[self.presentationSettings sections_safe];	// Useful to make sure there is a list of steps;
 	
 		[self refreshUI];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings titleSettings_safe]];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundImageSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
 	}
@@ -415,7 +366,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		// Show Inspected View
 		
-		// A COMPLETER
+		[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tItemTag]];
 		
 		// Language PopUpButton
 		
@@ -465,6 +416,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	[_currentSectionViewController WB_viewDidAppear];
 	
+	[_currentInspectorViewController WB_viewDidAppear];
+	
 	// Register for notifications
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
@@ -478,6 +431,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	[_currentSectionViewController WB_viewWillDisappear];
 	
+	[_currentInspectorViewController WB_viewWillDisappear];
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
@@ -488,6 +443,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[super WB_viewDidDisappear];
 
 	[_currentSectionViewController WB_viewDidDisappear];
+	
+	[_currentInspectorViewController WB_viewDidDisappear];
 }
 
 #pragma mark -
@@ -502,7 +459,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	tOpenPanel.canChooseDirectories=NO;
 	tOpenPanel.allowsMultipleSelection=YES;
 	
-	_openPanelDelegate=[PKGDistributionPresentationOpenPanelDelegate new];
+	_openPanelDelegate=[PKGDistributionPresentationInstallerPluginOpenPanelDelegate new];
 	
 	_openPanelDelegate.plugInsPaths=[tSections WB_arrayByMappingObjectsLenientlyUsingBlock:^NSString *(PKGPresentationSection * bPresentationSection, NSUInteger bIndex) {
 		
@@ -712,7 +669,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			
 			// Show the Inspector View
 			
-			// A COMPLETER
+			[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tTag]];
 			
 			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
 		});
@@ -760,9 +717,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	PKGPresentationSectionViewController * tNewSectionViewController=nil;
 	
 	if (inPresentationSection.pluginPath==nil)
-		tNewSectionViewController=[[[inPresentationSection viewControllerClass] alloc] initWithDocument:self.document presentationSettings:self.presentationSettings];
+		tNewSectionViewController=[[tNewClass alloc] initWithDocument:self.document presentationSettings:self.presentationSettings];
 	else
-		tNewSectionViewController=[[[inPresentationSection viewControllerClass] alloc] initWithDocument:self.document presentationSection:inPresentationSection];
+		tNewSectionViewController=[[tNewClass alloc] initWithDocument:self.document presentationSection:inPresentationSection];
 	
 	if (tNewSectionViewController==nil)
 	{
@@ -804,6 +761,57 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[tNewSectionViewController WB_viewDidAppear];
 	
 	_currentSectionViewController=tNewSectionViewController;
+}
+
+- (void)showViewForInspectorItem:(PKGPresentationInspectorItem *)inInspectorItem
+{
+	if (inInspectorItem==nil)
+		return;
+	
+	Class tNewClass=inInspectorItem.inspectorViewControllerClass;
+	
+	if (tNewClass==nil)
+		return;
+	
+	if (_currentInspectorViewController!=nil)
+	{
+		if ([_currentInspectorViewController class]==tNewClass)
+		{
+			
+			// A COMPLETER
+			
+			return;
+			
+		}
+		
+		[_currentInspectorViewController WB_viewWillDisappear];
+		
+		[_currentInspectorViewController.view removeFromSuperview];
+		
+		[_currentInspectorViewController WB_viewDidDisappear];
+	}
+	
+	PKGPresentationInspectorViewController * tNewInspectorViewController=nil;
+	
+	if ([NSStringFromClass(tNewClass) isEqualToString:@"PKGPresentationInstallerPluginInspectorViewController"]==NO)
+		tNewInspectorViewController=[[tNewClass alloc] initWithDocument:self.document presentationSettings:self.presentationSettings];
+	else
+		tNewInspectorViewController=[[tNewClass alloc] initWithDocument:self.document presentationSection:self.presentationSettings.sections[_listView.selectedStep]];
+	
+	if (tNewInspectorViewController==nil)
+	{
+		// A COMPLETER
+	}
+	
+	tNewInspectorViewController.view.frame=_inspectorContentsView.bounds;
+	
+	[tNewInspectorViewController WB_viewWillAppear];
+	
+	[_inspectorContentsView addSubview:tNewInspectorViewController.view];
+	
+	[tNewInspectorViewController WB_viewDidAppear];
+	
+	_currentInspectorViewController=tNewInspectorViewController;
 }
 
 #pragma mark - PKGPresentationListViewDataSource
@@ -1193,6 +1201,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	void (^finalizeSetBackgroundImagePath)(PKGFilePath *) = ^(PKGFilePath * bFilePath) {
 		
+		self.presentationSettings.backgroundSettings.showCustomImage=YES;
+		
 		self.presentationSettings.backgroundSettings.imagePath=bFilePath;
 		
 		_backgroundView.image=tImage;
@@ -1215,7 +1225,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
 				return;
 			
-			PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:tPath type:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle];
+			PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:tPath type:tPanel.referenceStyle];
 			
 			finalizeSetBackgroundImagePath(tNewFilePath);
 		}];
@@ -1289,11 +1299,16 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 			// Show the Inspector View
 			
-			// A COMPLETER
+			[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tTag]];
 		
 			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
 		}
 	}
+}
+
+- (void)titleSettingsDidChange:(NSNotificationCenter *)inNotification
+{
+	[self updateTitleViews];
 }
 
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification
