@@ -23,50 +23,57 @@
 
 + (NSImage *)_menuItemImageForPathType:(PKGFilePathType) inPathType controlSize:(NSControlSize) inControlSize
 {
-	if (inControlSize==NSRegularControlSize)
+	switch(inControlSize)
 	{
-		switch(inPathType)
-		{
-			case PKGFilePathTypeAbsolute:
-				
-				return [NSImage imageNamed:@"AbsoluteMenuItemUbuntu"];
-				
-			case PKGFilePathTypeRelativeToProject:
-				
-				return [NSImage imageNamed:@"RelativeMenuItemUbuntu"];
-				
-			case PKGFilePathTypeRelativeToReferenceFolder:
-				
-				return [NSImage imageNamed:@"ReferenceFolderMenuItemUbuntu"];
-				
-			default:
-				break;
-		}
+		case NSRegularControlSize:
+			
+			switch(inPathType)
+			{
+				case PKGFilePathTypeAbsolute:
+					
+					return [NSImage imageNamed:@"AbsoluteMenuItemUbuntu"];
+					
+				case PKGFilePathTypeRelativeToProject:
+					
+					return [NSImage imageNamed:@"RelativeMenuItemUbuntu"];
+					
+				case PKGFilePathTypeRelativeToReferenceFolder:
+					
+					return [NSImage imageNamed:@"ReferenceFolderMenuItemUbuntu"];
+					
+				default:
+					
+					return nil;
+			}
 		
-		return nil;
-	}
+			break;
 	
-	if (inControlSize==NSSmallControlSize)
-	{
-		switch(inPathType)
-		{
-			case PKGFilePathTypeAbsolute:
-				
-				return [NSImage imageNamed:@"AbsoluteMenuItemSmallUbuntu"];
-				
-			case PKGFilePathTypeRelativeToProject:
-				
-				return [NSImage imageNamed:@"RelativeMenuItemSmallUbuntu"];
-				
-			case PKGFilePathTypeRelativeToReferenceFolder:
-				
-				return [NSImage imageNamed:@"ReferenceFolderMenuItemSmallUbuntu"];
-				
-			default:
-				break;
-		}
-		
-		return nil;
+		case NSSmallControlSize:
+	
+			switch(inPathType)
+			{
+				case PKGFilePathTypeAbsolute:
+					
+					return [NSImage imageNamed:@"AbsoluteMenuItemSmallUbuntu"];
+					
+				case PKGFilePathTypeRelativeToProject:
+					
+					return [NSImage imageNamed:@"RelativeMenuItemSmallUbuntu"];
+					
+				case PKGFilePathTypeRelativeToReferenceFolder:
+					
+					return [NSImage imageNamed:@"ReferenceFolderMenuItemSmallUbuntu"];
+					
+				default:
+					
+					return nil;
+			}
+			
+			break;
+			
+		default:
+			
+			break;
 	}
 	
 	return nil;
@@ -137,10 +144,9 @@
 				return [NSImage imageNamed:@"ReferenceFolderRegularTextFieldPulldownUbuntu"];
 				
 			default:
-				break;
+				
+				return nil;
 		}
-		
-		return nil;
 	}
 	
 	return nil;
