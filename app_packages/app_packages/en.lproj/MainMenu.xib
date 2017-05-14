@@ -414,7 +414,7 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="View" id="514">
+                <menuItem title="View" tag="-3" id="514">
                     <menu key="submenu" title="View" id="515">
                         <items>
                             <menuItem title="Settings" id="4GH-70-vqq">
@@ -448,7 +448,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem title="Scripts" id="Meo-ps-80I">
-                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showPackageScriptsAndResourcesTab:" target="-1" id="1V9-2O-AHo"/>
                                 </connections>
