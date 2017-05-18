@@ -93,7 +93,8 @@
 		
 		tMenuItem.tag=PKGFilePathTypeRelativeToReferenceFolder;
 		tMenuItem.image=[PKGFilePathTypeMenu _menuItemImageForPathType:PKGFilePathTypeRelativeToReferenceFolder controlSize:inControlSize];
-		tMenuItem.target=inTarget;
+		if (inTarget!=nil)
+			tMenuItem.target=inTarget;
 		
 		[tMenu addItem:tMenuItem];
 		
@@ -101,7 +102,8 @@
 		
 		tMenuItem.tag=PKGFilePathTypeRelativeToProject;
 		tMenuItem.image=[PKGFilePathTypeMenu _menuItemImageForPathType:PKGFilePathTypeRelativeToProject controlSize:inControlSize];
-		tMenuItem.target=inTarget;
+		if (inTarget!=nil)
+			tMenuItem.target=inTarget;
 		
 		[tMenu addItem:tMenuItem];
 		
@@ -109,7 +111,8 @@
 		
 		tMenuItem.tag=PKGFilePathTypeAbsolute;
 		tMenuItem.image=[PKGFilePathTypeMenu _menuItemImageForPathType:PKGFilePathTypeAbsolute controlSize:inControlSize];
-		tMenuItem.target=inTarget;
+		if (inTarget!=nil)
+			tMenuItem.target=inTarget;
 		
 		[tMenu addItem:tMenuItem];
 	}
