@@ -22,8 +22,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #define PKGPresentationWindowProxyIconInterspace 4.0
 
-#define PKGPresentationWindowTitleBarMarginLeft	74.0
+#define PKGPresentationWindowRightIconWidth	16.0
+#define PKGPresentationWindowRightIconHeight 16.0
 
+#define PKGPresentationWindowTitleBarMarginLeft	76.0
+
+#define PKGPresentationWindowTitleBarMarginRightNoIcon 18.0f
 #define PKGPresentationWindowTitleBarMarginRight 36.0f
 
 
@@ -48,7 +52,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		NSMutableParagraphStyle * tParagraphStyle=[[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 		
 		tParagraphStyle.lineBreakMode=NSLineBreakByTruncatingTail;
-		
+		tParagraphStyle.alignment=NSNaturalTextAlignment;
+        
 		_titleAttributes=@{NSFontAttributeName:[NSFont systemFontOfSize:13.0],
 						   NSParagraphStyleAttributeName:tParagraphStyle,
 						   NSForegroundColorAttributeName:[NSColor colorWithDeviceWhite:0.30 alpha:1.0]};
@@ -148,37 +153,67 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		tTitle=@"-";
 	
 	NSImage * tIcon=self.proxyIcon;
-	
+	NSImage * tRightIcon=self.rightIcon;
+    
 	/*NSRect tDebugFrame=NSMakeRect(NSMinX(tBounds)+PKGPresentationWindowTitleBarMarginLeft, NSMaxY(tBounds)-PKGPresentationWindowViewTitleBarHeight, NSWidth(tBounds)-PKGPresentationWindowTitleBarMarginLeft-PKGPresentationWindowTitleBarMarginRight, PKGPresentationWindowViewTitleBarHeight);
 	
 	[[NSColor redColor] set];
 	
 	NSFrameRect(tDebugFrame);*/
 	
-	CGFloat tAvailableWidth=NSWidth(tBounds)-PKGPresentationWindowTitleBarMarginLeft-PKGPresentationWindowTitleBarMarginRight;
+    CGFloat tRightMargin=(tRightIcon==nil) ? PKGPresentationWindowTitleBarMarginRightNoIcon : PKGPresentationWindowTitleBarMarginRight;
+    
+	CGFloat tAvailableWidth=NSWidth(tBounds)-PKGPresentationWindowTitleBarMarginLeft-tRightMargin;
+    
+    NSSize tIdealSize=[tTitle sizeWithAttributes:_titleAttributes];
 	
-	if (tIcon!=nil)
-		tAvailableWidth-=PKGPresentationWindowProxyIconInterspace-PKGPresentationWindowProxyIconWidth;
-	
-	NSSize tIdealSize=[tTitle sizeWithAttributes:_titleAttributes];
-	
+    if (tIcon!=nil)
+        tIdealSize.width+=PKGPresentationWindowProxyIconInterspace+PKGPresentationWindowProxyIconWidth;
+    
 	NSRect tTitleFrame;
-	
+	BOOL tTooBig=NO;
+    
 	tTitleFrame.origin.y=round(NSMaxY(tBounds)-(PKGPresentationWindowViewTitleBarHeight+tIdealSize.height)*0.5)-1.0;
 	tTitleFrame.size.height=tIdealSize.height;
 	
-	tTitleFrame.size.width=(tIdealSize.width>tAvailableWidth) ? tAvailableWidth : tIdealSize.width;
+    
+    if (tIdealSize.width>tAvailableWidth)
+    {
+        tTooBig=YES;
+        tTitleFrame.size.width=tAvailableWidth;
+    }
+    else
+    {
+        tTitleFrame.size.width=tIdealSize.width;
+    }
+    
+	CGFloat tMiddleTitleBar=round(0.5*NSWidth(tBounds));
 	
-	CGFloat tMiddleTitleBar=round(PKGPresentationWindowTitleBarMarginLeft+0.5*(NSWidth(tBounds)-PKGPresentationWindowTitleBarMarginLeft-PKGPresentationWindowTitleBarMarginRight));
-	
+    if ((tMiddleTitleBar-tTitleFrame.size.width*0.5)<PKGPresentationWindowTitleBarMarginLeft)
+    {
+        tMiddleTitleBar=round(PKGPresentationWindowTitleBarMarginLeft+tTitleFrame.size.width*0.5);
+    }
+    
 	if (tIcon!=nil)
-		tTitleFrame.origin.x=round(tMiddleTitleBar-(tTitleFrame.size.width+PKGPresentationWindowProxyIconInterspace+PKGPresentationWindowProxyIconWidth)*0.5);
+	{
+        if (tTooBig==YES)
+            tTitleFrame.origin.x=NSMinX(tBounds)+PKGPresentationWindowTitleBarMarginLeft+PKGPresentationWindowProxyIconInterspace+PKGPresentationWindowProxyIconWidth;
+        else
+            tTitleFrame.origin.x=round(tMiddleTitleBar-tTitleFrame.size.width*0.5)+PKGPresentationWindowProxyIconInterspace+PKGPresentationWindowProxyIconWidth;
+        
+        tTitleFrame.size.width-=PKGPresentationWindowProxyIconInterspace+PKGPresentationWindowProxyIconWidth;
+    }
 	else
-		tTitleFrame.origin.x=round(tMiddleTitleBar-tTitleFrame.size.width*0.5);
+	{
+        if (tTooBig==YES)
+            tTitleFrame.origin.x=NSMinX(tBounds)+PKGPresentationWindowTitleBarMarginLeft;
+        else
+            tTitleFrame.origin.x=round(tMiddleTitleBar-tTitleFrame.size.width*0.5);
+	}
 	
-	[tTitle drawInRect:tTitleFrame withAttributes:([self.window isMainWindow]==YES) ? _titleAttributes : _titleDisabledAttributes];
-	
-	if (tIcon!=nil)
+    [tTitle drawInRect:tTitleFrame withAttributes:([self.window isMainWindow]==YES) ? _titleAttributes : _titleDisabledAttributes];
+    
+    if (tIcon!=nil)
 	{
 		NSRect tIconFrame;
 		
@@ -189,6 +224,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[tIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:([self.window isMainWindow]==YES) ? 1.0 : 0.5];
 	}
 	
+    if (tRightIcon!=nil)
+    {
+        NSRect tIconFrame;
+		
+		tIconFrame.origin.x=NSMaxX(tBounds)-(PKGPresentationWindowTitleBarMarginRightNoIcon+PKGPresentationWindowRightIconWidth);
+		tIconFrame.origin.y=round(NSMaxY(tBounds)-(PKGPresentationWindowViewTitleBarHeight+PKGPresentationWindowRightIconHeight)*0.5)-1.0;
+		tIconFrame.size=NSMakeSize(PKGPresentationWindowRightIconWidth, PKGPresentationWindowRightIconHeight);
+		
+		[tRightIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:([self.window isMainWindow]==YES) ? 1.0 : 0.5];
+    }
+    
 	// Draw Frame
 	
 	tBounds=NSMakeRect(tContentRect.origin.x,tContentRect.origin.y,tContentRect.size.width,tContentRect.size.height);
