@@ -16,6 +16,8 @@
 #import "PKGPayloadTreeNode+UI.h"
 #import "PKGFileItem+UI.h"
 
+#import "NSObject+Conformance.h"
+
 #import "NSOutlineView+Selection.h"
 #import "NSAlert+block.h"
 
@@ -177,7 +179,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	self.outlineView.dataSource=self.hierarchyDataSource;
 	
-	if ([_hierarchyDataSource conformsToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
+	if ([_hierarchyDataSource WB_doesReallyConformToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
 		((PKGPayloadDropView *)self.view).delegate=(id<PKGFileDeadDropViewDelegate>)_hierarchyDataSource;
 	
 	// Owner and Group
