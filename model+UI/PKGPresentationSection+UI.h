@@ -19,6 +19,8 @@
 
 	@property (readonly) PKGPresentationInspectorItemTag inspectorItemTag;
 
++ (NSImage *)installerPluginIcon;
+
 - (Class)viewControllerClass;
 
 @end

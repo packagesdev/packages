@@ -15,6 +15,17 @@
 
 @implementation PKGPresentationSection (UI)
 
++ (NSImage *)installerPluginIcon
+{
+	static NSImage * sInstallerPluginIcon=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sInstallerPluginIcon=[[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
+	});
+	
+	return sInstallerPluginIcon;
+}
+
 - (PKGPresentationInspectorItemTag)inspectorItemTag
 {
 	if (self.pluginPath!=nil)
