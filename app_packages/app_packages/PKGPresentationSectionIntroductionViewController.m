@@ -94,6 +94,8 @@
 	
 	if (tAvailableLocalizations.count>0)
 	{
+		self.textView.textContainerInset=NSMakeSize(6.0,6.0);
+		
 		[super refreshUIForLocalization:inLocalization];
 		
 		return;
