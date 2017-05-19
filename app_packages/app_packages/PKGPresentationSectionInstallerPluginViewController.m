@@ -15,6 +15,8 @@
 
 #import "PKGInstallerPlugin.h"
 
+#import "PKGPresentationSection+UI.h"
+
 @interface PKGPresentationSectionInstallerPluginViewController ()
 {
 	IBOutlet NSImageView * _iconView;
@@ -54,7 +56,7 @@
 	
 	_pluginIcon=[NSImage imageWithSize:NSMakeSize(128.0,128.0) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
 		
-		NSImage * tSourceImage=[[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
+		NSImage * tSourceImage=[PKGPresentationSection installerPluginIcon];
 		
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		
@@ -66,7 +68,7 @@
 	
 	_pluginNotFoundIcon=[NSImage imageWithSize:NSMakeSize(128.0,128.0) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
 		
-		NSImage * tSourceImage=[[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
+		NSImage * tSourceImage=[PKGPresentationSection installerPluginIcon];
 		
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		
