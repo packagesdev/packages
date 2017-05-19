@@ -21,16 +21,19 @@
 #import "PKGApplicationPreferences.h"
 #import "PKGOwnershipAndReferenceStylePanel.h"
 
+#import "PKGPresentationSectionTextDocumentViewDropView.h"
+
 @interface PKGPresentationSectionTextDocumentViewController ()
 {
 	NSString * _cachedDocumentPath;
 	
 	NSDate * _cachedModificationDate;
+	
+	IBOutlet PKGPresentationSectionTextDocumentViewDropView * _missingDocumentView;
+	IBOutlet NSImageView * _missingIconView;
 }
 
 	@property (readwrite) IBOutlet PKGPresentationTextView * textView;
-
-+ (NSArray *)textDocumentTypes;
 
 // Notifications
 
@@ -41,20 +44,6 @@
 @end
 
 @implementation PKGPresentationSectionTextDocumentViewController
-
-+ (NSArray *)textDocumentTypes
-{
-	return @[@"txt",
-			 @"rtf",
-			 @"rtfd",
-			 @"html",
-			 @"htm",
-			 @"TXT",
-			 @"'TEXT'",
-			 @"RTF",
-			 @"RTFD",
-			 @"HTML"];
-}
 
 - (void)WB_viewDidLoad
 {
@@ -68,6 +57,28 @@
 	self.textView.presentationDelegate=self;
 	
 	[self.textView registerForDraggedTypes:@[NSFilenamesPboardType]];
+	
+	
+	_missingDocumentView.hidden=YES;
+	_missingDocumentView.delegate=self;
+	
+	_missingIconView.image=[NSImage imageWithSize:_missingIconView.bounds.size
+										  flipped:NO
+								   drawingHandler:^BOOL(NSRect dstRect) {
+									   
+									   NSImage * tSourceImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kUnknownFSObjectIcon)];
+									   
+									   [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+									   
+									   [tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+									   
+									   
+									   tSourceImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kQuestionMarkIcon)];
+									   
+									   [tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.1];
+									   
+									   return YES;
+								   }];
 }
 
 #pragma mark -
@@ -77,6 +88,8 @@
 	[super WB_viewWillAppear];
 	
 	[self refreshUIForLocalization:self.localization];
+	
+	[self viewFrameDidChange:nil];
 }
 
 - (void)WB_viewDidAppear
@@ -84,6 +97,8 @@
 	[super WB_viewDidAppear];
 	
 	// Register for Notifications
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self.view];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
@@ -95,6 +110,8 @@
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
@@ -195,11 +212,15 @@
 		return;
 	}
 	
+	self.textView.enclosingScrollView.hidden=NO;
+	_missingDocumentView.hidden=YES;
+	
 	if ([tFileManager fileExistsAtPath:_cachedDocumentPath]==NO)
 	{
-		_cachedDocumentPath=nil;
+		//_cachedDocumentPath=nil;
 		
-		// A COMPLETER
+		_missingDocumentView.hidden=NO;
+		self.textView.enclosingScrollView.hidden=YES;
 		
 		return;
 	}
@@ -259,7 +280,7 @@
 	
 	NSString * tFilePath=tFiles.lastObject;
 	
-	if ([[NSFileManager defaultManager] WB_fileAtPath:tFilePath matchesTypes:[PKGPresentationSectionTextDocumentViewController textDocumentTypes]]==NO)
+	if ([[NSFileManager defaultManager] WB_fileAtPath:tFilePath matchesTypes:[PKGPresentationLocalizableStepSettings textDocumentTypes]]==NO)
 		return NSDragOperationNone;
 	
 	return NSDragOperationCopy;
@@ -289,7 +310,7 @@
 	if (inFilenames.count!=1)
 		return NO;
 	
-	return [[NSFileManager defaultManager] WB_fileAtPath:inFilenames.lastObject matchesTypes:[PKGPresentationSectionTextDocumentViewController textDocumentTypes]];
+	return [[NSFileManager defaultManager] WB_fileAtPath:inFilenames.lastObject matchesTypes:[PKGPresentationLocalizableStepSettings textDocumentTypes]];
 }
 
 - (BOOL)fileDeadDropView:(PKGPresentationSectionTextDocumentViewDropView *)inView acceptDropFiles:(NSArray *)inFilenames
@@ -317,24 +338,35 @@
 		return;
 	}
 	
-	if (_cachedModificationDate==nil)
-		return;
+	if (_cachedModificationDate!=nil)
+	{
+		NSDictionary * tAttributesDictionary=[tFileManager attributesOfItemAtPath:_cachedDocumentPath error:NULL];
+		NSDate * tDate=tAttributesDictionary[NSFileModificationDate];
 	
-	NSDictionary * tAttributesDictionary=[tFileManager attributesOfItemAtPath:_cachedDocumentPath error:NULL];
-	NSDate * tDate=tAttributesDictionary[NSFileModificationDate];
-	
-	if ([tDate compare:_cachedModificationDate]!=NSOrderedDescending)
-		return;
+		if ([tDate compare:_cachedModificationDate]!=NSOrderedDescending)
+			return;
+	}
 	
 	[self refreshUIForLocalization:self.localization];
 }
 
 - (void)settingsDidChange:(NSNotification *)inNotification
 {
-	NSDictionary * tUserInfo=inNotification.userInfo;
+	[self refreshUIForLocalization:self.localization];
+}
+
+#pragma mark - Notifications
+
+- (void)viewFrameDidChange:(NSNotification *)inNotification
+{
+	NSRect tBounds=_missingDocumentView.bounds;
 	
-	if (tUserInfo!=nil) // A COMPLETER
-		[self refreshUIForLocalization:self.localization];
+	NSRect tFrame=_missingIconView.frame;
+	
+	tFrame.origin.x=round(NSMidX(tBounds)-NSWidth(tFrame)*0.5);
+	tFrame.origin.y=round(NSMidY(tBounds)-NSHeight(tFrame)*0.5);
+	
+	_missingIconView.frame=tFrame;
 }
 
 @end

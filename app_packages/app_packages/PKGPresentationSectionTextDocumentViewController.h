@@ -21,10 +21,12 @@
 
 	@property (readonly) PKGPresentationTextView * textView;
 
-+ (NSArray *)textDocumentTypes;
-
 - (NSString *)textDocumentPathForLocalization:(NSString *)inLocalization;
 
 - (void)setTextDocumentPath:(NSString *)inPath forLocalization:(NSString *)inLocalization;
+
+// Notifications
+
+- (void)viewFrameDidChange:(NSNotification *)inNotification;
 
 @end
