@@ -10,6 +10,8 @@
                 <outlet property="_defaultContentsView" destination="iWB-tz-JsP" id="1kC-hX-5cg"/>
                 <outlet property="_languagePopupButton" destination="7En-9d-OVh" id="ZRb-19-4G7"/>
                 <outlet property="_licenseView" destination="oU3-W6-kMc" id="NjP-dn-3IO"/>
+                <outlet property="_missingDocumentView" destination="crB-CB-jp0" id="faS-qX-Bax"/>
+                <outlet property="_missingIconView" destination="V1S-fe-ij0" id="Izj-3X-vxq"/>
                 <outlet property="_stepNotDisplayedLabel" destination="LNq-sZ-yrp" id="qjc-0F-dbo"/>
                 <outlet property="textView" destination="f1s-fN-nX2" id="htn-ZM-gIW"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -21,6 +23,17 @@
             <rect key="frame" x="0.0" y="0.0" width="653" height="475"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <customView id="crB-CB-jp0" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                    <rect key="frame" x="81" y="54" width="490" height="367"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="V1S-fe-ij0">
+                            <rect key="frame" x="221" y="159" width="128" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Ikr-Q0-TZb"/>
+                        </imageView>
+                    </subviews>
+                </customView>
                 <customView id="iWB-tz-JsP" customClass="PKGPresentationSectionTextDocumentViewDropView">
                     <rect key="frame" x="0.0" y="0.0" width="653" height="475"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

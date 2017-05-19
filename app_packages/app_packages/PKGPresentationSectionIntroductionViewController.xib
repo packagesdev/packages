@@ -7,6 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationSectionIntroductionViewController">
             <connections>
+                <outlet property="_missingDocumentView" destination="4cI-s9-99C" id="RvB-LS-GBe"/>
+                <outlet property="_missingIconView" destination="auc-36-rt5" id="ZhS-po-9oG"/>
                 <outlet property="textView" destination="ai5-Rd-2BB" id="UM6-hs-a7h"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -17,6 +19,17 @@
             <rect key="frame" x="0.0" y="0.0" width="490" height="367"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <customView id="4cI-s9-99C" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                    <rect key="frame" x="0.0" y="0.0" width="490" height="367"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="auc-36-rt5">
+                            <rect key="frame" x="221" y="159" width="128" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="y71-uU-IJg"/>
+                        </imageView>
+                    </subviews>
+                </customView>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="GDW-j5-pyh">
                     <rect key="frame" x="1" y="1" width="488" height="365"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

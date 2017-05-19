@@ -10,6 +10,8 @@
                 <outlet property="_defaultContentsView" destination="bG3-g7-krx" id="6nN-tf-3K7"/>
                 <outlet property="_descriptionLabel" destination="rFK-BH-Uri" id="Azy-Yo-Bkd"/>
                 <outlet property="_messageLabel" destination="ImR-4K-eBb" id="UCQ-EZ-cXY"/>
+                <outlet property="_missingDocumentView" destination="nbg-7k-uHf" id="e0v-VB-omt"/>
+                <outlet property="_missingIconView" destination="QRP-pj-aEX" id="0Gg-fk-iNI"/>
                 <outlet property="_successIconView" destination="jcu-NP-NVr" id="bqg-nx-PQN"/>
                 <outlet property="textView" destination="JBh-Ui-sD4" id="nO1-hl-Dl7"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -76,6 +78,17 @@
                             <rect key="frame" x="173" y="223" width="72" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jK1-mJ-xdr"/>
+                        </imageView>
+                    </subviews>
+                </customView>
+                <customView id="nbg-7k-uHf" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                    <rect key="frame" x="-35" y="-19" width="490" height="367"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="QRP-pj-aEX">
+                            <rect key="frame" x="221" y="159" width="128" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Jwd-Co-T69"/>
                         </imageView>
                     </subviews>
                 </customView>
