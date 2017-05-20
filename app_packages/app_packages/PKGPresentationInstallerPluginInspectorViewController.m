@@ -17,6 +17,8 @@
 
 #import "PKGArchitectureUtilities.h"
 
+#import "PKGPresentationSection+UI.h"
+
 @interface PKGPresentationInstallerPluginInspectorViewController ()
 {
 	IBOutlet NSImageView * _iconView;
@@ -89,13 +91,7 @@
 	
 	// Icon
 	
-	static NSImage * sPluginIcon=nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		sPluginIcon=[[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
-	});
-	
-	_iconView.image=sPluginIcon;
+	_iconView.image=[PKGPresentationSection installerPluginIcon];
 	
 	if (_presentationSection.pluginPath.isSet==NO)
 	{

@@ -117,10 +117,6 @@
 - (IBAction)switchAlignment:(id)sender;
 - (IBAction)switchScaling:(id)sender;
 
-// Notifications
-
-- (void)windowStateDidChange:(NSNotification *)inNotification;
-
 @end
 
 @implementation PKGPresentationBackgroundInspectorViewController
@@ -152,28 +148,6 @@
 - (PKGPresentationStepSettings *)settings
 {
 	return _backgroundSettings;
-}
-
-#pragma mark -
-
-- (void)WB_viewDidAppear
-{
-	[super WB_viewDidAppear];
-	
-	// Register for Notifications
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
-}
-
-- (void)WB_viewWillDisappear
-{
-	[super WB_viewWillDisappear];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
 }
 
 #pragma mark -

@@ -27,6 +27,8 @@
 
 // Notifications
 
+- (void)windowStateDidChange:(NSNotification *)inNotification;
+
 - (void)settingsDidChange:(NSNotification *)inNotification;
 
 @end

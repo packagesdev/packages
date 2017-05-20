@@ -35,6 +35,10 @@
 	[self refreshUI];
 	
 	// Register for Notifications
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
 }
@@ -43,12 +47,21 @@
 {
 	[super WB_viewWillDisappear];
 	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
 }
 
 #pragma mark - Notifications
 
 - (void)settingsDidChange:(NSNotification *)inNotification
+{
+	// to be implemented by the subclasses
+}
+
+- (void)windowStateDidChange:(NSNotification *)inNotification
 {
 	// to be implemented by the subclasses
 }

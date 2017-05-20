@@ -75,29 +75,6 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAppear
-{
-	[super WB_viewWillAppear];
-	
-	[self viewFrameDidChange:nil];
-}
-
-- (void)WB_viewDidAppear
-{
-	[super WB_viewDidAppear];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self.view];
-}
-
-- (void)WB_viewWillDisappear
-{
-	[super WB_viewWillDisappear];
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];
-}
-
-#pragma mark -
-
 - (void)updateButtons:(NSArray *)inButtonsArray
 {
 	if (self.localization==nil || inButtonsArray.count!=4)
@@ -223,7 +200,7 @@
 		return;
 	}
 	
-	// Show Default Summary Message
+	// Show Default ReadMe Message
 	
 	_defaultContentsView.hidden=NO;
 	self.textView.enclosingScrollView.hidden=YES;
@@ -233,6 +210,8 @@
 
 - (void)viewFrameDidChange:(NSNotification *)inNotification
 {
+	[super viewFrameDidChange:inNotification];
+	
 	NSRect tBounds=_defaultContentsView.bounds;
 	
 	NSRect tFrame=_stepNotDisplayedLabel.frame;

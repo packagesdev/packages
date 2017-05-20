@@ -8,6 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationSectionReadMeViewController">
             <connections>
                 <outlet property="_defaultContentsView" destination="Ntb-iB-7Pw" id="aHy-bK-t52"/>
+                <outlet property="_missingDocumentView" destination="zQL-Ci-PcK" id="MvT-eq-7Ri"/>
+                <outlet property="_missingIconView" destination="35w-lE-9hP" id="G7Y-CE-4rG"/>
                 <outlet property="_stepNotDisplayedLabel" destination="mcd-3n-v8P" id="c0u-hj-VZ6"/>
                 <outlet property="textView" destination="489-uG-KWY" id="1a0-qX-ZxV"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -61,6 +63,17 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                    </subviews>
+                </customView>
+                <customView id="zQL-Ci-PcK" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                    <rect key="frame" x="0.0" y="0.0" width="490" height="367"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="35w-lE-9hP">
+                            <rect key="frame" x="221" y="159" width="128" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="83e-Rf-ohk"/>
+                        </imageView>
                     </subviews>
                 </customView>
             </subviews>
