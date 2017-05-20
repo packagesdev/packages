@@ -64,7 +64,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Introduction",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemIntroduction;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionIntroductionViewController");
-		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationIntroductionInspectorViewController");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -75,7 +75,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Read Me",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemReadMe;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionReadMeViewController");
-		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationReadMeInspectorViewController");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
@@ -108,7 +108,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Summary",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemSummary;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionSummaryViewController");
-		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationSummaryInspectorViewController");
 		[tMutableArray addObject:tInspectorItem];
 		
 		// Plugin

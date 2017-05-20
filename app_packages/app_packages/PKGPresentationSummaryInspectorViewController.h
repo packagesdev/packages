@@ -1,0 +1,6 @@
+
+#import "PKGPresentationCustomLocalizationsInspectorViewController.h"
+
+@interface PKGPresentationSummaryInspectorViewController : PKGPresentationCustomLocalizationsInspectorViewController
+
+@end
