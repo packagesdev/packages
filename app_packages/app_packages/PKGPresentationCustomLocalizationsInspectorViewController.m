@@ -15,9 +15,9 @@
 
 #import "PKGPresentationLocalizationsFilePathViewController.h"
 
-#import "PKGDistributionProjectPresentationSettings+Safe.h"
+#import "PKGPresentationLocalizationsFilePathDataSource.h"
 
-#import "PKGPresentationLocalizationsDataSource.h"
+#import "PKGDistributionProjectPresentationSettings+Safe.h"
 
 #import "PKGApplicationPreferences.h"
 
@@ -45,7 +45,7 @@
 	
 	_localizationsControllerView=[[PKGPresentationLocalizationsFilePathViewController alloc] initWithDocument:self.document];
 	
-	PKGPresentationLocalizationsDataSource * tLocalizationsDataSource=[[PKGPresentationLocalizationsDataSource alloc] init];
+	PKGPresentationLocalizationsFilePathDataSource * tLocalizationsDataSource=[[PKGPresentationLocalizationsFilePathDataSource alloc] init];
 	tLocalizationsDataSource.localizations=((PKGPresentationLocalizableStepSettings *) self.settings).localizations;
 	tLocalizationsDataSource.delegate=self;
 	
@@ -80,12 +80,16 @@
 {
 	[super WB_viewDidAppear];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:_localizationsControllerView selector:@selector(localizationsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+	
 	[_localizationsControllerView WB_viewDidAppear];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:_localizationsControllerView name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
 	
 	[_localizationsControllerView WB_viewWillDisappear];
 }
@@ -121,11 +125,8 @@
 	if (inNotification.userInfo==nil)
 		return;
 	
-	[_localizationsControllerView refreshUI];
-}
-
-- (void)windowStateDidChange:(NSNotification *)inNotification
-{
+	_localizationsControllerView.dataSource.localizations=((PKGPresentationLocalizableStepSettings *) self.settings).localizations;
+	
 	[_localizationsControllerView refreshUI];
 }
 

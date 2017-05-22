@@ -9,7 +9,7 @@
             <connections>
                 <outlet property="_addButton" destination="41" id="97"/>
                 <outlet property="_removeButton" destination="42" id="98"/>
-                <outlet property="_warningDisparateDocumentsTypesLabel" destination="81" id="99"/>
+                <outlet property="_warningDisparateDocumentsTypesView" destination="SrR-b4-h0a" id="eDC-x3-c8O"/>
                 <outlet property="tableView" destination="106" id="123"/>
                 <outlet property="view" destination="5" id="95"/>
             </connections>
@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="70">
-                    <rect key="frame" x="73" y="25" width="257" height="12"/>
+                    <rect key="frame" x="73" y="24" width="257" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Click + or drag a file to add a localization." id="88">
                         <font key="font" metaFont="miniSystem"/>
@@ -207,21 +207,33 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <textField hidden="YES" verticalHuggingPriority="750" id="81">
-                    <rect key="frame" x="161" y="6" width="169" height="11"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Documents are not of the same type" id="89">
-                        <font key="font" metaFont="miniSystem"/>
-                        <color key="textColor" red="1" green="0.50196081000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
+                <customView id="SrR-b4-h0a">
+                    <rect key="frame" x="141" y="6" width="187" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField verticalHuggingPriority="750" id="81">
+                            <rect key="frame" x="15" y="2" width="173" height="12"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Documents are not of the same type." id="89">
+                                <font key="font" metaFont="miniSystem"/>
+                                <color key="textColor" red="1" green="0.50196081000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="TF3-n2-96D">
+                            <rect key="frame" x="4" y="1" width="12" height="12"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Warning_12" id="fHq-WK-UDj"/>
+                        </imageView>
+                    </subviews>
+                </customView>
             </subviews>
-            <point key="canvasLocation" x="349" y="319.5"/>
+            <point key="canvasLocation" x="635" y="536.5"/>
         </customView>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="Warning_12" width="12" height="12"/>
     </resources>
 </document>
