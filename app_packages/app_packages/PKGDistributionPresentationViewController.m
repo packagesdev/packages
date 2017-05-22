@@ -61,7 +61,7 @@
 
 #import "PKGDistributionPresentationInstallerPluginOpenPanelDelegate.h"
 
-NSString * const PKGDistributionPresentationCurrentPreviewLanguage=@"ui.project.presentation.preview.language";
+
 
 NSString * const PKGDistributionPresentationSelectedStep=@"ui.project.presentation.step.selected";
 
@@ -105,6 +105,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	IBOutlet NSView * _inspectorContentsView;
 	
 	PKGPresentationSectionViewController * _currentSectionViewController;
+	
+	
+	PKGPresentationInspectorItemTag _currentInspectorItemTag;
 	PKGPresentationInspectorViewController * _currentInspectorViewController;
 	
 	PKGDistributionPresentationInstallerPluginOpenPanelDelegate * _openPanelDelegate;
@@ -636,11 +639,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	NSInteger tTag=sender.selectedItem.tag;
 	
-	NSInteger tSelectedStep=_listView.selectedStep;
-	
-	PKGPresentationSection * tSelectedPresentationSection=self.presentationSettings.sections[tSelectedStep];
-	
-	if (tTag!=tSelectedPresentationSection.inspectorItemTag)
+	if (tTag!=_currentInspectorItemTag)
 	{
 		PKGPresentationInspectorItemTag tSectionTag=tTag;
 		
@@ -663,9 +662,12 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		dispatch_async(dispatch_get_main_queue(), ^{
 			
-			[_listView selectStep:tIndex];
+			if (_listView.selectedStep!=tIndex)
+			{
+				[_listView selectStep:tIndex];
 			
-			[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
+				[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
+			}
 			
 			// Show the Inspector View
 			
@@ -812,6 +814,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[tNewInspectorViewController WB_viewDidAppear];
 	
 	_currentInspectorViewController=tNewInspectorViewController;
+	
+	_currentInspectorItemTag=inInspectorItem.tag;
 }
 
 #pragma mark - PKGPresentationListViewDataSource
