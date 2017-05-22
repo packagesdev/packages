@@ -29,11 +29,9 @@
 - (void)setLocalizations:(NSMutableDictionary *)inLocalizations
 {
 	if (_localizations!=inLocalizations)
-	{
 		_localizations=inLocalizations;
-		
-		_cachedLanguages=[inLocalizations.allKeys mutableCopy];
-	}
+	
+	_cachedLanguages=[_localizations.allKeys mutableCopy];
 }
 
 - (void)setDelegate:(id<PKGPresentationLocalizationsDataSourceDelegate>)inDelegate
@@ -51,6 +49,11 @@
 		return;
 	
 	_delegate=inDelegate;
+}
+
+- (NSArray *)allLanguages
+{
+	return [_cachedLanguages copy];
 }
 
 #pragma mark -
@@ -90,6 +93,19 @@
 		return nil;
 	
 	return _cachedLanguages[inRow];
+}
+
+- (NSInteger)tableView:(NSTableView *)inTableView rowForLanguage:(NSString *)inLanguage
+{
+	if (inLanguage==nil)
+		return -1;
+	
+	NSUInteger tRow=[_cachedLanguages indexOfObject:inLanguage];
+	
+	if (tRow==NSNotFound)
+		return -1;
+	
+	return tRow;
 }
 
 - (id)tableView:(NSTableView *)inTableView itemAtRow:(NSInteger)inRow
@@ -177,29 +193,89 @@
 
 #pragma mark -
 
-- (void)addNewItem:(NSTableView *)inTableView
+- (void)tableView:(NSTableView *)inTableView addValue:(id)inValue forLanguage:(NSString *)inLanguage
 {
-	if (inTableView==nil)
+	if (inTableView==nil || inValue==nil || inLanguage==nil)
 		return;
 	
-	NSString * tLanguageName=[PKGLocalizationUtilities nextPreferredLanguageAfterLanguages:_cachedLanguages];
-	
-	if (tLanguageName==nil)
-		return;
-	
-	id tValue=[self.delegate defaultValue];
-	
-	[_cachedLanguages addObject:tLanguageName];
+	[_cachedLanguages addObject:inLanguage];
 	
 	[_cachedLanguages sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	
-	self.localizations[tLanguageName]=tValue;
+	self.localizations[inLanguage]=inValue;
 	
 	[inTableView reloadData];
 	
 	[self.delegate localizationsDidChange:self];
 	
-	NSUInteger tIndex=[_cachedLanguages indexOfObject:tLanguageName];
+	NSUInteger tIndex=[_cachedLanguages indexOfObject:inLanguage];
+	
+	if (tIndex==NSNotFound)
+		return;
+	
+	[inTableView scrollRowToVisible:tIndex];
+	
+	[inTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tIndex] byExtendingSelection:NO];
+}
+
+- (void)tableView:(NSTableView *)inTableView addValues:(NSArray *)inValues forLanguages:(NSArray *)inLanguages
+{
+	if (inTableView==nil || inValues.count!=inLanguages.count || inValues.count==0)
+		return;
+	
+	[_cachedLanguages addObjectsFromArray:inLanguages];
+	
+	[_cachedLanguages sortUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	NSUInteger tCount=inLanguages.count;
+	
+	for(NSUInteger tIndex=0;tIndex<tCount;tIndex++)
+		self.localizations[inLanguages[tIndex]]=inValues[tIndex];
+	
+	[inTableView reloadData];
+	
+	[self.delegate localizationsDidChange:self];
+	
+	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+	
+	for(NSString * tLanguage in inLanguages)
+	{
+		NSUInteger tIndex=[_cachedLanguages indexOfObject:tLanguage];
+		
+		if (tIndex==NSNotFound)
+			return;
+		
+		[tMutableIndexSet addIndex:tIndex];
+	}
+	
+	[inTableView scrollRowToVisible:tMutableIndexSet.firstIndex];
+	
+	[inTableView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+}
+
+- (void)addNewItem:(NSTableView *)inTableView
+{
+	if (inTableView==nil)
+		return;
+	
+	NSString * tLanguage=[PKGLocalizationUtilities nextPreferredLanguageAfterLanguages:_cachedLanguages];
+	
+	if (tLanguage==nil)
+		return;
+	
+	id tValue=[self.delegate defaultValue];
+	
+	[_cachedLanguages addObject:tLanguage];
+	
+	[_cachedLanguages sortUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	self.localizations[tLanguage]=tValue;
+	
+	[inTableView reloadData];
+	
+	[self.delegate localizationsDidChange:self];
+	
+	NSUInteger tIndex=[_cachedLanguages indexOfObject:tLanguage];
 	
 	if (tIndex==NSNotFound)
 		return;
