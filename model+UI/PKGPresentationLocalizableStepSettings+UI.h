@@ -13,6 +13,8 @@
 
 #import "PKGPresentationLocalizableStepSettings.h"
 
+extern NSString * const PKGDistributionPresentationCurrentPreviewLanguage;
+
 @interface PKGPresentationLocalizableStepSettings (UI)
 
 + (NSArray *)textDocumentTypes;

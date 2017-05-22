@@ -15,6 +15,8 @@
 
 #import "NSMutableDictionary+Localizations.h"
 
+NSString * const PKGDistributionPresentationCurrentPreviewLanguage=@"ui.project.presentation.preview.language";
+
 @implementation PKGPresentationLocalizableStepSettings (UI)
 
 + (NSArray *)textDocumentTypes
