@@ -13,12 +13,14 @@
 
 #import "PKGDocumentViewController.h"
 
-#import "PKGPresentationLocalizationsDataSource.h"
+#import "PKGPresentationLocalizationsFilePathDataSource.h"
 
 @interface PKGPresentationLocalizationsFilePathViewController : PKGDocumentViewController
 
 	@property (readonly)NSTableView * tableView;
 
-	@property (nonatomic) PKGPresentationLocalizationsDataSource * dataSource;
+	@property (nonatomic) PKGPresentationLocalizationsFilePathDataSource * dataSource;
+
+- (void)localizationsDidChange:(NSNotification *)inNotification;
 
 @end

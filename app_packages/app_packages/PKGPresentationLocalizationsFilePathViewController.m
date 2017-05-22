@@ -26,8 +26,6 @@
 
 #import "NSAlert+block.h"
 
-#import "PKGPresentationLocalizationsFilePathDataSource.h"
-
 #import "NSFileManager+FileTypes.h"
 
 typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
@@ -88,10 +86,10 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 
 @interface PKGPresentationLocalizationsFilePathViewController () <NSTableViewDelegate>
 {
-	IBOutlet NSTextField * _warningDisparateDocumentsTypesLabel;
-	
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
+	
+	IBOutlet NSView * _warningDisparateDocumentsTypesView;
 	
 	PKGPresentationLocalizationsFilePathOpenPanelDelegate * _openPanelDelegate;
 }
@@ -107,11 +105,15 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 - (IBAction)addLocalization:(id)sender;
 - (IBAction)delete:(id)sender;
 
+// Notifications
+
+- (void)windowStateDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGPresentationLocalizationsFilePathViewController
 
-- (void)setDataSource:(PKGPresentationLocalizationsDataSource *)inDataSource
+- (void)setDataSource:(PKGPresentationLocalizationsFilePathDataSource *)inDataSource
 {
 	if (_dataSource==inDataSource)
 		return;
@@ -128,7 +130,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 {
 	[super WB_viewDidLoad];
 	
-	_warningDisparateDocumentsTypesLabel.hidden=YES;
+	_warningDisparateDocumentsTypesView.hidden=YES;
 	
 	self.tableView.delegate=self;
 	
@@ -142,6 +144,28 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 	self.tableView.dataSource=self.dataSource;
 	
 	[self refreshUI];
+	
+	_warningDisparateDocumentsTypesView.hidden=[self.dataSource sameFileTypeForAllLocalizations];
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	// Register for Notifications
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
 }
 
 - (void)refreshUI
@@ -426,6 +450,18 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 	// Delete button state
 	
 	_removeButton.enabled=(tSelectionIndexSet.count>0);
+}
+
+// Notifications
+
+- (void)localizationsDidChange:(NSNotification *)inNotification
+{
+	_warningDisparateDocumentsTypesView.hidden=[self.dataSource sameFileTypeForAllLocalizations];
+}
+
+- (void)windowStateDidChange:(NSNotification *)inNotification
+{
+	[self.tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.tableView numberOfRows])] columnIndexes:[NSIndexSet indexSetWithIndex:[self.tableView columnWithIdentifier:@"path.string"]]];
 }
 
 @end
