@@ -380,49 +380,43 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 	
 	return tLocalizationsArray;
-}
+}*/
 
-+ (NSString *) possibleLanguageForFileAtPath:(NSString *) inPath
++ (NSString *)possibleLanguageForFileAtPath:(NSString *)inPath
 {
-	if (inPath!=nil)
-	{
-		NSString * tParentFolder=[[inPath stringByDeletingLastPathComponent] lastPathComponent];
+	if (inPath==nil)
+		return nil;
+	
+	NSString * tParentFolder=inPath.stringByDeletingLastPathComponent.lastPathComponent;
+	
+	NSString * tExtension=tParentFolder.pathExtension;
+	
+	if (tExtension.length>0 && [tExtension caseInsensitiveCompare:@"lproj"]!=NSOrderedSame)
+		return nil;
+	
+	NSString * tLanguage=tParentFolder.stringByDeletingPathExtension;
+	
+	if (tLanguage==nil)
+		return nil;
+
+	PKGLanguageConverter * tDefaultConverter=[PKGLanguageConverter sharedConverter];
+	
+	NSString * tEnglishLanguage=[tDefaultConverter englishFromISO:tLanguage];
+	
+	if ([[tDefaultConverter allEnglishNames] containsObject:tEnglishLanguage]==YES)
+		return tEnglishLanguage;
+	
+	tEnglishLanguage=[tDefaultConverter englishFromISO:[tEnglishLanguage lowercaseString]];
+	
+	if ([[tDefaultConverter allEnglishNames] containsObject:tEnglishLanguage]==YES)
+		return tEnglishLanguage;
 		
-		NSString * tExtension=[tParentFolder pathExtension];
-		
-		if ([tExtension length]==0 || [tExtension caseInsensitiveCompare:@"lproj"]==NSOrderedSame)
-		{
-			NSString * tLanguage=[tParentFolder stringByDeletingPathExtension];
-			
-			if (tLanguage!=nil)
-			{
-				PKGLanguageConverter * tDefaultConverter=[PKGLanguageConverter sharedConverter];
-				
-				NSString * tEnglishLanguage=[tDefaultConverter englishFromISO:tLanguage];
-				
-				if ([[tDefaultConverter allEnglishNames] containsObject:tEnglishLanguage]==YES)
-				{
-					return tEnglishLanguage;
-				}
-				
-				tEnglishLanguage=[tDefaultConverter englishFromISO:[tEnglishLanguage lowercaseString]];
-				
-				if ([[tDefaultConverter allEnglishNames] containsObject:tEnglishLanguage]==YES)
-				{
-					return tEnglishLanguage;
-				}
-					
-				tEnglishLanguage=[tDefaultConverter englishFromISO:[tEnglishLanguage capitalizedString]];
-				
-				if ([[tDefaultConverter allEnglishNames] containsObject:tEnglishLanguage]==YES)
-				{
-					return tEnglishLanguage;
-				}
-			}
-		}
-	}
+	tEnglishLanguage=[tDefaultConverter englishFromISO:[tEnglishLanguage capitalizedString]];
+	
+	if ([[tDefaultConverter allEnglishNames] containsObject:tEnglishLanguage]==YES)
+		return tEnglishLanguage;
 	
 	return nil;
-}*/
+}
 
 @end

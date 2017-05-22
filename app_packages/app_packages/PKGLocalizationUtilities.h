@@ -45,8 +45,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 + (NSMutableDictionary *) validLocalizationsPathFromLocalizationsArray:(NSArray *) inLocalizationsArray projectPath:(NSString *) inProjectPath referencePath:(NSString *) inReferencePath;
 
-+ (NSMutableArray *) localizationsArrayWithValue:(id) inValue forLanguage:(NSString *) inLanguage;
++ (NSMutableArray *) localizationsArrayWithValue:(id) inValue forLanguage:(NSString *) inLanguage;*/
 
-+ (NSString *) possibleLanguageForFileAtPath:(NSString *) inPath;*/
++ (NSString *)possibleLanguageForFileAtPath:(NSString *)inPath;
 
 @end
