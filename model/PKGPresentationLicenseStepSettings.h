@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,8 +23,8 @@ typedef NS_ENUM(NSUInteger, PKGLicenseType)
 
 	@property PKGLicenseType licenseType;
 
-	@property (copy) NSString * templateName;
+	@property (copy) NSString * templateName;	// can be nil
 
-	@property NSMutableDictionary * templateValues;
+	@property (readonly) NSMutableDictionary * templateValues;
 
 @end

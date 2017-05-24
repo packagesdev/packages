@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,6 +23,12 @@ NSString * const PKGPresentationLicenseTemplateNameKey=@"TEMPLATE";
 
 NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 
+@interface PKGPresentationLicenseStepSettings ()
+
+	@property (readwrite) NSMutableDictionary * templateValues;
+
+@end
+
 @implementation PKGPresentationLicenseStepSettings
 
 + (Class)valueClass
@@ -44,6 +50,8 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	if (self!=nil)
 	{
 		_licenseType=PKGLicenseTypeCustom;
+		
+		_templateValues=[NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -75,6 +83,8 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 		return nil;
 	}
 	
+	_templateValues=[NSMutableDictionary dictionary];
+	
 	if (_licenseType==PKGLicenseTypeTemplate)
 	{
 		NSString * tString=inRepresentation[PKGPresentationLicenseTemplateNameKey];
@@ -83,7 +93,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 		
 		_templateName=[tString copy];
 		
-		
+
 		if (inRepresentation[PKGPresentationLicenseTemplateKeywordsKey]!=nil)
 		{
 			if ([inRepresentation[PKGPresentationLicenseTemplateKeywordsKey] isKindOfClass:NSDictionary.class]==NO)
@@ -113,7 +123,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	{
 		tRepresentation[PKGPresentationLicenseTemplateNameKey]=self.templateName;
 		
-		if (self.templateValues!=nil)
+		if (self.templateValues.count>0)
 			tRepresentation[PKGPresentationLicenseTemplateKeywordsKey]=self.templateValues;
 	}
 	
