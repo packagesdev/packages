@@ -65,7 +65,7 @@
                         </textField>
                     </subviews>
                 </customView>
-                <customView id="zQL-Ci-PcK" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                <customView hidden="YES" id="zQL-Ci-PcK" customClass="PKGPresentationSectionTextDocumentViewDropView">
                     <rect key="frame" x="0.0" y="0.0" width="490" height="367"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>

@@ -81,7 +81,7 @@
                         </imageView>
                     </subviews>
                 </customView>
-                <customView id="nbg-7k-uHf" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                <customView hidden="YES" id="nbg-7k-uHf" customClass="PKGPresentationSectionTextDocumentViewDropView">
                     <rect key="frame" x="-35" y="-19" width="490" height="367"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
