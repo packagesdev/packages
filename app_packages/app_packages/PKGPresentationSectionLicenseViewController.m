@@ -19,7 +19,7 @@
 
 #import "PKGInstallerApp.h"
 
-#import "PKGLicenseProvider.h"
+#import "PKGLicenseProvider+UI.h"
 
 #import "PKGLanguageConverter.h"
 
@@ -38,8 +38,6 @@
 	PKGPresentationLicenseStepSettings * _settings;
 	
 	NSString * _cachedLicenseLocalization;
-	
-	//NSArray * _cachedButtonsArray;
 }
 
 - (void)refreshLicenseUIForNativeLocalization:(NSString *)inNativeLocalization;
@@ -71,8 +69,6 @@
 	[super WB_viewDidLoad];
 	
 	_defaultContentsView.delegate=self;
-	
-	// A COMPLETER
 }
 
 #pragma mark -
@@ -266,7 +262,7 @@
 	if (tSuccess==YES)
 	{
 		if (_settings.licenseType==PKGLicenseTypeTemplate)
-			[PKGLicenseProvider replaceKeywords:_settings.templateValues inAttributedString:tTextStorage];
+			[PKGLicenseProvider UI_replaceKeywords:_settings.templateValues inAttributedString:tTextStorage];
 
 		[tTextStorage endEditing];
 	
@@ -396,10 +392,14 @@
 
 - (BOOL)presentationTextView:(PKGPresentationTextView *)inPresentationTextView acceptDrop:(id <NSDraggingInfo>)info
 {
+	PKGLicenseType tSavedLicenseType=_settings.licenseType;
+	
+	_settings.licenseType=PKGLicenseTypeCustom;
+	
 	BOOL tResult=[super presentationTextView:inPresentationTextView acceptDrop:info];
 	
-	if (tResult==YES)
-		_settings.licenseType=PKGLicenseTypeCustom;
+	if (tResult==NO)
+		_settings.licenseType=tSavedLicenseType;
 	
 	return tResult;
 }
@@ -408,10 +408,14 @@
 
 - (BOOL)fileDeadDropView:(PKGPresentationSectionTextDocumentViewDropView *)inView acceptDropFiles:(NSArray *)inFilenames
 {
+	PKGLicenseType tSavedLicenseType=_settings.licenseType;
+	
+	_settings.licenseType=PKGLicenseTypeCustom;
+	
 	BOOL tResult=[super fileDeadDropView:inView acceptDropFiles:inFilenames];
 	
-	if (tResult==YES)
-		_settings.licenseType=PKGLicenseTypeCustom;
+	if (tResult==NO)
+		_settings.licenseType=tSavedLicenseType;
 	
 	return tResult;
 }
@@ -446,10 +450,7 @@
 
 - (void)settingsDidChange:(NSNotification *)inNotification
 {
-	NSDictionary * tUserInfo=inNotification.userInfo;
-	
-	if (tUserInfo!=nil) // A COMPLETER
-		[self refreshUIForLocalization:self.localization];
+	[self refreshUIForLocalization:self.localization];
 }
 
 @end

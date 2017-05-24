@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="653" height="475"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView id="crB-CB-jp0" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                <customView hidden="YES" id="crB-CB-jp0" customClass="PKGPresentationSectionTextDocumentViewDropView">
                     <rect key="frame" x="81" y="54" width="490" height="367"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
