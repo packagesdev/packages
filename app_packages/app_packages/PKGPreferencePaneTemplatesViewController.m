@@ -51,7 +51,7 @@
 	[_tableView reloadData];
 }
 
-- (IBAction)setTemplateValue:(id)sender
+- (IBAction)setTemplateValue:(NSTextField *)sender
 {
 	NSInteger tRow=[_tableView rowForView:sender];
 	
@@ -59,14 +59,12 @@
 		return;
 	
 	NSString * tKey=_keys[tRow];
-	id tValue=[sender objectValue];
+	NSString * tValue=sender.stringValue;
 	
 	if ([tKey isEqualToString:PKGProjectTemplateCompanyIdentifierPrefixKey]==YES)
 	{
-		NSString * tStringValue=tValue;
-		
-		if ([tStringValue hasSuffix:@"."]==YES)
-			tValue=[tStringValue substringToIndex:tStringValue.length-1];
+		if ([tValue hasSuffix:@"."]==YES)
+			tValue=[tValue substringToIndex:tValue.length-1];
 	}
 	
 	[[PKGProjectTemplateDefaultValuesSettings sharedSettings] setValue:tValue forKey:tKey];
@@ -113,7 +111,7 @@
 	return nil;
 }
 
-#pragma mark -
+#pragma mark - NSTextFieldDelegate
 
 - (void)control:(NSControl *) inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *) inErrorDescription
 {
