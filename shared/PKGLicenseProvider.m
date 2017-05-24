@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2016, Stéphane Sudre
+Copyright (c) 2004-2017, Stéphane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -104,12 +104,12 @@ NSString * const ICLicenseTemplatesRelativeFolderPath=@"Application Support/fr.w
 	if (inDictionary==nil || inMutableAttributedString==nil)
 		return;
 	
-    NSString * tString=[inMutableAttributedString string];
+    NSString * tString=inMutableAttributedString.string;
 	NSRange tFoundRange={.location=0,.length=0};
 	
     while (1)
     {
-        tFoundRange = [tString rangeFromString:@"%%" toString:@"%%" options:0 range:NSMakeRange(NSMaxRange(tFoundRange),[tString length]-NSMaxRange(tFoundRange))];
+        tFoundRange = [tString rangeFromString:@"%%" toString:@"%%" options:0 range:NSMakeRange(NSMaxRange(tFoundRange),tString.length-NSMaxRange(tFoundRange))];
         
         if (tFoundRange.location==NSNotFound)
 			return;
@@ -122,9 +122,9 @@ NSString * const ICLicenseTemplatesRelativeFolderPath=@"Application Support/fr.w
 			[inMutableAttributedString replaceCharactersInRange:tFoundRange
 													 withString:tValue];
 		
-			tString=[inMutableAttributedString string];
+			tString=inMutableAttributedString.string;
 			
-			tFoundRange.length=[tValue length];
+			tFoundRange.length=tValue.length;
 		}
     }
 }
@@ -138,7 +138,7 @@ NSString * const ICLicenseTemplatesRelativeFolderPath=@"Application Support/fr.w
 	
     while (1)
     {
-        tFoundRange = [inMutableString rangeFromString:@"%%" toString:@"%%" options:0 range:NSMakeRange(NSMaxRange(tFoundRange),[inMutableString length]-NSMaxRange(tFoundRange))];
+        tFoundRange = [inMutableString rangeFromString:@"%%" toString:@"%%" options:0 range:NSMakeRange(NSMaxRange(tFoundRange),inMutableString.length-NSMaxRange(tFoundRange))];
         
         if (tFoundRange.location==NSNotFound)
 			return;
@@ -151,7 +151,7 @@ NSString * const ICLicenseTemplatesRelativeFolderPath=@"Application Support/fr.w
 			[inMutableString replaceCharactersInRange:tFoundRange
 										   withString:tValue];
 			
-			tFoundRange.length=[tValue length];
+			tFoundRange.length=tValue.length;
 		}
     }
 }
