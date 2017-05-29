@@ -25,7 +25,9 @@
 
 #import "PKGInstallerSimulatorBundle.h"
 
-@interface PKGPresentationSectionLicenseViewController ()
+#import "PKGPresentationLicenseStepSettings+UI.h"
+
+@interface PKGPresentationSectionLicenseViewController () <NSTextViewDelegate>
 {
 	IBOutlet PKGPresentationSectionTextDocumentViewDropView * _defaultContentsView;
 	
@@ -67,6 +69,8 @@
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
+	
+	self.textView.delegate=self;
 	
 	_defaultContentsView.delegate=self;
 }
@@ -386,6 +390,15 @@
 	_cachedLicenseLocalization=tSelectedLocalization;
 	
 	[self refreshLicenseUIForNativeLocalization:_cachedLicenseLocalization];
+}
+
+#pragma mark - NSTextViewDelegate
+
+- (void)textView:(NSTextView *)inTextView doubleClickedOnCell:(id <NSTextAttachmentCell>)inCell inRect:(NSRect)inCellFrame atIndex:(NSUInteger)inIndex
+{
+	PKGTokenTextAttachmentCell * tTokenTextAttachmentCell=(PKGTokenTextAttachmentCell *)inCell;
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationLicenseStepSettingsDidDoubleClickTokenNotification object:_settings userInfo:@{PKGLicenseTemplateTokenName:tTokenTextAttachmentCell.tokenLabel.string}];
 }
 
 #pragma mark - PKGPresentationTextViewDelegate

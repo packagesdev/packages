@@ -3,20 +3,14 @@
 
 #import "NSString+Karelia.h"
 
-@interface PKGTokenTextAttachmentCell : NSTextAttachmentCell
-
-	@property CGFloat maximumWidth;
-
-	@property NSAttributedString * tokenLabel;
+@interface PKGTokenTextAttachmentCell ()
+{
+	BOOL _highlighted;
+}
 
 @end
 
 @implementation PKGTokenTextAttachmentCell
-
-- (BOOL)wantsToTrackMouse
-{
-	return NO;
-}
 
 - (NSSize)cellSize
 {
@@ -35,6 +29,14 @@
 
 #pragma mark -
 
+- (void)highlight:(BOOL)inHihglight withFrame:(NSRect)inCellFrame inView:(NSView *)inControlView
+{
+	NSLog(@"highlight");
+	
+	_highlighted=inHihglight;
+	[inControlView setNeedsDisplayInRect:inCellFrame];
+}
+
 - (void)drawWithFrame:(NSRect)inCellFrame inView:(NSView *)inControlView characterIndex:(NSUInteger)charIndex layoutManager:(NSLayoutManager *)layoutManager;
 {
 	CGFloat tRadius=round([self cellSize].height*0.5);
@@ -45,10 +47,18 @@
 	
 	NSBezierPath* tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tRect xRadius:tRadius yRadius:tRadius];
 	
-	[[NSColor colorWithCalibratedRed:215.0/255.0 green:226.0/255.0 blue:246.0/255.0 alpha:1.0] setFill];
+	if (_highlighted==NO)
+		[[NSColor colorWithCalibratedRed:215.0/255.0 green:226.0/255.0 blue:246.0/255.0 alpha:1.0] setFill];
+	else
+		[[NSColor colorWithCalibratedRed:60.0/255.0 green:116.0/255.0 blue:231.0/255.0 alpha:1.0] setFill];	// 36 /93 / 226  ; 60 / 116 /231
+	
 	[tBezierPath fill];
 	
-	[[NSColor colorWithCalibratedRed:149.0/255.0 green:176.0/255.0 blue:231.0/255.0 alpha:1.0] setStroke];
+	if (_highlighted==NO)
+		[[NSColor colorWithCalibratedRed:149.0/255.0 green:176.0/255.0 blue:231.0/255.0 alpha:1.0] setStroke];
+	else
+		[[NSColor colorWithCalibratedRed:40.0/255.0 green:75.0/255.0 blue:141.0/255.0 alpha:1.0] setStroke];
+	
 	[tBezierPath stroke];
 	
 	NSSize tSize=[self.tokenLabel size];
@@ -59,7 +69,7 @@
 	
 	NSMutableDictionary * tDrawingAttributes=[tAttributes mutableCopy];
 	[tDrawingAttributes removeObjectForKey:NSParagraphStyleAttributeName];
-	tDrawingAttributes[NSForegroundColorAttributeName]=[NSColor textColor];
+	tDrawingAttributes[NSForegroundColorAttributeName]=(_highlighted==NO) ? [NSColor textColor] : [NSColor whiteColor];
 	
 	[self.tokenLabel.string drawWithRect:tTextRect options:0 attributes:tDrawingAttributes];
 }
@@ -93,7 +103,7 @@
 		}
 		else
 		{
-			NSTextAttachment * tTextAttachment=[[NSTextAttachment alloc] init];
+			NSTextAttachment * tTextAttachment=[[NSTextAttachment alloc] initWithFileWrapper:nil];
 			
 			PKGTokenTextAttachmentCell * tTokenTextAttachmentCell=[[PKGTokenTextAttachmentCell alloc] initTextCell:@""];
 			
