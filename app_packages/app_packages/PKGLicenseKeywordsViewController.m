@@ -17,6 +17,8 @@
 
 #import "PKGPresentationStepSettings+UI.h"
 
+#import "PKGPresentationLicenseStepSettings+UI.h"
+
 @interface PKGLicenseKeywordsViewController () <NSTableViewDataSource,NSTableViewDelegate>
 {
 	PKGLicenseTemplate * _licenseTemplate;
@@ -25,6 +27,10 @@
 	@property (readwrite) IBOutlet NSTableView * tableView;
 
 - (IBAction)setKeywordValue:(id)sender;
+
+// Notifications
+
+- (void)didDoubleClickToken:(NSNotification *)inNotification;
 
 @end
 
@@ -49,18 +55,20 @@
 
 #pragma mark -
 
-- (void)WB_viewWillAppear
-{
-	[super WB_viewWillAppear];
-	
-	// A COMPLETER
-}
-
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDoubleClickToken:) name:PKGPresentationLicenseStepSettingsDidDoubleClickTokenNotification object:_licenseStepSettings];
+	
 	[self refreshUI];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationLicenseStepSettingsDidDoubleClickTokenNotification object:_licenseStepSettings];
 }
 
 - (void)refreshUI
@@ -133,6 +141,27 @@
 	}
 	
 	return nil;
+}
+
+#pragma mark - Notifications
+
+- (void)didDoubleClickToken:(NSNotification *)inNotification
+{
+	NSString * tTokenName=inNotification.userInfo[PKGLicenseTemplateTokenName];
+	
+	if (tTokenName.length==0)
+		return;
+	
+	NSUInteger tIndex=[_licenseTemplate.keywords indexOfObject:tTokenName];
+	
+	if (tIndex==NSNotFound)
+		return;
+	
+	[self.tableView scrollRowToVisible:tIndex];
+	
+	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tIndex] byExtendingSelection:NO];
+	
+	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"value"] row:tIndex withEvent:nil select:YES];
 }
 
 @end
