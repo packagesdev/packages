@@ -640,6 +640,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	}
 	
 	[self.outlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
 }
 
 #pragma mark -
@@ -1161,7 +1163,11 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	{
 		_descriptionTextView.string=@"";
 		
-		// A COMPLETER
+		// Post Notification
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGInstallationHierarchySelectionDidChangeNotification
+															object:self.document
+														  userInfo:@{PKGInstallationHierarchySelectionTypeKey:@((tIndexSet.count==0) ? PKGInstallationHierarchySelectionEmpty: PKGInstallationHierarchySelectionMultiple)}];
 		
 		return;
 	}
@@ -1172,7 +1178,9 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	{
 		_descriptionTextView.string=@"";
 		
-		// A COMPLETER
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGInstallationHierarchySelectionDidChangeNotification
+															object:self.document
+														  userInfo:@{PKGInstallationHierarchySelectionTypeKey:@(PKGInstallationHierarchySelectionSingleNonEditable)}];
 		
 		return;
 	}
@@ -1181,7 +1189,10 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	_descriptionTextView.string=(tLocalizedDescription==nil) ? @"" : [tLocalizedDescription copy];
 	
-	// A COMPLETER
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGInstallationHierarchySelectionDidChangeNotification
+														object:self.document
+													  userInfo:@{PKGInstallationHierarchySelectionTypeKey:@(PKGInstallationHierarchySelectionSingle),
+																 PKGInstallationHierarchySelectionItemKey:tSelectedChoiceTreeNode}];
 }
 
 #pragma mark - PKGInstallationHierarchyDataSourceDelegate

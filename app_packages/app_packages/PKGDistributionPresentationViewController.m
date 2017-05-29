@@ -1278,10 +1278,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	_pluginRemoveButton.enabled=(tSelectedPresentationSection.pluginPath!=nil);
 	
-	// Show the Section View
-	
-	[self showViewForSection:tSelectedPresentationSection];
-	
 	// Inspector
 	
 	if (inNotification.userInfo==nil)
@@ -1308,6 +1304,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
 		}
 	}
+	
+	// Show the Section View
+	
+	[self showViewForSection:tSelectedPresentationSection];
 }
 
 - (void)titleSettingsDidChange:(NSNotificationCenter *)inNotification

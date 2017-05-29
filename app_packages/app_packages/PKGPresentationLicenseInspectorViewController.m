@@ -95,7 +95,8 @@
 {
 	[super WB_viewDidAppear];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:_localizationsViewController selector:@selector(localizationsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+	if (_localizationsViewController!=nil)
+		[[NSNotificationCenter defaultCenter] addObserver:_localizationsViewController selector:@selector(localizationsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
 	
 	[_currentViewController WB_viewDidAppear];
 }
@@ -104,7 +105,8 @@
 {
 	[super WB_viewWillDisappear];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:_localizationsViewController name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+	if (_localizationsViewController!=nil)
+		[[NSNotificationCenter defaultCenter] removeObserver:_localizationsViewController name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
 	
 	[_currentViewController WB_viewWillDisappear];
 }
@@ -133,6 +135,8 @@
 			tLocalizationsDataSource.delegate=self;
 			
 			_localizationsViewController.dataSource=tLocalizationsDataSource;
+			
+			[[NSNotificationCenter defaultCenter] addObserver:_localizationsViewController selector:@selector(localizationsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
 		}
 		
 		tViewController=_localizationsViewController;

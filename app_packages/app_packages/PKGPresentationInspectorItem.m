@@ -97,7 +97,7 @@
 		tInspectorItem.localizedTitle=NSLocalizedString(@"Installation Type",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemInstallationType;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionInstallationTypeViewController");
-		//tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"NSObject");
+		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationInstallationTypeInspectorViewController");
 		
 		[tMutableArray addObject:tInspectorItem];
 		
