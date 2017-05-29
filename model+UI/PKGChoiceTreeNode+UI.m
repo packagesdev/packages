@@ -29,7 +29,7 @@
 	if (tChoiceItem.type!=PKGChoiceItemTypePackage)
 		return nil;
 	
-	return ((PKGChoicePackageItem *)tChoiceItem).packageUUUID;
+	return ((PKGChoicePackageItem *)tChoiceItem).packageUUID;
 }
 
 - (BOOL)isEnabled

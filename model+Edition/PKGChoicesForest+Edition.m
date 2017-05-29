@@ -155,7 +155,7 @@
 			if ([bChoicePackageItem isKindOfClass:PKGChoicePackageItem.class]==NO)
 				return;
 			
-			tFound=[bChoicePackageItem.packageUUUID isEqualToString:inPackageComponentUUID];
+			tFound=[bChoicePackageItem.packageUUID isEqualToString:inPackageComponentUUID];
 			
 			if (tFound==YES)
 				*bOutStop=YES;
@@ -190,7 +190,7 @@
 			if ([tChoicePackageItem isKindOfClass:PKGChoicePackageItem.class]==NO)
 				return;
 			
-			if ([inPackageComponentUUIDs containsObject:tChoicePackageItem.packageUUUID]==YES)
+			if ([inPackageComponentUUIDs containsObject:tChoicePackageItem.packageUUID]==YES)
 			{
 				[tPackagesChoiceTreeNodes addObject:bPackageChoiceTreeNode];
 				tFoundCount++;

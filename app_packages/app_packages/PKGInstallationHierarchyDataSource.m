@@ -156,7 +156,7 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 		tChoicePackageItem.options.state=PKGSelectedChoiceState;
 		tChoicePackageItem.options.stateDependencies=nil;
 		
-		self.installationHierarchy.removedPackagesChoices[tChoicePackageItem.packageUUUID]=bChoiceTreeNode;
+		self.installationHierarchy.removedPackagesChoices[tChoicePackageItem.packageUUID]=bChoiceTreeNode;
 		
 	}];
 	

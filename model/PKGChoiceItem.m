@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -258,9 +258,9 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	if (self!=nil)
 	{
-		_packageUUUID=inRepresentation[PKGChoicePackageItemPackageUUIDKey];
+		_packageUUID=inRepresentation[PKGChoicePackageItemPackageUUIDKey];
 		
-		if (_packageUUUID==nil)
+		if (_packageUUID==nil)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -270,7 +270,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 			return nil;
 		}
 		
-		if ([_packageUUUID length]==0)
+		if ([_packageUUID length]==0)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -344,7 +344,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	if (self!=nil)
 	{
-		_packageUUUID=inPackageComponent.UUID;
+		_packageUUID=inPackageComponent.UUID;
 		
 		_requirements=[NSMutableArray array];
 	}
@@ -356,7 +356,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 {
 	NSMutableDictionary * tRepresentation=[super representation];
 	
-	tRepresentation[PKGChoicePackageItemPackageUUIDKey]=self.packageUUUID;
+	tRepresentation[PKGChoicePackageItemPackageUUIDKey]=self.packageUUID;
 	
 	if (self.requirements.count>0)
 	{
@@ -377,7 +377,7 @@ NSString * const PKGChoicePackageItemRequirementsKey=@"REQUIREMENTS";
 	
 	[tDescription appendFormat:@"%@\n",[super description]];
 	
-	[tDescription appendFormat:@"Package UUID: %@\n",self.packageUUUID];
+	[tDescription appendFormat:@"Package UUID: %@\n",self.packageUUID];
 	
 	[tDescription appendFormat:@"Requirements(%lu):\n",(unsigned long)self.requirements.count];
 	

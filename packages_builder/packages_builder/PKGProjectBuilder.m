@@ -3139,7 +3139,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (inChoicePackageItem==nil)
 		return nil;
 	
-	NSString * tPackageUUID=inChoicePackageItem.packageUUUID;
+	NSString * tPackageUUID=inChoicePackageItem.packageUUID;
 
 	// pkg-ref
 
@@ -3988,7 +3988,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			PKGChoicePackageItem * tChoicePackageItem=(PKGChoicePackageItem *) tChoiceItem;
 			
-			NSString * tPackageUUID=tChoicePackageItem.packageUUUID;
+			NSString * tPackageUUID=tChoicePackageItem.packageUUID;
 		
 			// Use the name of the package (if it's a package)
 			

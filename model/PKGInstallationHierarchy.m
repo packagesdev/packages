@@ -183,7 +183,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 			
 			if ([bChoiceItem type]==PKGChoiceItemTypePackage)
 			{
-				NSString * tUUID=((PKGChoicePackageItem *)bChoiceItem).packageUUUID;
+				NSString * tUUID=((PKGChoicePackageItem *)bChoiceItem).packageUUID;
 				
 				if ([tMutableSet containsObject:tUUID]==NO)
 					[tMutableSet addObject:tUUID];
