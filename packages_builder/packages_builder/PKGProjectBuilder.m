@@ -3853,11 +3853,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	NSString * tRequirementFunctionName=nil;
 	BOOL tAtLeastOneUnselectAndHideRequirementEnabled=NO;
 	
-	if ([inChoiceItem isKindOfClass:[PKGChoicePackageItem class]]==YES)
+	if (inChoiceItem.requirements.count>0)
 	{
-		PKGChoicePackageItem * tChoicePackageItem=(PKGChoicePackageItem *)inChoiceItem;
-		
-		NSMutableArray * tRequirementsArray=tChoicePackageItem.requirements;
+		NSMutableArray * tRequirementsArray=inChoiceItem.requirements;
 		
 		NSMutableArray * tEnabledRequirementsArray=[tRequirementsArray WB_filteredArrayUsingBlock:^BOOL(PKGRequirement * bRequirement,NSUInteger bIndex){
 			

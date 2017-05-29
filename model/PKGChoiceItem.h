@@ -41,8 +41,11 @@ typedef NS_ENUM(NSUInteger, PKGChoiceItemType)
 
 	@property (nonatomic,readonly) PKGChoiceItemType type;
 
+	@property (readonly) NSMutableArray * requirements;
+
 @end
 
+/* Group item with no hidden children (i.e. real groups) do not support requirements */
 
 @interface PKGChoiceGroupItem : PKGChoiceItem
 
@@ -54,10 +57,6 @@ typedef NS_ENUM(NSUInteger, PKGChoiceItemType)
 @interface PKGChoicePackageItem : PKGChoiceItem
 
 	@property (copy) NSString * packageUUID;
-
-	/* Package Choice item merged into one choice do not support requirements */
-
-	@property NSMutableArray * requirements;
 
 - (instancetype)initWithPackageComponent:(PKGPackageComponent *)inPackageComponent;
 
