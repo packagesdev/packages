@@ -147,7 +147,7 @@ NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.ap
 
 - (BOOL)isVersion6_1OrLater
 {	
-	return ([self compareVersion:PKGInstallerAppVersionNumber6_1]!=NSOrderedDescending);
+	return ([self compareVersion:PKGInstallerAppVersionNumber6_1]!=NSOrderedAscending);
 }
 
 #pragma mark -
