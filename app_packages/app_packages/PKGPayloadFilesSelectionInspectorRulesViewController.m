@@ -297,9 +297,14 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 
 #pragma mark - Drag and Drop support
 
+- (void)tableView:(NSTableView *)inTableView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation
+{
+	_internalDragData=nil;
+}
+
 - (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
 {
-	_internalDragData=inRowIndexes;	// A COMPLETER (Find how to empty it when the drag and drop is canceled)
+	_internalDragData=inRowIndexes;
 	
 	[inPasteboard declareTypes:@[PKGBundleLocatorsInternalPboardType] owner:self];
 	
@@ -371,11 +376,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 		
 		[tBundleItem.locators insertObjects:tObjects atIndexes:tNewIndexSet];
 		
-		_internalDragData=nil;
-		
 		[inTableView deselectAll:nil];
-		
-		//[self.delegate sourceListDataDidChange:self];
 		
 		[inTableView reloadData];
 		

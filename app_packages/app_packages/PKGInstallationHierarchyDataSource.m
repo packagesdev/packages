@@ -46,6 +46,13 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 	return @[PKGInstallationHierarchyChoicesInternalPboardType,PKGInstallationHierarchyHiddenPackagesInternalPboardType,PKGPackageComponentUUIDsPboardType];
 }
 
+- (void)dealloc
+{
+	_internalDragData=nil;
+}
+
+#pragma mark -
+
 - (void)setInstallationHierarchy:(PKGInstallationHierarchy *)inInstallationHierarchy
 {
 	if (_installationHierarchy!=inInstallationHierarchy)
@@ -293,6 +300,12 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 
 #pragma mark - Drag and Drop support
 
+
+- (void)outlineView:(NSOutlineView *)outlineView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation
+{
+	_internalDragData=nil;
+}
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView writeItems:(NSArray*)inItems toPasteboard:(NSPasteboard*)inPasteboard
 {
 	if (inOutlineView==nil)
@@ -373,20 +386,14 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 	}];
 	
 	if (tCancelDrag==YES)
-	{
-		_internalDragData=nil;
 		return NO;
-	}
 	
 	if (tPasteboardType==PKGHierarchyDataSourceHiddenPackagesPasteboardType)
 	{
 		// Check that all the items share the same parent node
 		
 		if ([PKGTreeNode nodesAreSiblings:inItems]==NO)
-		{
-			_internalDragData=nil;
 			return NO;
-		}
 	}
 	
 	if (tPasteboardType==PKGHierarchyDataSourceHiddenPackagesPasteboardType)
