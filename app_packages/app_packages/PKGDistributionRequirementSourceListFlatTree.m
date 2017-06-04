@@ -114,6 +114,69 @@
 	return [_array indexOfObject:inNode];
 }
 
+- (PKGRequirementType)requirementTypeForNode:(PKGDistributionRequirementSourceListNode *)inNode
+{
+	if (inNode.parent==_installationGroupNode)
+		return PKGRequirementTypeInstallation;
+	
+	if (inNode.parent==_targetGroupNode)
+		return PKGRequirementTypeTarget;
+	
+	return PKGRequirementTypeUndefined;
+}
+
+- (BOOL)containsNodesWithRequirementType:(PKGRequirementType)inRequirementType
+{
+	switch(inRequirementType)
+	{
+		case PKGRequirementTypeInstallation:
+			
+			return [_array containsObject:_installationGroupNode];
+			
+		case PKGRequirementTypeTarget:
+			
+			return [_array containsObject:_targetGroupNode];
+			
+		default:
+			
+			break;
+	}
+	
+	return NO;
+}
+
+- (NSRange)rangeOfNodesWithRequirementType:(PKGRequirementType)inRequirementType
+{
+	switch(inRequirementType)
+	{
+		case PKGRequirementTypeInstallation:
+		{
+			NSUInteger tIndex=[_array indexOfObject:_installationGroupNode];
+		
+			if (tIndex==NSNotFound)
+				break;
+			
+			return NSMakeRange(tIndex+1, _installationGroupNode.numberOfChildren);
+		}
+			
+		case PKGRequirementTypeTarget:
+		{
+			NSUInteger tIndex=[_array indexOfObject:_targetGroupNode];
+			
+			if (tIndex==NSNotFound)
+				break;
+			
+			return NSMakeRange(tIndex+1, _targetGroupNode.numberOfChildren);
+		}
+	
+		default:
+			
+			break;
+	}
+	
+	return NSMakeRange(NSNotFound, 0);
+}
+
 - (PKGDistributionRequirementSourceListNode *)nodeAtIndex:(NSUInteger)inIndex
 {
 	if (inIndex>=_array.count)
@@ -172,7 +235,7 @@
 	
 	PKGRequirementType tRequirementType=inRequirement.requirementType;
 	
-	PKGDistributionRequirementSourceListNode * tGroupNode=(inRequirement.requirementType==PKGRequirementTypeInstallation) ? _installationGroupNode : _targetGroupNode;
+	PKGDistributionRequirementSourceListNode * tGroupNode=(tRequirementType==PKGRequirementTypeInstallation) ? _installationGroupNode : _targetGroupNode;
 	
 	PKGDistributionRequirementSourceListNode * tNode=[[PKGDistributionRequirementSourceListNode alloc] initWithRepresentedObject:[[PKGDistributionRequirementSourceListRequirementItem alloc] initWithRequirement:inRequirement]];
 	tNode.parent=tGroupNode;
@@ -203,6 +266,30 @@
 		[_array addObject:tNode];
 	else
 		[_array insertObject:tNode atIndex:tGroupIndex];
+}
+
+- (void)insertRequirements:(NSArray *)inRequirements atIndexes:(NSIndexSet *)inIndexes
+{
+	if (inRequirements.count==0 || inIndexes.count==0)
+		return;
+	
+	__block PKGDistributionRequirementSourceListNode * tGroupNode=nil;
+	
+	NSArray * tNodes=[inRequirements WB_arrayByMappingObjectsUsingBlock:^PKGDistributionRequirementSourceListNode *(PKGRequirement * bRequirement, NSUInteger bIndex) {
+		
+		if (tGroupNode==nil)
+			tGroupNode=(bRequirement.requirementType==PKGRequirementTypeInstallation) ? _installationGroupNode : _targetGroupNode;
+		
+		PKGDistributionRequirementSourceListNode * tNode=[[PKGDistributionRequirementSourceListNode alloc] initWithRepresentedObject:[[PKGDistributionRequirementSourceListRequirementItem alloc] initWithRequirement:bRequirement]];
+		tNode.parent=tGroupNode;
+		
+		return tNode;
+	}];
+	
+	if (tGroupNode==nil || [_array indexOfObject:tGroupNode]==NSNotFound)
+		return;
+	
+	[_array insertObjects:tNodes atIndexes:inIndexes];
 }
 
 - (PKGDistributionRequirementSourceListNode *)treeNodeForRequirement:(PKGRequirement *)inRequirement

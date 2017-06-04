@@ -235,7 +235,12 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	
 	if (tAction==@selector(duplicate:) ||
 		tAction==@selector(delete:))
+	{
+		if (tSelectionIndexSet.count==0)
+			return NO;
+		
 		return validateSelection(tSelectionIndexSet);
+	}
 	
 	return YES;
 }
@@ -343,7 +348,6 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 			tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? NSOnState : NSOffState;
 			
 			tCheckBoxView.textField.stringValue=tRequirement.name;
-			tCheckBoxView.textField.editable=YES;
 			tCheckBoxView.textField.delegate=self;
 			
 			return tCheckBoxView;
@@ -351,7 +355,6 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	}
 	
 	return nil;
-	
 }
 
 - (BOOL)tableView:(NSTableView *)inTableView isGroupRow:(NSInteger)inRow

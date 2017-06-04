@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
 
 	@property PKGRequirementType type;
 
-	@property PKGRequirementOnFailureBehavior behavior;
+	@property PKGRequirementOnFailureBehavior failureBehavior;
 
 	@property (readonly)NSMutableDictionary * messages;
 
@@ -58,6 +58,6 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOnFailureBehavior)
 
 - (BOOL)isEqualToRequirement:(PKGRequirement *)inRequirement;
 
-- (NSComparisonResult)compareBehavior:(PKGRequirement *)inOtherRequirement;
+- (NSComparisonResult)compareFailureBehavior:(PKGRequirement *)inOtherRequirement;
 
 @end

@@ -23,6 +23,7 @@
 #import "PKGDistributionRequirementPanel.h"
 
 #import "PKGRequirementPluginsManager.h"
+#import "PKGPluginsManager+AppKit.h"
 
 #import "PKGRequirement+UI.h"
 
@@ -31,6 +32,10 @@
 #import "NSIndexSet+Analysis.h"
 
 NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.packages.internal.distribution.requirements";
+
+NSString * const PKGDistributionRequirementTransferInstallationPboardType=@"fr.whitebox.packages.transfer.distribution.installation.requirements";
+
+NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebox.packages.transfer.distribution.target.requirements";
 
 @interface PKGDistributionRequirementSourceListDataSource ()
 {
@@ -48,12 +53,7 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 
 + (NSArray *)supportedDraggedTypes
 {
-	return @[NSFilenamesPboardType,PKGDistributionRequirementInternalPboardType];
-}
-
-- (void)dealloc
-{
-	_internalDragData=nil;
+	return @[NSFilenamesPboardType,PKGDistributionRequirementInternalPboardType,PKGDistributionRequirementTransferInstallationPboardType,PKGDistributionRequirementTransferTargetPboardType];
 }
 
 - (void)setRequirements:(NSMutableArray *)inRequirements
@@ -83,7 +83,51 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 	return _flatTree.count;
 }
 
+#pragma mark - NSPasteboardOwner
+
+- (void)pasteboard:(NSPasteboard *)inPasteboard provideDataForType:(NSString *)inType
+{
+	if (inPasteboard==nil || inType==nil)
+		return;
+	
+	if (_internalDragData==nil)
+		return;
+	
+	if ([inType isEqualToString:PKGDistributionRequirementTransferInstallationPboardType]==NO &&
+		[inType isEqualToString:PKGDistributionRequirementTransferTargetPboardType]==NO)
+		return;
+	
+	NSArray * tNodes=[_flatTree nodesAtIndexes:_internalDragData];
+	
+	__block PKGRequirementType tRequirementType=PKGRequirementTypeUndefined;
+	
+	NSArray * tPasteboardArray=[tNodes WB_arrayByMappingObjectsUsingBlock:^NSDictionary *(PKGDistributionRequirementSourceListNode * bNode, NSUInteger bIndex) {
+		
+		PKGRequirement * tRequirementCopy=[((PKGDistributionRequirementSourceListRequirementItem *)bNode.representedObject).requirement copy];
+		
+		if (tRequirementType==PKGRequirementTypeUndefined)
+		{
+			tRequirementType=tRequirementCopy.requirementType;
+		}
+		
+		Class tPluginUIClass=[[PKGRequirementPluginsManager defaultManager] pluginUIClassForIdentifier:tRequirementCopy.identifier];
+		
+		NSDictionary * tPasteboardSettingsRepresenation=[tPluginUIClass performSelector:@selector(pasteboardDictionaryFromDictionary:converter:) withObject:tRequirementCopy.settingsRepresentation withObject:self.filePathConverter];
+		
+		tRequirementCopy.settingsRepresentation=tPasteboardSettingsRepresenation;
+		
+		return [tRequirementCopy representation];
+	}];
+	
+	[inPasteboard setPropertyList:tPasteboardArray forType:(tRequirementType==PKGRequirementTypeInstallation) ? PKGDistributionRequirementTransferInstallationPboardType : PKGDistributionRequirementTransferTargetPboardType];
+}
+
 #pragma mark - Drag and Drop support
+
+- (void)tableView:(NSTableView *)inTableView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation
+{
+	_internalDragData=nil;
+}
 
 - (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
 {
@@ -104,9 +148,18 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 	if (tMutableSet.count!=1)	// Only one type of requirements in a drag
 		return NO;
 	
-	_internalDragData=inRowIndexes;	// A COMPLETER (Find how to empty it when the drag and drop is done)
+	_internalDragData=inRowIndexes;
 	
-	[inPasteboard declareTypes:@[PKGDistributionRequirementInternalPboardType] owner:self];		// Make the external drag a promised case since it will be less usual IMHO
+	NSMutableArray * tPasteboardTypes=[NSMutableArray arrayWithObject:PKGDistributionRequirementInternalPboardType];
+	
+	PKGRequirementType tRequirementType=[_flatTree requirementTypeForNode:[_flatTree nodeAtIndex:inRowIndexes.firstIndex]];
+	
+	if (tRequirementType==PKGRequirementTypeUndefined)
+		return NO;
+	
+	[tPasteboardTypes addObject:(tRequirementType==PKGRequirementTypeInstallation) ? PKGDistributionRequirementTransferInstallationPboardType : PKGDistributionRequirementTransferTargetPboardType];
+	
+	[inPasteboard declareTypes:tPasteboardTypes owner:self];		// Make the external drag a promised case since it will be less usual IMHO
 	
 	[inPasteboard setData:[NSData data] forType:PKGDistributionRequirementInternalPboardType];
 	
@@ -128,8 +181,6 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 		NSUInteger tFirstDroppableRow=[_flatTree indexOfNode:tDroppedNode.parent];
 		NSUInteger tLastDroppableRow=tDroppedNode.parent.numberOfChildren+tFirstDroppableRow;
 		
-		NSLog(@"%ld %ld",(long)tFirstDroppableRow,(long)tLastDroppableRow);
-		
 		if (inRow<tFirstDroppableRow || inRow>(tLastDroppableRow+1))
 			return NSDragOperationNone;
 		
@@ -150,7 +201,30 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 		return NSDragOperationMove;
 	}
 	
-	// A COMPLETER
+	NSString * tAvailableType=[tPasteBoard availableTypeFromArray:@[PKGDistributionRequirementTransferInstallationPboardType,PKGDistributionRequirementTransferTargetPboardType]];
+	
+	if (tAvailableType!=nil)
+	{
+		if (inDropOperation!=NSTableViewDropAbove)
+			return NSDragOperationNone;
+		
+		PKGRequirementType tDraggedRequirementType=([tAvailableType isEqualToString:PKGDistributionRequirementTransferInstallationPboardType]==YES) ? PKGRequirementTypeInstallation : PKGRequirementTypeTarget;
+		
+		NSRange tRange=[_flatTree rangeOfNodesWithRequirementType:tDraggedRequirementType];
+		
+		if (tRange.location==NSNotFound)
+		{
+			[inTableView setDropRow:-1 dropOperation:NSTableViewDropOn];
+			return NSDragOperationCopy;
+		}
+		
+		tRange.length+=1;
+		
+		if (NSLocationInRange(inRow,tRange)==NO)
+			return NSDragOperationNone;
+		
+		return NSDragOperationCopy;
+	}
 	
 	return NSDragOperationNone;
 }
@@ -186,8 +260,6 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 		for(PKGDistributionRequirementSourceListNode * tNode in tNodes)
 			tNode.parent=tParent;
 		
-		_internalDragData=nil;
-		
 		[inTableView deselectAll:nil];
 		
 		[self.delegate sourceListDataDidChange:self];
@@ -200,7 +272,63 @@ NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.pack
 		return YES;
 	}
 	
-	// A COMPLETER
+	NSString * tAvailableType=[tPasteBoard availableTypeFromArray:@[PKGDistributionRequirementTransferInstallationPboardType,PKGDistributionRequirementTransferTargetPboardType]];
+	
+	if (tAvailableType!=nil)
+	{
+		NSArray * tObjects=(NSArray *) [tPasteBoard propertyListForType:tAvailableType];
+		
+		NSArray * tNewRequirements=[tObjects WB_arrayByMappingObjectsUsingBlock:^PKGRequirement *(NSDictionary * bRequirementRepresentation, NSUInteger bIndex) {
+			
+			NSError * tError=nil;
+			
+			PKGRequirement * tNewRequirement=[[PKGRequirement alloc] initWithRepresentation:bRequirementRepresentation error:&tError];
+			
+			if (tNewRequirement==nil)
+			{
+				if (tError!=nil)
+				{
+					// A COMPLETER
+				}
+				
+				return nil;
+			}
+			
+			Class tPluginUIClass=[[PKGRequirementPluginsManager defaultManager] pluginUIClassForIdentifier:tNewRequirement.identifier];
+			
+			NSDictionary * tSettingsRepresenation=[tPluginUIClass performSelector:@selector(dictionaryFromPasteboardDictionary:converter:) withObject:tNewRequirement.settingsRepresentation withObject:self.filePathConverter];
+			
+			tNewRequirement.settingsRepresentation=tSettingsRepresenation;
+			
+			return tNewRequirement;
+			
+		}];
+		
+		if (tNewRequirements==nil)
+			return NO;
+		
+		if (inRow==-1)
+		{
+			[self tableView:inTableView addRequirements:tNewRequirements completionHandler:nil];
+			
+			return YES;
+		}
+		
+		NSIndexSet * tIndexSet=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inRow, tNewRequirements.count)];
+		
+		[_flatTree insertRequirements:tNewRequirements atIndexes:tIndexSet];
+		
+		[inTableView deselectAll:nil];
+		
+		[self.delegate sourceListDataDidChange:self];
+		
+		[inTableView reloadData];
+		
+		[inTableView selectRowIndexes:tIndexSet
+				 byExtendingSelection:NO];
+		
+		return YES;
+	}
 	
 	return NO;
 }

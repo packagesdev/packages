@@ -1844,7 +1844,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		tLeopardRequirement.identifier=@"fr.whitebox.Packages.requirement.os";
 		tLeopardRequirement.type=PKGRequirementTypeInstallation;
 		tLeopardRequirement.settingsRepresentation=tSettingsRepresentation;
-		tLeopardRequirement.behavior=PKGRequirementOnFailureBehaviorInstallationStop;
+		tLeopardRequirement.failureBehavior=PKGRequirementOnFailureBehaviorInstallationStop;
 		
 		[tRequirementsArray insertObject:tLeopardRequirement atIndex:0];
 	}
@@ -1974,7 +1974,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			return NO;
 		}
 		
-		PKGRequirementOnFailureBehavior tFailureBehavior=tRequirement.behavior;
+		PKGRequirementOnFailureBehavior tFailureBehavior=tRequirement.failureBehavior;
 		
 		NSString * tCodePart;
 		NSString * tErrorMessage,* tErrorDescription;
@@ -3159,7 +3159,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 {
 	for(PKGRequirement * tRequirement in inArray)
 	{
-		if (tRequirement.enabled==YES && tRequirement.behavior==PKGRequirementOnFailureBehaviorDeselectAndHideChoice)
+		if (tRequirement.enabled==YES && tRequirement.failureBehavior==PKGRequirementOnFailureBehaviorDeselectAndHideChoice)
 			return YES;
 	}
 	
@@ -3282,7 +3282,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		tIndex++;
 		
-		PKGRequirementOnFailureBehavior tFailureBehavior=tRequirement.behavior;
+		PKGRequirementOnFailureBehavior tFailureBehavior=tRequirement.failureBehavior;
 		
 		if (tFailureBehavior==PKGRequirementOnFailureBehaviorDeselectAndHideChoice)
 		{

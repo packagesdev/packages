@@ -15,11 +15,11 @@
 
 #import "PKGRequirementWindowController.h"
 
-#import "PKGDistributionRequirementBehaviorViewController.h"
+#import "PKGRequirementBehaviorViewController.h"
 #import "PKGDistributionInstallationRequirementBehaviorViewController.h"
 #import "PKGDistributionVolumeRequirementBehaviorViewController.h"
 
-#import "PKGDistributionRequirementMessagesDataSource.h"
+#import "PKGRequirementMessagesDataSource.h"
 
 @interface PKGDistributionRequirementWindowController : PKGRequirementWindowController
 {
@@ -29,7 +29,7 @@
 
 	IBOutlet NSView * _behaviorPlaceHolderView;
 	
-	PKGDistributionRequirementBehaviorViewController * _currentBehaviorController;
+	PKGRequirementBehaviorViewController * _currentBehaviorController;
 	
 	PKGRequirementType _cachedRequirementCheckType;
 }
@@ -118,8 +118,6 @@
 
 - (void)showBehaviorViewForCheckType:(PKGRequirementType)inRequirementCheckType
 {
-	//self.window.contentMinSize=NSMakeSize(defaultContentWidth_,50.0);
-	
 	if (_currentBehaviorController!=nil)
 	{
 		if ([_currentBehaviorController PKG_viewCanBeRemoved]==NO)
@@ -134,26 +132,23 @@
 		_currentBehaviorController=nil;
 	}
 	
+	PKGRequirementMessagesDataSource * tDataSource=[PKGRequirementMessagesDataSource new];
+	tDataSource.messages=self.requirement.messages;
+	
 	if (inRequirementCheckType==PKGRequirementTypeTarget)
 	{
-		PKGDistributionRequirementMessagesDataSource * tDataSource=[PKGDistributionRequirementMessagesDataSource new];
-		tDataSource.messages=self.requirement.messages;
-		
 		_currentBehaviorController=[PKGDistributionVolumeRequirementBehaviorViewController new];
-		_currentBehaviorController.dataSource=tDataSource;
 	}
 	else if (inRequirementCheckType==PKGRequirementTypeInstallation)
 	{
-		PKGDistributionRequirementMessagesDataSource * tDataSource=[PKGDistributionRequirementMessagesDataSource new];
-		tDataSource.messages=self.requirement.messages;
-		
 		_currentBehaviorController=[PKGDistributionInstallationRequirementBehaviorViewController new];
-		_currentBehaviorController.dataSource=tDataSource;
 	}
 	else
 	{
 		// A COMPLETER
 	}
+	
+	_currentBehaviorController.dataSource=tDataSource;
 	
 	if (_currentBehaviorController==nil)
 	{
@@ -188,13 +183,11 @@
 	
 	// Initialize View widgets
 	
-	//[_currentBehaviorController initializeWithDictionary:dictionary_ parentController:self];
-	
 	[_currentBehaviorController WB_viewWillAppear];
 	
 	[_behaviorPlaceHolderView addSubview:tBehaviorView];
 	
-	_currentBehaviorController.requirementBehavior=self.requirement.behavior;
+	_currentBehaviorController.requirementBehavior=self.requirement.failureBehavior;
 	
 	[_currentBehaviorController WB_viewDidAppear];
 	
@@ -218,7 +211,7 @@
 
 - (IBAction)endDialog:(NSButton *)sender
 {
-	self.requirement.behavior=_currentBehaviorController.requirementBehavior;
+	self.requirement.failureBehavior=_currentBehaviorController.requirementBehavior;
 	
 	[super endDialog:sender];
 }

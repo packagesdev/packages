@@ -13,39 +13,46 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGDistributionRequirementSourceListNode.h"
+#import "PKGFilePath.h"
 
-#import "PKGRequirement.h"
+#import "PKGChoiceItem.h"
 
-@interface PKGDistributionRequirementSourceListFlatTree : NSObject
+@class PKGPresentationInstallationTypeChoiceRequirementsDataSource;
 
-	@property (readonly) NSUInteger count;
+@protocol PKGPresentationInstallationTypeChoiceRequirementsDataSourceDelegate
 
-- (instancetype)initWithRequirements:(NSMutableArray *)inRequirements;
+- (void)requirementsDataDidChange:(PKGPresentationInstallationTypeChoiceRequirementsDataSource *)inRequirementsDataSource;
+
+@end
+
+@interface PKGPresentationInstallationTypeChoiceRequirementsDataSource : NSObject <NSTableViewDataSource>
+
+	@property (nonatomic) PKGChoiceItem * choiceItem;
+
+	@property (weak) id<PKGFilePathConverter> filePathConverter;
+
+	@property id<PKGPresentationInstallationTypeChoiceRequirementsDataSourceDelegate> delegate;
+
++ (NSArray *)supportedDraggedTypes;
+
+- (void)tableView:(NSTableView *)inTableView addNewRequirementWithCompletionHandler:(void(^)(BOOL succeeded))handler;
+- (void)editRequirement:(NSTableView *)inTableView;
+
+- (void)tableView:(NSTableView *)inTableView  setItem:(id)inRequirementItem state:(BOOL)inState;
 
 
-- (PKGRequirementType)requirementTypeForNode:(PKGDistributionRequirementSourceListNode *)inNode;
+- (id)itemAtIndex:(NSUInteger)inIndex;
+- (NSArray *)itemsAtIndexes:(NSIndexSet *)inIndexSet;
 
-- (BOOL)containsNodesWithRequirementType:(PKGRequirementType)inRequirementType;
+- (NSInteger)rowForItem:(id)inItem;
 
-- (NSRange)rangeOfNodesWithRequirementType:(PKGRequirementType)inRequirementType;
 
-- (PKGDistributionRequirementSourceListNode *)nodeAtIndex:(NSUInteger)inIndex;
+- (BOOL)tableView:(NSTableView *)inTableView shouldRenameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
 
-- (NSArray *)nodesAtIndexes:(NSIndexSet *)inIndexes;
+- (BOOL)tableView:(NSTableView *)inTableView renameRequirement:(id)inRequirementItem as:(NSString *)inNewName;
 
-- (NSUInteger)indexOfNode:(PKGDistributionRequirementSourceListNode *)inNode;
+- (void)tableView:(NSTableView *)inTableView duplicateItems:(NSArray *)inItems;
 
-- (void)insertNodes:(NSArray *)inNodes atIndexes:(NSIndexSet *)inIndexes;
-
-- (void)removeNode:(PKGDistributionRequirementSourceListNode *)inNode;
-
-- (void)removeNodesInArray:(NSArray *)inArray;
-
-- (void)addRequirement:(PKGRequirement *)inRequirement;
-
-- (void)insertRequirements:(NSArray *)inRequirements atIndexes:(NSIndexSet *)inIndexes;
-
-- (PKGDistributionRequirementSourceListNode *)treeNodeForRequirement:(PKGRequirement *)inRequirement;
+- (void)tableView:(NSTableView *)inTableView removeItems:(NSArray *)inItems;
 
 @end

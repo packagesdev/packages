@@ -13,39 +13,37 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGDistributionRequirementSourceListNode.h"
+#import "PKGRequirementFailureMessage.h"
 
-#import "PKGRequirement.h"
+@class PKGRequirementMessagesDataSource;
 
-@interface PKGDistributionRequirementSourceListFlatTree : NSObject
+@protocol PKGRequirementMessagesDataSourceDelegate <NSObject>
 
-	@property (readonly) NSUInteger count;
+- (PKGRequirementFailureMessage *)defaultMessage;
 
-- (instancetype)initWithRequirements:(NSMutableArray *)inRequirements;
+- (void)messagesDataDidChange:(PKGRequirementMessagesDataSource *)inDataSource;
 
+@end
 
-- (PKGRequirementType)requirementTypeForNode:(PKGDistributionRequirementSourceListNode *)inNode;
+@interface PKGRequirementMessagesDataSource : NSObject <NSTableViewDataSource>
 
-- (BOOL)containsNodesWithRequirementType:(PKGRequirementType)inRequirementType;
+	@property (nonatomic) NSMutableDictionary * messages;
 
-- (NSRange)rangeOfNodesWithRequirementType:(PKGRequirementType)inRequirementType;
+	@property (weak) id<PKGRequirementMessagesDataSourceDelegate> delegate;
 
-- (PKGDistributionRequirementSourceListNode *)nodeAtIndex:(NSUInteger)inIndex;
+- (NSIndexSet *)availableLanguageTagsSet;
 
-- (NSArray *)nodesAtIndexes:(NSIndexSet *)inIndexes;
+- (NSString *)tableView:(NSTableView *)inTableView languageAtRow:(NSInteger)inRow;
 
-- (NSUInteger)indexOfNode:(PKGDistributionRequirementSourceListNode *)inNode;
+- (id)tableView:(NSTableView *)inTableView itemAtRow:(NSInteger)inRow;
 
-- (void)insertNodes:(NSArray *)inNodes atIndexes:(NSIndexSet *)inIndexes;
+- (void)tableView:(NSTableView *)inTableView setLanguageTag:(NSInteger)inLanguageTag forItemAtRow:(NSInteger)inRow;
 
-- (void)removeNode:(PKGDistributionRequirementSourceListNode *)inNode;
+- (void)tableView:(NSTableView *)inTableView setTitle:(NSString *)inTitle forItemAtRow:(NSInteger)inRow;
+- (void)tableView:(NSTableView *)inTableView setDescription:(NSString *)inDescription forItemAtRow:(NSInteger)inRow;
 
-- (void)removeNodesInArray:(NSArray *)inArray;
+- (void)addNewItem:(NSTableView *)inTableView;
 
-- (void)addRequirement:(PKGRequirement *)inRequirement;
-
-- (void)insertRequirements:(NSArray *)inRequirements atIndexes:(NSIndexSet *)inIndexes;
-
-- (PKGDistributionRequirementSourceListNode *)treeNodeForRequirement:(PKGRequirement *)inRequirement;
+- (void)tableView:(NSTableView *)inTableView removeItemsAtIndexes:(NSIndexSet *)inIndexSet;
 
 @end

@@ -58,7 +58,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		
 		_type=PKGRequirementTypeUndefined;
 		
-		_behavior=PKGRequirementOnFailureBehaviorInstallationStop;
+		_failureBehavior=PKGRequirementOnFailureBehaviorInstallationStop;
 		
 		_settingsRepresentation=nil;
 		
@@ -135,9 +135,9 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		
 		
 		
-		_behavior=[inRepresentation[PKGRequirementOnFailureBehaviorKey] unsignedIntegerValue];
+		_failureBehavior=[inRepresentation[PKGRequirementOnFailureBehaviorKey] unsignedIntegerValue];
 		
-		if (_behavior>PKGRequirementOnFailureBehaviorInstallationStop)
+		if (_failureBehavior>PKGRequirementOnFailureBehaviorInstallationStop)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -245,7 +245,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		nRequirement.name=[self.name copyWithZone:inZone];
 		nRequirement.identifier=[self.identifier copyWithZone:inZone];
 		nRequirement.type=self.type;
-		nRequirement.behavior=self.behavior;
+		nRequirement.failureBehavior=self.failureBehavior;
 		nRequirement.messages=[self.messages mutableCopy];
 		nRequirement.settingsRepresentation=[self.settingsRepresentation deepCopy];
 	}
@@ -268,7 +268,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 	if (self.settingsRepresentation!=nil)
 		tRepresentation[PKGRequirementSettingsRepresentationKey]=self.settingsRepresentation;
 	
-	tRepresentation[PKGRequirementOnFailureBehaviorKey]=@(self.behavior);
+	tRepresentation[PKGRequirementOnFailureBehaviorKey]=@(self.failureBehavior);
 	
 	NSMutableArray * tMutableArray=[NSMutableArray array];
 	
@@ -301,19 +301,19 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 			[self.name isEqualToString:inRequirement.name]==YES &&
 			[self.identifier isEqualToString:inRequirement.identifier]==YES &&
 			self.type==inRequirement.type &&
-			self.behavior==inRequirement.behavior &&
+			self.failureBehavior==inRequirement.failureBehavior &&
 			[self.messages isEqualToDictionary:inRequirement.messages]==YES &&
 			[self.settingsRepresentation isEqualToDictionary:inRequirement.settingsRepresentation]==YES);
 }
 
-- (NSComparisonResult)compareBehavior:(PKGRequirement *)inOtherRequirement
+- (NSComparisonResult)compareFailureBehavior:(PKGRequirement *)inOtherRequirement
 {
-	PKGRequirementOnFailureBehavior tOtherBehavior=inOtherRequirement.behavior;
+	PKGRequirementOnFailureBehavior tOtherBehavior=inOtherRequirement.failureBehavior;
 	
-	if (self.behavior<tOtherBehavior)
+	if (self.failureBehavior<tOtherBehavior)
 		return NSOrderedDescending;
 	
-	if (self.behavior>tOtherBehavior)
+	if (self.failureBehavior>tOtherBehavior)
 		return NSOrderedAscending;
 	
 	return NSOrderedSame;
