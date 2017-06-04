@@ -98,7 +98,7 @@ popd
 
 pushd app_packages
 
-/usr/bin/xcodebuild clean build -configuration Release -scheme "app_packages" -derivedDataPath "$ABSOLUTE_BUILD_PATH" CONFIGURATION_BUILD_DIR="$ABSOLUTE_BUILD_PATH"
+/usr/bin/xcodebuild -project "app_packages.xcodeproj" clean build -configuration Release -scheme "app_packages" -derivedDataPath "$ABSOLUTE_BUILD_PATH" CONFIGURATION_BUILD_DIR="$ABSOLUTE_BUILD_PATH"
 
 pushd
 
@@ -106,7 +106,7 @@ pushd
 
 pushd distribution
 
-/usr/local/bin/packagesbuild Packages.pkgproj
+/usr/local/bin/packagesbuild -v Packages.pkgproj
 
 pushd
 
