@@ -52,6 +52,11 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 
 #pragma mark - Drag and Drop support
 
+- (void)tableView:(NSTableView *)inTableView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation
+{
+	_internalDragData=nil;
+}
+
 - (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
 {
 	_internalDragData=inRowIndexes;	// A COMPLETER (Find how to empty it when the drag and drop is canceled)
@@ -122,8 +127,6 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 		NSIndexSet * tNewIndexSet=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inRow, _internalDragData.count)];
 		
 		[self.items insertObjects:tObjects atIndexes:tNewIndexSet];
-		
-		_internalDragData=nil;
 		
 		[inTableView deselectAll:nil];
 		

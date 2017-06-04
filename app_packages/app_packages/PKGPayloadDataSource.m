@@ -903,6 +903,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 
 #pragma mark - Drag and Drop support
 
+- (void)outlineView:(NSOutlineView *)inOutlineView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation
+{
+	_internalDragData=nil;
+}
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView writeItems:(NSArray*)inItems toPasteboard:(NSPasteboard*)inPasteboard
 {
 	for(PKGPayloadTreeNode * tTreeNode in inItems)
@@ -911,7 +916,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return NO;
 	}
 	
-	_internalDragData=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];	// A COMPLETER (Find how to empty it when the drag and drop is done)
+	_internalDragData=[PKGTreeNode minimumNodeCoverFromNodesInArray:inItems];
 	
 	[inPasteboard declareTypes:@[PKGPayloadItemsInternalPboardType,PKGPayloadItemsPboardType] owner:self];		// Make the external drag a promised case since it will be less usual IMHO
 	
