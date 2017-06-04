@@ -315,8 +315,7 @@
 	// Set Min and Max window size
 	
 	[self updateMinMaxWindowSize];
-	
-	}
+}
 
 - (void)updateMinMaxWindowSize
 {

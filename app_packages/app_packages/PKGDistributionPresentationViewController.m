@@ -215,7 +215,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		if (_presentationSettings!=nil)
 		{
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings titleSettings_safe]];
-			
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
 		}
 		
@@ -226,7 +225,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		[self refreshUI];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings titleSettings_safe]];
-		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundImageSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
 	}
 }
@@ -418,13 +416,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[super WB_viewDidAppear];
 	
 	[_currentSectionViewController WB_viewDidAppear];
-	
 	[_currentInspectorViewController WB_viewDidAppear];
 	
 	// Register for notifications
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
 }
 
@@ -433,11 +429,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[super WB_viewWillDisappear];
 	
 	[_currentSectionViewController WB_viewWillDisappear];
-	
 	[_currentInspectorViewController WB_viewWillDisappear];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
 }
 
@@ -446,7 +440,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[super WB_viewDidDisappear];
 
 	[_currentSectionViewController WB_viewDidDisappear];
-	
 	[_currentInspectorViewController WB_viewDidDisappear];
 }
 
@@ -683,9 +676,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	SEL tAction=inMenuItem.action;
 	
 	if (tAction==@selector(switchInspectedView:))
-	{
 		return (inMenuItem.tag!=PKGPresentationInspectorItemPlugIn);
-	}
 	
 	return YES;
 }
@@ -700,11 +691,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	{
 		if ([_currentSectionViewController class]==tNewClass)
 		{
-		
 			// A COMPLETER
 		
 			return;
-			
 		}
 		
 		[_currentSectionViewController WB_viewWillDisappear];
@@ -779,11 +768,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	{
 		if ([_currentInspectorViewController class]==tNewClass)
 		{
-			
 			// A COMPLETER
 			
 			return;
-			
 		}
 		
 		[_currentInspectorViewController WB_viewWillDisappear];
@@ -851,9 +838,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		PKGInstallerPlugin * tInstallerPlugin=[[PKGInstallerPlugin alloc] initWithBundleAtPath:tAbsolutePath];
 		
 		if (tInstallerPlugin==nil)
-		{
 			return NSLocalizedStringFromTable(@"Not Found",@"Presentation",@"");
-		}
 		
 		NSString * tSectionTitle=[tInstallerPlugin sectionTitleForLocalization:_currentPreviewLanguage];
 		
@@ -865,6 +850,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}
 	
 	return nil;
+}
+
+- (void)presentationListView:(PKGPresentationListView *)inPresentationListView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation
+{
+	_internalDragData=nil;
 }
 
 - (BOOL)presentationListView:(PKGPresentationListView *)inPresentationListView writeStep:(NSInteger) inStep toPasteboard:(NSPasteboard*) inPasteboard
@@ -1008,8 +998,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		[self.presentationSettings.sections insertObjects:tSections atIndexes:tNewIndexSet];
 		
-		_internalDragData=nil;
-		
 		// Refresh the list view
 		
 		[_listView reloadData];
@@ -1116,14 +1104,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		return YES;
 	
 	if ([tPresentationSection.name isEqualToString:PKGPresentationSectionReadMeName]==YES)
-	{
 		return [self.presentationSettings readMeSettings_safe].isCustomized;
-	}
 	
 	if ([tPresentationSection.name isEqualToString:PKGPresentationSectionLicenseName]==YES)
-	{
 		return [self.presentationSettings licenseSettings_safe].isCustomized;
-	}
 	
 	return YES;
 }
