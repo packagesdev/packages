@@ -15,6 +15,4 @@
 
 @interface PKGPresentationTitleInspectorViewController : PKGPresentationInspectorViewController
 
-	@property (readonly) NSTableView * tableView;
-
 @end
