@@ -61,7 +61,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 				tImage=[NSImage imageNamed:@"NSSmartBadgeTemplate"];
 				
-				[tImage drawInRect:NSMakeRect(1.5,2,10,10) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				[tImage drawInRect:NSMakeRect(1.5,3,10,10) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
 			}
 			
 			return YES;
