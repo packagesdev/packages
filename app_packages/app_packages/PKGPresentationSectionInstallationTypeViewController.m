@@ -117,6 +117,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 
 - (void)appleInternalModeDidChange:(NSNotification *)inNotification;
 
+- (void)installationTypeSettingsDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGPresentationSectionInstallationTypeViewController
@@ -165,7 +167,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	// A COMPLETER
 	
 	
-	//[self setHierarchyBoxHidden:([PKGApplicationPreferences sharedPreferences].appleMode==NO)];
+	[self setHierarchyBoxHidden:([PKGApplicationPreferences sharedPreferences].appleMode==NO)];
 }
 
 #pragma mark -
@@ -263,6 +265,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	[super WB_viewDidAppear];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appleInternalModeDidChange:) name:PKGPreferencesAdvancedAppleModeStateDidChangeNotification object:nil];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(installationTypeSettingsDidChange:) name:PKGPresentationInstallationTypeStepSettingsDidChangeNotification object:self.document];
 }
 
 - (void)WB_viewWillDisappear
@@ -274,6 +278,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	[self archiveSelection];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesAdvancedAppleModeStateDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationInstallationTypeStepSettingsDidChangeNotification object:self.document];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 }
@@ -1221,6 +1227,15 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 - (void)appleInternalModeDidChange:(NSNotification *)inNotification
 {
 	[self setHierarchyBoxHidden:([PKGApplicationPreferences sharedPreferences].appleMode==NO)];
+}
+
+- (void)installationTypeSettingsDidChange:(NSNotification *)inNotification
+{
+	// A COMPLETER
+	
+	// OutlineView
+	
+	[self.outlineView reloadData];
 }
 
 @end
