@@ -11,15 +11,9 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGPresentationTitleInspectorViewController.h"
-
-#import "PKGPresentationLocalizationsDataSource.h"
+#import "PKGPresentationLocalizedStringsViewController.h"
 
 #import "PKGPopUpButtonTableCellView.h"
-
-#import "PKGPresentationLocalizableStepSettings+UI.h"
-
-#import "PKGDistributionProjectPresentationSettings+Safe.h"
 
 #import "PKGLocalizationUtilities.h"
 
@@ -27,17 +21,17 @@
 
 #import "NSAlert+block.h"
 
-@interface PKGPresentationTitleInspectorViewController () <NSTableViewDelegate,PKGPresentationLocalizationsDataSourceDelegate>
+@interface PKGPresentationLocalizedStringsViewController () <NSTableViewDelegate>
 {
+	IBOutlet NSTextField * _viewLabel;
+	
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
-
-	PKGPresentationTitleSettings * _titleSettings;
-
-	PKGPresentationLocalizationsDataSource * _dataSource;
+	
+	IBOutlet NSTextField * _viewInformationLabel;
 }
 
-	@property (readwrite) IBOutlet NSTableView * tableView;
+@property (readwrite) IBOutlet NSTableView * tableView;
 
 - (IBAction)switchLanguage:(id)sender;
 
@@ -48,30 +42,31 @@
 
 @end
 
-@implementation PKGPresentationTitleInspectorViewController
+@implementation PKGPresentationLocalizedStringsViewController
 
-- (instancetype)initWithDocument:(PKGDocument *)inDocument presentationSettings:(PKGDistributionProjectPresentationSettings *)inPresentationSettings
+- (void)setLabel:(NSString *)inLabel
 {
-	self=[super initWithDocument:inDocument presentationSettings:inPresentationSettings];
+	if (_label==inLabel)
+		return;
 	
-	if (self!=nil)
-	{
-		_titleSettings=[inPresentationSettings titleSettings_safe];
-		
-		_dataSource=[PKGPresentationLocalizationsDataSource new];
-		
-		_dataSource.localizations=_titleSettings.localizations;
-		_dataSource.delegate=self;
-	}
+	_label=[inLabel copy];
 	
-	return self;
+	[self refreshUI];
 }
 
-#pragma mark -
-
-- (PKGPresentationStepSettings *)settings
+- (void)setInformationLabel:(NSString *)inInformationLabel
 {
-	return _titleSettings;
+	_informationLabel=(inInformationLabel!=nil) ? [inInformationLabel copy] : @"";
+	
+	[self refreshUI];
+}
+
+- (void)setDataSource:(PKGPresentationLocalizationsDataSource *)inDataSource
+{
+	_dataSource=inDataSource;
+	
+	if (self.tableView!=nil)
+		self.tableView.dataSource=_dataSource;
 }
 
 #pragma mark -
@@ -81,13 +76,33 @@
 	[super WB_viewWillAppear];
 	
 	self.tableView.dataSource=_dataSource;
+	
+	[self.tableView reloadData];
+	
+	[self refreshUI];
 }
 
 #pragma mark -
 
 - (void)refreshUI
 {
-	[self.tableView reloadData];
+	if (_viewLabel==nil)
+		return;
+	
+	_viewLabel.stringValue=_label;
+	
+	NSRect tInformationlabelFrame=_viewInformationLabel.frame;
+	
+	_viewInformationLabel.stringValue=_informationLabel;
+	
+	[_viewInformationLabel sizeToFit];
+	
+	CGFloat tNewWidth=NSWidth(_viewInformationLabel.frame);
+	
+	tInformationlabelFrame.origin.x=NSMaxX(tInformationlabelFrame)-tNewWidth;
+	tInformationlabelFrame.size.width=tNewWidth;
+	
+	_viewInformationLabel.frame=tInformationlabelFrame;
 }
 
 #pragma mark -
@@ -167,20 +182,6 @@
 	}
 	
 	return YES;
-}
-
-#pragma mark - PKGPresentationLocalizationsDataSourceDelegate
-
-- (id)defaultValue
-{
-	return @"";
-}
-
-- (void)localizationsDidChange:(PKGPresentationLocalizationsDataSource *)inDataSource
-{
-	[self noteDocumentHasChanged];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.settings userInfo:nil];
 }
 
 #pragma mark - NSTableViewDelegate
