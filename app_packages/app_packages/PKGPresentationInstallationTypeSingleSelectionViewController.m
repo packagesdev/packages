@@ -19,6 +19,8 @@
 
 #import "PKGDistributionProject.h"
 
+#import "PKGPresentationInstallationTypeChoiceAttributesViewController.h"
+
 #import "PKGPresentationInstallationTypeChoiceRequirementsViewController.h"
 
 @interface PKGPresentationInstallationTypeSingleSelectionViewController ()
@@ -32,6 +34,8 @@
 	IBOutlet NSTabView * _tabView;
 	
 	NSTabViewItem * _requirementsTabViewItem;
+	
+	PKGPresentationInstallationTypeChoiceAttributesViewController * _attributesViewController;
 	
 	PKGPresentationInstallationTypeChoiceRequirementsViewController * _requirementsViewController;
 }
@@ -49,6 +53,16 @@
 {
 	[super WB_viewDidLoad];
 	
+	NSTabViewItem * tAttributesTabViewItem=[_tabView tabViewItemAtIndex:[_tabView indexOfTabViewItemWithIdentifier:@"Attributes"]];
+	
+	_attributesViewController=[[PKGPresentationInstallationTypeChoiceAttributesViewController alloc] initWithDocument:self.document];
+	
+	_attributesViewController.choiceTreeNode=_choiceTreeNode;
+	
+	_attributesViewController.view.frame=tAttributesTabViewItem.view.bounds;
+	
+	[tAttributesTabViewItem.view addSubview:_attributesViewController.view];
+	
 	_requirementsTabViewItem=[_tabView tabViewItemAtIndex:[_tabView indexOfTabViewItemWithIdentifier:@"Requirements"]];
 }
 
@@ -58,6 +72,8 @@
 {
 	_choiceTreeNode=inChoiceTreeNode;
 	
+	_attributesViewController.choiceTreeNode=_choiceTreeNode;
+	
 	[self refreshUI];
 }
 
@@ -66,6 +82,9 @@
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
+	
+	if (_attributesViewController!=nil)
+		[_attributesViewController WB_viewWillAppear];
 	
 	if (_requirementsViewController!=nil)
 		[_requirementsViewController WB_viewWillAppear];
@@ -77,6 +96,9 @@
 {
 	[super WB_viewDidAppear];
 	
+	if (_attributesViewController!=nil)
+		[_attributesViewController WB_viewDidAppear];
+	
 	if (_requirementsViewController!=nil)
 		[_requirementsViewController WB_viewDidAppear];
 }
@@ -85,6 +107,9 @@
 {
 	[super WB_viewWillDisappear];
 	
+	if (_attributesViewController!=nil)
+		[_attributesViewController WB_viewWillDisappear];
+	
 	if (_requirementsViewController!=nil)
 		[_requirementsViewController WB_viewWillDisappear];
 }
@@ -92,6 +117,9 @@
 - (void)WB_viewDidDisappear
 {
 	[super WB_viewDidDisappear];
+	
+	if (_attributesViewController!=nil)
+		[_attributesViewController WB_viewDidDisappear];
 	
 	if (_requirementsViewController!=nil)
 		[_requirementsViewController WB_viewDidDisappear];
