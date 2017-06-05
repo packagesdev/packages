@@ -288,7 +288,7 @@
 
 #pragma mark - PKGPresentationLocalizationsDataSourceDelegate
 
-- (id)defaultValue
+- (id)defaultValueForLocalizationsDataSource:(PKGPresentationLocalizationsDataSource *)inDataSource
 {
 	PKGFilePath * tFilePath=[PKGFilePath filePath];
 	tFilePath.type=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;

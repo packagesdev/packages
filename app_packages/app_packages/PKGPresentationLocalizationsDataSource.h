@@ -19,7 +19,7 @@
 
 @protocol PKGPresentationLocalizationsDataSourceDelegate <NSObject>
 
-- (id)defaultValue;
+- (id)defaultValueForLocalizationsDataSource:(PKGPresentationLocalizationsDataSource *)inDataSource;
 
 - (PKGDocument *)document;
 

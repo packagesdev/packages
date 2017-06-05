@@ -263,7 +263,7 @@
 	if (tLanguage==nil)
 		return;
 	
-	id tValue=[self.delegate defaultValue];
+	id tValue=[self.delegate defaultValueForLocalizationsDataSource:self];
 	
 	[_cachedLanguages addObject:tLanguage];
 	
