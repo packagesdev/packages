@@ -59,7 +59,7 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 
 - (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
 {
-	_internalDragData=inRowIndexes;	// A COMPLETER (Find how to empty it when the drag and drop is canceled)
+	_internalDragData=inRowIndexes;
 	
 	[inPasteboard declareTypes:@[PPKGTableViewDataSourceInternalPboardType] owner:self];
 	
