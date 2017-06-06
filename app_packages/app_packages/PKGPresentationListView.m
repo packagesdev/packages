@@ -40,7 +40,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 
 //#define LIST_DEBUG_VIEW 1
 
-@interface PKGPresentationListView ()
+@interface PKGPresentationListView () <NSDraggingSource>
 {
 	NSInteger _firstVisibleStep;
 	
@@ -1165,32 +1165,56 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 					if ([self.dataSource presentationListView:self writeStep:_mouseSelectedStep toPasteboard:tPasteboard]==YES)
 					{
 						_mouseMode=PKGPresentationListViewMouseModeDrag;
-						
 						_mouseSelectedStepPushed=NO;
 						
 						[self setNeedsDisplay:YES];
 						
-						NSRect tStepFrame=[self frameForStep:_mouseSelectedStep];
+						// Move the pasteboard data to the pasteboard item
 						
-						/*NSDraggingItem * tDraggingItem=[[NSDraggingItem alloc] initWithPasteboardWriter:nil];
+						NSPasteboardItem *tPasteboardItem = [NSPasteboardItem new];
 						
-						[tDraggingItem setDraggingFrame:tStepFrame contents:[self imageOfStep:_mouseSelectedStep]];
-						
-						
-						NSDraggingSession * tDragginSession=[self beginDraggingSessionWithItems:@[tDraggingItem] event:inEvent source:self];
-						
-						tDragginSession.animatesToStartingPositionsOnCancelOrFail=YES;
-						tDragginSession.draggingFormation=NSDraggingFormationNone;*/
-						
-						
-						[self dragImage:[self imageOfStep:_mouseSelectedStep]
-									 at:tStepFrame.origin
-								 offset:NSZeroSize
-								  event:inEvent
-							 pasteboard:tPasteboard
-								 source:self
-							  slideBack:YES];
+						for(NSString * tType in tPasteboard.types)
+						{
+							id tObject=[tPasteboard dataForType:tType];
+							if (tObject!=nil)
+							{
+								[tPasteboardItem setData:tObject forType:tType];
+								continue;
+							}
 							
+							tObject=[tPasteboard propertyListForType:tType];
+							if (tObject!=nil)
+							{
+								[tPasteboardItem setPropertyList:tObject forType:tType];
+								continue;
+							}
+
+							tObject=[tPasteboard stringForType:tType];
+							if (tObject!=nil)
+							{
+								[tPasteboardItem setString:tObject forType:tType];
+								continue;
+							}
+						}
+						
+						NSDraggingItem *tDraggingItem=[[NSDraggingItem alloc] initWithPasteboardWriter:tPasteboardItem];
+						tDraggingItem.draggingFrame=[self frameForStep:_mouseSelectedStep];
+						tDraggingItem.imageComponentsProvider=^{
+							
+							NSImage * tImage=[self imageOfStep:_mouseSelectedStep];
+							NSSize tSize=tImage.size;
+							
+							NSDraggingImageComponent * tDraggingImageComponent=[NSDraggingImageComponent draggingImageComponentWithKey:NSDraggingImageComponentIconKey];
+							tDraggingImageComponent.contents=tImage;
+							tDraggingImageComponent.frame=NSMakeRect(0, 0, tSize.width, tSize.height);
+							
+							return @[tDraggingImageComponent];
+						};
+						
+						NSDraggingSession * tDraggingSession=[self beginDraggingSessionWithItems:@[tDraggingItem] event:inEvent source:self];
+						tDraggingSession.animatesToStartingPositionsOnCancelOrFail=YES;
+						tDraggingSession.draggingFormation=NSDraggingFormationNone;
+						
 						return;
 					}
 				}
@@ -1407,6 +1431,27 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	}
 }
 
+#pragma mark - NSDraggingSource
+
+- (NSDragOperation)draggingSession:(NSDraggingSession *)inDraggingSession sourceOperationMaskForDraggingContext:(NSDraggingContext)inDraggingContext
+{
+	if (inDraggingContext==NSDraggingContextOutsideApplication)
+		return NSDragOperationNone;
+	
+	return NSDragOperationMove;
+}
+
+/*- (void)draggingSession:(NSDraggingSession *)session movedToPoint:(NSPoint)screenPoint
+{
+	// Useless
+}*/
+
+- (void)draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inDragOperation
+{
+	if ([self.dataSource respondsToSelector:@selector(presentationListView:shouldSelectStep:)]==YES)
+		[self.dataSource presentationListView:self draggingSession:inDraggingSession endedAtPoint:inScreenPoint operation:inDragOperation];
+}
+
 #pragma mark -
 
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL) flag
@@ -1591,6 +1636,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	_currentDropStep=-1;
 	
 	[self setNeedsDisplay:YES];
+	
+	/*if ([self.dataSource respondsToSelector: @selector(presentationListView:draggingSession:endedAtPoint:operation:)]==YES)
+		[self.dataSource presentationListView:self draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:];*/
 }
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender

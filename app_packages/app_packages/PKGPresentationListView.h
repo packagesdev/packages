@@ -43,6 +43,8 @@ extern NSString * PKGPresentationListViewSelectionDidChangeNotification;
 
 // Drag and Drop
 
+- (void)presentationListView:(PKGPresentationListView *)inPresentationListView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation;
+
 - (BOOL)presentationListView:(PKGPresentationListView *)inPresentationListView writeStep:(NSInteger) inStep toPasteboard:(NSPasteboard*) inPasteboard;
 
 - (NSDragOperation)presentationListView:(PKGPresentationListView*)inPresentationListView validateDrop:(id <NSDraggingInfo>)info proposedStep:(NSInteger)inStep;
