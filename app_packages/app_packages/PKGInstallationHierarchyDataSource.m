@@ -578,10 +578,6 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 		
 		[inOutlineView reloadData];
 		
-		// Restore disclosed state
-		
-		// A COMPLETER
-		
 		// Select the inserted rows
 		
 		NSMutableIndexSet * tIndexSet=[NSMutableIndexSet indexSet];
@@ -615,10 +611,6 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 		[inOutlineView deselectAll:nil];
 		
 		[inOutlineView reloadData];
-		
-		// Restore disclosed state
-		
-		// A COMPLETER
 		
 		// Set the selection
 		
