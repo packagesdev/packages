@@ -53,6 +53,10 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	IBOutlet NSTableColumn * _indentationColumn;
 	
+	IBOutlet NSTextField * _spaceRequiredLabel;
+	
+	IBOutlet NSTextField * _remainingLabel;
+	
 	IBOutlet NSTextView * _descriptionTextView;
 	
 	
@@ -74,6 +78,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	BOOL _showRawNames;
 	
 	NSArray * _cachedButtonsArray;
+	
+	BOOL _restoringDiscloseStates;
 	
 	PKGInstallationHierarchyDataSource * _dataSource;
 }
@@ -111,9 +117,11 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 - (void)archiveSelection;
 - (void)restoreSelection;
 
-// Notifications
+- (void)expandItemIfPossible:(PKGChoiceTreeNode *)inChoiceTreeNode;
+- (void)expandItem:(PKGChoiceTreeNode *)inChoiceTreeNode ifKeyOfDictionary:(NSDictionary *)inDictionary;
+- (void)restoreDisclosedStates;
 
-- (void)currentHierarchyDidChange:(NSNotification *)inNotification;
+// Notifications
 
 - (void)appleInternalModeDidChange:(NSNotification *)inNotification;
 
@@ -218,7 +226,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	// Restore Disclosed State
 	
-	// A COMPLETER (disclosed state)
+	[self restoreDisclosedStates];
 	
 	// Restore Selection
 	
@@ -590,14 +598,30 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	if (_splitView==nil)
 		return;
 	
+	// Column Headers
 	
+	NSTableColumn * tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.name"];
+	tTableColumn.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Name" localization:inLocalization];
 	
+	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.action"];
+	tTableColumn.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Action" localization:inLocalization];
 	
-	// A COMPLETER
+	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.size"];
+	tTableColumn.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Size" localization:inLocalization];
+	
+	// Space Labels
+	
+	_spaceRequiredLabel.stringValue=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Space Required:" localization:inLocalization];
+	
+	_remainingLabel.stringValue=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Remaining:" localization:inLocalization];
 	
 	// OutlineView
 	
-	[self.outlineView reloadData];
+	[self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfColumns)]];
+	
+	// Description
+	
+	[self outlineViewSelectionDidChange:[NSNotification notificationWithName:NSOutlineViewSelectionDidChangeNotification object:self.outlineView userInfo:nil]];
 }
 
 #pragma mark -
@@ -648,6 +672,80 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	[self.outlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:NSOutlineViewSelectionDidChangeNotification object:self.outlineView];
+}
+
+#pragma mark -
+
+- (void)expandItemIfPossible:(PKGChoiceTreeNode *)inChoiceTreeNode
+{
+	if (inChoiceTreeNode==nil)
+	{
+		for(PKGChoiceTreeNode * tRootTreeNode in _dataSource.installationHierarchy.choicesForest.rootNodes)
+			[self expandItemIfPossible:tRootTreeNode];
+	
+		return;
+	}
+	
+	if (inChoiceTreeNode.isLeaf==YES)
+		return;
+	
+	[self.outlineView expandItem:inChoiceTreeNode];
+	
+	for(PKGChoiceTreeNode * tChoiceTreeNode in [inChoiceTreeNode children])
+	{
+		[self expandItemIfPossible:tChoiceTreeNode];
+	}
+}
+
+- (void)expandItem:(PKGChoiceTreeNode *)inChoiceTreeNode ifKeyOfDictionary:(NSDictionary *)inDictionary
+{
+	if (inChoiceTreeNode==nil || inDictionary.count==0)
+		return;
+	
+	if (inChoiceTreeNode.isLeaf==YES)
+		return;
+	
+	NSString * tChoiceUUID=inChoiceTreeNode.choiceUUID;
+	
+	// Always expand first and then collapse if not expanded (this allows us expand the children correctly)
+	
+	[self.outlineView expandItem:inChoiceTreeNode];
+	
+	// Check children
+	
+	NSArray * tChildren=[inChoiceTreeNode children];
+	
+	for(PKGChoiceTreeNode * tChoiceTreeNode in tChildren)
+		[self expandItem:tChoiceTreeNode ifKeyOfDictionary:inDictionary];
+	
+
+	NSNumber * tNumber=inDictionary[tChoiceUUID];
+	
+	if (tNumber==nil || [tNumber boolValue]==NO)
+		[self.outlineView collapseItem:inChoiceTreeNode];
+}
+
+- (void)restoreDisclosedStates
+{
+	NSString * tKey=[NSString stringWithFormat:PKGPresentationSectionInstallationTypeHierarchyDisclosedStateFormatKey,self.currentHierarchyName];
+	
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
+	
+	if (tDisclosedDictionary==nil)
+	{
+		// Disclose everything
+		
+		[self expandItemIfPossible:nil];
+		
+		return;
+	}
+	
+	_restoringDiscloseStates=YES;
+	
+	for(PKGChoiceTreeNode * tRootTreeNode in _dataSource.installationHierarchy.choicesForest.rootNodes)
+		[self expandItem:tRootTreeNode ifKeyOfDictionary:tDisclosedDictionary];
+	
+	_restoringDiscloseStates=NO;
 }
 
 #pragma mark -
@@ -715,7 +813,15 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 
 - (IBAction)ungroup:(id)sender
 {
-	[_dataSource outlineView:self.outlineView ungroupItemsInGroup:[[self.outlineView WB_selectedOrClickedItems] firstObject]];
+	PKGChoiceTreeNode * tGroupNode=[[self.outlineView WB_selectedOrClickedItems] firstObject];
+	
+	[_dataSource outlineView:self.outlineView ungroupItemsInGroup:tGroupNode];
+	
+	NSString * tKey=[NSString stringWithFormat:PKGPresentationSectionInstallationTypeHierarchyDisclosedStateFormatKey,self.currentHierarchyName];
+	
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
+	
+	[tDisclosedDictionary removeObjectForKey:tGroupNode.choiceUUID];
 }
 
 - (IBAction)merge:(id)sender
@@ -725,7 +831,15 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 
 - (IBAction)separate:(id)sender
 {
-	[_dataSource outlineView:self.outlineView separateItemsMergedAsItem:[[self.outlineView WB_selectedOrClickedItems] firstObject]];
+	PKGChoiceTreeNode * tGroupNode=[[self.outlineView WB_selectedOrClickedItems] firstObject];
+	
+	[_dataSource outlineView:self.outlineView separateItemsMergedAsItem:tGroupNode];
+	
+	NSString * tKey=[NSString stringWithFormat:PKGPresentationSectionInstallationTypeHierarchyDisclosedStateFormatKey,self.currentHierarchyName];
+	
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
+	
+	[tDisclosedDictionary removeObjectForKey:tGroupNode.choiceUUID];
 }
 
 - (IBAction)switchShowRawNames:(id)sender
@@ -736,7 +850,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	_cornerView.mixedState=_showRawNames;
 	
-	[self.outlineView reloadData];
+	[self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfColumns)]];
 }
 
 - (IBAction)switchHierarchy:(NSPopUpButton *)sender
@@ -1201,6 +1315,94 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 																 PKGInstallationHierarchySelectionItemKey:tSelectedChoiceTreeNode}];
 }
 
+- (void)outlineViewItemDidExpand:(NSNotification *)inNotification
+{
+	if (_restoringDiscloseStates==YES)
+		return;
+	
+	if (inNotification.object!=self.outlineView)
+		return;
+	
+	PKGChoiceTreeNode * tChoiceTreeNode=inNotification.userInfo[@"NSObject"];
+	
+	if (tChoiceTreeNode==nil)
+		return;
+	
+	NSString * tChoiceUUID=tChoiceTreeNode.choiceUUID;
+	
+	if (tChoiceUUID==nil)
+		return;
+	
+	NSString * tKey=[NSString stringWithFormat:PKGPresentationSectionInstallationTypeHierarchyDisclosedStateFormatKey,self.currentHierarchyName];
+		
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
+		
+	if (tDisclosedDictionary==nil)
+	{
+		tDisclosedDictionary=[NSMutableDictionary dictionary];
+		self.documentRegistry[tKey]=tDisclosedDictionary;
+	}
+	
+	tDisclosedDictionary[tChoiceUUID]=@(YES);
+}
+
+- (void)outlineViewItemWillCollapse:(NSNotification *)inNotification
+{
+	if (_restoringDiscloseStates==YES)
+		return;
+	
+	if (inNotification.object!=self.outlineView)
+		return;
+	
+	PKGChoiceTreeNode * tChoiceTreeNode=inNotification.userInfo[@"NSObject"];
+	
+	if (tChoiceTreeNode==nil)
+		return;
+	
+	NSString * tChoiceUUID=tChoiceTreeNode.choiceUUID;
+	
+	if (tChoiceUUID==nil)
+		return;
+	
+	NSString * tKey=[NSString stringWithFormat:PKGPresentationSectionInstallationTypeHierarchyDisclosedStateFormatKey,self.currentHierarchyName];
+	
+	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
+	
+	if (tDisclosedDictionary==nil)
+		return;
+	
+	// Check whether the option/alt key is down or not
+	
+	NSEvent * tCurrentEvent=[NSApp currentEvent];
+	
+	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & NSAlternateKeyMask)==0))
+	{
+		PKGChoiceTreeNode * tParentNode=tChoiceTreeNode;
+		
+		do
+		{
+			tParentNode=(PKGChoiceTreeNode *) [tParentNode parent];
+			
+			if (tParentNode==nil)
+				break;
+			
+			NSString * tParentChoiceUUID=tParentNode.choiceUUID;
+			
+			NSNumber * tNumber=tDisclosedDictionary[tParentChoiceUUID];
+			
+			if (tNumber==nil || [tNumber boolValue]==NO)
+			{
+				// Parent is hidden
+				
+				return;
+			}
+		}
+		while (1);
+	}
+	
+	[tDisclosedDictionary removeObjectForKey:tChoiceUUID];
+}
+
 #pragma mark - PKGInstallationHierarchyDataSourceDelegate
 
 - (NSMutableDictionary *)disclosedDictionary
@@ -1219,11 +1421,6 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 
 #pragma mark - Notifications
 
-- (void)currentHierarchyDidChange:(NSNotification *)inNotification
-{
-	// A VOIR
-}
-
 - (void)appleInternalModeDidChange:(NSNotification *)inNotification
 {
 	[self setHierarchyBoxHidden:([PKGApplicationPreferences sharedPreferences].appleMode==NO)];
@@ -1235,7 +1432,22 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	// OutlineView
 	
-	[self.outlineView reloadData];
+	[self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfColumns)]];
+	
+	// Description
+	
+	PKGChoiceTreeNode * tSelectedChoiceTreeNode=[self.outlineView itemAtRow:self.outlineView.selectedRow];
+	
+	if (tSelectedChoiceTreeNode.isMergedIntoPackagesChoice==YES)
+	{
+		_descriptionTextView.string=@"";
+	}
+	else
+	{
+		NSString * tLocalizedDescription=[tSelectedChoiceTreeNode descriptionForLocalization:self.localization];
+	
+		_descriptionTextView.string=(tLocalizedDescription==nil) ? @"" : [tLocalizedDescription copy];
+	}
 }
 
 @end

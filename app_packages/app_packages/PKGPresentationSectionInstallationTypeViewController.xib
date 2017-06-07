@@ -12,6 +12,8 @@
                 <outlet property="_hierarchyPopUpButton" destination="jlB-Gz-5Rr" id="kg3-Gp-bQy"/>
                 <outlet property="_indentationColumn" destination="51k-ZI-gcs" id="AoU-OG-HIC"/>
                 <outlet property="_installationTypeModePopUpButton" destination="rMJ-Ms-166" id="srp-IC-Obp"/>
+                <outlet property="_remainingLabel" destination="vXO-Ha-io9" id="jZy-z1-6xy"/>
+                <outlet property="_spaceRequiredLabel" destination="IqL-A7-T7A" id="RwU-9v-oEy"/>
                 <outlet property="_splitView" destination="094-ba-GqF" id="z9D-Km-pit"/>
                 <outlet property="accessoryView" destination="Wg4-R1-hu9" id="h06-dc-8Fh"/>
                 <outlet property="outlineView" destination="EwO-QS-Uv7" id="lUH-D3-79J"/>
