@@ -99,7 +99,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="exclusion.value" width="499" minWidth="40" maxWidth="1000" id="D6w-Ft-IFa">
+                                    <tableColumn identifier="exclusion.value" width="498" minWidth="40" maxWidth="1000" id="D6w-Ft-IFa">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Pattern">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -113,11 +113,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="Awm-fQ-sYE">
-                                                <rect key="frame" x="24" y="1" width="499" height="15"/>
+                                                <rect key="frame" x="24" y="1" width="498" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="Nmb-p9-ooo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="499" height="15"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="498" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Nfh-kJ-PYY">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -149,12 +149,12 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="2y5-qB-h1h" customClass="PKGPopUpButtonTableCellView">
-                                                <rect key="frame" x="526" y="1" width="35" height="15"/>
+                                                <rect key="frame" x="501" y="1" width="35" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton id="6mV-Rz-KMn">
-                                                        <rect key="frame" x="3" y="-1" width="72" height="15"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="bevel" title="Files" bezelStyle="regularSquare" imagePosition="only" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="bvE-oG-271" id="uiw-k2-hPw" customClass="PKGFileFilterKindPopUpButtonCell">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
