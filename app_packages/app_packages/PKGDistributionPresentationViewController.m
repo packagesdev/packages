@@ -838,11 +838,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		PKGInstallerPlugin * tInstallerPlugin=[[PKGInstallerPlugin alloc] initWithBundleAtPath:tAbsolutePath];
 		
 		if (tInstallerPlugin==nil)
-			return NSLocalizedStringFromTable(@"Not Found",@"Presentation",@"");
+			return NSLocalizedString(@"Not Found",@"");
 		
 		NSString * tSectionTitle=[tInstallerPlugin sectionTitleForLocalization:_currentPreviewLanguage];
 		
-		return (tSectionTitle!=nil) ? tSectionTitle : NSLocalizedStringFromTable(@"Not Found",@"Presentation",@"");
+		return (tSectionTitle!=nil) ? tSectionTitle : NSLocalizedString(@"Not Found",@"");
 	}
 	else
 	{
