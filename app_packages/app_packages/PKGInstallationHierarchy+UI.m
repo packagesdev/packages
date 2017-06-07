@@ -39,7 +39,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesUUIDsKey=@"RemovedPackag
 			
 		case PKGInstallationHierarchySoftwareUpdate:
 			
-			return nil;		// A COMPLETER
+			return [NSImage imageNamed:@"softwareUpdate16"];
 			
 		case PKGInstallationHierarchyInvisible:
 			
