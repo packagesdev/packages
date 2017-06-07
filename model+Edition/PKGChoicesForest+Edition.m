@@ -114,6 +114,7 @@
 	
 	if (tIndex==NSNotFound)
 	{
+		// Uh oh
 	}
 	
 	NSArray * tChildren=[inGroupChoiceTreeNode children];
@@ -121,8 +122,9 @@
 	if (tParentNode==nil)
 	{
 		[self.rootNodes removeObjectAtIndex:tIndex];
-	
+		
 		[self.rootNodes insertObjects:tChildren atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(tIndex, tChildren.count)]];
+		[tChildren makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
 	}
 	else
 	{
