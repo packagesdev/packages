@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,5 +14,16 @@
 #import "PKGPopUpButtonTableCellView.h"
 
 @implementation PKGPopUpButtonTableCellView
+
+- (void)setFrame:(NSRect)frame
+{
+	[super setFrame:frame];
+	
+	NSRect tBounds=self.bounds;
+	NSRect tPopUpFrame=self.popUpButton.frame;
+	
+	tPopUpFrame.origin.y=round(NSMidY(tBounds)-NSHeight(tPopUpFrame)*0.5);
+	self.popUpButton.frame=tPopUpFrame;
+}
 
 @end
