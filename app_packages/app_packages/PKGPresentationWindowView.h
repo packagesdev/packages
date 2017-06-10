@@ -19,6 +19,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 	@property (nonatomic) NSImage * proxyIcon;
 
-    @property (nonatomic) NSImage * rightIcon;
+	@property (nonatomic) BOOL showsLockButton;
 
 @end

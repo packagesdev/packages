@@ -28,13 +28,20 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #define PKGPresentationWindowTitleBarMarginLeft	76.0
 
 #define PKGPresentationWindowTitleBarMarginRightNoIcon 18.0f
-#define PKGPresentationWindowTitleBarMarginRight 36.0f
+#define PKGPresentationWindowTitleBarMarginRight 35.0f
 
+@interface NSWindow (Private_PKG)
+
+	@property BOOL showsLockButton;
+
+@end
 
 @interface PKGPresentationWindowView ()
 {
 	IBOutlet NSWindow * _helperWindow;	/* An optional outlet to a real window to get its background color */
-
+	
+	NSImage * _lockButtonImage;
+	
 	NSDictionary * _titleAttributes;
 	NSDictionary * _titleDisabledAttributes;
 }
@@ -91,6 +98,29 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		[self setNeedsDisplay:YES];
 	}
+}
+
+- (void)setShowsLockButton:(BOOL)inShowsLockButton
+{
+	if (_showsLockButton==inShowsLockButton)
+		return;
+	
+	_showsLockButton=inShowsLockButton;
+	
+	if (_showsLockButton==YES)
+	{
+		if (_lockButtonImage==nil)
+		{
+			NSWindow * tWindow=[[NSWindow alloc] initWithContentRect:NSZeroRect styleMask:NSTitledWindowMask backing:NSBackingStoreRetained defer:YES];
+			tWindow.showsLockButton=YES;
+			
+			NSButton * tButton=[tWindow standardWindowButton:5];
+			
+			_lockButtonImage=tButton.image;
+		}
+	}
+	
+	[self setNeedsDisplay:YES];
 }
 
 #pragma mark -
@@ -153,7 +183,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		tTitle=@"-";
 	
 	NSImage * tIcon=self.proxyIcon;
-	NSImage * tRightIcon=self.rightIcon;
+	//NSImage * tRightIcon=self.rightIcon;
     
 	/*NSRect tDebugFrame=NSMakeRect(NSMinX(tBounds)+PKGPresentationWindowTitleBarMarginLeft, NSMaxY(tBounds)-PKGPresentationWindowViewTitleBarHeight, NSWidth(tBounds)-PKGPresentationWindowTitleBarMarginLeft-PKGPresentationWindowTitleBarMarginRight, PKGPresentationWindowViewTitleBarHeight);
 	
@@ -161,7 +191,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSFrameRect(tDebugFrame);*/
 	
-    CGFloat tRightMargin=(tRightIcon==nil) ? PKGPresentationWindowTitleBarMarginRightNoIcon : PKGPresentationWindowTitleBarMarginRight;
+    CGFloat tRightMargin=(_showsLockButton==NO) ? PKGPresentationWindowTitleBarMarginRightNoIcon : PKGPresentationWindowTitleBarMarginRight;
     
 	CGFloat tAvailableWidth=NSWidth(tBounds)-PKGPresentationWindowTitleBarMarginLeft-tRightMargin;
     
@@ -211,7 +241,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             tTitleFrame.origin.x=round(tMiddleTitleBar-tTitleFrame.size.width*0.5);
 	}
 	
-    [tTitle drawInRect:tTitleFrame withAttributes:([self.window isMainWindow]==YES) ? _titleAttributes : _titleDisabledAttributes];
+    [tTitle drawInRect:tTitleFrame withAttributes:(self.window.isMainWindow==YES) ? _titleAttributes : _titleDisabledAttributes];
     
     if (tIcon!=nil)
 	{
@@ -221,18 +251,19 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		tIconFrame.origin.y=round(NSMaxY(tBounds)-(PKGPresentationWindowViewTitleBarHeight+PKGPresentationWindowProxyIconHeight)*0.5)-1.0;
 		tIconFrame.size=NSMakeSize(PKGPresentationWindowProxyIconWidth, PKGPresentationWindowProxyIconHeight);
 		
-		[tIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:([self.window isMainWindow]==YES) ? 1.0 : 0.5];
+		[tIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 1.0 : 0.5];
 	}
 	
-    if (tRightIcon!=nil)
+    if (_showsLockButton==YES)
     {
+		NSSize tSize=_lockButtonImage.size;
         NSRect tIconFrame;
 		
-		tIconFrame.origin.x=NSMaxX(tBounds)-(PKGPresentationWindowTitleBarMarginRightNoIcon+PKGPresentationWindowRightIconWidth);
-		tIconFrame.origin.y=round(NSMaxY(tBounds)-(PKGPresentationWindowViewTitleBarHeight+PKGPresentationWindowRightIconHeight)*0.5)-1.0;
-		tIconFrame.size=NSMakeSize(PKGPresentationWindowRightIconWidth, PKGPresentationWindowRightIconHeight);
+		tIconFrame.origin.x=NSMaxX(tBounds)-(PKGPresentationWindowTitleBarMarginRightNoIcon+tSize.width-1);
+		tIconFrame.origin.y=round(NSMaxY(tBounds)-(PKGPresentationWindowViewTitleBarHeight+tSize.height)*0.5)-1.0;
+		tIconFrame.size=tSize;
 		
-		[tRightIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:([self.window isMainWindow]==YES) ? 1.0 : 0.5];
+		[_lockButtonImage drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3];
     }
     
 	// Draw Frame
@@ -273,20 +304,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (void) viewWillMoveToWindow:(NSWindow *) inWindow
+- (void)viewWillMoveToWindow:(NSWindow *) inWindow
 {
 	if (inWindow!=nil)
 	{
 		// Register for Notifications
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:inWindow];
-												   
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:inWindow];
 	}
 	else
 	{
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.window];
-		
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.window];
 	}
 }
