@@ -28,7 +28,6 @@
 
 	@property (readonly,copy) NSString * referenceFolderPath;
 
-
 @end
 
 @implementation PKGDocument
@@ -61,9 +60,14 @@
 
 #pragma mark -
 
+- (NSURL *)folderURL
+{
+	return self.fileURL.URLByDeletingLastPathComponent;
+}
+
 - (NSString *)folder
 {
-	return [[self.fileURL path] stringByDeletingLastPathComponent];
+	return self.fileURL.path.stringByDeletingLastPathComponent;
 }
 
 - (NSString *)referenceProjectPath

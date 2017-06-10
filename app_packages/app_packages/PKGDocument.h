@@ -21,6 +21,8 @@
 
 @interface PKGDocument : NSDocument <PKGFilePathConverter>
 
+	@property (readonly) NSURL * folderURL;
+
 	@property (readonly,copy) NSString * folder;
 
 	@property (readonly) PKGDocumentRegistry * registry;
