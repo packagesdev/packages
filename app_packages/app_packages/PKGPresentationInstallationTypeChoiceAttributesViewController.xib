@@ -23,11 +23,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <customView id="O4c-Ek-MZq">
-                    <rect key="frame" x="0.0" y="314" width="366" height="105"/>
+                    <rect key="frame" x="0.0" y="298" width="366" height="121"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                 </customView>
                 <customView id="cyx-vc-AqG">
-                    <rect key="frame" x="0.0" y="124" width="366" height="174"/>
+                    <rect key="frame" x="0.0" y="111" width="366" height="187"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                 </customView>
                 <customView id="bg4-fB-0tK">
