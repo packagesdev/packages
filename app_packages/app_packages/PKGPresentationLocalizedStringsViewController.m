@@ -97,10 +97,13 @@
 	
 	[_viewInformationLabel sizeToFit];
 	
-	CGFloat tNewWidth=NSWidth(_viewInformationLabel.frame);
+	NSSize tNewWSize=_viewInformationLabel.frame.size;
 	
-	tInformationlabelFrame.origin.x=NSMaxX(tInformationlabelFrame)-tNewWidth;
-	tInformationlabelFrame.size.width=tNewWidth;
+	tInformationlabelFrame.origin.x=NSMaxX(tInformationlabelFrame)-tNewWSize.width;
+	tInformationlabelFrame.origin.y=NSMaxY(tInformationlabelFrame)-tNewWSize.height;
+	if (tInformationlabelFrame.origin.y<0.0)
+		tInformationlabelFrame.origin.y=0.0;
+	tInformationlabelFrame.size=tNewWSize;
 	
 	_viewInformationLabel.frame=tInformationlabelFrame;
 }

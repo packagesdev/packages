@@ -18,11 +18,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="8Y0-Se-KNP" userLabel="View">
-            <rect key="frame" x="0.0" y="5" width="284" height="219"/>
+            <rect key="frame" x="0.0" y="5" width="284" height="234"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="3Jw-vy-Blp">
-                    <rect key="frame" x="87" y="5" width="179" height="12"/>
+                    <rect key="frame" x="87" y="20" width="179" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" id="Xi3-h1-OUS">
                         <font key="font" metaFont="miniSystem"/>
@@ -31,7 +31,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="3C9-aO-Lmh">
-                    <rect key="frame" x="18" y="205" width="248" height="14"/>
+                    <rect key="frame" x="18" y="220" width="248" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="cHT-L9-hro">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -40,7 +40,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="yXU-et-j5a">
-                    <rect key="frame" x="43" y="-1" width="24" height="22"/>
+                    <rect key="frame" x="43" y="14" width="24" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" enabled="NO" borderStyle="border" inset="2" id="H3C-4M-NDE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -51,7 +51,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" id="jQq-MY-QjK">
-                    <rect key="frame" x="20" y="-1" width="24" height="22"/>
+                    <rect key="frame" x="20" y="14" width="24" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tJq-n6-rSM">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -62,14 +62,14 @@
                     </connections>
                 </button>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="jBI-sn-HX1">
-                    <rect key="frame" x="20" y="28" width="244" height="168"/>
+                    <rect key="frame" x="20" y="43" width="244" height="168"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="5xV-Xd-Sg2">
                         <rect key="frame" x="1" y="1" width="241" height="166"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" id="KO0-2w-YSv" customClass="PKGTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="241" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="242" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -171,7 +171,7 @@
                     </scroller>
                 </scrollView>
             </subviews>
-            <point key="canvasLocation" x="387" y="274.5"/>
+            <point key="canvasLocation" x="387" y="282"/>
         </customView>
     </objects>
     <resources>

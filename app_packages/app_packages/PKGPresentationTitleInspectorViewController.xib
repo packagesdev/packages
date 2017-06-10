@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <customView id="XAq-SE-kYf" userLabel="View">
-                    <rect key="frame" x="0.0" y="20" width="284" height="401"/>
+                    <rect key="frame" x="0.0" y="5" width="284" height="416"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>
             </subviews>
