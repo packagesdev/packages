@@ -276,7 +276,7 @@
 	{
 		// A COMPLETER
 		
-		//_stepNotDisplayedLabel.stringValue=NSLocalizedString(@"This step will not be displayed",@"");
+		//_stepNotDisplayedLabel.stringValue=NSLocalizedStringFromTable(@"This step will not be displayed.", @"Presentation",@"");
 		
 		[tTextStorage endEditing];
 	}
@@ -316,7 +316,7 @@
 		_defaultContentsView.hidden=NO;
 		_licenseView.hidden=YES;
 		
-		_stepNotDisplayedLabel.stringValue=NSLocalizedString(@"This step will not be displayed",@"");
+		_stepNotDisplayedLabel.stringValue=NSLocalizedStringFromTable(@"This step will not be displayed.", @"Presentation",@"");
 		
 		return;
 	}

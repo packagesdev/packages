@@ -81,7 +81,7 @@
 			
 		case PKGInstallationHierarchySelectionSingleNonEditable:
 			
-			_nonSingleSelectionViewController.label=NSLocalizedString(@"Not Editable",@"");
+			_nonSingleSelectionViewController.label=NSLocalizedStringFromTable(@"Not Editable", @"Presentation",@"");
 			break;
 			
 		case PKGInstallationHierarchySelectionMultiple:

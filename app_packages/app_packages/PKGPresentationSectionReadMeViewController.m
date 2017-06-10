@@ -58,7 +58,7 @@
 	
 	_defaultContentsView.delegate=self;
 	
-	_stepNotDisplayedLabel.stringValue=NSLocalizedString(@"This step will not be displayed",@"");
+	_stepNotDisplayedLabel.stringValue=NSLocalizedStringFromTable(@"This step will not be displayed.", @"Presentation",@"");
 }
 
 #pragma mark -

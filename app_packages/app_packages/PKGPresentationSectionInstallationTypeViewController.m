@@ -418,7 +418,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		
 		if (tHierarchiesDictionary[PKGPresentationInstallationTypeInstallerHierarchyKey]!=nil)
 		{
-			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(PKGPresentationInstallationTypeInstallerHierarchyKey,@"No comment")
+			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(PKGPresentationInstallationTypeInstallerHierarchyKey, @"Presentation",@"No comment")
 															  action:@selector(switchHierarchy:)
 													   keyEquivalent:@""];
 			
@@ -438,7 +438,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		
 		if (tHierarchiesDictionary[PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey]!=nil)
 		{
-			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey,@"No comment")
+			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey, @"Presentation",@"No comment")
 												 action:@selector(switchHierarchy:)
 										  keyEquivalent:@""];
 			
@@ -462,7 +462,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		
 		if (tHierarchiesDictionary[PKGPresentationInstallationTypeInvisibleHierarchyKey]!=nil)
 		{
-			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(PKGPresentationInstallationTypeInvisibleHierarchyKey,@"No comment")
+			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(PKGPresentationInstallationTypeInvisibleHierarchyKey, @"Presentation",@"No comment")
 												 action:@selector(switchHierarchy:)
 										  keyEquivalent:@""];
 			
@@ -490,7 +490,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		{
 			// Add
 			
-			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add Hierarchy",@"No comment")
+			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Add Hierarchy", @"Presentation",@"No comment")
 												 action:@selector(nothing:)
 										  keyEquivalent:@""];
 			
@@ -508,7 +508,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 				
 				if ([tArray containsObject:PKGPresentationInstallationTypeInstallerHierarchyKey]==YES)
 				{
-					NSMenuItem * tSubMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(PKGPresentationInstallationTypeInstallerHierarchyKey,@"No comment")
+					NSMenuItem * tSubMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(PKGPresentationInstallationTypeInstallerHierarchyKey, @"Presentation",@"No comment")
 														 action:@selector(addHierarchy:)
 												  keyEquivalent:@""];
 					
@@ -527,7 +527,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 				
 				if ([tArray containsObject:PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey]==YES)
 				{
-					NSMenuItem * tSubMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey,@"No comment")
+					NSMenuItem * tSubMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(PKGPresentationInstallationTypeSoftwareUpdateHierarchyKey, @"Presentation",@"No comment")
 														 action:@selector(addHierarchy:)
 												  keyEquivalent:@""];
 					
@@ -546,7 +546,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 				
 				if ([tArray containsObject:PKGPresentationInstallationTypeInvisibleHierarchyKey]==YES)
 				{
-					NSMenuItem * tSubMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(PKGPresentationInstallationTypeInvisibleHierarchyKey,@"No comment")
+					NSMenuItem * tSubMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(PKGPresentationInstallationTypeInvisibleHierarchyKey, @"Presentation",@"No comment")
 														 action:@selector(addHierarchy:)
 												  keyEquivalent:@""];
 					
@@ -572,7 +572,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		
 		// Remove
 		
-		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Remove...",@"No comment")
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Remove...", @"Presentation", @"No comment")
 											 action:@selector(removeHierarchy:)
 									  keyEquivalent:@""];
 		
@@ -785,13 +785,13 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	if (tIndexSet.count==1)
 	{
-		tAlert.messageText=NSLocalizedString(@"Do you really want to remove this item?",@"No comment");
-		tAlert.informativeText=NSLocalizedString(@"This will also remove any dependency on this item for other items. This cannot be undone.",@"No comment");
+		tAlert.messageText=NSLocalizedString(@"Do you really want to remove this item?",@"");
+		tAlert.informativeText=NSLocalizedStringFromTable(@"This will also remove any dependency on this item for other items. This cannot be undone.", @"Presentation",@"");
 	}
 	else
 	{
-		tAlert.messageText=NSLocalizedString(@"Do you really want to remove these items?",@"No comment");
-		tAlert.informativeText=NSLocalizedString(@"This will also remove any dependency on these items for other items. This cannot be undone.",@"No comment");
+		tAlert.messageText=NSLocalizedString(@"Do you really want to remove these items?",@"");
+		tAlert.informativeText=NSLocalizedStringFromTable(@"This will also remove any dependency on these items for other items. This cannot be undone.", @"Presentation",@"");
 	}
 	
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
@@ -945,7 +945,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 - (IBAction)removeHierarchy:(id)sender
 {
 	NSAlert * tAlert=[[NSAlert alloc] init];
-	tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"Do you really want to remove the \"%@\" hierachy?",@"No comment"),NSLocalizedString(self.currentHierarchyName,@"No comment")];
+	tAlert.messageText=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Do you really want to remove the \"%@\" hierachy?", @"Presentation", @"No comment"),NSLocalizedString(self.currentHierarchyName,@"No comment")];
 	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"No comment");
 	
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
@@ -1028,7 +1028,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	if (tAction==@selector(nothing:))
 	{
-		inMenuItem.title=([NSApp currentEvent].modifierFlags & NSAlternateKeyMask) ? NSLocalizedString(@"Duplicate As Hierarchy",@"No comment") : NSLocalizedString(@"Add Hierarchy",@"No comment");
+		inMenuItem.title=([NSApp currentEvent].modifierFlags & NSAlternateKeyMask) ? NSLocalizedStringFromTable(@"Duplicate As Hierarchy", @"Presentation",@"") : NSLocalizedStringFromTable(@"Add Hierarchy", @"Presentation",@"");
 		
 		return YES;
 	}
@@ -1113,7 +1113,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	if (tAction==@selector(switchShowRawNames:))
 	{
-		inMenuItem.title=(_showRawNames==YES) ? NSLocalizedString(@"Hide Raw Names",@"") : NSLocalizedString(@"Show Raw Names", @"");
+		inMenuItem.title=(_showRawNames==YES) ? NSLocalizedStringFromTable(@"Hide Raw Names", @"Presentation",@"") : NSLocalizedStringFromTable(@"Show Raw Names", @"Presentation",@"");
 		
 		return YES;
 	}

@@ -49,8 +49,8 @@
 	[super WB_viewDidLoad];
 	
 	_localizedTitlesViewController=[PKGPresentationLocalizedStringsViewController new];
-	_localizedTitlesViewController.label=NSLocalizedString(@"Distribution Title",@"");
-	_localizedTitlesViewController.informationLabel=NSLocalizedString(@"Click + to add a title localization.",@"");
+	_localizedTitlesViewController.label=NSLocalizedStringFromTable(@"Distribution Title", @"Presentation", @"");
+	_localizedTitlesViewController.informationLabel=NSLocalizedStringFromTable(@"Click + to add a title localization.", @"Presentation", @"");
 	
 	PKGPresentationLocalizationsDataSource * tDataSource=[PKGPresentationLocalizationsDataSource new];
 	

@@ -30,8 +30,7 @@ typedef NS_ENUM(NSUInteger, PKGBuildResult)
 {
 	PKGBuildResultSuccessful,
 	PKGBuildResultAborted,
-	PKGBuildResultFailed,
-	PKGBuildResultFailedXPCConnectionInterrupted
+	PKGBuildResultBuildOrderExecutionAgentDidExit
 };
 
 typedef void (^PKGBuildCompletionHandler)(PKGBuildResult);

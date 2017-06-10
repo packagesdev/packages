@@ -333,6 +333,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		NSImage * tImage=[[PKGInstallerApp installerApp] iconForPackageType:(self.distributionProject.isFlat==YES) ? PKGInstallerAppDistrbutionFlat : PKGInstallerAppDistributionBundle];
 		
 		_windowView.proxyIcon=tImage;
+		
+		// LocksButton
+		
+		_windowView.showsLockButton=(self.distributionProject.settings.certificateName!=nil);
 	}
 	
 	if (_presentationSettings!=nil)
@@ -544,7 +548,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (IBAction)removePlugin:(id)sender
 {
 	NSAlert * tAlert=[[NSAlert alloc] init];
-	tAlert.messageText=NSLocalizedString(@"Do you really want to remove this Installer plugin?",@"No comment");
+	tAlert.messageText=NSLocalizedStringFromTable(@"Do you really want to remove this Installer plugin?", @"Presentation",@"No comment");
 	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"No comment");
 	
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
@@ -655,18 +659,20 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		dispatch_async(dispatch_get_main_queue(), ^{
 			
+			// Show the Inspector View
+			
+			[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tTag]];
+			
+			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
+			
+			// Show the View
+			
 			if (_listView.selectedStep!=tIndex)
 			{
 				[_listView selectStep:tIndex];
 			
 				[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
 			}
-			
-			// Show the Inspector View
-			
-			[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tTag]];
-			
-			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
 		});
 	}
 }
@@ -838,11 +844,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		PKGInstallerPlugin * tInstallerPlugin=[[PKGInstallerPlugin alloc] initWithBundleAtPath:tAbsolutePath];
 		
 		if (tInstallerPlugin==nil)
-			return NSLocalizedString(@"Not Found",@"");
+			return NSLocalizedStringFromTable(@"Not Found", @"Presentation",@"");
 		
 		NSString * tSectionTitle=[tInstallerPlugin sectionTitleForLocalization:_currentPreviewLanguage];
 		
-		return (tSectionTitle!=nil) ? tSectionTitle : NSLocalizedString(@"Not Found",@"");
+		return (tSectionTitle!=nil) ? tSectionTitle : NSLocalizedStringFromTable(@"Not Found", @"Presentation",@"");
 	}
 	else
 	{

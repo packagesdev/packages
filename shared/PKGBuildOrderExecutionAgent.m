@@ -142,7 +142,7 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 		NSXPCConnection *tStrongConnection=tWeakOperatorConnection;
 		
 		if (tStrongConnection!=nil)
-			tStrongConnection.invalidationHandler = nil;
+			tStrongConnection.interruptionHandler = nil;
 		
 		_builderConnection=nil;
 	};
@@ -150,7 +150,7 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 	tWeakOperatorConnection.interruptionHandler=^{
 	
 		if (self.completionHandler!=nil)
-			self.completionHandler(PKGBuildResultFailedXPCConnectionInterrupted);
+			self.completionHandler(PKGBuildResultBuildOrderExecutionAgentDidExit);
 		
 		// A COMPLETER
 	};

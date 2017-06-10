@@ -101,7 +101,7 @@
 	}
 	
 	if (tPaneTitle==nil)
-		tPaneTitle=NSLocalizedString(@"Not Found",@"");
+		tPaneTitle=NSLocalizedStringFromTable(@"Not Found", @"Presentation",@"");
 	
 	return tPaneTitle;
 }

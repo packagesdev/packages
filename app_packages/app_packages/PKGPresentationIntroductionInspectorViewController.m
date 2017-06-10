@@ -40,7 +40,7 @@
 {
 	[super WB_viewDidLoad];
 	
-	self.title=NSLocalizedString(@"Custom Introduction Localizations",@"");
+	self.title=NSLocalizedStringFromTable(@"Custom Introduction Localizations", @"Presentation",@"");
 }
 
 #pragma mark -

@@ -52,8 +52,8 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	[super WB_viewDidLoad];
 	
 	_localizedTitlesViewController=[PKGPresentationLocalizedStringsViewController new];
-	_localizedTitlesViewController.label=NSLocalizedString(@"Title", @"");
-	_localizedTitlesViewController.informationLabel=NSLocalizedString(@"Click + to add a title localization.", @"");
+	_localizedTitlesViewController.label=NSLocalizedStringFromTable(@"Title", @"Presentation",@"");
+	_localizedTitlesViewController.informationLabel=NSLocalizedStringFromTable(@"Click + to add a title localization.", @"Presentation",@"");
 	
 	if (self.choiceTreeNode!=nil)
 	{
@@ -72,8 +72,8 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	[_titlesSectionView addSubview:_localizedTitlesViewController.view];
 	
 	_localizeDescriptionsViewController=[PKGPresentationLocalizedStringsViewController new];
-	_localizeDescriptionsViewController.label=NSLocalizedString(@"Description", @"");
-	_localizeDescriptionsViewController.informationLabel=NSLocalizedString(@"Click + to add a description localization.", @"");
+	_localizeDescriptionsViewController.label=NSLocalizedStringFromTable(@"Description", @"Presentation",@"");
+	_localizeDescriptionsViewController.informationLabel=NSLocalizedStringFromTable(@"Click + to add a description localization.\nUse alt+return for line breaks.", @"Presentation",@"");
 	
 	if (self.choiceTreeNode!=nil)
 	{
@@ -187,39 +187,39 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	if (self.choiceTreeNode.isGenuineGroupChoice==YES)
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Always Enabled",@"") action:nil keyEquivalent:@""];
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Always Enabled",@"Presentation",@"") action:nil keyEquivalent:@""];
 		tMenuItem.tag=PKGEnabledChoiceGroupState;
 		
 		[tMenu addItem:tMenuItem];
 		
-		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Always Disabled",@"") action:nil keyEquivalent:@""];
+		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Always Disabled",@"Presentation",@"") action:nil keyEquivalent:@""];
 		[tMenuItem setTag:PKGDisabledChoiceGroupState];
 		
 		[tMenu addItem:tMenuItem];
 		
-		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Dependent on Other Choices",@"") action:nil keyEquivalent:@""];
+		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Dependent on Other Choices",@"Presentation",@"") action:nil keyEquivalent:@""];
 		[tMenuItem setTag:PKGDependentChoiceGroupState];
 				
 		[tMenu addItem:tMenuItem];
 	}
 	else
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Required",@"") action:nil keyEquivalent:@""];
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Required",@"Presentation",@"") action:nil keyEquivalent:@""];
 		tMenuItem.tag=PKGRequiredChoiceState;
 		
 		[tMenu addItem:tMenuItem];
 		
-		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Selected",@"") action:nil keyEquivalent:@""];
+		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Selected",@"Presentation",@"") action:nil keyEquivalent:@""];
 		[tMenuItem setTag:PKGSelectedChoiceState];
 		
 		[tMenu addItem:tMenuItem];
 		
-		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Unselected",@"") action:nil keyEquivalent:@""];
+		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Unselected",@"Presentation",@"") action:nil keyEquivalent:@""];
 		[tMenuItem setTag:PKGUnselectedChoiceState];
 		
 		[tMenu addItem:tMenuItem];
 		
-		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Dependent on Other Choices",@"") action:nil keyEquivalent:@""];
+		tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Dependent on Other Choices",@"Presentation",@"") action:nil keyEquivalent:@""];
 		[tMenuItem setTag:PKGDependentChoiceState];
 		
 		[tMenu addItem:tMenuItem];

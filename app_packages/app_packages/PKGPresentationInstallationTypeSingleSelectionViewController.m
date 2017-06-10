@@ -154,7 +154,7 @@
 				_choicePackageNameLabel.stringValue=(tPackageComponent==nil) ? @"" : tPackageComponent.packageSettings.name;
 			}
 			
-			_choiceTypeLabel.stringValue=NSLocalizedString(@"Package", @"");
+			_choiceTypeLabel.stringValue=NSLocalizedStringFromTable(@"Package", @"Presentation",@"");
 			
 			break;
 		}
@@ -166,35 +166,35 @@
 			{
 				_choiceIconView.image=[NSImage imageNamed:@"PackagesCombination"];
 				
-				_choicePackageNameLabel.stringValue=NSLocalizedString(@"Combination of Packages",@"");
+				_choicePackageNameLabel.stringValue=NSLocalizedStringFromTable(@"Combination of Packages", @"Presentation",@"");
 				
 				if (tCount==1)
-				_choiceTypeLabel.stringValue=NSLocalizedString(@"1 package",@"");
+				_choiceTypeLabel.stringValue=NSLocalizedStringFromTable(@"1 package", @"Presentation",@"");
 				else
-					_choiceTypeLabel.stringValue=[NSString stringWithFormat:NSLocalizedString(@"%lu packages",@""),(unsigned long)tCount];
+					_choiceTypeLabel.stringValue=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%lu packages", @"Presentation",@""),(unsigned long)tCount];
 			}
 			else
 			{
 				
 				_choiceIconView.image=[NSImage imageNamed:@"checkboxgroupUbuntu"];
 				
-				_choicePackageNameLabel.stringValue=NSLocalizedString(@"Group of Choices",@"");
+				_choicePackageNameLabel.stringValue=NSLocalizedStringFromTable(@"Group of Choices", @"Presentation",@"");
 				
 				switch(tCount)
 				{
 					case 0:
 						
-						_choiceTypeLabel.stringValue=NSLocalizedString(@"No sub-choices", @"");
+						_choiceTypeLabel.stringValue=NSLocalizedStringFromTable(@"No sub-choices",  @"Presentation",@"");
 						break;
 						
 					case 1:
 						
-						_choiceTypeLabel.stringValue=NSLocalizedString(@"1 sub-choice", @"");
+						_choiceTypeLabel.stringValue=NSLocalizedStringFromTable(@"1 sub-choice",  @"Presentation",@"");
 						break;
 						
 					default:
 						
-						_choiceTypeLabel.stringValue=[NSString stringWithFormat:NSLocalizedString(@"%lu sub-choices",@""),(unsigned long)tCount];
+						_choiceTypeLabel.stringValue=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%lu sub-choices", @"Presentation",@""),(unsigned long)tCount];
 						break;
 				}
 			}
