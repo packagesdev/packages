@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, PKGBuildOptions)
 	PKGBuildOptionsDebugBuild=1
 };
 
+extern NSString * const PKGBuildOrderExternalSettingsReferenceProjectFolderKey;
 extern NSString * const PKGBuildOrderExternalSettingsReferenceFolderKey;
 extern NSString * const PKGBuildOrderExternalSettingsScratchFolderKey;
 extern NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey;

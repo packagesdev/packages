@@ -18,6 +18,7 @@ NSString * const PKGBuildOrderProjectPathKey=@"ProjectPath";
 NSString * const PKGBuildOrderBuildOptionsKey=@"BuildOptions";
 NSString * const PKGBuildOrderExternalSettingsKey=@"ExternalSettings";
 
+NSString * const PKGBuildOrderExternalSettingsReferenceProjectFolderKey=@"ReferenceProjectFolder";
 NSString * const PKGBuildOrderExternalSettingsReferenceFolderKey=@"ReferenceFolder";
 NSString * const PKGBuildOrderExternalSettingsScratchFolderKey=@"ScratchFolder";
 NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey=@"UserDefinedSettings";
