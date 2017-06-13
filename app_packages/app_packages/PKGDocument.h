@@ -29,4 +29,6 @@
 
 	@property (readonly) PKGProject * project;
 
+- (NSURL *)temporaryURLWithError:(NSError **)outError;
+
 @end

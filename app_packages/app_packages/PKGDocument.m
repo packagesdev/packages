@@ -92,6 +92,37 @@
 
 #pragma mark -
 
+- (NSURL *)temporaryURLWithError:(NSError **)outError
+{
+	NSError * tError=nil;
+	NSURL * tTemporaryFolderURL=[[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory
+																	   inDomain:NSUserDomainMask
+															  appropriateForURL:self.folderURL
+																		 create:YES
+																		  error:&tError];
+	
+	if (tTemporaryFolderURL==nil)
+	{
+		if (tError!=nil && outError!=nil)
+			*outError=tError;
+		
+		return nil;
+	}
+	
+	NSURL * tTemporaryProjectURL=[tTemporaryFolderURL URLByAppendingPathComponent:self.fileURL.path.lastPathComponent];
+	
+	if (tTemporaryProjectURL==nil)
+	{
+		// A COMPLETER
+		
+		return nil;
+	}
+	
+	return tTemporaryProjectURL;
+}
+
+#pragma mark -
+
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
 	id tPropertyList=[_documentWindowController.project representation];
