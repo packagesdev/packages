@@ -3,6 +3,8 @@
 
 @interface PKGBuildOrder (Convenience)
 
+- (NSString *)referenceProjectFolderPath;
+
 - (NSString *)referenceFolderPath;
 
 - (NSString *)scratchFolderPath;
