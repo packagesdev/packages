@@ -357,10 +357,6 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		[_listView selectStep:(tNumber!=nil) ? [tNumber integerValue] : 0];
 		
-		// Show the Section view
-		
-		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
-		
 		// Inspector
 		
 		tNumber=self.documentRegistry[PKGDistributionPresentationInspectedItem];
@@ -372,6 +368,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		// Show Inspected View
 		
 		[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tItemTag]];
+		
+		// Show the Section view
+		
+		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
 		
 		// Language PopUpButton
 		
