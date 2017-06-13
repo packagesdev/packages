@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 	
 	if (self!=nil)
 	{
-		_buildOrder=[inBuildOrder copy];
+		_buildOrder=inBuildOrder;//[inBuildOrder copy];
 		
 		_buildNotificationCenter=[PKGBuildNotificationCenter new];
 		
@@ -171,7 +171,7 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 - (void)postNotificationStepPath:(NSString *)inStepPathRepresentation state:(PKGBuildStepState)inState userInfo:(NSDictionary *)inUserInfo
 {
 	dispatch_async(dispatch_get_main_queue(),^ {
-		[self.buildNotificationCenter postNotificationStepPath:inStepPathRepresentation state:inState userInfo:inUserInfo];
+		[self.buildNotificationCenter postNotificationStepPath:inStepPathRepresentation state:inState buildOrder:self.buildOrder userInfo:inUserInfo];
 	});
 }
 

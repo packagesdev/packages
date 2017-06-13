@@ -354,7 +354,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)debug
 {
-	return ((_buildOrder.buildOptions & PKGBuildOptionsDebugBuild) == PKGBuildOptionsDebugBuild);
+	return ((_buildOrder.buildOptions & PKGBuildOptionDebugBuild) == PKGBuildOptionDebugBuild);
 }
 
 - (id<PKGBuildNotificationCenterInterface>)buildNotificationCenter
@@ -740,7 +740,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Create Scratch Location Folder
 	
-	if ([self createScratchLocationAtPath:_buildOrder.externalSettings[PKGBuildOrderExternalSettingsScratchFolderKey] error:&tError]==NO)
+	if ([self createScratchLocationAtPath:[_buildOrder scratchFolderPath] error:&tError]==NO)
 	{
 		PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCreated filePath:@"Scratch_Location" fileKind:PKGFileKindFolder];
 		
@@ -774,7 +774,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	PKGProjectSettings * tProjectSettings=self.project.settings;
 	
-	_referenceProjectPath=[_buildOrder.projectPath stringByDeletingLastPathComponent];
+	_referenceProjectPath=[_buildOrder referenceProjectFolderPath];
+	
+	if (_referenceProjectPath==nil)
+		_referenceProjectPath=[_buildOrder.projectPath stringByDeletingLastPathComponent];
 	
 	_referenceFolderPath=[_buildOrder referenceFolderPath];
 	
@@ -1324,7 +1327,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 	[self postCurrentStepSuccessEvent:nil];
 	
-	[self postCurrentStepInfoEvent:[PKGBuildInfoEvent eventWithFilePath:tBundlePath]];	// A VOIR (needed ?)
+	if ((_buildOrder.buildOptions|PKGBuildOptionLaunchAfterBuild)==PKGBuildOptionLaunchAfterBuild)
+		[self postCurrentStepInfoEvent:[PKGBuildInfoEvent eventWithFilePath:tBundlePath]];
 	
 	return YES;
 }
@@ -1368,7 +1372,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	[self postCurrentStepSuccessEvent:nil];
 	
-	[self postCurrentStepInfoEvent:[PKGBuildInfoEvent eventWithFilePath:tPath]];	// A VOIR (needed ?)
+	if ((_buildOrder.buildOptions|PKGBuildOptionLaunchAfterBuild)==PKGBuildOptionLaunchAfterBuild)
+		[self postCurrentStepInfoEvent:[PKGBuildInfoEvent eventWithFilePath:tPath]];
 
 	return YES;
 }
@@ -7504,6 +7509,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		if (inRepresentation==nil)
 		{
 			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Representation for build order is missing.\n"];
+			
 			exit(EXIT_FAILURE);
 		}
 		
@@ -7512,6 +7518,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		if (_buildOrder==nil)
 		{
 			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Representation for build order is corrupted.\n"];
+			
 			exit(EXIT_FAILURE);
 		}
 	

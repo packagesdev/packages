@@ -164,7 +164,7 @@ int main (int argc, const char * argv[])
 		PKGBuildOrder * tBuildOrder=[[PKGBuildOrder alloc] init];
 		
 		tBuildOrder.projectPath=tProjectPath;
-		tBuildOrder.buildOptions=(tDebug==YES) ? PKGBuildOptionsDebugBuild : 0;
+		tBuildOrder.buildOptions=(tDebug==YES) ? PKGBuildOptionDebugBuild : 0;
 		tBuildOrder.externalSettings=[tMutableDictionary copy];
 		
 		[[PKGBuildOrderManager defaultManager] executeBuildOrder:tBuildOrder

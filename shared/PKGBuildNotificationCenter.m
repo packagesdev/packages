@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,17 @@ NSString * const PKGBuildStepEventRepresentationKey=@"PKGBuildStepEventRepresent
 
 #pragma mark - PKGBuildNotificationCenterInterface
 
-- (void)postNotificationStepPath:(NSString *)inStepPathRepresentation state:(PKGBuildStepState)inState userInfo:(NSDictionary *)inUserInfo
+- (void)postNotificationStepPath:(NSString *)inStepPathRepresentation state:(PKGBuildStepState)inState buildOrder:(PKGBuildOrder *)inBuilderOrder userInfo:(NSDictionary *)inUserInfo
 {
 	if (inStepPathRepresentation==nil)
 	{
 		NSLog(@"Missing Step Path Representation.");
+		return;
+	}
+	
+	if (inBuilderOrder==nil)
+	{
+		NSLog(@"Missing Build Order");
 		return;
 	}
 	
@@ -54,7 +60,7 @@ NSString * const PKGBuildStepEventRepresentationKey=@"PKGBuildStepEventRepresent
 	dispatch_async(dispatch_get_main_queue(), ^{
 	
 		NSNotification * tNotification=[[NSNotification alloc] initWithName:PKGBuildEventNotification
-																	 object:nil
+																	 object:inBuilderOrder
 																   userInfo:tUserInfo];
 	
 		[self postNotification:tNotification];

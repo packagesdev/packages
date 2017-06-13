@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,7 +13,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGBuildNotificationCenterInterface.h"
+#import "PKGBuildOrder.h"
+
+#import "PKGBuildStep+Constants.h"
 
 extern NSString * const PKGBuildEventNotification;
 extern NSString * const PKGBuildDebugNotification;
@@ -23,7 +25,6 @@ extern NSString * const PKGBuildStepKey;
 extern NSString * const PKGBuildStepPathKey;
 extern NSString * const PKGBuildStateKey;
 extern NSString * const PKGBuildStepEventRepresentationKey;
-
 
 
 typedef NS_ENUM(NSUInteger, PKGBuildResult)
@@ -36,8 +37,10 @@ typedef NS_ENUM(NSUInteger, PKGBuildResult)
 typedef void (^PKGBuildCompletionHandler)(PKGBuildResult);
 
 
-@interface PKGBuildNotificationCenter : NSNotificationCenter <PKGBuildNotificationCenterInterface>
+@interface PKGBuildNotificationCenter : NSNotificationCenter
 
 	@property (nonatomic, copy) PKGBuildCompletionHandler completionHandler;
+
+- (void)postNotificationStepPath:(NSString *)inStepPathRepresentation state:(PKGBuildStepState)inState buildOrder:(PKGBuildOrder *)inBuilderOrder userInfo:(NSDictionary *)inUserInfo;
 
 @end
