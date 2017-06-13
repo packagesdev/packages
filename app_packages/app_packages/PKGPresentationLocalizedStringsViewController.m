@@ -137,7 +137,7 @@
 	[_dataSource addNewItem:self.tableView];
 	
 	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"title.value"]
-						   row:[self.tableView selectedRow]
+						   row:self.tableView.selectedRow
 					 withEvent:nil
 						select:YES];
 }
