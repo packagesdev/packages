@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	PKGPresentationLocalizedStringsViewController * _localizedTitlesViewController;
 	
-	PKGPresentationLocalizedStringsViewController * _localizeDescriptionsViewController;
+	PKGPresentationLocalizedStringsViewController * _localizedDescriptionsViewController;
 }
 
 - (IBAction)switchPackageVisibility:(id)sender;
@@ -42,6 +42,10 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 - (IBAction)switchPackageState:(id)sender;
 
 - (IBAction)editChoiceState:(id)sender;
+
+// Notifications
+
+- (void)viewFrameDidChange:(NSNotification *)inNotification;
 
 @end
 
@@ -71,9 +75,9 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	[_titlesSectionView addSubview:_localizedTitlesViewController.view];
 	
-	_localizeDescriptionsViewController=[PKGPresentationLocalizedStringsViewController new];
-	_localizeDescriptionsViewController.label=NSLocalizedStringFromTable(@"Description", @"Presentation",@"");
-	_localizeDescriptionsViewController.informationLabel=NSLocalizedStringFromTable(@"Click + to add a description localization.\nUse alt+return for line breaks.", @"Presentation",@"");
+	_localizedDescriptionsViewController=[PKGPresentationLocalizedStringsViewController new];
+	_localizedDescriptionsViewController.label=NSLocalizedStringFromTable(@"Description", @"Presentation",@"");
+	_localizedDescriptionsViewController.informationLabel=NSLocalizedStringFromTable(@"Click + to add a description localization.\nUse alt+return for line breaks.", @"Presentation",@"");
 	
 	if (self.choiceTreeNode!=nil)
 	{
@@ -84,14 +88,14 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 		tDataSource.localizations=tChoiceItem.localizedDescriptions;
 		tDataSource.delegate=self;
 		
-		_localizeDescriptionsViewController.dataSource=tDataSource;
+		_localizedDescriptionsViewController.dataSource=tDataSource;
 	}
 	
-	_localizeDescriptionsViewController.view.frame=_descriptionsSectionView.bounds;
-	_localizeDescriptionsViewController.tableView.rowHeight=40.0;
+	_localizedDescriptionsViewController.view.frame=_descriptionsSectionView.bounds;
+	_localizedDescriptionsViewController.tableView.rowHeight=40.0;
 	
 	
-	[_descriptionsSectionView addSubview:_localizeDescriptionsViewController.view];
+	[_descriptionsSectionView addSubview:_localizedDescriptionsViewController.view];
 }
 
 #pragma mark -
@@ -112,7 +116,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 		_localizedTitlesViewController.dataSource=tDataSource;
 	}
 	
-	if (_localizeDescriptionsViewController!=nil)
+	if (_localizedDescriptionsViewController!=nil)
 	{
 		PKGChoiceItem * tChoiceItem=[_choiceTreeNode representedObject];
 		
@@ -121,7 +125,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 		tDataSource.localizations=tChoiceItem.localizedDescriptions;
 		tDataSource.delegate=self;
 		
-		_localizeDescriptionsViewController.dataSource=tDataSource;
+		_localizedDescriptionsViewController.dataSource=tDataSource;
 	}
 	
 	[self refreshUI];
@@ -135,7 +139,9 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	[_localizedTitlesViewController WB_viewWillAppear];
 	
-	[_localizeDescriptionsViewController WB_viewWillAppear];
+	[_localizedDescriptionsViewController WB_viewWillAppear];
+	
+	[self viewFrameDidChange:[NSNotification notificationWithName:NSViewFrameDidChangeNotification object:self.view]];
 	
 	[self refreshUI];
 }
@@ -146,7 +152,9 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	[_localizedTitlesViewController WB_viewDidAppear];
 	
-	[_localizeDescriptionsViewController WB_viewDidAppear];
+	[_localizedDescriptionsViewController WB_viewDidAppear];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self.view];
 }
 
 - (void)WB_viewWillDisappear
@@ -155,7 +163,9 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	[_localizedTitlesViewController WB_viewWillDisappear];
 	
-	[_localizeDescriptionsViewController WB_viewWillDisappear];
+	[_localizedDescriptionsViewController WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];
 }
 
 - (void)WB_viewDidDisappear
@@ -164,7 +174,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	[_localizedTitlesViewController WB_viewDidDisappear];
 	
-	[_localizeDescriptionsViewController WB_viewDidDisappear];
+	[_localizedDescriptionsViewController WB_viewDidDisappear];
 }
 
 - (void)refreshUI
@@ -324,12 +334,102 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	return @"";
 }
 
-- (void)localizationsDidChange:(PKGPresentationLocalizationsDataSource *)inDataSource
+- (void)localizationsDataSource:(PKGPresentationLocalizationsDataSource *)inDataSource localizationsDataDidChange:(BOOL)inNumberOfLocalizationsDidChange
 {
 	[self noteDocumentHasChanged];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationInstallationTypeStepSettingsDidChangeNotification object:self.document userInfo:@{}];	// A COMPLETER
+	
+	if (inNumberOfLocalizationsDidChange==YES)
+		[self viewFrameDidChange:[NSNotification notificationWithName:NSViewFrameDidChangeNotification object:self.view]];
 }
 
+#pragma mark - Notifications
+
+- (void)viewFrameDidChange:(NSNotification *)inNotification
+{
+	NSRect tTitleSectionRect=_titlesSectionView.frame;
+	NSRect tDescriptionSectionRect=_descriptionsSectionView.frame;
+	NSRect tExtendedAttributesSectionRect=_extendedAttributesSectionView_.frame;
+	
+	tExtendedAttributesSectionRect.origin.y=-1.0f;
+	
+	CGFloat tAvailableHeight=NSHeight(self.view.frame)-NSMaxY(tExtendedAttributesSectionRect);
+	
+	PKGChoiceItem * tChoiceItem=[self.choiceTreeNode representedObject];
+	
+
+	NSUInteger tLocalizedTitlesCount=tChoiceItem.localizedTitles.count;
+	
+	if (tLocalizedTitlesCount<2)
+		tLocalizedTitlesCount=2;
+	
+	CGFloat tTitleRowHeight=_localizedTitlesViewController.tableView.rowHeight;
+	NSSize tTitleSize=_localizedTitlesViewController.tableView.intercellSpacing;
+	
+	CGFloat tIdealHeightTitleSection=NSHeight(tTitleSectionRect)-NSHeight(_localizedTitlesViewController.tableView.enclosingScrollView.frame)+tTitleRowHeight*tLocalizedTitlesCount+(tLocalizedTitlesCount-1.0)*tTitleSize.height+10.0;
+	
+	
+	NSUInteger tLocalizedDescriptionsCount=tChoiceItem.localizedDescriptions.count;
+	
+	if (tLocalizedDescriptionsCount<2)
+		tLocalizedDescriptionsCount=2;
+	
+	CGFloat tDescriptionRowHeight=_localizedDescriptionsViewController.tableView.rowHeight;
+	NSSize tDescriptionSize=_localizedDescriptionsViewController.tableView.intercellSpacing;
+	
+	CGFloat tIdealHeightDescriptionSection=NSHeight(tDescriptionSectionRect)-NSHeight(_localizedDescriptionsViewController.tableView.enclosingScrollView.frame)+tDescriptionRowHeight*tLocalizedDescriptionsCount+(tLocalizedDescriptionsCount-1.0)*tDescriptionSize.height+10.0;
+	
+	
+	CGFloat tRatio=(tDescriptionRowHeight+tDescriptionSize.height)/(tDescriptionRowHeight+tDescriptionSize.height+tTitleRowHeight+tTitleSize.height);
+	
+	
+	if ((tIdealHeightTitleSection+tIdealHeightDescriptionSection)>tAvailableHeight)
+	{
+		CGFloat tMissingHeight=tIdealHeightTitleSection+tIdealHeightDescriptionSection-tAvailableHeight;
+		
+		if (tLocalizedTitlesCount>2 && tLocalizedDescriptionsCount>2)
+		{
+			tIdealHeightDescriptionSection=tIdealHeightDescriptionSection-floor(tRatio*tMissingHeight);
+			
+			tIdealHeightTitleSection=tAvailableHeight-tIdealHeightDescriptionSection;
+		}
+		else
+		{
+			if (tLocalizedDescriptionsCount>2)
+			{
+				tIdealHeightDescriptionSection=tIdealHeightDescriptionSection-tMissingHeight;
+			}
+			else if (tIdealHeightTitleSection>2)
+			{
+				tIdealHeightTitleSection=tIdealHeightTitleSection-tMissingHeight;
+			}
+		}
+	}
+	
+	CGFloat tExtraHeight=tAvailableHeight-(tIdealHeightTitleSection+tIdealHeightDescriptionSection);
+	
+	if (tExtraHeight>0)
+		tDescriptionSectionRect.size.height=tAvailableHeight-tIdealHeightTitleSection;
+	else
+		tDescriptionSectionRect.size.height=tIdealHeightDescriptionSection;
+	
+	
+	
+	_extendedAttributesSectionView_.frame=tExtendedAttributesSectionRect;
+	
+	tDescriptionSectionRect.origin.y=NSMaxY(tExtendedAttributesSectionRect);
+	
+	_descriptionsSectionView.frame=tDescriptionSectionRect;
+	
+	
+	
+	tTitleSectionRect.origin.y=NSMaxY(tDescriptionSectionRect);
+	tTitleSectionRect.size.height=tAvailableHeight-NSHeight(tDescriptionSectionRect);
+	
+	_titlesSectionView.frame=tTitleSectionRect;
+	
+	[self.view setNeedsDisplay:YES];
+}
 
 @end

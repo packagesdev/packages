@@ -108,7 +108,7 @@
 	return @"";
 }
 
-- (void)localizationsDidChange:(PKGPresentationLocalizationsDataSource *)inDataSource
+- (void)localizationsDataSource:(PKGPresentationLocalizationsDataSource *)inDataSource localizationsDataDidChange:(BOOL)inNumberOfLocalizationsDidChange
 {
 	[self noteDocumentHasChanged];
 	

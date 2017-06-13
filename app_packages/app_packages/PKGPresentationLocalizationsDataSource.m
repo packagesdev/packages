@@ -152,7 +152,7 @@
 	
 	[inTableView reloadData];
 	
-	[self.delegate localizationsDidChange:self];
+	[self.delegate localizationsDataSource:self localizationsDataDidChange:NO];
 	
 	// Restore selection
 	
@@ -188,7 +188,7 @@
 	
 	[inTableView reloadData];
 	
-	[self.delegate localizationsDidChange:self];
+	[self.delegate localizationsDataSource:self localizationsDataDidChange:NO];
 }
 
 #pragma mark -
@@ -206,7 +206,7 @@
 	
 	[inTableView reloadData];
 	
-	[self.delegate localizationsDidChange:self];
+	[self.delegate localizationsDataSource:self localizationsDataDidChange:YES];
 	
 	NSUInteger tIndex=[_cachedLanguages indexOfObject:inLanguage];
 	
@@ -234,7 +234,7 @@
 	
 	[inTableView reloadData];
 	
-	[self.delegate localizationsDidChange:self];
+	[self.delegate localizationsDataSource:self localizationsDataDidChange:YES];
 	
 	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
 	
@@ -273,7 +273,7 @@
 	
 	[inTableView reloadData];
 	
-	[self.delegate localizationsDidChange:self];
+	[self.delegate localizationsDataSource:self localizationsDataDidChange:YES];
 	
 	NSUInteger tIndex=[_cachedLanguages indexOfObject:tLanguage];
 	
@@ -303,7 +303,7 @@
 	
 	[inTableView reloadData];
 	
-	[self.delegate localizationsDidChange:self];
+	[self.delegate localizationsDataSource:self localizationsDataDidChange:YES];
 }
 
 @end
