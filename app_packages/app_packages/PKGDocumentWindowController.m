@@ -13,12 +13,18 @@
 
 #import "PKGDocumentWindowController.h"
 
+#import "PKGDocument.h"
+
 #import "PKGPackageProjectMainViewController.h"
 #import "PKGDistributionProjectMainViewController.h"
+
+#import "PKGDocumentWindowStatusViewController.h"
 
 #import "PKGApplicationPreferences.h"
 
 #import "PKGBuildOrderManager.h"
+
+#import "PKGBuildEvent.h"
 
 #define PKGDocumentWindowPackageProjectMinWidth				1026.0
 #define PKGDocumentWindowDistributionProjectMinWidth		1200.0
@@ -28,16 +34,22 @@
 {
 	PKGProjectMainViewController * _projectMainViewController;
 	
-	BOOL _launchAfterBuild;
+	PKGDocumentWindowStatusViewController * _statusViewController;
+	
+	NSURL * _temporaryProjectURL;
+	
+	NSString * _productPath;
 }
+
+	@property (nonatomic) BOOL showsBuildStatus;
 
 	@property (readwrite) PKGProject * project;
 
-- (NSString *)temporarySavedProjectPath;
 
-- (BOOL)buildAsynchronousWithSearchLocationEnabled:(BOOL)inLocationEnabled;
 
-- (BOOL)_buildWithSearchLocationEnabled:(BOOL)inLocationEnabled;
+- (BOOL)_asynchronouslRequestBuildWithOptions:(PKGBuildOptions)inRequestOptions;
+
+- (BOOL)_requestBuildWithOptions:(PKGBuildOptions)inRequestOptions;
 
 // Build Commands
 
@@ -46,6 +58,10 @@
 - (IBAction)buildAndDebug:(id)sender;
 
 - (IBAction)clean:(id)sender;
+
+#pragma mark -
+
+- (void)processBuildEventNotification:(NSNotification *)inNotification;
 
 @end
 
@@ -110,6 +126,54 @@
 	[_projectMainViewController WB_viewDidAppear];
 	
 	[self.window setContentBorderThickness:33.0 forEdge:NSMinYEdge];
+	
+	NSRect tMiddleFrame=self.middleAccessoryView.frame;
+	NSRect tRightFrame=self.rightAccessoryView.frame;
+	
+	tMiddleFrame.size.width=NSMaxX(tRightFrame)-NSMinX(tMiddleFrame);
+	
+	tRightFrame.origin.x=NSMaxX(tRightFrame);
+	
+	self.middleAccessoryView.frame=tMiddleFrame;
+	self.rightAccessoryView.frame=tRightFrame;
+}
+
+#pragma mark -
+
+- (void)setShowsBuildStatus:(BOOL)inShowsBuildStatus
+{
+	if (_showsBuildStatus==inShowsBuildStatus)
+		return;
+	
+	if (inShowsBuildStatus==YES)
+	{
+		if (_statusViewController==nil)
+			_statusViewController=[PKGDocumentWindowStatusViewController new];
+		
+		if (_statusViewController.view.superview==nil)
+		{
+			_statusViewController.view.frame=self.middleAccessoryView.bounds;
+			
+			[_statusViewController WB_viewWillAppear];
+			
+			[self.middleAccessoryView addSubview:_statusViewController.view];
+			
+			[_statusViewController WB_viewDidAppear];
+		}
+	}
+	else
+	{
+		if (_statusViewController.view.superview!=nil)
+		{
+			[_statusViewController WB_viewWillDisappear];
+			
+			[_statusViewController.view removeFromSuperview];
+			
+			[_statusViewController WB_viewDidDisappear];
+			
+			_statusViewController=nil;
+		}
+	}
 }
 
 #pragma mark -
@@ -213,15 +277,16 @@ bail:
 	return nil;*/
 }
 
-- (BOOL)buildAsynchronouslyInDebugMode:(BOOL)inDebugMode
+- (BOOL)_asynchronouslRequestBuildWithOptions:(PKGBuildOptions)inBuildOptions
 {
-	_launchAfterBuild=NO;
-	
 	NSMutableDictionary * tExternalSettings=[NSMutableDictionary dictionary];
 	
 	NSDocument * tDocument=self.document;
 	
 	NSString * tProjectPath=tDocument.fileURL.path;
+	
+	_productPath=nil;
+	_temporaryProjectURL=nil;
 	
 	if (tDocument.isDocumentEdited==YES)
 	{
@@ -232,6 +297,8 @@ bail:
 			case PKGPreferencesBuildUnsavedProjectSaveAskBeforeBuild:
 			{
 				NSString * tAlertTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Do you want to save the changes you made in the project \"%@\" before building it?",@"Build",@"No comment"),tProjectPath.lastPathComponent.stringByDeletingPathExtension];
+				
+				// A COMPLETER (Use NSAlert)
 				
 				NSInteger tReturnCode=NSRunAlertPanel(tAlertTitle,@"",NSLocalizedString(@"Save",@"No comment"),NSLocalizedString(@"Don't Save",@"No comment"),NSLocalizedString(@"Cancel",@"No comment"));
 				
@@ -244,12 +311,30 @@ bail:
 						break;
 						
 					case NSAlertAlternateReturn:	// Don't Save
+					{
+						_temporaryProjectURL=[self.document temporaryURLWithError:NULL];
 						
-						tProjectPath=[self temporarySavedProjectPath];
+						if (_temporaryProjectURL==nil)
+						{
+							// Show alert
+							
+							// A COMPLETER
+							
+							return NO;
+						}
+						
+						if ([self.project writeToURL:_temporaryProjectURL atomically:YES]==NO)
+						{
+							// A COMPLETER
+							
+							return nil;
+						}
+						
+						tProjectPath=_temporaryProjectURL.path;
 						tExternalSettings[PKGBuildOrderExternalSettingsReferenceProjectFolderKey]=tProjectPath.stringByDeletingLastPathComponent;
 						
 						break;
-						
+					}
 					case NSAlertOtherReturn:		// Cancel
 						
 						return NO;
@@ -265,11 +350,30 @@ bail:
 				break;
 				
 			case PKGPreferencesBuildUnsavedProjectSaveNever:
+			{
+				NSURL * tTemporaryURL=[self.document temporaryURLWithError:NULL];
 				
-				tProjectPath=[self temporarySavedProjectPath];
+				if (tTemporaryURL==nil)
+				{
+					// Show alert
+					
+					// A COMPLETER
+					
+					return NO;
+				}
+				
+				if ([self.project writeToURL:_temporaryProjectURL atomically:YES]==NO)
+				{
+					// A COMPLETER
+					
+					return nil;
+				}
+				
+				tProjectPath=_temporaryProjectURL.path;
 				tExternalSettings[PKGBuildOrderExternalSettingsReferenceProjectFolderKey]=tProjectPath.stringByDeletingLastPathComponent;
 				
 				break;
+			}
 		}
 	}
 	
@@ -283,22 +387,23 @@ bail:
 	
 	// A COMPLETER (gestion des User Defined Settings)
 	
-	/*PKGCommandLineBuildObserver * tBuildObserver=[[PKGCommandLineBuildObserver alloc] init];
-	tBuildObserver.verbose=tVerbose;*/
+	
 	
 	PKGBuildOrder * tBuildOrder=[[PKGBuildOrder alloc] init];
 	
 	tBuildOrder.projectPath=tProjectPath;
-	tBuildOrder.buildOptions=(inDebugMode==YES) ? PKGBuildOptionsDebugBuild : 0;
+	tBuildOrder.buildOptions=inBuildOptions;
 	tBuildOrder.externalSettings=[tExternalSettings copy];
 	
 	if ([[PKGBuildOrderManager defaultManager] executeBuildOrder:tBuildOrder
 													setupHandler:^(PKGBuildNotificationCenter * bBuildNotificationCenter){
+														
+														// Register for notifications
 												 
-												 // Register for notifications
-												 
-												 /*[bBuildNotificationCenter addObserver:tBuildObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:nil];
-												 [bBuildNotificationCenter addObserver:tBuildObserver selector:@selector(processBuildDebugNotification:) name:PKGBuildDebugNotification object:nil];*/
+														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:tBuildOrder];
+														[bBuildNotificationCenter addObserver:_statusViewController selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:tBuildOrder];
+														
+														
 											 }
 											   completionHandler:^(PKGBuildResult bResult){
 											   
@@ -318,6 +423,7 @@ bail:
 									   communicationErrorHandler:^(NSError * bCommunicationError){
 									   
 									   // A COMPLETER
+										   
 								   }]==NO)
 	{
 		;
@@ -361,17 +467,11 @@ bail:
 	return NO;
 }
 
-- (BOOL)_buildWithSearchLocationEnabled:(BOOL)inLocationEnabled
+- (BOOL)_requestBuildWithOptions:(PKGBuildOptions)inRequestOptions
  {
-	/*[IBbuildStatusLabel_ setStringValue:NSLocalizedStringFromTable(@"Building...",@"Build",@"")];
-	
-	[IBbuildStatusProgressIndicator_ setIndeterminate:NO];
-	
-	[IBbuildStatusProgressIndicator_ setDoubleValue:0];
-	
-	[IBbuildStatusProgressIndicator_ setMaxValue:4];*/
+	 self.showsBuildStatus=YES;
 
-	BOOL tResult=[self buildAsynchronousWithSearchLocationEnabled:inLocationEnabled];
+	BOOL tResult=[self _asynchronouslRequestBuildWithOptions:inRequestOptions];
 
 	if (tResult==YES)
 	{
@@ -391,19 +491,17 @@ bail:
 
 - (IBAction)build:(id)sender
 {
-	[self _buildWithSearchLocationEnabled:YES];
+	[self _requestBuildWithOptions:0];
 }
 
 - (IBAction)buildAndRun:(id)sender
 {
-	if ([self _buildWithSearchLocationEnabled:YES]==YES)
-		_launchAfterBuild=YES;
+	[self _requestBuildWithOptions:PKGBuildOptionLaunchAfterBuild];
 }
 
 - (IBAction)buildAndDebug:(id)sender
 {
-	if ([self _buildWithSearchLocationEnabled:NO]==YES)
-		_launchAfterBuild=YES;
+	[self _requestBuildWithOptions:PKGBuildOptionLaunchAfterBuild|PKGBuildOptionDebugBuild];
 }
 
 - (IBAction)clean:(id)sender
@@ -412,11 +510,108 @@ bail:
 
 #pragma mark -
 
+- (void)processBuildEventNotification:(NSNotification *)inNotification
+{
+	if (inNotification==nil)
+		return;
+	
+	NSDictionary * tUserInfo=[inNotification userInfo];
+	
+	if (tUserInfo==nil)
+		return;
+	
+	NSNumber * tNumber=tUserInfo[PKGBuildStepKey];
+	
+	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+		return;
+	
+	PKGBuildStep tStep=[tNumber unsignedIntegerValue];
+	
+	NSIndexPath * tStepPath=tUserInfo[PKGBuildStepPathKey];
+	
+	if ([tStepPath isKindOfClass:[NSIndexPath class]]==NO)
+		return;
+	
+	
+	tNumber=tUserInfo[PKGBuildStateKey];
+	
+	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+		return;
+	
+	PKGBuildStepState tState=[tNumber unsignedIntegerValue];
+	
+	
+	NSDictionary * tRepresentation=tUserInfo[PKGBuildStepEventRepresentationKey];
+	
+	if (tRepresentation!=nil && [tRepresentation isKindOfClass:[NSDictionary class]]==NO)
+		return;
+	
+	if (tState==PKGBuildStepStateInfo)
+	{
+		PKGBuildInfoEvent * tInfoEvent=[[PKGBuildInfoEvent alloc] initWithRepresentation:tRepresentation];
+		
+		if (tStep==PKGBuildStepProject)
+			_productPath=tInfoEvent.filePath;
+		
+		return;
+	}
+	
+	if (tState==PKGBuildStepStateFailure)
+	{
+		NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+		
+		if (tSoundName.length>0)
+			[[NSSound soundNamed:tSoundName] play];
+		
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
+		
+		if (_temporaryProjectURL!=nil)
+			[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL error:NULL];
+		
+		return;
+	}
+	
+	if (tState==PKGBuildStepStateSuccess)
+	{
+		if (tStep==PKGBuildStepProject)
+		{
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
+			
+			if (_temporaryProjectURL!=nil)
+				[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL error:NULL];
+			
+			//building_=NO;
+			
+			NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
+			
+			if (tSoundName.length>0)
+				[[NSSound soundNamed:tSoundName] play];
+			
+			PKGBuildOrder * tBuildOrder=inNotification.object;
+			
+			if ((tBuildOrder.buildOptions|PKGBuildOptionLaunchAfterBuild)==0)
+				return;
+			
+			if (_productPath.length==0)
+			{
+				// A COMPLETER
+				
+				return;
+			}
+			
+			if ([[NSWorkspace sharedWorkspace] openFile:_productPath]==YES)
+				return;
+			
+			// A COMPLETER
+			
+			NSLog(@"[PKGDocumentWindowController processBuildEventNotification:] Error when opening file \'%@\'",_productPath);
+		}
+	}
+}
+
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
 	[_projectMainViewController updateViewMenu];
 }
-
-
 
 @end
