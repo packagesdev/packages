@@ -140,11 +140,11 @@
 	
 	NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
 	
-	[_playSoundOnSuccessPopUpButton selectItemWithTag:(tSoundName.length==0) ? -1 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
+	[_playSoundOnSuccessPopUpButton selectItemAtIndex:(tSoundName.length==0) ? -1 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
 	
 	tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
 	
-	[_playSoundOnErrorsPopUpButton selectItemWithTag:(tSoundName.length==0) ? -1 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
+	[_playSoundOnErrorsPopUpButton selectItemAtIndex:(tSoundName.length==0) ? -1 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
 	
 	// Quick Build
 	
