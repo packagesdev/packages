@@ -201,35 +201,35 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (inNotification==nil)
 		return;
 	
-	NSDictionary * tUserInfo=[inNotification userInfo];
+	NSDictionary * tUserInfo=inNotification.userInfo;
 	
 	if (tUserInfo==nil)
 		return;
 	
 	NSNumber * tNumber=tUserInfo[PKGBuildStepKey];
 	
-	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
-	PKGBuildStep tStep=[tNumber unsignedIntegerValue];
+	PKGBuildStep tStep=tNumber.unsignedIntegerValue;
 	
 	NSIndexPath * tStepPath=tUserInfo[PKGBuildStepPathKey];
 	
-	if ([tStepPath isKindOfClass:[NSIndexPath class]]==NO)
+	if ([tStepPath isKindOfClass:NSIndexPath.class]==NO)
 		return;
 	
 	
 	tNumber=tUserInfo[PKGBuildStateKey];
 	
-	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
-	PKGBuildStepState tState=[tNumber unsignedIntegerValue];
+	PKGBuildStepState tState=tNumber.unsignedIntegerValue;
 	
 	
 	NSDictionary * tRepresentation=tUserInfo[PKGBuildStepEventRepresentationKey];
 	
-	if (tRepresentation!=nil && [tRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if (tRepresentation!=nil && [tRepresentation isKindOfClass:NSDictionary.class]==NO)
 		return;
 	
 	const char * (^fileItemTypeName)(PKGBuildErrorFileKind)=^const char *(PKGBuildErrorFileKind bFileKind)
@@ -608,7 +608,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		(void)fprintf(stdout, "\nBuild Failed\n");
 		
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	
 	if (tState==PKGBuildStepStateWarning)
@@ -781,7 +781,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						(void)fprintf(stdout, "Build Successful (1 second)\n");
 					}
 					
-					exit(0);
+					exit(EXIT_SUCCESS);
 				}
 				
 				break;
@@ -1054,7 +1054,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					(void)fprintf(stdout, "Build Successful (1 second)\n");
 				}
 				
-				exit(0);
+				exit(EXIT_SUCCESS);
 			}
 			
 			_startTime=time(NULL);	// Necessarily state begin
