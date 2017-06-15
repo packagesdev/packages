@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -16,14 +16,13 @@
 #import "PKGPackagesError.h"
 #import "NSArray+WBExtensions.h"
 
+extern NSString * const PKGProjectKey;
+extern NSString * const PKGProjectCommentsKey;
+
 NSString * const PKGDistributionProjectProjectSettingsKey=@"PROJECT_SETTINGS";
-
 NSString * const PKGDistributionProjectPresentationSettingsKey=@"PROJECT_PRESENTATION";
-
 NSString * const PKGDistributionProjectRequirementsAndResourcesKey=@"PROJECT_REQUIREMENTS";
-
 NSString * const PKGDistributionProjectPackagesComponentsKey=@"PACKAGES";
-
 NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA";
 
 

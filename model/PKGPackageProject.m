@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,12 +15,12 @@
 
 #import "PKGPackagesError.h"
 
+extern NSString * const PKGProjectKey;
+extern NSString * const PKGProjectCommentsKey;
+
 NSString * const PKGPackageProjectSettingsKey=@"PROJECT_SETTINGS";
-
 NSString * const PKGPackageProjectPackageSettingsKey=@"PACKAGE_SETTINGS";
-
 NSString * const PKGPackageProjectPackagePayloadsKey=@"PACKAGE_FILES";
-
 NSString * const PKGPackageProjectPackageScriptsAndResources=@"PACKAGE_SCRIPTS";
 
 @interface PKGPackageProject ()
