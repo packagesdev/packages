@@ -38,11 +38,23 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 
 @interface PKGProjectSettings ()
 
-@property (readwrite) NSMutableArray * filesFilters;
+	@property (readwrite) NSMutableArray * filesFilters;
 
 @end
 
 @implementation PKGProjectSettings
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_filesFilters=[NSMutableArray array];
+	}
+	
+	return self;
+}
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
@@ -144,32 +156,39 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		
 		NSArray * tArray=inRepresentation[PKGProjectSettingsFilesFiltersKey];
 		
-		PKGFullCheckArrayValueForKey(tArray,PKGProjectSettingsFilesFiltersKey);
-		
-		_filesFilters=[[tArray WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bFileFilterRepresentation,__attribute__((unused))NSUInteger bIndex){
-			return [PKGFileFilterFactory filterWithRepresentation:bFileFilterRepresentation error:&tError];
-		}] mutableCopy];
-		
-		if (_filesFilters==nil)
+		if (tArray==nil)
 		{
-			if (outError!=NULL)
-			{
-				NSInteger tCode=tError.code;
-				
-				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
-				
-				NSString * tPathError=PKGProjectSettingsFilesFiltersKey;
-				
-				if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
-					tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
-				
-				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:tCode
-										  userInfo:@{PKGKeyPathErrorKey:tPathError}];
-			}
+			_filesFilters=[NSMutableArray array];
+		}
+		else
+		{
+			PKGFullCheckArrayValueForKey(tArray,PKGProjectSettingsFilesFiltersKey);
+		
+			_filesFilters=[[tArray WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bFileFilterRepresentation,__attribute__((unused))NSUInteger bIndex){
+				return [PKGFileFilterFactory filterWithRepresentation:bFileFilterRepresentation error:&tError];
+			}] mutableCopy];
 			
-			return nil;
+			if (_filesFilters==nil)
+			{
+				if (outError!=NULL)
+				{
+					NSInteger tCode=tError.code;
+					
+					if (tCode==PKGRepresentationNilRepresentationError)
+						tCode=PKGRepresentationInvalidValue;
+					
+					NSString * tPathError=PKGProjectSettingsFilesFiltersKey;
+					
+					if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+					
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:tCode
+											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+				}
+				
+				return nil;
+			}
 		}
 		
 		NSNumber * tNumber=inRepresentation[PKGProjectSettingsFilterPayloadOnlyKey];
