@@ -422,7 +422,12 @@ bail:
 										   }
 									   communicationErrorHandler:^(NSError * bCommunicationError){
 									   
-									   // A COMPLETER
+										   NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+										   
+										   if (tSoundName.length>0)
+											   [[NSSound soundNamed:tSoundName] play];
+										   
+										   // A COMPLETER
 										   
 								   }]==NO)
 	{
