@@ -23,6 +23,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "WBRemoteVersionChecker.h"
 
+#import "PKGDocument.h"
+
+#import "PKGDocumentController.h"
+
 @interface PKGApplicationController ()
 
 // Application Menu
@@ -283,12 +287,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return inError;
 }
 
-- (void) applicationWillFinishLaunching:(NSNotification *)inNotification
+- (void)applicationWillFinishLaunching:(NSNotification *)inNotification
 {
-	//[ICDocumentController sharedDocumentController];
+	[PKGDocumentController sharedDocumentController];
 }
 
-- (void) applicationDidFinishLaunching:(NSNotification *)inNotification
+- (void)applicationDidFinishLaunching:(NSNotification *)inNotification
 {
 	[WBRemoteVersionChecker sharedChecker];
 	
