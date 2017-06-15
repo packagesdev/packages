@@ -19,13 +19,9 @@
 #import "PKGDistributionProject.h"
 
 
-
 NSString * const PKGFormatVersionKey=@"VERSION";
-
 NSString * const PKGProjectTypeKey=@"TYPE";
-
 NSString * const PKGProjectKey=@"PROJECT";
-
 NSString * const PKGProjectCommentsKey=@"PROJECT_COMMENTS";
 
 #define PKGPackagesVersion_2	2
