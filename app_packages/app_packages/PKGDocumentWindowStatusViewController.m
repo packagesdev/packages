@@ -50,35 +50,35 @@
 	if (inNotification==nil)
 		return;
 	
-	NSDictionary * tUserInfo=[inNotification userInfo];
+	NSDictionary * tUserInfo=inNotification.userInfo;
 	
 	if (tUserInfo==nil)
 		return;
 	
 	NSNumber * tNumber=tUserInfo[PKGBuildStepKey];
 	
-	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
-	PKGBuildStep tStep=[tNumber unsignedIntegerValue];
+	PKGBuildStep tStep=tNumber.unsignedIntegerValue;
 	
 	NSIndexPath * tStepPath=tUserInfo[PKGBuildStepPathKey];
 	
-	if ([tStepPath isKindOfClass:[NSIndexPath class]]==NO)
+	if ([tStepPath isKindOfClass:NSIndexPath.class]==NO)
 		return;
 	
 	
 	tNumber=tUserInfo[PKGBuildStateKey];
 	
-	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
-	PKGBuildStepState tState=[tNumber unsignedIntegerValue];
+	PKGBuildStepState tState=tNumber.unsignedIntegerValue;
 	
 	
 	NSDictionary * tRepresentation=tUserInfo[PKGBuildStepEventRepresentationKey];
 	
-	if (tRepresentation!=nil && [tRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if (tRepresentation!=nil && [tRepresentation isKindOfClass:NSDictionary.class]==NO)
 		return;
 	
 	if (tState==PKGBuildStepStateInfo)
