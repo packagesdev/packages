@@ -333,7 +333,7 @@
 	if (tScratchFolder!=nil)
 		tExternalSettings[PKGBuildOrderExternalSettingsScratchFolderKey]=tScratchFolder;
 	
-	PKGBuildOrder * tBuildOrder=[[PKGBuildOrder alloc] init];
+	PKGBuildOrder * tBuildOrder=[PKGBuildOrder new];
 	
 	tBuildOrder.projectPath=_temporaryProjectURL.path;
 	tBuildOrder.buildOptions=0;
@@ -368,9 +368,9 @@
 										   if (tSoundName.length>0)
 											[[NSSound soundNamed:tSoundName] play];
 										   
-										   // Remove Temporary Project
+										   // Remove Temporary Folder
 										   
-										   [[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL error:NULL];
+										   [[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
 										   
 										   // A COMPLETER
 										   
@@ -441,9 +441,9 @@
 		
 		[[PKGQuickBuildFeedbackWindowController sharedController] performSelector:@selector(removeViewForUUID:) withObject:_UUID afterDelay:2.0];
 		
-		// Remove Temporary Project
+		// Remove Temporary Folder
 		
-		[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL error:NULL];
+		[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
 		
 		if ([[NSApp delegate] launchedNormally]==NO)
 		{
@@ -473,9 +473,9 @@
 			
 			[[PKGQuickBuildFeedbackWindowController sharedController] performSelector:@selector(removeViewForUUID:) withObject:_UUID afterDelay:1.0];
 			
-			// Remove Temporary Project
+			// Remove Temporary Folder
 			
-			[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL error:NULL];
+			[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
 			
 			if ([[NSApp delegate] launchedNormally]==NO)
 			{
