@@ -25,6 +25,8 @@
 #import "PKGPackageComponent+UI.h"
 #import "PKGInstallationHierarchy+UI.h"
 
+#import "PKGDistributionProject+Edition.h"
+
 #import "PKGDocumentWindowController.h"
 
 #import "PKGEvent.h"
@@ -60,6 +62,8 @@
 - (void)optionKeyDidChange:(NSNotification *)inNotification;
 
 - (void)removedPackagesListDidChange:(NSNotification *)inNotification;
+
+- (void)windowDidBecomeMain:(NSNotification *)inNotification;
 
 @end
 
@@ -119,7 +123,7 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedPackagesListDidChange:) name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 
-	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 }
 
 - (void)WB_viewWillDisappear
@@ -129,6 +133,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGOptionKeyDidChangeStateNotification object:self.view.window];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
 	[_sourceListAuxiliaryView removeFromSuperview];
 	
@@ -205,6 +211,15 @@
 
 - (IBAction)exportPackageAsProject:(id)sender
 {
+	NSIndexSet * tIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	if (tIndexSet.count!=1)
+		return;
+	
+	PKGDistributionProjectSourceListTreeNode * tSourceListTreeNode=[self.outlineView itemAtRow:tIndexSet.firstIndex];
+	PKGDistributionProjectSourceListPackageComponentItem * tSourceListItem=tSourceListTreeNode.representedObject;
+	PKGPackageComponent * tPackageComponent=tSourceListItem.packageComponent;
+	
 	NSSavePanel * tExportPanel=[NSSavePanel savePanel];
 	
 	// A COMPLETER
@@ -216,7 +231,14 @@
 		if (bResult!=NSFileHandlingPanelOKButton)
 			return;
 
-		// A COMPLETER
+		NSURL * tNewProjectURL=tExportPanel.URL;
+		
+		PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)self.documentProject;
+		
+		if ([tDistributionProject exportPackageComponent:tPackageComponent asPackageProjectAtURL:tNewProjectURL usingFilePathConverter:self.filePathConverter]==NO)
+		{
+			// A COMPLETER
+		}
 	}];
 }
 
@@ -281,7 +303,15 @@
 	{
 		return validateSelection(tSelectionIndexSet,^BOOL(PKGDistributionProjectSourceListPackageComponentItem * bPackageComponentItem){
 		
-			return (bPackageComponentItem.packageComponent.type==PKGPackageComponentTypeImported);
+			if (bPackageComponentItem.packageComponent.type!=PKGPackageComponentTypeImported)
+				return NO;
+			
+			NSString * tPath=[self.filePathConverter absolutePathForFilePath:bPackageComponentItem.packageComponent.importPath];
+			
+			if (tPath==nil)
+				return NO;
+			
+			return [[NSFileManager defaultManager] fileExistsAtPath:tPath];
 		});
 	}
 	
@@ -411,7 +441,31 @@
 		
 		tView.imageView.image=tSourceListItem.icon;
 		tView.textField.stringValue=tSourceListItem.label;
-		tView.textField.textColor=([self.dataSource.removedPackagesUUIDs containsObject:tComponentItem.packageComponent.UUID]==YES) ? [NSColor grayColor] : [NSColor blackColor];
+		
+		NSColor * tTextColor=([self.dataSource.removedPackagesUUIDs containsObject:tComponentItem.packageComponent.UUID]==YES) ? [NSColor grayColor] : [NSColor blackColor];
+		
+		if (tComponentItem.packageComponent.type==PKGPackageComponentTypeImported)
+		{
+			NSString * tPath=[self.filePathConverter absolutePathForFilePath:tComponentItem.packageComponent.importPath];
+			
+			if (tPath==nil)
+			{
+				// A COMPLETER
+			}
+			
+			BOOL tIsDirectory;
+			
+			if ([[NSFileManager defaultManager] fileExistsAtPath:tPath isDirectory:&tIsDirectory]==NO || tIsDirectory==YES)
+				tTextColor=[NSColor redColor];
+			
+			if (tIsDirectory==YES)
+			{
+				// A COMPLETER
+			}
+		}
+		
+		tView.textField.textColor=tTextColor;
+		
 		tView.textField.editable=tSourceListItem.editable;
 		tView.textField.delegate=self;
 		
@@ -498,6 +552,14 @@
 	[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
 	
 	//[self.outlineView selectRowIndexes:tSelectedIndexes byExtendingSelection:NO];
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)inNotification
+{
+	NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfRows)];
+	NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"sourcelist.name"]];
+	
+	[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
 }
 
 @end

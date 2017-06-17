@@ -15,6 +15,16 @@
 
 @implementation PKGPackageSettingsSourceView
 
+- (void)setBackgroundColor:(NSColor *)inBackgroundColor
+{
+	if (_backgroundColor==inBackgroundColor)
+		return;
+	
+	_backgroundColor=inBackgroundColor;
+	
+	[self setNeedsDisplay:YES];
+}
+
 - (void)drawRect:(NSRect)inRect
 {
     // Fill the background

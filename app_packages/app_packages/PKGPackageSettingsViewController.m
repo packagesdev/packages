@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -75,69 +75,69 @@
 
 - (void)setTagSectionEnabled:(BOOL)inEnabled
 {
-	if (_tagSectionEnabled!=inEnabled)
-	{
-		_tagSectionEnabled=inEnabled;
+	if (_tagSectionEnabled==inEnabled)
+		return;
+	
+	_tagSectionEnabled=inEnabled;
 		
-		_identifierTextField.enabled=inEnabled;
+	_identifierTextField.enabled=inEnabled;
 		
-		_versionTextField.enabled=inEnabled;
-	}
+	_versionTextField.enabled=inEnabled;
 }
 
 - (void)setPostInstallationSectionEnabled:(BOOL)inEnabled
 {
-	if (_postInstallationSectionEnabled!=inEnabled)
-	{
-		_postInstallationSectionEnabled=inEnabled;
+	if (_postInstallationSectionEnabled==inEnabled)
+		return;
+
+	_postInstallationSectionEnabled=inEnabled;
 		
-		_conclusionActionPopupButton.enabled=inEnabled;
-	}
+	_conclusionActionPopupButton.enabled=inEnabled;
 }
 
 - (void)setOptionsSectionEnabled:(BOOL)inEnabled
 {
-	if (_optionsSectionEnabled!=inEnabled)
-	{
-		_optionsSectionEnabled=inEnabled;
-		
-		_authenticationModeCheckbox.enabled=inEnabled;
-		
-		_relocatableCheckbox.enabled=inEnabled;
-		
-		_overwriteDirectoryPermissionsCheckbox.enabled=inEnabled;
-		
-		_followSymbolicLinksCheckbox.enabled=inEnabled;
-		
-		_useHFSPlusCompressionCheckbox.enabled=inEnabled;
-	}
+	if (_optionsSectionEnabled==inEnabled)
+		return;
+	
+	_optionsSectionEnabled=inEnabled;
+	
+	_authenticationModeCheckbox.enabled=inEnabled;
+	
+	_relocatableCheckbox.enabled=inEnabled;
+	
+	_overwriteDirectoryPermissionsCheckbox.enabled=inEnabled;
+	
+	_followSymbolicLinksCheckbox.enabled=inEnabled;
+	
+	_useHFSPlusCompressionCheckbox.enabled=inEnabled;
 }
 
 - (void)setOptionsSectionSimplified:(BOOL)inSimplified
 {
-	if (_optionsSectionSimplified!=inSimplified)
-	{
-		_optionsSectionSimplified=inSimplified;
+	if (_optionsSectionSimplified==inSimplified)
+		return;
+
+	_optionsSectionSimplified=inSimplified;
+	
+	_relocatableCheckbox.hidden=inSimplified;
+	
+	_overwriteDirectoryPermissionsCheckbox.hidden=inSimplified;
+	
+	_followSymbolicLinksCheckbox.hidden=inSimplified;
+	
+	_useHFSPlusCompressionCheckbox.hidden=inSimplified;
+	
+	NSView * tLowerView=(inSimplified==YES) ? _authenticationModeCheckbox : _followSymbolicLinksCheckbox;
+	
+	NSRect tOptionsSectionFrame=_followSymbolicLinksCheckbox.superview.frame;
+	CGFloat tMaxY=NSMaxY(tOptionsSectionFrame);
+	CGFloat tHeight=tMaxY-(NSMinY(tOptionsSectionFrame)+NSMinY(tLowerView.frame)-20.0);
 		
-		_relocatableCheckbox.hidden=inSimplified;
-		
-		_overwriteDirectoryPermissionsCheckbox.hidden=inSimplified;
-		
-		_followSymbolicLinksCheckbox.hidden=inSimplified;
-		
-		_useHFSPlusCompressionCheckbox.hidden=inSimplified;
-		
-		NSView * tLowerView=(inSimplified==YES) ? _authenticationModeCheckbox : _followSymbolicLinksCheckbox;
-		
-		NSRect tOptionsSectionFrame=_followSymbolicLinksCheckbox.superview.frame;
-		CGFloat tMaxY=NSMaxY(tOptionsSectionFrame);
-		CGFloat tHeight=tMaxY-(NSMinY(tOptionsSectionFrame)+NSMinY(tLowerView.frame)-20.0);
-			
-		tOptionsSectionFrame.size.height=tHeight;
-		tOptionsSectionFrame.origin.y=tMaxY-tHeight;
-		
-		_followSymbolicLinksCheckbox.superview.frame=tOptionsSectionFrame;
-	}
+	tOptionsSectionFrame.size.height=tHeight;
+	tOptionsSectionFrame.origin.y=tMaxY-tHeight;
+	
+	_followSymbolicLinksCheckbox.superview.frame=tOptionsSectionFrame;
 }
 
 #pragma mark -
@@ -147,27 +147,29 @@
 	if (_identifierTextField==nil)
 		return;
 	
+	PKGPackageSettings * tPackageSettings=self.packageSettings;
+	
 	// Tag Section
 	
-	_identifierTextField.stringValue=self.packageSettings.identifier;
+	_identifierTextField.stringValue=(tPackageSettings==nil) ? @"" : tPackageSettings.identifier;
 	
-	_versionTextField.stringValue=self.packageSettings.version;
+	_versionTextField.stringValue=(tPackageSettings==nil) ? @"" : tPackageSettings.version;
 	
 	// Post Installation Section
 	
-	[_conclusionActionPopupButton selectItemWithTag:self.packageSettings.conclusionAction];
+	[_conclusionActionPopupButton selectItemWithTag:(tPackageSettings==nil) ? PKGPackageConclusionActionNone : tPackageSettings.conclusionAction];
 	
 	// Options Section
 	
-	_authenticationModeCheckbox.state=(self.packageSettings.authenticationMode==PKGPackageAuthenticationRoot)? NSOnState : NSOffState;
+	_authenticationModeCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.authenticationMode==PKGPackageAuthenticationRoot)? NSOnState : NSOffState;
 	
-	_relocatableCheckbox.state=(self.packageSettings.relocatable==YES)? NSOnState : NSOffState;
+	_relocatableCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.relocatable==YES)? NSOnState : NSOffState;
 	
-	_overwriteDirectoryPermissionsCheckbox.state=(self.packageSettings.overwriteDirectoryPermissions==YES)? NSOnState : NSOffState;
+	_overwriteDirectoryPermissionsCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.overwriteDirectoryPermissions==YES)? NSOnState : NSOffState;
 	
-	_followSymbolicLinksCheckbox.state=(self.packageSettings.followSymbolicLinks==YES)? NSOnState : NSOffState;
+	_followSymbolicLinksCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.followSymbolicLinks==YES)? NSOnState : NSOffState;
 	
-	_useHFSPlusCompressionCheckbox.state=(self.packageSettings.useHFSPlusCompression==YES)? NSOnState : NSOffState;
+	_useHFSPlusCompressionCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.useHFSPlusCompression==YES)? NSOnState : NSOffState;
 }
 
 - (void)WB_viewWillAppear

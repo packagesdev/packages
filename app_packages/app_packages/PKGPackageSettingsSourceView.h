@@ -15,6 +15,6 @@
 
 @interface PKGPackageSettingsSourceView : NSView
 
-	@property NSColor * backgroundColor;
+	@property (nonatomic) NSColor * backgroundColor;
 
 @end
