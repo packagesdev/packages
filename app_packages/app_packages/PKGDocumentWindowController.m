@@ -26,6 +26,8 @@
 
 #import "PKGBuildEvent.h"
 
+#import "NSAlert+block.h"
+
 #define PKGDocumentWindowPackageProjectMinWidth				1026.0
 #define PKGDocumentWindowDistributionProjectMinWidth		1200.0
 #define PKGDocumentWindowMinHeight							613.0
@@ -289,28 +291,33 @@ bail:
 	_temporaryProjectURL=nil;
 	
 	if (tDocument.isDocumentEdited==YES)
-	{
+	{ 
 		PKGPreferencesBuildUnsavedProjectSaveBehavior tBehavior=[PKGApplicationPreferences sharedPreferences].unsavedProjectSaveBehavior;
 		
 		switch(tBehavior)
 		{
 			case PKGPreferencesBuildUnsavedProjectSaveAskBeforeBuild:
 			{
-				NSString * tAlertTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Do you want to save the changes you made in the project \"%@\" before building it?",@"Build",@"No comment"),tProjectPath.lastPathComponent.stringByDeletingPathExtension];
+				NSAlert * tAlert=[NSAlert new];
 				
-				// A COMPLETER (Use NSAlert)
+				tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"Do you want to save the changes you made in the project \"%@\" before building it?",@"No comment"),tProjectPath.lastPathComponent.stringByDeletingPathExtension];
+				tAlert.informativeText=@"";
 				
-				NSInteger tReturnCode=NSRunAlertPanel(tAlertTitle,@"",NSLocalizedString(@"Save",@"No comment"),NSLocalizedString(@"Don't Save",@"No comment"),NSLocalizedString(@"Cancel",@"No comment"));
+				[tAlert addButtonWithTitle:NSLocalizedString(@"Save",@"No comment")];
+				[tAlert addButtonWithTitle:NSLocalizedString(@"Don't Save",@"No comment")];
+				[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 				
-				switch(tReturnCode)
+				NSModalResponse tResponse=[tAlert runModal];
+				
+				switch(tResponse)
 				{
-					case NSAlertDefaultReturn:		// Save
+					case NSAlertFirstButtonReturn:		// Save
 						
 						[tDocument saveDocument:nil];
 						
 						break;
 						
-					case NSAlertAlternateReturn:	// Don't Save
+					case NSAlertSecondButtonReturn:	// Don't Save
 					{
 						_temporaryProjectURL=[self.document temporaryURLWithError:NULL];
 						
@@ -335,7 +342,7 @@ bail:
 						
 						break;
 					}
-					case NSAlertOtherReturn:		// Cancel
+					case NSAlertThirdButtonReturn:		// Cancel
 						
 						return NO;
 				}
@@ -422,10 +429,20 @@ bail:
 										   }
 									   communicationErrorHandler:^(NSError * bCommunicationError){
 									   
+										   // Play Failure Sound if needed
+										   
 										   NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
 										   
 										   if (tSoundName.length>0)
 											   [[NSSound soundNamed:tSoundName] play];
+										   
+										   // Remove Temporary Folder
+										   
+										   if (_temporaryProjectURL!=nil)
+										   {
+											   [[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
+											   _temporaryProjectURL=nil;
+										   }
 										   
 										   // A COMPLETER
 										   
@@ -511,6 +528,21 @@ bail:
 
 - (IBAction)clean:(id)sender
 {
+	NSAlert * tAlert=[NSAlert new];
+	
+	tAlert.messageText=NSLocalizedString(@"Warning",@"No comment");
+	tAlert.informativeText=NSLocalizedString(@"Cleaning will remove all packages and distributions from the Build location.",@"No comment");
+	
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Clean",@"No comment")];
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
+	
+	[tAlert WB_beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse bResponse){
+		
+		if (bResponse!=NSAlertFirstButtonReturn)
+			return;
+		
+		
+	}];
 }
 
 #pragma mark -
@@ -563,15 +595,22 @@ bail:
 	
 	if (tState==PKGBuildStepStateFailure)
 	{
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
+		
+		// Play Failure Sound if needed
+		
 		NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
 		
 		if (tSoundName.length>0)
 			[[NSSound soundNamed:tSoundName] play];
 		
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
+		// Remove Temporary Folder
 		
 		if (_temporaryProjectURL!=nil)
-			[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL error:NULL];
+		{
+			[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
+			_temporaryProjectURL=nil;
+		}
 		
 		return;
 	}
@@ -582,15 +621,22 @@ bail:
 		{
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
 			
-			if (_temporaryProjectURL!=nil)
-				[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL error:NULL];
-			
 			//building_=NO;
+			
+			// Play Success Sound if needed
 			
 			NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
 			
 			if (tSoundName.length>0)
 				[[NSSound soundNamed:tSoundName] play];
+			
+			// Remove Temporary Folder
+			
+			if (_temporaryProjectURL!=nil)
+			{
+				[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
+				_temporaryProjectURL=nil;
+			}
 			
 			PKGBuildOrder * tBuildOrder=inNotification.object;
 			
