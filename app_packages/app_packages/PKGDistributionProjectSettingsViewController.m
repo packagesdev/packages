@@ -75,6 +75,8 @@
 	[super refreshUI];
 	
 	// Build Format
+	
+	[_buildFormatPopUpButton selectItemWithTag:((PKGDistributionProjectSettings *)self.projectSettings).buildFormat];
 }
 
 - (void)WB_viewWillAppear
@@ -236,5 +238,3 @@
 }
 
 @end
-
-
