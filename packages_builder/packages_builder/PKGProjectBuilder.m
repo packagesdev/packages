@@ -439,6 +439,39 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			switch(tError.code)
 			{
+				case NSFileWriteFileExistsError:
+				{
+					// If the attributes are the same then it's fine
+				
+					NSDictionary * tFolderAttributes=[_fileManager attributesOfItemAtPath:inDirectoryPath error:&tError];
+					
+					if (tFolderAttributes==nil)
+					{
+						// A COMPLETER
+						
+						break;
+					}
+					
+					if ([tFolderAttributes[NSFileType] isEqualToString:NSFileTypeDirectory]==NO)
+					{
+						// A COMPLETER
+						
+						break;
+					}
+					
+					for(NSString * tAttributeKey in _folderAttributes)
+					{
+						if ([tFolderAttributes[tAttributeKey] isEqualTo:_folderAttributes[tAttributeKey]]==NO)
+						{
+							// A COMPLETER
+							
+							break;
+						}
+					}
+					
+					return YES;
+					
+				}
 				case NSFileWriteOutOfSpaceError:
 					tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
 					break;
@@ -1047,13 +1080,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 			tDistributionScriptsPath=[_scratchLocation stringByAppendingPathComponent:@"_dist_scripts_"];
 			
-			if ([_fileManager fileExistsAtPath:tDistributionScriptsPath]==NO)
-			{
-				// Try to create the directory
+			// Try to create the directory
 				
-				if ([self createDirectoryAtPath:tDistributionScriptsPath withIntermediateDirectories:NO]==NO)
-					return NO;
-			}
+			if ([self createDirectoryAtPath:tDistributionScriptsPath withIntermediateDirectories:NO]==NO)
+				return NO;
 			
 			break;
 	}
@@ -2446,7 +2476,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (tLocalizedPathDictionary.count==0)
 		return YES;
 	
-	NSArray * tAllLlocalizationsDirectories=[tLocalizedPathDictionary allKeys];
+	NSArray * tAllLlocalizationsDirectories=tLocalizedPathDictionary.allKeys;
 	
 	NSString * tFileName=[self finalDocumentNameForLocalizationsDirectories:tAllLlocalizationsDirectories usingBaseName:inName extension:[tLocalizedPathDictionary[tAllLlocalizationsDirectories[0]] pathExtension]];
 	
@@ -2464,9 +2494,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		if ([_fileManager PKG_copyItemAtPath:tLocalizedPathDictionary[tLocalizationDirectory] toPath:tDestinationPath options:PKG_NSDeleteExisting error:&tError]==NO)
 		{
 			if (tError!=nil)
-			{
-				NSLog(@"%@",[tError localizedDescription]);
-			}
+				NSLog(@"%@",tError.localizedDescription);
 			
 			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tLocalizedPathDictionary[tLocalizationDirectory] fileKind:PKGFileKindRegularFile];
 			tErrorEvent.otherFilePath=tDestinationPath;
@@ -2557,7 +2585,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			// Try to use English, French, Spanish, Germanm as the default localization
 			
-			NSArray * tPreferredDefaultLanguagesArray=[NSArray arrayWithObjects:@"English",@"French", @"Spanish", @"German",nil];
+			NSArray * tPreferredDefaultLanguagesArray=@[@"English",@"French", @"Spanish", @"German"];
 			BOOL tLocalizationFound=NO;
 			NSString * tDefaultLocalizedTitle=tProjectName;
 			
@@ -2574,7 +2602,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			}
 			
 			if (tLocalizationFound==NO && tDefaultLocalizedTitlesDictionary.count>0)
-				tDefaultLocalizedTitle=[[tDefaultLocalizedTitlesDictionary allValues] objectAtIndex:0];
+				tDefaultLocalizedTitle=tDefaultLocalizedTitlesDictionary.allValues.firstObject;
 			
 			tDefaultLanguageDictionary[tKey]=tDefaultLocalizedTitle;
 		}
@@ -2932,7 +2960,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		return YES;
 	}
 	
-	NSArray * tAllLlocalizationsDirectories=[tLocalizedPathDictionary allKeys];
+	NSArray * tAllLlocalizationsDirectories=tLocalizedPathDictionary.allKeys;
 	
 	NSString * tFileName=[self finalDocumentNameForLocalizationsDirectories:tAllLlocalizationsDirectories usingBaseName:@"license" extension:[tLocalizedPathDictionary[tAllLlocalizationsDirectories[0]] pathExtension]];
 	
@@ -5328,7 +5356,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			tLocationPath=[tPackageSettings locationPath];
 			
-			if ([tLocationPath length]==0)
+			if (tLocationPath.length==0)
 			{
 				// Incorrect Value (Empty String)
 				
