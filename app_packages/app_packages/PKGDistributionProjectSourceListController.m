@@ -33,6 +33,8 @@
 
 #import "PKGProjectNameFormatter.h"
 
+#import "PKGDistributionProjectExporter.h"
+
 @interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate,NSTextFieldDelegate>
 {
 	IBOutlet NSView * _sourceListAuxiliaryView;
@@ -222,23 +224,26 @@
 	
 	NSSavePanel * tExportPanel=[NSSavePanel savePanel];
 	
-	// A COMPLETER
+	tExportPanel.canSelectHiddenExtension=YES;
+	tExportPanel.allowedFileTypes=@[@"fr.whitebox.packages.project"];
+	
+	tExportPanel.nameFieldLabel=NSLocalizedString(@"Export As:", @"");
+	tExportPanel.nameFieldStringValue=tPackageComponent.packageSettings.name;
 	
 	tExportPanel.prompt=NSLocalizedString(@"Export", @"");
+	
 	
 	[tExportPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
 		if (bResult!=NSFileHandlingPanelOKButton)
 			return;
-
-		NSURL * tNewProjectURL=tExportPanel.URL;
 		
-		PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)self.documentProject;
+		PKGDistributionProjectExporter * tDistributionProjectExporter=[PKGDistributionProjectExporter new];
 		
-		if ([tDistributionProject exportPackageComponent:tPackageComponent asPackageProjectAtURL:tNewProjectURL usingFilePathConverter:self.filePathConverter]==NO)
-		{
-			// A COMPLETER
-		}
+		tDistributionProjectExporter.project=(PKGDistributionProject *)self.documentProject;
+		tDistributionProjectExporter.projectFilePathConverter=self.filePathConverter;
+		
+		[tDistributionProjectExporter exportPackageComponent:tPackageComponent asPackageProjectAtURL:tExportPanel.URL completionHandler:nil];	// A COMPLETER
 	}];
 }
 

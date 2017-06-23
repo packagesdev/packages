@@ -20,6 +20,8 @@
 #import "PKGFileItem+UI.h"
 #import "PKGPayloadTreeNode+UI.h"
 
+#import "PKGPayloadTreeNode+Edition.h"
+
 #import "NSOutlineView+Selection.h"
 
 #include <sys/stat.h>
@@ -33,8 +35,6 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 {
 	NSArray * _internalDragData;
 }
-
-- (void)_switchFilePathOfItem:(PKGPayloadTreeNode *)inTreeNode toType:(PKGFilePathType)inType recursively:(BOOL)inRecursively;
 
 - (BOOL)_expandItem:(PKGPayloadTreeNode *)inPayloadTreeNode atPath:(NSString *)inAbsolutePath options:(PKGPayloadExpandOptions)inOptions;
 
@@ -173,26 +173,6 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	_weakDiscloseItemIfNeeded = _discloseItemIfNeeded;
 	
 	_discloseItemIfNeeded(inTreeNode);
-}
-
-- (void)_switchFilePathOfItem:(PKGPayloadTreeNode *)inTreeNode toType:(PKGFilePathType)inType recursively:(BOOL)inRecursively
-{
-	if (inTreeNode==nil)
-		return;
-	
-	PKGFileItem * tFileItem=inTreeNode.representedObject;
-	
-	if (tFileItem==nil)
-		return;
-	
-	if (tFileItem.type==PKGFileItemTypeFileSystemItem)
-		[self.filePathConverter shiftTypeOfFilePath:tFileItem.filePath toType:inType];
-	
-	if (inRecursively==NO)
-		return;
-	
-	for(PKGPayloadTreeNode * tChild in inTreeNode.children)
-		[self _switchFilePathOfItem:tChild toType:inType recursively:inRecursively];
 }
 
 - (BOOL)_expandItem:(PKGPayloadTreeNode *)inPayloadTreeNode atPath:(NSString *)inAbsolutePath options:(PKGPayloadExpandOptions)inOptions
@@ -891,7 +871,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 			// Convert all the file paths to absolute paths
 			
-			[self _switchFilePathOfItem:tTreeNodeCopy toType:PKGFilePathTypeAbsolute recursively:YES];
+			[tTreeNodeCopy switchPathsToType:PKGFilePathTypeAbsolute recursively:YES usingPathConverter:self.filePathConverter];
 		
 			return [tTreeNodeCopy representation];
 		
@@ -1255,7 +1235,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				if (tPayloadTreeNode==nil)
 					return NO;
 				
-				[self _switchFilePathOfItem:tPayloadTreeNode toType:inPathType recursively:YES];
+				// Check whether it's a bundle or just a file
+				
+				[self outlineView:inOutlineView transformItemIfNeeded:tPayloadTreeNode];
+				
+				[tPayloadTreeNode switchPathsToType:inPathType recursively:YES usingPathConverter:self.filePathConverter];
 				
 				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
 				
