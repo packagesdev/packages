@@ -56,6 +56,31 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	return self;
 }
 
+- (instancetype)initWithProjectSettings:(PKGProjectSettings *)inProjectSettings
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_name=[inProjectSettings.name copy];
+		_buildPath=[inProjectSettings.buildPath copy];
+		_referenceFolderPath=[inProjectSettings.referenceFolderPath copy];
+		
+		
+		_certificateName=[inProjectSettings.certificateName copy];
+		_certificateKeychainPath=[inProjectSettings.certificateKeychainPath copy];
+		
+		_filesFilters=[inProjectSettings.filesFilters WB_arrayByMappingObjectsUsingBlock:^id(PKGFileFilter * bFileFilter, NSUInteger bIndex) {
+			
+			return [bFileFilter copy];
+		}];
+		
+		_filterPayloadOnly=inProjectSettings.filterPayloadOnly;
+	}
+	
+	return self;
+}
+
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
@@ -266,6 +291,33 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	[tDescription appendFormat:@"  Exclude files in payload only: %@\n",(self.filterPayloadOnly==YES)? @"Yes": @"No"];
 	
 	return tDescription;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGProjectSettings * nProjectSettings=[[[self class] allocWithZone:inZone] init];
+	
+	if (nProjectSettings!=nil)
+	{
+		nProjectSettings.name=[self.name copyWithZone:inZone];
+		nProjectSettings.buildPath=[self.buildPath copyWithZone:inZone];
+		nProjectSettings.referenceFolderPath=[self.referenceFolderPath copyWithZone:inZone];
+		
+		
+		nProjectSettings.certificateName=[self.certificateName copyWithZone:inZone];
+		nProjectSettings.certificateKeychainPath=[self.certificateKeychainPath copyWithZone:inZone];
+		
+		nProjectSettings.filesFilters=[self.filesFilters WB_arrayByMappingObjectsUsingBlock:^id(PKGFileFilter * bFileFilter, NSUInteger bIndex) {
+			
+			return [bFileFilter copyWithZone:inZone];
+		}];
+		
+		nProjectSettings.filterPayloadOnly=self.filterPayloadOnly;
+	}
+	
+	return nProjectSettings;
 }
 
 #pragma mark -

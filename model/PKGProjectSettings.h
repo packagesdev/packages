@@ -39,6 +39,7 @@
 
 	@property BOOL filterPayloadOnly;
 
+- (instancetype)initWithProjectSettings:(PKGProjectSettings *)inProjectSettings;
 
 - (BOOL)shouldFilterFileNamed:(NSString *)inFileName ofType:(PKGFileSystemType)inType;
 
