@@ -13,6 +13,7 @@
 
 #import "PKGDistributionProject+Edition.h"
 
+#import "PKGDistributionProjectSettings+Edition.h"
 #import "PKGPresentationInstallationTypeStepSettings+Edition.h"
 
 @implementation PKGDistributionProject (Edition)
