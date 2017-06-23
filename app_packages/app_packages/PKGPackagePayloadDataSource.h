@@ -23,6 +23,4 @@
 
 - (void)outlineView:(NSOutlineView *)inOutlineView showHiddenFolderTemplates:(BOOL)inShowsHiddenFolders;
 
-- (void)outlineView:(NSOutlineView *)inOutlineView transformItemIfNeeded:(id)inItem;
-
 @end
