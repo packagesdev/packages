@@ -15,6 +15,6 @@
 
 #import "PKGObjectProtocol.h"
 
-@interface PKGPresentationStepSettings : NSObject <PKGObjectProtocol>
+@interface PKGPresentationStepSettings : NSObject <PKGObjectProtocol,NSCopying>
 
 @end

@@ -130,6 +130,22 @@ NSString * const PKGPresentationLocalizationsKey=@"LOCALIZATIONS";
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPresentationLocalizableStepSettings * nPresentationLocalizableStepSettings=[super copyWithZone:inZone];
+	
+	if (nPresentationLocalizableStepSettings!=nil)
+	{
+		nPresentationLocalizableStepSettings.localizations=[self.localizations WB_dictionaryByMappingObjectsUsingBlock:^id(id bKey, id<NSCopying> bObject) {
+			return [bObject copyWithZone:inZone];
+		}];
+	}
+	
+	return nPresentationLocalizableStepSettings;
+}
+
 #pragma mark -
 
 - (BOOL)isCustomized

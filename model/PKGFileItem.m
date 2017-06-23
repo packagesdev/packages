@@ -211,7 +211,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	return tRepresentation;
 }
 
-#pragma mark -
+#pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)inZone
 {

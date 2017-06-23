@@ -140,6 +140,22 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGFilePredicate * nFilePredicate=[[[self class] allocWithZone:inZone] init];
+	
+	if (nFilePredicate!=nil)
+	{
+		nFilePredicate.fileType=self.fileType;
+		nFilePredicate.regularExpression=self.regularExpression;
+		nFilePredicate.pattern=[self.pattern copyWithZone:inZone];
+	}
+	
+	return nFilePredicate;
+}
+
 #pragma mark -
 
 - (BOOL)matchesFileNamed:(NSString *)inFileName ofType:(PKGFileSystemType)inType
@@ -251,6 +267,13 @@ NSString * const PKGFileFilterProtectedKey=@"PROTECTED";
 - (NSString *)description
 {
 	return @"    Separator\n";
+}
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGSeparatorFilter * nSeparatorFilter=[[[self class] allocWithZone:inZone] init];
+	
+	return nSeparatorFilter;
 }
 
 @end
@@ -373,6 +396,23 @@ NSString * const PKGFileFilterPredicatesKey=@"PATTERNS_ARRAY";
 	}
 	
 	return tDescription;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGFileFilter * nFileFilter=[[[self class] allocWithZone:inZone] init];
+	
+	if (nFileFilter!=nil)
+	{
+		nFileFilter.enabled=self.enabled;
+		nFileFilter.predicates=[_predicates WB_arrayByMappingObjectsUsingBlock:^PKGFilePredicate *(PKGFilePredicate * bPredicate, NSUInteger bIndex) {
+			return [bPredicate copyWithZone:inZone];
+		}];
+	}
+	
+	return nFileFilter;
 }
 
 #pragma mark -
@@ -514,4 +554,20 @@ NSString * const PKGFileFilterToolTipKey=@"PROXY_TOOLTIP";
 	
 	return tDescription;
 }
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGDefaultFileFilter * nDefaultFileFilter=[super copyWithZone:inZone];
+	
+	if (nDefaultFileFilter!=nil)
+	{
+		nDefaultFileFilter.displayName=[self.displayName copyWithZone:inZone];
+		nDefaultFileFilter.tooltip=[self.tooltip copyWithZone:inZone];
+	}
+	
+	return nDefaultFileFilter;
+}
+
 @end

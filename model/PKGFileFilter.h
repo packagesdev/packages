@@ -29,7 +29,7 @@
 
 @end
 
-@interface PKGSeparatorFilter : NSObject <PKGObjectProtocol,PKGFileFilterProtocol>
+@interface PKGSeparatorFilter : NSObject <PKGObjectProtocol,PKGFileFilterProtocol,NSCopying>
 
 @end
 
@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, PKGFileSystemType)
 	PKGFileSystemTypeFileOrFolder
 };
 
-@interface PKGFilePredicate : NSObject <PKGObjectProtocol>
+@interface PKGFilePredicate : NSObject <PKGObjectProtocol,NSCopying>
 
 @property (getter=isRegularExpression) BOOL regularExpression;
 
@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, PKGFileSystemType)
 @end
 
 
-@interface PKGFileFilter : NSObject <PKGObjectProtocol,PKGFileFilterProtocol>
+@interface PKGFileFilter : NSObject <PKGObjectProtocol,PKGFileFilterProtocol,NSCopying>
 
 	@property (getter=isEnabled) BOOL enabled;
 

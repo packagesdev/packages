@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -81,6 +81,20 @@ NSString * const PKGProjectCommentsHTMLDataKey=@"NOTES";
 	[tDescription appendFormat:@"%@\n",[self.htmlData description]];
 	
 	return tDescription;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGProjectComments * nProjectComments=[[[self class] allocWithZone:inZone] init];
+	
+	if (nProjectComments!=nil)
+	{
+		nProjectComments.htmlData=[self.htmlData copyWithZone:inZone];
+	}
+	
+	return nProjectComments;
 }
 
 @end

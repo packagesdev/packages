@@ -199,4 +199,24 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPresentationBackgroundSettings * nPresentationBackgroundSettings=[super copyWithZone:inZone];
+	
+	if (nPresentationBackgroundSettings!=nil)
+	{
+		nPresentationBackgroundSettings.showCustomImage=self.showCustomImage;
+		
+		nPresentationBackgroundSettings.imagePath=[self.imagePath copyWithZone:inZone];
+		
+		nPresentationBackgroundSettings.imageAlignment=self.imageAlignment;
+		
+		nPresentationBackgroundSettings.imageScaling=self.imageScaling;
+	}
+	
+	return nPresentationBackgroundSettings;
+}
+
 @end

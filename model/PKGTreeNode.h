@@ -23,6 +23,8 @@
 
 - (PKGTreeNode *)deepCopy;
 
+- (PKGTreeNode *)deepCopyWithZone:(NSZone *)inZone;
+
 - (id<PKGObjectProtocol,NSCopying>)representedObject;
 
 - (void)setRepresentedObject:(id<PKGObjectProtocol,NSCopying>)inRepresentedObject;

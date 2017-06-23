@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,6 +14,8 @@
 #import "PKGLocator.h"
 
 #import "PKGPackagesError.h"
+
+#import "NSDictionary+DeepCopy.h"
 
 NSString * const PKGLocatorEnabledKey=@"STATE";
 
@@ -92,37 +94,6 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 
 #pragma mark -
 
-- (id)copyWithZone:(NSZone *)inZone
-{
-	PKGLocator * nLocator=[[[self class] allocWithZone:inZone] init];
-	
-	if (nLocator!=nil)
-	{
-		nLocator.enabled=self.enabled;
-		nLocator.name=[self.name copy];
-		nLocator.identifier=[self.identifier copy];
-		nLocator.settingsRepresentation=[self.settingsRepresentation copy];	// A AMELIORER
-	}
-	
-	return nLocator;
-}
-
-- (BOOL)isEqualToLocator:(PKGLocator *)inLocator
-{
-	if (inLocator==nil)
-		return NO;
-	
-	if (self.settingsRepresentation!=nil && inLocator.settingsRepresentation==nil)
-		return NO;
-	
-	return (self.enabled==inLocator.enabled &&
-			[self.name isEqualToString:inLocator.name]==YES &&
-			[self.identifier isEqualToString:inLocator.identifier]==YES &&
-			[self.settingsRepresentation isEqualToDictionary:inLocator.settingsRepresentation]==YES);
-}
-
-#pragma mark -
-
 - (NSMutableDictionary *) representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
@@ -153,6 +124,39 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 	[tDescription appendFormat:@"Settings Dictionary: %@\n",[self.settingsRepresentation description]];
 	
 	return tDescription;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGLocator * nLocator=[[[self class] allocWithZone:inZone] init];
+	
+	if (nLocator!=nil)
+	{
+		nLocator.enabled=self.enabled;
+		nLocator.name=[self.name copy];
+		nLocator.identifier=[self.identifier copy];
+		nLocator.settingsRepresentation=[self.settingsRepresentation deepCopy];	// A AMELIORER
+	}
+	
+	return nLocator;
+}
+
+#pragma mark -
+
+- (BOOL)isEqualToLocator:(PKGLocator *)inLocator
+{
+	if (inLocator==nil)
+		return NO;
+	
+	if (self.settingsRepresentation!=nil && inLocator.settingsRepresentation==nil)
+		return NO;
+	
+	return (self.enabled==inLocator.enabled &&
+			[self.name isEqualToString:inLocator.name]==YES &&
+			[self.identifier isEqualToString:inLocator.identifier]==YES &&
+			[self.settingsRepresentation isEqualToDictionary:inLocator.settingsRepresentation]==YES);
 }
 
 @end

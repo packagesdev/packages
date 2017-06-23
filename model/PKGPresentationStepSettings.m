@@ -45,4 +45,13 @@
 	return [NSMutableDictionary dictionary];
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPresentationStepSettings * nPresentationStepSettings=[[[self class] allocWithZone:inZone] init];
+	
+	return nPresentationStepSettings;
+}
+
 @end

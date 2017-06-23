@@ -150,7 +150,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	return tRepresentation;
 }
 
-#pragma mark -
+#pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)inZone
 {

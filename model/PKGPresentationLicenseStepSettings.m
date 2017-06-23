@@ -152,6 +152,24 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	return tDescription;
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPresentationLicenseStepSettings * nPresentationLicenseStepSettings=[super copyWithZone:inZone];
+	
+	if (nPresentationLicenseStepSettings!=nil)
+	{
+		nPresentationLicenseStepSettings.licenseType=self.licenseType;
+		
+		nPresentationLicenseStepSettings.templateName=[self.templateName copyWithZone:inZone];
+		
+		nPresentationLicenseStepSettings.templateValues=[self.templateValues mutableCopyWithZone:inZone];
+	}
+	
+	return nPresentationLicenseStepSettings;
+}
+
 #pragma mark -
 
 - (BOOL)isCustomized

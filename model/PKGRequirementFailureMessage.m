@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -108,6 +108,22 @@ NSString * const PKGRequirementFailureMessageSecondaryValueKey=@"SECONDARY_VALUE
 		[tDescription appendFormat:@"Description: %@\n",self.messageDescription];
 	
 	return tDescription;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGRequirementFailureMessage * nRequirementFailureMessage=[[[self class] allocWithZone:inZone] init];
+	
+	if (nRequirementFailureMessage!=nil)
+	{
+		nRequirementFailureMessage.messageTitle=[self.messageTitle copyWithZone:inZone];
+		
+		nRequirementFailureMessage.messageDescription=[self.messageDescription copyWithZone:inZone];
+	}
+	
+	return nRequirementFailureMessage;
 }
 
 @end

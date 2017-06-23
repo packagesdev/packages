@@ -235,25 +235,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 
 #pragma mark -
 
-- (id)copyWithZone:(NSZone *)inZone
-{
-	PKGRequirement * nRequirement=[[[self class] allocWithZone:inZone] init];
-	
-	if (nRequirement!=nil)
-	{
-		nRequirement.enabled=self.enabled;
-		nRequirement.name=[self.name copyWithZone:inZone];
-		nRequirement.identifier=[self.identifier copyWithZone:inZone];
-		nRequirement.type=self.type;
-		nRequirement.failureBehavior=self.failureBehavior;
-		nRequirement.messages=[self.messages mutableCopy];
-		nRequirement.settingsRepresentation=[self.settingsRepresentation deepCopy];
-	}
-	
-	return nRequirement;
-}
-
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
@@ -285,6 +267,29 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 	tRepresentation[PKGRequirementFailureMessagesKey]=[tMutableArray copy];
 	
 	return tRepresentation;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGRequirement * nRequirement=[[[self class] allocWithZone:inZone] init];
+	
+	if (nRequirement!=nil)
+	{
+		nRequirement.enabled=self.enabled;
+		nRequirement.name=[self.name copyWithZone:inZone];
+		nRequirement.identifier=[self.identifier copyWithZone:inZone];
+		nRequirement.type=self.type;
+		nRequirement.failureBehavior=self.failureBehavior;
+		nRequirement.messages=[self.messages WB_dictionaryByMappingObjectsUsingBlock:^id(id bKey, id<NSCopying> bObject) {
+			return [bObject copyWithZone:inZone];
+		}];
+		
+		nRequirement.settingsRepresentation=[self.settingsRepresentation deepCopy];
+	}
+	
+	return nRequirement;
 }
 
 #pragma mark -

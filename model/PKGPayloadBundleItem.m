@@ -235,4 +235,24 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	return tRepresentation;
 }
 
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPayloadBundleItem * nPayloadBundleItem=[super copyWithZone:inZone];
+	
+	if (nPayloadBundleItem!=nil)
+	{
+		nPayloadBundleItem.allowDowngrade=self.allowDowngrade;
+		
+		nPayloadBundleItem.preInstallationScriptPath=[self.preInstallationScriptPath copyWithZone:inZone];
+		
+		nPayloadBundleItem.postInstallationScriptPath=[self.postInstallationScriptPath copyWithZone:inZone];
+		
+		nPayloadBundleItem.locators=[self.locators WB_arrayByMappingObjectsUsingBlock:^id(id bObject, NSUInteger bIndex) {
+			return [bObject copyWithZone:inZone];
+		}];
+	}
+	
+	return nPayloadBundleItem;
+}
+
 @end

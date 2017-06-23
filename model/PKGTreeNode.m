@@ -30,8 +30,6 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	NSMutableArray * _children;
 }
 
-- (PKGTreeNode *)deepCopyWithZone:(NSZone *)inZone;
-
 - (void)setParent:(PKGTreeNode *)inParent;
 
 @end

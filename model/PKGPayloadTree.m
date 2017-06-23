@@ -141,9 +141,9 @@
 	if (nPayloadtree!=nil)
 	{
 		if (_cachedRepresentation!=nil)
-			nPayloadtree->_cachedRepresentation=[_cachedRepresentation copy];
+			nPayloadtree->_cachedRepresentation=[_cachedRepresentation copyWithZone:inZone];
 		else
-			nPayloadtree.rootNode=(PKGPayloadTreeNode *)[self.rootNode deepCopy];
+			nPayloadtree.rootNode=(PKGPayloadTreeNode *)[self.rootNode deepCopyWithZone:inZone];
 	}
 	
 	return nPayloadtree;
