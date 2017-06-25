@@ -50,7 +50,12 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	
 	if (self!=nil)
 	{
+		_buildPath=[PKGFilePath filePathWithString:@"build" type:PKGFilePathTypeRelativeToProject];
+		
+		
 		_filesFilters=[NSMutableArray array];
+		
+		_filterPayloadOnly=NO;
 	}
 	
 	return self;
