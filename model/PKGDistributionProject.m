@@ -34,6 +34,20 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 
 @implementation PKGDistributionProject
 
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_packageComponents=[NSMutableArray array];
+		
+		_sharedProjectData=[NSMutableDictionary dictionary];
+	}
+	
+	return self;
+}
+
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	__block NSError * tError=nil;
