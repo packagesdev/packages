@@ -26,6 +26,8 @@
 #import "PKGProject+Safe.h"
 #import "PKGPackageProject+Safe.h"
 
+#import "PKGDistributionProject+Edition.h"
+
 #import "NSAlert+Block.h"
 
 @interface PKGPackageProjectMainViewController ()
@@ -46,12 +48,6 @@
 - (void)showTabViewWithTag:(PKGPreferencesGeneralPackageProjectPaneTag) inTag;
 
 - (IBAction)showTabView:(id)sender;
-
-// Project Menu
-
-- (IBAction)upgradeToDistribution:(id)sender;
-
-
 
 // Notifications
 
@@ -390,13 +386,6 @@
 	}
 	
 	return YES;
-}
-
-#pragma mark - Project Menu
-
-- (IBAction)upgradeToDistribution:(id)sender
-{
-	// A COMPLETER
 }
 
 #pragma mark - Notifications

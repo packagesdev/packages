@@ -15,6 +15,8 @@
 
 #import "PKGDocument.h"
 
+#import "PKGDistributionProject+Edition.h"
+
 #import "PKGPackageProjectMainViewController.h"
 #import "PKGDistributionProjectMainViewController.h"
 
@@ -52,6 +54,8 @@
 - (BOOL)_asynchronouslRequestBuildWithOptions:(PKGBuildOptions)inRequestOptions;
 
 - (BOOL)_requestBuildWithOptions:(PKGBuildOptions)inRequestOptions;
+
+- (IBAction)upgradeToDistribution:(id)sender;
 
 // Build Commands
 
@@ -92,41 +96,6 @@
 {
     [super windowDidLoad];
 	
-	switch(self.project.type)
-	{
-		case PKGProjectTypeDistribution:
-			
-			_projectMainViewController=[[PKGDistributionProjectMainViewController alloc] initWithDocument:self.document];
-			
-			[self.window setMinSize:NSMakeSize(PKGDocumentWindowDistributionProjectMinWidth, PKGDocumentWindowMinHeight)];
-			
-			break;
-			
-		case PKGProjectTypePackage:
-			
-			_projectMainViewController=[[PKGPackageProjectMainViewController alloc] initWithDocument:self.document];
-			
-			[self.window setMinSize:NSMakeSize(PKGDocumentWindowPackageProjectMinWidth, PKGDocumentWindowMinHeight)];
-			
-			break;
-	}
-	
-	_projectMainViewController.project=self.project;
-	
-	NSView * tContentView=self.window.contentView;
-	
-	NSView * tMainView=_projectMainViewController.view;
-	
-	NSRect tBounds=tContentView.bounds;
-	
-	tMainView.frame=tBounds;
-	
-	[_projectMainViewController WB_viewWillAppear];
-	
-	[tContentView addSubview:tMainView];
-	
-	[_projectMainViewController WB_viewDidAppear];
-	
 	[self.window setContentBorderThickness:33.0 forEdge:NSMinYEdge];
 	
 	NSRect tMiddleFrame=self.middleAccessoryView.frame;
@@ -138,6 +107,8 @@
 	
 	self.middleAccessoryView.frame=tMiddleFrame;
 	self.rightAccessoryView.frame=tRightFrame;
+	
+	[self setMainViewController];
 }
 
 #pragma mark -
@@ -176,6 +147,82 @@
 			_statusViewController=nil;
 		}
 	}
+}
+
+#pragma mark -
+
+- (void)setMainViewController
+{
+	if (_projectMainViewController!=nil)
+	{
+		[_projectMainViewController WB_viewWillDisappear];
+		
+		[_projectMainViewController.view removeFromSuperview];
+		
+		[_projectMainViewController WB_viewDidDisappear];
+	}
+	
+	switch(self.project.type)
+	{
+		case PKGProjectTypeDistribution:
+			
+			_projectMainViewController=[[PKGDistributionProjectMainViewController alloc] initWithDocument:self.document];
+			
+			self.window.minSize=NSMakeSize(PKGDocumentWindowDistributionProjectMinWidth, PKGDocumentWindowMinHeight);
+			
+			NSRect tWindowFrame=self.window.frame;
+			
+			if (NSWidth(tWindowFrame)<PKGDocumentWindowDistributionProjectMinWidth)
+			{
+				tWindowFrame.size.width=PKGDocumentWindowDistributionProjectMinWidth;
+				
+				[self.window setFrame:tWindowFrame display:YES];
+			}
+			
+			break;
+			
+		case PKGProjectTypePackage:
+			
+			_projectMainViewController=[[PKGPackageProjectMainViewController alloc] initWithDocument:self.document];
+			
+			self.window.minSize=NSMakeSize(PKGDocumentWindowPackageProjectMinWidth, PKGDocumentWindowMinHeight);
+			
+			break;
+	}
+	
+	_projectMainViewController.project=self.project;
+	
+	NSView * tContentView=self.window.contentView;
+	
+	NSView * tMainView=_projectMainViewController.view;
+	
+	tMainView.frame=tContentView.bounds;
+	
+	[_projectMainViewController WB_viewWillAppear];
+	
+	[tContentView addSubview:tMainView];
+	
+	[_projectMainViewController WB_viewDidAppear];
+}
+
+#pragma mark - Project Menu
+
+- (IBAction)upgradeToDistribution:(id)sender
+{
+	PKGDistributionProject * tDistributionProject=[[PKGDistributionProject alloc] initWithPackageProject:(PKGPackageProject *)self.project];
+	
+	if (tDistributionProject==nil)
+	{
+		// A COMPLETER
+		
+		return;
+	}
+	
+	self.showsBuildStatus=NO;
+	
+	self.project=tDistributionProject;
+	
+	[self setMainViewController];
 }
 
 #pragma mark -
@@ -543,6 +590,24 @@ bail:
 		
 		
 	}];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+
+	if (tAction==@selector(upgradeToDistribution:))
+		return [self.project isKindOfClass:PKGPackageProject.class];
+	
+	if (tAction==@selector(build:) ||
+		tAction==@selector(buildAndRun:) ||
+		tAction==@selector(buildAndDebug:) ||
+		tAction==@selector(clean:))
+	{
+		// A COMPLETER
+	}
+	
+	return YES;
 }
 
 #pragma mark -
