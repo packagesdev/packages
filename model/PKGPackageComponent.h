@@ -40,4 +40,6 @@ typedef NS_ENUM(NSUInteger, PKGPackageComponentType)
 
 + (PKGPackageComponent *)importedComponentWithFilePath:(PKGFilePath *)inFilePath;
 
+- (instancetype)initWithProjectPackageObject:(id<PKGPackageObjectProtocol>)inPackageObject;
+
 @end

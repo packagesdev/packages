@@ -15,6 +15,8 @@
 
 #import "PKGPackagesError.h"
 
+#import "NSObject+Conformance.h"
+
 NSString * const PKGPackageComponentUUIDKey=@"UUID";
 
 NSString * const PKGPackageComponentTypeKey=@"TYPE";
@@ -51,6 +53,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	{
 		nProjectComponent.UUID=[NSUUID UUID].UUIDString;
 		nProjectComponent.type=PKGPackageComponentTypeProject;
+		nProjectComponent.importPath=nil;
 		
 		nProjectComponent.packageSettings=[PKGPackageSettings new];
 	}
@@ -66,6 +69,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	{
 		nReferenceComponent.UUID=[NSUUID UUID].UUIDString;
 		nReferenceComponent.type=PKGPackageComponentTypeReference;
+		nReferenceComponent.importPath=nil;
 		
 		nReferenceComponent.packageSettings=[PKGPackageSettings new];
 	}
@@ -84,13 +88,41 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	{
 		nImportedComponent.UUID=[NSUUID UUID].UUIDString;
 		nImportedComponent.type=PKGPackageComponentTypeImported;
+		nImportedComponent.importPath=inFilePath;
 		
 		nImportedComponent.packageSettings=[PKGPackageSettings new];
 		
-		nImportedComponent.importPath=inFilePath;
+		
 	}
 	
 	return nImportedComponent;
+}
+
+- (instancetype)initWithProjectPackageObject:(id<PKGPackageObjectProtocol>)inPackageObject
+{
+	if (inPackageObject==nil)
+		return nil;
+	
+	if ([((NSObject *)inPackageObject) WB_doesReallyConformToProtocol:@protocol(PKGPackageObjectProtocol)]==NO)
+		return nil;
+	
+	if ([((NSObject *)inPackageObject) isKindOfClass:PKGPackageComponent.class]==YES && ((PKGPackageComponent *)inPackageObject).type!=PKGPackageComponentTypeProject)
+		return nil;
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_UUID=[NSUUID UUID].UUIDString;
+		_type=PKGPackageComponentTypeProject;
+		_importPath=nil;
+		
+		_packageSettings=[inPackageObject.packageSettings copy];
+		_payload=[inPackageObject.payload copy];
+		_scriptsAndResources=[inPackageObject.scriptsAndResources copy];
+	}
+	
+	return self;
 }
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
