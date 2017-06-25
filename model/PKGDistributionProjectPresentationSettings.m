@@ -41,6 +41,18 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 
 @implementation PKGDistributionProjectPresentationSettings
 
+- (id)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_sections=[NSMutableArray array];
+	}
+	
+	return self;
+}
+
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
