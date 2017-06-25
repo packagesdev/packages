@@ -15,6 +15,8 @@
 
 #import "PKGPackagesError.h"
 
+#import "NSDictionary+MutableDeepCopy.h"
+
 NSString * const PKGDistributionProjectBuildFormatKey=@"BUILD_FORMAT";
 
 NSString * const PKGDistributionProjectTreatMissingPresentationDocumentsAsWarningsKey=@"TREAT_MISSING_PRESENTATION_DOCUMENTS_AS_WARNING";
@@ -28,6 +30,45 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 @end
 
 @implementation PKGDistributionProjectSettings
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_buildFormat=PKGProjectBuildFormatFlat;
+		
+		_treatMissingPresentationDocumentsAsWarnings=NO;
+		
+		_advancedOptions=[NSMutableDictionary dictionary];
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithProjectSettings:(PKGProjectSettings *)inProjectSettings
+{
+	self=[super initWithProjectSettings:inProjectSettings];
+	
+	if (self!=nil)
+	{
+		if ([inProjectSettings isKindOfClass:PKGDistributionProjectSettings.class]==NO)
+		{
+			_treatMissingPresentationDocumentsAsWarnings=NO;
+			_advancedOptions=[NSMutableDictionary dictionary];
+		}
+		else
+		{
+			PKGDistributionProjectSettings * tDistributionProjectSettings=(PKGDistributionProjectSettings *)inProjectSettings;
+			
+			_treatMissingPresentationDocumentsAsWarnings=tDistributionProjectSettings.treatMissingPresentationDocumentsAsWarnings;
+			_advancedOptions=[tDistributionProjectSettings.advancedOptions mutableDeepCopy];
+		}
+	}
+	
+	return self;
+}
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
