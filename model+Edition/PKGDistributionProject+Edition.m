@@ -18,6 +18,33 @@
 
 @implementation PKGDistributionProject (Edition)
 
+- (instancetype)initWithPackageProject:(PKGPackageProject *)inPackageProject
+{
+	self=[self init];
+	
+	if (self!=nil)
+	{
+		PKGPackageComponent * tPackageComponent=[[PKGPackageComponent alloc] initWithProjectPackageObject:inPackageProject];
+		
+		if (tPackageComponent==nil)
+			return nil;
+		
+		tPackageComponent.packageSettings.name=inPackageProject.settings.name;
+		
+		self.settings=[[PKGDistributionProjectSettings alloc] initWithProjectSettings:inPackageProject.settings];
+		
+		self.presentationSettings=[PKGDistributionProjectPresentationSettings new];
+		
+		self.requirementsAndResources=nil;
+		
+		self.comments=[inPackageProject.comments copy];
+		
+		[self.packageComponents addObject:tPackageComponent];
+	}
+	
+	return self;
+}
+
 - (void)addPackageComponent:(PKGPackageComponent *)inPackageComponent
 {
 	if (inPackageComponent==nil)

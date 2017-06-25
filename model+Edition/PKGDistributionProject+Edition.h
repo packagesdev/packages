@@ -13,7 +13,11 @@
 
 #import "PKGDistributionProject.h"
 
+#import "PKGPackageProject.h"
+
 @interface PKGDistributionProject (Edition)
+
+- (instancetype)initWithPackageProject:(PKGPackageProject *)inPackageProject;
 
 - (void)addPackageComponent:(PKGPackageComponent *)inPackageComponent;
 
