@@ -22,6 +22,8 @@
 
 #import "PKGPayloadTreeNode+Edition.h"
 
+#import "PKGFilePathConverter+Edition.h"
+
 #import "NSOutlineView+Selection.h"
 
 #include <sys/stat.h>
@@ -871,7 +873,12 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 			// Convert all the file paths to absolute paths
 			
-			[tTreeNodeCopy switchPathsToType:PKGFilePathTypeAbsolute recursively:YES usingPathConverter:self.filePathConverter];
+			PKGFilePathConverter * tFilePathConverter=[PKGFilePathConverter new];
+			
+			tFilePathConverter.referenceProjectPath=self.filePathConverter.referenceProjectPath;
+			tFilePathConverter.referenceFolderPath=self.filePathConverter.referenceFolderPath;
+			
+			[tFilePathConverter switchPathsOfPayloadTreeNode:tTreeNodeCopy toType:PKGFilePathTypeAbsolute recursively:YES];
 		
 			return [tTreeNodeCopy representation];
 		
@@ -1226,6 +1233,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		BOOL (^insertNewItems)(PKGFilePathType)=^BOOL(PKGFilePathType inPathType){
 		
+			PKGFilePathConverter * tFilePathConverter=[PKGFilePathConverter new];
+			
+			tFilePathConverter.referenceProjectPath=self.filePathConverter.referenceProjectPath;
+			tFilePathConverter.referenceFolderPath=self.filePathConverter.referenceFolderPath;
+			
 			NSMutableArray * tNewSelectionArray=[NSMutableArray array];
 			
 			for(NSDictionary * tRepresentation in tArray)
@@ -1239,7 +1251,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				
 				[self outlineView:inOutlineView transformItemIfNeeded:tPayloadTreeNode];
 				
-				[tPayloadTreeNode switchPathsToType:inPathType recursively:YES usingPathConverter:self.filePathConverter];
+				[tFilePathConverter switchPathsOfPayloadTreeNode:tPayloadTreeNode toType:inPathType recursively:YES];
+
 				
 				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
 				
