@@ -711,7 +711,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	[inArray enumerateObjectsUsingBlock:^(PKGTreeNode * bObject, NSUInteger bIndex, BOOL *bOutStop) {
 		
-		if ([_children containsObject:bObject]==YES)
+		if ([self->_children containsObject:bObject]==YES)
 		{
 			[tIndexSet addIndex:bIndex];
 			
@@ -862,6 +862,14 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	_weakEnumerateNodesRecursively = _enumerateNodesRecursively;
 	
 	_enumerateNodesRecursively(self,block);
+}
+
+- (void)enumerateChildrenUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block
+{
+	[_children enumerateObjectsUsingBlock:^(id bChild, NSUInteger bIndex, BOOL *bOutStop) {
+		
+		block(bChild,bOutStop);
+	}];
 }
 
 @end

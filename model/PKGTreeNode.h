@@ -90,5 +90,7 @@
 
 - (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block;
 
+- (void)enumerateChildrenUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block;
+
 @end
 
