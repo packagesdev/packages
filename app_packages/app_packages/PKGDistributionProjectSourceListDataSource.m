@@ -14,9 +14,12 @@
 #import "PKGDistributionProjectSourceListDataSource.h"
 
 #import "PKGDistributionProject+Edition.h"
+#import "PKGFilePathConverter+Edition.h"
 
 #import "PKGPackageComponent+UI.h"
 #import "PKGDistributionProject+UI.h"
+
+#import "PKGPackageComponent+Transformation.h"
 
 #import "PKGDistributionProjectSourceListForest.h"
 #import "PKGDistributionProjectSourceListTreeNode.h"
@@ -35,6 +38,10 @@
 #import "PKGOwnershipAndReferenceStylePanel.h"
 
 #import "PKGArchive.h"
+
+NSString * PKGPackageComponentPromisedPboardTypeRepresentationKey=@"PackageRepresentationKey";
+NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReferenceProjectPathKey=@"ReferenceProjectPathKey";
+NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReferenceFolderPathKey=@"ReferenceFolderPathKey";
 
 @interface PKGPackagesImportPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 {
@@ -102,6 +109,8 @@
 	PKGDistributionProjectSourceListForest * _forest;
 	
 	PKGPackagesImportPanelDelegate * _importPanelDelegate;
+	
+	NSArray * _internalDragData;
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView addPackageComponent:(PKGPackageComponent *)inPackageComponent;
@@ -149,7 +158,38 @@
 	return ([inTreeNode isLeaf]==NO);
 }
 
+#pragma mark - NSPasteboardOwner
+
+- (void)pasteboard:(NSPasteboard *)inPasteboard provideDataForType:(NSString *)inType
+{
+	if (inPasteboard==nil || inType==nil)
+		return;
+	
+	if ([inType isEqualToString:PKGPackageComponentPromisedPboardType]==YES)
+	{
+		NSArray * tPackageComponentsRepresentationsArray=[_internalDragData WB_arrayByMappingObjectsUsingBlock:^NSDictionary *(PKGPackageComponent * bPackageComponent,NSUInteger bIndex){
+			
+			PKGPackageComponent * tPackageComponentCopy=[bPackageComponent copy];
+			
+			return [tPackageComponentCopy representation];
+			
+		}];
+		
+		[inPasteboard setPropertyList:@{
+										PKGPackageComponentPromisedPboardTypeRepresentationKey:tPackageComponentsRepresentationsArray,
+										PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReferenceProjectPathKey:self.filePathConverter.referenceProjectPath,
+										PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReferenceFolderPathKey:self.filePathConverter.referenceFolderPath
+										}
+							  forType:PKGPackageComponentPromisedPboardType];
+	}
+}
+
 #pragma mark - Drag and Drop support
+
+- (void)outlineView:(NSOutlineView *)inOutlineView draggingSession:(NSDraggingSession *)inDraggingSession endedAtPoint:(NSPoint)inScreenPoint operation:(NSDragOperation)inOperation
+{
+	_internalDragData=nil;
+}
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView writeItems:(NSArray*)inItems toPasteboard:(NSPasteboard*)inPasteboard
 {
@@ -163,8 +203,12 @@
 	if (tFilteredItems.count==0)
 		return NO;
 	
+	__block NSMutableArray * tPackageComponents=[NSMutableArray array];
+	
 	NSArray * tComponentsUUIDS=[tFilteredItems WB_arrayByMappingObjectsUsingBlock:^id(PKGDistributionProjectSourceListTreeNode * bTreeNode, NSUInteger bIndex) {
 		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem=bTreeNode.representedObject;
+		
+		[tPackageComponents addObject:tPackageComponentItem.packageComponent];
 		
 		return tPackageComponentItem.packageComponent.UUID;
 	}];
@@ -175,6 +219,8 @@
 	[inPasteboard declareTypes:@[PKGPackageComponentUUIDsPboardType,PKGPackageComponentPromisedPboardType] owner:self];
 	
 	[inPasteboard setPropertyList:tComponentsUUIDS forType:PKGPackageComponentUUIDsPboardType];
+	
+	_internalDragData=[tPackageComponents copy];
 	
 	return YES;
 }
@@ -225,6 +271,16 @@
 		
 		[inOutlineView setDropItem:nil dropChildIndex:-1];
 		
+		return NSDragOperationCopy;
+	}
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGPackageComponentPromisedPboardType]]!=nil)
+	{
+		if ([[info draggingSource] window]==inOutlineView.window)	// We can't accept drop from ourselves
+			return NSDragOperationNone;
+		
+		[inOutlineView setDropItem:nil dropChildIndex:-1];
+			
 		return NSDragOperationCopy;
 	}
 	
@@ -287,6 +343,68 @@
 		}];
 		
 		return YES;		// It may at the end not be accepted by the completion handler from the sheet
+	}
+	
+	if ([tPasteBoard availableTypeFromArray:@[PKGPackageComponentPromisedPboardType]]!=nil)
+	{
+		NSDictionary * tDictionary=(NSDictionary *)[tPasteBoard propertyListForType:PKGPackageComponentPromisedPboardType];
+		
+		NSArray * tPackageComponentsRepresentations=tDictionary[PKGPackageComponentPromisedPboardTypeRepresentationKey];
+		NSMutableArray * tListedComponents=[self.distributionProject.packageComponents mutableCopy];
+		NSMutableArray * tNewPackageComponents=[NSMutableArray array];
+		
+		PKGFilePathConverter * tSourceFilePathConverter=[PKGFilePathConverter new];
+		tSourceFilePathConverter.referenceProjectPath=tDictionary[PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReferenceProjectPathKey];
+		tSourceFilePathConverter.referenceFolderPath=tDictionary[PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReferenceFolderPathKey];
+		
+		[tPackageComponentsRepresentations enumerateObjectsUsingBlock:^(NSDictionary * bRepresentation, NSUInteger bIndex, BOOL *bOutStop) {
+			
+			NSError * tError=nil;
+			
+			PKGPackageComponent * tPackageComponent=[[PKGPackageComponent alloc] initWithRepresentation:bRepresentation error:&tError];
+			
+			if (tPackageComponent==nil)
+			{
+				if (tError!=nil)
+				{
+					// A COMPLETER
+				}
+				
+				*bOutStop=YES;
+			}
+			
+			NSString * tPackageComponentName=tPackageComponent.packageSettings.name;
+			
+			if ([self.distributionProject.packageComponents indexesOfObjectsPassingTest:^BOOL(PKGPackageComponent * bPackageComponent,NSUInteger bIndex,BOOL * bOutStop){
+				
+				return ([bPackageComponent.packageSettings.name caseInsensitiveCompare:tPackageComponentName]==NSOrderedSame);
+				
+			}].count>0)
+			{
+				NSString * tName=[tListedComponents uniqueNameWithBaseName:tPackageComponentName usingNameExtractor:^NSString *(PKGPackageComponent * bPackageComponent, NSUInteger bIndex) {
+					return bPackageComponent.packageSettings.name;
+				}];
+				
+				if (tName==nil)
+				{
+					// A COMPLETER
+					
+					*bOutStop=YES;
+				}
+				
+				tPackageComponent.packageSettings.name=tName;
+				
+				[tListedComponents addObject:tPackageComponent];
+			}
+			
+			[tPackageComponent transformAllPathsUsingSourceConverter:tSourceFilePathConverter destinationConverter:self.filePathConverter];
+			
+			[tNewPackageComponents addObject:tPackageComponent];
+		}];
+		
+		[self outlineView:inOutlineView addPackageComponents:tNewPackageComponents];
+		
+		return YES;
 	}
 	
 	return NO;
