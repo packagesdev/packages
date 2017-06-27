@@ -24,9 +24,8 @@
 
 	@property (readwrite) PKGDocumentRegistry * registry;
 
-	@property (readonly,copy) NSString * referenceProjectPath;
 
-	@property (readonly,copy) NSString * referenceFolderPath;
+
 
 @end
 

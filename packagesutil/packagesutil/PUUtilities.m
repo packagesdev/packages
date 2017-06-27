@@ -124,6 +124,21 @@
 
 #pragma mark - PKGFilePathConverter
 
+- (NSString *)referenceProjectPath
+{
+	return _filePath.stringByDeletingLastPathComponent;
+}
+
+- (NSString *)referenceFolderPath
+{
+	NSString * tReferenceFolderPath=_project.settings.referenceFolderPath;
+	
+	if (tReferenceFolderPath==nil)
+		tReferenceFolderPath=_filePath.stringByDeletingLastPathComponent;
+	
+	return tReferenceFolderPath;
+}
+
 - (NSString *)absolutePathForFilePath:(PKGFilePath *)inFilePath
 {
 	if (inFilePath==nil)
@@ -137,17 +152,11 @@
 			
 		case PKGFilePathTypeRelativeToProject:
 			
-			return [inFilePath.string PKG_stringByAbsolutingWithPath:[_filePath stringByDeletingLastPathComponent]];
+			return [inFilePath.string PKG_stringByAbsolutingWithPath:self.referenceProjectPath];
 			
 		case PKGFilePathTypeRelativeToReferenceFolder:
-		{
-			NSString * tReferenceFolderPath=_project.settings.referenceFolderPath;
 			
-			if (tReferenceFolderPath==nil)
-				tReferenceFolderPath=[_filePath stringByDeletingLastPathComponent];
-			
-			return [inFilePath.string PKG_stringByAbsolutingWithPath:tReferenceFolderPath];
-		}
+			return [inFilePath.string PKG_stringByAbsolutingWithPath:self.referenceFolderPath];
 			
 		default:
 			
@@ -169,21 +178,15 @@
 	
 	if (inType==PKGFilePathTypeRelativeToProject)
 	{
-		tReferencePath=[_filePath stringByDeletingLastPathComponent];
+		tReferencePath=self.referenceProjectPath;
 	}
 	else if (inType==PKGFilePathTypeRelativeToReferenceFolder)
 	{
-		tReferencePath=_project.settings.referenceFolderPath;
-		
-		if (tReferencePath==nil)
-			tReferencePath=[_filePath stringByDeletingLastPathComponent];
+		tReferencePath=self.referenceFolderPath;
 	}
 	
 	if (tReferencePath==nil)
-	{
-		
 		return nil;
-	}
 	
 	NSString * tConvertedPath=[inAbsolutePath PKG_stringByRelativizingToPath:tReferencePath];
 	
