@@ -16,6 +16,7 @@
 #import "PKGPackagesError.h"
 
 #import "NSArray+WBExtensions.h"
+#import "NSDictionary+WBExtensions.h"
 
 #import "NSMutableDictionary+PKGLocalizedValues.h"
 

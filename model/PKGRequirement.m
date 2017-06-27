@@ -17,6 +17,7 @@
 
 #import "NSDictionary+DeepCopy.h"
 #import "NSDictionary+MutableDeepCopy.h"
+#import "NSDictionary+WBExtensions.h"
 
 NSString * const PKGRequirementEnabledKey=@"STATE";
 
