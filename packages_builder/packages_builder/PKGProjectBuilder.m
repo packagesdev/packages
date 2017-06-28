@@ -127,10 +127,6 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 {
 	PKGBuildOrder * _buildOrder;
 	
-	NSString * _referenceProjectPath;
-	
-	NSString * _referenceFolderPath;
-	
 	NSIndexPath * _stepPath;
 	
 	
@@ -308,6 +304,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 
 @implementation PKGProjectBuilder
+
+@synthesize referenceProjectPath=_referenceProjectPath,referenceFolderPath=_referenceFolderPath;
 
 - (id) init
 {
@@ -708,7 +706,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					break;
 				}
 				
-				case PKGRepresentationInvalidValue:
+				case PKGRepresentationInvalidValueError:
 				{
 					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect value for key \"%@\"",tKey];
 					
@@ -716,11 +714,21 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					
 					break;
 				}
+				
 				case PKGRepresentationInvalidTypeOfValueError:
 				{
 					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect type of value for key \"%@\"",tKey];
 					
 					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:tKey];
+					
+					break;
+				}
+					
+				case PKGFileInvalidTypeOfFileError:
+				{
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileIncorrectType filePath:_buildOrder.projectPath fileKind:PKGFileKindRegularFile];
+					
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Unable to read file at path '%@'",_buildOrder.projectPath];
 					
 					break;
 				}
@@ -4665,15 +4673,15 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	[tTask launch];
 	[tTask waitUntilExit];
 	
-	int returnValue = [tTask terminationStatus];
+	int tReturnValue=tTask.terminationStatus;
 	
-	if (0!=returnValue)
+	if (0!=tReturnValue)
 	{
 		PKGBuildErrorEvent * tErrorEvent=nil;
 		
-		switch(returnValue)
+		switch(tReturnValue)
 		{
-			case -2:
+			case 254:
 				
 				// Not a HFS or Extended HFS volume
 				
@@ -4724,7 +4732,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	[tTask launch];
 	[tTask waitUntilExit];
 
-	int tReturnValue = [tTask terminationStatus];
+	int tReturnValue=tTask.terminationStatus;
 
 	if (tReturnValue!=0)
 	{
@@ -6885,7 +6893,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	[tTask launch];
 	[tTask waitUntilExit];
 	
-	int tReturnValue = [tTask terminationStatus];
+	int tReturnValue=tTask.terminationStatus;
 	
 	tTask=nil;
 	
@@ -7552,7 +7560,11 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 		[self build];
 	
-		exit(EXIT_SUCCESS);
+		// Delayed exit to make sure the last even notification is sent
+		
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+			exit(EXIT_SUCCESS);
+		});
 	});
 }
 
