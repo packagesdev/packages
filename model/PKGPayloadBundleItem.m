@@ -189,7 +189,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGPayloadBundleItemLocatorsKey;
 				

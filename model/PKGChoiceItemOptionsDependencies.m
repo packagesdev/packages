@@ -53,7 +53,7 @@ NSString * const PKGChoiceItemOptionsSelectedDependenciesTreeKey=@"SELECTED_DEPE
 			if (outError!=NULL)
 			{
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceItemOptionsEnabledStateDependencyTypeKey}];
 			}
 			
@@ -76,7 +76,7 @@ NSString * const PKGChoiceItemOptionsSelectedDependenciesTreeKey=@"SELECTED_DEPE
 						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
 					
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
 				}
 				
@@ -98,7 +98,7 @@ NSString * const PKGChoiceItemOptionsSelectedDependenciesTreeKey=@"SELECTED_DEPE
 						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
 					
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
 				}
 				

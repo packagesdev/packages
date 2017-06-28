@@ -92,7 +92,7 @@ NSString * const PKGDistributionProjectAdvancedOptionsKey=@"ADVANCED_OPTIONS";
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-										  code:PKGRepresentationInvalidValue
+										  code:PKGRepresentationInvalidValueError
 									  userInfo:@{PKGKeyPathErrorKey:PKGDistributionProjectBuildFormatKey}];
 		
 		return nil;

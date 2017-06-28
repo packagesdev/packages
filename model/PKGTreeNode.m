@@ -119,7 +119,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 											  code:tCode
@@ -162,7 +162,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 					NSInteger tCode=tError.code;
 					
 					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
+						tCode=PKGRepresentationInvalidValueError;
 					
 					NSString * tPathError=PKGTreeNodeChildrenKey;
 					

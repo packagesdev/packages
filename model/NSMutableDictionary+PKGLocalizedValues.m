@@ -43,7 +43,7 @@ NSString * const PKGValueKey=@"VALUE";
 		if (tLanguageName==nil)
 		{
 			tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-									   code:PKGRepresentationInvalidValue
+									   code:PKGRepresentationInvalidValueError
 								   userInfo:@{PKGKeyPathErrorKey:PKGLanguageKey}];
 			
 			tMutableDictionary=nil;
@@ -67,7 +67,7 @@ NSString * const PKGValueKey=@"VALUE";
 		if ([tLanguageName length]==0)		// Language can not be empty
 		{
 			tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-									   code:PKGRepresentationInvalidValue
+									   code:PKGRepresentationInvalidValueError
 								   userInfo:@{PKGKeyPathErrorKey:PKGLanguageKey}];
 			
 			tMutableDictionary=nil;
@@ -81,7 +81,7 @@ NSString * const PKGValueKey=@"VALUE";
 		if (tValueRepresentation==nil)
 		{
 			tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-									   code:PKGRepresentationInvalidValue
+									   code:PKGRepresentationInvalidValueError
 								   userInfo:@{PKGKeyPathErrorKey:PKGValueKey}];
 			
 			tMutableDictionary=nil;
@@ -103,7 +103,7 @@ NSString * const PKGValueKey=@"VALUE";
 				NSInteger tCode=tValueError.code;
 					
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGValueKey;
 				
@@ -148,7 +148,7 @@ NSString * const PKGValueKey=@"VALUE";
 			NSInteger tCode=tError.code;
 			
 			if (tCode==PKGRepresentationNilRepresentationError)
-				tCode=PKGRepresentationInvalidValue;
+				tCode=PKGRepresentationInvalidValueError;
 			
 			NSString * tPathError=PKGValueKey;
 			

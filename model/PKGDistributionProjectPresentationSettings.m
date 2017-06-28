@@ -102,7 +102,7 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 					NSInteger tCode=tError.code;
 					
 					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
+						tCode=PKGRepresentationInvalidValueError;
 					
 					NSString * tPathError=PKGPresentationInstallationStepsKey;
 					

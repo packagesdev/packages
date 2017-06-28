@@ -77,7 +77,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-										  code:PKGRepresentationInvalidValue
+										  code:PKGRepresentationInvalidValueError
 									  userInfo:@{PKGKeyPathErrorKey:PKGPresentationLicenseTypeKey}];
 		
 		return nil;

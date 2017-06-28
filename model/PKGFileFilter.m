@@ -72,7 +72,7 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGFilePredicateFileTypeKey}];
 			
 			return nil;

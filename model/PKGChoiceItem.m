@@ -154,7 +154,7 @@ NSString * const PKGChoiceItemRequirementsKey=@"REQUIREMENTS";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGChoiceItemOptionsKey;
 				
@@ -195,7 +195,7 @@ NSString * const PKGChoiceItemRequirementsKey=@"REQUIREMENTS";
 					NSInteger tCode=tBlockError.code;
 					
 					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
+						tCode=PKGRepresentationInvalidValueError;
 					
 					NSString * tPathError=PKGChoiceItemRequirementsKey;
 					
@@ -348,7 +348,7 @@ NSString * const PKGChoicePackageItemPackageUUIDKey=@"PACKAGE_UUID";
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGChoicePackageItemPackageUUIDKey}];
 			
 			return nil;

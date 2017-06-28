@@ -81,7 +81,7 @@ NSString * const PKGPackageScriptsAndResourcesResourcesHierarchyKey=@"RESOURCES"
 						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
 					
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
 				}
 				
@@ -103,7 +103,7 @@ NSString * const PKGPackageScriptsAndResourcesResourcesHierarchyKey=@"RESOURCES"
 						tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
 					
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:tPathError}];
 				}
 				
@@ -120,7 +120,7 @@ NSString * const PKGPackageScriptsAndResourcesResourcesHierarchyKey=@"RESOURCES"
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGPackageScriptsAndResourcesResourcesHierarchyKey;
 				

@@ -188,7 +188,7 @@ NSString * const PKGPresentationSectionPluginViewControllerClassName_Deprecated=
 					NSInteger tCode=tError.code;
 					
 					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
+						tCode=PKGRepresentationInvalidValueError;
 					
 					NSString * tPathError=PKGPresentationSectionPluginPathKey;
 					

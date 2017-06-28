@@ -40,7 +40,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 		return [[PKGChoiceDependencyTreePredicateNode alloc] initWithRepresentation:inRepresentation error:outError];
 
 	if (outError!=NULL)
-		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValue userInfo:nil];
+		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValueError userInfo:nil];
 	
 	return nil;
 }
@@ -102,7 +102,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGChoiceDependencyTreeLogicNodeTopChildKey;
 				
@@ -130,7 +130,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 			if (outError!=NULL)
 			{
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceDependencyTreeLogicNodeOperatorKey}];
 			}
 			
@@ -146,7 +146,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGChoiceDependencyTreeLogicNodeBottomChildKey;
 				
@@ -219,7 +219,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 			if (outError!=NULL)
 			{
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceDependencyTreePredicateNodeOperatorKey}];
 			}
 			
@@ -238,7 +238,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 			if (outError!=NULL)
 			{
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGChoiceDependencyTreePredicateNodeStateKey}];
 			}
 			

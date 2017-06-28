@@ -99,7 +99,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 					NSInteger tCode=tError.code;
 					
 					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
+						tCode=PKGRepresentationInvalidValueError;
 					
 					NSString * tPathError=PKGDistributionProjectRequirementsListKey;
 					
@@ -126,7 +126,7 @@ NSString * const PKGDistributionProjectResourcesListKey=@"RESOURCES";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGDistributionProjectResourcesListKey;
 				

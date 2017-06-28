@@ -110,7 +110,7 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGPackagePayloadHierarchyKey;
 				
@@ -163,7 +163,7 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGPackagePayloadTypeKey}];
 			
 			return nil;
@@ -217,7 +217,7 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGPackagePayloadHierarchyKey;
 				

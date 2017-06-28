@@ -1519,7 +1519,7 @@
 						
 						break;
 						
-					case PKGRepresentationInvalidValue:
+					case PKGRepresentationInvalidValueError:
 						
 						(void)fprintf(stderr, "%s: %s: Invalid value for %s\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],[tError.userInfo[PKGKeyPathErrorKey] UTF8String]);
 						
@@ -2630,7 +2630,7 @@
 						(void)fprintf(stderr, "%s: %s: Invalid type for value: %s\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],[tError.userInfo[PKGKeyPathErrorKey] UTF8String]);
 						break;
 						
-					case PKGRepresentationInvalidValue:
+					case PKGRepresentationInvalidValueError:
 						
 						(void)fprintf(stderr, "%s: %s: Invalid value for %s\n",__PACKAGESUTIL_NAME__,[inPath fileSystemRepresentation],[tError.userInfo[PKGKeyPathErrorKey] UTF8String]);
 						break;

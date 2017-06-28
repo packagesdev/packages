@@ -120,7 +120,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGFilePathTypeKey}];
 			
 			return nil;

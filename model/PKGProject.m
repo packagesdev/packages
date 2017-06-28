@@ -68,7 +68,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-										  code:PKGRepresentationInvalidValue
+										  code:PKGRepresentationInvalidValueError
 									  userInfo:@{PKGKeyPathErrorKey:PKGProjectTypeKey}];
 		
 		return nil;
@@ -109,7 +109,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	
 	if (outError!=NULL)
 		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-									  code:PKGRepresentationInvalidValue
+									  code:PKGRepresentationInvalidValueError
 								  userInfo:@{PKGKeyPathErrorKey:PKGProjectTypeKey}];
 	
 	return nil;
@@ -193,8 +193,8 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 		
 		
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-									  code:PKGRepresentationInvalidTypeOfValueError
-								  userInfo:nil];
+										  code:PKGFileInvalidTypeOfFileError
+									  userInfo:nil];
 		}
 		
 		return nil;
@@ -216,7 +216,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-										  code:PKGRepresentationInvalidValue
+										  code:PKGRepresentationInvalidValueError
 									  userInfo:@{PKGKeyPathErrorKey:PKGProjectTypeKey}];
 		
 		return nil;
@@ -257,7 +257,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	
 	if (outError!=NULL)
 		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-									  code:PKGRepresentationInvalidValue
+									  code:PKGRepresentationInvalidValueError
 								  userInfo:@{PKGKeyPathErrorKey:PKGProjectTypeKey}];
 	
 	return nil;

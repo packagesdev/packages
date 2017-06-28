@@ -75,7 +75,7 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 			if (_mode>PKGPresentationInstallationTypeCustomInstallOnly)
 			{
 				if (outError!=NULL)
-					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValue userInfo:nil];
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValueError userInfo:nil];
 
 				return nil;
 			}
@@ -98,7 +98,7 @@ NSString * const PKGPresentationInstallationTypeHierarchiesKey=@"HIERARCHIES";
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:[PKGPresentationInstallationTypeHierarchiesKey stringByAppendingPathComponent:tHierarchyKey]}];
 				
 				return nil;

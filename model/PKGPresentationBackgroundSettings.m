@@ -117,7 +117,7 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImagePathKey}];
 				
 				return nil;
@@ -148,7 +148,7 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImageScalingKey}];
 				
 				return nil;

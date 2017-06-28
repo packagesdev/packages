@@ -19,7 +19,7 @@
 {\
 	if (outError!=NULL)\
 		*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain\
-									  code:PKGRepresentationInvalidValue\
+									  code:PKGRepresentationInvalidValueError\
 								  userInfo:@{PKGKeyPathErrorKey:(key)}];\
 \
 	return nil;\

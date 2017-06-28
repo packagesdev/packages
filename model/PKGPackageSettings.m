@@ -266,7 +266,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGPackageSettingsLocationTypeKey}];
 			
 			return nil;
@@ -310,7 +310,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGPackageSettingsConclusionActionKey}];
 			
 			return nil;
@@ -325,7 +325,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGPackageSettingsAuthenticationModeKey}];
 			
 			return nil;

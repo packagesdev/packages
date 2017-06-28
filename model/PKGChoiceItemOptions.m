@@ -75,7 +75,7 @@ NSString * const PKGChoiceItemOptionHideChildrenKey=@"HIDE_CHILDREN";
 					NSInteger tCode=tError.code;
 					
 					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
+						tCode=PKGRepresentationInvalidValueError;
 					
 					NSString * tPathError=PKGChoiceItemOptionStateDependenciesKey;
 					

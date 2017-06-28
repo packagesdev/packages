@@ -121,7 +121,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 			{
 				if (outError!=NULL)
 					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-												  code:PKGRepresentationInvalidValue
+												  code:PKGRepresentationInvalidValueError
 											  userInfo:@{PKGKeyPathErrorKey:PKGRequirementTypeKey}];
 				
 				return nil;
@@ -142,7 +142,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGRequirementOnFailureBehaviorKey}];
 			
 			return nil;
@@ -173,7 +173,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 				if (tLanguageName==nil)
 				{
 					tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											   code:PKGRepresentationInvalidValue
+											   code:PKGRepresentationInvalidValueError
 										   userInfo:@{PKGKeyPathErrorKey:PKGRequirementFailureMessageLanguageKey}];
 					
 					tMutableDictionary=nil;
@@ -197,7 +197,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 				if ([tLanguageName length]==0)		// Language can not be empty
 				{
 					tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											   code:PKGRepresentationInvalidValue
+											   code:PKGRepresentationInvalidValueError
 										   userInfo:@{PKGKeyPathErrorKey:PKGRequirementFailureMessageLanguageKey}];
 					
 					tMutableDictionary=nil;

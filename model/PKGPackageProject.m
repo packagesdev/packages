@@ -70,7 +70,7 @@ NSString * const PKGPackageProjectPackageScriptsAndResources=@"PACKAGE_SCRIPTS";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGPackageProjectSettingsKey;
 				
@@ -94,7 +94,7 @@ NSString * const PKGPackageProjectPackageScriptsAndResources=@"PACKAGE_SCRIPTS";
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGPackageProjectPackageSettingsKey;
 				

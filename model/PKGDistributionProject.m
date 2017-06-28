@@ -62,7 +62,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
-											  code:PKGRepresentationInvalidValue
+											  code:PKGRepresentationInvalidValueError
 										  userInfo:@{PKGKeyPathErrorKey:PKGProjectKey}];
 			
 			return nil;
@@ -77,7 +77,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGDistributionProjectProjectSettingsKey;
 				
@@ -101,7 +101,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 				NSInteger tCode=tError.code;
 				
 				if (tCode==PKGRepresentationNilRepresentationError)
-					tCode=PKGRepresentationInvalidValue;
+					tCode=PKGRepresentationInvalidValueError;
 				
 				NSString * tPathError=PKGDistributionProjectPresentationSettingsKey;
 				
@@ -187,7 +187,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 					NSInteger tCode=tError.code;
 					
 					if (tCode==PKGRepresentationNilRepresentationError)
-						tCode=PKGRepresentationInvalidValue;
+						tCode=PKGRepresentationInvalidValueError;
 					
 					NSString * tPathError=PKGDistributionProjectPackagesComponentsKey;
 					
