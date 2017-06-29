@@ -694,7 +694,7 @@
 
 - (IBAction)switchFilePathType:(NSPopUpButton *)sender
 {
-	PKGFilePathType tType=[sender selectedItem].tag;
+	PKGFilePathType tType=sender.selectedItem.tag;
 	
 	if (tType!=_filePathType)
 	{
@@ -707,6 +707,8 @@
 				// A COMPLETER
 			}
 		}
+		
+		_filePathType=tType;
 		
 		if (self.selectedItems.count==1)
 		{
