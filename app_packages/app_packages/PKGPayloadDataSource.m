@@ -20,8 +20,6 @@
 #import "PKGFileItem+UI.h"
 #import "PKGPayloadTreeNode+UI.h"
 
-#import "PKGPayloadTreeNode+Edition.h"
-
 #import "PKGFilePathConverter+Edition.h"
 
 #import "NSOutlineView+Selection.h"
