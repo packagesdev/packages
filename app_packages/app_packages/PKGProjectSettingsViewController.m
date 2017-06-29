@@ -290,10 +290,10 @@
 	
 	if (tIdentitiesArray.count==0)
 	{
-		NSAlert * tAlert=[[NSAlert alloc] init];
+		NSAlert * tAlert=[NSAlert new];
 		
-		tAlert.messageText=NSLocalizedString(@"No certificates Alert Message Text",@"No comment");
-		tAlert.informativeText=NSLocalizedStringFromTable(@"No certificates Alert Informative Text",@"Project",@"");
+		tAlert.messageText=NSLocalizedString(@"No certificates Alert Message Text",@"");
+		tAlert.informativeText=NSLocalizedString(@"No certificates Alert Informative Text",@"");
 		
 		[tAlert addButtonWithTitle:NSLocalizedString(@"OK",@"No Comment")];
 		[tAlert addButtonWithTitle:NSLocalizedString(@"Go to Apple Developer website",@"No Comment")];
@@ -307,7 +307,7 @@
 		return;
 	}
 	
-	_chooseIdentityPanel=[[SFChooseIdentityPanel alloc] init];
+	_chooseIdentityPanel=[SFChooseIdentityPanel new];
 	
 	[_chooseIdentityPanel setInformativeText:NSLocalizedString(@"Certificate Chooser Informative Text",@"")];
 	
@@ -364,7 +364,7 @@
 
 - (IBAction)removeCertificate:(id) sender
 {
-	NSAlert * tAlert=[[NSAlert alloc] init];
+	NSAlert * tAlert=[NSAlert new];
 	
 	tAlert.messageText=NSLocalizedString(@"Do you really want to remove the certificate?",@"No comment");
 	tAlert.informativeText=NSLocalizedStringFromTable(@"This cannot be undone.",@"Project",@"");
