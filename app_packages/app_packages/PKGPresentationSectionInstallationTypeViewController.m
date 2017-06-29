@@ -17,10 +17,12 @@
 
 #import "PKGDistributionProject.h"
 
+#import "PKGChoiceTreeNode+UI.h"
+#import "PKGChoiceItemOptionsDependencies+UI.h"
 #import "PKGInstallationHierarchy+UI.h"
 #import "PKGPresentationInstallationTypeStepSettings+UI.h"
 
-#import "PKGChoiceTreeNode+UI.h"
+
 
 #import "PKGInstallationTypeScrollView.h"
 #import "PKGInstallationTypeOutlineView.h"
@@ -84,9 +86,9 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	PKGInstallationHierarchyDataSource * _dataSource;
 }
 
-@property (nonatomic,copy) NSString * currentHierarchyName;
+	@property (nonatomic,copy) NSString * currentHierarchyName;
 
-@property (readwrite) IBOutlet PKGInstallationTypeOutlineView * outlineView;
+	@property (readwrite) IBOutlet PKGInstallationTypeOutlineView * outlineView;
 
 - (void)setHierarchyBoxHidden:(BOOL)inHidden;
 
@@ -126,6 +128,9 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 - (void)appleInternalModeDidChange:(NSNotification *)inNotification;
 
 - (void)installationTypeSettingsDidChange:(NSNotification *)inNotification;
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification;
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
 
 @end
 
@@ -272,9 +277,14 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 {
 	[super WB_viewDidAppear];
 	
+	// Register for Notifications
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appleInternalModeDidChange:) name:PKGPreferencesAdvancedAppleModeStateDidChangeNotification object:nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(installationTypeSettingsDidChange:) name:PKGPresentationInstallationTypeStepSettingsDidChangeNotification object:self.document];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 }
 
 - (void)WB_viewWillDisappear
@@ -288,6 +298,9 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesAdvancedAppleModeStateDidChangeNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationInstallationTypeStepSettingsDidChangeNotification object:self.document];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 }
@@ -1195,7 +1208,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		
 		tCheckBox.imagePosition=(tIsMergedPackageChoice==YES) ? NSNoImage : NSImageLeft;
 		
-		tCheckBox.enabled=(inChoiceTreeNode.isEnabled && _editingChoicesDependencies==NO);	// A COMPLETER (dependency edition)
+		tCheckBox.enabled=(inChoiceTreeNode.isEnabled && _editingChoicesDependencies==NO);
 		
 		PKGChoiceSelectedState tSelectedState=inChoiceTreeNode.selectedState;
 		
@@ -1236,8 +1249,15 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		}
 		
 		if (tStringValue==nil)
-			tStringValue=[NSString stringWithFormat:@"Choice %@",[[inChoiceTreeNode indexPath] PKG_stringRepresentation]];
-		
+		{
+			NSIndexPath * tIndexPath=inChoiceTreeNode.indexPath;
+			
+			if (tIndexPath==nil)
+				tIndexPath=[NSIndexPath indexPathWithIndex:[inOutlineView rowForItem:inChoiceTreeNode ]];
+			
+			tStringValue=[NSString stringWithFormat:@"Choice %@",[tIndexPath PKG_stringRepresentation]];
+		}
+			
 		tCheckBox.title=tStringValue;
 		
 		return tView;
@@ -1257,9 +1277,14 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		return tView;
 	}
 	
-	if ([tTableColumnIdentifier isEqualToString:@"choice.indentation"]==YES)
+	if ([tTableColumnIdentifier isEqualToString:PKGPresentationSectionInstallationTypeIndentationColumnIdentifier]==YES)
 	{
-		tView.textField.stringValue=[inChoiceTreeNode.indexPath PKG_stringRepresentation];
+		NSIndexPath * tIndexPath=inChoiceTreeNode.indexPath;
+		
+		if (tIndexPath==nil)
+			tIndexPath=[NSIndexPath indexPathWithIndex:[inOutlineView rowForItem:inChoiceTreeNode ]];
+		
+		tView.textField.stringValue=[tIndexPath PKG_stringRepresentation];
 		
 		return tView;
 	}
@@ -1448,6 +1473,42 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 		_descriptionTextView.string=(tLocalizedDescription==nil) ? @"" : [tLocalizedDescription copy];
 	}
+}
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification
+{
+	NSTableColumn * tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.action"];
+	tTableColumn.hidden=YES;
+	
+	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.size"];
+	tTableColumn.hidden=YES;
+	
+	_indentationColumn.hidden=NO;
+	
+	[self.outlineView sizeLastColumnToFit];
+	
+	[self.outlineView unregisterDraggedTypes];
+	
+	_editingChoicesDependencies=YES;
+	
+	[self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfColumns)]];
+}
+
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification
+{
+	NSTableColumn * tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.action"];
+	tTableColumn.hidden=NO;
+	
+	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.size"];
+	tTableColumn.hidden=NO;
+	
+	_indentationColumn.hidden=YES;
+	
+	[self.outlineView registerForDraggedTypes:[PKGInstallationHierarchyDataSource supportedDraggedTypes]];
+	
+	_editingChoicesDependencies=NO;
+	
+	[self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfColumns)]];
 }
 
 @end

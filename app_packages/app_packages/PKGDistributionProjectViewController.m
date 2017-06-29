@@ -23,6 +23,8 @@
 #import "PKGProject+Safe.h"
 #import "PKGDistributionProject+Safe.h"
 
+#import "PKGChoiceItemOptionsDependencies+UI.h"
+
 #import "NSAlert+Block.h"
 
 @interface PKGDistributionProjectViewController ()
@@ -37,6 +39,8 @@
 	PKGDistributionPresentationViewController * _presentationController;
 	PKGDistributionRequirementsAndResourcesViewController * _requirementsAndResourcesController;
 	PKGDistributionCommentsViewController * _commentsController;
+	
+	BOOL _editingInstallationTypeChoice;
 }
 
 - (void)showTabViewWithTag:(PKGPreferencesGeneralDistributionProjectPaneTag) inTag;
@@ -51,6 +55,9 @@
 // Notifications
 
 - (void)viewDidResize:(NSNotification *)inNotification;
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification;
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
 
 @end
 
@@ -106,6 +113,11 @@
 	[super WB_viewDidAppear];
 	
 	[_currentContentsViewController WB_viewDidAppear];
+	
+	// Register for Notifications
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 }
 
 - (void)WB_viewWillDisappear
@@ -113,6 +125,9 @@
 	[super WB_viewWillDisappear];
 	
 	[_currentContentsViewController WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 }
 
 - (void)WB_viewDidDisappear
@@ -273,6 +288,9 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
+	if (_editingInstallationTypeChoice==YES)
+		return NO;
+	
 	SEL tAction=[inMenuItem action];
 	
 	if (tAction==@selector(selectCertificate:) ||
@@ -306,6 +324,20 @@
 	[_segmentedControl setWidth:tFrame.size.width-(tSegmentCount-1)*tSegmentWidth forSegment:(tSegmentCount-1)];
 	
 	_segmentedControl.frame=tFrame;
+}
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification
+{
+	_segmentedControl.enabled=NO;
+	
+	_editingInstallationTypeChoice=YES;
+}
+
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification
+{
+	_segmentedControl.enabled=YES;
+	
+	_editingInstallationTypeChoice=NO;
 }
 
 @end

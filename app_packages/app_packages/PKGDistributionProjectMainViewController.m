@@ -31,8 +31,9 @@
 
 #import "NSOutlineView+Selection.h"
 
-#import "PKGPackageComponent+UI.h"
+#import "PKGChoiceItemOptionsDependencies+UI.h"
 #import "PKGDistributionProject+UI.h"
+#import "PKGPackageComponent+UI.h"
 
 #import "PKGPresentationInstallationTypeStepSettings+Edition.h"
 
@@ -50,6 +51,9 @@
 	
 	
 	PKGViewController * _currentContentsViewController;
+	
+	CGFloat _savedSourceListWidth;
+	BOOL _editingInstallationTypeChoice;
 }
 
 - (IBAction)selectCertificate:(id)sender;
@@ -60,6 +64,9 @@
 - (void)sourceListSelectionDidChange:(NSNotification *)inNotification;
 
 - (void)packageComponentsDidRemove:(NSNotification *)inNotification;
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification;
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
 
 @end
 
@@ -117,6 +124,9 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(packageComponentsDidRemove:) name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	
 	[_sourceListController WB_viewDidAppear];
 }
 
@@ -127,6 +137,9 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 	
 	[_sourceListController WB_viewWillDisappear];
 }
@@ -251,6 +264,9 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
+	if (_editingInstallationTypeChoice==YES)
+		return NO;
+	
 	SEL tAction=[inMenuItem action];
 	
 	// View Menu
@@ -484,6 +500,64 @@
 	}
 	
 	// A COMPLETER
+}
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification
+{
+	// Hide Source List
+	
+	_editingInstallationTypeChoice=YES;
+
+	NSRect tFrame=_sourceListPlaceHolderView.frame;
+	
+	_savedSourceListWidth=NSWidth(tFrame);
+	
+	tFrame.size.width=0.0;
+	
+	_sourceListPlaceHolderView.frame=tFrame;
+	
+	NSRect tSplitViewBounds=_splitView.bounds;
+	
+	_contentsView.frame=tSplitViewBounds;
+	
+	tFrame=_splitView.frame;
+	tFrame.size.width+=_splitView.dividerThickness;
+	tFrame.origin.x-=_splitView.dividerThickness;
+	
+	_splitView.frame=tFrame;
+	
+	//[_splitView display];
+}
+
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification
+{
+	// Show Source List
+	
+	NSRect tFrame=_sourceListPlaceHolderView.frame;
+	
+	tFrame.size.width=_savedSourceListWidth;
+	
+	_sourceListPlaceHolderView.frame=tFrame;
+	
+	tFrame=_splitView.frame;
+	
+	tFrame.size.width-=_splitView.dividerThickness;
+	tFrame.origin.x+=_splitView.dividerThickness;
+	
+	_splitView.frame=tFrame;
+	
+	NSRect tSplitViewBounds=_splitView.bounds;
+	
+	tFrame=_contentsView.frame;
+	
+	tFrame.origin.x=_savedSourceListWidth+_splitView.dividerThickness;
+	tFrame.size.width=NSWidth(tSplitViewBounds)-tFrame.origin.x;
+	
+	_contentsView.frame=tSplitViewBounds;
+	
+	//[_splitView display];
+	
+	_editingInstallationTypeChoice=NO;
 }
 
 @end

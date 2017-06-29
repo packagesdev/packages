@@ -22,8 +22,10 @@
 #import "NSOutlineView+Selection.h"
 #import "NSAlert+block.h"
 
-#import "PKGPackageComponent+UI.h"
+#import "PKGChoiceItemOptionsDependencies+UI.h"
 #import "PKGInstallationHierarchy+UI.h"
+#import "PKGPackageComponent+UI.h"
+
 
 #import "PKGDistributionProject+Edition.h"
 
@@ -66,6 +68,9 @@
 - (void)removedPackagesListDidChange:(NSNotification *)inNotification;
 
 - (void)windowDidBecomeMain:(NSNotification *)inNotification;
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification;
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
 
 @end
 
@@ -126,6 +131,9 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedPackagesListDidChange:) name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 }
 
 - (void)WB_viewWillDisappear
@@ -137,6 +145,10 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+
 	
 	[_sourceListAuxiliaryView removeFromSuperview];
 	
@@ -565,6 +577,20 @@
 	NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"sourcelist.name"]];
 	
 	[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+}
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification
+{
+	// Hide Button
+	
+	_addButton.hidden=YES;
+}
+
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification
+{
+	// Show Button
+	
+	_addButton.hidden=NO;
 }
 
 @end

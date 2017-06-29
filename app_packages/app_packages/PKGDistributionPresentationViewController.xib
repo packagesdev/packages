@@ -14,6 +14,7 @@
                 <outlet property="_inspectorContentsView" destination="LZz-Ff-z4a" id="v8m-T0-sxX"/>
                 <outlet property="_inspectorPopUpButton" destination="JtG-ef-AvS" id="hkC-Kx-Mq6"/>
                 <outlet property="_languagePreviewPopUpButton" destination="Std-QZ-R8U" id="7v3-aO-eyF"/>
+                <outlet property="_leftView" destination="W8C-CG-VnG" id="eDg-Rw-VBA"/>
                 <outlet property="_listView" destination="LV5-xr-d27" id="mNN-Fl-3Ov"/>
                 <outlet property="_pageTitleView" destination="u6l-Pd-zlH" id="kEz-Dn-zvL"/>
                 <outlet property="_pluginAddButton" destination="RSd-7n-yQE" id="wog-Ih-dZH"/>

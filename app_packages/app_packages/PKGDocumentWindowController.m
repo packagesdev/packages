@@ -98,12 +98,14 @@
 	
 	[self.window setContentBorderThickness:33.0 forEdge:NSMinYEdge];
 	
+	NSView * tContentView=self.window.contentView;
+	
 	NSRect tMiddleFrame=self.middleAccessoryView.frame;
 	NSRect tRightFrame=self.rightAccessoryView.frame;
 	
-	tMiddleFrame.size.width=NSMaxX(tRightFrame)-NSMinX(tMiddleFrame);
+	tMiddleFrame.size.width=NSMaxX(tContentView.frame)-NSMinX(tMiddleFrame);
 	
-	tRightFrame.origin.x=NSMaxX(tRightFrame);
+	tRightFrame.origin.x=NSMaxX(tContentView.frame);
 	
 	self.middleAccessoryView.frame=tMiddleFrame;
 	self.rightAccessoryView.frame=tRightFrame;
@@ -112,6 +114,49 @@
 }
 
 #pragma mark -
+
+- (void)setContentsOfRightAccessoryView:(NSView *)inView
+{
+	NSArray * tSubViews=self.rightAccessoryView.subviews;
+	
+	if (tSubViews.count==0 && inView==nil)
+		return;
+	
+	for(NSView * tSubView in tSubViews)
+		[tSubView removeFromSuperview];
+	
+	NSView * tContentView=self.window.contentView;
+	
+	NSRect tMiddleFrame=self.middleAccessoryView.frame;
+	NSRect tRightFrame=self.rightAccessoryView.frame;
+	
+	if (inView==nil)
+	{
+		// Hide Right Accessory View
+		
+		tMiddleFrame.size.width=NSMaxX(tContentView.frame)-NSMinX(tMiddleFrame);
+		
+		tRightFrame.origin.x=NSMaxX(tContentView.frame);
+		
+		self.middleAccessoryView.frame=tMiddleFrame;
+		self.rightAccessoryView.frame=tRightFrame;
+	}
+	else
+	{
+		// Show/Resize Accessory View
+		
+		tRightFrame.size=inView.frame.size;
+		
+		[self.rightAccessoryView addSubview:inView];
+		
+		tRightFrame.origin.x=NSMaxX(tContentView.frame)-NSWidth(tRightFrame);
+		
+		tMiddleFrame.size.width=NSMaxX(tContentView.frame)-NSMinX(tMiddleFrame)-NSWidth(tRightFrame);
+		
+		self.middleAccessoryView.frame=tMiddleFrame;
+		self.rightAccessoryView.frame=tRightFrame;
+	}
+}
 
 - (void)setShowsBuildStatus:(BOOL)inShowsBuildStatus
 {

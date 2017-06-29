@@ -13,6 +13,8 @@
 
 #import "PKGDistributionPresentationViewController.h"
 
+#import "PKGInstallationSurgeryWindow.h"
+
 #import "PKGPresentationWindowView.h"
 
 #import "PKGPresentationListView.h"
@@ -29,11 +31,12 @@
 
 #import "PKGPresentationTitleSettings.h"
 
+#import "PKGChoiceItemOptionsDependencies+UI.h"
+#import "PKGPresentationBackgroundSettings+UI.h"
+#import "PKGPresentationLocalizableStepSettings+UI.h"
 #import "PKGPresentationSection+UI.h"
 
-#import "PKGPresentationLocalizableStepSettings+UI.h"
 
-#import "PKGPresentationBackgroundSettings+UI.h"
 
 #import "PKGInstallerApp.h"
 
@@ -61,6 +64,8 @@
 
 #import "PKGDistributionPresentationInstallerPluginOpenPanelDelegate.h"
 
+#import "PKGPresentationSectionInstallationTypeViewController.h"
+#import "PKGPresentationInstallationTypeChoiceDependenciesViewController.h"
 
 
 NSString * const PKGDistributionPresentationSelectedStep=@"ui.project.presentation.step.selected";
@@ -69,8 +74,13 @@ NSString * const PKGDistributionPresentationInspectedItem=@"ui.project.presentat
 
 NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whitebox.packages.internal.distribution.presentation.sections";
 
+#define PKGDistributionPresentationInspectorEnlargementWidth 170.0
+
+
 @interface PKGDistributionPresentationViewController () <PKGPresentationImageViewDelegate,PKGPresentationListViewDataSource,PKGPresentationListViewDelegate>
 {
+	IBOutlet NSView * _leftView;
+	
 	IBOutlet PKGPresentationWindowView * _windowView;
 	
 	IBOutlet PKGPresentationImageView * _backgroundView;
@@ -119,6 +129,13 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	NSIndexSet * _internalDragData;
 	
 	NSArray * _navigationButtons;
+	
+	
+	PKGPresentationInstallationTypeChoiceDependenciesViewController * _dependenciesViewController;
+	
+	PKGInstallationSurgeryWindow * _surgeryWindow;
+	
+	CGFloat _savedRightViewWidth;
 }
 
 - (void)updateBackgroundView;
@@ -141,6 +158,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (void)titleSettingsDidChange:(NSNotificationCenter *)inNotification;
 
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification;
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification;
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
+
+- (void)leftViewDidResize:(NSNotification *)inNotification;
 
 @end
 
@@ -426,6 +448,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+
 }
 
 - (void)WB_viewWillDisappear
@@ -437,6 +463,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 }
 
 - (void)WB_viewDidDisappear
@@ -1308,6 +1337,134 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification
 {
 	[self updateBackgroundView];
+}
+
+- (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification
+{
+	// Hide contents of right view
+	
+	for(NSView * tSubView in _rightView.subviews)
+		tSubView.hidden=YES;
+	
+	// Show Dependencies View Controller
+	
+	_dependenciesViewController=[[PKGPresentationInstallationTypeChoiceDependenciesViewController alloc] initWithDocument:self.document];
+	
+	_dependenciesViewController.choiceDependencyTreeNode=inNotification.userInfo[PKGChoiceDependencyTreeNodeKey];
+	
+	_dependenciesViewController.view.frame=_rightView.bounds;
+	
+	[_dependenciesViewController WB_viewWillAppear];
+	
+	[_rightView addSubview:_dependenciesViewController.view];
+	
+	[_dependenciesViewController WB_viewDidAppear];
+	
+	// Hide Source List
+	
+	// A COMPLETER
+	
+	// Resize left and right views
+	
+	NSRect tLeftViewFrame=_leftView.frame;
+	NSRect tRightViewFrame=_rightView.frame;
+	
+	_savedRightViewWidth=NSWidth(tRightViewFrame);
+	
+	
+	tLeftViewFrame.size.width-=PKGDistributionPresentationInspectorEnlargementWidth;
+	
+	_leftView.frame=tLeftViewFrame;
+	
+	tRightViewFrame.origin.x-=PKGDistributionPresentationInspectorEnlargementWidth;
+	tRightViewFrame.size.width+=PKGDistributionPresentationInspectorEnlargementWidth;
+	
+	_rightView.frame=tRightViewFrame;
+	
+	[self.view setNeedsDisplay:YES];
+	
+	if ([_currentSectionViewController isKindOfClass:PKGPresentationSectionInstallationTypeViewController.class]==NO)
+		return;
+	
+	PKGPresentationSectionInstallationTypeViewController * tViewController=(PKGPresentationSectionInstallationTypeViewController *)_currentSectionViewController;
+	
+	// Show the Surgery field
+	
+	_surgeryWindow=[[PKGInstallationSurgeryWindow alloc] initForView:_leftView];
+	
+	if (_surgeryWindow!=nil)
+	{
+		NSScrollView * tOutlineScrollView=tViewController.outlineView.enclosingScrollView;
+		
+		NSRect tFrame=[tOutlineScrollView frame];
+		
+		tFrame=[_leftView convertRect:tFrame fromView:tOutlineScrollView.superview];
+		
+		[self.view.window addChildWindow:_surgeryWindow ordered:NSWindowAbove];
+		
+		[_surgeryWindow setSurgeryViewFrame:tFrame];
+		
+		[_surgeryWindow orderFront:self];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leftViewDidResize:) name:NSViewFrameDidChangeNotification object:_leftView];
+	}
+}
+
+- (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:_leftView];
+	
+	// Remove the Surgery field
+	
+	if (_surgeryWindow!=nil)
+	{
+		[self.view.window removeChildWindow:_surgeryWindow];
+		
+		[_surgeryWindow orderOut:self];
+		
+		_surgeryWindow=nil;
+	}
+	
+	// Resize Left and Right View
+	
+	NSRect tLeftViewFrame=_leftView.frame;
+	NSRect tRightViewFrame=_rightView.frame;
+	
+	tLeftViewFrame.size.width+=PKGDistributionPresentationInspectorEnlargementWidth;
+	
+	_leftView.frame=tLeftViewFrame;
+	
+	tRightViewFrame.origin.x+=PKGDistributionPresentationInspectorEnlargementWidth;
+	tRightViewFrame.size.width-=PKGDistributionPresentationInspectorEnlargementWidth;
+	
+	_rightView.frame=tRightViewFrame;
+	
+	// Hide Dependencies View Controller
+	
+	[_dependenciesViewController WB_viewWillDisappear];
+	
+	[_dependenciesViewController.view removeFromSuperview];
+	
+	[_dependenciesViewController WB_viewDidDisappear];
+	
+	_dependenciesViewController=nil;
+	
+	// Show contents of right view
+	
+	for(NSView * tSubView in _rightView.subviews)
+		tSubView.hidden=NO;
+	
+	[self.view setNeedsDisplay:YES];
+}
+
+- (void)leftViewDidResize:(NSNotification *)inNotification
+{
+	if (_surgeryWindow==nil)
+		return;
+	
+	NSRect tWindowFrame=[PKGInstallationSurgeryWindow windowFrameForView:_leftView];
+	
+	[_surgeryWindow setFrame:tWindowFrame display:YES];
 }
 
 @end

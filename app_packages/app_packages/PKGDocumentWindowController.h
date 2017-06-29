@@ -26,4 +26,6 @@
 
 - (instancetype)initWithProject:(PKGProject *)inProject;
 
+- (void)setContentsOfRightAccessoryView:(NSView *)inView;
+
 @end
