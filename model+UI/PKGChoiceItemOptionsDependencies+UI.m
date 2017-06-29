@@ -1,0 +1,8 @@
+
+#import "PKGChoiceItemOptionsDependencies+UI.h"
+
+NSString * const PKGChoiceItemOptionsDependenciesEditionWillBeginNotification=@"PKGChoiceItemOptionsDependenciesEditionWillBeginNotification";
+
+NSString * const PKGChoiceDependencyTreeNodeKey=@"PKGChoiceDependencyTreeNodeKey";
+
+NSString * const PKGChoiceItemOptionsDependenciesEditionDidEndNotification=@"PKGChoiceItemOptionsDependenciesEditionDidEndNotification";
