@@ -16,7 +16,6 @@
 #import "PKGPresentationInstallationTypeNonSingleSelectionViewController.h"
 #import "PKGPresentationInstallationTypeSingleSelectionViewController.h"
 
-
 #import "PKGInstallationHierarchy+UI.h"
 
 @interface PKGPresentationInstallationTypeInspectorViewController ()
@@ -30,7 +29,7 @@
 
 - (void)showNonSingleSelectionViewForSelectionType:(PKGInstallationHierarchySelectionType)inSelectionType;
 
-- (void)showSingleSelectionViewForItem:(id)inItem;
+- (void)showSingleSelectionViewForItem:(id)inItem choicesForest:(PKGChoicesForest *)inChoicesForest;
 
 // Notifications
 
@@ -117,7 +116,7 @@
 	}
 }
 
-- (void)showSingleSelectionViewForItem:(PKGChoiceTreeNode *)inItem
+- (void)showSingleSelectionViewForItem:(PKGChoiceTreeNode *)inItem choicesForest:(PKGChoicesForest *)inChoicesForest
 {
 	if (inItem==nil)
 		return;
@@ -125,7 +124,8 @@
 	if (_singleSelectionViewController==nil)
 		_singleSelectionViewController=[[PKGPresentationInstallationTypeSingleSelectionViewController alloc] initWithDocument:self.document];
 	
-	_singleSelectionViewController.choiceTreeNode=inItem;
+	_singleSelectionViewController.selectedChoiceTreeNode=inItem;
+	_singleSelectionViewController.choicesForest=inChoicesForest;
 	
 	if (_currentViewController!=_singleSelectionViewController)
 	{
@@ -171,7 +171,7 @@
 		
 		case PKGInstallationHierarchySelectionSingle:
 			
-			[self showSingleSelectionViewForItem:inNotification.userInfo[PKGInstallationHierarchySelectionItemKey]];
+			[self showSingleSelectionViewForItem:inNotification.userInfo[PKGInstallationHierarchySelectionItemKey] choicesForest:inNotification.userInfo[PKGInstallationHierarchyChoicesForestKey]];
 			
 			break;
 	}
