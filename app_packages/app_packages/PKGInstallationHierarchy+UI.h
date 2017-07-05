@@ -28,6 +28,7 @@ extern NSString * const PKGInstallationHierarchySelectionDidChangeNotification;
 extern NSString * const PKGInstallationHierarchySelectionTypeKey;
 
 extern NSString * const PKGInstallationHierarchySelectionItemKey;
+extern NSString * const PKGInstallationHierarchyChoicesForestKey;
 
 extern NSString * const PKGInstallationHierarchyCurrentHierarchyDidChangeNotification;
 extern NSString * const PKGInstallationHierarchyNameKey;

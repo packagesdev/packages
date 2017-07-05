@@ -20,6 +20,7 @@ NSString * const PKGInstallationHierarchySelectionDidChangeNotification=@"PKGIns
 NSString * const PKGInstallationHierarchySelectionTypeKey=@"PKGInstallationHierarchySelectionTypeKey";
 
 NSString * const PKGInstallationHierarchySelectionItemKey=@"PKGInstallationHierarchySelectionItemKey";
+NSString * const PKGInstallationHierarchyChoicesForestKey=@"PKGInstallationHierarchyChoicesForestKey";
 
 NSString * const PKGInstallationHierarchyCurrentHierarchyDidChangeNotification=@"PKGInstallationHierarchyCurrentHierarchyDidChangeNotification";
 NSString * const PKGInstallationHierarchyNameKey=@"HierarchyName";
