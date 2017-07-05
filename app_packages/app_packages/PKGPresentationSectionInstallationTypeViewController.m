@@ -1250,12 +1250,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		
 		if (tStringValue==nil)
 		{
-			NSIndexPath * tIndexPath=inChoiceTreeNode.indexPath;
-			
-			if (tIndexPath==nil)
-				tIndexPath=[NSIndexPath indexPathWithIndex:[inOutlineView rowForItem:inChoiceTreeNode ]];
-			
-			tStringValue=[NSString stringWithFormat:@"Choice %@",[tIndexPath PKG_stringRepresentation]];
+			tStringValue=[NSString stringWithFormat:@"Choice %@",[_dataSource indentationStringForItem:inChoiceTreeNode]];
 		}
 			
 		tCheckBox.title=tStringValue;
@@ -1279,12 +1274,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	if ([tTableColumnIdentifier isEqualToString:PKGPresentationSectionInstallationTypeIndentationColumnIdentifier]==YES)
 	{
-		NSIndexPath * tIndexPath=inChoiceTreeNode.indexPath;
-		
-		if (tIndexPath==nil)
-			tIndexPath=[NSIndexPath indexPathWithIndex:[inOutlineView rowForItem:inChoiceTreeNode ]];
-		
-		tView.textField.stringValue=[tIndexPath PKG_stringRepresentation];
+		tView.textField.stringValue=[_dataSource indentationStringForItem:inChoiceTreeNode];
 		
 		return tView;
 	}
@@ -1337,7 +1327,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGInstallationHierarchySelectionDidChangeNotification
 														object:self.document
 													  userInfo:@{PKGInstallationHierarchySelectionTypeKey:@(PKGInstallationHierarchySelectionSingle),
-																 PKGInstallationHierarchySelectionItemKey:tSelectedChoiceTreeNode}];
+																 PKGInstallationHierarchySelectionItemKey:tSelectedChoiceTreeNode,
+																 PKGInstallationHierarchyChoicesForestKey:((PKGInstallationHierarchy *)_settings.hierarchies[_currentHierarchyName]).choicesForest}];
 }
 
 - (void)outlineViewItemDidExpand:(NSNotification *)inNotification
