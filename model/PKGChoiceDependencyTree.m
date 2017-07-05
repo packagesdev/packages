@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,6 +23,21 @@
 @end
 
 @implementation PKGChoiceDependencyTree
+
+- (instancetype)initWithNode:(PKGChoiceDependencyTreeNode *)inNode
+{
+	if (inNode==nil)
+		return nil;
+	
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_rootNode=inNode;
+	}
+	
+	return self;
+}
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
