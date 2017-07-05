@@ -13,7 +13,10 @@
 
 #import "PKGChoicesForest+Edition.h"
 
+#import "PKGChoiceTreeNode+UI.h"
+
 #import "PKGChoiceDependencyTree+Edition.h"
+
 
 @interface PKGChoicesForest (Edition_Private)
 

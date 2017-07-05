@@ -13,10 +13,19 @@
 
 #import "PKGChoiceDependencyTree.h"
 
+@interface PKGChoiceDependencyPredicateValues : NSObject
+
+	@property (copy) NSString * choiceUUID;
+	@property PKGPredicateReferenceState referenceState;
+
+@end
+
 @interface PKGChoiceDependencyTree (Edition)
 
 - (PKGChoiceDependencyTree *)removePredicatesForChoicesUUID:(NSArray *)inChoicesUUID;
 
 - (void)removeNode:(PKGChoiceDependencyTreeNode *)inTreeNode;
+
+- (NSSet *)allDependenciesStates;
 
 @end

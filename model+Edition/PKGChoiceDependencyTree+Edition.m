@@ -13,6 +13,10 @@
 
 #import "PKGChoiceDependencyTree+Edition.h"
 
+@implementation PKGChoiceDependencyPredicateValues
+
+@end
+
 @implementation PKGChoiceDependencyTree (Edition)
 
 - (PKGChoiceDependencyTree *)removePredicatesForChoicesUUID:(NSArray *)inChoicesUUID
@@ -108,6 +112,24 @@
 - (void)removeNode:(PKGChoiceDependencyTreeNode *)inTreeNode
 {
 	// A COMPLETER
+}
+
+#pragma mark -
+
+- (NSSet *)allDependenciesStates
+{
+	NSMutableSet * tMutableSet=[NSMutableSet set];
+	
+	[self.rootNode enumeratePredicatesNodesUsingBlock:^(PKGChoiceDependencyTreePredicateNode * bPredicateTreeNode,BOOL *bOutStop){
+	
+		PKGChoiceDependencyPredicateValues * tPredicateValues=[PKGChoiceDependencyPredicateValues new];
+		tPredicateValues.choiceUUID=bPredicateTreeNode.choiceUUID;
+		tPredicateValues.referenceState=bPredicateTreeNode.referenceState;
+		
+		[tMutableSet addObject:tPredicateValues];
+	}];
+	
+	return [tMutableSet copy];
 }
 
 @end
