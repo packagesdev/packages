@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">14F2109</string>
+		<string key="IBDocument.SystemVersion">14F2315</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -838,6 +838,43 @@
 										<int key="NSTag">101204</int>
 										<reference key="NSTarget" ref="545669423"/>
 									</object>
+									<object class="NSMenuItem" id="987312083">
+										<reference key="NSMenu" ref="423133677"/>
+										<string key="NSTitle">10.12.5</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="427356430"/>
+										<reference key="NSMixedImage" ref="275849936"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<int key="NSTag">101205</int>
+										<reference key="NSTarget" ref="545669423"/>
+									</object>
+									<object class="NSMenuItem" id="47783679">
+										<reference key="NSMenu" ref="423133677"/>
+										<bool key="NSIsDisabled">YES</bool>
+										<bool key="NSIsSeparator">YES</bool>
+										<string key="NSTitle"/>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="427356430"/>
+										<reference key="NSMixedImage" ref="275849936"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<reference key="NSTarget" ref="545669423"/>
+									</object>
+									<object class="NSMenuItem" id="96518047">
+										<reference key="NSMenu" ref="423133677"/>
+										<string key="NSTitle">10.13</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="427356430"/>
+										<reference key="NSMixedImage" ref="275849936"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<int key="NSTag">101300</int>
+										<reference key="NSTarget" ref="545669423"/>
+									</object>
 								</array>
 							</object>
 							<int key="NSPreferredEdge">3</int>
@@ -1298,6 +1335,9 @@
 							<reference ref="354319971"/>
 							<reference ref="869811731"/>
 							<reference ref="820176046"/>
+							<reference ref="987312083"/>
+							<reference ref="96518047"/>
+							<reference ref="47783679"/>
 						</array>
 						<reference key="parent" ref="545669423"/>
 					</object>
@@ -1611,6 +1651,21 @@
 						<reference key="object" ref="820176046"/>
 						<reference key="parent" ref="423133677"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">249</int>
+						<reference key="object" ref="987312083"/>
+						<reference key="parent" ref="423133677"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">250</int>
+						<reference key="object" ref="96518047"/>
+						<reference key="parent" ref="423133677"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">251</int>
+						<reference key="object" ref="47783679"/>
+						<reference key="parent" ref="423133677"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1687,6 +1742,9 @@
 				<string key="246.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="247.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="248.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="249.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="250.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="251.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="5.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="71.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1702,7 +1760,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">248</int>
+			<int key="maxID">251</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
