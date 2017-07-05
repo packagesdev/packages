@@ -140,11 +140,11 @@
 	
 	NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
 	
-	[_playSoundOnSuccessPopUpButton selectItemAtIndex:(tSoundName.length==0) ? -1 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
+	[_playSoundOnSuccessPopUpButton selectItemAtIndex:(tSoundName.length==0) ? 0 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
 	
 	tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
 	
-	[_playSoundOnErrorsPopUpButton selectItemAtIndex:(tSoundName.length==0) ? -1 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
+	[_playSoundOnErrorsPopUpButton selectItemAtIndex:(tSoundName.length==0) ? 0 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
 	
 	// Quick Build
 	
@@ -171,8 +171,8 @@
 		
 		for(NSString * tSoundFile in tSoundsArray)
 		{
-			if ([[tSoundFile pathExtension] caseInsensitiveCompare:@"aiff"]==NSOrderedSame)
-				[tMutableSet addObject:[tSoundFile stringByDeletingPathExtension]];
+			if ([tSoundFile.pathExtension caseInsensitiveCompare:@"aiff"]==NSOrderedSame)
+				[tMutableSet addObject:tSoundFile.stringByDeletingPathExtension];
 		}
 	}
 		
@@ -186,7 +186,7 @@
 	
 	// Sort by Names
 	
-	NSArray * tSortedArray=[[tMutableSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	NSArray * tSortedArray=[tMutableSet.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 
 	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Mute",@"No comment")
 													  action:nil
@@ -328,7 +328,7 @@
 
 - (IBAction)setQuickBuildUseBundleVersion:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild=([_quickBuildUseBundleVersionCheckBox state]==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild=(_quickBuildUseBundleVersionCheckBox.state==NSOnState);
 }
 
 - (IBAction)switchQuickBuildFailoverFolder:(id)sender
@@ -375,7 +375,7 @@
 	tOpenPanel.showsHiddenFiles=YES;
 	tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
 	
-	NSString * tPath=[[_temporaryBuildLocationTextField stringValue] stringByExpandingTildeInPath];
+	NSString * tPath=[_temporaryBuildLocationTextField stringValue].stringByExpandingTildeInPath;
 	
 	if(tPath!=nil)
 		tOpenPanel.directoryURL=[NSURL fileURLWithPath:tPath];
