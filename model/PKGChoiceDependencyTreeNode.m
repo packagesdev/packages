@@ -78,6 +78,78 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 	return [NSMutableDictionary dictionary];
 }
 
+#pragma mark -
+
+- (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *bOutStop))block
+{
+	typedef void (^_recursiveBlock)(id,BOOL *);
+	
+	__block __weak BOOL (^_weakEnumerateNodesRecursively)(PKGChoiceDependencyTreeNode *,_recursiveBlock);
+	__block BOOL(^_enumerateNodesRecursively)(PKGChoiceDependencyTreeNode *,_recursiveBlock);
+	
+	_enumerateNodesRecursively = ^BOOL(PKGChoiceDependencyTreeNode * bTreeNode,_recursiveBlock bBlock)
+	{
+		BOOL tBlockDidStop=NO;
+		
+		(void)block(bTreeNode,&tBlockDidStop);
+		if (tBlockDidStop==YES)
+			return NO;
+		
+		if ([bTreeNode isKindOfClass:PKGChoiceDependencyTreeLogicNode.class]==NO)
+			return YES;
+		
+		PKGChoiceDependencyTreeLogicNode * tLogicNode=(PKGChoiceDependencyTreeLogicNode *)bTreeNode;
+		
+		if (_weakEnumerateNodesRecursively(tLogicNode.topChildNode,bBlock)==NO)
+			return NO;
+		
+		if (_weakEnumerateNodesRecursively(tLogicNode.bottomChildNode,bBlock)==NO)
+			return NO;
+		
+		return YES;
+	};
+	
+	_weakEnumerateNodesRecursively = _enumerateNodesRecursively;
+	
+	_enumerateNodesRecursively(self,block);
+}
+
+- (void)enumeratePredicatesNodesUsingBlock:(void(^)(id bTreeNode,BOOL *bOutStop))block
+{
+	typedef void (^_recursiveBlock)(id,BOOL *);
+	
+	__block __weak BOOL (^_weakEnumerateNodesRecursively)(PKGChoiceDependencyTreeNode *,_recursiveBlock);
+	__block BOOL(^_enumerateNodesRecursively)(PKGChoiceDependencyTreeNode *,_recursiveBlock);
+	
+	_enumerateNodesRecursively = ^BOOL(PKGChoiceDependencyTreeNode * bTreeNode,_recursiveBlock bBlock)
+	{
+		if ([bTreeNode isKindOfClass:PKGChoiceDependencyTreeLogicNode.class]==NO)
+		{
+			BOOL tBlockDidStop=NO;
+		
+			(void)block(bTreeNode,&tBlockDidStop);
+			if (tBlockDidStop==YES)
+				return NO;
+			
+			return YES;
+		}
+		
+		PKGChoiceDependencyTreeLogicNode * tLogicNode=(PKGChoiceDependencyTreeLogicNode *)bTreeNode;
+		
+		if (_weakEnumerateNodesRecursively(tLogicNode.topChildNode,bBlock)==NO)
+			return NO;
+		
+		if (_weakEnumerateNodesRecursively(tLogicNode.bottomChildNode,bBlock)==NO)
+			return NO;
+		
+		return YES;
+	};
+	
+	_weakEnumerateNodesRecursively = _enumerateNodesRecursively;
+	
+	_enumerateNodesRecursively(self,block);
+}
+
 @end
 
 

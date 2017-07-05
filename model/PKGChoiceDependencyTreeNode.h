@@ -23,6 +23,9 @@
 
 + (id)dependencyTreeNodeWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError;
 
+- (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *bOutStop))block;
+- (void)enumeratePredicatesNodesUsingBlock:(void(^)(id bTreeNode,BOOL *bOutStop))block;
+
 @end
 
 
