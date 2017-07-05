@@ -69,7 +69,7 @@
                         <rect key="frame" x="1" y="1" width="383" height="605"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" id="sPv-qf-5IZ">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" id="sPv-qf-5IZ" customClass="PKGTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="383" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -121,6 +121,7 @@
                                 </tableColumns>
                                 <connections>
                                     <outlet property="delegate" destination="-2" id="ZBP-sy-ofg"/>
+                                    <outlet property="menu" destination="55c-7d-gog" id="kLQ-fk-ghR"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -138,6 +139,23 @@
             </subviews>
             <point key="canvasLocation" x="380.5" y="413"/>
         </customView>
+        <menu id="55c-7d-gog" userLabel="Requirements Menu">
+            <items>
+                <menuItem title="Duplicate" id="yjM-xd-cGH">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="duplicate:" target="-2" id="Zgh-61-Cg8"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="aOa-TU-tDr"/>
+                <menuItem title="Delete" id="CDO-MK-Uma">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-2" id="AoG-mM-yPZ"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
