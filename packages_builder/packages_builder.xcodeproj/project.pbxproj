@@ -17,6 +17,7 @@
 		F430172D1CFE11DD00829D16 /* PKGArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = F430172C1CFE11DD00829D16 /* PKGArchive.m */; };
 		F4567B401DA6C570001AB3BB /* PKGLicenseTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4567B3F1DA6C570001AB3BB /* PKGLicenseTemplate.m */; };
 		F45BA0C21D06045500765C10 /* PKGPathComponentPatternsRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */; };
+		F477CD991F0CCDC60091EFB0 /* PKGForest.m in Sources */ = {isa = PBXBuildFile; fileRef = F477CD981F0CCDC60091EFB0 /* PKGForest.m */; };
 		F484A8601D87487600FCC361 /* PKGCertificatesUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F484A85F1D87487600FCC361 /* PKGCertificatesUtilities.m */; };
 		F484A86B1D8748BD00FCC361 /* PKGRequirementPluginsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F484A86A1D8748BD00FCC361 /* PKGRequirementPluginsManager.m */; };
 		F484A86E1D8748C700FCC361 /* PKGLocatorPluginsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F484A86D1D8748C700FCC361 /* PKGLocatorPluginsManager.m */; };
@@ -167,6 +168,8 @@
 		F4567B3F1DA6C570001AB3BB /* PKGLicenseTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLicenseTemplate.m; path = ../shared/PKGLicenseTemplate.m; sourceTree = "<group>"; };
 		F45BA0C01D06045500765C10 /* PKGPathComponentPatternsRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPathComponentPatternsRegister.h; path = packages_builder/PKGPathComponentPatternsRegister.h; sourceTree = "<group>"; };
 		F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPathComponentPatternsRegister.m; path = packages_builder/PKGPathComponentPatternsRegister.m; sourceTree = "<group>"; };
+		F477CD971F0CCDC60091EFB0 /* PKGForest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGForest.h; path = ../model/PKGForest.h; sourceTree = "<group>"; };
+		F477CD981F0CCDC60091EFB0 /* PKGForest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGForest.m; path = ../model/PKGForest.m; sourceTree = "<group>"; };
 		F484A85E1D87487600FCC361 /* PKGCertificatesUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGCertificatesUtilities.h; path = ../shared/PKGCertificatesUtilities.h; sourceTree = "<group>"; };
 		F484A85F1D87487600FCC361 /* PKGCertificatesUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGCertificatesUtilities.m; path = ../shared/PKGCertificatesUtilities.m; sourceTree = "<group>"; };
 		F484A8691D8748BD00FCC361 /* PKGRequirementPluginsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementPluginsManager.h; path = ../shared/PKGRequirementPluginsManager.h; sourceTree = "<group>"; };
@@ -375,8 +378,8 @@
 				F43017001CFE0E9F00829D16 /* PKGBuildLogger.m */,
 				F4567B3E1DA6C570001AB3BB /* PKGLicenseTemplate.h */,
 				F4567B3F1DA6C570001AB3BB /* PKGLicenseTemplate.m */,
-				F4D08D7B1DA6F1820035145A /* PKGLicenseProvider.m */,
 				F4D08D7C1DA6F1820035145A /* PKGLicenseProvider.h */,
+				F4D08D7B1DA6F1820035145A /* PKGLicenseProvider.m */,
 				F43017111CFE0EDB00829D16 /* ICFileSystemUtilities.h */,
 				F43017121CFE0EDB00829D16 /* ICFileSystemUtilities.m */,
 				F430171D1CFE0EFD00829D16 /* PKGProjectBuilder.h */,
@@ -525,6 +528,8 @@
 				F48C21371CFCF05500B5A8CD /* PKGFileItem.m */,
 				F48C21381CFCF05500B5A8CD /* PKGFilePath.h */,
 				F48C21391CFCF05500B5A8CD /* PKGFilePath.m */,
+				F477CD971F0CCDC60091EFB0 /* PKGForest.h */,
+				F477CD981F0CCDC60091EFB0 /* PKGForest.m */,
 				F48C213A1CFCF05500B5A8CD /* PKGInstallationHierarchy.h */,
 				F48C213B1CFCF05500B5A8CD /* PKGInstallationHierarchy.m */,
 				F48C213C1CFCF05500B5A8CD /* PKGLocator.h */,
@@ -764,6 +769,7 @@
 				F48C21871CFCF05500B5A8CD /* PKGPackageScriptsAndResources.m in Sources */,
 				F48C217E1CFCF05500B5A8CD /* PKGFileFilter.m in Sources */,
 				F48C218C1CFCF05500B5A8CD /* PKGPresentationBackgroundSettings.m in Sources */,
+				F477CD991F0CCDC60091EFB0 /* PKGForest.m in Sources */,
 				F48C219A1CFCF05500B5A8CD /* PKGResourcesForest.m in Sources */,
 				F484A86B1D8748BD00FCC361 /* PKGRequirementPluginsManager.m in Sources */,
 				F4D08D7D1DA6F1820035145A /* PKGLicenseProvider.m in Sources */,

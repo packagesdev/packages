@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -12,8 +12,6 @@
  */
 
 #import "PKGChoicesForest.h"
-
-#import "PKGPackagesError.h"
 
 #import "NSArray+WBExtensions.h"
 
@@ -51,104 +49,30 @@
 @end
 
 
-@interface PKGChoicesForest ()
-{
-	NSArray * _cachedRepresentation;
-}
-
-	@property (nonatomic,readwrite) NSMutableArray * rootNodes;
-
-@end
 
 @implementation PKGChoicesForest
+
++ (Class)nodeClass
+{
+	return [PKGChoiceTreeNode class];
+}
 
 - (id)initWithPackagesComponents:(NSArray *)inArray
 {
 	if (inArray==nil)
 		return nil;
 	
-	self=[super init];
-	
-	if (self!=nil)
-	{
-		_rootNodes=[[inArray WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(PKGPackageComponent * bComponent, __attribute__((unused))NSUInteger bIndex) {
-			
-			PKGChoicePackageItem * tChoicePackageItem=[[PKGChoicePackageItem alloc] initWithPackageComponent:bComponent];
-			
-			return [[PKGChoiceTreeNode alloc] initWithRepresentedObject:tChoicePackageItem children:nil];
-			
-		}] mutableCopy];
-	}
-	
-	return self;
-}
-
-- (id)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError
-{
-	if (inRepresentation==nil)
-	{
-		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationNilRepresentationError userInfo:nil];
+	NSArray * tRootNodes=[inArray WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(PKGPackageComponent * bComponent, __attribute__((unused))NSUInteger bIndex) {
 		
-		return nil;
-	}
-	
-	if ([inRepresentation isKindOfClass:NSArray.class]==NO)
-	{
-		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+		PKGChoicePackageItem * tChoicePackageItem=[[PKGChoicePackageItem alloc] initWithPackageComponent:bComponent];
 		
-		return nil;
-	}
-	
-	self=[super init];
-	
-	if (self!=nil)
-	{
-		_cachedRepresentation=inRepresentation;
-	}
-	
-	return self;
-}
-
-- (NSMutableArray *)arrayRepresentation
-{
-	if (_cachedRepresentation!=nil)
-		return [_cachedRepresentation mutableCopy];
-	
-	return [_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGChoiceTreeNode * bTreeNode,__attribute__((unused))NSUInteger bIndex){
+		return [[PKGChoiceTreeNode alloc] initWithRepresentedObject:tChoicePackageItem children:nil];
 		
-		return [bTreeNode representation];
 	}];
-}
-
-#pragma mark -
-
-- (NSMutableArray *)rootNodes
-{
-	if (_rootNodes==nil)
-	{
-		if (_cachedRepresentation!=nil && [_cachedRepresentation isKindOfClass:NSArray.class]==YES)
-		{
-			__block NSError * tError=nil;
-			
-			_rootNodes=[[_cachedRepresentation WB_arrayByMappingObjectsUsingBlock:^PKGChoiceTreeNode *(NSDictionary * bNodeRepresentation,__attribute__((unused))NSUInteger bIndex){
-				
-				return [[PKGChoiceTreeNode alloc] initWithRepresentation:bNodeRepresentation error:&tError];
-				
-			}] mutableCopy];
-			
-			if (_rootNodes==nil)
-			{
-				// A COMPLETER
-			}
-			
-			_cachedRepresentation=nil;
-		}
-	}
 	
-	return _rootNodes;
+	self=[super initWithRootNodes:tRootNodes];
+	
+	return self;
 }
-
 
 @end

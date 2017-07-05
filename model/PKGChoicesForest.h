@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,7 +13,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGTreeNode.h"
+#import "PKGForest.h"
 
 #import "PKGChoiceItem.h"
 
@@ -23,14 +23,8 @@
 
 @end
 
-@interface PKGChoicesForest: NSObject
-
-	@property (nonatomic,readonly) NSMutableArray * rootNodes;
+@interface PKGChoicesForest: PKGForest
 
 - (id)initWithPackagesComponents:(NSArray *)inArray;
-
-- (id)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError;
-
-- (NSMutableArray *)arrayRepresentation;
 
 @end

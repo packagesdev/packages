@@ -13,10 +13,6 @@
 
 #import "PKGResourcesForest.h"
 
-#import "PKGPackagesError.h"
-
-#import "NSArray+WBExtensions.h"
-
 @implementation PKGResourcesTreeNode
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
@@ -26,131 +22,11 @@
 
 @end
 
-@interface PKGResourcesForest ()
-{
-	NSArray* _cachedRepresentation;
-}
-
-	@property (nonatomic,readwrite) NSMutableArray * rootNodes;
-
-@end
-
 @implementation PKGResourcesForest
 
-- (instancetype)init
++ (Class)nodeClass
 {
-	self=[super init];
-	
-	if (self!=nil)
-	{
-		_rootNodes=[NSMutableArray array];
-	}
-	
-	return self;
-}
-
-- (id)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError
-{
-	if (inRepresentation==nil)
-	{
-		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationNilRepresentationError userInfo:nil];
-		
-		return nil;
-	}
-	
-	if ([inRepresentation isKindOfClass:NSArray.class]==NO)
-	{
-		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
-		
-		return nil;
-	}
-	
-	self=[super init];
-	
-	if (self!=nil)
-	{
-		_cachedRepresentation=inRepresentation;
-	}
-	
-	return self;
-}
-
-- (NSMutableArray *)arrayRepresentation
-{
-	if (_cachedRepresentation!=nil)
-		return [_cachedRepresentation mutableCopy];
-	
-	return [_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGResourcesTreeNode * bTreeNode,__attribute__((unused))NSUInteger bIndex){
-		
-		return [bTreeNode representation];
-	}];
-}
-
-#pragma mark -
-
-- (NSMutableArray *)rootNodes
-{
-	if (_rootNodes==nil)
-	{
-		if (_cachedRepresentation!=nil)
-		{
-			__block NSError * tError=nil;
-			
-			_rootNodes=[[_cachedRepresentation WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bNodeRepresentation,__attribute__((unused))NSUInteger bIndex){
-				
-				return [[PKGResourcesTreeNode alloc] initWithRepresentation:bNodeRepresentation error:&tError];
-				
-			}] mutableCopy];
-			
-			if (_rootNodes==nil)
-			{
-				// A COMPLETER
-				
-			}
-			
-			_cachedRepresentation=nil;
-		}
-	}
-	
-	return _rootNodes;
-}
-
-#pragma mark -
-
-- (NSString *)description
-{
-	NSMutableString * tDescription=[NSMutableString string];
-	
-	for(PKGResourcesTreeNode * tResourcesTreeNode in self.rootNodes)
-		[tDescription appendFormat:@"  %@\n",[tResourcesTreeNode description]];
-	
-	return tDescription;
-}
-
-#pragma mark - NSCopying
-
-- (id)copyWithZone:(NSZone *)inZone
-{
-	PKGResourcesForest * nResourcesForest=[[[self class] allocWithZone:inZone] init];
-	
-	if (nResourcesForest!=nil)
-	{
-		if (_cachedRepresentation!=nil)
-		{
-			nResourcesForest->_cachedRepresentation=[_cachedRepresentation copy];
-		}
-		else
-		{
-			nResourcesForest.rootNodes=[self.rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGResourcesTreeNode * bTreeNode,NSUInteger bIndex){
-			
-				return [bTreeNode deepCopyWithZone:inZone];
-			}];
-		}
-	}
-	
-	return nResourcesForest;
+	return [PKGResourcesTreeNode class];
 }
 
 @end

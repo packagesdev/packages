@@ -16,6 +16,7 @@
 		F40F55DB1F0318450037C8F5 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F40F55D91F0318450037C8F5 /* NSObject+Conformance.m */; };
 		F46FA1951DB97407001D3FA8 /* NSDictionary+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */; };
 		F477A1371DF22B4C00CA546B /* PKGPayloadTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */; };
+		F477CDA51F0CCDDC0091EFB0 /* PKGForest.m in Sources */ = {isa = PBXBuildFile; fileRef = F477CDA41F0CCDDC0091EFB0 /* PKGForest.m */; };
 		F481B3741CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F481B3731CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m */; };
 		F481B37A1CBD8ACF0063F4CD /* NSString+Packages.m in Sources */ = {isa = PBXBuildFile; fileRef = F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */; };
 		F481B3941CBD8C9C0063F4CD /* libxar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F481B38E1CBD8C530063F4CD /* libxar.a */; };
@@ -137,6 +138,8 @@
 		F477A1341DF22B4C00CA546B /* PKGRootNodesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRootNodesProtocol.h; path = ../model/PKGRootNodesProtocol.h; sourceTree = "<group>"; };
 		F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPayloadTreeNode.m; path = ../model/PKGPayloadTreeNode.m; sourceTree = "<group>"; };
 		F477A1361DF22B4C00CA546B /* PKGPayloadTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPayloadTreeNode.h; path = ../model/PKGPayloadTreeNode.h; sourceTree = "<group>"; };
+		F477CDA31F0CCDDC0091EFB0 /* PKGForest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGForest.h; path = ../model/PKGForest.h; sourceTree = "<group>"; };
+		F477CDA41F0CCDDC0091EFB0 /* PKGForest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGForest.m; path = ../model/PKGForest.m; sourceTree = "<group>"; };
 		F481B3721CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBundleIdentifierFormatter.h; path = ../shared/PKGBundleIdentifierFormatter.h; sourceTree = "<group>"; };
 		F481B3731CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBundleIdentifierFormatter.m; path = ../shared/PKGBundleIdentifierFormatter.m; sourceTree = "<group>"; };
 		F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Packages.m"; path = "../Foundation + Extensions/NSString+Packages.m"; sourceTree = "<group>"; };
@@ -373,6 +376,8 @@
 				F4A786211CB4674600FC07B8 /* PKGProjectSettings.m */,
 				F4A785E81CB4674600FC07B8 /* PKGFileFilter.h */,
 				F4A785E91CB4674600FC07B8 /* PKGFileFilter.m */,
+				F477CDA31F0CCDDC0091EFB0 /* PKGForest.h */,
+				F477CDA41F0CCDDC0091EFB0 /* PKGForest.m */,
 				F4A785F71CB4674600FC07B8 /* PKGPackageProject.h */,
 				F4A785F81CB4674600FC07B8 /* PKGPackageProject.m */,
 				F4A785F91CB4674600FC07B8 /* PKGPackageProjectSettings.h */,
@@ -580,6 +585,7 @@
 				F483B53D1CBC3F9E00BFDA6A /* PKGPackagesError.m in Sources */,
 				F4A786341CB4674600FC07B8 /* PKGInstallationHierarchy.m in Sources */,
 				F46FA1951DB97407001D3FA8 /* NSDictionary+WBExtensions.m in Sources */,
+				F477CDA51F0CCDDC0091EFB0 /* PKGForest.m in Sources */,
 				F4A786361CB4674600FC07B8 /* PKGPackageComponent.m in Sources */,
 				F4A786401CB4674600FC07B8 /* PKGPresentationLicenseStepSettings.m in Sources */,
 				F4A7864F1CB4674600FC07B8 /* PKGTreeNode.m in Sources */,

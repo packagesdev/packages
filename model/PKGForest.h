@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,14 +13,22 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PKGForest.h"
+#import "PKGRootNodesProtocol.h"
 
-#import "PKGPayloadTreeNode.h"
+#import "PKGTreeNode.h"
 
-@interface PKGResourcesTreeNode : PKGPayloadTreeNode
+@interface PKGForest : NSObject <PKGRootNodesProtocol,NSCopying>
 
-@end
+	@property (nonatomic,readonly) NSMutableArray * rootNodes;
 
-@interface PKGResourcesForest : PKGForest
++ (Class)nodeClass;
+
+- (instancetype)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError;
+
+- (instancetype)initWithRootNodes:(NSArray *)inRootNodes;
+
+- (NSMutableArray *)arrayRepresentation;
+
+- (NSString *)indentationStringForTreeNode:(PKGTreeNode *)inTreeNode;
 
 @end
