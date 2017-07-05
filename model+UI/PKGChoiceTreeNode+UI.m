@@ -19,6 +19,8 @@
 
 #import "NSMutableDictionary+Localizations.h"
 
+NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.packages.internal.installation.hierarchy.choiceUUIDs";
+
 @interface PKGChoiceDependencyTree (UI)
 
 - (BOOL)isInHiddenGroup;

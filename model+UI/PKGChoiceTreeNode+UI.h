@@ -50,3 +50,5 @@ typedef NS_ENUM(NSInteger, PKGChoiceSelectedState) {
 - (NSString *)descriptionForLocalization:(NSString *)inLocalization;
 
 @end
+
+extern NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType;
