@@ -21,6 +21,8 @@
 #import "PKGChoiceTreeNode+UI.h"
 #import "PKGPresentationInstallationTypeStepSettings+UI.h"
 
+#import "PKGChoicesForest+DependenciesEdition.h"
+
 #import "NSPopUpButton+OptimizedSize.h"
 
 
@@ -320,7 +322,8 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 		
 		dispatch_async(dispatch_get_main_queue(), ^{
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document userInfo:@{PKGChoiceDependencyTreeNodeKey:self.choiceTreeNode}];
+			[[NSNotificationCenter defaultCenter] postNotificationName:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document userInfo:@{PKGChoiceDependencyTreeNodeKey:self.choiceTreeNode,
+																																									PKGChoiceDependencyForestKey:self.choicesForest}];
 		});
 	}
 	else
@@ -338,8 +341,43 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document userInfo:@{PKGChoiceDependencyTreeNodeKey:self.choiceTreeNode}];
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document userInfo:@{PKGChoiceDependencyTreeNodeKey:self.choiceTreeNode,
+																																								PKGChoiceDependencyForestKey:self.choicesForest}];
 	});
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(switchPackageState:))
+	{
+		switch(inMenuItem.tag)
+		{
+			case PKGUnselectedChoiceState:
+			{
+				PKGChoiceItem * tChoiceItem=[self.choiceTreeNode representedObject];
+				
+				return (tChoiceItem.options.isHidden==NO);
+			}
+				
+			case PKGDependentChoiceState:
+			{
+				NSMutableDictionary * tMutableDictionary=[self.choicesForest availableDependenciesDictionaryForSelectedStateOfLeafNode:self.choiceTreeNode];
+				
+				return (tMutableDictionary.count>0);
+			}
+				
+			case PKGDependentChoiceGroupState:
+			{
+				NSMutableDictionary * tMutableDictionary=[self.choicesForest availableDependenciesDictionaryForEnabledStateOfGroupNode:self.choiceTreeNode];
+				
+				return (tMutableDictionary.count>0);
+			}
+		}
+	}
+	
+	return YES;
 }
 
 #pragma mark - PKGPresentationLocalizationsDataSourceDelegate
