@@ -20,6 +20,8 @@
 
 #import "PKGFilesSelectionInspectorAttributesViewController.h"
 
+#import "_PKGFileItemAuxiliary.h"
+
 @interface PKGFilesSelectionInspectorViewController ()
 {
 	IBOutlet NSImageView * _iconView;
@@ -580,15 +582,15 @@
 				
 			case PKGFileItemTypeFileSystemItem:
 				
-				if (_filePathType==NSNotFound)
+				if (self->_filePathType==NSNotFound)
 				{
-					_filePathType=tSelectedItem.filePath.type;
+					self->_filePathType=tSelectedItem.filePath.type;
 				}
 				else
 				{
-					if (tSelectedItem.filePath.type!=_filePathType)
+					if (tSelectedItem.filePath.type!=self->_filePathType)
 					{
-						_filePathType=PKGFilePathTypeMixed;
+						self->_filePathType=PKGFilePathTypeMixed;
 						*bOutStop=YES;
 					}
 				}
@@ -686,7 +688,7 @@
 		if (self.selectedItems.count!=1)
 			return NO;
 		
-		return [[self.selectedItems lastObject] isFileSystemItemNode];
+		return [self.selectedItems.lastObject isFileSystemItemNode];
 	}
 	
 	return YES;
@@ -712,7 +714,7 @@
 		
 		if (self.selectedItems.count==1)
 		{
-			PKGPayloadTreeNode * tSelectedNode=[self.selectedItems lastObject];
+			PKGPayloadTreeNode * tSelectedNode=self.selectedItems.lastObject;
 			PKGFileItem * tSelectedItem=[tSelectedNode representedObject];
 			
 			_sourcePathTextField.stringValue=tSelectedItem.filePath.string;
@@ -763,6 +765,8 @@
 		// Refresh Inspector
 		
 		[self _refreshSelectionForFileSystemTreeNode:tSelectedNode atPath:tOpenPanel.URL.path];
+		
+		[tSelectedItem resetAuxiliaryData];
 		
 		// Refresh Hierarchy
 		

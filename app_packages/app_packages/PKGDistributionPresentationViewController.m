@@ -259,14 +259,14 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		// A COMPLETER (check if image is shown on 10.8 or later)
 		
-		_backgroundView.image=nil;
+		self->_backgroundView.image=nil;
 	};
 	
 	void (^displayImageNotFound)() = ^{
 		
 		// A COMPLETER (find the ? image)
 		
-		_backgroundView.image=nil;
+		self->_backgroundView.image=nil;
 	};
 	
 	PKGPresentationBackgroundSettings * tBackgroundSettings=[_presentationSettings backgroundSettings_safe];
@@ -399,7 +399,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		NSUInteger tLocalizationIndex=[_supportedLocalizations indexOfObjectPassingTest:^BOOL(PKGInstallerAppLocalization * bLocalization, NSUInteger bIndex, BOOL *bOutStop) {
 		
-			return [_currentPreviewLanguage isEqualToString:bLocalization.englishName];
+			return [self->_currentPreviewLanguage isEqualToString:bLocalization.englishName];
 			
 		}];
 		
@@ -534,7 +534,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		}];
 		
 		__block BOOL tModified=NO;
-		__block NSInteger tInsertionIndex=_listView.selectedStep+1;
+		__block NSInteger tInsertionIndex=self->_listView.selectedStep+1;
 		
 		[tPaths enumerateObjectsUsingBlock:^(NSString * bPath, NSUInteger bIndex, BOOL *bOutStop) {
 			
@@ -567,7 +567,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		if (tModified==YES)
 		{
-			[_listView reloadData];
+			[self->_listView reloadData];
 			
 			[self noteDocumentHasChanged];
 		}
@@ -588,14 +588,14 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
 		
-		NSInteger tSelectedStep=_listView.selectedStep;
+		NSInteger tSelectedStep=self->_listView.selectedStep;
 		
 		if (tSelectedStep<0 || tSelectedStep>=self.presentationSettings.sections.count)
 			return;
 		
 		[self.presentationSettings.sections removeObjectAtIndex:tSelectedStep];
 		
-		[_listView reloadData];
+		[self->_listView reloadData];
 		
 		// Find the first selectable Step
 		
@@ -603,7 +603,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		if (tIndex==0)
 		{
-			[_listView selectStep:0];
+			[self->_listView selectStep:0];
 		}
 		else
 		{
@@ -611,9 +611,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			
 			for (;tIndex>=0;tIndex--)
 			{
-				if ([self presentationListView:_listView shouldSelectStep:tIndex]==YES)
+				if ([self presentationListView:self->_listView shouldSelectStep:tIndex]==YES)
 				{
-					[_listView selectStep:tIndex];
+					[self->_listView selectStep:tIndex];
 					
 					break;
 				}
@@ -622,7 +622,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		// Refresh the list view
 		
-		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView]];
+		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:self->_listView]];
 		
 		[self noteDocumentHasChanged];
 	}];
@@ -696,11 +696,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			
 			// Show the View
 			
-			if (_listView.selectedStep!=tIndex)
+			if (self->_listView.selectedStep!=tIndex)
 			{
-				[_listView selectStep:tIndex];
+				[self->_listView selectStep:tIndex];
 			
-				[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
+				[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:self->_listView userInfo:@{}]];
 			}
 		});
 	}
@@ -1068,11 +1068,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			
 			// Refresh the list view
 			
-			[_listView reloadData];
+			[self->_listView reloadData];
 			
-			[_listView selectStep:inStep];
+			[self->_listView selectStep:inStep];
 			
-			[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView]];
+			[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:self->_listView]];
 			
 			[self noteDocumentHasChanged];
 			
@@ -1228,7 +1228,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		self.presentationSettings.backgroundSettings.imagePath=bFilePath;
 		
-		_backgroundView.image=tImage;
+		self->_backgroundView.image=tImage;
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.presentationSettings.backgroundSettings userInfo:@{}];
 		
@@ -1350,7 +1350,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	_dependenciesViewController=[[PKGPresentationInstallationTypeChoiceDependenciesViewController alloc] initWithDocument:self.document];
 	
-	_dependenciesViewController.choiceDependencyTreeNode=inNotification.userInfo[PKGChoiceDependencyTreeNodeKey];
+	_dependenciesViewController.choiceTreeNode=inNotification.userInfo[PKGChoiceDependencyTreeNodeKey];
+	_dependenciesViewController.choicesForest=inNotification.userInfo[PKGChoiceDependencyForestKey];
 	
 	_dependenciesViewController.view.frame=_rightView.bounds;
 	

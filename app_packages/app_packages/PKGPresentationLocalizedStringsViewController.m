@@ -161,7 +161,7 @@
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
 		
-		[_dataSource tableView:self.tableView removeItemsAtIndexes:tIndexSet];
+		[self->_dataSource tableView:self.tableView removeItemsAtIndexes:tIndexSet];
 	}];
 }
 

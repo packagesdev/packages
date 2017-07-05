@@ -122,21 +122,21 @@
 		
 		notify_register_dispatch(kNotifyDSCacheInvalidationUser, &_usersNotificationToken, dispatch_get_main_queue(), ^(int bToken){
 		
-			pthread_rwlock_wrlock(&_userAccountMutex);
+			pthread_rwlock_wrlock(&self->_userAccountMutex);
 			
 			[self refreshCache];
 			
-			pthread_rwlock_unlock(&_userAccountMutex);
+			pthread_rwlock_unlock(&self->_userAccountMutex);
 		
 		});
 		
 		notify_register_dispatch(kNotifyDSCacheInvalidationUser, &_groupsNotificationToken, dispatch_get_main_queue(), ^(int bToken){
 			
-			pthread_rwlock_wrlock(&_groupAccountMutex);
+			pthread_rwlock_wrlock(&self->_groupAccountMutex);
 			
 			[self _refreshGroupsCache];
 			
-			pthread_rwlock_unlock(&_groupAccountMutex);
+			pthread_rwlock_unlock(&self->_groupAccountMutex);
 			
 		});
 	}
@@ -377,7 +377,7 @@
 	[tAllKeys enumerateObjectsUsingBlock:^(NSString * bPosixName,NSUInteger bIndex,BOOL * bOutStop){
 	
 		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:bPosixName action:nil keyEquivalent:@""];
-		NSNumber * tNumber=_posixName_userAccountIDCache[bPosixName];
+		NSNumber * tNumber=self->_posixName_userAccountIDCache[bPosixName];
 		
 		if (tNumber==nil)
 			return;
@@ -407,7 +407,7 @@
 	[tAllKeys enumerateObjectsUsingBlock:^(NSString * bPosixName,NSUInteger bIndex,BOOL * bOutStop){
 		
 		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:bPosixName action:nil keyEquivalent:@""];
-		NSNumber * tNumber=_posixName_groupAccountIDCache[bPosixName];
+		NSNumber * tNumber=self->_posixName_groupAccountIDCache[bPosixName];
 		
 		if (tNumber==nil)
 			return;

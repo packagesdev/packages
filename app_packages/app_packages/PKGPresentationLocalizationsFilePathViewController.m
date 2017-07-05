@@ -267,9 +267,9 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 		tOpenPanel.canChooseFiles=YES;
 		tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
 		
-		_openPanelDelegate=[PKGPresentationLocalizationsFilePathOpenPanelDelegate new];
+		self->_openPanelDelegate=[PKGPresentationLocalizationsFilePathOpenPanelDelegate new];
 		
-		tOpenPanel.delegate=_openPanelDelegate;
+		tOpenPanel.delegate=self->_openPanelDelegate;
 		
 		if (tAbsolutePath!=nil)
 			tOpenPanel.directoryURL=[NSURL fileURLWithPath:[tAbsolutePath stringByDeletingLastPathComponent] isDirectory:YES];
@@ -295,7 +295,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 			
 			dispatch_async(dispatch_get_main_queue(), ^{
 				
-				[_dataSource tableView:self.tableView setValue:tNewFilePath forItemAtRow:tEditedRow];
+				[self->_dataSource tableView:self.tableView setValue:tNewFilePath forItemAtRow:tEditedRow];
 				
 				[sender selectItemAtIndex:0];
 			});
@@ -329,7 +329,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
 		
-		[_dataSource tableView:self.tableView removeItemsAtIndexes:tIndexSet];
+		[self->_dataSource tableView:self.tableView removeItemsAtIndexes:tIndexSet];
 	}];
 }
 

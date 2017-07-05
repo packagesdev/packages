@@ -228,7 +228,7 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 			
 			NSDictionary * tSettingsRepresenation=[tPluginUIClass performSelector:@selector(dictionaryFromPasteboardDictionary:converter:) withObject:tNewRequirement.settingsRepresentation withObject:self.filePathConverter];
 			
-			if (_choiceItem.options.isHidden==YES)
+			if (self->_choiceItem.options.isHidden==YES)
 				tNewRequirement.failureBehavior=PKGRequirementOnFailureBehaviorDeselectAndDisableChoice;
 			
 			tNewRequirement.settingsRepresentation=tSettingsRepresenation;
@@ -281,7 +281,7 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 		
 		NSString * tBaseName=[[PKGRequirementPluginsManager defaultManager] localizedPluginNameForIdentifier:tNewRequirement.identifier];
 		
-		tNewRequirement.name=[_requirements uniqueNameWithBaseName:tBaseName usingNameExtractor:^NSString *(PKGRequirement * bRequirement,NSUInteger bIndex) {
+		tNewRequirement.name=[self->_requirements uniqueNameWithBaseName:tBaseName usingNameExtractor:^NSString *(PKGRequirement * bRequirement,NSUInteger bIndex) {
 			
 			return bRequirement.name;
 		}];
@@ -315,12 +315,12 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 		if ([tEditedRequirement isEqualToRequirement:tOriginalRequirement]==YES)
 			return;
 		
-		NSUInteger tIndex=[_requirements indexOfObjectIdenticalTo:tOriginalRequirement];
+		NSUInteger tIndex=[self->_requirements indexOfObjectIdenticalTo:tOriginalRequirement];
 		
 		if (tIndex==NSNotFound)
 			return;
 		
-		[_requirements replaceObjectAtIndex:tIndex withObject:tEditedRequirement];
+		[self->_requirements replaceObjectAtIndex:tIndex withObject:tEditedRequirement];
 			
 		[self.delegate requirementsDataDidChange:self];
 	}];

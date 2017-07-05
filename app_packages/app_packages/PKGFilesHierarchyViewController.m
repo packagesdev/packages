@@ -937,7 +937,7 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		
 		if ([tPayloadTreeNode isTemplateNode]==YES)
 		{
-			_removeButton.enabled=NO;
+			self->_removeButton.enabled=NO;
 			*bOutStop=NO;
 		}
 	}];

@@ -236,19 +236,19 @@
 		
 		NSString * tDirectoryPath=[tOpenPanel.URL.path stringByAbbreviatingWithTildeInPath];
 		
-		if (_projectDirectoryWasChangedByUser==NO)
-			tDirectoryPath=[tDirectoryPath stringByAppendingPathComponent:_projectNametextField.stringValue];
+		if (self->_projectDirectoryWasChangedByUser==NO)
+			tDirectoryPath=[tDirectoryPath stringByAppendingPathComponent:self->_projectNametextField.stringValue];
 		
 		if ([tDirectoryPath hasSuffix:@"/"]==NO)
 			tDirectoryPath=[tDirectoryPath stringByAppendingString:@"/"];
 		
-		BOOL tOldValue=_projectDirectoryWasChangedByUser;
+		BOOL tOldValue=self->_projectDirectoryWasChangedByUser;
 		
-		_projectDirectoryTextField.stringValue=tDirectoryPath;
+		self->_projectDirectoryTextField.stringValue=tDirectoryPath;
 		
-		_projectDirectoryWasChangedByUser=tOldValue;
+		self->_projectDirectoryWasChangedByUser=tOldValue;
 		
-		[self _updateAfterModificationOfTextField:_projectDirectoryTextField];
+		[self _updateAfterModificationOfTextField:self->_projectDirectoryTextField];
 	}];
 }
 

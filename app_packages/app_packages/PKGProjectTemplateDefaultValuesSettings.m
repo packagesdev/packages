@@ -194,8 +194,8 @@ NSString * const PKGProjectTemplateCompanyIdentifierPrefixKey=@"company.identifi
 		
 		[tDefaultTemplates enumerateKeysAndObjectsUsingBlock:^(NSString * bKey,id bObject,BOOL *bOutStop){
 			
-			if (_defaultValues[bKey]==nil)
-				_defaultValues[bKey]=bObject;
+			if (self->_defaultValues[bKey]==nil)
+				self->_defaultValues[bKey]=bObject;
 			
 		}];
 		
