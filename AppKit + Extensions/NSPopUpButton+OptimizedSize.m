@@ -19,11 +19,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	NSSize tSize=NSZeroSize;
 	
-	NSUInteger tMenuCount=[self numberOfItems];
+	NSUInteger tMenuCount=self.numberOfItems;
 	
-	for(NSUInteger i=0;i<tMenuCount;i++)
+	for(NSUInteger tIndex=0;tIndex<tMenuCount;tIndex++)
 	{
-		[self selectItemAtIndex:i];
+		[self selectItemAtIndex:tIndex];
 		
 		[self sizeToFit];
 		
