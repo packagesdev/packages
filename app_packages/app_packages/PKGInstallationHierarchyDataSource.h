@@ -35,6 +35,8 @@ extern NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType;
 
 + (NSArray *)supportedDraggedTypes;
 
+- (NSString *)indentationStringForItem:(id)inItem;
+
 - (id)itemWithChoiceUUID:(NSString *)inChoiceUUID;
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;

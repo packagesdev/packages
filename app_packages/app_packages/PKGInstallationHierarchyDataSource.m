@@ -17,9 +17,8 @@
 
 #import "NSOutlineView+Selection.h"
 
-#import "PKGPackageComponent+UI.h"
-
 #import "PKGChoiceTreeNode+UI.h"
+#import "PKGPackageComponent+UI.h"
 
 #import "PKGChoicesForest+Edition.h"
 #import "PKGInstallationHierarchy+Edition.h"
@@ -28,7 +27,7 @@
 
 NSString * const PKGInstallationHierarchyChoicesInternalPboardType=@"fr.whitebox.packages.internal.installation.hierarchy.choices";
 NSString * const PKGInstallationHierarchyHiddenPackagesInternalPboardType=@"fr.whitebox.packages.internal.installation.hierarchy.hidden.packages";
-NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.packages.internal.installation.hierarchy.choiceUUIDs";
+
 
 @interface PKGInstallationHierarchyDataSource ()
 {
@@ -81,6 +80,11 @@ NSString * const PKGInstallationHierarchyChoicesUUIDsPboardType=@"fr.whitebox.pa
 }
 
 #pragma mark -
+
+- (NSString *)indentationStringForItem:(PKGChoiceTreeNode *)inTreeNode
+{
+	return [_forest indentationStringForTreeNode:inTreeNode];
+}
 
 - (id)itemWithChoiceUUID:(NSString *)inChoiceUUID
 {
