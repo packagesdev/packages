@@ -19,4 +19,6 @@
 
 	@property (nonatomic) PKGChoiceTreeNode * choiceTreeNode;
 
+	@property (nonatomic) PKGChoicesForest * choicesForest;
+
 @end
