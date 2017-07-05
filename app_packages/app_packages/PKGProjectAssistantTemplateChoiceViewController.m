@@ -118,8 +118,8 @@
 	PKGProjectTemplate * tSelectedTemplate=self.selectedProjectTemplate;
 	
 	_templateIcon.image=tSelectedTemplate.icon;
-	_templateNameLabel.stringValue=tSelectedTemplate.name;
-	_templateDescriptionLabel.stringValue=tSelectedTemplate.localizedDescription;
+	_templateNameLabel.stringValue=(tSelectedTemplate.name==nil) ? @"-" : tSelectedTemplate.name;
+	_templateDescriptionLabel.stringValue=(tSelectedTemplate.localizedDescription==nil) ? @"" : tSelectedTemplate.localizedDescription;
 }
 
 #pragma mark - RSSCollectionViewDelegate
