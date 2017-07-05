@@ -805,7 +805,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 
 #pragma mark -
 
-- (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block
+- (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *))block
 {
 	typedef void (^_recursiveBlock)(id<PKGObjectProtocol>,BOOL *);
 	
@@ -821,7 +821,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		if (tBlockDidStop==YES)
 			return NO;
 		
-		for(PKGTreeNode * tTreeNode in [bTreeNode children])
+		for(PKGTreeNode * tTreeNode in bTreeNode->_children)
 		{
 			if (_weakEnumerateRepresentedObjectsRecursively(tTreeNode,bBlock)==NO)
 				return NO;
@@ -835,7 +835,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	_enumerateRepresentedObjectsRecursively(self,block);
 }
 
-- (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block
+- (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *))block
 {
 	typedef void (^_recursiveBlock)(id,BOOL *);
 	
@@ -850,7 +850,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		if (tBlockDidStop==YES)
 			return NO;
 		
-		for(PKGTreeNode * tTreeNode in [bTreeNode children])
+		for(PKGTreeNode * tTreeNode in bTreeNode->_children)
 		{
 			if (_weakEnumerateNodesRecursively(tTreeNode,bBlock)==NO)
 				return NO;
@@ -864,7 +864,40 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	_enumerateNodesRecursively(self,block);
 }
 
-- (void)enumerateChildrenUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block
+- (void)enumerateNodesLenientlyUsingBlock:(void(^)(id bTreeNode,BOOL *bSkipChildren,BOOL *))block
+{
+	typedef void (^_recursiveBlock)(id,BOOL *,BOOL *);
+	
+	__block __weak BOOL (^_weakEnumerateNodesLenientlyRecursively)(PKGTreeNode *,_recursiveBlock);
+	__block BOOL(^_enumerateNodesLenientlyRecursively)(PKGTreeNode *,_recursiveBlock);
+	
+	_enumerateNodesLenientlyRecursively = ^BOOL(PKGTreeNode * bTreeNode,_recursiveBlock bBlock)
+	{
+		BOOL tSkipChildren=NO;
+		BOOL tBlockDidStop=NO;
+		
+		(void)block(bTreeNode,&tSkipChildren,&tBlockDidStop);
+		if (tBlockDidStop==YES)
+			return NO;
+		
+		if (tSkipChildren==YES)
+			return YES;
+		
+		for(PKGTreeNode * tTreeNode in bTreeNode->_children)
+		{
+			if (_weakEnumerateNodesLenientlyRecursively(tTreeNode,bBlock)==NO)
+				return NO;
+		}
+		
+		return YES;
+	};
+	
+	_weakEnumerateNodesLenientlyRecursively = _enumerateNodesLenientlyRecursively;
+	
+	_enumerateNodesLenientlyRecursively(self,block);
+}
+
+- (void)enumerateChildrenUsingBlock:(void(^)(id bTreeNode,BOOL *))block
 {
 	[_children enumerateObjectsUsingBlock:^(id bChild, NSUInteger bIndex, BOOL *bOutStop) {
 		

@@ -86,11 +86,12 @@
 
 + (BOOL)nodesAreSiblings:(NSArray *)inTreeNodes;
 
-- (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *stop))block;
+- (void)enumerateRepresentedObjectsRecursivelyUsingBlock:(void(^)(id<PKGObjectProtocol> representedObject,BOOL *bOutStop))block;
 
-- (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block;
+- (void)enumerateNodesUsingBlock:(void(^)(id bTreeNode,BOOL *bOutStop))block;
+- (void)enumerateNodesLenientlyUsingBlock:(void(^)(id bTreeNode,BOOL *bSkipChildren,BOOL *bOutStop))block;
 
-- (void)enumerateChildrenUsingBlock:(void(^)(id bTreeNode,BOOL *stop))block;
+- (void)enumerateChildrenUsingBlock:(void(^)(id bTreeNode,BOOL *bOutStop))block;
 
 @end
 
