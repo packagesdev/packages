@@ -57,7 +57,8 @@
 	
 	_attributesViewController=[[PKGPresentationInstallationTypeChoiceAttributesViewController alloc] initWithDocument:self.document];
 	
-	_attributesViewController.choiceTreeNode=_choiceTreeNode;
+	_attributesViewController.choiceTreeNode=self.selectedChoiceTreeNode;
+	_attributesViewController.choicesForest=self.choicesForest;
 	
 	_attributesViewController.view.frame=tAttributesTabViewItem.view.bounds;
 	
@@ -68,13 +69,20 @@
 
 #pragma mark -
 
-- (void)setChoiceTreeNode:(PKGChoiceTreeNode *)inChoiceTreeNode
+- (void)setSelectedChoiceTreeNode:(PKGChoiceTreeNode *)inSelectedChoiceTreeNode
 {
-	_choiceTreeNode=inChoiceTreeNode;
+	_selectedChoiceTreeNode=inSelectedChoiceTreeNode;
 	
-	_attributesViewController.choiceTreeNode=_choiceTreeNode;
+	_attributesViewController.choiceTreeNode=_selectedChoiceTreeNode;
 	
 	[self refreshUI];
+}
+
+- (void)setChoicesForest:(PKGChoicesForest *)inChoicesForest
+{
+	_choicesForest=inChoicesForest;
+	
+	_attributesViewController.choicesForest=_choicesForest;
 }
 
 #pragma mark -
@@ -130,12 +138,12 @@
 	if (_choiceIconView==nil)
 		return;
 	
-	if (self.choiceTreeNode==nil)
+	if (self.selectedChoiceTreeNode==nil)
 		return;
 	
-	PKGChoiceItem * tChoiceItem=[self.choiceTreeNode representedObject];
+	PKGChoiceItem * tChoiceItem=[self.selectedChoiceTreeNode representedObject];
 	PKGChoiceItemType tChoiceType=tChoiceItem.type;
-	BOOL tIsMergedPackageChoice=self.choiceTreeNode.isMergedPackagesChoice;
+	BOOL tIsMergedPackageChoice=self.selectedChoiceTreeNode.isMergedPackagesChoice;
 	
 	// Icon, Name, Type
 	
@@ -160,7 +168,7 @@
 		}
 		case PKGChoiceItemTypeGroup:
 		{
-			NSUInteger tCount=[self.choiceTreeNode numberOfChildren];
+			NSUInteger tCount=[self.selectedChoiceTreeNode numberOfChildren];
 			
 			if (tIsMergedPackageChoice==YES)
 			{

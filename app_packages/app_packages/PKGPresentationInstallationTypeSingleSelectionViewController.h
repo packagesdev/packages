@@ -17,6 +17,8 @@
 
 @interface PKGPresentationInstallationTypeSingleSelectionViewController : PKGDocumentViewController
 
-	@property (nonatomic) PKGChoiceTreeNode * choiceTreeNode;
+	@property (nonatomic) PKGChoiceTreeNode * selectedChoiceTreeNode;
+
+	@property (nonatomic) PKGChoicesForest * choicesForest;
 
 @end
