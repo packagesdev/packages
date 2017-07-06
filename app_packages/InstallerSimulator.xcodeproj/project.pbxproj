@@ -11,6 +11,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F456CA1A1F0EBB8300B9D1DE /* hi */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4A5EE0C1E9EE4EE00A73843 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4AED1D11E9EE31A007B5031 /* InstallerSimulator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstallerSimulator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C52A241E9EE51E00ED82ED /* ar */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -169,6 +170,7 @@
 				zh_CN,
 				zh_TW,
 				es_MX,
+				hi,
 			);
 			mainGroup = F4AED1C81E9EE31A007B5031;
 			productRefGroup = F4AED1D21E9EE31A007B5031 /* Products */;
@@ -239,6 +241,7 @@
 				F4D135AC1E9EE5EB0017DCB9 /* zh_CN */,
 				F4D135AD1E9EE5EF0017DCB9 /* zh_TW */,
 				F4DA62331E9F899B007E5319 /* es_MX */,
+				F456CA1A1F0EBB8300B9D1DE /* hi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
