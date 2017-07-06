@@ -488,7 +488,7 @@ bail:
 	
 	
 	
-	PKGBuildOrder * tBuildOrder=[[PKGBuildOrder alloc] init];
+	PKGBuildOrder * tBuildOrder=[PKGBuildOrder new];
 	
 	tBuildOrder.projectPath=tProjectPath;
 	tBuildOrder.buildOptions=inBuildOptions;
@@ -540,45 +540,10 @@ bail:
 										   
 								   }]==NO)
 	{
-		;
-	}
-	/*int tResult=[ICDispatchBuildUtilities  buildProjectAtPath:tProjectPath withNotificationPath:[[self fileURL] path] locationEnabled:inLocationEnabled];
-	
-	switch(tResult)
-	{
-		case -1:
-			
-			NSBeep();
-			
-			NSBeginAlertSheet(NSLocalizedStringFromTable(@"No signal from the packages_dispatcher process",@"Build",@"No comment"),
-							  nil,
-							  nil,
-							  nil,
-							  [self windowForSheet],
-							  nil,
-							  nil,
-							  nil,
-							  NULL,
-							  NSLocalizedStringFromTable(@"The packages_dispatcher process is not responding. Packages can't build any project when this process is not running.",@"Build",@"No comment"));
-			
-			return NO;
-			
-		case NO:
-			
-			NSBeep();
-			
-			return NO;
-			
-		case YES:
-			
-			building_=YES;
-			
-			break;
+		return NO;
 	}
 	
-	return YES;*/
-	
-	return NO;
+	return YES;
 }
 
 - (BOOL)_requestBuildWithOptions:(PKGBuildOptions)inRequestOptions
@@ -633,7 +598,6 @@ bail:
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
 		
-		
 	}];
 }
 
@@ -662,27 +626,27 @@ bail:
 	if (inNotification==nil)
 		return;
 	
-	NSDictionary * tUserInfo=[inNotification userInfo];
+	NSDictionary * tUserInfo=inNotification.userInfo;
 	
 	if (tUserInfo==nil)
 		return;
 	
 	NSNumber * tNumber=tUserInfo[PKGBuildStepKey];
 	
-	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
 	PKGBuildStep tStep=[tNumber unsignedIntegerValue];
 	
 	NSIndexPath * tStepPath=tUserInfo[PKGBuildStepPathKey];
 	
-	if ([tStepPath isKindOfClass:[NSIndexPath class]]==NO)
+	if ([tStepPath isKindOfClass:NSIndexPath.class]==NO)
 		return;
 	
 	
 	tNumber=tUserInfo[PKGBuildStateKey];
 	
-	if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
 	PKGBuildStepState tState=[tNumber unsignedIntegerValue];
@@ -690,7 +654,7 @@ bail:
 	
 	NSDictionary * tRepresentation=tUserInfo[PKGBuildStepEventRepresentationKey];
 	
-	if (tRepresentation!=nil && [tRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if (tRepresentation!=nil && [tRepresentation isKindOfClass:NSDictionary.class]==NO)
 		return;
 	
 	if (tState==PKGBuildStepStateInfo)
@@ -718,7 +682,7 @@ bail:
 		
 		if (_temporaryProjectURL!=nil)
 		{
-			[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
+			[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL.URLByDeletingLastPathComponent error:NULL];
 			_temporaryProjectURL=nil;
 		}
 		
@@ -744,13 +708,13 @@ bail:
 			
 			if (_temporaryProjectURL!=nil)
 			{
-				[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
+				[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL.URLByDeletingLastPathComponent error:NULL];
 				_temporaryProjectURL=nil;
 			}
 			
 			PKGBuildOrder * tBuildOrder=inNotification.object;
 			
-			if ((tBuildOrder.buildOptions|PKGBuildOptionLaunchAfterBuild)==0)
+			if ((tBuildOrder.buildOptions&PKGBuildOptionLaunchAfterBuild)==0)
 				return;
 			
 			if (_productPath.length==0)
