@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -40,20 +40,20 @@
 {
 	// Advanced Mode
 	
-	[_advancedModeCheckbox setState:([PKGApplicationPreferences sharedPreferences].advancedMode==YES) ? NSOnState: NSOffState];
+	_advancedModeCheckbox.state=([PKGApplicationPreferences sharedPreferences].advancedMode==YES) ? NSOnState: NSOffState;
 	
 	// Apple Mode
 	
-	[_appleModeCheckbox setState:([PKGApplicationPreferences sharedPreferences].appleMode==YES) ? NSOnState: NSOffState];
+	_appleModeCheckbox.state=([PKGApplicationPreferences sharedPreferences].appleMode==YES) ? NSOnState: NSOffState;
 	
 	// Remote Version Check
 	
-	[_remoteVersionCheckerCheckbox setState:([[WBRemoteVersionChecker sharedChecker] isCheckEnabled]==YES) ? NSOnState: NSOffState];
+	_remoteVersionCheckerCheckbox.state=([[WBRemoteVersionChecker sharedChecker] isCheckEnabled]==YES) ? NSOnState: NSOffState;
 }
 
 - (IBAction)switchAdvancedMode:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].advancedMode=([_advancedModeCheckbox state]==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].advancedMode=(_advancedModeCheckbox.state==NSOnState);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification
 														object:nil];
@@ -61,7 +61,7 @@
 
 - (IBAction)switchAppleMode:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].appleMode=([_appleModeCheckbox state]==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].appleMode=(_appleModeCheckbox.state==NSOnState);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPreferencesAdvancedAppleModeStateDidChangeNotification
 														object:nil];
@@ -69,7 +69,7 @@
 
 - (IBAction)switchRemoteVersionCheck:(id) sender
 {
-	[[WBRemoteVersionChecker sharedChecker] setCheckEnabled:([_remoteVersionCheckerCheckbox state]==NSOnState)];
+	[[WBRemoteVersionChecker sharedChecker] setCheckEnabled:(_remoteVersionCheckerCheckbox.state==NSOnState)];
 }
 
 @end

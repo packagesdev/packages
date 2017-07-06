@@ -143,15 +143,15 @@ NSString * const PKGProjectTemplateCompanyIdentifierPrefixKey=@"company.identifi
 		{
 			NSString * tMailAddress=[[tMailProperty valueAtIndex:i] lowercaseString];
 			
-			if ([tMailAddress length]>4)
+			if (tMailAddress.length>4)
 			{
 				NSArray * tMailAddressComponents=[tMailAddress componentsSeparatedByString:@"@"];
 				
-				if ([tMailAddressComponents count]>1)
+				if (tMailAddressComponents.count>1)
 				{
 					NSString * tDomainName=tMailAddressComponents[1];
 					
-					if ([tDomainName length]>3)
+					if (tDomainName.length>3)
 					{
 						// Check it's not a well-known ISP domain name
 						
@@ -199,7 +199,7 @@ NSString * const PKGProjectTemplateCompanyIdentifierPrefixKey=@"company.identifi
 			
 		}];
 		
-		NSMutableArray * tMutableArray=[[_defaultValues allKeys] mutableCopy];
+		NSMutableArray * tMutableArray=[_defaultValues.allKeys mutableCopy];
 		
 		[tMutableArray sortUsingComparator:^NSComparisonResult(NSString * bKey,NSString *bOtherKey){
 			

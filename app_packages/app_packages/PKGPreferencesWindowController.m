@@ -126,11 +126,11 @@ NSString * const PKGPreferencesWindowSelectedPaneIdentifierKey=@"preferences.ui.
 	
 	_currentViewController=tViewController;
 	
-	NSRect tOldWindowFrame=[self.window frame];
+	NSRect tOldWindowFrame=self.window.frame;
 	
 	NSRect tNewContentRect=[[self.window contentView] bounds];
 	
-	tNewContentRect.size=[_currentViewController.view frame].size;
+	tNewContentRect.size=_currentViewController.view.frame.size;
 	
 	NSRect tWindowFrame=[self.window frameRectForContentRect:tNewContentRect];
 	
