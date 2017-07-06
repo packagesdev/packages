@@ -491,6 +491,15 @@
                                     <action selector="separate:" target="-1" id="458"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="zus-R1-RY9">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Show Raw Names" id="L4w-dM-dSV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="switchShowRawNames:" target="-1" id="qRz-3h-s95"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
