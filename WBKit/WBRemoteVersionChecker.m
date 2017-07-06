@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2012, Stephane Sudre
+ Copyright (c) 2012-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -71,7 +71,7 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 		
 		_defaults=[NSUserDefaults standardUserDefaults];
 		
-		if ([_productLocalVersion length]>0)
+		if (_productLocalVersion.length>0)
 		{
 			NSDate * tCurrentDate=[NSDate date];
 			
@@ -140,7 +140,7 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 				}
 			}
 		
-			if ([_productCheckURL length]>0)
+			if (_productCheckURL.length>0)
 			{
 				// Check whether it's time to check for a newer version
 				
@@ -183,7 +183,7 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 
 #pragma mark -
 
-- (BOOL)checkEnabled
+- (BOOL)isCheckEnabled
 {
 	id tObject=[_defaults objectForKey:WBRemoteCheckEnabledKey];
 	
@@ -200,13 +200,13 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 
 #pragma mark - NSURLConnectionDataDelegate
 
-- (void) connection:(NSURLConnection *) inConnection didReceiveResponse:(NSURLResponse *) inResponse
+- (void)connection:(NSURLConnection *)inConnection didReceiveResponse:(NSURLResponse *)inResponse
 {
 	if (inConnection!=nil)
 	{
 		NSHTTPURLResponse * tHTTPResponse=(NSHTTPURLResponse *) inResponse;
 		
-		switch ([tHTTPResponse statusCode])
+		switch (tHTTPResponse.statusCode)
 		{
 			case 200:
 				
@@ -221,7 +221,7 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 	}
 }
 
-- (void) connection:(NSURLConnection *) inConnection didReceiveData:(NSData *) inData
+- (void)connection:(NSURLConnection *)inConnection didReceiveData:(NSData *)inData
 {
     if (inConnection!=nil && inData!=nil)
 	{
@@ -232,13 +232,13 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
     }
 }
 
-- (void) connection:(NSURLConnection *) inConnection didFailWithError:(NSError *) inError
+- (void)connection:(NSURLConnection *)inConnection didFailWithError:(NSError *)inError
 {
 	if (inConnection!=nil)
 		_data=nil;
 }
 
-- (void) connectionDidFinishLoading:(NSURLConnection *) inConnection
+- (void)connectionDidFinishLoading:(NSURLConnection *)inConnection
 {
 	if (inConnection!=nil)
 	{
