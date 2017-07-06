@@ -35,6 +35,10 @@
 - (IBAction)showPackagePayloadTab:(id)sender;
 - (IBAction)showPackageScriptsAndResourcesTab:(id)sender;
 
+// Presentation Menu
+
+- (IBAction)switchShowRawNames:(id)sender;
+
 // Hierarchy Menu
 
 - (IBAction)addFiles:(id)sender;

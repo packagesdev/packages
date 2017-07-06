@@ -706,12 +706,25 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}
 }
 
+- (IBAction)switchShowRawNames:(id)sender
+{
+	[_currentSectionViewController performSelector:@selector(switchShowRawNames:) withObject:sender];
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
 	SEL tAction=inMenuItem.action;
 	
 	if (tAction==@selector(switchInspectedView:))
 		return (inMenuItem.tag!=PKGPresentationInspectorItemPlugIn);
+	
+	if (tAction==@selector(switchShowRawNames:))
+	{
+		if ([_currentSectionViewController isKindOfClass:PKGPresentationSectionInstallationTypeViewController.class]==NO)
+			return NO;
+		
+		return [_currentSectionViewController validateMenuItem:inMenuItem];
+	}
 	
 	return YES;
 }

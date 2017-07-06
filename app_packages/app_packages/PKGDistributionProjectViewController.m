@@ -52,6 +52,10 @@
 - (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;
 - (IBAction)showProjectCommentsTab:(id)sender;
 
+// Presentation Menu
+
+- (IBAction)switchShowRawNames:(id)sender;
+
 // Notifications
 
 - (void)viewDidResize:(NSNotification *)inNotification;
@@ -274,6 +278,13 @@
 	[self showTabViewWithTag:PKGPreferencesGeneralDistributionProjectPaneComments];
 }
 
+#pragma mark - Presentation Menu
+
+- (IBAction)switchShowRawNames:(id)sender
+{
+	[_presentationController switchShowRawNames:sender];
+}
+
 #pragma mark - Project Menu
 
 - (IBAction)selectCertificate:(id)sender
@@ -297,6 +308,14 @@
 		tAction==@selector(removeCertificate:))
 	{
 		if ([_currentContentsViewController isKindOfClass:PKGDistributionProjectSettingsViewController.class]==NO)
+			return NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	if (tAction==@selector(switchShowRawNames:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionPresentationViewController.class]==NO)
 			return NO;
 		
 		return [_currentContentsViewController validateMenuItem:inMenuItem];

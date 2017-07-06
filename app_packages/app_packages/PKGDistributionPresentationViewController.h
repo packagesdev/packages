@@ -23,4 +23,8 @@
 
 	@property (nonatomic) PKGDistributionProjectPresentationSettings * presentationSettings;
 
+// Presentation Menu
+
+- (IBAction)switchShowRawNames:(id)sender;
+
 @end

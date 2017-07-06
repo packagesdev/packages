@@ -188,6 +188,13 @@
 	[_currentContentsViewController performSelector:@selector(showPackageScriptsAndResourcesTab:) withObject:sender];
 }
 
+#pragma mark - Presentation Menu
+
+- (IBAction)switchShowRawNames:(id)sender
+{
+	[_currentContentsViewController performSelector:@selector(switchShowRawNames) withObject:sender];
+}
+
 #pragma mark - Hierarchy Menu
 
 - (IBAction)addFiles:(id)sender
@@ -323,6 +330,16 @@
 		}
 		
 		inMenuItem.hidden=NO;
+		
+		return [_currentContentsViewController validateMenuItem:inMenuItem];
+	}
+	
+	// Presentation Menu
+	
+	if (tAction==@selector(switchShowRawNames:))
+	{
+		if ([_currentContentsViewController isKindOfClass:PKGDistributionProjectViewController.class]==NO)
+			return NO;
 		
 		return [_currentContentsViewController validateMenuItem:inMenuItem];
 	}

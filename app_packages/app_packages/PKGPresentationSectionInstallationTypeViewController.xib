@@ -315,8 +315,8 @@
                 <menuItem isSeparatorItem="YES" id="PwS-Ud-T4c">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
-                <menuItem title="Show Raw Names" keyEquivalent="." id="M7H-0N-Zzy">
-                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                <menuItem title="Show Raw Names" id="M7H-0N-Zzy">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="switchShowRawNames:" target="-2" id="gbq-7x-Nyr"/>
                     </connections>
