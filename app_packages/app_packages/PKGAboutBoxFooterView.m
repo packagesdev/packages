@@ -19,7 +19,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	// Draw background
 	
-	[[NSColor colorWithDeviceWhite:0.898f alpha:1.0f] set];
+	[[NSColor colorWithDeviceWhite:0.898 alpha:1.0] set];
 	
 	NSRectFill(inRect);
 	
@@ -27,9 +27,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSRect tBounds=[self bounds];
 	
-	[[NSColor colorWithDeviceWhite:0.698f alpha:1.0f] set];
+	[[NSColor colorWithDeviceWhite:0.698 alpha:1.0] set];
 	
-	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(inRect),NSMaxY(tBounds)-0.5f) toPoint:NSMakePoint(NSMaxX(inRect),NSMaxY(tBounds)-0.5f)];
+	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(inRect),NSMaxY(tBounds)-0.5) toPoint:NSMakePoint(NSMaxX(inRect),NSMaxY(tBounds)-0.5)];
 }
 
 @end
