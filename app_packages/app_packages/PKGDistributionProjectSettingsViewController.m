@@ -3,6 +3,7 @@
 
 #import "PKGApplicationPreferences.h"
 
+#import "PKGDistributionProject.h"
 #import "PKGDistributionProjectSettings.h"
 
 #import "PKGDistributionProjectSettingsAdvancedOptionsViewController.h"
@@ -15,6 +16,8 @@
 	
 	IBOutlet NSPopUpButton * _buildFormatPopUpButton;
 	
+	IBOutlet NSTextField * _buildFormatWarningLabel;
+	
 	IBOutlet NSView * _advancedOptionsPlaceHolderView;
 	
 	PKGDistributionProjectSettingsAdvancedOptionsViewController * _advancedOptionsViewController;
@@ -25,6 +28,8 @@
 }
 
 - (IBAction)setBuildFormat:(id)sender;
+
+- (void)showBuildFormatWarningLabel:(BOOL)inShow;
 
 // Notifications
 
@@ -74,9 +79,13 @@
 {
 	[super refreshUI];
 	
+	PKGDistributionProjectSettings * tDistributionProjectSettings=(PKGDistributionProjectSettings *)self.projectSettings;
+	
 	// Build Format
 	
-	[_buildFormatPopUpButton selectItemWithTag:((PKGDistributionProjectSettings *)self.projectSettings).buildFormat];
+	[_buildFormatPopUpButton selectItemWithTag:tDistributionProjectSettings.buildFormat];
+	
+	[self showBuildFormatWarningLabel:(tDistributionProjectSettings.buildFormat==PKGProjectBuildFormatFlat)];
 }
 
 - (void)WB_viewWillAppear
@@ -216,6 +225,30 @@
 
 #pragma mark -
 
+- (BOOL)isSignable
+{
+	PKGDistributionProjectSettings * tDistributionProjectSettings=(PKGDistributionProjectSettings *)self.projectSettings;
+	
+	return (tDistributionProjectSettings.buildFormat==PKGProjectBuildFormatFlat);
+}
+
+- (void)showBuildFormatWarningLabel:(BOOL)inShow
+{
+	if (inShow==YES)
+	{
+		PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)self.documentProject;
+		
+		if ([tDistributionProject.presentationSettings containsInstallerPluginSection]==YES)
+		{
+			_buildFormatWarningLabel.hidden=NO;
+				
+			return;
+		}
+	}
+	
+	_buildFormatWarningLabel.hidden=YES;
+}
+
 - (IBAction)setBuildFormat:(NSPopUpButton *)sender
 {
 	PKGProjectBuildFormat tBuildFormat=sender.selectedItem.tag;
@@ -225,6 +258,8 @@
 	if (tDistributionProjectSettings.buildFormat!=tBuildFormat)
 	{
 		tDistributionProjectSettings.buildFormat=tBuildFormat;
+		
+		[self showBuildFormatWarningLabel:(tBuildFormat==PKGProjectBuildFormatFlat)];
 		
 		[self noteDocumentHasChanged];
 	}
