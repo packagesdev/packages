@@ -50,4 +50,6 @@
 
 	@property PKGPresentationSummaryStepSettings * summarySettings;
 
+- (BOOL)containsInstallerPluginSection;
+
 @end

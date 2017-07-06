@@ -391,4 +391,17 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 	return tDescription;
 }
 
+#pragma mark -
+
+- (BOOL)containsInstallerPluginSection
+{
+	for(PKGPresentationSection * tSection in self.sections)
+	{
+		if (tSection.isPlugin==YES)
+			return YES;
+	}
+	
+	return NO;
+}
+
 @end
