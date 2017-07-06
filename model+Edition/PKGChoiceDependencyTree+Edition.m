@@ -15,6 +15,19 @@
 
 @implementation PKGChoiceDependencyPredicateValues
 
+- (NSUInteger)hash
+{
+	return ([self.choiceUUID hash]+(self.referenceState<<6));
+}
+
+- (BOOL)isEqual:(PKGChoiceDependencyPredicateValues *)inOtherPredicateValues
+{
+	if ([inOtherPredicateValues isKindOfClass:PKGChoiceDependencyPredicateValues.class]==NO)
+		return NO;
+	
+	return ([self.choiceUUID isEqualToString:inOtherPredicateValues.choiceUUID]==YES && self.referenceState==inOtherPredicateValues.referenceState);
+}
+
 @end
 
 @implementation PKGChoiceDependencyTree (Edition)
