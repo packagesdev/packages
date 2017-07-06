@@ -227,7 +227,7 @@
 		
 		PKGChoiceTreeNode * tChoiceNode=bDependencyRecord.choiceTreeNode;
 		
-		NSString * tChoiceIndexString=[NSString stringWithFormat:NSLocalizedString(@"Choice %@",@""),[self.choicesForest indentationStringForTreeNode:tChoiceNode]];
+		NSString * tChoiceIndexString=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Choice %@",@"Presentation",@""),[self.choicesForest indentationStringForTreeNode:tChoiceNode]];
 			
 		[tMutableArray addObject:tChoiceIndexString];
 	}];
@@ -251,7 +251,7 @@
 		
 		PKGChoiceTreeNode * tChoiceNode=bDependencyRecord.choiceTreeNode;
 		
-		NSString * tChoiceIndexString=[NSString stringWithFormat:NSLocalizedString(@"Choice %@",@""),[self.choicesForest indentationStringForTreeNode:tChoiceNode]];
+		NSString * tChoiceIndexString=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Choice %@",@"Presentation",@""),[self.choicesForest indentationStringForTreeNode:tChoiceNode]];
 		
 		PKGAvailableChoiceRecord * tAvailableChoiceRecord=[PKGAvailableChoiceRecord new];
 		tAvailableChoiceRecord.choiceUUID=bUUID;
@@ -275,7 +275,7 @@
 		
 		PKGChoiceTreeNode * tChoiceNode=bDependencyRecord.choiceTreeNode;
 		
-		NSString * tChoiceIndexString=[NSString stringWithFormat:NSLocalizedString(@"Choice %@",@""),[self.choicesForest indentationStringForTreeNode:tChoiceNode]];
+		NSString * tChoiceIndexString=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Choice %@",@"Presentation",@""),[self.choicesForest indentationStringForTreeNode:tChoiceNode]];
 		
 		tMutableDictionary[bUUID]=tChoiceIndexString;
 	}];
@@ -330,7 +330,7 @@
 	{
 		// Set the Text Label
 		
-		_choiceEnabledDependencyTextLabel.stringValue=NSLocalizedString(@"Choice is enabled when:",@"");
+		_choiceEnabledDependencyTextLabel.stringValue=NSLocalizedStringFromTable(@"Choice is enabled when:",@"Presentation",@"");
 		
 		[_choiceEnabledDependencyTextLabel sizeToFit];
 		
@@ -348,7 +348,7 @@
 	{
 		// Set the Text Label
 		
-		_choiceEnabledDependencyTextLabel.stringValue=NSLocalizedString(@"Choice is ",@"");
+		_choiceEnabledDependencyTextLabel.stringValue=NSLocalizedStringFromTable(@"Choice is ",@"Presentation",@"");
 		
 		[_choiceEnabledDependencyTextLabel sizeToFit];
 		
@@ -458,13 +458,13 @@
 {
 	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
 	
-	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"And",@"") action:nil keyEquivalent:@""];
+	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"And",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGLogicOperatorTypeConjunction;
 		
 	[tMenu addItem:tMenuItem];
 	
 	
-	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Or",@"") action:nil keyEquivalent:@""];
+	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Or",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGLogicOperatorTypeDisjunction;
 		
 	[tMenu addItem:tMenuItem];
@@ -476,13 +476,13 @@
 {
 	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
 	
-	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Is",@"") action:nil keyEquivalent:@""];
+	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Is",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateOperatorTypeEqualTo;
 		
 	[tMenu addItem:tMenuItem];
 	
 	
-	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Is Not",@"") action:nil keyEquivalent:@""];
+	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Is Not",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateOperatorTypeNotEqualTo;
 		
 	[tMenu addItem:tMenuItem];
@@ -494,12 +494,12 @@
 {
 	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
 	
-	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Enabled",@"") action:nil keyEquivalent:@""];
+	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Enabled",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateReferenceStateEnabled;
 		
 	[tMenu addItem:tMenuItem];
 	
-	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Selected",@"") action:nil keyEquivalent:@""];
+	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Selected",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateReferenceStateSelected;
 		
 	[tMenu addItem:tMenuItem];
@@ -1296,7 +1296,7 @@
 		return NO;
 	}
 	
-	return NO;
+	return YES;
 }
 
 #pragma mark -
