@@ -15,7 +15,7 @@
 
 @interface PKGProjectMainViewController ()
 
-- (IBAction)build:(id)sender;
+//- (IBAction)build:(id)sender;
 
 @end
 
@@ -63,6 +63,12 @@
 {
 }
 
+#pragma mark - Presentation Menu
+
+- (IBAction)switchShowRawNames:(id)sender
+{
+}
+
 #pragma mark - Hierarchy Menu
 
 - (IBAction)addFiles:(id)sender
@@ -99,9 +105,9 @@
 
 #pragma mark - Project Menu
 
-- (IBAction)build:(id)sender
+/*- (IBAction)build:(id)sender
 {
 	// A COMPLETER
-}
+}*/
 
 @end
