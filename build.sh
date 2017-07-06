@@ -98,6 +98,8 @@ popd
 
 pushd app_packages
 
+/usr/bin/xcrun agvtool next-version -all
+
 /usr/bin/xcodebuild -project "app_packages.xcodeproj" clean build -configuration Release -scheme "app_packages" -derivedDataPath "$ABSOLUTE_BUILD_PATH" CONFIGURATION_BUILD_DIR="$ABSOLUTE_BUILD_PATH"
 
 pushd
