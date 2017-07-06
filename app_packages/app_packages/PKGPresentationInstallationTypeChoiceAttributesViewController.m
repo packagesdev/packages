@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	}
 	
 	_localizedDescriptionsViewController.view.frame=_descriptionsSectionView.bounds;
-	_localizedDescriptionsViewController.tableView.rowHeight=40.0;
+	_localizedDescriptionsViewController.tableView.rowHeight=60.0;
 	
 	
 	[_descriptionsSectionView addSubview:_localizedDescriptionsViewController.view];
