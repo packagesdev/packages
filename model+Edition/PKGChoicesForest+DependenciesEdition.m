@@ -246,7 +246,7 @@
 	
 	while (tDependentChoicesArray.count>0)
 	{
-		NSDictionary * tStateDependencyDictionary=tDependentChoicesArray.firstObject;
+		PKGChoiceDependencyPredicateValues * tDependencyPredicateValues=tDependentChoicesArray.firstObject;
 		
 		for(NSString * tKey in tAvailableDependenciesDictionary.allKeys)
 		{
@@ -262,7 +262,7 @@
 				
 				if (tSelectedDependencies!=nil)
 				{
-					if ([tSelectedDependencies containsObject:tStateDependencyDictionary]==YES)
+					if ([tSelectedDependencies containsObject:tDependencyPredicateValues]==YES)
 					{
 						tPredicateValues=[PKGChoiceDependencyPredicateValues new];
 						tPredicateValues.choiceUUID=tKey;
@@ -281,7 +281,7 @@
 			
 			if (tEnabledDependencies!=nil)
 			{
-				if ([tEnabledDependencies containsObject:tStateDependencyDictionary]==YES)
+				if ([tEnabledDependencies containsObject:tDependencyPredicateValues]==YES)
 				{
 					tPredicateValues=[PKGChoiceDependencyPredicateValues new];
 					tPredicateValues.choiceUUID=tKey;
