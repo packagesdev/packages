@@ -43,22 +43,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button verticalHuggingPriority="750" id="30">
-                                <rect key="frame" x="422" y="8" width="143" height="28"/>
+                                <rect key="frame" x="410" y="11" width="150" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="push" title="License Agreement" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="38">
+                                <buttonCell key="cell" type="squareTextured" title="License Agreement" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="38">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="showLicenseAgreement:" target="-2" id="33"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" id="29">
-                                <rect key="frame" x="285" y="8" width="136" height="28"/>
+                                <rect key="frame" x="252" y="11" width="150" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="push" title="Acknowledgments" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="37">
+                                <buttonCell key="cell" type="squareTextured" title="Acknowledgments" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="37">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="showAcknowledgments:" target="-2" id="32"/>
@@ -67,16 +67,16 @@
                         </subviews>
                     </customView>
                     <textField verticalHuggingPriority="750" id="31">
-                        <rect key="frame" x="297" y="104" width="283" height="26"/>
+                        <rect key="frame" x="297" y="104" width="265" height="26"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Copyright © 2009-2017 Stéphane Sudre. All rights reserved." id="39">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="© 2009-2017 Stéphane Sudre. All rights reserved." id="39">
                             <font key="font" metaFont="label"/>
                             <color key="textColor" white="0.61678833" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="mVD-7W-2d7">
-                        <rect key="frame" x="300" y="216" width="163" height="17"/>
+                        <rect key="frame" x="302" y="216" width="163" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="version xxx (xxxx)" id="qU8-bS-xGU">
                             <font key="font" metaFont="system"/>

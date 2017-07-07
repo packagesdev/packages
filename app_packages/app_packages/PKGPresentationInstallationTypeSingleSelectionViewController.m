@@ -183,7 +183,6 @@
 			}
 			else
 			{
-				
 				_choiceIconView.image=[NSImage imageNamed:@"checkboxgroupUbuntu"];
 				
 				_choicePackageNameLabel.stringValue=NSLocalizedStringFromTable(@"Group of Choices", @"Presentation",@"");
