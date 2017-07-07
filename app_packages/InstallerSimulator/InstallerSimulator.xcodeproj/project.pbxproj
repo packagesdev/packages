@@ -12,6 +12,7 @@
 
 /* Begin PBXFileReference section */
 		F456CA1A1F0EBB8300B9D1DE /* hi */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F45E7E551F100F7C005641CD /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4A5EE0C1E9EE4EE00A73843 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4AED1D11E9EE31A007B5031 /* InstallerSimulator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstallerSimulator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C52A241E9EE51E00ED82ED /* ar */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		F4D135AB1E9EE5E30017DCB9 /* vi */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135AC1E9EE5EB0017DCB9 /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135AD1E9EE5EF0017DCB9 /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4DA62331E9F899B007E5319 /* es_MX */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es_MX; path = es_MX.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +65,7 @@
 		F4AED1C81E9EE31A007B5031 = {
 			isa = PBXGroup;
 			children = (
-				F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */,
+				F45E7E551F100F7C005641CD /* SharedConfigurationSettings.xcconfig */,
 				F4AED1D31E9EE31A007B5031 /* InstallerSimulator */,
 				F4AED1D21E9EE31A007B5031 /* Products */,
 			);
@@ -251,7 +251,7 @@
 /* Begin XCBuildConfiguration section */
 		F4AED1D61E9EE31A007B5031 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */;
+			baseConfigurationReference = F45E7E551F100F7C005641CD /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -286,7 +286,7 @@
 		};
 		F4AED1D71E9EE31A007B5031 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4D135B71E9EE6820017DCB9 /* SharedConfigurationSettings.xcconfig */;
+			baseConfigurationReference = F45E7E551F100F7C005641CD /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
