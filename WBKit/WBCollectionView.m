@@ -69,7 +69,7 @@ NSString * const WBCollectionViewSelectionDidChangeNotification=@"WBCollectionVi
 {
 	NSPoint tPoint = [self convertPoint:inEvent.locationInWindow fromView:nil];
 	
-	for(NSView * tView in [self subviews])
+	for(NSView * tView in self.subviews)
 	{
 		if (NSPointInRect(tPoint, tView.frame)==YES)
 		{
