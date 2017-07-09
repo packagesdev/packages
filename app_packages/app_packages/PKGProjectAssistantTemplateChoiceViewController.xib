@@ -86,7 +86,7 @@
                     </scroller>
                 </scrollView>
             </subviews>
-            <point key="canvasLocation" x="599" y="430.5"/>
+            <point key="canvasLocation" x="731" y="411.5"/>
         </customView>
         <collectionViewItem nibName="PKGProjectTemplateCollectionViewItem" id="dqE-nn-aIj" customClass="PKGProjectTemplateCollectionViewItem"/>
     </objects>
