@@ -11,55 +11,20 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGDistributionProjectSettingsAdvancedOptionsItem.h"
+#import <Foundation/Foundation.h>
+
+#import "PKGObjectProtocol.h"
 
 #import "PKGPackagesError.h"
 
-NSString * const PKGDistributionProjectSettingsAdvancedOptionsItemIDKey=@"ID";
+@interface PKGDistributionProjectSettingsAdvancedOptionObject : NSObject <PKGObjectProtocol>
 
-@interface PKGDistributionProjectSettingsAdvancedOptionsItem ()
+	@property (readonly) NSString * title;
 
-	@property (readwrite) NSString * itemID;
+	@property (nonatomic,readonly) BOOL supportsAdvancedEditor;
 
-@end
+	@property (nonatomic,readonly) NSDictionary * advancedEditorRepresentation;
 
-@implementation PKGDistributionProjectSettingsAdvancedOptionsItem
-
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
-{
-	if (inRepresentation==nil)
-	{
-		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationNilRepresentationError userInfo:nil];
-		
-		return nil;
-	}
-	
-	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
-	{
-		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
-		
-		return nil;
-	}
-	
-	self=[super init];
-	
-	if (self!=nil)
-	{
-		NSString * tString=inRepresentation[PKGDistributionProjectSettingsAdvancedOptionsItemIDKey];
-		
-		PKGFullCheckStringValueForKey(tString,PKGDistributionProjectSettingsAdvancedOptionsItemIDKey);
-		
-		_itemID=[tString copy];
-	}
-	
-	return self;
-}
-
-- (NSMutableDictionary *) representation
-{
-	return [NSMutableDictionary dictionary];
-}
++ (NSDictionary *)advancedOptionsRegistryWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError;
 
 @end

@@ -20,11 +20,13 @@
 #import "PKGTableGroupRowView.h"
 #import "PKGCheckboxTableCellView.h"
 
-#import "PKGDistributionProjectSettingsAdvancedOptionsObject.h"
-#import "PKGDistributionProjectSettingsAdvancedOptionsHeader.h"
-#import "PKGDistributionProjectSettingsAdvancedOptionsBoolean.h"
-#import "PKGDistributionProjectSettingsAdvancedOptionsString.h"
-#import "PKGDistributionProjectSettingsAdvancedOptionsList.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionObject.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionHeader.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionBoolean.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionString.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionList.h"
+
+#import "PKGAdvancedOptionPanel.h"
 
 NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKey=@"ui.project.settings.options.advanced.disclosed";
 
@@ -137,14 +139,99 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 {
 	NSUInteger tClickedColumn=self.outlineView.clickedColumn;
 	
-	if (tClickedColumn!=[self.outlineView columnWithIdentifier:@"advanced.value"])
+	if (tClickedColumn!=[self.outlineView columnWithIdentifier:@"advanced.key"])
 		return;
 	
 	NSLog(@"good column double-clicked");
 	
 	NSUInteger tClickedRow=self.outlineView.clickedRow;
 	
-	// A COMPLETER
+	
+	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tClickedRow];
+	
+	PKGDistributionProjectSettingsAdvancedOptionObject * tObject=[self.advancedOptionsDataSource advancedOptionsObjectForItem:tAdvancedOptionsTreeNode];
+	
+	if (tObject.supportsAdvancedEditor==NO)
+		return;
+	
+	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
+	
+	PKGAdvancedOptionPanel * tAdvancedOptionPanel=[PKGAdvancedOptionPanel advancedOptionPanel];
+	
+	tAdvancedOptionPanel.optionValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
+	tAdvancedOptionPanel.advancedOptionObject=tObject;
+	
+	[tAdvancedOptionPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult) {
+		
+		if (bResult==PKGPanelCancelButton)
+			return;
+		
+		self.advancedOptionsSettings[tRepresentedObject.itemID]=tAdvancedOptionPanel.optionValue;
+		
+		// Reload row
+		
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:tClickedRow];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"advanced.value"]];
+		
+		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+		
+		[self noteDocumentHasChanged];
+	}];
+	
+	/*
+	
+	
+	
+	- (id)advancedOptionsObjectForItem:(id)inItem;
+	
+	// A COMPLETER*/
+	
+	/*
+	 ICProjectSettingsAdvancedOptionsNodeData * tNodeData;
+	 
+	 tNodeData=(ICProjectSettingsAdvancedOptionsNodeData *) ADVANCED_OPTIONS_NODE_DATA(inItem);
+	 
+	 if (tNodeData!=nil)
+	 {
+	 NSString * tColumnIdentifier;
+	 
+	 tColumnIdentifier=[inTableColumn identifier];
+	 
+	 if (tColumnIdentifier!=nil)
+	 {
+	 NSString * tKey;
+	 NSDictionary * tOptionDescription;
+	 
+	 tKey=[tNodeData ID];
+	 
+	 tOptionDescription=[cachedOptionsDescription_ objectForKey:tKey];
+	 
+	 if ([tColumnIdentifier isEqualToString: @"Key"])
+	 {
+	 NSNumber * tNumber;
+	 
+	 tNumber=[tOptionDescription objectForKey:@"ADVANCED_EDITOR"];
+	 
+	 if (tNumber!=nil && [tNumber boolValue]==YES)
+	 {
+	 NSString * tType;
+	 
+	 tType=[tOptionDescription objectForKey:@"TYPE"];
+	 
+	 if ([tType isEqualToString:@"List"]==YES)
+	 {
+	 currentAdvancedOptionsEditor_=[ICProjectSettingsAdvancedOptionsListEditor showEditorForWindow:[[self view] window]
+	 key:tKey
+	 value:[cachedAdvancedOptions_ objectForKey:tKey]
+	 description:[tOptionDescription objectForKey:@"EDITOR"]
+	 delegate:self];
+	 }
+	 
+	 return YES;
+	 }
+	 }
+	 }
+	 }*/
 }
 
 #pragma mark -
@@ -249,11 +336,11 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	
 	NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	
-	PKGDistributionProjectSettingsAdvancedOptionsObject * tObject=[self.advancedOptionsDataSource advancedOptionsObjectForItem:inAdvancedOptionsTreeNode];
+	PKGDistributionProjectSettingsAdvancedOptionObject * tObject=[self.advancedOptionsDataSource advancedOptionsObjectForItem:inAdvancedOptionsTreeNode];
 	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[inAdvancedOptionsTreeNode representedObject];
 	if ([inAdvancedOptionsTreeNode isLeaf]==NO)
 	{
-		PKGDistributionProjectSettingsAdvancedOptionsHeader * tHeader=(PKGDistributionProjectSettingsAdvancedOptionsHeader *)tObject;
+		PKGDistributionProjectSettingsAdvancedOptionHeader * tHeader=(PKGDistributionProjectSettingsAdvancedOptionHeader *)tObject;
 		
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
@@ -274,7 +361,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	
 	if ([tTableColumnIdentifier isEqualToString:@"advanced.value"]==YES)
 	{
-		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsBoolean.class]==YES)
+		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionBoolean.class]==YES)
 		{
 			PKGCheckboxTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.checkbox" owner:self];
 			tView.checkbox.action=@selector(setBooleanOptionValue:);
@@ -302,7 +389,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 			return tView;
 		}
 		
-		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsString.class]==YES)
+		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionString.class]==YES)
 		{
 			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
 			tView.textField.action=@selector(setStringOptionValue:);
@@ -330,10 +417,10 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 			return tView;
 		}
 		
-		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionsList.class]==YES)
+		if ([tObject isKindOfClass:PKGDistributionProjectSettingsAdvancedOptionList.class]==YES)
 		{
 			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
-			tView.textField.action=@selector(setListOptionValue::);
+			tView.textField.action=@selector(setListOptionValue:);
 			tView.textField.target=self;
 			
 			NSArray * tArrayValue=self.advancedOptionsSettings[tRepresentedObject.itemID];

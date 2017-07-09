@@ -20,7 +20,7 @@
 
 #import "NSOutlineView+Selection.h"
 
-#import "PKGDistributionProjectSettingsAdvancedOptionsObject.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionObject.h"
 
 NSString * const PKGDistributionProjectSettingsAdvancedOptionsTreeKey=@"OPTIONS_TREE";
 
@@ -88,7 +88,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 			return nil;
 		}
 		
-		_advancedOptionsDescriptions=[PKGDistributionProjectSettingsAdvancedOptionsObject advancedOptionsRegistryWithRepresentation:tDictionary[PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey] error:&tError];
+		_advancedOptionsDescriptions=[PKGDistributionProjectSettingsAdvancedOptionObject advancedOptionsRegistryWithRepresentation:tDictionary[PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey] error:&tError];
 		
 		if (_advancedOptionsDescriptions==nil)
 		{

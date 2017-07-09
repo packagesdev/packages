@@ -11,55 +11,52 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGDistributionProjectSettingsAdvancedOptionsItem.h"
+#import "PKGDistributionProjectSettingsAdvancedOptionBoolean.h"
 
-#import "PKGPackagesError.h"
+NSString * const PKGDistributionProjectSettingsAdvancedOptionsBooleanDontSetNoKey=@"BOOLEAN-DONT-SET-NO";
 
-NSString * const PKGDistributionProjectSettingsAdvancedOptionsItemIDKey=@"ID";
+@interface PKGDistributionProjectSettingsAdvancedOptionBoolean ()
 
-@interface PKGDistributionProjectSettingsAdvancedOptionsItem ()
-
-	@property (readwrite) NSString * itemID;
+	@property (readwrite) BOOL dontSetNO;
 
 @end
 
-@implementation PKGDistributionProjectSettingsAdvancedOptionsItem
+@implementation PKGDistributionProjectSettingsAdvancedOptionBoolean
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
-	if (inRepresentation==nil)
+	NSError * tError=nil;
+	
+	self=[super initWithRepresentation:inRepresentation error:&tError];
+	
+	if (self==nil)
 	{
 		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationNilRepresentationError userInfo:nil];
-		
-		return nil;
+			*outError=tError;
 	}
 	
-	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
+	NSNumber * tNumber=inRepresentation[PKGDistributionProjectSettingsAdvancedOptionsBooleanDontSetNoKey];
+	
+	if (tNumber!=nil)
 	{
-		if (outError!=NULL)
-			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
-		
-		return nil;
+		if ([tNumber isKindOfClass:NSNumber.class]==NO)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGDistributionProjectSettingsAdvancedOptionsBooleanDontSetNoKey}];
+			
+			return nil;
+		}
+	
+		_dontSetNO=[tNumber boolValue];
 	}
-	
-	self=[super init];
-	
-	if (self!=nil)
+	else
 	{
-		NSString * tString=inRepresentation[PKGDistributionProjectSettingsAdvancedOptionsItemIDKey];
-		
-		PKGFullCheckStringValueForKey(tString,PKGDistributionProjectSettingsAdvancedOptionsItemIDKey);
-		
-		_itemID=[tString copy];
+		_dontSetNO=NO;
 	}
-	
+		
 	return self;
-}
-
-- (NSMutableDictionary *) representation
-{
-	return [NSMutableDictionary dictionary];
 }
 
 @end
