@@ -383,7 +383,7 @@
 	
 	[tPanel beginSheetModalForWindow:inView.fileHierarchyOutlineView.window completionHandler:^(NSInteger bReturnCode){
 		
-		if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+		if (bReturnCode==PKGPanelCancelButton)
 			return;
 		
 		PKGPayloadAddOptions tOptions=0;

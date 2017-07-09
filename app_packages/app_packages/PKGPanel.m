@@ -30,7 +30,7 @@
 	
 	if (tEvent!=nil)
 	{
-		NSUInteger tModifierFlags=[tEvent modifierFlags];
+		NSUInteger tModifierFlags=tEvent.modifierFlags;
 		
 		BOOL isDown=((tModifierFlags & NSAlternateKeyMask) == NSAlternateKeyMask);
 		
@@ -47,7 +47,7 @@
 	[super becomeKeyWindow];
 }
 
-- (void) resignKeyWindow
+- (void)resignKeyWindow
 {
 	if (_optionKeyDown==YES)
 	{
@@ -63,12 +63,12 @@
 	[super resignKeyWindow];
 }
 
-- (void) flagsChanged:(NSEvent *) inEvent
+- (void)flagsChanged:(NSEvent *) inEvent
 {
 	if (inEvent==nil)
 		return;
 
-	NSUInteger tModifierFlags=[inEvent modifierFlags];
+	NSUInteger tModifierFlags=inEvent.modifierFlags;
 	
 	BOOL isDown=((tModifierFlags & NSAlternateKeyMask) == NSAlternateKeyMask);
 	

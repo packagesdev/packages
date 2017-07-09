@@ -1204,7 +1204,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
 			
-			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+			if (bReturnCode==PKGPanelCancelButton)
 				return;
 			
 			PKGPayloadAddOptions tOptions=0;
@@ -1288,7 +1288,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
 			
-			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+			if (bReturnCode==PKGPanelCancelButton)
 				return;
 			
 			insertNewItems(tPanel.referenceStyle);

@@ -227,7 +227,7 @@
 		
 		[tPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bReturnCode){
 			
-			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+			if (bReturnCode==PKGPanelCancelButton)
 				return;
 			
 			NSInteger tPathType=tPanel.referenceStyle;
@@ -284,7 +284,7 @@
 	
 	[tPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bReturnCode){
 		
-		if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+		if (bReturnCode==PKGPanelCancelButton)
 			return;
 		
 		NSInteger tPathType=tPanel.referenceStyle;

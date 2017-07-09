@@ -171,7 +171,7 @@
 			
 			[tPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode){
 				
-				if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+				if (bReturnCode==PKGPanelCancelButton)
 					return;
 				
 				PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:inPath type:[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle];

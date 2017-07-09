@@ -1116,7 +1116,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		 
 		[tPanel beginSheetModalForWindow:_listView.window completionHandler:^(NSInteger bReturnCode){
 			
-			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+			if (bReturnCode==PKGPanelCancelButton)
 				return;
 			
 			importPlugins(tPanel.referenceStyle);
@@ -1258,7 +1258,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		[tPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode){
 			
-			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+			if (bReturnCode==PKGPanelCancelButton)
 				return;
 			
 			PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:tPath type:tPanel.referenceStyle];

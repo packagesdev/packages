@@ -307,7 +307,7 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 		
 		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
 			
-			if (bReturnCode==PKGOwnershipAndReferenceStylePanelCancelButton)
+			if (bReturnCode==PKGPanelCancelButton)
 				return;
 			
 			PKGFilePathType tFileType=tPanel.referenceStyle;
