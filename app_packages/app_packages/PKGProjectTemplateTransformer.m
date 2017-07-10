@@ -88,7 +88,7 @@ NSString * const PKGProjectTemplateTransformerYearKey=@"YEAR";
 	
 	NSMutableDictionary * tMutableKeywordsDictionary=[NSMutableDictionary dictionary];
 	
-	tMutableKeywordsDictionary[PKGProjectTemplateTransformerUUIDKey]=[NSUUID UUID].UUIDString;
+	tMutableKeywordsDictionary[PKGProjectTemplateTransformerUUIDKey]=[[NSUUID UUID] UUIDString];
 	tMutableKeywordsDictionary[PKGProjectTemplateTransformerProjectNameKey]=self.outputDocumentName;
 	tMutableKeywordsDictionary[PKGProjectTemplateTransformerProjectNameDNRKey]=[PKGProjectTemplateTransformer _filteredProjectName:self.outputDocumentName];
 	tMutableKeywordsDictionary[PKGProjectTemplateTransformerProjectPathKey]=[self.outputDirectory stringByExpandingTildeInPath];

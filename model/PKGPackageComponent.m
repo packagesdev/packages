@@ -51,7 +51,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	
 	if (nProjectComponent!=nil)
 	{
-		nProjectComponent.UUID=[NSUUID UUID].UUIDString;
+		nProjectComponent.UUID=[[NSUUID UUID] UUIDString];
 		nProjectComponent.type=PKGPackageComponentTypeProject;
 		nProjectComponent.importPath=nil;
 		
@@ -67,7 +67,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	
 	if (nReferenceComponent!=nil)
 	{
-		nReferenceComponent.UUID=[NSUUID UUID].UUIDString;
+		nReferenceComponent.UUID=[[NSUUID UUID] UUIDString];
 		nReferenceComponent.type=PKGPackageComponentTypeReference;
 		nReferenceComponent.importPath=nil;
 		
@@ -86,7 +86,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	
 	if (nImportedComponent!=nil)
 	{
-		nImportedComponent.UUID=[NSUUID UUID].UUIDString;
+		nImportedComponent.UUID=[[NSUUID UUID] UUIDString];
 		nImportedComponent.type=PKGPackageComponentTypeImported;
 		nImportedComponent.importPath=inFilePath;
 		
@@ -113,7 +113,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	
 	if (self!=nil)
 	{
-		_UUID=[NSUUID UUID].UUIDString;
+		_UUID=[[NSUUID UUID] UUIDString];
 		_type=PKGPackageComponentTypeProject;
 		_importPath=nil;
 		
@@ -347,7 +347,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 	
 	if (nPackageComponent!=nil)
 	{
-		nPackageComponent.UUID=[NSUUID UUID].UUIDString;
+		nPackageComponent.UUID=[[NSUUID UUID] UUIDString];
 		
 		nPackageComponent.type=self.type;
 		
