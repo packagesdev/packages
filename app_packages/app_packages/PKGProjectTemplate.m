@@ -15,6 +15,8 @@
 
 #import "NSImage+Tint.h"
 
+#import "NSArray+WBExtensions.h"
+
 NSString * const PKGProjectTemplateNameKey=@"PKGProjectTemplateName";
 
 NSString * const PKGProjectTemplateDescriptionKey=@"PKGProjectTemplateDescription";
