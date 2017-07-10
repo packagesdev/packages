@@ -15,7 +15,7 @@
 
 #import "PKGApplicationPreferences.h"
 
-#import "PKGProjectAssistantTemplateChoiceViewController.h"
+#import "PKGProjectTemplateAssistantChoiceViewController.h"
 
 #import "PKGProjectTemplateAssistantSettingsKeys.h"
 
@@ -52,7 +52,7 @@
 
 - (NSViewController *)rootViewController
 {
-	return [PKGProjectAssistantTemplateChoiceViewController new];
+	return [PKGProjectTemplateAssistantChoiceViewController new];
 }
 
 #pragma mark -
@@ -99,12 +99,12 @@
 		
 		[[NSFileManager defaultManager] setAttributes:@{NSFileExtensionHidden:@(YES)} ofItemAtPath:bProjectFilePath error:&tError];
 		
-		/*[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:bProjectFilePath]
+		[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:bProjectFilePath]
 																			   display:YES
 																	 completionHandler:^(NSDocument * bDocument,BOOL bDocumentWasAlreadyOpen, NSError * bError){
 		
 			// A COMPLETER
-		}];*/
+		}];
 	};
 	
 	tTransformer.errorHandler=^(NSError *bError,PKGProjectTemplateTransformationStep bStep){

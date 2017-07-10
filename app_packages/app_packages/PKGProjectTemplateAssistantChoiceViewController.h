@@ -3,7 +3,7 @@
 
 #import "PKGProjectTemplate.h"
 
-@interface PKGProjectAssistantTemplateChoiceViewController : PKGAssistantStepViewController
+@interface PKGProjectTemplateAssistantChoiceViewController : PKGAssistantStepViewController
 
 	@property (readonly) PKGProjectTemplate * selectedProjectTemplate;
 

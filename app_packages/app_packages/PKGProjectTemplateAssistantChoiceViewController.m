@@ -1,5 +1,5 @@
 
-#import "PKGProjectAssistantTemplateChoiceViewController.h"
+#import "PKGProjectTemplateAssistantChoiceViewController.h"
 
 #import "PKGProjectAssistantFinishViewController.h"
 
@@ -7,7 +7,7 @@
 
 #import "PKGProjectTemplateAssistantSettingsKeys.h"
 
-@interface PKGProjectAssistantTemplateChoiceViewController () <WBCollectionViewDelegate>
+@interface PKGProjectTemplateAssistantChoiceViewController () <WBCollectionViewDelegate>
 {
 	IBOutlet WBCollectionView * _collectionView;
 	
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation PKGProjectAssistantTemplateChoiceViewController
+@implementation PKGProjectTemplateAssistantChoiceViewController
 
 - (instancetype)init
 {
