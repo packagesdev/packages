@@ -19,17 +19,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	// Draw background
 	
-	[[NSColor colorWithDeviceWhite:0.94 alpha:1.0] set];
+	[[NSColor colorWithDeviceWhite:0.898 alpha:1.0] set];
 	
 	NSRectFill(inRect);
 	
 	// Draw top line
 	
-	/*NSRect tBounds=[self bounds];
+	NSRect tBounds=[self bounds];
 	
 	[[NSColor colorWithDeviceWhite:0.698 alpha:1.0] set];
 	
-	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(inRect),NSMaxY(tBounds)-0.5) toPoint:NSMakePoint(NSMaxX(inRect),NSMaxY(tBounds)-0.5)];*/
+	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(inRect),NSMaxY(tBounds)-0.5) toPoint:NSMakePoint(NSMaxX(inRect),NSMaxY(tBounds)-0.5)];
 }
 
 @end
