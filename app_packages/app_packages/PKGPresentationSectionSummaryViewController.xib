@@ -57,7 +57,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <textField verticalHuggingPriority="750" id="rFK-BH-Uri">
-                            <rect key="frame" x="17" y="30" width="387" height="125"/>
+                            <rect key="frame" x="-2" y="30" width="425" height="125"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Content Text &lt;&lt;DO NOT LOCALIZE&gt;&gt;" id="XWX-mp-5jv">
                                 <font key="font" metaFont="system"/>
@@ -66,10 +66,10 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="ImR-4K-eBb">
-                            <rect key="frame" x="20" y="182" width="381" height="29"/>
+                            <rect key="frame" x="-2" y="182" width="425" height="29"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="&lt;&lt;DO NOT LOCALIZE&gt;&gt;" id="988-j7-ILa">
-                                <font key="font" metaFont="systemBold" size="24"/>
+                                <font key="font" metaFont="systemBold" size="22"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
