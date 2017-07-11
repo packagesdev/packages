@@ -15,6 +15,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import <QuartzCore/CoreImage.h>
 
+#import "NSArray+WBExtensions.h"
+
 @implementation NSImage (Tint)
 
 - (NSImage *)WB_tintWithColor:(NSColor *)inColor
@@ -42,7 +44,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		[tMonochromeFilter setValue:tInputImage forKey:@"inputImage"];
 			
-		CIImage * tOutPutImage=tMonochromeFilter.outputImage;
+		CIImage * tOutPutImage=[tMonochromeFilter valueForKey:@"outputImage"];
 			
 		if (tOutPutImage==nil)
 			return nil;
