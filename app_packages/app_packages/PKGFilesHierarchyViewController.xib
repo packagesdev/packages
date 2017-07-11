@@ -46,7 +46,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="file.name" width="484" minWidth="40" maxWidth="1000" id="vte-Tq-5Cq">
+                                    <tableColumn identifier="file.name" width="484" minWidth="60" maxWidth="3000" id="vte-Tq-5Cq">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Filename">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>

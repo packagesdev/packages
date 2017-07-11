@@ -58,7 +58,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" headerView="nAr-u2-VPm" viewBased="YES" floatsGroupRows="NO" id="Bi0-3q-8uK" customClass="PKGTableView_fixed">
-                                <rect key="frame" x="0.0" y="0.0" width="611" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="610" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -99,7 +99,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="exclusion.value" width="498" minWidth="40" maxWidth="1000" id="D6w-Ft-IFa">
+                                    <tableColumn identifier="exclusion.value" width="498" minWidth="60" maxWidth="4000" id="D6w-Ft-IFa">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Pattern">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
