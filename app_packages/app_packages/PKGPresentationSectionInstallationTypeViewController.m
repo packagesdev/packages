@@ -614,13 +614,13 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	// Column Headers
 	
 	NSTableColumn * tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.name"];
-	tTableColumn.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Name" localization:inLocalization];
+	[[tTableColumn headerCell] setTitle:[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Name" localization:inLocalization]];
 	
 	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.action"];
-	tTableColumn.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Action" localization:inLocalization];
+	[[tTableColumn headerCell] setTitle:[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Action" localization:inLocalization]];
 	
 	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.size"];
-	tTableColumn.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Size" localization:inLocalization];
+	[[tTableColumn headerCell] setTitle:[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Size" localization:inLocalization]];
 	
 	// Space Labels
 	
