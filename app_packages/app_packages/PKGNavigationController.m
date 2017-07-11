@@ -13,9 +13,13 @@
 - (instancetype)initWithRootViewController:(NSViewController *)inRootViewController
 {
 	if (inRootViewController==nil)
+	{
+		NSLog(@"-[PKGNavigationController initWithRootViewController:] Provided nil rootViewController");
+		
 		return nil;
-	
-	self=[super init];
+	}
+		
+	self=[super initWithNibName:@"" bundle:nil];
 	
 	if (self!=nil)
 	{
@@ -38,26 +42,24 @@
 
 - (void)WB_viewWillAppear
 {
-	if ([[self.view subviews] count]>0)
+	if (self.view.subviews.count>0)
 		return;
 	
-	NSViewController * tVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tVisibleViewController=_viewControllers.lastObject;
 	
 	if ([self.delegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]==YES)
 		[self.delegate  navigationController:self willShowViewController:tVisibleViewController animated:NO];
 	
-	NSView * tView=tVisibleViewController.view;
-	
-	tView.frame=self.view.bounds;
+	tVisibleViewController.view.frame=self.view.bounds;
 	
 	[tVisibleViewController WB_viewWillAppear];
 	
-	[self.view addSubview:tView];
+	[self.view addSubview:tVisibleViewController.view];
 }
 
 - (void)WB_viewDidAppear
 {
-	NSViewController * tVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tVisibleViewController=_viewControllers.lastObject;
 	
 	[tVisibleViewController WB_viewDidAppear];
 	
@@ -67,14 +69,14 @@
 
 - (void)WB_viewWillDisappear
 {
-	NSViewController * tVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tVisibleViewController=_viewControllers.lastObject;
 	
 	[tVisibleViewController WB_viewWillDisappear];
 }
 
 - (void)WB_viewDidDisappear
 {
-	NSViewController * tVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tVisibleViewController=_viewControllers.lastObject;
 	
 	[tVisibleViewController WB_viewDidDisappear];
 }
@@ -83,7 +85,7 @@
 
 - (NSViewController *)topViewController
 {
-	if ([_viewControllers count]==0)
+	if (_viewControllers.count==0)
 		return nil;
 	
 	return _viewControllers[0];
@@ -91,7 +93,7 @@
 
 - (NSViewController *)visibleViewController
 {
-	return [_viewControllers lastObject];
+	return _viewControllers.lastObject;
 }
 
 #pragma mark -
@@ -101,7 +103,7 @@
 	if (inViewController==nil)
 		return;
 	
-	NSViewController * tPreviouslyVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tPreviouslyVisibleViewController=_viewControllers.lastObject;
 	
 	[_viewControllers addObject:inViewController];
 	
@@ -132,21 +134,21 @@
 
 - (NSViewController *)popViewControllerAnimated:(BOOL)inAnimated
 {
-	if ([_viewControllers count]<2)
+	if (_viewControllers.count<2)
 		return nil;
 	
-	NSViewController * tPreviouslyVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tPreviouslyVisibleViewController=_viewControllers.lastObject;
 	
 	[_viewControllers removeLastObject];
 	
-	NSViewController * tNewVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tNewVisibleViewController=_viewControllers.lastObject;
 	
 	if ([self.delegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]==YES)
 		[self.delegate  navigationController:self willShowViewController:tNewVisibleViewController animated:inAnimated];
 	
 	NSView * tView=tNewVisibleViewController.view;
 	
-	tView.frame=[self.view bounds];
+	tView.frame=self.view.bounds;
 	
 	[tPreviouslyVisibleViewController WB_viewWillDisappear];
 	
@@ -170,7 +172,7 @@
 
 - (void)popToRootViewControllerAnimated:(BOOL)inAnimated
 {
-	if ([_viewControllers count]>0)
+	if (_viewControllers.count>0)
 		return;
 	
 	[self popToViewController:_viewControllers[0] animated:inAnimated];
@@ -183,12 +185,12 @@
 	if (tIndex==NSNotFound)
 		return nil;
 	
-	NSUInteger tCount=[_viewControllers count];
+	NSUInteger tCount=_viewControllers.count;
 	
 	if (tIndex==(tCount-1))
 		return nil;
 	
-	NSViewController * tVisibleViewController=[_viewControllers lastObject];
+	NSViewController * tVisibleViewController=_viewControllers.lastObject;
 	
 	NSArray * tArray=[_viewControllers objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(tIndex+1,tCount-tIndex)]];
 	
@@ -201,7 +203,7 @@
 	
 	NSView * tView=tNewVisibleViewController.view;
 	
-	tView.frame=[self.view bounds];
+	tView.frame=self.view.bounds;
 	
 	[tVisibleViewController WB_viewWillDisappear];
 	
