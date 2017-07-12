@@ -152,7 +152,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 		tPlugin.displayName=[tPlugin.UIBundle objectForInfoDictionaryKey:PKGPluginNameKey];
 		
 		if (tPlugin.displayName!=nil)
-			_reverseDictionary[tPlugin.displayName]=tBundleIdentifier;
+			self->_reverseDictionary[tPlugin.displayName]=tBundleIdentifier;
 		
 		tPlugin.converterBundle=[NSBundle bundleWithPath:tConverterPluginPath];
 		
@@ -162,7 +162,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 			return;
 		}
 		
-		_dictionary[tBundleIdentifier]=tPlugin;
+		self->_dictionary[tBundleIdentifier]=tPlugin;
 	}];
 }
 
