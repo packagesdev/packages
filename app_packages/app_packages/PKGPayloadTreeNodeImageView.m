@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,7 +13,29 @@
 
 #import "PKGPayloadTreeNodeImageView.h"
 
+@interface PKGPayloadTreeNodeImageView ()
+
++ (NSImage *)aliasBadgeImage;
+
+@end
+
 @implementation PKGPayloadTreeNodeImageView
+
++ (NSImage *)aliasBadgeImage
+{
+	static dispatch_once_t onceToken;
+	static NSImage * sAliasBadgeImage=nil;
+	
+	dispatch_once(&onceToken, ^{
+		
+		NSBundle * tCoreTypesBundle=[NSBundle bundleWithPath:@"/System/Library/CoreServices/CoreTypes.bundle"];
+		
+		if (tCoreTypesBundle!=nil)
+			sAliasBadgeImage=[tCoreTypesBundle imageForResource:@"AliasBadgeIcon"];
+	});
+	
+	return sAliasBadgeImage;
+}
 
 - (void)setAttributedImage:(PKGPayloadTreeNodeAttributedImage *)inAttributedImage
 {
@@ -27,19 +49,16 @@
 
 #pragma mark -
 
+- (NSView *)hitTest:(NSPoint)inPoint
+{
+	// To avoid the control+click event being intercepted.
+	
+	return nil;
+}
+
 - (BOOL)isOpaque
 {
 	return NO;
-}
-
-- (void)setDrawsTarget:(BOOL)inDrawsTarget
-{
-	if (_drawsTarget!=inDrawsTarget)
-	{
-		_drawsTarget=inDrawsTarget;
-		
-		[self setNeedsDisplay:YES];
-	}
 }
 
 - (void)drawRect:(NSRect)inRect
@@ -52,9 +71,14 @@
 	if (_attributedImage.image!=nil)
 		[_attributedImage.image drawInRect:tBounds fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:_attributedImage.alpha];
 	
+	// Draw the Symbolic link arrow
+	
+	if (_attributedImage.drawsSymbolicLinkArrow==YES)
+		[[PKGPayloadTreeNodeImageView aliasBadgeImage] drawInRect:tBounds fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:_attributedImage.alpha];
+	
 	// Draw the target cross
 	
-    if (self.drawsTarget==YES)
+    if (_attributedImage.drawsTargetCross==YES)
 	{
 		NSSize tSize=tBounds.size;
 		
