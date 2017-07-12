@@ -48,9 +48,9 @@
 
 - (void)_updateViewLayout
 {
-	if (_canChooseOwnerAndGroupOptions==_keepOwnerAndGroupView.hidden)
+	if (_canChooseOwnerAndGroupOptions==[_keepOwnerAndGroupView isHidden])
 	{
-		_keepOwnerAndGroupView.hidden=!_keepOwnerAndGroupView.hidden;
+		[_keepOwnerAndGroupView setHidden:![_keepOwnerAndGroupView  isHidden]];
 		
 		NSRect tFrame=self.view.frame;
 		
