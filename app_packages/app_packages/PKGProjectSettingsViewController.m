@@ -250,14 +250,17 @@
 			_certificateSealWindowController=[[PKGCertificateSealWindowController alloc] init];
 			
 			_certificateSealWindowController.nextResponder=self;
+		}
+		
+		SecCertificateRef tCertificateRef=[PKGCertificatesUtilities copyOfCertificateWithName:self.projectSettings.certificateName];
 			
-			SecCertificateRef tCertificateRef=[PKGCertificatesUtilities copyOfCertificateWithName:self.projectSettings.certificateName];
+		_certificateSealWindowController.certificate=tCertificateRef;
 			
-			_certificateSealWindowController.certificate=tCertificateRef;
+		if (tCertificateRef!=NULL)
+			CFRelease(tCertificateRef);
 			
-			if (tCertificateRef!=NULL)
-				CFRelease(tCertificateRef);
-			
+		if (_certificateSealWindowController.window.parentWindow==nil)
+		{
 			NSRect tWindowFrame=_certificateSealWindowController.window.frame;
 			NSRect tFrame=((NSView *)self.view.window.contentView).frame;
 			tWindowFrame.origin=[self.view.window convertRectToScreen:NSMakeRect(NSMaxX(tFrame)-NSWidth(tWindowFrame)+30.0,NSMaxY(tFrame)-48.0,0.0,0.0)].origin;
