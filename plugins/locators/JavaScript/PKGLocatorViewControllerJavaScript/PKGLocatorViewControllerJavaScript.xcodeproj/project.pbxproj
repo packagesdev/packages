@@ -21,6 +21,7 @@
 		F4035DB11CC6D5F200184576 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGLocatorViewControllerJavaScript/Icon_32@2x.png"; sourceTree = "<group>"; };
 		F43D57AC1E72307F00B584A2 /* PKGFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGFilePath.h; path = ../../../../model/PKGFilePath.h; sourceTree = "<group>"; };
 		F46DCEC11E5D1E2800794DF9 /* PKGTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableView.h; path = ../../../../shared/PKGTableView.h; sourceTree = "<group>"; };
+		F47599F41F1827E400607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGLocatorViewControllerJavaScript/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F494B95D1E4D316A0000EBC4 /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F498F7AB1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewControllerJavaScript.h; path = PKGLocatorViewControllerJavaScript/PKGLocatorViewControllerJavaScript.h; sourceTree = "<group>"; };
 		F498F7AC1CC2A53500B82A52 /* PKGLocatorViewControllerJavaScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLocatorViewControllerJavaScript.m; path = PKGLocatorViewControllerJavaScript/PKGLocatorViewControllerJavaScript.m; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				fr,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* ICRequirementCPU */;
 			projectDirPath = "";
@@ -242,6 +244,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F498F7B11CC2A54F00B82A52 /* en */,
+				F47599F41F1827E400607CC9 /* fr */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";
