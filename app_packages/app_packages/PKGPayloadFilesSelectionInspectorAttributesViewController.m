@@ -20,6 +20,8 @@
 
 #import "PKGUsersAndGroupsMonitor.h"
 
+#import "NSTableView+Geometry.h"
+
 #include <sys/stat.h>
 
 #define PKGAccountMenuMixedItemTag	(UINT16_MAX+1)
@@ -81,6 +83,25 @@
 	_fileOwnerPopUpButton.menu=[_usersAndGroupsMonitor localUsersMenu];
 	
 	_fileGroupPopUpButton.menu=[_usersAndGroupsMonitor localGroupsMenu];
+	
+	// Dynamically resize the tableview to take into account the change of height of the headerCell in Siesta and Siesta Grande
+	
+	CGFloat tTotalHeight=[_filePermissionsTableView enclosingScrollViewHeightForNumberOfRows:3];
+	
+	NSRect tScrollViewFrame=_filePermissionsTableView.enclosingScrollView.frame;
+	tScrollViewFrame.origin.y-=(tTotalHeight-NSHeight(tScrollViewFrame));
+	tScrollViewFrame.size.height=tTotalHeight;
+	
+	_filePermissionsTableView.enclosingScrollView.frame=tScrollViewFrame;
+	
+	
+	tTotalHeight=[_fileSpecialBitsTableView enclosingScrollViewHeightForNumberOfRows:3];
+	
+	tScrollViewFrame=_fileSpecialBitsTableView.enclosingScrollView.frame;
+	tScrollViewFrame.origin.y-=(tTotalHeight-NSHeight(tScrollViewFrame));
+	tScrollViewFrame.size.height=tTotalHeight;
+	
+	_fileSpecialBitsTableView.enclosingScrollView.frame=tScrollViewFrame;
 }
 
 - (void)refreshSingleSelection

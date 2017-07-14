@@ -75,10 +75,10 @@
                     </connections>
                 </popUpButton>
                 <scrollView horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" id="jCL-66-s0X" userLabel="Permissions">
-                    <rect key="frame" x="72" y="20" width="180" height="66"/>
+                    <rect key="frame" x="71" y="20" width="181" height="66"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" id="TQB-DU-Oxt">
-                        <rect key="frame" x="1" y="17" width="178" height="48"/>
+                        <rect key="frame" x="1" y="17" width="179" height="48"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="15" headerView="sXK-7F-BTF" viewBased="YES" floatsGroupRows="NO" id="iGI-ze-KWU">
