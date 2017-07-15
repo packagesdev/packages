@@ -17,12 +17,15 @@
 
 - (CGFloat)enclosingScrollViewHeightForNumberOfRows:(NSUInteger)inNumberOfRows
 {
-	NSRect tRect=[self.headerView headerRectOfColumn:0];
+	CGFloat tHeaderViewHeight=0.0;
+	
+	if (self.headerView!=nil)
+		tHeaderViewHeight=NSHeight([self.headerView headerRectOfColumn:0])+1.0;
 	
 	CGFloat tRowHeight=self.rowHeight;
 	NSSize tIntercellSpacing=self.intercellSpacing;
 	
-	CGFloat tTotalHeight=NSHeight(tRect)+1.0+inNumberOfRows*(tRowHeight+tIntercellSpacing.height);
+	CGFloat tTotalHeight=tHeaderViewHeight+inNumberOfRows*(tRowHeight+tIntercellSpacing.height);
 	
 	return tTotalHeight;
 }
