@@ -159,7 +159,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
-	BOOL tNewState=([sender state]==NSOnState);
+	BOOL tNewState=(sender.state==NSOnState);
 	
 	if (tFilter.isEnabled==tNewState)
 		return;
@@ -216,7 +216,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
-	BOOL tNewState=([sender state]==NSOnState);
+	BOOL tNewState=(sender.state==NSOnState);
 	
 	if (tFilter.predicate.isRegularExpression==tNewState)
 		return;
