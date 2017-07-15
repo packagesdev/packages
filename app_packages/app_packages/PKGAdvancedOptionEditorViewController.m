@@ -13,12 +13,12 @@
 
 #import "PKGAdvancedOptionEditorViewController.h"
 
+NSString * const PKGAdvancedOptionEditorViewSizeShallChangeNotification=@"PKGAdvancedOptionEditorViewSizeShallChangeNotification";
+
 @interface PKGAdvancedOptionEditorViewController ()
 
 @end
 
 @implementation PKGAdvancedOptionEditorViewController
-
-
 
 @end

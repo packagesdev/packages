@@ -3,6 +3,8 @@
 
 #import "PKGAdvancedOptionEditorViewController.h"
 
+#import "PKGAdvancedOptionListEditorViewController.h"
+
 @interface PKGAdvancedOptionWindowController : NSWindowController
 {
 	IBOutlet NSView * _optionPlaceHolderView;
@@ -23,9 +25,17 @@
 
 - (IBAction)endDialog:(id)sender;
 
+// Notifications
+
+- (void)editorViewSizeShallChange:(NSNotification *)inNotification;
+
 @end
 
+
+
 @implementation PKGAdvancedOptionWindowController
+
+@synthesize optionValue=_optionValue;
 
 - (void)dealloc
 {
@@ -81,17 +91,54 @@
 
 - (id)optionValue
 {
+	if (_editorViewController==nil)
+		return nil;
+	
 	return _editorViewController.optionValue;
 }
 
 - (void)setOptionValue:(id)inOptionValue
 {
-	_editorViewController.optionValue=inOptionValue;
+	_optionValue=inOptionValue;
+	
+	if (_editorViewController==nil)
+		return;
+	
+	_editorViewController.optionValue=_optionValue;
 }
 
 - (void)setAdvancedOptionObject:(PKGDistributionProjectSettingsAdvancedOptionObject *)inAdvancedOptionObject
 {
-	// A COMPLETER
+	if (inAdvancedOptionObject==nil)
+		return;
+	
+	if (_editorViewController!=nil)
+	{
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGAdvancedOptionEditorViewSizeShallChangeNotification object:_editorViewController.view];
+		
+		[_editorViewController WB_viewWillDisappear];
+		
+		[_editorViewController.view removeFromSuperview];
+		
+		[_editorViewController WB_viewDidDisappear];
+	}
+	
+	PKGAdvancedOptionEditorViewController * nEditorViewController=[PKGAdvancedOptionListEditorViewController new];
+	
+	nEditorViewController.editorRepresentation=inAdvancedOptionObject.advancedEditorRepresentation;
+	nEditorViewController.optionValue=_optionValue;
+	
+	nEditorViewController.view.frame=_optionPlaceHolderView.bounds;
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editorViewSizeShallChange:) name:PKGAdvancedOptionEditorViewSizeShallChangeNotification object:nEditorViewController.view];
+	
+	[nEditorViewController WB_viewWillAppear];
+	
+	[_optionPlaceHolderView addSubview:nEditorViewController.view];
+	
+	[nEditorViewController WB_viewDidAppear];
+	
+	_editorViewController=nEditorViewController;
 }
 
 #pragma mark -
@@ -110,6 +157,29 @@
 	//self.locator.settingsRepresentation=[_currentLocatorViewController settings];
 	
 	[NSApp endSheet:self.window returnCode:sender.tag];
+}
+
+#pragma mark - Notifications
+
+- (void)editorViewSizeShallChange:(NSNotification *)inNotification
+{
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	NSString * tSizeString=tUserInfo[@"Size"];
+	
+	NSSize tSize=NSSizeFromString(tSizeString);
+	
+	NSRect tPlaceHolderFrame=_optionPlaceHolderView.frame;
+	
+	CGFloat tDeltaX=tSize.width-NSWidth(tPlaceHolderFrame);
+	CGFloat tDeltaY=tSize.height-NSHeight(tPlaceHolderFrame);
+	
+	NSRect tWindowFrame=self.window.frame;
+	
+	tWindowFrame.size.width+=tDeltaX;
+	tWindowFrame.size.height+=tDeltaY;
+	tWindowFrame.origin.y-=tDeltaY;
+	
+	[self.window setFrame:tWindowFrame display:YES];
 }
 
 @end

@@ -142,8 +142,6 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	if (tClickedColumn!=[self.outlineView columnWithIdentifier:@"advanced.key"])
 		return;
 	
-	NSLog(@"good column double-clicked");
-	
 	NSUInteger tClickedRow=self.outlineView.clickedRow;
 	
 	
@@ -166,7 +164,12 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 		if (bResult==PKGPanelCancelButton)
 			return;
 		
-		self.advancedOptionsSettings[tRepresentedObject.itemID]=tAdvancedOptionPanel.optionValue;
+		id tOptionValue=tAdvancedOptionPanel.optionValue;
+		
+		if (tOptionValue==nil)
+			[self.advancedOptionsSettings removeObjectForKey:tRepresentedObject.itemID];
+		else
+			self.advancedOptionsSettings[tRepresentedObject.itemID]=tAdvancedOptionPanel.optionValue;
 		
 		// Reload row
 		
@@ -177,61 +180,6 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 		
 		[self noteDocumentHasChanged];
 	}];
-	
-	/*
-	
-	
-	
-	- (id)advancedOptionsObjectForItem:(id)inItem;
-	
-	// A COMPLETER*/
-	
-	/*
-	 ICProjectSettingsAdvancedOptionsNodeData * tNodeData;
-	 
-	 tNodeData=(ICProjectSettingsAdvancedOptionsNodeData *) ADVANCED_OPTIONS_NODE_DATA(inItem);
-	 
-	 if (tNodeData!=nil)
-	 {
-	 NSString * tColumnIdentifier;
-	 
-	 tColumnIdentifier=[inTableColumn identifier];
-	 
-	 if (tColumnIdentifier!=nil)
-	 {
-	 NSString * tKey;
-	 NSDictionary * tOptionDescription;
-	 
-	 tKey=[tNodeData ID];
-	 
-	 tOptionDescription=[cachedOptionsDescription_ objectForKey:tKey];
-	 
-	 if ([tColumnIdentifier isEqualToString: @"Key"])
-	 {
-	 NSNumber * tNumber;
-	 
-	 tNumber=[tOptionDescription objectForKey:@"ADVANCED_EDITOR"];
-	 
-	 if (tNumber!=nil && [tNumber boolValue]==YES)
-	 {
-	 NSString * tType;
-	 
-	 tType=[tOptionDescription objectForKey:@"TYPE"];
-	 
-	 if ([tType isEqualToString:@"List"]==YES)
-	 {
-	 currentAdvancedOptionsEditor_=[ICProjectSettingsAdvancedOptionsListEditor showEditorForWindow:[[self view] window]
-	 key:tKey
-	 value:[cachedAdvancedOptions_ objectForKey:tKey]
-	 description:[tOptionDescription objectForKey:@"EDITOR"]
-	 delegate:self];
-	 }
-	 
-	 return YES;
-	 }
-	 }
-	 }
-	 }*/
 }
 
 #pragma mark -
