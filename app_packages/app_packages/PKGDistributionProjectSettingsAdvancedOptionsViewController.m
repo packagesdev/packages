@@ -166,6 +166,10 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 		
 		id tOptionValue=tAdvancedOptionPanel.optionValue;
 		
+		// Compare the old and new optionValue
+		
+		// A COMPLETER
+		
 		if (tOptionValue==nil)
 			[self.advancedOptionsSettings removeObjectForKey:tRepresentedObject.itemID];
 		else

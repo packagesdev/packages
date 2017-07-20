@@ -19,11 +19,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <subviews>
                 <progressIndicator maxValue="100" style="bar" id="iFT-6E-mdF">
-                    <rect key="frame" x="626" y="6.0000000841477323" width="133" height="20"/>
+                    <rect key="frame" x="626" y="6" width="133" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Zn9-Ks-Zgy">
-                    <rect key="frame" x="18" y="9" width="602" height="14"/>
+                    <rect key="frame" x="18" y="8.9999994919198283" width="602" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="e2c-IC-6Wo">
                         <font key="font" metaFont="smallSystem"/>
@@ -32,7 +32,7 @@
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="557.5" y="182.5"/>
+            <point key="canvasLocation" x="794.5" y="25.5"/>
         </customView>
     </objects>
 </document>
