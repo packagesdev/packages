@@ -417,7 +417,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	
 	tTextContainer.lineFragmentPadding=0.0;
 	
-	NSLayoutManager * tLayoutManager = [[NSLayoutManager alloc] init];
+	NSLayoutManager * tLayoutManager = [NSLayoutManager new];
 		
 	tLayoutManager.typesetterBehavior=NSTypesetterBehavior_10_2_WithCompatibility;
 	
@@ -475,7 +475,6 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	CGFloat tHeight;
 	NSString * tStepTitle;
 	NSInteger tIndex;
-	NSFont * tFont=nil;
 	NSRect tFrame;
 #ifdef LIST_DEBUG_VIEW
 	NSRect tSavedFrame;
@@ -495,7 +494,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	{
 		tBulletImage=_selectedPaneImage;
 		
-		tBulletSize=[tBulletImage size];
+		tBulletSize=tBulletImage.size;
 	}
 	else
 	{
@@ -503,7 +502,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		tBulletSize=NSMakeSize(2.0*PKGPresentationListViewBulletRadius,2.0*PKGPresentationListViewBulletRadius);
 	}
 	
-	[tGraphicContext setPatternPhase:NSMakePoint(0.0,NSMaxY([self frame]))];
+	[tGraphicContext setPatternPhase:NSMakePoint(0.0,NSMaxY(self.frame))];
 	
 	
 	
@@ -516,7 +515,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	
 	if (_shouldSeeSelectedStep==YES)
 	{
-		tFont=[NSFont boldSystemFontOfSize:13.0];
+		NSFont * tFont=[NSFont boldSystemFontOfSize:13.0];
 		
 		tMinStepIndex=tMaxStepIndex=self.selectedStep;
 	
@@ -619,6 +618,8 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	}
 	else
 	{
+		NSFont * tFont=nil;
+		
 		tIndex=_firstVisibleStep;
 		
 		tMinStepIndex=tMaxStepIndex=_firstVisibleStep;
@@ -692,7 +693,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
         
         CGFloat tY=round(NSMidY(bRect)-PKGPresentationListViewEllipsisDotDiameter*0.5);
         
-        [[NSColor grayColor] set];
+        [[NSColor grayColor] setFill];
         
         NSRect tEllipsisFrame=NSMakeRect(tX,tY,PKGPresentationListViewEllipsisDotDiameter,PKGPresentationListViewEllipsisDotDiameter);
         
@@ -753,9 +754,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
             CGFloat tMiddleY=round(NSMidY(tFrame));
             
             if (_topPushed==YES)
-				[[NSColor darkGrayColor] set];
+				[[NSColor darkGrayColor] setFill];
 			else
-                [[NSColor grayColor] set];
+                [[NSColor grayColor] setFill];
 			
 			tBezierPath=[NSBezierPath bezierPath];
 			
@@ -777,6 +778,8 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		if (_currentDropStep!=-1 && _currentDropStep==tIndex)
             drawDropLine(tFrame);
 		
+		NSFont * tFont;
+		
 		if ((tIndex<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
 			tIndex==self.selectedStep)
 			tFont=[NSFont boldSystemFontOfSize:13.0];
@@ -795,7 +798,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			
 			tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tBackgroundFrame xRadius:5.0 yRadius:5.0];
 			
-			[[NSColor colorWithDeviceWhite:0.0 alpha:0.75] set];
+			[[NSColor colorWithDeviceWhite:0.0 alpha:0.75] setFill];
 			
 			[tBezierPath fill];
 
@@ -838,12 +841,22 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			
 				if (tWillBeVisible==NO)
 				{
-					NSImage * tImage=[NSImage imageNamed:@"Strip32Composite"];
-					
 					tBulletProcessedImage=[NSImage imageWithSize:tBulletProcessedImage.size flipped:NO drawingHandler:^BOOL(NSRect bRect){
                     
+                        NSRect tCircleRect=NSInsetRect(bRect,1,1);
+                        tCircleRect.origin.y+=0.5;
+                        
+                        NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithOvalInRect:tCircleRect];
+                        
+                        [[NSGraphicsContext currentContext] saveGraphicsState];
+                        
+                        [tBezierPath addClip];
+                        
+                        NSImage * tImage=[NSImage imageNamed:@"Strip32Composite"];
                         [tImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
              
+                        [[NSGraphicsContext currentContext] restoreGraphicsState];
+                        
                         [tBulletProcessedImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceIn fraction:1.0];
 						
 						return YES;
@@ -894,7 +907,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 					tColor=[[NSColor colorWithPatternImage:tImage] colorWithAlphaComponent:0.75];
 				
 				if (tColor==nil)
-					tColor=[NSColor colorWithDeviceWhite:1.0 alpha: 0.75];
+					tColor=[NSColor colorWithDeviceWhite:1.0 alpha:0.75];
 				
 				[tColor set];
 			}
