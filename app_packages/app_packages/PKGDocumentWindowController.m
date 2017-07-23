@@ -13,6 +13,8 @@
 
 #import "PKGDocumentWindowController.h"
 
+#import "PKGBuildDocumentWindowController.h"
+
 #import "PKGDocument.h"
 
 #import "PKGDistributionProject+Edition.h"
@@ -28,6 +30,8 @@
 
 #import "PKGBuildEvent.h"
 
+#import "PKGBuildAndCleanObserverDataSource.h"
+
 #import "NSAlert+block.h"
 
 #define PKGDocumentWindowPackageProjectMinWidth				1026.0
@@ -40,9 +44,15 @@
 	
 	PKGDocumentWindowStatusViewController * _statusViewController;
 	
+	PKGBuildDocumentWindowController * _buildWindowController;
+	
 	NSURL * _temporaryProjectURL;
 	
 	NSString * _productPath;
+	
+	PKGBuildOrder * _latestBuildOrder;
+	
+	PKGBuildAndCleanObserverDataSource * _buildObserver;
 }
 
 	@property (nonatomic) BOOL showsBuildStatus;
@@ -58,6 +68,8 @@
 - (IBAction)upgradeToDistribution:(id)sender;
 
 // Build Commands
+
+- (IBAction)showHideBuildWindow:(id)sender;
 
 - (IBAction)build:(id)sender;
 - (IBAction)buildAndRun:(id)sender;
@@ -270,9 +282,32 @@
 	[self setMainViewController];
 }
 
-#pragma mark -
+#pragma mark - Build Menu
 
-- (NSString *)temporarySavedProjectPath
+- (IBAction)showHideBuildWindow:(id)sender
+{
+	if (_buildWindowController==nil)
+	{
+		_buildWindowController=[PKGBuildDocumentWindowController new];
+		
+		_buildWindowController.dataSource=_buildObserver;
+		
+		[_buildWindowController showWindow:self];
+		
+		return;
+	}
+	
+	if (_buildWindowController.window.isVisible==YES)
+	{
+		[_buildWindowController.window orderOut:self];
+		
+		return;
+	}
+
+	[_buildWindowController showWindow:self];
+}
+
+/*- (NSString *)temporarySavedProjectPath
 {
 	NSError * tError=nil;
 	NSURL * tTemporaryFolderURL=[[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory
@@ -307,69 +342,7 @@
 	}
 	
 	return tTemporaryProjectURL.path;
-	
-	/*NSFileManager * tFileManager=[NSFileManager defaultManager];
-	
-	if ([tFileManager fileExistsAtPath:tTempPath isDirectory:&isDirectory]==NO)
-	{
-		if ([tFileManager createDirectoryAtPath:tTempPath withIntermediateDirectories:NO attributes:nil error:NULL]==NO)
-		{
-			tExplanationString=NSLocalizedStringFromTable(@"Creation of temporary folder failed.",@"Build",@"");
-			
-			goto bail;
-		}
-	}
-	else
-	{
-		if (isDirectory==NO)
-		{
-			if ([tFileManager removeItemAtPath:tTempPath error:NULL]==NO)
-			{
-				tExplanationString=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Removing file at path '%@' failed.",@"Build",@""),tTempPath];
-				
-				goto bail;
-			}
-			else
-			{
-				if ([tFileManager createDirectoryAtPath:tTempPath withIntermediateDirectories:NO attributes:nil error:NULL]==NO)
-				{
-					tExplanationString=NSLocalizedStringFromTable(@"Creation of temporary folder failed.",@"Build",@"");
-					
-					goto bail;
-				}
-			}
-		}
-	}
-	
-	NSString * tTemporaryProjectPath=[NSString stringWithFormat:@"%@/%d/%@",ICPREFERENCES_DEFAULT_TEMPORARY_BUILD_LOCATION,getuid(),[[[self fileURL] path] lastPathComponent]];
-	
-	if (tTemporaryProjectPath!=nil)
-	{
-		if ([self.project writeToURL:[NSURL fileURLWithPath:tTemporaryProjectPath] atomically:YES]==NO)
-		{
-			
-		}
-	}
-	
-	return tTemporaryProjectPath;
-	
-bail:
-	
-	NSBeep();
-	
-	NSBeginAlertSheet(NSLocalizedStringFromTable(@"Packages is unable to build the project because a temporary project file can not be created.",@"Build",@""),
-					  nil,
-					  nil,
-					  nil,
-					  [self windowForSheet],
-					  nil, 
-					  nil,
-					  nil,
-					  NULL,
-					  @"%@",tExplanationString);
-	
-	return nil;*/
-}
+}*/
 
 - (BOOL)_asynchronouslRequestBuildWithOptions:(PKGBuildOptions)inBuildOptions
 {
@@ -488,21 +461,36 @@ bail:
 	
 	
 	
-	PKGBuildOrder * tBuildOrder=[PKGBuildOrder new];
+	_latestBuildOrder=[PKGBuildOrder new];
 	
-	tBuildOrder.projectPath=tProjectPath;
-	tBuildOrder.buildOptions=inBuildOptions;
-	tBuildOrder.externalSettings=[tExternalSettings copy];
+	_latestBuildOrder.projectPath=tProjectPath;
+	_latestBuildOrder.buildOptions=inBuildOptions;
+	_latestBuildOrder.externalSettings=[tExternalSettings copy];
 	
-	if ([[PKGBuildOrderManager defaultManager] executeBuildOrder:tBuildOrder
+	if ([[PKGBuildOrderManager defaultManager] executeBuildOrder:_latestBuildOrder
 													setupHandler:^(PKGBuildNotificationCenter * bBuildNotificationCenter){
 														
 														// Register for notifications
 												 
-														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:tBuildOrder];
-														[bBuildNotificationCenter addObserver:_statusViewController selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:tBuildOrder];
+														_buildObserver=[PKGBuildAndCleanObserverDataSource buildObserverDataSourceForDocument:self.document];
 														
+														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
 														
+														[bBuildNotificationCenter addObserver:_buildObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+														
+														[bBuildNotificationCenter addObserver:_statusViewController selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+														
+														if ([PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior==PKGPreferencesBuildShowBuildWindowAlways)
+														{
+															if (_buildWindowController==nil)
+																_buildWindowController=[PKGBuildDocumentWindowController new];
+															
+															_buildWindowController.window.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ - Build Log",@"Build",@"No commets"),[self.document displayName]];
+															
+															_buildWindowController.dataSource=_buildObserver;
+															
+															[_buildWindowController showWindow:self];
+														}
 											 }
 											   completionHandler:^(PKGBuildResult bResult){
 											   
@@ -558,10 +546,7 @@ bail:
 		
 		//[[NSNotificationCenter defaultCenter] postNotificationName:PACKAGES_BUILDER_NOTIFICATION_BUILD_DID_START object:self];
 		
-		if ([PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior==PKGPreferencesBuildShowBuildWindowAlways)
-		{
-			//[buildWindowController_ showWindow:self cleanWindow:YES];
-		}
+		
 	}
 
 	return tResult;
