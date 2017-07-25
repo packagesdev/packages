@@ -28,6 +28,8 @@
 
 #import "NSObject+Conformance.h"
 
+#import "NSFileManager+SortedContents.h"
+
 NSString * const PKGPayloadItemsPboardType=@"fr.whitebox.packages.payload.items";
 NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.internal.payload.items";
 
@@ -182,7 +184,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	NSFileManager * tFileManager=[NSFileManager defaultManager];
 	
-	NSArray * tContents=[tFileManager contentsOfDirectoryAtPath:inAbsolutePath error:NULL];
+	NSArray * tContents=[tFileManager WB_sortedContentsOfDirectoryAtPath:inAbsolutePath error:NULL];
 	
 	if (tContents==nil)
 		return NO;

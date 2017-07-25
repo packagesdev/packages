@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -16,6 +16,8 @@
 #import "NSImage+Tint.h"
 
 #import "NSArray+WBExtensions.h"
+
+#import "NSFileManager+SortedContents.h"
 
 NSString * const PKGProjectTemplateNameKey=@"PKGProjectTemplateName";
 
@@ -69,7 +71,7 @@ NSString * const PKGProjectOldTemplateEnabledKey=@"ICPROJECT_TEMPLATE_SUPPORTED"
 	for(NSString * tDirectory in tApplicationSupportDirectories)
 	{
 		NSString * tPackagesTemplateDirectoryPath=[tDirectory stringByAppendingPathComponent:@"fr.whitebox.packages/Projects Templates"];
-		NSArray * tArray=[tFileManager contentsOfDirectoryAtPath:tPackagesTemplateDirectoryPath error:NULL];
+		NSArray * tArray=[tFileManager WB_sortedContentsOfDirectoryAtPath:tPackagesTemplateDirectoryPath error:NULL];
 		
 		NSArray * tTemplatesArray=[tArray WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGProjectTemplate *(NSString * bLastPathComponent,NSUInteger bIndex){
 		
