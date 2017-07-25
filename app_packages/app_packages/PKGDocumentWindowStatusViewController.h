@@ -12,9 +12,9 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
+#import "PKGViewController.h"
 
-@interface PKGDocumentWindowStatusViewController : NSViewController
+@interface PKGDocumentWindowStatusViewController : PKGViewController
 
 - (void)processBuildEventNotification:(NSNotification *)inNotification;
 
