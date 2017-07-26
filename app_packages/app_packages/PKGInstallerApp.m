@@ -105,7 +105,7 @@ NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.ap
 			
 			return [_bundle imageForResource:@"metapackage"];
 			
-		case PKGInstallerAppDistrbutionFlat:
+		case PKGInstallerAppDistributionFlat:
 			
 			return [_bundle imageForResource:@"package"];
 	}

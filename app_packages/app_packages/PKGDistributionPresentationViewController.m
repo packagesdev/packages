@@ -352,7 +352,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	{
 		// Proxy Icon
 		
-		NSImage * tImage=[[PKGInstallerApp installerApp] iconForPackageType:(self.distributionProject.isFlat==YES) ? PKGInstallerAppDistrbutionFlat : PKGInstallerAppDistributionBundle];
+		NSImage * tImage=[[PKGInstallerApp installerApp] iconForPackageType:(self.distributionProject.isFlat==YES) ? PKGInstallerAppDistributionFlat : PKGInstallerAppDistributionBundle];
 		
 		_windowView.proxyIcon=tImage;
 		

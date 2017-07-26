@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, PKGInstallerAppPackageType)
 {
 	PKGInstallerAppRawPackage=0,
 	PKGInstallerAppDistributionBundle=1,
-	PKGInstallerAppDistrbutionFlat=2
+	PKGInstallerAppDistributionFlat=2
 };
 
 @interface PKGInstallerAppLocalization : NSObject
