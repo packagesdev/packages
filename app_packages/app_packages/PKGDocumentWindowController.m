@@ -593,6 +593,13 @@
 	if (tAction==@selector(upgradeToDistribution:))
 		return [self.project isKindOfClass:PKGPackageProject.class];
 	
+	if (tAction==@selector(showHideBuildWindow:))
+	{
+		inMenuItem.title=(_buildWindowController.window.isVisible==YES)? NSLocalizedStringFromTable(@"Hide Build Log Window",@"Build",@"No comment") : NSLocalizedStringFromTable(@"Build Results",@"Build",@"No comment");
+
+		return YES;
+	}
+	
 	if (tAction==@selector(build:) ||
 		tAction==@selector(buildAndRun:) ||
 		tAction==@selector(buildAndDebug:) ||
