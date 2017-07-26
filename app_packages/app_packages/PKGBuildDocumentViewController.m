@@ -14,6 +14,16 @@
 #import "PKGBuildDocumentViewController.h"
 
 #import "PKGBuildEventTreeNode.h"
+#import "PKGBuildEventItem+UI.h"
+
+#import "PKGBuildSubtitledTableRowView.h"
+#import "PKGConclusionTableRowView.h"
+
+#import "PKGBuildSubtitledTableCellView.h"
+
+
+
+#import "PKGInstallerApp.h"
 
 @interface PKGBuildDocumentViewController () <NSOutlineViewDelegate>
 
@@ -23,6 +33,12 @@
 
 @implementation PKGBuildDocumentViewController
 
+- (void)WB_viewDidLoad
+{
+	[super WB_viewDidLoad];
+	
+	self.outlineView.autoresizesOutlineColumn=NO;
+}
 
 #pragma mark - PKGBuildAndCleanObserverDataSourceDelegate
 
@@ -44,19 +60,188 @@
 
 #pragma mark - NSOutlineViewDelegate
 
+- (NSTableRowView *)outlineView:(NSOutlineView *)inOutlineView rowViewForItem:(PKGBuildEventTreeNode *)inBuildEventTreeNode
+{
+	if (inOutlineView!=self.outlineView || inBuildEventTreeNode==nil)
+		return nil;
+	
+	PKGBuildEventItem * tBuildEventItem=[inBuildEventTreeNode representedObject];
+	
+	switch(tBuildEventItem.type)
+	{
+		case PKGBuildEventItemProject:
+		case PKGBuildEventItemDistributionScript:
+		case PKGBuildEventItemDistributionPackageProject:
+		case PKGBuildEventItemDistributionPackage:
+		case PKGBuildEventItemPackage:
+		{
+			PKGBuildSubtitledTableRowView * tTableRowView=[inOutlineView makeViewWithIdentifier:PKGBuildSubtitledTableRowViewIdentifier owner:self];
+			
+			if (tTableRowView==nil)
+			{
+				tTableRowView=[[PKGBuildSubtitledTableRowView alloc] initWithFrame:NSZeroRect];
+				tTableRowView.identifier=PKGBuildSubtitledTableRowViewIdentifier;
+			}
+			
+			return tTableRowView;
+		}
+			
+		case PKGBuildEventItemConclusion:
+		{
+			PKGConclusionTableRowView * tTableRowView=[inOutlineView makeViewWithIdentifier:PKGConclusionTableRowViewIdentifier owner:self];
+			
+			if (tTableRowView==nil)
+			{
+				tTableRowView=[[PKGConclusionTableRowView alloc] initWithFrame:NSZeroRect];
+				tTableRowView.identifier=PKGConclusionTableRowViewIdentifier;
+			}
+			
+			tTableRowView.state=tBuildEventItem.state;
+			
+			return tTableRowView;
+		}
+			
+		default:
+			
+			return nil;
+	}
+	
+	return nil;
+}
+
 - (NSView *)outlineView:(NSOutlineView *)inOutlineView viewForTableColumn:(NSTableColumn *)inTableColumn item:(PKGBuildEventTreeNode *)inBuildEventTreeNode
 {
 	if (inOutlineView!=self.outlineView || inBuildEventTreeNode==nil)
 		return nil;
 	
-	NSString * tTableColumnIdentifier=inTableColumn.identifier;
-	NSTableCellView * tTableCellView=[inOutlineView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
+	//NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	
 	PKGBuildEventItem * tBuildEventItem=[inBuildEventTreeNode representedObject];
 	
-	tTableCellView.textField.stringValue=tBuildEventItem.title;
+	switch(tBuildEventItem.type)
+	{
+		case PKGBuildEventItemProject:
+		case PKGBuildEventItemDistributionScript:
+		case PKGBuildEventItemDistributionPackageProject:
+		case PKGBuildEventItemDistributionPackage:
+		case PKGBuildEventItemPackage:
+		{
+			PKGBuildSubtitledTableCellView* tTableCellView=[inOutlineView makeViewWithIdentifier:@"subtitledCell" owner:self];
+		
+			// Icon
+			
+			NSImage * tStepIcon=nil;
+			NSImage * tStepStatusIcon=nil;
+			
+			switch(tBuildEventItem.type)
+			{
+				case PKGBuildEventItemProject:
+					
+					//tStepIcon=[[PKGInstallerApp installerApp] iconForPackageType:PKGInstallerAppRawPackage];
+					
+					break;
+					
+				case PKGBuildEventItemDistributionScript:
+					
+					tStepIcon=[NSImage imageNamed:@"XML_File_32"];
+					
+					break;
+					
+				case PKGBuildEventItemDistributionPackageProject:
+				case PKGBuildEventItemDistributionPackage:
+					
+					tStepIcon=[[PKGInstallerApp installerApp] iconForPackageType:PKGInstallerAppRawPackage];
+					
+					break;
+					
+				default:
+					
+					break;
+			}
+			
+			switch(tBuildEventItem.state)
+			{
+				case PKGBuildEventItemStateSuccess:
+				case PKGBuildEventItemStateFailure:
+				case PKGBuildEventItemStateWarning:
+					
+					tStepStatusIcon=[tBuildEventItem stateIcon];
+					break;
+				
+				default:
+					
+					break;
+			}
+			
+			tTableCellView.imageView.image=tStepIcon;
+			
+			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
+		
+			tTableCellView.subtitleTextField.stringValue=(tBuildEventItem.subTitle!=nil) ? tBuildEventItem.subTitle : @"";
+			
+			return tTableCellView;
+		}
+			
+		case PKGBuildEventItemStep:
+		case PKGBuildEventItemStepParent:
+		{
+			NSTableCellView * tTableCellView=[inOutlineView makeViewWithIdentifier:@"titledCell" owner:self];
+			
+			tTableCellView.imageView.image=[tBuildEventItem stateIcon];
+			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
+			
+			return tTableCellView;
+		}
+			
+		case PKGBuildEventItemErrorDescription:
+		case PKGBuildEventItemWarningDescription:
+		{
+			NSTableCellView * tTableCellView=[inOutlineView makeViewWithIdentifier:@"titledCell" owner:self];
+			
+			tTableCellView.imageView.image=nil;
+			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
+			
+			tTableCellView.textField.textColor=(tBuildEventItem.type==PKGBuildEventItemErrorDescription) ? [NSColor redColor] : [NSColor orangeColor];
+			
+			return tTableCellView;
+		}
+			
+		case PKGBuildEventItemConclusion:
+		{
+			PKGBuildSubtitledTableCellView* tTableCellView=[inOutlineView makeViewWithIdentifier:@"conclusionCell" owner:self];
+			
+			switch (tBuildEventItem.state)
+			{
+				case PKGBuildEventItemStateSuccess:
+					
+					tTableCellView.imageView.image=[NSImage imageNamed:@"Conclusion_Success_32"];
+					
+					break;
+					
+				case PKGBuildEventItemStateFailure:
+					
+					tTableCellView.imageView.image=[NSImage imageNamed:@"Conclusion_Failure_32"];
+					
+					break;
+					
+				default:
+					
+					break;
+			}
+			
+			// A COMPLETER
+			
+			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
+			
+			tTableCellView.subtitleTextField.stringValue=(tBuildEventItem.subTitle!=nil) ? tBuildEventItem.subTitle : @"";
+			
+			
+			
+			return tTableCellView;
+		}
+	}
 	
-	return tTableCellView;
+	return nil;
 }
 
 - (CGFloat)outlineView:(NSOutlineView *) inOutlineView heightOfRowByItem:(PKGBuildEventTreeNode *)inBuildEventTreeNode
@@ -81,7 +266,7 @@
 		case PKGBuildEventItemErrorDescription:
 		case PKGBuildEventItemWarningDescription:
 			
-			return 15.0;
+			return 14.0;
 			
 		case PKGBuildEventItemConclusion:
 			
