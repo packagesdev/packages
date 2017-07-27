@@ -300,7 +300,7 @@
 	
 	// Build
 	
-	[self performSelector:@selector(delayedBuild:) withObject:nil afterDelay:1.0f];
+	[self performSelector:@selector(delayedBuild:) withObject:nil afterDelay:1.0];
 	
 	return YES;
 	
@@ -316,7 +316,7 @@
 	{
 		if ([[[NSDocumentController sharedDocumentController] documents] count]==1)
 		{
-			[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:1.0f];
+			[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:1.0];
 		}
 		
 	}*/
@@ -449,7 +449,7 @@
 		{
 			if ([[NSDocumentController sharedDocumentController] documents].count==1)
 			{
-				[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:3.0f];
+				[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:3.0];
 				
 				return;
 			}

@@ -84,15 +84,15 @@
 		
 		[[NSColor redColor] set];
 		
-		NSRect tRect=NSMakeRect(0.0f,0.0f,tSize.width,tSize.height);
+		NSRect tRect=NSMakeRect(0.0,0.0,tSize.width,tSize.height);
 		
-		NSRect tInsetRect=NSInsetRect(tRect,floor(tSize.width/4.0f),floor(tSize.height/4.0f));
+		NSRect tInsetRect=NSInsetRect(tRect,floor(tSize.width/4.0),floor(tSize.height/4.0));
 		
-		tInsetRect.size.width-=1.0f;
+		tInsetRect.size.width-=1.0;
 		
-		tInsetRect.origin.y+=1.0f;
+		tInsetRect.origin.y+=1.0;
 		
-		tInsetRect.size.height-=1.0f;
+		tInsetRect.size.height-=1.0;
 		
 		NSFrameRect(tInsetRect);
 		
@@ -101,21 +101,21 @@
 		if (tBezierPath==nil)
 			return;
 		
-		CGFloat tLineDashPattern[2]={3.0f,3.0f};
+		CGFloat tLineDashPattern[2]={3.0,3.0};
 			
-		[tBezierPath setLineDash:tLineDashPattern count:2 phase:0.0f];
+		[tBezierPath setLineDash:tLineDashPattern count:2 phase:0.0];
 		
-		[tBezierPath moveToPoint:NSMakePoint(NSMinX(tRect),floor(NSMidY(tRect))+0.5f)];
+		[tBezierPath moveToPoint:NSMakePoint(NSMinX(tRect),floor(NSMidY(tRect))+0.5)];
 		
-		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tRect),floor(NSMidY(tRect))+0.5f)];
+		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tRect),floor(NSMidY(tRect))+0.5)];
 		
 		[tBezierPath stroke];
 		
 		[tBezierPath removeAllPoints];
 		
-		[tBezierPath moveToPoint:NSMakePoint(floor(NSMidX(tRect))-0.5f,NSMinY(tRect)+1.0f)];
+		[tBezierPath moveToPoint:NSMakePoint(floor(NSMidX(tRect))-0.5,NSMinY(tRect)+1.0)];
 		
-		[tBezierPath lineToPoint:NSMakePoint(floor(NSMidX(tRect))-0.5f,NSMaxY(tRect))];
+		[tBezierPath lineToPoint:NSMakePoint(floor(NSMidX(tRect))-0.5,NSMaxY(tRect))];
 		
 		[tBezierPath stroke];
 	}

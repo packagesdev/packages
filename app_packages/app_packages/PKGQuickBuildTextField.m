@@ -21,7 +21,7 @@
 	
 	[self setTextColor:[NSColor colorWithDeviceWhite:0.15 alpha:0.8]];
 	
-	[[self cell] drawWithFrame:NSOffsetRect(tBounds,0.0f,3.0) inView:self];
+	[[self cell] drawWithFrame:NSOffsetRect(tBounds,0.0,3.0) inView:self];
 	
 	[self setTextColor:[NSColor colorWithDeviceWhite:1.0 alpha:0.99]];
 	

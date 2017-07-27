@@ -157,7 +157,7 @@
 		
 		if (tImage!=nil)
 		{
-			tImage.size=NSMakeSize(16.0f,16.0);
+			tImage.size=NSMakeSize(16.0,16.0);
 			
 			tMenuItem.image=tImage;
 		}
@@ -507,7 +507,7 @@
 						
 						if (tImage!=nil)
 						{
-							tImage.size=NSMakeSize(16.0f,16.0);
+							tImage.size=NSMakeSize(16.0,16.0);
 							
 							tMenuItem.image=tImage;
 						}
@@ -540,7 +540,7 @@
 			
 			if (tImage!=nil)
 			{
-				tImage.size=NSMakeSize(16.0f,16.0);
+				tImage.size=NSMakeSize(16.0,16.0);
 				
 				tMenuItem.image=tImage;
 			}

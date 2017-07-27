@@ -28,19 +28,19 @@
 
 #import "WBWhiteView.h"
 
-#define ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL	5.0f
+#define ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL	5.0
 
 //#define ICDEPENDENCYCONTAINERVIEW_LEAF_WIDTH	400
 
-#define ICDEPENDENCYMARGIN_LEFT		13.0f
+#define ICDEPENDENCYMARGIN_LEFT		13.0
 
-#define ICDEPENDENCYMARGIN_RIGHT	13.0f
+#define ICDEPENDENCYMARGIN_RIGHT	13.0
 
-#define ICDEPENDENCYMARGIN_TOP		12.0f
+#define ICDEPENDENCYMARGIN_TOP		12.0
 
-#define ICDEPENDENCYMARGIN_BOTTOM	13.0f
+#define ICDEPENDENCYMARGIN_BOTTOM	13.0
 
-#define BIG_FLOAT	65535.0f
+#define BIG_FLOAT	65535.0
 
 
 @interface PKGAvailableChoiceRecord : NSObject
@@ -635,7 +635,7 @@
 		
 		// Comparator
 		
-		NSPopUpButton * tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0f,NSMinY(tBounds),_comparatorPopUpButtonSize.width,_comparatorPopUpButtonSize.height) pullsDown:NO];
+		NSPopUpButton * tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds),_comparatorPopUpButtonSize.width,_comparatorPopUpButtonSize.height) pullsDown:NO];
 		
 		tPopupButton.bezelStyle=NSRoundRectBezelStyle;
 		tPopupButton.menu=[self _comparatorsMenu];
@@ -654,7 +654,7 @@
 		
 		// State
 		
-		tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0f,NSMinY(tBounds),_stateObjectPopUpButtonSize.width,_stateObjectPopUpButtonSize.height) pullsDown:NO];
+		tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds),_stateObjectPopUpButtonSize.width,_stateObjectPopUpButtonSize.height) pullsDown:NO];
 		tPopupButton.bezelStyle=NSRoundRectBezelStyle;
 		tPopupButton.menu=[self _stateObjectsMenu];
 		[[tPopupButton cell] setControlSize:NSSmallControlSize];
@@ -679,7 +679,7 @@
 		
 		NSButton * tButton;
 		
-		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0f,NSMinY(tBounds)-1,16.0f,19.0f)];
+		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds)-1,16.0,19.0)];
 		
 		tButton.bezelStyle=NSRoundRectBezelStyle;
 		tButton.imagePosition=NSImageOnly;
@@ -700,7 +700,7 @@
 		
 		// Plus
 		
-		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0f,NSMinY(tBounds),16.0f,19.0f)];
+		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
 		tButton.bezelStyle=NSRoundRectBezelStyle;
 		tButton.imagePosition=NSImageOnly;
@@ -714,7 +714,7 @@
 		
 		// Compute for the other views;
 		
-		*outMidY=floor((*inOutMaxY)-_comparatorPopUpButtonSize.height*0.5f);
+		*outMidY=floor((*inOutMaxY)-_comparatorPopUpButtonSize.height*0.5);
 		
 		*outMinX=NSWidth([inView bounds])-_leafWidth-ICDEPENDENCYMARGIN_RIGHT;
 		
@@ -770,7 +770,7 @@
 		
 		// Top
 		
-		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5f),tMidYTop,floor(tMinXTop-2.0f-((*outMinX)+_operatorPopUpButtonSize.width*0.5f)),1.0f)];
+		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5),tMidYTop,floor(tMinXTop-2.0-((*outMinX)+_operatorPopUpButtonSize.width*0.5)),1.0)];
 		
 		tBox.borderType=NSLineBorder;
 		tBox.titlePosition=NSNoTitle;
@@ -778,7 +778,7 @@
 		
 		[inView addSubview:tBox];
 		
-		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5f),tSavedYMax-ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL+2.0f,1.0f,(tMidYTop)-(tSavedYMax-ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL+2.0f))];
+		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5),tSavedYMax-ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL+2.0,1.0,(tMidYTop)-(tSavedYMax-ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL+2.0))];
 		
 		tBox.borderType=NSLineBorder;
 		tBox.titlePosition=NSNoTitle;
@@ -790,7 +790,7 @@
 		
 		// Top
 		
-		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5f),tMidYBottom,floor(tMinXBottom-2.0f-((*outMinX)+_operatorPopUpButtonSize.width*0.5f)),1.0f)];
+		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5),tMidYBottom,floor(tMinXBottom-2.0-((*outMinX)+_operatorPopUpButtonSize.width*0.5)),1.0)];
 		
 		tBox.borderType=NSLineBorder;
 		tBox.titlePosition=NSNoTitle;
@@ -798,7 +798,7 @@
 		
 		[inView addSubview:tBox];
 		
-		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5f),tMidYBottom+1.0f,1.0f,tSavedYMax-_operatorPopUpButtonSize.height-ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL-2.0f-(tMidYBottom+1.0f))];
+		tBox=[[NSBox alloc] initWithFrame:NSMakeRect(floor((*outMinX)+_operatorPopUpButtonSize.width*0.5),tMidYBottom+1.0,1.0,tSavedYMax-_operatorPopUpButtonSize.height-ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL-2.0-(tMidYBottom+1.0))];
 		
 		tBox.borderType=NSLineBorder;
 		tBox.titlePosition=NSNoTitle;
@@ -839,7 +839,7 @@
 		
 		// Switch
 		
-		NSButton * tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0f,NSMinY(tBounds)-1,16.0f,19.0f)];
+		NSButton * tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds)-1,16.0,19.0)];
 		
 		tButton.bezelStyle=NSRoundRectBezelStyle;
 		tButton.imagePosition=NSImageOnly;
@@ -855,7 +855,7 @@
 		
 		// Minus
 		
-		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0f,NSMinY(tBounds),16.0f,19.0f)];
+		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
 		tButton.bezelStyle=NSRoundRectBezelStyle;
 		tButton.imagePosition=NSImageOnly;
@@ -875,7 +875,7 @@
 		
 		// Plus
 		
-		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0f,NSMinY(tBounds),16.0f,19.0f)];
+		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
 		tButton.bezelStyle=NSRoundRectBezelStyle;
 		tButton.imagePosition=NSImageOnly;

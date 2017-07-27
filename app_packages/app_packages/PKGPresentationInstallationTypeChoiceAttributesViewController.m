@@ -405,7 +405,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	NSRect tDescriptionSectionRect=_descriptionsSectionView.frame;
 	NSRect tExtendedAttributesSectionRect=_extendedAttributesSectionView_.frame;
 	
-	tExtendedAttributesSectionRect.origin.y=-1.0f;
+	tExtendedAttributesSectionRect.origin.y=-1.0;
 	
 	CGFloat tAvailableHeight=NSHeight(self.view.frame)-NSMaxY(tExtendedAttributesSectionRect);
 	

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2016, Stephane Sudre
+Copyright (c) 2007-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,25 +15,25 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGTemporaryBuildLocationView
 
-- (void)drawRect:(NSRect) inFrame
+- (void)drawRect:(NSRect)inFrame
 {
-    NSRect tBounds=[self bounds];
+    NSRect tBounds=self.bounds;
 	
 	[[NSColor whiteColor] set];
 	
 	NSRectFill(inFrame);
 	
-	[[NSColor colorWithDeviceWhite:0.75f alpha:1.0f] set];
+	[[NSColor colorWithDeviceWhite:0.75 alpha:1.0] set];
 	
 	NSFrameRect(tBounds);
 
 	if ([self isHighlighted]==YES)
 	{
-		NSBezierPath * tPath=[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(tBounds,2.0f,2.0f) xRadius:8.0f yRadius:8.0f];
+		NSBezierPath * tPath=[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(tBounds,2.0,2.0) xRadius:8.0 yRadius:8.0];
 		
 		if (tPath!=nil)
 		{
-			[tPath setLineWidth:3.0f];
+			[tPath setLineWidth:3.0];
 			
 			[[NSColor alternateSelectedControlColor] set];
 			

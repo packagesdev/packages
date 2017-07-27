@@ -174,7 +174,7 @@
 			
 			for(NSUInteger i=0;i<TEETH_COUNT;i++)
 			{
-				tPoint=NSMakePoint(tCenter.x+tRadius*cosf((tAngle+5.0f)*DEG_TO_RAD),tCenter.y+tRadius*sinf((tAngle+5.0)*DEG_TO_RAD));
+				tPoint=NSMakePoint(tCenter.x+tRadius*cosf((tAngle+5.0)*DEG_TO_RAD),tCenter.y+tRadius*sinf((tAngle+5.0)*DEG_TO_RAD));
 				
 				[tBezierPath lineToPoint:tPoint];
 				

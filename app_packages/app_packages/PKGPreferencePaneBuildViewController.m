@@ -121,7 +121,7 @@
 		_temporaryBuildLocationTextField.textColor=[NSColor redColor];
 	}
 	
-	tImage.size=NSMakeSize(32.0f,32.0f);
+	tImage.size=NSMakeSize(32.0,32.0);
 	
 	_temporaryBuildLocationIconImageView.image=tImage;
 }

@@ -313,7 +313,7 @@
 		tResourcesFrame.size.height=_cachedHierarchyPlaceHolderViewInitialHeight;
 	}
 	
-	tResourcesFrame.origin.y=0.0f;
+	tResourcesFrame.origin.y=0.0;
 	
 	tRequirementsFrame.origin.y=NSMaxY(tResourcesFrame);
 	

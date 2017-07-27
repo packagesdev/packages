@@ -55,7 +55,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSRange tRange;
 	NSDictionary * tAttributesDictionary=[tAttributedString attributesAtIndex:0 effectiveRange:&tRange];
 	
-	NSRect tRect=[tMutableString boundingRectWithSize:NSMakeSize(NSWidth(tBounds),1.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:tAttributesDictionary];
+	NSRect tRect=[tMutableString boundingRectWithSize:NSMakeSize(NSWidth(tBounds),1.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:tAttributesDictionary];
 	
 	NSUInteger tLength=[tMutableString length];
 	
@@ -74,13 +74,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		tShortened=YES;
 		
-		tRect=[tMutableString boundingRectWithSize:NSMakeSize(NSWidth(tBounds),1.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:tAttributesDictionary];
+		tRect=[tMutableString boundingRectWithSize:NSMakeSize(NSWidth(tBounds),1.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:tAttributesDictionary];
 	}
 	
 	_boundingRect.size=tRect.size;
 	
 	_boundingRect.origin.x=0;
-	_boundingRect.origin.y=floor(NSMidY(tBounds)-NSHeight(_boundingRect)*0.5f);
+	_boundingRect.origin.y=floor(NSMidY(tBounds)-NSHeight(_boundingRect)*0.5);
 	
 	if (tShortened==YES)
 		[self setToolTip:[self stringValue]];

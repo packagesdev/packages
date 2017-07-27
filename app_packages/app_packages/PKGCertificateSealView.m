@@ -181,14 +181,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (self.isMissing==NO)
 		[[NSColor colorWithDeviceWhite:0.485*tFactor alpha:1.0] setFill];
 	else
-		[[NSColor colorWithDeviceRed:202.0/255.0 green:46.0/255.0f blue:50.0/255.0 alpha:1.0] setFill];
+		[[NSColor colorWithDeviceRed:202.0/255.0 green:46.0/255.0 blue:50.0/255.0 alpha:1.0] setFill];
 	
 	[tBezierPath fill];
 	
 	if (self.isMissing==NO)
 		[[NSColor colorWithDeviceWhite:0.325*tFactor alpha:1.0] setStroke];
 	else
-		[[NSColor colorWithDeviceRed:137.0/255.0 green:46.0/255.0f blue:50.0/255.0 alpha:1.0] setStroke];
+		[[NSColor colorWithDeviceRed:137.0/255.0 green:46.0/255.0 blue:50.0/255.0 alpha:1.0] setStroke];
 	
 	[tBezierPath stroke];
 	
@@ -206,7 +206,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (self.isMissing==NO)
 		[[NSColor colorWithDeviceWhite:0.425*tFactor alpha:1.0] set];
 	else
-		[[NSColor colorWithDeviceRed:110.0/255.0 green:46.0f/255.0f blue:50.0f/255.0f alpha:1.0] set];
+		[[NSColor colorWithDeviceRed:110.0/255.0 green:46.0/255.0 blue:50.0/255.0 alpha:1.0] set];
 	
 	tCircleRadius=tInnerRadius*0.89;
 	

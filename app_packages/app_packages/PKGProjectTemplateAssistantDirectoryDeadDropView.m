@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,20 +19,17 @@
 {
     [super drawRect:dirtyRect];
 	
-	NSRect tBounds=[self bounds];
+	NSRect tBounds=self.bounds;
 	
 	if ([self isHighlighted]==YES)
 	{
-		NSBezierPath * tPath=[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(tBounds,2.0f,2.0f) xRadius:8.0f yRadius:8.0f];
+		NSBezierPath * tPath=[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(tBounds,2.0,2.0) xRadius:8.0 yRadius:8.0];
 		
-		if (tPath!=nil)
-		{
-			[tPath setLineWidth:3.0f];
+		tPath.lineWidth=3.0;
 			
-			[[NSColor alternateSelectedControlColor] set];
+		[[NSColor alternateSelectedControlColor] set];
 			
-			[tPath stroke];
-		}
+		[tPath stroke];
 	}
 }
 

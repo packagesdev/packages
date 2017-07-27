@@ -56,7 +56,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		NSColor * tColor=[inAttributes objectForKey:NSForegroundColorAttributeName];
 		
 		if ([tColor isEqualTo:[NSColor alternateSelectedControlTextColor]]==NO)
-			tColor=[NSColor colorWithDeviceWhite:0.75f alpha:1.0f];
+			tColor=[NSColor colorWithDeviceWhite:0.75f alpha:1.0];
 
 		tAttributedString=[[NSAttributedString alloc] initWithString:NSLocalizedString(@"No Pattern Set",@"")
 														  attributes:@{NSForegroundColorAttributeName:tColor,

@@ -27,8 +27,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #define PKGPresentationWindowTitleBarMarginLeft	76.0
 
-#define PKGPresentationWindowTitleBarMarginRightNoIcon 18.0f
-#define PKGPresentationWindowTitleBarMarginRight 35.0f
+#define PKGPresentationWindowTitleBarMarginRightNoIcon 18.0
+#define PKGPresentationWindowTitleBarMarginRight 35.0
 
 @interface NSWindow (Private_PKG)
 

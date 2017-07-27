@@ -63,7 +63,7 @@
 		CGFloat tArray[2]={5.0,2.0};
 		[tBezierPath setLineDash:tArray count:2 phase:0.5];
 		
-		[tBezierPath setLineWidth:2.0f];
+		[tBezierPath setLineWidth:2.0];
 		
 		[tBezierPath stroke];
 	};
@@ -115,7 +115,7 @@
 		
 		[[NSColor alternateSelectedControlColor] setStroke];
 			
-		[tPath setLineWidth:2.0f];
+		[tPath setLineWidth:2.0];
 			
 		[tPath stroke];
 	}

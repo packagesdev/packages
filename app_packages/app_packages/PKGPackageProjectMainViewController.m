@@ -396,8 +396,8 @@
 	
 	NSRect tFrame=_segmentedControl.frame;
 	
-	tFrame.origin.x=-7.0f;
-	tFrame.size.width=NSWidth(self.view.frame)+7.0f;
+	tFrame.origin.x=-7.0;
+	tFrame.size.width=NSWidth(self.view.frame)+7.0;
 	
 	CGFloat tSegmentWidth=tFrame.size.width/tSegmentCount;
 	

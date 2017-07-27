@@ -38,7 +38,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSImage * tIcon=tMenuItem.image;
 	
-	CGFloat tOffset=8.0f;
+	CGFloat tOffset=8.0;
 	
 	if (tIcon!=nil)
 	{

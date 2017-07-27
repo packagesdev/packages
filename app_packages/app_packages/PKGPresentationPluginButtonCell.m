@@ -13,11 +13,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGPresentationPluginButtonCell.h"
 
-#define PKGPresentationPluginButtonCellLineWidth		2.5f
+#define PKGPresentationPluginButtonCellLineWidth		2.5
 
-#define PKGPresentationPluginButtonCellIconLineWidth	2.5f
+#define PKGPresentationPluginButtonCellIconLineWidth	2.5
 
-#define PKGPresentationPluginButtonCellIconWidth		5.0f
+#define PKGPresentationPluginButtonCellIconWidth		5.0
 
 @implementation PKGPresentationPluginButtonCell
 

@@ -31,7 +31,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (tTintedImage==nil || tMonochromeFilter==nil || tInputColor==nil)
 		return nil;
 	
-	[tMonochromeFilter setValue:@(1.0f) forKey:@"inputIntensity"];
+	[tMonochromeFilter setValue:@(1.0) forKey:@"inputIntensity"];
 	
 	[tMonochromeFilter setValue:tInputColor forKey:@"inputColor"];
 	
