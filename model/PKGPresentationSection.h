@@ -39,6 +39,6 @@ extern NSString * const PKGPresentationSectionSummaryName;
 
 - (instancetype)initWithPluginPath:(PKGFilePath *)inPath;
 
-- (BOOL)isPlugin;
+@property (nonatomic,readonly,getter=isPlugin) BOOL plugin;
 
 @end
