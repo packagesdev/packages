@@ -36,6 +36,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "PKGPackages.h"
 #import "PKGPackagesError.h"
 
+
+#import "PKGPresentationSection+Builder.h"
+
 #import "PKGBuildOrderExecutionAgentInterface.h"
 
 #import "PKGRequirementPluginsManager.h"
@@ -1906,7 +1909,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Sort by Failure Priority
 	
-	[tRequirementsArray sortUsingSelector:@selector(compareBehavior:)];
+	[tRequirementsArray sortUsingSelector:@selector(compareFailureBehavior:)];
 	
 	int tInstallationCheckDepth=-1,tVolumeCheckDepth=-1;
 	NSString * tInstallationCheckTabulationDepth=@"\t",* tVolumeCheckTabulationDepth=@"\t";
@@ -4493,9 +4496,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	for(PKGPresentationSection * tSection in tPresentationSettings.sections)
 	{
-		if ([tSection isPlugin]==NO)
+		if (tSection.isPlugin==NO)
 		{
-			[tSectionOrdersMutableArray addObject:tSection.name];
+			[tSectionOrdersMutableArray addObject:tSection.installerSectionName];
 			continue;
 		}
 		
