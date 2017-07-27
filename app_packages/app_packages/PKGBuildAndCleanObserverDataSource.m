@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 	NSUInteger _indexOfPackagesBeingBuilt;
 }
 
+@property (nonatomic,readwrite,copy) NSString * statusDescription;
+
 @end
 
 @implementation PKGBuildAndCleanObserverDataSource
@@ -86,11 +88,14 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 	[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:_tree.rootNodes.firstObject];
 }
 
-- (NSString *)statusDescription
+- (PKGInstallerAppPackageType)packageType
 {
-	// A COMPLETER
+	if (_project==nil || _project.type==PKGProjectTypePackage)
+		return PKGInstallerAppRawPackage;
 	
-	return nil;
+	PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)_project;
+	
+	return (tDistributionProject.isFlat==YES) ? PKGInstallerAppDistributionFlat : PKGInstallerAppDistributionBundle;
 }
 
 #pragma mark - NSOutlineViewDataSource
@@ -153,6 +158,146 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 	
 	if (tRepresentation!=nil && [tRepresentation isKindOfClass:NSDictionary.class]==NO)
 		return;
+	
+	// Retrieve the data necessary for the status label
+	
+	if (tState==PKGBuildStepStateInfo)
+	{
+		PKGBuildInfoEvent * tInfoEvent=[[PKGBuildInfoEvent alloc] initWithRepresentation:tRepresentation];
+		
+		switch(tStep)
+		{
+			case PKGBuildStepDistribution:
+				
+				_numberOfPackagesToBuild=tInfoEvent.packagesCount;
+				
+				break;
+				
+			default:
+				
+				break;
+		}
+	}
+	else if (tState==PKGBuildStepStateBegin)
+	{
+		switch(tStep)
+		{
+			case PKGBuildStepProject:
+				
+				self.statusDescription=NSLocalizedStringFromTable(@"Building...",@"Build",@"");
+				
+				_numberOfPackagesToBuild=0;
+				_indexOfPackagesBeingBuilt=0;
+				
+				break;
+				
+			case PKGBuildStepDistribution:
+				
+				_indexOfPackagesBeingBuilt=0;
+				
+				break;
+				
+			case PKGBuildStepPackage:
+				
+				self.statusDescription=NSLocalizedStringFromTable(@"Building package...",@"Build",@"");
+				
+				break;
+				
+			case PKGBuildStepPackageCreate:
+			case PKGBuildStepPackageReference:
+			case PKGBuildStepPackageImport:
+				
+				if (_numberOfPackagesToBuild>0)
+				{
+					_indexOfPackagesBeingBuilt++;
+					
+					if (_numberOfPackagesToBuild==1)
+						self.statusDescription=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Building %lu of 1 package...",@"Build",@""),(unsigned long)_indexOfPackagesBeingBuilt];
+					else
+						self.statusDescription=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Building %lu of %lu packages...",@"Build",@""),(unsigned long)_indexOfPackagesBeingBuilt,(unsigned long)_numberOfPackagesToBuild];
+				}
+				
+				break;
+				
+			default:
+				break;
+		}
+	}
+	else if (tState==PKGBuildStepStateFailure)
+	{
+		self.statusDescription=NSLocalizedStringFromTable(@"Build failed",@"Build",@"");
+	}
+	else if (tState==PKGBuildStepStateSuccess)
+	{
+		if (tStep==PKGBuildStepProject)
+			self.statusDescription=NSLocalizedStringFromTable(@"Build succeeded",@"Build",@"");
+	}
+	/*
+	
+	else if (tEventInfoID==IC_BUILDER_NOTIFICATION_INFO_EVENT_CLEAN)
+	{
+		int tStep;
+		int tState;
+		
+		tStep=[[tUserInfo objectForKey:IC_BUILDER_INFORMATION_STEP] intValue];
+		
+		tState=[[tUserInfo objectForKey:IC_BUILDER_INFORMATION_STATE] intValue];
+		
+		if (tStep==IC_BUILDER_INFORMATION_STEP_CLEAN)
+		{
+			if (tState==IC_BUILDER_BUILD_STATE_END_SUCCESS)
+			{
+				[IBstatusLabel_ setStringValue:NSLocalizedStringFromTable(@"Clean succeeded",@"Build",@"")];
+			}
+			else if (tState==IC_BUILDER_BUILD_STATE_END_FAILURE)
+			{
+				[IBstatusLabel_ setStringValue:NSLocalizedStringFromTable(@"Clean failed",@"Build",@"")];
+			}
+		}
+		else if (tStep==IC_BUILDER_INFORMATION_STEP_CLEAN_OBJECT)
+		{
+		}
+		else
+		{
+			NSLog(@"[ICBuildWindowController builderNotification:] Unknown Step");
+		}
+	}*/
+	
+	
+	
+	NSString * (^fileItemTypeName)(PKGBuildErrorFileKind)=^NSString *(PKGBuildErrorFileKind bFileKind)
+	{
+		switch(bFileKind)
+		{
+			case PKGFileKindRegularFile:
+				
+				return NSLocalizedStringFromTable(@"file",@"Build",@"");
+				
+			case PKGFileKindFolder:
+				
+				return NSLocalizedStringFromTable(@"folder",@"Build",@"");
+				
+			case PKGFileKindPlugin:
+				
+				return NSLocalizedStringFromTable(@"plugin",@"Build",@"");
+				
+			case PKGFileKindTool:
+				
+				return NSLocalizedStringFromTable(@"tool",@"Build",@"");
+				
+			case PKGFileKindPackage:
+				
+				return NSLocalizedStringFromTable(@"package",@"Build",@"");
+				
+			case PKGFileKindBundle:
+				
+				return NSLocalizedStringFromTable(@"bundle",@"Build",@"");
+		}
+		
+		return nil;
+	};
+	
+	
 	
 	if (tState==PKGBuildStepStateBegin)
 	{
@@ -247,6 +392,8 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 				if ([_project isKindOfClass:PKGDistributionProject.class]==NO)
 					return;
 				
+				
+				
 				PKGDistributionProject * tDistributionProject=(PKGDistributionProject *)_project;
 				
 				PKGPackageComponent * tPackageComponent=[tDistributionProject packageComponentWithUUID:tInfoEvent.packageUUID];
@@ -256,7 +403,10 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					// A COMPLETER
 				}
 				
-				tType=PKGBuildEventItemDistributionPackage;
+				if (tStep==PKGBuildStepPackageCreate)
+					tType=PKGBuildEventItemDistributionPackageProject;
+				else
+					tType=PKGBuildEventItemDistributionPackage;
 				
 				NSString * tString=nil;
 				NSString * tPackageName=tInfoEvent.packageName;
@@ -387,6 +537,448 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 		
 		[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:([_currentBuildTreeNode isLeaf]==NO) ? _currentBuildTreeNode : nil];
 	}
+	else if (tState==PKGBuildStepStateFailure)
+	{
+		PKGBuildError tFailureReason=PKGBuildErrorUnknown;
+		
+		PKGBuildErrorEvent * tErrorEvent=[[PKGBuildErrorEvent alloc] initWithRepresentation:tRepresentation];
+		NSString * tTitle=nil;
+		
+		if (tErrorEvent!=nil)
+			tFailureReason=tErrorEvent.code;
+		
+		if (tFailureReason==PKGBuildErrorUnknown)
+		{
+		}
+		else if (tFailureReason==PKGBuildErrorOutOfMemory)
+		{
+			tTitle=NSLocalizedStringFromTable(@"Not enough memory to perform operation",@"Build",@"No comment");
+		}
+		else
+		{
+			NSString * tTag=tErrorEvent.tag;
+			
+			NSString * tFilePath=tErrorEvent.filePath;
+			PKGBuildErrorFileKind tFileKind=tErrorEvent.fileKind;
+			
+			switch(tFailureReason)
+			{
+				case PKGBuildErrorMissingInformation:
+					
+					if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]==YES)
+						tTitle=NSLocalizedStringFromTable(@"The location of the referenced package has not been fully defined.",@"Build",@"");
+					else
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Missing information for tag '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorMissingBuildData:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Missing build data for tag '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorIncorrectValue:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Incorrect value for object with tag '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorFileIncorrectType:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Incorrect type for file at path \"%@\"",@"Build",@""),tFilePath];
+					
+					break;
+					
+				/*case IC_BUILDER_FAILURE_REASON_FILE_INSUFFICIENT_PERMISSIONS_WRITE:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Insufficient privileges to write at path \"%@\"",@"Build",@""),tFilePath];
+					
+					break;
+					
+				case IC_BUILDER_FAILURE_REASON_FILE_INSUFFICIENT_PERMISSIONS_SET:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Insufficient privileges to set permissions for path \"%@\"",@"Build",@""),tFilePath];
+					
+					break;*/
+					
+				case PKGBuildErrorExternalToolFailure:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ returned error code '%d'",@"Build",@""),[tFilePath lastPathComponent],tErrorEvent.toolTerminationStatus];
+					
+					break;
+					
+				case PKGBuildErrorExternalToolFailureSplitForkNonHFSVolume:
+					
+					tTitle=NSLocalizedStringFromTable(@"The Temporary Build Path is on a non HFS volume",@"Build",@"");
+					
+					break;
+					
+				case PKGBuildErrorUnknownLanguage:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Language (%@) not supported",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorLicenseTemplateNotFound:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"License template for \"%@\" can not be found",@"Build",@""),tTag];
+					
+					break;
+					
+				/*case IC_BUILDER_FAILURE_REASON_PACKAGE_SAME_NAME:
+					
+					// A COMPLETER
+					
+					break;*/
+					
+				case PKGBuildErrorEmptyString:
+					
+					tTitle=nil;
+					
+					if (tStep==PKGBuildStepPackageInfo)
+					{
+						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER"]==YES)
+							tTitle=NSLocalizedStringFromTable(@"The identifier of the package can not be empty.",@"Build",@"");
+						else if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION"]==YES)
+							tTitle=NSLocalizedStringFromTable(@"The version of the package can not be empty.",@"Build",@"");
+					}
+					else if (tStep==PKGBuildStepDistribution)
+					{
+						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_NAME"]==YES)
+							tTitle=NSLocalizedStringFromTable(@"The name of the project can not be empty.",@"Build",@"");
+					}
+					else if (tStep==PKGBuildStepPackageCreate)
+					{
+						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_NAME"]==YES)
+							tTitle=NSLocalizedStringFromTable(@"The name of the package can not be empty.",@"Build",@"");
+					}
+					else
+					{
+						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]==YES)
+							tTitle=NSLocalizedStringFromTable(@"The location of the referenced package has not been fully defined.",@"Build",@"");
+					}
+					
+					if (tTitle==nil)
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"String can not be empty for tag '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorRequirementMissingConverter:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Converter not found for requirement of type '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorRequirementMissingCode:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"No code generated for requirement of type '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorLocatorMissingConverter:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Converter not found for locator of type '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorLocatorConversionError:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"No code generated for locator of type '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorFileNotFound:
+					
+					tTitle=nil;
+					
+					if (tStep==PKGBuildStepPackageImport)
+					{
+						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
+							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find package at path '%@'",@"Build",@""),tFilePath];
+					}
+					
+					if (tTitle==nil)
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ '%@'",@"Build",@""),fileItemTypeName(tFileKind),tFilePath];
+					
+					break;
+					
+				case PKGBuildErrorFileCanNotBeCreated:
+					
+					if ([tFilePath isEqualToString:@"Scratch_Location"]==NO)
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to create %@ at path '%@'",@"Build",@""),tFilePath];
+					else
+						tTitle=NSLocalizedStringFromTable(@"Unable to create scratch location folder",@"Build",@"");
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorNoMoreSpaceOnVolume:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because there's no space left on disk",@"Build",@"")];
+							break;
+							
+						case PKGBuildErrorReadOnlyVolume:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because the disk is read only",@"Build",@"")];
+							break;
+							
+						case PKGBuildErrorWriteNoPermission:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because you don't have permission to create it in the folder ",@"Build",@"")];
+							
+							if ([tFilePath isEqualToString:@"Scratch_Location"]==YES)
+								tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@"\'/tmp/private/\'",@"Build",@"")];
+							else
+								tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@"\'%s\'",@"Build",@""),tFilePath.stringByDeletingLastPathComponent.lastPathComponent];
+							
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+				case PKGBuildErrorFileCanNotBeCopied:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to copy item at path '%@'",@"Build",@""),tFilePath];
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorFileNotFound:
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because the item could not be found",@"Build",@"")];
+							break;
+							
+						case PKGBuildErrorNoMoreSpaceOnVolume:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because there's no space left on disk",@"Build",@"")];
+							break;
+							
+						case PKGBuildErrorReadOnlyVolume:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because the disk is read only",@"Build",@"")];
+							break;
+							
+						case PKGBuildErrorWriteNoPermission:
+							
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because you don't have permission to create it to the folder \'%s\'",@"Build",@""),[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]];
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+				case PKGBuildErrorFileCanNotBeDeleted:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to delete %@ at path '%@'",@"Build",@""),fileItemTypeName(tFileKind),tFilePath];
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorFileNotFound:
+							
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because the %@ can not be found",@"Build",@""),fileItemTypeName(tFileKind)];
+							break;
+							
+						case PKGBuildErrorReadOnlyVolume:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because the disk is read only",@"Build",@"")];
+							break;
+							
+						case PKGBuildErrorWriteNoPermission:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because you don't have permission to access it",@"Build",@"")];
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+				case PKGBuildErrorSigningUnknown:
+					
+					tTitle=NSLocalizedStringFromTable(@"Unable to sign the data",@"Build",@"");
+					
+					break;
+					
+				case PKGBuildErrorSigningTimeOut:
+					
+					tTitle=NSLocalizedStringFromTable(@"Signing operation timed out",@"Build",@"");
+					
+					break;
+					
+				case PKGBuildErrorSigningAuthorizationDenied:
+					
+					tTitle=NSLocalizedStringFromTable(@"Signing operation denied",@"Build",@"");
+					
+					break;
+					
+				case PKGBuildErrorSigningCertificateNotFound:
+					
+					tTitle=NSLocalizedStringFromTable(@"Unable to find signing certificate",@"Build",@"");
+					
+					break;
+					
+				default:
+					
+					// A COMPLETER
+					
+					break;
+			}
+		}
+		
+		if (tTitle!=nil)
+		{
+			PKGBuildEventItem * nBuildEventItem=[PKGBuildEventItem new];
+		
+			nBuildEventItem.type=PKGBuildEventItemErrorDescription;
+			nBuildEventItem.state=PKGBuildEventItemStateFailure;
+			nBuildEventItem.title=tTitle;
+			
+			PKGBuildEventTreeNode * tBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:nBuildEventItem children:nil];
+			
+			[_currentBuildTreeNode addChild:tBuildEventTreeNode];
+		}
+		
+		PKGBuildEventTreeNode * tBuildEventParentTreeNode=_currentBuildTreeNode;
+		
+		while (tBuildEventParentTreeNode!=nil)
+		{
+			PKGBuildEventItem * tBuildEventItem=[tBuildEventParentTreeNode representedObject];
+			tBuildEventItem.state=PKGBuildEventItemStateFailure;
+			
+			tBuildEventParentTreeNode=(PKGBuildEventTreeNode *) [tBuildEventParentTreeNode parent];
+		}
+		
+		NSDateFormatter * tDateFormatter=[NSDateFormatter new];
+		tDateFormatter.formatterBehavior=NSDateFormatterBehavior10_4;
+		tDateFormatter.dateStyle=NSDateFormatterShortStyle;
+		tDateFormatter.timeStyle=NSDateFormatterShortStyle;
+		
+		PKGBuildEventItem * nBuildEventItem=[PKGBuildEventItem new];
+		
+		nBuildEventItem.type=PKGBuildEventItemConclusion;
+		nBuildEventItem.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Build Failed \t%@",@"Build",@"No comment"),[tDateFormatter stringForObjectValue:[NSDate date]]];
+		nBuildEventItem.subTitle=NSLocalizedStringFromTable(@"1 error",@"Build",@"No comment");
+		nBuildEventItem.state=PKGBuildEventItemStateFailure;
+		
+		PKGBuildEventTreeNode * nBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:nBuildEventItem children:nil];
+		
+		[_tree.rootNodes addObject:nBuildEventTreeNode];
+		
+		[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:([_currentBuildTreeNode isLeaf]==NO) ? _currentBuildTreeNode : nil];
+	}
+	else if (tState==PKGBuildStepStateWarning)
+	{
+		PKGBuildError tFailureReason=PKGBuildErrorUnknown;
+		
+		PKGBuildErrorEvent * tErrorEvent=[[PKGBuildErrorEvent alloc] initWithRepresentation:tRepresentation];
+		NSString * tTitle=nil;
+		
+		if (tErrorEvent!=nil)
+			tFailureReason=tErrorEvent.code;
+
+		if (tFailureReason==PKGBuildErrorUnknown)
+		{
+		}
+		else if (tFailureReason==PKGBuildErrorOutOfMemory)
+		{
+			tTitle=NSLocalizedStringFromTable(@"Not enough memory to perform operation",@"Build",@"No comment");
+		}
+		else
+		{
+			NSString * tTag=tErrorEvent.tag;
+			
+			NSString * tFilePath=tErrorEvent.filePath;
+			PKGBuildErrorFileKind tFileKind=tErrorEvent.fileKind;
+			
+			switch(tFailureReason)
+			{
+				case PKGBuildErrorFileNotFound:	// Exists
+					
+					tTitle=nil;
+					
+					if (tStep==PKGBuildStepPackageImport)
+					{
+						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
+							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find package at path '%@'",@"Build",@""),tFilePath];
+					}
+					
+					if (tTitle==nil)
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'\n",@"Build",@""),fileItemTypeName(tErrorEvent.fileKind),[tFilePath fileSystemRepresentation]];
+					
+					break;
+					
+				case PKGBuildErrorFileCanNotBeCopied:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to copy item at path '%@'",@"Build",@""),tFilePath];
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorFileNotFound:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because the item could not be found",@"Build",@"")];
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+				case PKGBuildErrorFileCanNotBeDeleted:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to remove %@ at path '%@'",@"Build",@""),fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]];
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorReadOnlyVolume:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because the disk is read only",@"Build",@"")];
+							break;
+							
+						case PKGBuildErrorWriteNoPermission:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because you don't have permission to access it",@"Build",@"")];
+							break;
+							
+						default:
+							break;
+					}
+					
+				default:
+					
+					break;
+			}
+		}
+		
+		if (tTitle!=nil)
+		{
+			PKGBuildEventItem * nBuildEventItem=[PKGBuildEventItem new];
+			
+			nBuildEventItem.type=PKGBuildEventItemErrorDescription;
+			nBuildEventItem.state=PKGBuildEventItemStateWarning;
+			nBuildEventItem.title=tTitle;
+			
+			PKGBuildEventTreeNode * tBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:nBuildEventItem children:nil];
+			
+			[_currentBuildTreeNode addChild:tBuildEventTreeNode];
+		}
+		
+		PKGBuildEventTreeNode * tBuildEventParentTreeNode=_currentBuildTreeNode;
+		
+		while (tBuildEventParentTreeNode!=nil)
+		{
+			PKGBuildEventItem * tBuildEventItem=[tBuildEventParentTreeNode representedObject];
+			tBuildEventItem.state=PKGBuildEventItemStateWarning;
+			
+			tBuildEventParentTreeNode=(PKGBuildEventTreeNode *) [tBuildEventParentTreeNode parent];
+		}
+		
+		[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:([_currentBuildTreeNode isLeaf]==NO) ? _currentBuildTreeNode : nil];
+	}
 	else if (tState==PKGBuildStepStateSuccess)
 	{
 		switch (tStep)
@@ -414,7 +1006,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 				PKGBuildEventTreeNode * tBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:tBuildEventItem children:nil];
 				
 				[_tree.rootNodes addObject:tBuildEventTreeNode];
-						
+				
 				[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndCollapseItem:([_currentBuildTreeNode isLeaf]==NO) ? _currentBuildTreeNode : nil];
 				
 				break;

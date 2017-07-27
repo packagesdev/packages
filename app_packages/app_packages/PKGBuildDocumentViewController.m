@@ -26,6 +26,9 @@
 #import "PKGInstallerApp.h"
 
 @interface PKGBuildDocumentViewController () <NSOutlineViewDelegate>
+{
+	IBOutlet NSTextField * _statusLabel;
+}
 
 	@property (readwrite) IBOutlet NSOutlineView * outlineView;
 
@@ -44,6 +47,10 @@
 
 - (void)buildAndCleanObserverDataSource:(PKGBuildAndCleanObserverDataSource *)inBuildAndCleanObserverDataSource shouldReloadDataAndExpandItem:(id)inItem
 {
+	NSString * tStatusDescription=inBuildAndCleanObserverDataSource.statusDescription;
+	
+	_statusLabel.stringValue=(tStatusDescription!=nil) ? tStatusDescription : @"";
+	
 	[self.outlineView reloadData];
 	
 	if (inItem!=nil)
@@ -52,6 +59,10 @@
 
 - (void)buildAndCleanObserverDataSource:(PKGBuildAndCleanObserverDataSource *)inBuildAndCleanObserverDataSource shouldReloadDataAndCollapseItem:(id)inItem
 {
+	NSString * tStatusDescription=inBuildAndCleanObserverDataSource.statusDescription;
+	
+	_statusLabel.stringValue=(tStatusDescription!=nil) ? tStatusDescription : @"";
+	
 	[self.outlineView reloadData];
 	
 	if (inItem!=nil)
@@ -114,8 +125,6 @@
 	if (inOutlineView!=self.outlineView || inBuildEventTreeNode==nil)
 		return nil;
 	
-	//NSString * tTableColumnIdentifier=inTableColumn.identifier;
-	
 	PKGBuildEventItem * tBuildEventItem=[inBuildEventTreeNode representedObject];
 	
 	switch(tBuildEventItem.type)
@@ -137,7 +146,7 @@
 			{
 				case PKGBuildEventItemProject:
 					
-					//tStepIcon=[[PKGInstallerApp installerApp] iconForPackageType:PKGInstallerAppRawPackage];
+					tStepIcon=[[PKGInstallerApp installerApp] iconForPackageType:self.dataSource.packageType];
 					
 					break;
 					
@@ -173,7 +182,28 @@
 					break;
 			}
 			
-			tTableCellView.imageView.image=tStepIcon;
+			tTableCellView.imageView.image=[NSImage imageWithSize:NSMakeSize(32.0,32.0) flipped:NO drawingHandler:^BOOL(NSRect bRect) {
+				
+				[tStepIcon drawInRect:bRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				
+				if (tStepStatusIcon==nil)
+					return YES;
+				
+				NSRect tBadgeRect={
+					.origin=NSZeroPoint,
+					.size=tStepStatusIcon.size
+				};
+				
+				[NSGraphicsContext saveGraphicsState];
+				
+				[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+				
+				[tStepStatusIcon drawInRect:NSMakeRect(NSMaxX(bRect)-NSWidth(tBadgeRect),NSMinY(bRect),NSWidth(tBadgeRect),NSHeight(tBadgeRect)) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				
+				[NSGraphicsContext restoreGraphicsState];
+				
+				return YES;
+			}];
 			
 			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
 		
@@ -229,13 +259,9 @@
 					break;
 			}
 			
-			// A COMPLETER
-			
 			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
 			
 			tTableCellView.subtitleTextField.stringValue=(tBuildEventItem.subTitle!=nil) ? tBuildEventItem.subTitle : @"";
-			
-			
 			
 			return tTableCellView;
 		}

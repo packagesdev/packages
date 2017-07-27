@@ -3,6 +3,8 @@
 
 #import "PKGDocument.h"
 
+#import "PKGInstallerApp.h"
+
 @class PKGBuildAndCleanObserverDataSource;
 
 @protocol PKGBuildAndCleanObserverDataSourceDelegate <NSObject>
@@ -17,6 +19,8 @@
 	@property (nonatomic,weak) id<PKGBuildAndCleanObserverDataSourceDelegate> delegate;
 
 	@property (nonatomic,readonly,copy) NSString * statusDescription;
+
+	@property (nonatomic,readonly) PKGInstallerAppPackageType packageType;
 
 
 + (PKGBuildAndCleanObserverDataSource *)buildObserverDataSourceForDocument:(PKGDocument *)inDocument;

@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGBuildDocumentViewController">
             <connections>
+                <outlet property="_statusLabel" destination="gQf-qi-ehQ" id="a3W-YJ-WQa"/>
                 <outlet property="outlineView" destination="gUi-3N-OTj" id="f4P-T2-Xd6"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -19,11 +20,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="gQf-qi-ehQ">
-                    <rect key="frame" x="18" y="10" width="799" height="17"/>
+                    <rect key="frame" x="18" y="11" width="799" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="NEl-DT-4QK">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="NEl-DT-4QK">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" white="0.34868421052631576" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
