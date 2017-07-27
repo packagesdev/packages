@@ -29,6 +29,7 @@
 	switch(tBuildEventItem.type)
 	{
 		case PKGBuildEventItemStep:
+		case PKGBuildEventItemDistributionPackage:
 			
 			return (tBuildEventItem.state!=PKGBuildEventItemStateFailure && tBuildEventItem.state!=PKGBuildEventItemStateWarning);
 			
