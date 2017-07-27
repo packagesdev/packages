@@ -289,6 +289,7 @@
 	if (_buildWindowController==nil)
 	{
 		_buildWindowController=[PKGBuildDocumentWindowController new];
+		_buildWindowController.window.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ - Build Log",@"Build",@"No commets"),[self.document displayName]];
 		
 		_buildWindowController.dataSource=_buildObserver;
 		
