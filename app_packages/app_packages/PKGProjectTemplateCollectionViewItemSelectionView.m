@@ -24,7 +24,7 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    if ([self isSelected]==YES)
+    if (self.isSelected==YES)
 	{
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithRoundedRect:[self bounds] xRadius:8.0 yRadius:8.0];
 		
