@@ -289,7 +289,7 @@
 	if (_buildWindowController==nil)
 	{
 		_buildWindowController=[PKGBuildDocumentWindowController new];
-		_buildWindowController.window.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ - Build Log",@"Build",@"No commets"),[self.document displayName]];
+		[self.document addWindowController:_buildWindowController];
 		
 		_buildWindowController.dataSource=_buildObserver;
 		
@@ -484,12 +484,13 @@
 														if ([PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior==PKGPreferencesBuildShowBuildWindowAlways)
 														{
 															if (_buildWindowController==nil)
+															{
 																_buildWindowController=[PKGBuildDocumentWindowController new];
 															
-															_buildWindowController.window.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ - Build Log",@"Build",@"No commets"),[self.document displayName]];
-															
+																[self.document addWindowController:_buildWindowController];
+															}
+																
 															_buildWindowController.dataSource=_buildObserver;
-															
 															[_buildWindowController showWindow:self];
 														}
 											 }

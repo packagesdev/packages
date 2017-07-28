@@ -13,18 +13,15 @@
 
 #import "PKGDocument.h"
 
-#import "PKGDocumentWindowController.h"
+
 
 #import "NSString+Packages.h"
 
 @interface PKGDocument ()
-{
-	PKGDocumentWindowController * _documentWindowController;
-}
 
 	@property (readwrite) PKGDocumentRegistry * registry;
 
-
+	@property (readwrite) PKGDocumentWindowController * documentWindowController;
 
 
 @end
@@ -54,7 +51,7 @@
 
 - (void)makeWindowControllers
 {
-	[self addWindowController:_documentWindowController];
+	[self addWindowController:self.documentWindowController];
 }
 
 #pragma mark -
@@ -76,7 +73,7 @@
 
 - (NSString *)referenceFolderPath
 {
-	NSString * tReferenceProjectPath=_documentWindowController.project.settings.referenceFolderPath;
+	NSString * tReferenceProjectPath=self.documentWindowController.project.settings.referenceFolderPath;
 	
 	if (tReferenceProjectPath==nil)
 		return self.folder;
@@ -86,7 +83,7 @@
 
 - (PKGProject *)project
 {
-	return _documentWindowController.project;
+	return self.documentWindowController.project;
 }
 
 #pragma mark -
@@ -124,7 +121,7 @@
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
-	id tPropertyList=[_documentWindowController.project representation];
+	id tPropertyList=[self.documentWindowController.project representation];
 	
 	if (tPropertyList==nil)
 	{
@@ -168,7 +165,7 @@
 		return NO;
 	}
 	
-	_documentWindowController=[[PKGDocumentWindowController alloc] initWithProject:tProject];
+	self.documentWindowController=[[PKGDocumentWindowController alloc] initWithProject:tProject];
 	
 	return YES;
 	
@@ -184,6 +181,13 @@
 + (BOOL)autosavesInPlace
 {
     return NO;
+}
+
+#pragma mark -
+
+- (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings error:(NSError **)outError
+{
+	return nil;
 }
 
 #pragma mark - PKGFilePathConverter

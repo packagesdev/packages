@@ -17,11 +17,12 @@ NSString * const PKGBuildSubtitledTableRowViewIdentifier=@"PKGBuildSubtitledTabl
 
 @implementation PKGBuildSubtitledTableRowView
 
-- (void)drawRect:(NSRect)inRect
+
+- (void)drawBackgroundInRect:(NSRect)inRect
 {
 	if (self.isSelected==YES)
 	{
-		[super drawRect:inRect];
+		[super drawBackgroundInRect:inRect];
 		return;
 	}
 	

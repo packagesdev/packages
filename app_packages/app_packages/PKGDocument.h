@@ -19,6 +19,8 @@
 
 #import "PKGProject.h"
 
+#import "PKGDocumentWindowController.h"
+
 @interface PKGDocument : NSDocument <PKGFilePathConverter>
 
 	@property (readonly) NSURL * folderURL;
@@ -28,6 +30,8 @@
 	@property (readonly) PKGDocumentRegistry * registry;
 
 	@property (readonly) PKGProject * project;
+
+	@property (readonly) PKGDocumentWindowController * documentWindowController;
 
 - (NSURL *)temporaryURLWithError:(NSError **)outError;
 

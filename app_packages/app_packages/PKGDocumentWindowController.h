@@ -28,4 +28,9 @@
 
 - (void)setContentsOfRightAccessoryView:(NSView *)inView;
 
+- (IBAction)build:(id)sender;
+- (IBAction)buildAndRun:(id)sender;
+- (IBAction)buildAndDebug:(id)sender;
+- (IBAction)clean:(id)sender;
+
 @end
