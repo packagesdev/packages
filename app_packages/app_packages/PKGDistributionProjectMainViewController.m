@@ -192,44 +192,44 @@
 
 - (IBAction)switchShowRawNames:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(switchShowRawNames) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(switchShowRawNames:) withObject:sender];
 }
 
 #pragma mark - Hierarchy Menu
 
 - (IBAction)addFiles:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(addFiles) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(addFiles:) withObject:sender];
 }
 
 - (IBAction)addNewFolder:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(addNewFolder) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(addNewFolder:) withObject:sender];
 }
 
 - (IBAction)expandOneLevel:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(expandOneLevel) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(expandOneLevel:) withObject:sender];
 }
 
 - (IBAction)expand:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(expand) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(expand:) withObject:sender];
 }
 
 - (IBAction)expandAll:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(expandAll) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(expandAll:) withObject:sender];
 }
 
 - (IBAction)contract:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(contract) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(contract:) withObject:sender];
 }
 
 - (IBAction)switchHiddenFolderTemplatesVisibility:(id)sender
 {
-	[_currentContentsViewController performSelector:@selector(switchHiddenFolderTemplatesVisibility) withObject:sender];
+	[_currentContentsViewController performSelector:@selector(switchHiddenFolderTemplatesVisibility:) withObject:sender];
 }
 
 - (IBAction)setDefaultDestination:(id)sender
