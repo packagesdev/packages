@@ -33,8 +33,6 @@
 
 #import "PKGEvent.h"
 
-#import "PKGProjectNameFormatter.h"
-
 #import "PKGDistributionProjectExporter.h"
 
 @interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate,NSTextFieldDelegate>
@@ -42,8 +40,6 @@
 	IBOutlet NSView * _sourceListAuxiliaryView;
 	
 	IBOutlet NSButton * _addButton;
-	
-	PKGProjectNameFormatter * _cachedProjectNameFormatter;
 }
 
 	@property IBOutlet NSMenu * contextualMenu;
@@ -52,6 +48,9 @@
 - (IBAction)duplicate:(id)sender;
 
 - (IBAction)exportPackageAsProject:(id)sender;
+
+
+- (IBAction)setPackageName:(id)sender;
 
 - (IBAction)showProject:(id)sender;
 
@@ -75,18 +74,6 @@
 @end
 
 @implementation PKGDistributionProjectSourceListController
-
-- (instancetype)initWithDocument:(PKGDocument *)inDocument
-{
-	self=[super initWithDocument:inDocument];
-	
-	if (self!=nil)
-	{
-		_cachedProjectNameFormatter=[PKGProjectNameFormatter new];
-	}
-	
-	return self;
-}
 
 - (void)WB_viewDidLoad
 {
@@ -261,6 +248,31 @@
 
 #pragma mark -
 
+- (IBAction)setPackageName:(NSTextField *)inTextField
+{
+	NSInteger tEditedRow=[self.outlineView rowForView:inTextField];
+	
+	if (tEditedRow==-1)
+		return;
+	
+	NSString * tNeName=inTextField.stringValue;
+	
+	PKGDistributionProjectSourceListTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
+	
+	if ([self.dataSource outlineView:self.outlineView shouldRenamePackageComponent:tEditedNode as:tNeName]==NO)
+	{
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
+		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"sourcelist.name"]];
+		
+		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+		
+		return;
+	}
+	
+	if ([self.dataSource outlineView:self.outlineView renamePackageComponent:tEditedNode as:tNeName]==YES)
+		;//[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
+}
+
 - (IBAction)showProject:(id)sender
 {
 	[self.outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
@@ -357,67 +369,6 @@
 	}
 	
 	return YES;
-}
-
-#pragma mark - NSTextFieldDelegate
-
-- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
-{
-	control.formatter=_cachedProjectNameFormatter;
-	
-	return YES;
-}
-
-- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
-{
-	control.formatter=nil;
-	
-	return YES;
-}
-
-- (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError
-{
-	NSBeep();
-}
-
-- (BOOL)control:(NSControl *)control didFailToFormatString:(NSString *)string errorDescription:(NSString *)error
-{
-	NSLog(@"didFailToFormatString:");
-	
-	return YES;
-}
-
-- (void)controlTextDidChange:(NSNotification *)inNotification
-{
-	NSLog(@"controlTextDidChange:");
-}
-
-- (void)controlTextDidEndEditing:(NSNotification *)inNotification
-{
-	NSTextField * tTextField=inNotification.object;
-	
-	if ([tTextField isKindOfClass:NSTextField.class]==NO)
-		return;
-	
-	NSInteger tEditedRow=[self.outlineView rowForView:tTextField];
-	
-	if (tEditedRow==-1)
-		return;
-	
-	PKGDistributionProjectSourceListTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
-	
-	if ([self.dataSource outlineView:self.outlineView shouldRenamePackageComponent:tEditedNode as:tTextField.stringValue]==NO)
-	{
-		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
-		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"sourcelist.name"]];
-		
-		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
-		
-		return;
-	}
-	
-	if ([self.dataSource outlineView:self.outlineView renamePackageComponent:tEditedNode as:tTextField.stringValue]==YES)
-		;//[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
 #pragma mark - NSOutlineViewDelegate

@@ -27,6 +27,7 @@
 #import "PKGDistributionProjectSourceListPackageComponentItem.h"
 
 #import "NSOutlineView+Selection.h"
+#import "NSAlert+block.h"
 
 #import "NSArray+UniqueName.h"
 
@@ -623,7 +624,9 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 			tAlert.messageText=bMessageText;
 			tAlert.informativeText=bInformativeText;
 			
-			[tAlert runModal];
+			[tAlert WB_beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSModalResponse bResponse){
+				
+			}];
 		};
 		
 		if (tLength>=256)
