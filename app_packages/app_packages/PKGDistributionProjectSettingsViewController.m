@@ -265,6 +265,14 @@
 	}
 }
 
+#pragma mark - NSControlTextEditingDelegate
+
+- (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)inString errorDescription:(NSString *)inErrorDescription
+{
+	if ([inErrorDescription isEqualToString:@"Error"]==YES)
+		NSBeep();
+}
+
 #pragma mark - Notifications
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification
