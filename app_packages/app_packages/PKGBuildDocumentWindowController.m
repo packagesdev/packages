@@ -22,12 +22,6 @@
 	PKGBuildDocumentViewController * _mainViewController;
 }
 
-- (IBAction)showHideBuildWindow:(id)sender;
-- (IBAction)build:(id)sender;
-- (IBAction)buildAndRun:(id)sender;
-- (IBAction)buildAndDebug:(id)sender;
-- (IBAction)clean:(id)sender;
-
 @end
 
 @implementation PKGBuildDocumentWindowController
@@ -76,55 +70,6 @@
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)inDisplayName
 {
 	return [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ - Build Log",@"Build",@"No comments"),inDisplayName];
-}
-
-#pragma mark -
-
-- (IBAction)showHideBuildWindow:(id)sender
-{
-	[self.window orderOut:self];
-}
-
-- (IBAction)build:(id)sender
-{
-	[((PKGDocument *)self.document).documentWindowController build:sender];
-}
-
-- (IBAction)buildAndRun:(id)sender
-{
-	[((PKGDocument *)self.document).documentWindowController buildAndRun:sender];
-}
-
-- (IBAction)buildAndDebug:(id)sender
-{
-	[((PKGDocument *)self.document).documentWindowController buildAndDebug:sender];
-}
-
-- (IBAction)clean:(id)sender
-{
-	[((PKGDocument *)self.document).documentWindowController clean:sender];
-}
-
-- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
-{
-	SEL tAction=inMenuItem.action;
-	
-	if (tAction==@selector(showHideBuildWindow:))
-	{
-		inMenuItem.title=NSLocalizedStringFromTable(@"Hide Build Log Window",@"Build",@"No comment");
-		
-		return YES;
-	}
-	
-	if (tAction==@selector(build:) ||
-		tAction==@selector(buildAndRun:) ||
-		tAction==@selector(buildAndDebug:) ||
-		tAction==@selector(clean:))
-	{
-		return [((PKGDocument *)self.document).documentWindowController validateMenuItem:inMenuItem];
-	}
-	
-	return YES;
 }
 
 @end

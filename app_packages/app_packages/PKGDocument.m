@@ -13,16 +13,60 @@
 
 #import "PKGDocument.h"
 
+#import "PKGApplicationPreferences.h"
 
+#import "PKGDocumentWindowController.h"
+
+#import "PKGBuildDocumentWindowController.h"
+
+#import "PKGBuildOrderManager.h"
+
+#import "PKGBuildAndCleanObserverDataSource.h"
+
+#import "PKGBuildEvent.h"
+
+
+#import "NSAlert+block.h"
 
 #import "NSString+Packages.h"
 
 @interface PKGDocument ()
+{
+	NSURL * _temporaryProjectURL;
+	
+	NSString * _productPath;
+	
+	PKGBuildOrder * _latestBuildOrder;
+	
+	PKGBuildAndCleanObserverDataSource * _buildObserver;
+	
+	PKGBuildDocumentWindowController * _buildWindowController;
+}
 
 	@property (readwrite) PKGDocumentRegistry * registry;
 
 	@property (readwrite) PKGDocumentWindowController * documentWindowController;
 
+
+- (NSURL *)temporaryURLWithError:(NSError **)outError;
+
+- (BOOL)_requestBuildWithOptions:(PKGBuildOptions)inRequestOptions;
+
+// Build Menu
+
+- (IBAction)showHideBuildWindow:(id)sender;
+
+- (IBAction)build:(id)sender;
+- (IBAction)buildAndRun:(id)sender;
+- (IBAction)buildAndDebug:(id)sender;
+
+- (IBAction)clean:(id)sender;
+
+// Notifications
+
+- (void)buildWindowWillClose:(NSNotification *)inNotification;
+
+- (void)processBuildEventNotification:(NSNotification *)inNotification;
 
 @end
 
@@ -190,6 +234,282 @@
 	return nil;
 }
 
+#pragma mark -
+
+- (BOOL)_requestBuildWithOptions:(PKGBuildOptions)inBuildOptions
+{
+	NSMutableDictionary * tExternalSettings=[NSMutableDictionary dictionary];
+	
+	NSString * tProjectPath=self.fileURL.path;
+	
+	_productPath=nil;
+	_temporaryProjectURL=nil;
+	
+	if (self.isDocumentEdited==YES)
+	{
+		PKGPreferencesBuildUnsavedProjectSaveBehavior tBehavior=[PKGApplicationPreferences sharedPreferences].unsavedProjectSaveBehavior;
+		
+		switch(tBehavior)
+		{
+			case PKGPreferencesBuildUnsavedProjectSaveAskBeforeBuild:
+			{
+				NSAlert * tAlert=[NSAlert new];
+				
+				tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"Do you want to save the changes you made in the project \"%@\" before building it?",@"No comment"),tProjectPath.lastPathComponent.stringByDeletingPathExtension];
+				tAlert.informativeText=@"";
+				
+				[tAlert addButtonWithTitle:NSLocalizedString(@"Save",@"No comment")];
+				[tAlert addButtonWithTitle:NSLocalizedString(@"Don't Save",@"No comment")];
+				[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
+				
+				NSModalResponse tResponse=[tAlert runModal];
+				
+				switch(tResponse)
+				{
+					case NSAlertFirstButtonReturn:		// Save
+						
+						[self saveDocument:nil];
+						
+						break;
+						
+					case NSAlertSecondButtonReturn:	// Don't Save
+					{
+						_temporaryProjectURL=[self temporaryURLWithError:NULL];
+						
+						if (_temporaryProjectURL==nil)
+						{
+							// Show alert
+							
+							// A COMPLETER
+							
+							return NO;
+						}
+						
+						if ([self.project writeToURL:_temporaryProjectURL atomically:YES]==NO)
+						{
+							// A COMPLETER
+							
+							return nil;
+						}
+						
+						tProjectPath=_temporaryProjectURL.path;
+						tExternalSettings[PKGBuildOrderExternalSettingsReferenceProjectFolderKey]=tProjectPath.stringByDeletingLastPathComponent;
+						
+						break;
+					}
+					case NSAlertThirdButtonReturn:		// Cancel
+						
+						return NO;
+				}
+				
+				break;
+			}
+				
+			case PKGPreferencesBuildUnsavedProjectSaveAlways:
+				
+				[self saveDocument:nil];
+				
+				break;
+				
+			case PKGPreferencesBuildUnsavedProjectSaveNever:
+			{
+				NSURL * tTemporaryURL=[self temporaryURLWithError:NULL];
+				
+				if (tTemporaryURL==nil)
+				{
+					// Show alert
+					
+					// A COMPLETER
+					
+					return NO;
+				}
+				
+				if ([self.project writeToURL:_temporaryProjectURL atomically:YES]==NO)
+				{
+					// A COMPLETER
+					
+					return nil;
+				}
+				
+				tProjectPath=_temporaryProjectURL.path;
+				tExternalSettings[PKGBuildOrderExternalSettingsReferenceProjectFolderKey]=tProjectPath.stringByDeletingLastPathComponent;
+				
+				break;
+			}
+		}
+	}
+	
+	if (tProjectPath==nil)
+		return NO;
+	
+	NSString * tScratchFolder=[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation;
+	
+	if (tScratchFolder!=nil)
+		tExternalSettings[PKGBuildOrderExternalSettingsScratchFolderKey]=tScratchFolder;
+	
+	// A COMPLETER (gestion des User Defined Settings)
+	
+	
+	
+	_latestBuildOrder=[PKGBuildOrder new];
+	
+	_latestBuildOrder.projectPath=tProjectPath;
+	_latestBuildOrder.buildOptions=inBuildOptions;
+	_latestBuildOrder.externalSettings=[tExternalSettings copy];
+	
+	if ([[PKGBuildOrderManager defaultManager] executeBuildOrder:_latestBuildOrder
+													setupHandler:^(PKGBuildNotificationCenter * bBuildNotificationCenter){
+														
+														// Register for notifications
+														
+														_buildObserver=[PKGBuildAndCleanObserverDataSource buildObserverDataSourceForDocument:self];
+														
+														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+														
+														[bBuildNotificationCenter addObserver:_buildObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+														
+														for(id tObserver in _documentWindowController.buildNotificationObservers)
+															[bBuildNotificationCenter addObserver:tObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+														
+														// Build Window
+														
+														if (_buildWindowController!=nil)
+														{
+															_buildWindowController.dataSource=_buildObserver;
+															return;
+														}
+														
+														if ([PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior==PKGPreferencesBuildShowBuildWindowAlways)
+														{
+															_buildWindowController=[PKGBuildDocumentWindowController new];
+															
+															[self addWindowController:_buildWindowController];
+															
+															[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildWindowWillClose:) name:NSWindowWillCloseNotification object:_buildWindowController.window];
+															
+															_buildWindowController.dataSource=_buildObserver;
+															
+															[_buildWindowController showWindow:self];
+														}
+													}
+											   completionHandler:^(PKGBuildResult bResult){
+												   
+												   switch(bResult)
+												   {
+													   case PKGBuildResultBuildOrderExecutionAgentDidExit:
+														   
+														   // Post Notification
+														   
+														   break;
+														   
+													   default:
+														   
+														   break;
+												   }
+											   }
+									   communicationErrorHandler:^(NSError * bCommunicationError){
+										   
+										   // Play Failure Sound if needed
+										   
+										   NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+										   
+										   if (tSoundName.length>0)
+											   [[NSSound soundNamed:tSoundName] play];
+										   
+										   // Remove Temporary Folder
+										   
+										   if (_temporaryProjectURL!=nil)
+										   {
+											   [[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
+											   _temporaryProjectURL=nil;
+										   }
+										   
+										   // A COMPLETER
+										   
+									   }]==NO)
+	{
+		return NO;
+	}
+	
+	return YES;
+}
+
+#pragma mark - Build menu
+
+- (IBAction)showHideBuildWindow:(id)sender
+{
+	if (_buildWindowController==nil)
+	{
+		_buildWindowController=[PKGBuildDocumentWindowController new];
+		[self addWindowController:_buildWindowController];
+		
+		_buildWindowController.dataSource=_buildObserver;
+		
+		[_buildWindowController showWindow:self];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildWindowWillClose:) name:NSWindowWillCloseNotification object:_buildWindowController.window];
+		
+		return;
+	}
+	
+	[_buildWindowController.window performClose:self];
+}
+
+- (IBAction)build:(id)sender
+{
+	[self _requestBuildWithOptions:0];
+}
+
+- (IBAction)buildAndRun:(id)sender
+{
+	[self _requestBuildWithOptions:PKGBuildOptionLaunchAfterBuild];
+}
+
+- (IBAction)buildAndDebug:(id)sender
+{
+	[self _requestBuildWithOptions:PKGBuildOptionLaunchAfterBuild|PKGBuildOptionDebugBuild];
+}
+
+- (IBAction)clean:(id)sender
+{
+	NSAlert * tAlert=[NSAlert new];
+	
+	tAlert.messageText=NSLocalizedString(@"Warning",@"No comment");
+	tAlert.informativeText=NSLocalizedString(@"Cleaning will remove all packages and distributions from the Build location.",@"No comment");
+	
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Clean",@"No comment")];
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
+	
+	[tAlert WB_beginSheetModalForWindow:self.windowForSheet completionHandler:^(NSModalResponse bResponse){
+		
+		if (bResponse!=NSAlertFirstButtonReturn)
+			return;
+		
+	}];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(showHideBuildWindow:))
+	{
+		inMenuItem.title=(_buildWindowController.window.isVisible==YES)? NSLocalizedStringFromTable(@"Hide Build Log Window",@"Build",@"No comment") : NSLocalizedStringFromTable(@"Build Results",@"Build",@"No comment");
+		
+		return YES;
+	}
+	
+	if (tAction==@selector(build:) ||
+		 tAction==@selector(buildAndRun:) ||
+		 tAction==@selector(buildAndDebug:) ||
+		tAction==@selector(clean:))
+	{
+		// A COMPLETER
+	}
+	
+	return YES;
+}
+
 #pragma mark - PKGFilePathConverter
 
 - (NSString *)absolutePathForFilePath:(PKGFilePath *)inFilePath
@@ -278,6 +598,162 @@
 	inFilePath.type=inType;
 	
 	return YES;
+}
+
+#pragma mark - Notifications
+
+- (void)buildWindowWillClose:(NSNotification *)inNotification
+{
+	
+	_buildWindowController=nil;
+}
+
+- (void)processBuildEventNotification:(NSNotification *)inNotification
+{
+	if (inNotification==nil)
+		return;
+	
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	
+	if (tUserInfo==nil)
+		return;
+	
+	NSNumber * tNumber=tUserInfo[PKGBuildStepKey];
+	
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
+		return;
+	
+	PKGBuildStep tStep=[tNumber unsignedIntegerValue];
+	
+	NSIndexPath * tStepPath=tUserInfo[PKGBuildStepPathKey];
+	
+	if ([tStepPath isKindOfClass:NSIndexPath.class]==NO)
+		return;
+	
+	
+	tNumber=tUserInfo[PKGBuildStateKey];
+	
+	if ([tNumber isKindOfClass:NSNumber.class]==NO)
+		return;
+	
+	PKGBuildStepState tState=[tNumber unsignedIntegerValue];
+	
+	
+	NSDictionary * tRepresentation=tUserInfo[PKGBuildStepEventRepresentationKey];
+	
+	if (tRepresentation!=nil && [tRepresentation isKindOfClass:NSDictionary.class]==NO)
+		return;
+	
+	if (tState==PKGBuildStepStateInfo)
+	{
+		PKGBuildInfoEvent * tInfoEvent=[[PKGBuildInfoEvent alloc] initWithRepresentation:tRepresentation];
+		
+		if (tStep==PKGBuildStepProject)
+			_productPath=tInfoEvent.filePath;
+		
+		return;
+	}
+	
+	if (tState==PKGBuildStepStateFailure)
+	{
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
+		
+		// Play Failure Sound if needed
+		
+		NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+		
+		if (tSoundName.length>0)
+			[[NSSound soundNamed:tSoundName] play];
+		
+		// Remove Temporary Folder
+		
+		if (_temporaryProjectURL!=nil)
+		{
+			[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL.URLByDeletingLastPathComponent error:NULL];
+			_temporaryProjectURL=nil;
+		}
+		
+		// Show Build Window if needed
+		
+		if (_buildWindowController==nil)
+		{
+			if ([PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior==PKGPreferencesBuildShowBuildWindowOnErrors)
+			{
+				_buildWindowController=[PKGBuildDocumentWindowController new];
+				_buildWindowController.dataSource=_buildObserver;
+				
+				[self addWindowController:_buildWindowController];
+				
+				[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildWindowWillClose:) name:NSWindowWillCloseNotification object:_buildWindowController.window];
+				
+				[_buildWindowController showWindow:self];
+			}
+			
+			return;
+		}
+		
+		// Hide Build Window if needed
+		
+		if ([PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior==PKGPreferencesBuildHideBuildWindowAlways)
+		{
+			if (_buildWindowController!=nil && _buildWindowController.window.isVisible==YES)
+				[_buildWindowController.window performClose:self];
+		}
+		
+		return;
+	}
+	
+	if (tState==PKGBuildStepStateSuccess)
+	{
+		if (tStep==PKGBuildStepProject)
+		{
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
+			
+			//building_=NO;
+			
+			// Play Success Sound if needed
+			
+			NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
+			
+			if (tSoundName.length>0)
+				[[NSSound soundNamed:tSoundName] play];
+			
+			// Remove Temporary Folder
+			
+			if (_temporaryProjectURL!=nil)
+			{
+				[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL.URLByDeletingLastPathComponent error:NULL];
+				_temporaryProjectURL=nil;
+			}
+			
+			// Hide Build Window if needed
+			
+			if ([PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior!=PKGPreferencesBuildHideBuildWindowNever)
+			{
+				if (_buildWindowController!=nil && _buildWindowController.window.isVisible==YES)
+					[_buildWindowController.window performClose:self];
+			}
+			
+			PKGBuildOrder * tBuildOrder=inNotification.object;
+			
+			if ((tBuildOrder.buildOptions&PKGBuildOptionLaunchAfterBuild)==0)
+				return;
+			
+			if (_productPath.length==0)
+			{
+				// A COMPLETER
+				
+				return;
+			}
+			
+			if ([[NSWorkspace sharedWorkspace] openFile:_productPath]==YES)
+				return;
+			
+			// A COMPLETER
+			
+			NSLog(@"[PKGDocument processBuildEventNotification:] Error when opening file \'%@\'",_productPath);
+		}
+	}
 }
 
 @end

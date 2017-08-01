@@ -15,7 +15,6 @@
 
 #import "PKGProject.h"
 
-
 @interface PKGDocumentWindowController : NSWindowController
 
 	@property IBOutlet NSView * leftAccessoryView;
@@ -24,13 +23,10 @@
 
 	@property (readonly) PKGProject * project;
 
+	@property (nonatomic,readonly) NSArray * buildNotificationObservers;
+
 - (instancetype)initWithProject:(PKGProject *)inProject;
 
 - (void)setContentsOfRightAccessoryView:(NSView *)inView;
-
-- (IBAction)build:(id)sender;
-- (IBAction)buildAndRun:(id)sender;
-- (IBAction)buildAndDebug:(id)sender;
-- (IBAction)clean:(id)sender;
 
 @end
