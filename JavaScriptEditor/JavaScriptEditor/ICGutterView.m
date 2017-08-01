@@ -41,7 +41,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)awakeFromNib
 {
-	_attributes=@{NSFontAttributeName:[NSFont systemFontOfSize:9.0f],
+	_attributes=@{NSFontAttributeName:[NSFont systemFontOfSize:9.0],
 				  NSForegroundColorAttributeName:[NSColor darkGrayColor]};
 }
 
@@ -57,18 +57,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return YES;
 }
 
-- (NSAutoresizingMaskOptions) autoresizingMask
+- (NSAutoresizingMaskOptions)autoresizingMask
 {
 	return NSViewHeightSizable;
 }
 
-- (void) drawRect:(NSRect) inRect
+- (void)drawRect:(NSRect)inRect
 {
-	NSRect tBounds=[self bounds];
+	NSRect tBounds=self.bounds;
 	
 	// Draw Background
 	
-	[[NSColor colorWithCalibratedWhite:0.933f alpha:1.0f] set];
+	[[NSColor colorWithCalibratedWhite:0.933 alpha:1.0] set];
 	
 	NSRectFill(inRect);
 	
@@ -76,16 +76,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (NSMaxX(inRect)==NSMaxX(tBounds))
 	{
-		[[NSColor colorWithCalibratedWhite:0.5765f alpha:1.0f] set];
+		[[NSColor colorWithCalibratedWhite:0.5765 alpha:1.0] set];
 		
-		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMaxX(tBounds)-0.5f,NSMinY(inRect)) toPoint:NSMakePoint(NSMaxX(tBounds)-0.5f,NSMaxY(inRect))];
+		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMinY(inRect)) toPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(inRect))];
 	}
 	
 	if (NSMinY(inRect)==NSMinY(tBounds))
 	{
-		[[NSColor colorWithCalibratedWhite:0.5765f alpha:1.0f] set];
+		[[NSColor colorWithCalibratedWhite:0.5765 alpha:1.0] set];
 		
-		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMaxY(inRect)-0.5f) toPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(inRect)-0.5f)];
+		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMaxY(inRect)-0.5) toPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(inRect)-0.5)];
 	}
 	
 	// Draw line numbers
@@ -110,7 +110,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			NSString * tString = [NSString stringWithFormat:@"%lu",(unsigned long)tIndex+1];
 			
-			tRect.origin.x=tWidth-NSWidth([tString boundingRectWithSize:tMaxSize options:0 attributes:_attributes])-2.0f;
+			tRect.origin.x=tWidth-NSWidth([tString boundingRectWithSize:tMaxSize options:0 attributes:_attributes])-2.0;
 			
 			[tString drawAtPoint:tRect.origin withAttributes:_attributes];
 		}

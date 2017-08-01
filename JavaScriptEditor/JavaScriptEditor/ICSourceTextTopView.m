@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,42 +13,22 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "ICSourceTextTopView.h"
 
-@interface ICSourceTextTopView ()
-{
-	NSTableHeaderCell * cell_;
-}
-
-@end
-
 @implementation ICSourceTextTopView
-
-- (id) initWithFrame:(NSRect) inFrame
-{
-	self=[super initWithFrame:inFrame];
-	
-	if (self!=nil)
-	{
-		cell_=[[NSTableHeaderCell alloc] initTextCell:@""];
-	}
-	
-	return self;
-}
-
-#pragma mark -
 
 - (BOOL) isOpaque
 {
 	return YES;
 }
 
-- (BOOL) isFlipped
+- (void)drawRect:(NSRect)inRect
 {
-	return YES;
-}
-
-- (void) drawRect:(NSRect) inRect
-{
-	[cell_ drawWithFrame:[self bounds] inView:self];
+	[[NSColor whiteColor] set];
+	
+	NSRectFill(self.bounds);
+	
+	[[NSColor colorWithDeviceWhite:184.0/255.0 alpha:1.0] set];
+	
+	NSFrameRect(self.bounds);
 }
 
 @end
