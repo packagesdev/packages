@@ -285,6 +285,24 @@
 	tNewWindowFrame.origin.x=floor(NSMidX(tOldWindowFrame)-NSWidth(tNewWindowFrame)*0.5);
 	tNewWindowFrame.origin.y=NSMaxY(tOldWindowFrame)-NSHeight(tNewWindowFrame);
 	
+	// Avoid having the sheet OK, Cancel or bottom be out of screen whatever the position of the window is.
+	
+	NSScreen * tScreen=self.window.screen;
+	
+	if (tNewWindowFrame.origin.y<NSMinY(tScreen.visibleFrame))
+	{
+		
+#define PKGAppKitWindowSheetTopOffset		22.0
+		
+		CGFloat tDelta=NSHeight(tScreen.visibleFrame)-NSHeight(tNewWindowFrame)-PKGAppKitWindowSheetTopOffset;
+		
+		if (tDelta<0 && _currentRequirementViewController.isResizableWindow==YES)
+		{
+			tNewWindowFrame.size.height=NSHeight(tScreen.visibleFrame)-PKGAppKitWindowSheetTopOffset;
+			tNewWindowFrame.origin.y=NSMaxY(tOldWindowFrame)-NSHeight(tNewWindowFrame);
+		}
+	}
+	
 	[self.window setFrame:tNewWindowFrame display:YES animate:NO];
 	
 	
