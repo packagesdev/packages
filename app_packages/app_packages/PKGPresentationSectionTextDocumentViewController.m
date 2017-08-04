@@ -62,23 +62,7 @@
 	_missingDocumentView.hidden=YES;
 	_missingDocumentView.delegate=self;
 	
-	_missingIconView.image=[NSImage imageWithSize:_missingIconView.bounds.size
-										  flipped:NO
-								   drawingHandler:^BOOL(NSRect dstRect) {
-									   
-									   NSImage * tSourceImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kUnknownFSObjectIcon)];
-									   
-									   [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-									   
-									   [tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-									   
-									   
-									   tSourceImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kQuestionMarkIcon)];
-									   
-									   [tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.1];
-									   
-									   return YES;
-								   }];
+	_missingIconView.image=[NSImage imageNamed:@"MissingFile"];
 }
 
 #pragma mark -
