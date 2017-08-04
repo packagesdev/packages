@@ -25,8 +25,8 @@
 
 // View Menu
 
-- (IBAction)showDistributionPresentationTab:(id)sender;
-- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;
+/*- (IBAction)showDistributionPresentationTab:(id)sender;
+- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;*/
 
 - (IBAction)showProjectSettingsTab:(id)sender;
 - (IBAction)showProjectCommentsTab:(id)sender;
@@ -34,10 +34,6 @@
 - (IBAction)showPackageSettingsTab:(id)sender;
 - (IBAction)showPackagePayloadTab:(id)sender;
 - (IBAction)showPackageScriptsAndResourcesTab:(id)sender;
-
-// Presentation Menu
-
-- (IBAction)switchShowRawNames:(id)sender;
 
 // Hierarchy Menu
 

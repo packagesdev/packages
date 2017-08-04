@@ -36,7 +36,7 @@
 	
 	NSString * _productPath;
 	
-	PKGBuildOrder * _latestBuildOrder;
+	PKGBuildOrder * _currentBuildOrder;
 	
 	PKGBuildAndCleanObserverDataSource * _buildObserver;
 	
@@ -351,25 +351,25 @@
 	
 	
 	
-	_latestBuildOrder=[PKGBuildOrder new];
+	_currentBuildOrder=[PKGBuildOrder new];
 	
-	_latestBuildOrder.projectPath=tProjectPath;
-	_latestBuildOrder.buildOptions=inBuildOptions;
-	_latestBuildOrder.externalSettings=[tExternalSettings copy];
+	_currentBuildOrder.projectPath=tProjectPath;
+	_currentBuildOrder.buildOptions=inBuildOptions;
+	_currentBuildOrder.externalSettings=[tExternalSettings copy];
 	
-	if ([[PKGBuildOrderManager defaultManager] executeBuildOrder:_latestBuildOrder
+	if ([[PKGBuildOrderManager defaultManager] executeBuildOrder:_currentBuildOrder
 													setupHandler:^(PKGBuildNotificationCenter * bBuildNotificationCenter){
 														
 														// Register for notifications
 														
 														_buildObserver=[PKGBuildAndCleanObserverDataSource buildObserverDataSourceForDocument:self];
 														
-														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_currentBuildOrder];
 														
-														[bBuildNotificationCenter addObserver:_buildObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+														[bBuildNotificationCenter addObserver:_buildObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_currentBuildOrder];
 														
 														for(id tObserver in _documentWindowController.buildNotificationObservers)
-															[bBuildNotificationCenter addObserver:tObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_latestBuildOrder];
+															[bBuildNotificationCenter addObserver:tObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_currentBuildOrder];
 														
 														// Build Window
 														
@@ -400,6 +400,8 @@
 														   
 														   // Post Notification
 														   
+														   _currentBuildOrder=nil;
+														   
 														   break;
 														   
 													   default:
@@ -408,6 +410,8 @@
 												   }
 											   }
 									   communicationErrorHandler:^(NSError * bCommunicationError){
+										   
+										   _currentBuildOrder=nil;
 										   
 										   // Play Failure Sound if needed
 										   
@@ -500,9 +504,13 @@
 	}
 	
 	if (tAction==@selector(build:) ||
-		 tAction==@selector(buildAndRun:) ||
-		 tAction==@selector(buildAndDebug:) ||
-		tAction==@selector(clean:))
+		tAction==@selector(buildAndRun:) ||
+		tAction==@selector(buildAndDebug:))
+	{
+		return (_currentBuildOrder==nil);
+	}
+	
+	if (tAction==@selector(clean:))
 	{
 		// A COMPLETER
 	}
@@ -700,6 +708,8 @@
 				[_buildWindowController.window performClose:self];
 		}
 		
+		_currentBuildOrder=nil;
+		
 		return;
 	}
 	
@@ -709,7 +719,7 @@
 		{
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
 			
-			//building_=NO;
+			_currentBuildOrder=nil;
 			
 			// Play Success Sound if needed
 			

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,8 +14,6 @@
 #import "PKGProjectMainViewController.h"
 
 @interface PKGProjectMainViewController ()
-
-//- (IBAction)build:(id)sender;
 
 @end
 
@@ -37,10 +35,12 @@
 
 - (IBAction)showDistributionPresentationTab:(id)sender
 {
+	// Empty implementation but needed to dynamically set the contents of the View menu
 }
 
 - (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender
 {
+	// Empty implementation but needed to dynamically set the contents of the View menu
 }
 
 - (IBAction)showProjectSettingsTab:(id)sender
@@ -60,12 +60,6 @@
 }
 
 - (IBAction)showPackageScriptsAndResourcesTab:(id)sender
-{
-}
-
-#pragma mark - Presentation Menu
-
-- (IBAction)switchShowRawNames:(id)sender
 {
 }
 
@@ -102,12 +96,5 @@
 - (IBAction)setDefaultDestination:(id)sender
 {
 }
-
-#pragma mark - Project Menu
-
-/*- (IBAction)build:(id)sender
-{
-	// A COMPLETER
-}*/
 
 @end
