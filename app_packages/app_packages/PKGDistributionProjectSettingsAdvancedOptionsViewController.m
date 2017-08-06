@@ -54,6 +54,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	[super WB_viewDidLoad];
 
 	self.outlineView.doubleAction=@selector(editWithEditor:);
+	self.outlineView.target=self;
 }
 
 #pragma mark -
@@ -98,7 +99,12 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
 	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
 	
-	self.advancedOptionsSettings[tRepresentedObject.itemID]=@(sender.state==NSOnState);
+	NSNumber * tNewValue=@(sender.state==NSOnState);
+	
+	if ([self.advancedOptionsSettings[tRepresentedObject.itemID] isEqual:tNewValue]==YES)
+		return;
+	
+	self.advancedOptionsSettings[tRepresentedObject.itemID]=tNewValue;
 	
 	[self noteDocumentHasChanged];
 }
@@ -113,7 +119,21 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
 	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
 	
-	self.advancedOptionsSettings[tRepresentedObject.itemID]=sender.stringValue;
+	NSString * tNewValue=sender.stringValue;
+	
+	if (tNewValue.length==0)
+		tNewValue=nil;
+	
+	if (self.advancedOptionsSettings[tRepresentedObject.itemID]==tNewValue)
+		return;
+	
+	if ([self.advancedOptionsSettings[tRepresentedObject.itemID] isEqual:tNewValue]==YES)
+		return;
+	
+	if (tNewValue==nil)
+		[self.advancedOptionsSettings removeObjectForKey:tRepresentedObject.itemID];
+	else
+		self.advancedOptionsSettings[tRepresentedObject.itemID]=tNewValue;
 	
 	[self noteDocumentHasChanged];
 }
@@ -128,9 +148,24 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
 	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
 	
-	NSArray * tArray=[sender.stringValue componentsSeparatedByString:@" "];
+	NSArray * tNewValue=[sender.stringValue componentsSeparatedByString:@" "];
 	
-	self.advancedOptionsSettings[tRepresentedObject.itemID]=(tArray==nil) ? @[] : tArray;
+	if (tNewValue.count==0)
+		tNewValue=nil;
+	
+	if (tNewValue.count==1 && ((NSString *)tNewValue.firstObject).length==0)
+		tNewValue=nil;
+	
+	if (self.advancedOptionsSettings[tRepresentedObject.itemID]==tNewValue)
+		return;
+	
+	if ([self.advancedOptionsSettings[tRepresentedObject.itemID] isEqual:tNewValue]==YES)
+		return;
+	
+	if (tNewValue==nil)
+		[self.advancedOptionsSettings removeObjectForKey:tRepresentedObject.itemID];
+	else
+		self.advancedOptionsSettings[tRepresentedObject.itemID]=tNewValue;
 	
 	[self noteDocumentHasChanged];
 }
@@ -143,7 +178,6 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 		return;
 	
 	NSUInteger tClickedRow=self.outlineView.clickedRow;
-	
 	
 	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tClickedRow];
 	
@@ -168,21 +202,29 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 		
 		// Compare the old and new optionValue
 		
-		// A COMPLETER
-		
-		if (tOptionValue==nil)
-			[self.advancedOptionsSettings removeObjectForKey:tRepresentedObject.itemID];
-		else
-			self.advancedOptionsSettings[tRepresentedObject.itemID]=tAdvancedOptionPanel.optionValue;
-		
-		// Reload row
-		
-		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:tClickedRow];
-		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"advanced.value"]];
-		
-		[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
-		
-		[self noteDocumentHasChanged];
+		if (self.advancedOptionsSettings[tRepresentedObject.itemID]!=tOptionValue)
+		{
+			if (tOptionValue==nil)
+			{
+				[self.advancedOptionsSettings removeObjectForKey:tRepresentedObject.itemID];
+			}
+			else
+			{
+				if ([self.advancedOptionsSettings[tRepresentedObject.itemID] isEqual:tOptionValue]==YES)
+					return;
+				
+				self.advancedOptionsSettings[tRepresentedObject.itemID]=tOptionValue;
+			}
+			
+			// Reload row
+			
+			NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:tClickedRow];
+			NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"advanced.value"]];
+			
+			[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+			
+			[self noteDocumentHasChanged];
+		}
 	}];
 }
 
