@@ -309,7 +309,7 @@
 
 - (void)controlTextDidChange:(NSNotification *)inNotification
 {
-	NSString * tValue=[[[inNotification userInfo] objectForKey:@"NSFieldEditor"] string];
+	NSString * tValue=[inNotification.userInfo[@"NSFieldEditor"] string];
 	
 	if (tValue==nil)
 		return;
