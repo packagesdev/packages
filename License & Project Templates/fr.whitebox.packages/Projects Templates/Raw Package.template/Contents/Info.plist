@@ -12,9 +12,9 @@
 	<string>TMPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>ICPROJECT_TEMPLATE_NAME</key>
+	<key>PKGProjectTemplateName</key>
 	<string>Raw Package</string>
-	<key>ICPROJECT_TEMPLATE_SUPPORTED</key>
+	<key>PKGProjectTemplateEnabled</key>
 	<true/>
 </dict>
 </plist>

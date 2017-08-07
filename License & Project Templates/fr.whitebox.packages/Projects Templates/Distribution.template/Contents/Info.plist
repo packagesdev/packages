@@ -12,7 +12,7 @@
 	<string>TMPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>ICPROJECT_TEMPLATE_NAME</key>
+	<key>PKGProjectTemplateName</key>
 	<string>Distribution</string>
 </dict>
 </plist>
