@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -22,9 +22,21 @@
 
 @implementation PKGBundleIdentifierFormatter
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
+	
+	if (self!=nil)
+	{
+		_forbiddenCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@".-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"] invertedSet];
+	}
+	
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)inCoder
+{
+	self=[super initWithCoder:inCoder];
 	
 	if (self!=nil)
 	{
@@ -55,7 +67,7 @@
 
 - (BOOL)isPartialStringValid:(NSString *) inPartialString newEditingString:(NSString **) outNewString errorDescription:(out NSString **) outError
 {
-    NSUInteger tLength=[inPartialString length];
+    NSUInteger tLength=inPartialString.length;
     if (tLength==0)
 		return YES;
 	
