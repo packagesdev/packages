@@ -119,8 +119,8 @@
 				
 				// A COMPLETER
 				
-				tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"Packages is not able to create the project directory at \"%@\".",@"No comment"),tProjectDirectory];
-				tAlert.informativeText=NSLocalizedString(@"Check that you have the required write privileges",@"No comment");
+				tAlert.messageText=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Packages is not able to create the project directory at \"%@\".",@"ProjectTemplateAssistant",@"No comment"),tProjectDirectory];
+				tAlert.informativeText=NSLocalizedStringFromTable(@"Check that you have the required write privileges.",@"ProjectTemplateAssistant",@"No comment");
 				
 				break;
 				

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGProjectTemplateAssistantChoiceViewController">
             <connections>
                 <outlet property="_collectionView" destination="XP6-fQ-J7a" id="0d2-bK-A7s"/>
+                <outlet property="_inviteLabel" destination="3Qe-xE-qTj" id="7dk-CQ-Viq"/>
                 <outlet property="_templateDescriptionLabel" destination="r1a-sO-S34" id="Ccf-qi-dIP"/>
                 <outlet property="_templateIcon" destination="7oR-Ao-1mO" id="cVI-b4-R81"/>
                 <outlet property="_templateNameLabel" destination="tsb-Ok-Qsm" id="528-Wl-EYc"/>
@@ -21,9 +22,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="3Qe-xE-qTj">
-                    <rect key="frame" x="17" y="308" width="242" height="17"/>
+                    <rect key="frame" x="17" y="308" width="605" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Choose a template for your project:" id="9n4-i2-g51">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="9n4-i2-g51">
                         <font key="font" metaFont="systemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

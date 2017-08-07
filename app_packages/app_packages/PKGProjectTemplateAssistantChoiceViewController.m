@@ -9,6 +9,8 @@
 
 @interface PKGProjectTemplateAssistantChoiceViewController () <WBCollectionViewDelegate>
 {
+	IBOutlet NSTextField * _inviteLabel;
+	
 	IBOutlet WBCollectionView * _collectionView;
 	
 	IBOutlet NSImageView * _templateIcon;
@@ -56,6 +58,8 @@
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
+	
+	_inviteLabel.stringValue=NSLocalizedStringFromTable(@"Choose a template for your project:",@"ProjectTemplateAssistant",@"");
 	
 	_collectionView.target=self.assistantController;
 	_collectionView.action=@selector(next:);
