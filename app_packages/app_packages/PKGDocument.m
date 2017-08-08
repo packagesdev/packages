@@ -285,11 +285,18 @@
 							return NO;
 						}
 						
+						if ([self shiftTypeOfFilePath:self.project.settings.buildPath toType:PKGFilePathTypeAbsolute]==NO)
+						{
+							// A COMPLETER
+							
+							return NO;
+						}
+						
 						if ([self.project writeToURL:_temporaryProjectURL atomically:YES]==NO)
 						{
 							// A COMPLETER
 							
-							return nil;
+							return NO;
 						}
 						
 						tProjectPath=_temporaryProjectURL.path;
