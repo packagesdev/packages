@@ -88,7 +88,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSRect)drawTitle:(NSAttributedString *)inAttributedString withFrame:(NSRect)inFrame inView:(NSView*)inView
 {
-	inFrame.origin.y-=1.0;
+	//inFrame.origin.y-=1.0;
 	
 	if (self.invisible==NO)
 		return [super drawTitle:inAttributedString withFrame:inFrame inView:inView];

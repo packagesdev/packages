@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -70,14 +70,14 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Q0S-Uf-zpq" customClass="PKGInstallationTypeScrollView">
+                                <scrollView horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Q0S-Uf-zpq" customClass="PKGInstallationTypeScrollView">
                                     <rect key="frame" x="0.0" y="30" width="525" height="225"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="ptx-Ve-5YY">
                                         <rect key="frame" x="1" y="17" width="508" height="207"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="ste-hR-GAp" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="68I-Sv-nrm" id="EwO-QS-Uv7" customClass="PKGInstallationTypeOutlineView">
+                                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" autosaveColumns="NO" rowHeight="16" rowSizeStyle="automatic" headerView="ste-hR-GAp" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="68I-Sv-nrm" id="EwO-QS-Uv7" customClass="PKGInstallationTypeOutlineView">
                                                 <rect key="frame" x="0.0" y="0.0" width="508" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -97,14 +97,14 @@
                                                         </textFieldCell>
                                                         <prototypeCellViews>
                                                             <tableCellView id="pq4-XM-FDl">
-                                                                <rect key="frame" x="461" y="1" width="45" height="17"/>
+                                                                <rect key="frame" x="1" y="1" width="45" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="twL-ja-K4Z">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="45" height="17"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="45" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Fmp-om-Mvm">
-                                                                            <font key="font" metaFont="system"/>
+                                                                            <font key="font" metaFont="cellTitle"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -130,7 +130,7 @@
                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         <prototypeCellViews>
                                                             <tableCellView id="nDb-ZX-qSb" customClass="PKGCheckboxTableCellView">
-                                                                <rect key="frame" x="1" y="1" width="315" height="17"/>
+                                                                <rect key="frame" x="49" y="1" width="315" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <button id="aAT-Wm-Qal" customClass="PKGInstallationTypeCheckBox">
@@ -138,7 +138,7 @@
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="S4a-y4-OHt" customClass="PKGInstallationTypeCheckBoxCell">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                            <font key="font" metaFont="system"/>
+                                                                            <font key="font" metaFont="cellTitle"/>
                                                                         </buttonCell>
                                                                     </button>
                                                                 </subviews>
@@ -162,14 +162,14 @@
                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                         <prototypeCellViews>
                                                             <tableCellView id="B1z-DA-ige">
-                                                                <rect key="frame" x="319" y="1" width="70" height="17"/>
+                                                                <rect key="frame" x="367" y="1" width="70" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="Qos-UZ-so1">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="17"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="RwZ-Ly-amt">
-                                                                            <font key="font" metaFont="system"/>
+                                                                            <font key="font" metaFont="cellTitle"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -195,14 +195,14 @@
                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                         <prototypeCellViews>
                                                             <tableCellView id="SkO-a2-XSD">
-                                                                <rect key="frame" x="392" y="1" width="66" height="17"/>
+                                                                <rect key="frame" x="440" y="1" width="66" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="Q4Z-xA-y6s">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="66" height="17"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="66" height="16"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xa2-VB-3gd">
-                                                                            <font key="font" metaFont="system"/>
+                                                                            <font key="font" metaFont="cellTitle"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
