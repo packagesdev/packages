@@ -94,7 +94,7 @@
                             <connections>
                                 <action selector="setProjectName:" target="-2" id="uIj-Mj-yhG"/>
                                 <outlet property="delegate" destination="-2" id="P1P-KS-N23"/>
-                                <outlet property="formatter" destination="fOo-Vh-dG6" id="0mx-MT-Cmk"/>
+                                <outlet property="formatter" destination="zKE-nv-S8P" id="ObN-dS-GtF"/>
                                 <outlet property="nextKeyView" destination="tjm-KB-8re" id="McJ-yW-CiT"/>
                             </connections>
                         </textField>
@@ -195,7 +195,7 @@
             </subviews>
             <point key="canvasLocation" x="511" y="186.5"/>
         </customView>
-        <customFormatter id="fOo-Vh-dG6" customClass="PKGBundleIdentifierFormatter"/>
+        <customFormatter id="zKE-nv-S8P" customClass="PKGProjectNameFormatter"/>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
