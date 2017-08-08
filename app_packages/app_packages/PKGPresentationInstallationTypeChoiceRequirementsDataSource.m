@@ -23,6 +23,7 @@
 #import "PKGRequirement+UI.h"
 
 #import "NSArray+UniqueName.h"
+#import "NSString+BaseName.h"
 
 #import "NSIndexSet+Analysis.h"
 
@@ -485,21 +486,7 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 		
 		// Unique Name
 		
-		__block NSString * tBaseName=tNewRequirement.name;
-		
-		NSString * tPattern=[NSString stringWithFormat:@"%@ ?[0-9]*$",NSLocalizedString(@" copy", @"")];
-		
-		NSRegularExpression * tRegularExpression=[NSRegularExpression regularExpressionWithPattern:tPattern options:NSRegularExpressionCaseInsensitive error:NULL];
-		
-		[tRegularExpression enumerateMatchesInString:tBaseName options:NSMatchingReportCompletion range:NSMakeRange(0,tBaseName.length) usingBlock:^(NSTextCheckingResult * bResult, NSMatchingFlags bFlags, BOOL * bOutStop) {
-			
-			if (bResult.resultType!=NSTextCheckingTypeRegularExpression)
-				return;
-			
-			tBaseName=[tBaseName substringToIndex:bResult.range.location];
-			
-			*bOutStop=YES;
-		}];
+		NSString * tBaseName=[tNewRequirement.name PKG_baseName];
 		
 		NSString * tNewName=[tTemporaryComponents uniqueNameWithBaseName:[tBaseName stringByAppendingString:NSLocalizedString(@" copy", @"")]
 													  usingNameExtractor:^NSString *(PKGRequirement * bRequirement, NSUInteger bIndex) {

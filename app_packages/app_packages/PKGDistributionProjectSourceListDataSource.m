@@ -30,6 +30,7 @@
 #import "NSAlert+block.h"
 
 #import "NSArray+UniqueName.h"
+#import "NSString+BaseName.h"
 
 #import "PKGProjectTemplateDefaultValuesSettings.h"
 
@@ -704,21 +705,7 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 		
 		// Unique Name
 		
-		__block NSString * tBaseName=tNewPackageComponent.packageSettings.name;
-		
-		NSString * tPattern=[NSString stringWithFormat:@"%@ ?[0-9]*$",NSLocalizedString(@" copy", @"")];
-		
-		NSRegularExpression * tRegularExpression=[NSRegularExpression regularExpressionWithPattern:tPattern options:NSRegularExpressionCaseInsensitive error:NULL];
-		
-		[tRegularExpression enumerateMatchesInString:tBaseName options:NSMatchingReportCompletion range:NSMakeRange(0,tBaseName.length) usingBlock:^(NSTextCheckingResult * bResult, NSMatchingFlags bFlags, BOOL * bOutStop) {
-			
-			if (bResult.resultType!=NSTextCheckingTypeRegularExpression)
-				return;
-			
-			tBaseName=[tBaseName substringToIndex:bResult.range.location];
-			
-			*bOutStop=YES;
-		}];
+		NSString * tBaseName=[tNewPackageComponent.packageSettings.name PKG_baseName];
 		
 		NSString * tNewName=[tTemporaryComponents uniqueNameWithBaseName:[tBaseName stringByAppendingString:NSLocalizedString(@" copy", @"")]
 													  usingNameExtractor:^NSString *(PKGPackageComponent * bPackageComponent, NSUInteger bIndex) {
@@ -730,21 +717,7 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 		
 		// Unique Identifier
 		
-		tBaseName=tNewPackageComponent.packageSettings.identifier;
-		
-		tPattern=@"-[0-9]*$";
-		
-		tRegularExpression=[NSRegularExpression regularExpressionWithPattern:tPattern options:NSRegularExpressionCaseInsensitive error:NULL];
-		
-		[tRegularExpression enumerateMatchesInString:tBaseName options:NSMatchingReportCompletion range:NSMakeRange(0,tBaseName.length) usingBlock:^(NSTextCheckingResult * bResult, NSMatchingFlags bFlags, BOOL * bOutStop) {
-			
-			if (bResult.resultType!=NSTextCheckingTypeRegularExpression)
-				return;
-			
-			tBaseName=[tBaseName substringToIndex:bResult.range.location];
-			
-			*bOutStop=YES;
-		}];
+		tBaseName=[tNewPackageComponent.packageSettings.identifier PKG_baseNameWithPattern:@"-[0-9]*$"];
 		
 		NSString * tNewIdentifier=[tTemporaryComponents uniqueNameWithBaseName:tBaseName format:@"%@-%lu" options:NSCaseInsensitiveSearch usingNameExtractor:^NSString *(PKGPackageComponent *bPackageComponent,NSUInteger bIndex){
 			
