@@ -1083,10 +1083,15 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	switch(_buildFormat)
 	{
 		case PKGProjectBuildFormatBundle:
+		{
+			PKGStackedEffectiveUserAndGroup * tStackedEffectiveUserAndGroup=[[PKGStackedEffectiveUserAndGroup alloc] initWithUserID:self.userID andGroupID:self.groupID];
 			
 			tDistributionScriptsPath=_buildInformation.resourcesPath;
-			break;
 			
+			tStackedEffectiveUserAndGroup=nil;
+			
+			break;
+		}
 		case PKGProjectBuildFormatFlat:
 		
 			tDistributionScriptsPath=[_scratchLocation stringByAppendingPathComponent:@"_dist_scripts_"];
@@ -4648,8 +4653,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	}
 	
 	tLanguagePath=[tResourcesPath stringByAppendingPathComponent:tFolderName];
-		
-	if ([_fileManager createDirectoryAtPath:tLanguagePath withIntermediateDirectories:NO attributes:_folderAttributes error:NULL]==NO)
+	
+	NSError * tError=nil;
+	
+	if ([_fileManager createDirectoryAtPath:tLanguagePath withIntermediateDirectories:NO attributes:_folderAttributes error:&tError]==NO)
 		return nil;
 			
 	_buildInformation.languagesPath[tLanguagePathKey]=tLanguagePath;
