@@ -32,6 +32,8 @@
 
 - (void)windowStateDidChange:(NSNotification *)inNotification;
 
+- (void)pluginPathDidChange:(NSNotification *)inNotification;
+
 - (void)viewFrameDidChange:(NSNotification *)inNotification;
 
 @end
@@ -54,34 +56,9 @@
 {
 	[super WB_viewDidLoad];
 	
-	_pluginIcon=[NSImage imageWithSize:NSMakeSize(128.0,128.0) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-		
-		NSImage * tSourceImage=[PKGPresentationSection installerPluginIcon];
-		
-		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-		
-		[tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-		
-		return YES;
-		
-	}];
+	_pluginIcon=[NSImage imageNamed:@"Plugin"];
 	
-	_pluginNotFoundIcon=[NSImage imageWithSize:NSMakeSize(128.0,128.0) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-		
-		NSImage * tSourceImage=[PKGPresentationSection installerPluginIcon];
-		
-		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-		
-		[tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-		
-		
-		tSourceImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kQuestionMarkIcon)];
-		
-		[tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-		
-		return YES;
-		
-	}];
+	_pluginNotFoundIcon=[NSImage imageNamed:@"MissingPlugin"];
 }
 
 #pragma mark -
@@ -101,7 +78,7 @@
 	}
 	
 	if (tPaneTitle==nil)
-		tPaneTitle=NSLocalizedStringFromTable(@"Not Found", @"Presentation",@"");
+		tPaneTitle=NSLocalizedStringFromTable(@"Plugin Not Found", @"Presentation",@"");
 	
 	return tPaneTitle;
 }
@@ -126,17 +103,21 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self.view];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pluginPathDidChange:) name:PKGPresentationSectionPluginPathDidChangeNotification object:_presentationSection];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationSectionPluginPathDidChangeNotification object:nil];
 }
 
 #pragma mark -
@@ -161,7 +142,7 @@
 	
 	if (tAbsolutePath==nil)
 	{
-		// A COMPLETER
+		NSLog(@"Unable to determine absolute path for file path (%@)",tFilePath);
 		
 		return;
 	}
@@ -170,7 +151,7 @@
 	
 	if ([[NSFileManager defaultManager] fileExistsAtPath:tAbsolutePath isDirectory:&isDirectory]==NO || isDirectory==NO)
 	{
-		// A COMPLETER
+		_iconView.image=_pluginNotFoundIcon;
 		
 		return;
 	}
@@ -179,7 +160,9 @@
 	
 	if ([[tBundle objectForInfoDictionaryKey:@"InstallerSectionTitle"] isKindOfClass:NSString.class]==NO)
 	{
-		// A COMPLETER
+		_iconView.image=_pluginNotFoundIcon;
+		
+		NSLog(@"Corrupted installer plugin");
 		
 		return;
 	}
@@ -190,6 +173,11 @@
 #pragma mark - Notifications
 
 - (void)windowStateDidChange:(NSNotification *)inNotification
+{
+	[self refreshUIForLocalization:self.localization];
+}
+
+- (void)pluginPathDidChange:(NSNotification *)inNotification
 {
 	[self refreshUIForLocalization:self.localization];
 }

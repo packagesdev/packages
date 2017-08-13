@@ -53,6 +53,10 @@
 
 - (IBAction)choosePluginSource:(id)sender;
 
+// Notifications
+
+- (void)pluginPathDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGPresentationInstallerPluginInspectorViewController
@@ -83,6 +87,20 @@
 }
 
 #pragma mark -
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pluginPathDidChange:) name:PKGPresentationSectionPluginPathDidChangeNotification object:_presentationSection];
+}
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationSectionPluginPathDidChangeNotification object:nil];
+}
 
 - (void)refreshUI
 {
@@ -118,7 +136,7 @@
 	
 	if (tPath==nil)
 	{
-		// Oh oh
+		NSLog(@"Unable to determine absolute path for file path (%@)",_presentationSection.pluginPath);
 		
 		return;
 	}
@@ -146,8 +164,6 @@
 		_referenceTypePopUpButton.enabled=NO;
 		
 		// Source
-		
-		_sourcePopUpButton.enabled=NO;
 		
 		_sourcePathTextField.textColor=[NSColor redColor];
 	}
@@ -234,8 +250,6 @@
 		
 		// Source
 		
-		_sourcePopUpButton.enabled=YES;
-		
 		_sourcePathTextField.textColor=[NSColor controlTextColor];
 	}
 }
@@ -303,7 +317,9 @@
 		
 		_presentationSection.pluginPath.string=tFilePath.string;
 		
-		[self refreshUI];
+		// Post Notification
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationSectionPluginPathDidChangeNotification object:_presentationSection];
 		
 		[self noteDocumentHasChanged];
 	}];
@@ -324,6 +340,8 @@
 		{
 			// Oh oh
 			
+			NSLog(@"Unable to determine absolute path for file path (%@)",_presentationSection.pluginPath);
+			
 			return NO;
 		}
 		
@@ -336,6 +354,11 @@
 #pragma mark -
 
 - (void)windowStateDidChange:(NSNotification *)inNotification
+{
+	[self refreshUI];
+}
+
+- (void)pluginPathDidChange:(NSNotification *)inNotification
 {
 	[self refreshUI];
 }
