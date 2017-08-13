@@ -509,8 +509,6 @@
 	PKGPayloadTreeNode * tSelectedNode=[self.selectedItems lastObject];
 	PKGFileItem * tSelectedItem=[tSelectedNode representedObject];
 	
-	NSLog(@"%@",NSStringFromClass([tSelectedItem class]));	// A RETIRER
-	
 	NSInteger tMixedIndex=[_referenceTypePopUpButton indexOfItemWithTag:PKGFilePathTypeMixed];
 	
 	if (tMixedIndex!=-1)
