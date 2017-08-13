@@ -13,6 +13,8 @@
 
 #import "PKGPresentationSection+UI.h"
 
+NSString * const PKGPresentationSectionPluginPathDidChangeNotification=@"PKGPresentationSectionPluginPathDidChangeNotification";
+
 @implementation PKGPresentationSection (UI)
 
 + (NSImage *)installerPluginIcon

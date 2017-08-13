@@ -15,6 +15,8 @@
 
 #import "PKGPresentationInspectorItem.h"
 
+extern NSString * const PKGPresentationSectionPluginPathDidChangeNotification;
+
 @interface PKGPresentationSection (UI)
 
 	@property (readonly) PKGPresentationInspectorItemTag inspectorItemTag;
