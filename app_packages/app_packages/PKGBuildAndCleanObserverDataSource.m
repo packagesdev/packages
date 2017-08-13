@@ -549,6 +549,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 		
 		if (tFailureReason==PKGBuildErrorUnknown)
 		{
+			tTitle=NSLocalizedStringFromTable(@"Unknown Error",@"Build",@"No comment");
 		}
 		else if (tFailureReason==PKGBuildErrorOutOfMemory)
 		{
