@@ -777,10 +777,6 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		return tDidExpand;
 	};
 	
-	// Save selection
-	
-	// A COMPLETER
-	
 	PKGPayloadExpandOptions tOptions=(inOptions|PKGPayloadExpandRecursively);
 	
 	if (_expandItems(self.rootNodes,tOptions)==YES)
@@ -795,10 +791,6 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			[inOutlineView reloadItem:bItem];
 		}];
 	}
-	
-	// Restore Selection
-	
-	// A COMPLETER
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView contractItem:(PKGPayloadTreeNode *)inPayloadTreeNode
