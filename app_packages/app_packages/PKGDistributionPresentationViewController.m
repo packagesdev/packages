@@ -36,7 +36,7 @@
 #import "PKGPresentationLocalizableStepSettings+UI.h"
 #import "PKGPresentationSection+UI.h"
 
-
+#import "PKGPresentationTheme.h"
 
 #import "PKGInstallerApp.h"
 
@@ -65,6 +65,8 @@
 #import "PKGDistributionPresentationInstallerPluginOpenPanelDelegate.h"
 
 #import "PKGPresentationSectionInstallationTypeViewController.h"
+#import "PKGPresentationSectionInstallerPluginViewController.h"
+
 #import "PKGPresentationInstallationTypeChoiceDependenciesViewController.h"
 
 
@@ -124,6 +126,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	NSArray * _supportedLocalizations;
 	
+	PKGPresentationThemeVersion _currentTheme;
+	
 	NSString * _currentPreviewLanguage;
 	
 	NSIndexSet * _internalDragData;
@@ -140,6 +144,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 - (void)updateBackgroundView;
 - (void)updateTitleViews;
+
+- (IBAction)switchPresentationTheme:(id)sender;
 
 - (IBAction)addPlugin:(id)sender;
 - (IBAction)removePlugin:(id)sender;
@@ -163,6 +169,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
 
 - (void)leftViewDidResize:(NSNotification *)inNotification;
+
+- (void)pluginPathDidChange:(NSNotification *)inNotification;
 
 @end
 
@@ -413,6 +421,37 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	[super WB_viewWillAppear];
 	
+	NSNumber * tNumber=self.documentRegistry[PKGPresentationTheme];
+	
+	if (tNumber!=nil)
+	{
+		_currentTheme=[tNumber unsignedIntegerValue];
+	}
+	else
+	{
+		if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==YES)
+			_currentTheme=PKGPresentationThemeYosemite;
+		else
+			_currentTheme=PKGPresentationThemeMountainLion;
+		
+		self.documentRegistry[PKGPresentationTheme]=@(_currentTheme);
+	}
+	
+	switch(_currentTheme)
+	{
+		case PKGPresentationThemeYosemite:
+			
+			_pageTitleView.font=[NSFont labelFontOfSize:[NSFont systemFontSize]];
+			
+			break;
+			
+		case PKGPresentationThemeMountainLion:
+			
+			_pageTitleView.font=[NSFont boldSystemFontOfSize:14.0];
+			
+			break;
+	}
+	
 	_currentPreviewLanguage=self.documentRegistry[PKGDistributionPresentationCurrentPreviewLanguage];
 	
 	if (_currentPreviewLanguage==nil)
@@ -451,7 +490,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
-
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:self.view.window];
 }
 
 - (void)WB_viewWillDisappear
@@ -461,11 +501,17 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[_currentSectionViewController WB_viewWillDisappear];
 	[_currentInspectorViewController WB_viewWillDisappear];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.view.window];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.view.window];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationThemeDidChangeNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationSectionPluginPathDidChangeNotification object:nil];
 }
 
 - (void)WB_viewDidDisappear
@@ -477,6 +523,33 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 }
 
 #pragma mark -
+
+- (IBAction)switchPresentationTheme:(NSMenuItem *)sender
+{
+	if (sender.tag==_currentTheme)
+		return;
+
+	_currentTheme=sender.tag;
+	
+	switch(_currentTheme)
+	{
+		case PKGPresentationThemeYosemite:
+			
+			_pageTitleView.font=[NSFont labelFontOfSize:[NSFont systemFontSize]];
+			
+			break;
+			
+		case PKGPresentationThemeMountainLion:
+			
+			_pageTitleView.font=[NSFont boldSystemFontOfSize:13.0];
+			
+			break;
+	}
+	
+	self.documentRegistry[PKGPresentationTheme]=@(_currentTheme);
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationThemeDidChangeNotification object:self.view.window];
+}
 
 - (IBAction)addPlugin:(id)sender
 {
@@ -715,6 +788,13 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	SEL tAction=inMenuItem.action;
 	
+	if (tAction==@selector(switchPresentationTheme:))
+	{
+		inMenuItem.state=(inMenuItem.tag==_currentTheme) ? NSOnState : NSOffState;
+		
+		return YES;
+	}
+	
 	if (tAction==@selector(switchInspectedView:))
 		return (inMenuItem.tag!=PKGPresentationInspectorItemPlugIn);
 	
@@ -737,7 +817,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	if (_currentSectionViewController!=nil)
 	{
-		if ([_currentSectionViewController class]==tNewClass)
+		if ([_currentSectionViewController class]==tNewClass && [tNewClass isKindOfClass:PKGPresentationSectionInstallerPluginViewController.class]==NO)
 		{
 			// A COMPLETER
 		
@@ -755,10 +835,22 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	PKGPresentationSectionViewController * tNewSectionViewController=nil;
 	
+	// Unregister for notification
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationSectionPluginPathDidChangeNotification object:nil];
+	
 	if (inPresentationSection.pluginPath==nil)
+	{
 		tNewSectionViewController=[[tNewClass alloc] initWithDocument:self.document presentationSettings:self.presentationSettings];
+	}
 	else
+	{
 		tNewSectionViewController=[[tNewClass alloc] initWithDocument:self.document presentationSection:inPresentationSection];
+	
+		// Register for notifications
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pluginPathDidChange:) name:PKGPresentationSectionPluginPathDidChangeNotification object:inPresentationSection];
+	}
 	
 	if (tNewSectionViewController==nil)
 	{
@@ -878,7 +970,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		if (tAbsolutePath==nil)
 		{
-			// A COMPLETER
+			NSLog(@"Unable to determine absolute path for file path (%@)",tAbsolutePath);
 			
 			return nil;
 		}
@@ -1160,6 +1252,54 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	return YES;
 }
 
+- (void)presentationListViewSelectionDidChange:(NSNotification *)inNotification
+{
+	if (inNotification.object!=_listView)
+		return;
+	
+	NSInteger tSelectedStep=_listView.selectedStep;
+	
+	if (tSelectedStep<0 || tSelectedStep>=self.presentationSettings.sections.count)
+		return;
+	
+	self.documentRegistry[PKGDistributionPresentationSelectedStep]=@(tSelectedStep);
+	
+	PKGPresentationSection * tSelectedPresentationSection=self.presentationSettings.sections[tSelectedStep];
+	
+	_pluginRemoveButton.enabled=(tSelectedPresentationSection.pluginPath!=nil);
+	
+	// Inspector
+	
+	if (inNotification.userInfo==nil)
+	{
+		PKGPresentationInspectorItemTag tTag=tSelectedPresentationSection.inspectorItemTag;
+		
+		if (((NSInteger)tTag)==-1)
+		{
+			// A COMPLETER
+			
+			NSLog(@"");
+		}
+		else
+		{
+			[_inspectorPopUpButton selectItemWithTag:tTag];
+			
+			if (tTag==PKGPresentationInspectorItemPlugIn)
+				[_inspectorPopUpButton selectedItem].enabled=NO;
+			
+			// Show the Inspector View
+			
+			[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tTag]];
+			
+			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
+		}
+	}
+	
+	// Show the Section View
+	
+	[self showViewForSection:tSelectedPresentationSection];
+}
+
 #pragma mark - PKGPresentationImageViewDelegate
 
 - (NSDragOperation)presentationImageView:(PKGPresentationImageView *)inImageView validateDrop:(id <NSDraggingInfo>)info
@@ -1280,7 +1420,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 - (void)windowStateDidChange:(NSNotification *)inNotification
 {
-	if ([[_currentSectionViewController className] isEqualToString:@"PKGPresentationSectionInstallerPluginViewController"]==YES)
+	if ([_currentSectionViewController isKindOfClass:PKGPresentationSectionInstallerPluginViewController.class]==YES)
 	{
 		// Refresh Chapter Title View
 		
@@ -1292,54 +1432,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	// Refresh Background
 	
 	[self updateBackgroundView];
-}
-
-- (void)presentationListViewSelectionDidChange:(NSNotification *)inNotification
-{
-	if (inNotification.object!=_listView)
-		return;
 	
-	NSInteger tSelectedStep=_listView.selectedStep;
+	// Refresh List (in case a plugin file disappeared or reappeared)
 	
-	if (tSelectedStep<0 || tSelectedStep>=self.presentationSettings.sections.count)
-		return;
-	
-	self.documentRegistry[PKGDistributionPresentationSelectedStep]=@(tSelectedStep);
-	
-	PKGPresentationSection * tSelectedPresentationSection=self.presentationSettings.sections[tSelectedStep];
-	
-	_pluginRemoveButton.enabled=(tSelectedPresentationSection.pluginPath!=nil);
-	
-	// Inspector
-	
-	if (inNotification.userInfo==nil)
-	{
-		PKGPresentationInspectorItemTag tTag=tSelectedPresentationSection.inspectorItemTag;
-	
-		if (((NSInteger)tTag)==-1)
-		{
-			// A COMPLETER
-		
-			NSLog(@"");
-		}
-		else
-		{
-			[_inspectorPopUpButton selectItemWithTag:tTag];
-		
-			if (tTag==PKGPresentationInspectorItemPlugIn)
-				[_inspectorPopUpButton selectedItem].enabled=NO;
-		
-			// Show the Inspector View
-			
-			[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tTag]];
-		
-			self.documentRegistry[PKGDistributionPresentationInspectedItem]=@(tTag);
-		}
-	}
-	
-	// Show the Section View
-	
-	[self showViewForSection:tSelectedPresentationSection];
+	[_listView reloadData];
 }
 
 - (void)titleSettingsDidChange:(NSNotificationCenter *)inNotification
@@ -1479,6 +1575,27 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	NSRect tWindowFrame=[PKGInstallationSurgeryWindow windowFrameForView:_leftView];
 	
 	[_surgeryWindow setFrame:tWindowFrame display:YES];
+}
+
+- (void)presentationThemeDidChange:(NSNotification *)inNotification
+{
+	if (self.view.window==nil)
+		return;
+	
+	// A COMPLETER
+}
+
+- (void)pluginPathDidChange:(NSNotification *)inNotification
+{
+	// Refresh Chapter Title View
+	
+	NSString * tPaneTitle=[_currentSectionViewController sectionPaneTitle];
+	
+	_pageTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";
+
+	// Refresh List
+
+	[_listView reloadData];
 }
 
 @end

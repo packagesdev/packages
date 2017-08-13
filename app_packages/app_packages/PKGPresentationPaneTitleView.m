@@ -72,6 +72,26 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[self performSelector:@selector(delayedScroll:) withObject:nil afterDelay:2.5];
 }
 
+- (void)setFont:(NSFont *)inFont
+{
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayedScroll:) object:nil];
+	
+	super.font=inFont;
+	
+	NSRect tBounds=self.bounds;
+	
+	NSAttributedString * tAttributedString=self.attributedStringValue;
+	
+	_boundingRect=[tAttributedString boundingRectWithSize:tBounds.size options:NSStringDrawingUsesLineFragmentOrigin];
+	
+	_boundingRect.size.width+=5.0;
+	
+	_offset=0.0;
+	
+	if (NSWidth(_boundingRect)>NSWidth(tBounds))
+		[self performSelector:@selector(delayedScroll:) withObject:nil afterDelay:2.5];
+}
+
 - (void)setFrame:(NSRect)inFrame
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayedScroll:) object:nil];

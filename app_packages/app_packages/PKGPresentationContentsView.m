@@ -15,37 +15,55 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGInstallerApp.h"
 
+#import "PKGPresentationTheme.h"
+
+#import "PKGDocument.h"
+
 @interface PKGPresentationContentsView ()
-{
-	NSColor * _borderColor;
-}
+
+// Notifications
+
+- (void)presentationThemeDidChange:(NSNotification *)inNotification;
 
 @end
 
 @implementation PKGPresentationContentsView
 
-- (instancetype)initWithFrame:(NSRect)inFrame
+- (void)dealloc
 {
-	self=[super initWithFrame:inFrame];
-	
-	if (self!=nil)
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark -
+
+- (BOOL)isOpaque
+{
+	return NO;
+}
+
+- (void)viewWillMoveToWindow:(NSWindow *)inWindow
+{
+	if (inWindow==nil)
 	{
-		if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==YES)
-			_borderColor=[NSColor colorWithDeviceWhite:193.0/255.0 alpha:1.0];
-		else
-			_borderColor=[NSColor colorWithDeviceWhite:0.5 alpha:1.0];
-    }
+		[[NSNotificationCenter defaultCenter] removeObserver:self];
+		return;
+	}
 	
-    return self;
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:inWindow];
 }
 
 #pragma mark -
 
 - (void)drawRect:(NSRect)frame
 {
-    NSRect tBounds=self.bounds;
+	PKGPresentationThemeVersion tThemeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
+	
+	NSRect tBounds=self.bounds;
     
-    [_borderColor set];
+	if (tThemeVersion==PKGPresentationThemeYosemite)
+		[[NSColor colorWithDeviceWhite:193.0/255.0 alpha:1.0] set];
+	else
+		[[NSColor colorWithDeviceWhite:0.5 alpha:1.0] set];
     
     NSFrameRect(tBounds);
     
@@ -54,8 +72,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     tBounds.size.width-=2;
     tBounds.size.height-=2;
     
-    [[NSColor colorWithDeviceWhite:1.0 alpha:0.6] set];
+	[[NSColor colorWithDeviceWhite:1.0 alpha:(tThemeVersion==PKGPresentationThemeYosemite) ? 1.0 : 0.6] set];
     NSRectFillUsingOperation(tBounds,NSCompositeSourceOver);
+}
+
+#pragma mark - Notifications
+
+- (void)presentationThemeDidChange:(NSNotification *)inNotification
+{
+	if (self.window==nil)
+		return;
+	
+	[self setNeedsDisplay:YES];
 }
 
 @end

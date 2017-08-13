@@ -15,6 +15,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGInstallerApp.h"
 
+#import "PKGPresentationTheme.h"
+
 #define PKGPresentationListViewMoreRowHeight	20.0
 
 #define PKGPresentationListViewDefaultRowHeight	24.0
@@ -102,6 +104,10 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 
 - (NSImage *)imageOfStep:(NSInteger)inStep;
 
+// Notifications
+
+- (void)presentationThemeDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGPresentationListView
@@ -176,19 +182,31 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
     return self;
 }
 
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark -
 
 - (void)viewWillMoveToWindow:(NSWindow *) inWindow
 {
 	if (inWindow==nil)
 	{
+		[[NSNotificationCenter defaultCenter] removeObserver:self];
+		
 		if (_trackingTag!=0)
 		{
 			[self removeTrackingRect:_trackingTag];
 		
 			_trackingRect=NSZeroRect;
 		}
+		
+		return;
 	}
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:inWindow];
+
 }
 
 - (CGFloat)heightOfStep:(NSInteger)inStep
@@ -1670,6 +1688,16 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	_currentDropStep=-1;
 	
 	[self setNeedsDisplayInRect:_oldDroppingRect];
+}
+
+#pragma mark - Notifications
+
+- (void)presentationThemeDidChange:(NSNotification *)inNotification
+{
+	if (self.window==nil)
+		return;
+	
+	[self setNeedsDisplay:YES];
 }
 
 @end
