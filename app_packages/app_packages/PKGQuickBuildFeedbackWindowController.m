@@ -16,6 +16,9 @@
 #import "PKGQuickBuildTextField.h"
 #import "PKGQuickBuildWindow.h"
 
+NSString * const PKGQuickBuildBuildViewKey=@"BuildView";
+NSString * const PKGQuickBuildStatusViewKey=@"StatusView";
+
 @interface PKGQuickBuildFeedbackWindowController ()
 {
 	NSView * _mainView;
@@ -146,8 +149,8 @@
 	
 		[tBuildView addSubview:tTextField];
 		
-		NSDictionary * tViewDictionary=@{@"BUILD_VIEW":tBuildView,
-										 @"STATUS_VIEW":tStatusView};
+		NSDictionary * tViewDictionary=@{PKGQuickBuildBuildViewKey:tBuildView,
+										 PKGQuickBuildStatusViewKey:tStatusView};
 		
 		[_viewsArray addObject:tViewDictionary];
 		
@@ -162,7 +165,7 @@
 		{
 			NSDictionary * tDictionary=_viewsArray[i];
 			
-			NSView * tView=tDictionary[@"BUILD_VIEW"];
+			NSView * tView=tDictionary[PKGQuickBuildBuildViewKey];
 			
 			if (tView!=nil)
 				tView.autoresizingMask=NSViewMaxXMargin;
@@ -197,7 +200,7 @@
 	
 	if (tDictionary!=nil)
 	{
-		NSView * tView=tDictionary[@"BUILD_VIEW"];
+		NSView * tView=tDictionary[PKGQuickBuildBuildViewKey];
 		
 		NSUInteger tIndex=[_viewsArray indexOfObject:tDictionary];
 		
@@ -207,7 +210,7 @@
 			{
 				NSDictionary * tOtherDictionary=_viewsArray[i];
 			
-				NSView * tOtherView=tOtherDictionary[@"BUILD_VIEW"];
+				NSView * tOtherView=tOtherDictionary[PKGQuickBuildBuildViewKey];
 				
 				if (tOtherView!=nil)
 					tOtherView.autoresizingMask=NSViewMaxXMargin;
@@ -217,7 +220,7 @@
 			{
 				NSDictionary * tOtherDictionary=_viewsArray[i];
 			
-				NSView * tOtherView=tOtherDictionary[@"BUILD_VIEW"];
+				NSView * tOtherView=tOtherDictionary[PKGQuickBuildBuildViewKey];
 				
 				if (tOtherView!=nil)
 				tOtherView.autoresizingMask=NSViewMaxXMargin;
@@ -260,7 +263,7 @@
 
 - (void)setStatus:(PKGQuickBuildStatus)inStatus forUUID:(NSUUID *)inUUID
 {
-	PKGQuickBuildStatusView * tStatusView=_viewsDictionary[inUUID][@"STATUS_VIEW"];
+	PKGQuickBuildStatusView * tStatusView=_viewsDictionary[inUUID][PKGQuickBuildStatusViewKey];
 	
 	if (tStatusView!=nil)
 			tStatusView.status=inStatus;
