@@ -297,10 +297,10 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesAdvancedAppleModeStateDidChangeNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationInstallationTypeStepSettingsDidChangeNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationInstallationTypeStepSettingsDidChangeNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 }

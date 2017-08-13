@@ -107,7 +107,7 @@
 {
 	[super WB_viewWillDisappear];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:nil];
 }
 
 #pragma mark -
@@ -244,7 +244,7 @@
 	
 	if (tAbsolutePath==nil)
 	{
-		// A COMPLETER
+		NSLog(@"Unable to determine absolute path for file path (%@)",tFilePath);
 		
 		return;
 	}
