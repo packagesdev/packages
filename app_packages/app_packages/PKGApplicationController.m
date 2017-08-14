@@ -51,6 +51,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (IBAction)showPackagePayloadTab:(id)sender;
 - (IBAction)showPackageScriptsAndResourcesTab:(id)sender;
 
+// Build Menu
+
+- (IBAction)buildAll:(id)sender;
+
 // Help Menu
 
 - (IBAction)showPackageFormatDocumentation:(id) sender;
@@ -128,6 +132,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction)showPackageScriptsAndResourcesTab:(id)sender
 {
+}
+
+#pragma mark - Build Menu
+
+- (IBAction)buildAll:(id)sender
+{
+	// Useful to check that the multiple builds can be run at the same time with no interferences between each other
+	
+	for(PKGDocument * tDocument in ((NSDocumentController *)[NSDocumentController sharedDocumentController]).documents)
+	{
+		[tDocument performSelector:@selector(build:) withObject:nil];
+	}
 }
 
 #pragma mark - Help Menu

@@ -238,6 +238,9 @@
 
 - (BOOL)_requestBuildWithOptions:(PKGBuildOptions)inBuildOptions
 {
+	if (_currentBuildOrder!=nil)
+		return NO;
+	
 	NSMutableDictionary * tExternalSettings=[NSMutableDictionary dictionary];
 	
 	NSString * tProjectPath=self.fileURL.path;

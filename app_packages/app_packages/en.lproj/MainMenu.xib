@@ -582,6 +582,12 @@
                                     <action selector="build:" target="-1" id="430"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Build All" keyEquivalent="b" id="MmO-yM-QkU">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="buildAll:" target="212" id="8Bq-CQ-fnB"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Build and Run" keyEquivalent="r" id="400">
                                 <connections>
                                     <action selector="buildAndRun:" target="-1" id="431"/>
