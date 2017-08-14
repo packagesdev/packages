@@ -43,7 +43,7 @@
                                 <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                 <color key="gridColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="build.event" width="832" minWidth="40" maxWidth="1000" id="5r0-pb-ndh">
+                                    <tableColumn identifier="build.event" width="832" minWidth="40" maxWidth="3000" id="5r0-pb-ndh">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
