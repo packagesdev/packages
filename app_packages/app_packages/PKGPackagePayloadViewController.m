@@ -134,7 +134,7 @@
 	
 	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
 	
-	_dataSource.rootNodes=self.payload.filesTree.rootNodes;
+	_dataSource.rootNodes=self.payload.filesTree.rootNodes.array;
 	
 	_dataSource.delegate=_payloadHierarchyViewController;
 	_dataSource.installLocationNode=[self.payload.filesTree.rootNode descendantNodeAtPath:self.payload.defaultInstallLocation];

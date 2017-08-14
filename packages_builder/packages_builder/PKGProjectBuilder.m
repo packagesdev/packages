@@ -1663,7 +1663,62 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	PKGResourcesForest * tResourcesForest=tRequirementsAndResources.resourcesForest;
 	
-	if (tResourcesForest.rootNodes.count==0)
+	PKGRootNodesTuple * tTuple=tResourcesForest.rootNodes;
+	
+	if (tTuple.error!=nil)
+	{
+		PKGBuildErrorEvent * tErrorEvent=nil;
+		
+		if ([tTuple.error.domain isEqualToString:PKGPackagesModelErrorDomain]==YES)
+		{
+			NSString * tKey=tTuple.error.userInfo[PKGKeyPathErrorKey];
+			
+			switch(tTuple.error.code)
+			{
+				case PKGRepresentationNilRepresentationError:
+				{
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Missing value for key \"%@\"",tKey];
+					
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorMissingInformation tag:tKey];
+					
+					break;
+				}
+					
+				case PKGRepresentationInvalidValueError:
+				{
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect value for key \"%@\"",tKey];
+					
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:tKey];
+					
+					break;
+				}
+					
+				case PKGRepresentationInvalidTypeOfValueError:
+				{
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect type of value for key \"%@\"",tKey];
+					
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:tKey];
+					
+					break;
+				}
+					
+				case PKGFileInvalidTypeOfFileError:
+				{
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileIncorrectType filePath:_buildOrder.projectPath fileKind:PKGFileKindRegularFile];
+					
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Unable to read file at path '%@'",_buildOrder.projectPath];
+					
+					break;
+				}
+			}
+		}
+		
+		[self postCurrentStepFailureEvent:tErrorEvent];
+		
+		return NO;
+	}
+	
+	if (tTuple.array.count==0)
 		return YES;
 	
 	[self postStep:PKGBuildStepDistributionResources beginEvent:nil];
@@ -1678,7 +1733,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Copy the file hierarchy
 	
-	for(PKGResourcesTreeNode * tRootNode in tResourcesForest.rootNodes)
+	for(PKGResourcesTreeNode * tRootNode in tTuple.array)
 	{
 		if ([self buildFileHierarchyComponent:tRootNode atPath:tResourcesPath contextInfo:nil]==NO)
 		{
@@ -2014,13 +2069,44 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tInvocationCode==nil)
 		{
+			PKGBuildErrorEvent * tErrorEvent=nil;
+			
 			// Code not generated
 			
-			/*[self postCurrentStepFailureEvent:@{IC_BUILDER_FAILURE_REASON:@(IC_BUILDER_FAILURE_REASON_REQUIREMENT_MISSING_CODE),
-																IC_BUILDER_FAILURE_TAG_NAME:tRequirementIdentifier,
-																IC_BUILDER_FAILURE_SECONDARY_REASON:tErrorDictionary}];*/
+			if ([tError.domain isEqualToString:PKGConverterErrorDomain]==YES)
+			{
+				switch(tError.code)
+				{
+					case PKGConverterErrorMissingParameter:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirement.name];
+						tErrorEvent.subcode=PKGBuildErrorConverterMissingParameter;
+						tErrorEvent.otherFilePath=tError.userInfo[PKGConverterErrorParameterKey];
+						
+						break;
+						
+					case PKGConverterErrorInvalidParameter:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirement.name];
+						tErrorEvent.subcode=PKGBuildErrorConverterInvalidParameter;
+						tErrorEvent.otherFilePath=tError.userInfo[PKGConverterErrorParameterKey];
+						
+						break;
+						
+					case PKConverterErrorLowMemory:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirement.name];
+						tErrorEvent.subcode=PKGBuildErrorOutOfMemory;
+						
+						break;
+				}
+			}
+			else
+			{
+				tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError];
+			}
 			
-			// A COMPLETER
+			[self postCurrentStepFailureEvent:tErrorEvent];
 			
 			return NO;
 		}
@@ -3150,7 +3236,65 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		[_installerScriptElement addChild:tComment];
 		
-		if ([self addLinesElementsToElement:tChoicesOutlineElement withChoicesArray:tChoicesForest.rootNodes isInstaller:isInstallerHierarchy prefix:tPrefix]==NO)
+		PKGRootNodesTuple * tTuple=tChoicesForest.rootNodes;
+		
+		if (tTuple.error!=nil)
+		{
+			PKGBuildErrorEvent * tErrorEvent=nil;
+			
+			if ([tTuple.error.domain isEqualToString:PKGPackagesModelErrorDomain]==YES)
+			{
+				NSString * tKey=tTuple.error.userInfo[PKGKeyPathErrorKey];
+				
+				switch(tTuple.error.code)
+				{
+					case PKGRepresentationNilRepresentationError:
+					{
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Missing value for key \"%@\"",tKey];
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorMissingInformation tag:tKey];
+						
+						break;
+					}
+						
+					case PKGRepresentationInvalidValueError:
+					{
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect value for key \"%@\"",tKey];
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:tKey];
+						
+						break;
+					}
+						
+					case PKGRepresentationInvalidTypeOfValueError:
+					{
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect type of value for key \"%@\"",tKey];
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:tKey];
+						
+						break;
+					}
+						
+					case PKGFileInvalidTypeOfFileError:
+					{
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileIncorrectType filePath:_buildOrder.projectPath fileKind:PKGFileKindRegularFile];
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Unable to read file at path '%@'",_buildOrder.projectPath];
+						
+						break;
+					}
+				}
+			}
+			
+			[self postCurrentStepFailureEvent:tErrorEvent];
+			
+			tFailed=YES;
+			
+			*bOutStop=YES;
+			return;
+		}
+		
+		if ([self addLinesElementsToElement:tChoicesOutlineElement withChoicesArray:tTuple.array isInstaller:isInstallerHierarchy prefix:tPrefix]==NO)
 		{
 			[self postCurrentStepFailureEvent:nil];
 			
@@ -3164,7 +3308,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 		[_installerScriptElement addChild:tChoicesOutlineElement];
 		
-		if ([self addChoicesElementsToElement:_installerScriptElement withChoicesArray:tChoicesForest.rootNodes isInstaller:isInstallerHierarchy]==NO)
+		if ([self addChoicesElementsToElement:_installerScriptElement withChoicesArray:tTuple.array isInstaller:isInstallerHierarchy]==NO)
 		{
 			// A COMPLETER
 			
@@ -6059,16 +6203,46 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 							
 		if (tElementsArray==nil)
 		{
-			if (tError!=nil)
+			PKGBuildErrorEvent * tErrorEvent=nil;
+			
+			// Code not generated
+			
+			if ([tError.domain isEqualToString:PKGConverterErrorDomain]==YES)
 			{
-				/*[self postCurrentStepFailureEvent:@{IC_BUILDER_FAILURE_REASON:@(IC_BUILDER_FAILURE_REASON_LOCATOR_CONVERSION_ERROR),
-														   IC_BUILDER_FAILURE_TAG_NAME:tLocatorIdentifier,
-														   IC_BUILDER_FAILURE_SECONDARY_REASON:tErrorDictionary}];*/
-				
-				// A COMPLETER
-				
-				return NO;
+				switch(tError.code)
+				{
+					case PKGConverterErrorMissingParameter:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorLocatorConversionError tag:tLocator.name];
+						tErrorEvent.subcode=PKGBuildErrorConverterMissingParameter;
+						tErrorEvent.otherFilePath=tError.userInfo[PKGConverterErrorParameterKey];
+						
+						break;
+						
+					case PKGConverterErrorInvalidParameter:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorLocatorConversionError tag:tLocator.name];
+						tErrorEvent.subcode=PKGBuildErrorConverterInvalidParameter;
+						tErrorEvent.otherFilePath=tError.userInfo[PKGConverterErrorParameterKey];
+						
+						break;
+						
+					case PKConverterErrorLowMemory:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorLocatorConversionError tag:tLocator.name];
+						tErrorEvent.subcode=PKGBuildErrorOutOfMemory;
+						
+						break;
+				}
 			}
+			else
+			{
+				tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorLocatorConversionError];
+			}
+			
+			[self postCurrentStepFailureEvent:tErrorEvent];
+			
+			return NO;
 		}
 		
 		for(NSXMLElement * tElement in tElementsArray)
@@ -6349,7 +6523,62 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 	// Copy the extra resources
 	
-	for(PKGResourcesTreeNode * tResourceTreeNode in inScriptsAnResources.resourcesForest.rootNodes)
+	PKGRootNodesTuple * tTuple=inScriptsAnResources.resourcesForest.rootNodes;
+	
+	if (tTuple.error!=nil)
+	{
+		PKGBuildErrorEvent * tErrorEvent=nil;
+		
+		if ([tTuple.error.domain isEqualToString:PKGPackagesModelErrorDomain]==YES)
+		{
+			NSString * tKey=tTuple.error.userInfo[PKGKeyPathErrorKey];
+			
+			switch(tTuple.error.code)
+			{
+				case PKGRepresentationNilRepresentationError:
+				{
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Missing value for key \"%@\"",tKey];
+					
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorMissingInformation tag:tKey];
+					
+					break;
+				}
+					
+				case PKGRepresentationInvalidValueError:
+				{
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect value for key \"%@\"",tKey];
+					
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:tKey];
+					
+					break;
+				}
+					
+				case PKGRepresentationInvalidTypeOfValueError:
+				{
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect type of value for key \"%@\"",tKey];
+					
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:tKey];
+					
+					break;
+				}
+					
+				case PKGFileInvalidTypeOfFileError:
+				{
+					tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileIncorrectType filePath:_buildOrder.projectPath fileKind:PKGFileKindRegularFile];
+					
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Unable to read file at path '%@'",_buildOrder.projectPath];
+					
+					break;
+				}
+			}
+		}
+		
+		[self postCurrentStepFailureEvent:tErrorEvent];
+		
+		return NO;
+	}
+	
+	for(PKGResourcesTreeNode * tResourceTreeNode in tTuple.array)
 	{
 		if ([self buildFileHierarchyComponent:tResourceTreeNode atPath:tTemporaryDirectoryPath contextInfo:nil]==NO)
 			return NO;

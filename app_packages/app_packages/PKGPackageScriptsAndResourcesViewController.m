@@ -141,7 +141,7 @@
 		_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
 		_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
 		
-		_dataSource.rootNodes=self.scriptsAndResources.resourcesForest.rootNodes;
+		_dataSource.rootNodes=self.scriptsAndResources.resourcesForest.rootNodes.array;
 	}
 }
 

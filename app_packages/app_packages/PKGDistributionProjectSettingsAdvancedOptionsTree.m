@@ -49,6 +49,9 @@
 		
 		if (_rootNode==nil)
 		{
+			if (outError!=NULL)
+				*outError=tError;
+				
 			// A COMPLETER
 			
 			return nil;
@@ -65,14 +68,14 @@
 
 #pragma mark - PKGRootNodesProtocol
 
-- (NSMutableArray *)rootNodes
+- (PKGRootNodesTuple *)rootNodes
 {
 	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tRootNode=self.rootNode;
 	
 	if (tRootNode==nil)
-		return nil;
+		return [PKGRootNodesTuple rootNodeTupleWithArray:nil error:[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValueError userInfo:nil]];
 	
-	return [NSMutableArray arrayWithObject:tRootNode];
+	return [PKGRootNodesTuple rootNodeTupleWithArray:[NSMutableArray arrayWithObject:tRootNode] error:nil];
 }
 
 @end

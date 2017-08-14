@@ -122,14 +122,14 @@
 
 #pragma mark - PKGRootNodesProtocol
 
-- (NSMutableArray *)rootNodes
+- (PKGRootNodesTuple *)rootNodes
 {
 	PKGPayloadTreeNode * tRootNode=self.rootNode;
 	
 	if (tRootNode==nil)
-		return nil;
+		return [PKGRootNodesTuple rootNodeTupleWithArray:nil error:[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidValueError userInfo:nil]];	// A COMPLETER
 	
-	return [NSMutableArray arrayWithObject:tRootNode];
+	return [PKGRootNodesTuple rootNodeTupleWithArray:[NSMutableArray arrayWithObject:tRootNode] error:nil];
 }
 
 #pragma mark - NSCopying

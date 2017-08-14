@@ -30,7 +30,7 @@
 		
 		PKGChoiceTreeNode * tChoiceTreeNode=[[PKGChoiceTreeNode alloc] initWithRepresentedObject:tChoicePackageItem children:nil];
 		
-		[self.choicesForest.rootNodes addObject:tChoiceTreeNode];
+		[self.choicesForest.rootNodes.array addObject:tChoiceTreeNode];
 	}];
 }
 
@@ -80,7 +80,7 @@
 	
 	if (inTreeNode==nil)
 	{
-		[self.choicesForest.rootNodes insertObjects:tChoicesArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inIndex,tChoicesArray.count)]];
+		[self.choicesForest.rootNodes.array insertObjects:tChoicesArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(inIndex,tChoicesArray.count)]];
 	}
 	else
 	{

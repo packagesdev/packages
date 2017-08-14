@@ -13,8 +13,20 @@
 
 #import <Foundation/Foundation.h>
 
+@interface PKGRootNodesTuple : NSObject
+
+	@property (readonly) NSMutableArray * array;
+
+	@property (readonly) NSError * error;
+
++ (PKGRootNodesTuple *)rootNodeTupleWithArray:(NSMutableArray *)inMutableArray error:(NSError *)inError;
+
+- (instancetype)initWithArray:(NSMutableArray *)inMutableArray error:(NSError *)inError;
+
+@end
+
 @protocol PKGRootNodesProtocol
 
-- (NSMutableArray *)rootNodes;
+- (PKGRootNodesTuple *)rootNodes;
 
 @end

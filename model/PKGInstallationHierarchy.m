@@ -51,7 +51,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -135,7 +135,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
@@ -155,7 +155,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	
-	[self.choicesForest.rootNodes enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChoiceTreeNode, __attribute__((unused)) NSUInteger bIndex, __attribute__((unused)) BOOL *outStop) {
+	[self.choicesForest.rootNodes.array enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChoiceTreeNode, __attribute__((unused)) NSUInteger bIndex, __attribute__((unused)) BOOL *outStop) {
 		
 		[tDescription appendFormat:@"    %@\n",[bChoiceTreeNode description]];
 		
@@ -177,7 +177,7 @@ NSString * const PKGInstallationHierarchyRemovedPackagesKey=@"REMOVED";
 {
 	NSMutableSet * tMutableSet=[NSMutableSet set];
 	
-	[self.choicesForest.rootNodes enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChoicesTreeNode,__attribute__((unused))NSUInteger bIndex,__attribute__((unused))BOOL *bOutStop){
+	[self.choicesForest.rootNodes.array enumerateObjectsUsingBlock:^(PKGChoiceTreeNode * bChoicesTreeNode,__attribute__((unused))NSUInteger bIndex,__attribute__((unused))BOOL *bOutStop){
 		
 		[bChoicesTreeNode enumerateRepresentedObjectsRecursivelyUsingBlock:^(PKGChoiceItem *bChoiceItem,__attribute__((unused))BOOL * bTreeOutStop){
 			

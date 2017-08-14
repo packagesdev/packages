@@ -138,7 +138,7 @@
 		
 		_requirementsSourceListDataSource.requirements=self.requirementsAndResources.requirements;
 		
-		_resourcesDataSource.rootNodes=self.requirementsAndResources.resourcesForest.rootNodes;
+		_resourcesDataSource.rootNodes=self.requirementsAndResources.resourcesForest.rootNodes.array;
 	}
 }
 

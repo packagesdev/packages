@@ -54,7 +54,7 @@
 		
 		PKGBuildEventTreeNode * tRootNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:nProjectItem children:nil];
 		
-		[self.rootNodes addObject:tRootNode];
+		[self.rootNodes.array addObject:tRootNode];
 	}
 	
 	return self;

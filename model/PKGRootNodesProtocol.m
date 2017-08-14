@@ -11,24 +11,28 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
-
 #import "PKGRootNodesProtocol.h"
 
-#import "PKGTreeNode.h"
+@implementation PKGRootNodesTuple
 
-@interface PKGForest : NSObject <PKGRootNodesProtocol,NSCopying>
++ (PKGRootNodesTuple *)rootNodeTupleWithArray:(NSMutableArray *)inMutableArray error:(NSError *)inError
+{
+	return [[PKGRootNodesTuple alloc] initWithArray:inMutableArray error:inError];
+}
 
-	@property (nonatomic,readonly) PKGRootNodesTuple * rootNodes;
-
-+ (Class)nodeClass;
-
-- (instancetype)initWithArrayRepresentation:(NSArray *)inRepresentation error:(out NSError **)outError;
-
-- (instancetype)initWithRootNodes:(NSArray *)inRootNodes;
-
-- (NSMutableArray *)arrayRepresentation;
-
-- (NSString *)indentationStringForTreeNode:(PKGTreeNode *)inTreeNode;
+- (instancetype)initWithArray:(NSMutableArray *)inMutableArray error:(NSError *)inError
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_array=inMutableArray;
+		
+		_error=inError;
+	}
+	
+	return self;
+}
 
 @end
+

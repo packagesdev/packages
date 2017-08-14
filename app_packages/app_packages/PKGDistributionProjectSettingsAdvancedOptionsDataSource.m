@@ -131,7 +131,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 - (NSInteger)outlineView:(NSOutlineView *)inOutlineView numberOfChildrenOfItem:(PKGTreeNode *)inTreeNode
 {
 	if (inTreeNode==nil)
-		return _tree.rootNodes.count;
+		return _tree.rootNodes.array.count;
 	
 	return inTreeNode.numberOfChildren;
 }
@@ -139,7 +139,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 - (id)outlineView:(NSOutlineView *)inOutlineView child:(NSInteger)inIndex ofItem:(PKGTreeNode *)inTreeNode
 {
 	if (inTreeNode==nil)
-		return _tree.rootNodes[inIndex];
+		return _tree.rootNodes.array[inIndex];
 	
 	return [inTreeNode childNodeAtIndex:inIndex];
 }

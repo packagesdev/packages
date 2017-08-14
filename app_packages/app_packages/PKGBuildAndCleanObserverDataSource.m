@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 				
 				_tree=[PKGBuildEventsForest buildEventsTreeForDocumentNamed:inDocument.displayName];
 				
-				_currentBuildTreeNode=_tree.rootNodes.firstObject;
+				_currentBuildTreeNode=_tree.rootNodes.array.firstObject;
 				
 				break;
 				
@@ -85,7 +85,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 	
 	_delegate=inDelegate;
 	
-	[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:_tree.rootNodes.firstObject];
+	[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:_tree.rootNodes.array.firstObject];
 }
 
 - (PKGInstallerAppPackageType)packageType
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 - (NSInteger)outlineView:(NSOutlineView *)inOutlineView numberOfChildrenOfItem:(PKGTreeNode *)inTreeNode
 {
 	if (inTreeNode==nil)
-		return _tree.rootNodes.count;
+		return _tree.rootNodes.array.count;
 	
 	return inTreeNode.numberOfChildren;
 }
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 - (id)outlineView:(NSOutlineView *)inOutlineView child:(NSInteger)inIndex ofItem:(PKGTreeNode *)inTreeNode
 {
 	if (inTreeNode==nil)
-		return _tree.rootNodes[inIndex];
+		return _tree.rootNodes.array[inIndex];
 	
 	return [inTreeNode childNodeAtIndex:inIndex];
 }
@@ -665,29 +665,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;
 					
-				case PKGBuildErrorRequirementMissingConverter:
-					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Converter not found for requirement of type '%@'",@"Build",@""),tTag];
-					
-					break;
-					
-				case PKGBuildErrorRequirementMissingCode:
-					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"No code generated for requirement of type '%@'",@"Build",@""),tTag];
-					
-					break;
-					
-				case PKGBuildErrorLocatorMissingConverter:
-					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Converter not found for locator of type '%@'",@"Build",@""),tTag];
-					
-					break;
-					
-				case PKGBuildErrorLocatorConversionError:
-					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"No code generated for locator of type '%@'",@"Build",@""),tTag];
-					
-					break;
+				
 					
 				case PKGBuildErrorFileNotFound:
 					
@@ -797,6 +775,85 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					}
 					
 					break;
+				
+					
+					/* Requirements and Locators errors */
+					
+					
+				case PKGBuildErrorRequirementMissingConverter:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Converter not found for requirement of type '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorRequirementConversionError:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"No code generated for requirement '%@'",@"Build",@""),tTag];
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorConverterMissingParameter:
+							
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because the parameter %@ is missing",@"Build",@""),tErrorEvent.otherFilePath];
+							
+							break;
+							
+						case PKGBuildErrorConverterInvalidParameter:
+							
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because the parameter %@ is invalid",@"Build",@""),tErrorEvent.otherFilePath];
+							
+							break;
+							
+						case PKGBuildErrorOutOfMemory:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because available memory is too low",@"Build",@"")];
+							
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+				case PKGBuildErrorLocatorMissingConverter:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Converter not found for locator of type '%@'",@"Build",@""),tTag];
+					
+					break;
+					
+				case PKGBuildErrorLocatorConversionError:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"No code generated for locator '%@'",@"Build",@""),tTag];
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorConverterMissingParameter:
+							
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because the parameter %@ is missing",@"Build",@""),tErrorEvent.otherFilePath];
+							
+							break;
+							
+						case PKGBuildErrorConverterInvalidParameter:
+							
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because the parameter %@ is invalid",@"Build",@""),tErrorEvent.otherFilePath];
+							
+							break;
+							
+						case PKGBuildErrorOutOfMemory:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because available memory is too low",@"Build",@"")];
+							
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+
+					/* Signing errors */
 					
 				case PKGBuildErrorSigningUnknown:
 					
@@ -867,7 +924,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 		
 		PKGBuildEventTreeNode * nBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:nBuildEventItem children:nil];
 		
-		[_tree.rootNodes addObject:nBuildEventTreeNode];
+		[_tree.rootNodes.array addObject:nBuildEventTreeNode];
 		
 		[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:([_currentBuildTreeNode isLeaf]==NO) ? _currentBuildTreeNode : nil];
 	}
@@ -1006,7 +1063,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 				
 				PKGBuildEventTreeNode * tBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:tBuildEventItem children:nil];
 				
-				[_tree.rootNodes addObject:tBuildEventTreeNode];
+				[_tree.rootNodes.array addObject:tBuildEventTreeNode];
 				
 				[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndCollapseItem:([_currentBuildTreeNode isLeaf]==NO) ? _currentBuildTreeNode : nil];
 				

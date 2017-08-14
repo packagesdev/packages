@@ -22,7 +22,7 @@
 	if (inSourceConverter==nil || inDestinationConverter==nil)
 		return;
 	
-	for(PKGResourcesTreeNode * tResourcesTreeNode in self.rootNodes)
+	for(PKGResourcesTreeNode * tResourcesTreeNode in self.rootNodes.array)
 		[tResourcesTreeNode transformAllPathsUsingSourceConverter:inSourceConverter destinationConverter:inDestinationConverter];
 }
 

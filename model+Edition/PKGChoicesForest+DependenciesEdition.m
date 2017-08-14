@@ -16,7 +16,7 @@
 {
 	NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
 	
-	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes)
+	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes.array)
 	{
 		[tTreeNode enumerateNodesLenientlyUsingBlock:^(PKGChoiceTreeNode * bChoiceTreeNode, BOOL *bOutSkipChildren,BOOL *bOutStop) {
 			

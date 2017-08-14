@@ -693,7 +693,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 {
 	if (inChoiceTreeNode==nil)
 	{
-		for(PKGChoiceTreeNode * tRootTreeNode in _dataSource.installationHierarchy.choicesForest.rootNodes)
+		for(PKGChoiceTreeNode * tRootTreeNode in _dataSource.installationHierarchy.choicesForest.rootNodes.array)
 			[self expandItemIfPossible:tRootTreeNode];
 	
 		return;
@@ -755,7 +755,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	_restoringDiscloseStates=YES;
 	
-	for(PKGChoiceTreeNode * tRootTreeNode in _dataSource.installationHierarchy.choicesForest.rootNodes)
+	for(PKGChoiceTreeNode * tRootTreeNode in _dataSource.installationHierarchy.choicesForest.rootNodes.array)
 		[self expandItem:tRootTreeNode ifKeyOfDictionary:tDisclosedDictionary];
 	
 	_restoringDiscloseStates=NO;

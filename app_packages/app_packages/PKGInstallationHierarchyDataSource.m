@@ -95,7 +95,7 @@ NSString * const PKGInstallationHierarchyHiddenPackagesInternalPboardType=@"fr.w
 		return [tChoiceItem.UUID isEqualToString:inChoiceUUID];
 	};
 	
-	for(PKGChoiceTreeNode * tTreeNode in _forest.rootNodes)
+	for(PKGChoiceTreeNode * tTreeNode in _forest.rootNodes.array)
 	{
 		if (_compareUUID(tTreeNode)==YES)
 			return tTreeNode;
@@ -284,7 +284,7 @@ NSString * const PKGInstallationHierarchyHiddenPackagesInternalPboardType=@"fr.w
 - (NSInteger)outlineView:(NSOutlineView *)inOutlineView numberOfChildrenOfItem:(PKGTreeNode *)inTreeNode
 {
 	if (inTreeNode==nil)
-		return _forest.rootNodes.count;
+		return _forest.rootNodes.array.count;
 	
 	return inTreeNode.numberOfChildren;
 }
@@ -292,7 +292,7 @@ NSString * const PKGInstallationHierarchyHiddenPackagesInternalPboardType=@"fr.w
 - (id)outlineView:(NSOutlineView *)inOutlineView child:(NSInteger)inIndex ofItem:(PKGTreeNode *)inTreeNode
 {
 	if (inTreeNode==nil)
-		return _forest.rootNodes[inIndex];
+		return _forest.rootNodes.array[inIndex];
 	
 	return [inTreeNode childNodeAtIndex:inIndex];
 }
@@ -485,7 +485,7 @@ NSString * const PKGInstallationHierarchyHiddenPackagesInternalPboardType=@"fr.w
 			if ([tDraggedChoiceTreeNode parent]!=nil)
 				return NSDragOperationMove;
 			
-			NSInteger tOriginalRow=[_forest.rootNodes indexOfObject:tDraggedChoiceTreeNode];
+			NSInteger tOriginalRow=[_forest.rootNodes.array indexOfObject:tDraggedChoiceTreeNode];
 			
 			if (tOriginalRow==NSNotFound)	// There's a problem as it should be a root node if its parent is nil
 				return NSDragOperationNone;

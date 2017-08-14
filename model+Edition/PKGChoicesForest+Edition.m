@@ -46,7 +46,7 @@
 	
 	if (tParentNode==nil)
 	{
-		tInsertionIndex=[self.rootNodes indexOfObjectIdenticalTo:inChoiceTreeNodes[0]];
+		tInsertionIndex=[self.rootNodes.array indexOfObjectIdenticalTo:inChoiceTreeNodes[0]];
 		
 		if (tInsertionIndex==NSNotFound)
 		{
@@ -54,8 +54,8 @@
 			return nil;
 		}
 		
-		[self.rootNodes removeObjectsInArray:inChoiceTreeNodes];
-		[self.rootNodes insertObject:tGroupTreeNode atIndex:tInsertionIndex];
+		[self.rootNodes.array removeObjectsInArray:inChoiceTreeNodes];
+		[self.rootNodes.array insertObject:tGroupTreeNode atIndex:tInsertionIndex];
 	}
 	else
 	{
@@ -91,7 +91,7 @@
 			return tChoiceItem.UUID;
 		}];
 		
-		[PKGChoicesForest _removeDependenciesOfChoices:self.rootNodes toChoiceUUIDs:tAllChoiceUUIDs];
+		[PKGChoicesForest _removeDependenciesOfChoices:self.rootNodes.array toChoiceUUIDs:tAllChoiceUUIDs];
 	}
 	
 	return tGroupTreeNode;
@@ -111,7 +111,7 @@
 	NSUInteger tIndex=NSNotFound;
 	
 	if (tParentNode==nil)
-		tIndex=[self.rootNodes indexOfObject:inGroupChoiceTreeNode];
+		tIndex=[self.rootNodes.array indexOfObject:inGroupChoiceTreeNode];
 	else
 		tIndex=[tParentNode indexOfChildIdenticalTo:inGroupChoiceTreeNode];
 	
@@ -124,9 +124,9 @@
 	
 	if (tParentNode==nil)
 	{
-		[self.rootNodes removeObjectAtIndex:tIndex];
+		[self.rootNodes.array removeObjectAtIndex:tIndex];
 		
-		[self.rootNodes insertObjects:tChildren atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(tIndex, tChildren.count)]];
+		[self.rootNodes.array insertObjects:tChildren atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(tIndex, tChildren.count)]];
 		[tChildren makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
 	}
 	else
@@ -151,7 +151,7 @@
 	if (inPackageComponentUUID==nil)
 		return NO;
 	
-	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes)
+	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes.array)
 	{
 		__block BOOL tFound=NO;
 		
@@ -183,7 +183,7 @@
 	NSMutableArray * tPackagesChoiceTreeNodes=[NSMutableArray array];
 	__block NSUInteger tFoundCount=0;
 	
-	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes)
+	for(PKGChoiceTreeNode * tTreeNode in self.rootNodes.array)
 	{
 		if (tFoundCount==tCount)
 			break;
@@ -224,7 +224,7 @@
 		
 		if (tNodeParent==nil)
 		{
-			[self.rootNodes removeObject:tTreeNode];
+			[self.rootNodes.array removeObject:tTreeNode];
 		}
 		else
 		{
@@ -290,7 +290,7 @@
 		return tChoiceItem.UUID;
 	}];
 	
-	[PKGChoicesForest _removeDependenciesOfChoices:self.rootNodes toChoiceUUIDs:tAllChoiceUUIDs];
+	[PKGChoicesForest _removeDependenciesOfChoices:self.rootNodes.array toChoiceUUIDs:tAllChoiceUUIDs];
 }
 
 - (BOOL)moveChoiceTreeNodes:(NSArray *)inChoiceTreeNodes asChildrenOf:(PKGChoiceTreeNode *)inParentChoiceTreeNode atIndex:(NSUInteger)inIndex
@@ -307,7 +307,7 @@
 			NSUInteger tIndex=NSNotFound;
 			
 			if (tParentTreeNode==nil)
-				tIndex=[self.rootNodes indexOfObject:tChoiceTreeNode];
+				tIndex=[self.rootNodes.array indexOfObject:tChoiceTreeNode];
 			else
 				tIndex=[tParentTreeNode indexOfChildIdenticalTo:tChoiceTreeNode];
 			
@@ -323,7 +323,7 @@
 		}
 		
 		if (tParentTreeNode==nil)
-			[self.rootNodes removeObject:tChoiceTreeNode];
+			[self.rootNodes.array removeObject:tChoiceTreeNode];
 		else
 			[tParentTreeNode removeChild:tChoiceTreeNode];
 	}
@@ -331,7 +331,7 @@
 	for(PKGChoiceTreeNode * tChoiceTreeNode in inChoiceTreeNodes)
 	{
 		if (inParentChoiceTreeNode==nil)
-			[self.rootNodes insertObject:tChoiceTreeNode atIndex:inIndex];
+			[self.rootNodes.array insertObject:tChoiceTreeNode atIndex:inIndex];
 		else
 			[inParentChoiceTreeNode insertChild:tChoiceTreeNode atIndex:inIndex];
 		

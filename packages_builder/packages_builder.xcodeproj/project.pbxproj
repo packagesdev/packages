@@ -93,6 +93,7 @@
 		F4E7D01E11EDD6B400D54D7C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E7D01D11EDD6B400D54D7C /* libicucore.dylib */; };
 		F4EA177A1D13589200B28191 /* libxar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48C211A1CFCEFB500B5A8CD /* libxar.a */; };
 		F4EBEDC01D215538004ABA9B /* PKGLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EBEDBF1D215538004ABA9B /* PKGLanguageManager.m */; };
+		F4F9994A1F40FCEB00242BAB /* PKGRootNodesProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F999491F40FCEB00242BAB /* PKGRootNodesProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,7 +184,7 @@
 		F4880F461DE2673900A9EAC7 /* NSString+Karelia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Karelia.m"; path = "../external/NSString+Karelia.m"; sourceTree = "<group>"; };
 		F48C21091CFCEFB400B5A8CD /* xar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = xar.xcodeproj; path = ../xar/xar.xcodeproj; sourceTree = "<group>"; };
 		F48C211E1CFCF05500B5A8CD /* NSMutableDictionary+PKGLocalizedValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+PKGLocalizedValues.h"; path = "../model/NSMutableDictionary+PKGLocalizedValues.h"; sourceTree = "<group>"; };
-		F48C211F1CFCF05500B5A8CD /* NSMutableDictionary+PKGLocalizedValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+PKGLocalizedValues.m"; path = "../model/NSMutableDictionary+PKGLocalizedValues.m"; sourceTree = "<group>"; };
+		F48C211F1CFCF05500B5A8CD /* NSMutableDictionary+PKGLocalizedValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+PKGLocalizedValues.m"; path = "../model/NSMutableDictionary+PKGLocalizedValues.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F48C21201CFCF05500B5A8CD /* PKGChoiceDependencyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGChoiceDependencyTree.h; path = ../model/PKGChoiceDependencyTree.h; sourceTree = "<group>"; };
 		F48C21211CFCF05500B5A8CD /* PKGChoiceDependencyTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGChoiceDependencyTree.m; path = ../model/PKGChoiceDependencyTree.m; sourceTree = "<group>"; };
 		F48C21221CFCF05500B5A8CD /* PKGChoiceDependencyTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGChoiceDependencyTreeNode.h; path = ../model/PKGChoiceDependencyTreeNode.h; sourceTree = "<group>"; };
@@ -202,7 +203,7 @@
 		F48C212F1CFCF05500B5A8CD /* PKGDistributionProjectPresentationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionProjectPresentationSettings.m; path = ../model/PKGDistributionProjectPresentationSettings.m; sourceTree = "<group>"; };
 		F48C21301CFCF05500B5A8CD /* PKGDistributionProjectRequirementsAndResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionProjectRequirementsAndResources.h; path = ../model/PKGDistributionProjectRequirementsAndResources.h; sourceTree = "<group>"; };
 		F48C21311CFCF05500B5A8CD /* PKGDistributionProjectRequirementsAndResources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionProjectRequirementsAndResources.m; path = ../model/PKGDistributionProjectRequirementsAndResources.m; sourceTree = "<group>"; };
-		F48C21321CFCF05500B5A8CD /* PKGDistributionProjectSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionProjectSettings.h; path = ../model/PKGDistributionProjectSettings.h; sourceTree = "<group>"; };
+		F48C21321CFCF05500B5A8CD /* PKGDistributionProjectSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionProjectSettings.h; path = ../model/PKGDistributionProjectSettings.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F48C21331CFCF05500B5A8CD /* PKGDistributionProjectSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionProjectSettings.m; path = ../model/PKGDistributionProjectSettings.m; sourceTree = "<group>"; };
 		F48C21341CFCF05500B5A8CD /* PKGFileFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGFileFilter.h; path = ../model/PKGFileFilter.h; sourceTree = "<group>"; };
 		F48C21351CFCF05500B5A8CD /* PKGFileFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGFileFilter.m; path = ../model/PKGFileFilter.m; sourceTree = "<group>"; };
@@ -321,6 +322,8 @@
 		F4E7D01D11EDD6B400D54D7C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		F4EBEDBE1D215538004ABA9B /* PKGLanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLanguageManager.h; path = packages_builder/PKGLanguageManager.h; sourceTree = "<group>"; };
 		F4EBEDBF1D215538004ABA9B /* PKGLanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLanguageManager.m; path = packages_builder/PKGLanguageManager.m; sourceTree = "<group>"; };
+		F4F999401F40FCD000242BAB /* PKGRootNodesProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRootNodesProtocol.h; path = ../model/PKGRootNodesProtocol.h; sourceTree = "<group>"; };
+		F4F999491F40FCEB00242BAB /* PKGRootNodesProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRootNodesProtocol.m; path = ../model/PKGRootNodesProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -594,6 +597,8 @@
 				F4D1F93D1D2B0E8700890A21 /* PKGRequirementFailureMessage.m */,
 				F48C216F1CFCF05500B5A8CD /* PKGResourcesForest.h */,
 				F48C21701CFCF05500B5A8CD /* PKGResourcesForest.m */,
+				F4F999401F40FCD000242BAB /* PKGRootNodesProtocol.h */,
+				F4F999491F40FCEB00242BAB /* PKGRootNodesProtocol.m */,
 				F48C21711CFCF05500B5A8CD /* PKGTreeNode.h */,
 				F48C21721CFCF05500B5A8CD /* PKGTreeNode.m */,
 			);
@@ -779,6 +784,7 @@
 				F48C219A1CFCF05500B5A8CD /* PKGResourcesForest.m in Sources */,
 				F484A86B1D8748BD00FCC361 /* PKGRequirementPluginsManager.m in Sources */,
 				F4D08D7D1DA6F1820035145A /* PKGLicenseProvider.m in Sources */,
+				F4F9994A1F40FCEB00242BAB /* PKGRootNodesProtocol.m in Sources */,
 				F48C21A01CFCF0A800B5A8CD /* NSArray+WBExtensions.m in Sources */,
 				F4ACC9B31D3837BC00465EBA /* NSFileManager+Packages.m in Sources */,
 				F43017131CFE0EDB00829D16 /* ICFileSystemUtilities.m in Sources */,

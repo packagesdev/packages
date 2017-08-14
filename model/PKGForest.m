@@ -20,9 +20,9 @@
 @interface PKGForest ()
 {
 	NSArray * _cachedRepresentation;
+	
+	NSMutableArray * _rootNodes;
 }
-
-	@property (nonatomic,readwrite) NSMutableArray * rootNodes;
 
 @end
 
@@ -100,7 +100,7 @@
 
 #pragma mark -
 
-- (NSMutableArray *)rootNodes
+- (PKGRootNodesTuple *)rootNodes
 {
 	if (_rootNodes==nil)
 	{
@@ -115,15 +115,13 @@
 			}] mutableCopy];
 			
 			if (_rootNodes==nil)
-			{
-				// A COMPLETER
-			}
+				return [PKGRootNodesTuple rootNodeTupleWithArray:nil error:tError];
 			
 			_cachedRepresentation=nil;
 		}
 	}
 	
-	return _rootNodes;
+	return [PKGRootNodesTuple rootNodeTupleWithArray:_rootNodes error:nil];
 }
 
 #pragma mark -
@@ -132,7 +130,7 @@
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	
-	for(PKGTreeNode * tTreeNode in self.rootNodes)
+	for(PKGTreeNode * tTreeNode in self.rootNodes.array)
 		[tDescription appendFormat:@"  %@\n",[tTreeNode description]];
 	
 	return tDescription;
@@ -152,7 +150,7 @@
 		}
 		else
 		{
-			nForest.rootNodes=[self.rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGTreeNode * bTreeNode,NSUInteger bIndex){
+			nForest->_rootNodes=[_rootNodes WB_arrayByMappingObjectsUsingBlock:^id(PKGTreeNode * bTreeNode,NSUInteger bIndex){
 				
 				return [bTreeNode deepCopyWithZone:inZone];
 			}];
@@ -186,7 +184,7 @@
 		[tIndentation insertString:@"." atIndex:0];
 	}
 	
-	NSInteger tIndex=[self.rootNodes indexOfObject:tNode];
+	NSInteger tIndex=[self.rootNodes.array indexOfObject:tNode];
 	
 	[tIndentation insertString:[NSString stringWithFormat:@"%ld",(long)(tIndex+1)] atIndex:0];
 	
