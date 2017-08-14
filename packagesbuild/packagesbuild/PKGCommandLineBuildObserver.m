@@ -279,9 +279,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		PKGBuildErrorEvent * tErrorEvent=[[PKGBuildErrorEvent alloc] initWithRepresentation:tRepresentation];
 		
 		if (tErrorEvent!=nil)
-		{
 			tFailureReason=tErrorEvent.code;
-		}
 		
 		(void)fprintf(stdout, "\nDescription:\n\n");
 		
@@ -326,42 +324,42 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileIncorrectType:
 					
-					(void)fprintf(stdout, "Incorrect type for file at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "Incorrect type for file at path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 				
 				case PKGBuildErrorFileAbsolutePathCanNotBeComputed:
 					
-					(void)fprintf(stdout, "An absolute path can not be computed from path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "An absolute path can not be computed from path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 					
 				case PKGBuildErrorFilePosixPermissionsCanNotBeSet:
 					
-					(void)fprintf(stdout, "Insufficient privileges to set permissions for path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "Insufficient privileges to set permissions for path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 				
 				case PKGBuildErrorFileAccountsCanNotBeSet:
 					
-					(void)fprintf(stdout, "Insufficient privileges to set accounts for path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "Insufficient privileges to set accounts for path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 				
 				case PKGBuildErrorFileAttributesCanNotBeRead:
 					
-					(void)fprintf(stdout, "Unable to read attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "Unable to read attributes of item at path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 					
 				case PKGBuildErrorFileAttributesCanNotBeSet:
 					
-					(void)fprintf(stdout, "Unable to set attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "Unable to set attributes of item at path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 					
 				case PKGBuildErrorFileExtendedAttributesCanNotBeRead:
 					
-					(void)fprintf(stdout, "Unable to read exteneded attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "Unable to read exteneded attributes of item at path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 				
 				case PKGBuildErrorFileExtendedAttributesCanNotBeSet:
 					
-					(void)fprintf(stdout, "Unable to set extended attributes of item at path \"%s\"",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "Unable to set extended attributes of item at path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 					
 				case PKGBuildErrorExternalToolFailure:
@@ -376,12 +374,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorLicenseTemplateNotFound:
 					
-					(void)fprintf(stdout, "License template for \"%s\" can not be found",[tTag UTF8String]);
+					(void)fprintf(stdout, "License template for \"%s\" can not be found",[tTag fileSystemRepresentation]);
 					break;
 				
 				case PKGBuildErrorBundleIdentifierNotFound:
 					
-					(void)fprintf(stdout, "No identifier could be found for bundle at path '%s'",[[tFilePath lastPathComponent] UTF8String]);
+					(void)fprintf(stdout, "No identifier could be found for bundle at path '%s'",[tFilePath fileSystemRepresentation]);
 					break;
 					
 				case  PKGBuildErrorUnknownLanguage:
@@ -429,25 +427,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					(void)fprintf(stdout, "%s",[tTitle UTF8String]);
 					break;
 					
-				case PKGBuildErrorRequirementMissingConverter:
-					
-					(void)fprintf(stdout, "Converter not found for requirement of type '%s'",[tTag UTF8String]);
-					break;
-					
-				case PKGBuildErrorRequirementMissingCode:
-					
-					(void)fprintf(stdout, "No code generated for requirement of type '%s'",[tTag UTF8String]);
-					break;
-					
-				case PKGBuildErrorLocatorMissingConverter:
-					
-					(void)fprintf(stdout, "Converter not found for locator of type '%s'",[tTag UTF8String]);
-					break;
-					
-				case PKGBuildErrorLocatorConversionError:
-					
-					(void)fprintf(stdout, "No code generated for locator of type '%s'",[tTag UTF8String]);
-					break;
 					
 				case PKGBuildErrorFileNotFound:
 					
@@ -455,15 +434,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					if (tStep==PKGBuildStepPackageImport)
 					{
-						if (tTag!=nil)
-						{
-							if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
-								tTitle=[NSString stringWithFormat:@"Unable to find package at path '%@'",tFilePath];
-						}
+						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
+							tTitle=[NSString stringWithFormat:@"Unable to find package at path '%s'",[tFilePath fileSystemRepresentation]];
 					}
 					
 					if (tTitle==nil)
-						tTitle=[NSString stringWithFormat:@"Unable to find %s '%@'",fileItemTypeName(tFileKind),[tFilePath lastPathComponent]];
+						tTitle=[NSString stringWithFormat:@"Unable to find %s '%s'",fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]];
 					
 					(void)fprintf(stdout, "%s",[tTitle UTF8String]);
 					
@@ -472,7 +448,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				case PKGBuildErrorFileCanNotBeCreated:
 					
 					if ([tFilePath isEqualToString:@"Scratch_Location"]==NO)
-						(void)fprintf(stdout, "Unable to create %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+						(void)fprintf(stdout, "Unable to create %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]);
 					else
 						(void)fprintf(stdout, "Unable to create scratch location folder");
 					
@@ -509,10 +485,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileCanNotBeCopied:
 					
-					(void)fprintf(stdout, "Unable to copy item at path '%s'",[tFilePath UTF8String]);
+					(void)fprintf(stdout, "Unable to copy item at path '%s'",[tFilePath fileSystemRepresentation]);
 					
 					if (tErrorEvent.otherFilePath!=nil)
-						(void)fprintf(stdout, " to '%s'",[tErrorEvent.otherFilePath UTF8String]);
+						(void)fprintf(stdout, " to '%s'",[tErrorEvent.otherFilePath fileSystemRepresentation]);
 					
 					switch(tErrorEvent.subcode)
 					{
@@ -545,7 +521,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileCanNotBeDeleted:
 					
-					(void)fprintf(stdout, "Unable to remove %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+					(void)fprintf(stdout, "Unable to delete %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]);
 					
 					switch(tErrorEvent.subcode)
 					{
@@ -571,6 +547,80 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					(void)fprintf(stdout, "\n");
 					
 					break;
+					
+					/* Requirements and Locators errors */
+					
+				case PKGBuildErrorRequirementMissingConverter:
+					
+					(void)fprintf(stdout, "Converter not found for requirement of type '%s'",[tTag UTF8String]);
+					break;
+					
+				case PKGBuildErrorRequirementConversionError:
+					
+					(void)fprintf(stdout, "No code generated for requirement '%s'",[tTag UTF8String]);
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorConverterMissingParameter:
+							
+							(void)fprintf(stdout, " because the parameter %s is missing",[tErrorEvent.otherFilePath UTF8String]);
+							
+							break;
+							
+						case PKGBuildErrorConverterInvalidParameter:
+							
+							(void)fprintf(stdout, " because the parameter %s is invalid",[tErrorEvent.otherFilePath UTF8String]);
+							
+							break;
+							
+						case PKGBuildErrorOutOfMemory:
+							
+							(void)fprintf(stdout, " because available memory is too low");
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+				case PKGBuildErrorLocatorMissingConverter:
+					
+					(void)fprintf(stdout, "Converter not found for locator of type '%s'",[tTag UTF8String]);
+					break;
+					
+				case PKGBuildErrorLocatorConversionError:
+					
+					(void)fprintf(stdout, "No code generated for locator '%s'",[tTag UTF8String]);
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorConverterMissingParameter:
+							
+							(void)fprintf(stdout, " because the parameter %s is missing",[tErrorEvent.otherFilePath UTF8String]);
+							
+							break;
+							
+						case PKGBuildErrorConverterInvalidParameter:
+							
+							(void)fprintf(stdout, " because the parameter %s is invalid",[tErrorEvent.otherFilePath UTF8String]);
+							
+							break;
+							
+						case PKGBuildErrorOutOfMemory:
+							
+							(void)fprintf(stdout, " because available memory is too low");
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+					
+					/* Signing errors */
+					
 					
 				case PKGBuildErrorSigningUnknown:
 					
@@ -643,14 +693,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					tTitle=nil;
 					
-					if (tStep==PKGBuildStepPackageImport && tTag!=nil)
+					if (tStep==PKGBuildStepPackageImport)
 					{
 						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
-							tTitle=[NSString stringWithFormat:@"Unable to find package at path '%@'\n",tFilePath];
+							tTitle=[NSString stringWithFormat:@"Unable to find package at path '%s'\n",[tFilePath fileSystemRepresentation]];
 					}
 					
 					if (tTitle==nil)
-						tTitle=[NSString stringWithFormat:@"Unable to find %s at path '%@'\n",fileItemTypeName(tErrorEvent.fileKind),tFilePath];
+						tTitle=[NSString stringWithFormat:@"Unable to find %s at path '%s'\n",fileItemTypeName(tErrorEvent.fileKind),[tFilePath fileSystemRepresentation]];
 					
 					(void)fprintf(stdout, "%s",[tTitle UTF8String]);
 					
@@ -658,7 +708,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileCanNotBeCopied:
 					
-					(void)fprintf(stdout, "Unable to copy item at path '%s'",[tFilePath UTF8String]);
+					(void)fprintf(stdout, "Unable to copy item at path '%s'",[tFilePath fileSystemRepresentation]);
 					
 					switch(tErrorEvent.subcode)
 					{
@@ -677,7 +727,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileCanNotBeDeleted:
 					
-					(void)fprintf(stdout, "Unable to remove %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath UTF8String]);
+					(void)fprintf(stdout, "Unable to remove %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]);
 					
 					switch(tErrorEvent.subcode)
 					{

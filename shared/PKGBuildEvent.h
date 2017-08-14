@@ -64,12 +64,14 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	
 	
 	PKGBuildErrorRequirementMissingConverter=420,
-	PKGBuildErrorRequirementMissingCode=421,
+	PKGBuildErrorRequirementConversionError=421,
 	
 	
 	PKGBuildErrorLocatorMissingConverter=422,
 	PKGBuildErrorLocatorConversionError=423,
 	
+	PKGBuildErrorConverterMissingParameter=430,
+	PKGBuildErrorConverterInvalidParameter=431,
 	
 	PKGBuildErrorSigningUnknown=500,
 	PKGBuildErrorSigningTimeOut=501,
