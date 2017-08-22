@@ -84,7 +84,7 @@
 
 - (NSString *)sectionPaneTitle
 {
-	return [[[PKGInstallerApp installerApp] pluginWithSectionName:PKGPresentationSectionReadMeName] pageTitleForLocalization:self.localization];
+	return [[[PKGInstallerApp installerApp] pluginWithSectionName:PKGPresentationSectionLicenseName] pageTitleForLocalization:self.localization];
 }
 
 #pragma mark -
