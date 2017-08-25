@@ -1,0 +1,18 @@
+ReferenceFolderRegularUbuntu                     -> Helvetica Neue Regular 13px strong white
+ReferenceFolderRegularUbuntu@2x                  -> Helvetica Neue Regular 26px strong white
+ReferenceFolderRegularTextFieldPulldownUbuntu    -> Helvetica Neue Regular 13px strong white
+ReferenceFolderRegularTextFieldPulldownUbuntu@2x -> Helvetica Neue Regular 26px strong white
+
+ReferenceFolderSquareSmallUbuntu                 -> Helvetica Neue Regular 11px strong white
+ReferenceFolderSquareSmallUbuntu@2x              -> Helvetica Neue Regular 22px strong white
+ReferenceFolderSmallUbuntu                       -> Helvetica Neue Regular 11px strong white
+ReferenceFolderSmallUbuntu@2x                    -> Helvetica Neue Regular 22px strong white
+
+ReferenceFolderSmallUbuntu                       -> Helvetica Neue Regular 11px strong white
+ReferenceFolderSmallUbuntu@2x                    -> Helvetica Neue Regular 22px strong white
+
+ReferenceFolderMenuItemSmallUbuntu               -> Helvetica Neue Regular 11px strong white
+ReferenceFolderMenuItemSmallUbuntu@2x            -> Helvetica Neue Regular 22px strong white
+
+ReferenceFolderMenuItemUbuntu                    -> Helvetica Neue Regular 11px strong white
+ReferenceFolderMenuItemUbuntu@2x                 -> Helvetica Neue Regular 22px strong white
