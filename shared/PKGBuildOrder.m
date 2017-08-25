@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,6 +21,10 @@ NSString * const PKGBuildOrderExternalSettingsKey=@"ExternalSettings";
 NSString * const PKGBuildOrderExternalSettingsReferenceProjectFolderKey=@"ReferenceProjectFolder";
 NSString * const PKGBuildOrderExternalSettingsReferenceFolderKey=@"ReferenceFolder";
 NSString * const PKGBuildOrderExternalSettingsScratchFolderKey=@"ScratchFolder";
+NSString * const PKGBuildOrderExternalSettingsBuildFolderKey=@"BuildFolder";
+NSString * const PKGBuildOrderExternalSettingsSigningIdentityKey=@"SigningIdentity";
+NSString * const PKGBuildOrderExternalSettingsKeychainKey=@"Keychain";
+NSString * const PKGBuildOrderExternalSettingsPackageVersionKey=@"PackageVersion";		// Only supported for Raw Package projects
 NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey=@"UserDefinedSettings";
 
 @interface PKGBuildOrder ()
@@ -46,7 +50,7 @@ NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey=@"UserDefin
 
 - (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation
 {
-	if (inRepresentation==nil || [inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if (inRepresentation==nil || [inRepresentation isKindOfClass:NSDictionary.class]==NO)
 		return nil;
 	
 	self=[super init];
@@ -67,7 +71,7 @@ NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey=@"UserDefin
 		
 		_externalSettings=inRepresentation[PKGBuildOrderExternalSettingsKey];
 		
-		if (_externalSettings!=nil && [_externalSettings isKindOfClass:[NSDictionary class]]==NO)
+		if (_externalSettings!=nil && [_externalSettings isKindOfClass:NSDictionary.class]==NO)
 			return nil;
 	}
 	
@@ -78,12 +82,12 @@ NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey=@"UserDefin
 
 - (NSUInteger)hash
 {
-	return [self.projectPath hash];
+	return self.projectPath.hash;
 }
 
 - (id)copy
 {
-	PKGBuildOrder * nBuildOrder=[[PKGBuildOrder alloc] init];
+	PKGBuildOrder * nBuildOrder=[PKGBuildOrder new];
 	
 	nBuildOrder.UUID=[self.UUID copy];
 	nBuildOrder.projectPath=[self.projectPath copy];
