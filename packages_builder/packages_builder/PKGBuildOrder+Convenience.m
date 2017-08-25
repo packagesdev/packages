@@ -25,7 +25,10 @@
 
 - (id)userDefinedSettingsForKey:(NSString *)inKey
 {
-	return nil;
+	if (inKey==nil)
+		return nil;
+	
+	return self.externalSettings[inKey];
 }
 
 @end

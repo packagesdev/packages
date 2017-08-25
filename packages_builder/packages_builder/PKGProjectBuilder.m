@@ -833,6 +833,65 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			_referenceFolderPath=_referenceProjectPath;
 	}
 	
+	// Replace the project values with the user defined ones
+	
+		// Build Folder
+	
+	NSString * tUserDefinedBuildFolder=[_buildOrder userDefinedSettingsForKey:PKGBuildOrderExternalSettingsBuildFolderKey];
+	
+	if (tUserDefinedBuildFolder!=nil)
+	{
+		if ([tUserDefinedBuildFolder isKindOfClass:NSString.class]==NO)
+		{
+			if (_scratchLocation!=nil)
+			{
+				[_fileManager removeItemAtPath:_scratchLocation error:NULL];
+				_scratchLocation=nil;
+			}
+			
+			// A COMPLETER
+			
+			return;
+		}
+	
+		if (tUserDefinedBuildFolder.length>0)
+			tProjectSettings.buildPath=[PKGFilePath filePathWithAbsolutePath:tUserDefinedBuildFolder];
+	}
+	
+		// Signing Identity and Keychain
+	
+	NSString * tUserDefinedSigningIdentity=[_buildOrder userDefinedSettingsForKey:PKGBuildOrderExternalSettingsSigningIdentityKey];
+	
+	if (tUserDefinedSigningIdentity!=nil)
+	{
+		if ([tUserDefinedSigningIdentity isKindOfClass:NSString.class]==NO)
+		{
+			if (_scratchLocation!=nil)
+			{
+				[_fileManager removeItemAtPath:_scratchLocation error:NULL];
+				_scratchLocation=nil;
+			}
+			
+			// A COMPLETER
+			
+			return;
+		}
+		
+		tProjectSettings.certificateName=tUserDefinedSigningIdentity;
+	}
+	
+	NSString * tUserDefinedKeychain=[_buildOrder userDefinedSettingsForKey:PKGBuildOrderExternalSettingsKeychainKey];
+	
+	if (tUserDefinedKeychain!=nil)
+	{
+		if ([tUserDefinedKeychain isKindOfClass:NSString.class]==NO)
+		{
+			// A COMPLETER
+		}
+		
+		tProjectSettings.certificateKeychainPath=tUserDefinedKeychain;
+	}
+	
 	// Prepare the Build folder
 	
 	NSString * tBuildFolderPath=[self prepareBuildFolderAtPath:[self absolutePathForFilePath:tProjectSettings.buildPath]];
@@ -864,6 +923,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		return;
 	}
+	
 	
 	// Start the real building process
 	
@@ -5260,7 +5320,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	NSString * tPackageUUID;
 	PKGPackageComponentType tPackageType;
 	
-	BOOL tIsPackageProject=[inPackageObject isKindOfClass:[PKGPackageProject class]];
+	BOOL tIsPackageProject=[inPackageObject isKindOfClass:PKGPackageProject.class];
 	
 	if (tIsPackageProject==YES)
 	{
@@ -5269,7 +5329,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	}
 	else
 	{
-		if ([inPackageObject isKindOfClass:[PKGPackageComponent class]]==NO)
+		if ([inPackageObject isKindOfClass:PKGPackageComponent.class]==NO)
 		{
 			// A COMPLETER
 			
