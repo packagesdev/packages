@@ -60,7 +60,7 @@
 	_attributesViewController.choiceTreeNode=self.selectedChoiceTreeNode;
 	_attributesViewController.choicesForest=self.choicesForest;
 	
-	_attributesViewController.view.frame=tAttributesTabViewItem.view.bounds;
+	_attributesViewController.view.frame=[tAttributesTabViewItem.view bounds];
 	
 	[tAttributesTabViewItem.view addSubview:_attributesViewController.view];
 	
@@ -231,7 +231,7 @@
 		{
 			_requirementsViewController=[[PKGPresentationInstallationTypeChoiceRequirementsViewController alloc] initWithDocument:self.document];
 		
-			_requirementsViewController.view.frame=_requirementsTabViewItem.view.bounds;
+			_requirementsViewController.view.frame=[_requirementsTabViewItem.view bounds];
 			
 			
 			[_requirementsViewController WB_viewWillAppear];

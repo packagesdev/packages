@@ -340,7 +340,7 @@
 
 	NSURL * tURL = [NSURL fileURLWithPath:inPath];
 	
-	CGImageSourceRef tSourceRef = CGImageSourceCreateWithURL((CFURLRef) tURL, NULL);
+	CGImageSourceRef tSourceRef = CGImageSourceCreateWithURL((__bridge CFURLRef) tURL, NULL);
 	
 	if (tSourceRef==NULL)
 		return NO;

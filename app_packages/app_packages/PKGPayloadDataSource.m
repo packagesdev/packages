@@ -736,6 +736,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	if (inOutlineView==nil)
 		return;
 	
+	__block __weak BOOL (^_weakExpandItems)(NSArray *,PKGPayloadExpandOptions);
 	__block BOOL (^_expandItems)(NSArray *,PKGPayloadExpandOptions);
 	__block NSMutableArray * tExpandedItems=[NSMutableArray array];
 	
@@ -747,7 +748,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			if (tItem.isFileSystemItemNode==NO && [tItem numberOfChildren]>0)
 			{
-				if (_expandItems([tItem children],bOptions)==YES)
+				if (_weakExpandItems([tItem children],bOptions)==YES)
 					tDidExpand=YES;
 				
 				continue;
@@ -758,7 +759,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			
 			if (tItem.isContentsDisclosed==YES)
 			{
-				if ([tItem numberOfChildren]>0 && _expandItems([tItem children],bOptions)==YES)
+				if ([tItem numberOfChildren]>0 && _weakExpandItems([tItem children],bOptions)==YES)
 					tDidExpand=YES;
 				
 				continue;
@@ -776,6 +777,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		return tDidExpand;
 	};
+	
+	_weakExpandItems = _expandItems;
 	
 	PKGPayloadExpandOptions tOptions=(inOptions|PKGPayloadExpandRecursively);
 	

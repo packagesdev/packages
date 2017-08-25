@@ -26,7 +26,7 @@
 
 - (void)WB_viewDidLoad
 {
-    [super viewDidLoad];
+    [super WB_viewDidLoad];
 	
 	// A COMPLETER
 }

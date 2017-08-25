@@ -124,7 +124,7 @@
 	tRect.origin.x=tOffset;
 	
 	[tMenuItem.title drawInRect:tRect withAttributes:@{NSFontAttributeName:self.font,
-													   NSForegroundColorAttributeName:(tMenuItem.enabled==YES) ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]}];
+													   NSForegroundColorAttributeName:([tMenuItem isEnabled]==YES) ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]}];
 }
 
 @end

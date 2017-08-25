@@ -105,7 +105,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return [super trackMouse:inEvent inRect:inCellFrame ofView:inControlView untilMouseUp:flag];
 }
 
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)
 - (NSCellHitResult)hitTestForEvent:(NSEvent *)inEvent inRect:(NSRect)inCellFrame ofView:(NSView *)inControlView
+#else
+- (NSUInteger)hitTestForEvent:(NSEvent *)inEvent inRect:(NSRect)inCellFrame ofView:(NSView *)inControlView
+#endif
 {
     NSRect tTextFrame;
     
