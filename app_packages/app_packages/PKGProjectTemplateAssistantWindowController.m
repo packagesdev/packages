@@ -45,6 +45,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)windowDidLoad;
 {
+	self.window.title=NSLocalizedStringFromTable(@"New Project", @"ProjectTemplateAssistant", @"");
+	
 	NSView * tView=_projectTemplateAssistantController.view;
 	NSView * tContentView=self.window.contentView;
 	

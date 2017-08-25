@@ -171,7 +171,7 @@
 	
 	_projectDirectoryTextField.stringValue= (tProjectDirectory.length==0) ? @"" : tProjectDirectory;
 	
-	self.assistantController.nextButton.title=NSLocalizedString(@"Finish",@"");
+	self.assistantController.nextButton.title=NSLocalizedStringFromTable(@"Create",@"ProjectTemplateAssistant",@"");
 }
 
 - (void)WB_viewDidAppear

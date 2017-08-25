@@ -129,8 +129,7 @@ NSString * const PKGQuickBuildStatusViewKey=@"StatusView";
 		
 		PKGQuickBuildStatusView * tStatusView=[[PKGQuickBuildStatusView alloc] initWithFrame:NSMakeRect(35.5,35.5,57.0,57.0)];
 		
-		if (tStatusView!=nil)
-			[tImageView addSubview:tStatusView];
+		[tImageView addSubview:tStatusView];
 		
 		// Text labels
 		

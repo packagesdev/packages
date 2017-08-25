@@ -136,7 +136,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="2jL-An-2kN"/>
-                <menuItem title="Export as Project…" id="uHw-H9-fQX">
+                <menuItem title="Export as a Raw Package Project…" id="uHw-H9-fQX">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="exportPackageAsProject:" target="-2" id="u0B-wE-Uee"/>
