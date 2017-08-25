@@ -17,6 +17,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGPresentationTheme.h"
 
+#import "PKGDocument.h"
+
 #define PKGPresentationListViewMoreRowHeight	20.0
 
 #define PKGPresentationListViewDefaultRowHeight	24.0
@@ -44,6 +46,12 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 
 @interface PKGPresentationListView () <NSDraggingSource>
 {
+	// Theme
+	
+	PKGPresentationThemeVersion _themeVersion;
+	
+	BOOL _supportThemeVersionChanges;
+	
 	NSInteger _firstVisibleStep;
 	
 	NSInteger _lastVisibleStep;
@@ -75,7 +83,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
     NSImage * _unProcessedPaneImage;
     NSImage * _selectedPaneImage;
 	
-	BOOL _shouldDrawVectorBullet;
+	
 	
 	// Drag & Drop
 	
@@ -163,11 +171,21 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		
 		if ([tInstallerApp isVersion6_1OrLater]==NO)
 		{
+			_supportThemeVersionChanges=YES;
+			
+			_themeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
+			
 			_unselectedPaneImage=tInstallerApp.anteriorStepDot;
 			
 			_selectedPaneImage=tInstallerApp.currentStepDot;
 		
 			_unProcessedPaneImage=tInstallerApp.posteriorStepDot;
+		}
+		else
+		{
+			_supportThemeVersionChanges=NO;
+			
+			_themeVersion=PKGPresentationThemeYosemite;
 		}
 		
 		_currentDropStep=-1;
@@ -221,7 +239,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
     
     NSFont * tFont;
     
-    if ((inStep<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+    if ((inStep<self.selectedStep && _themeVersion==PKGPresentationThemeMountainLion) ||
         inStep==self.selectedStep)
         tFont=[NSFont boldSystemFontOfSize:13.0];
     else
@@ -369,7 +387,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
                                  
                                  // Draw the bullet
                                  
-                                 if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
+                                 if (_themeVersion==PKGPresentationThemeMountainLion)
 								 {
                                     NSImage * tBulletImage=((inStep==self.selectedStep) ? _selectedPaneImage : ((inStep < self.selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
 								  
@@ -404,7 +422,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 								 {
 									 NSFont * tFont;
                                      
-                                     if ((inStep<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+                                     if ((inStep<self.selectedStep && _themeVersion==PKGPresentationThemeMountainLion) ||
                                          inStep==self.selectedStep)
                                          tFont=[NSFont boldSystemFontOfSize:13.0];
                                      else
@@ -415,7 +433,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 									 NSDictionary * tFontAttributes=@{NSFontAttributeName:tFont,
 																	  NSForegroundColorAttributeName:tColor};
 									 
-									 NSRect tTextFrame=NSMakeRect(tTextOriginX,-1.0,tTextMaxWidth,tHeight);
+									 CGFloat tTextVerticallOffset=(_themeVersion==PKGPresentationThemeMountainLion) ? 1.0 : 2.0;
+									 
+									 NSRect tTextFrame=NSMakeRect(tTextOriginX,-tTextVerticallOffset,tTextMaxWidth,tHeight);
 									 
 									 [tStepTitle drawInRect:tTextFrame withAttributes:tFontAttributes];
 								 }
@@ -508,7 +528,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		
 	[NSGraphicsContext saveGraphicsState];
 	
-	if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
+	if (_themeVersion==PKGPresentationThemeMountainLion)
 	{
 		tBulletImage=_selectedPaneImage;
 		
@@ -648,7 +668,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		{
 			tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
 	
-			if ((tIndex<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+			if ((tIndex<self.selectedStep && _themeVersion==PKGPresentationThemeMountainLion) ||
 				tIndex==self.selectedStep)
 				tFont=[NSFont boldSystemFontOfSize:13.0];
 			else
@@ -798,7 +818,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		
 		NSFont * tFont;
 		
-		if ((tIndex<self.selectedStep && [[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO) ||
+		if ((tIndex<self.selectedStep && _themeVersion==PKGPresentationThemeMountainLion) ||
 			tIndex==self.selectedStep)
 			tFont=[NSFont boldSystemFontOfSize:13.0];
 		else
@@ -853,7 +873,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		
 		if (tIndex!=_mouseSelectedStep || _mouseSelectedStepPushed==NO)
 		{
-			if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==NO)
+			if (_themeVersion==PKGPresentationThemeMountainLion)
 			{
 				NSImage * tBulletProcessedImage=((tIndex==self.selectedStep) ? _selectedPaneImage : ((tIndex < self.selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
 			
@@ -968,8 +988,10 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			NSDictionary * tFontAttributes=@{NSFontAttributeName:tFont,
 											 NSForegroundColorAttributeName:tColor};
 			
-			NSRect tTextFrame=NSMakeRect(tTextOriginX,NSMinY(tFrame)-tStepHeight-1.0,tTextMaxWidth,tStepHeight);
-		
+			CGFloat tTextVerticallOffset=(_themeVersion==PKGPresentationThemeMountainLion) ? 1.0 : 2.0;
+			
+			NSRect tTextFrame=NSMakeRect(tTextOriginX,NSMinY(tFrame)-tStepHeight-tTextVerticallOffset,tTextMaxWidth,tStepHeight);
+			
 			[tStepTitle drawInRect:tTextFrame withAttributes:tFontAttributes];
 		}
 		
@@ -1696,6 +1718,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 {
 	if (self.window==nil)
 		return;
+	
+	if (_supportThemeVersionChanges==YES)
+		_themeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
 	
 	[self setNeedsDisplay:YES];
 }
