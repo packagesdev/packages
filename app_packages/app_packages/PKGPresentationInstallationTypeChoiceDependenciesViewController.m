@@ -137,15 +137,6 @@
 
 @implementation PKGPresentationInstallationTypeChoiceDependenciesViewController
 
-- (void)WB_viewDidLoad
-{
-	[super WB_viewDidLoad];
-	
-	// A COMPLETER
-}
-
-#pragma mark -
-
 - (void)setChoiceTreeNode:(PKGChoiceTreeNode *)inChoiceTreeNode
 {
 	if (_choiceTreeNode==inChoiceTreeNode)
@@ -687,7 +678,7 @@
 		[[tButton cell] setControlSize:NSSmallControlSize];
 		tButton.enabled=NO;
 		
-		// A COMPLETER
+		// A COMPLETER ?
 		
 		tButton.action=@selector(removeBranch:);
 		tButton.target=self;
@@ -863,7 +854,7 @@
 		[[tButton cell] setControlSize:NSSmallControlSize];
 		tButton.enabled=NO;
 		
-		// A COMPLETER
+		// A COMPLETER ?
 		
 		tButton.action=@selector(removeBranch:);
 		tButton.target=self;
@@ -882,7 +873,7 @@
 		tButton.image=[NSImage imageNamed:@"dependency_plus"];
 		[[tButton cell] setControlSize:NSSmallControlSize];
 		
-		// A COMPLETER
+		// A COMPLETER ?
 		
 		tButton.action=@selector(addBranch:);
 		tButton.target=self;

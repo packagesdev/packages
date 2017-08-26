@@ -23,7 +23,7 @@
 
 #import "PKGLocalizationUtilities.h"
 
-@interface PKGRequirementBehaviorViewController ()
+@interface PKGRequirementBehaviorViewController () <NSTextFieldDelegate>
 {
 	IBOutlet NSButton * _addButton;
 	
@@ -65,27 +65,6 @@
 	self.tableView.dataSource=self.dataSource;
 	
 	[self refreshUI];
-}
-
-- (void)WB_viewDidAppear
-{
-	[super WB_viewDidAppear];
-	
-	// A COMPLETER
-}
-
-- (void)WB_viewWillDisappear
-{
-	[super WB_viewWillDisappear];
-	
-	// A COMPLETER
-}
-
-- (void)WB_viewDidDisappear
-{
-	[super WB_viewDidDisappear];
-	
-	// A COMPLETER
 }
 
 - (void)refreshUI

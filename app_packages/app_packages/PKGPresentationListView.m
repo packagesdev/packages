@@ -1341,13 +1341,6 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	}
 }
 
-/*- (void) scrollWheel:(NSEvent *) inEvent
-{
-	NSLog(@"%f",[inEvent deltaY]);
-	
-	// A COMPLETER
-}*/
-
 - (void)mouseDown:(NSEvent *)inEvent
 {
 	NSPoint tMouseLoc=[self convertPoint:inEvent.locationInWindow fromView:nil];
