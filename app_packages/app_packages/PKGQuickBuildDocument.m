@@ -80,7 +80,7 @@
 
 	if (tPotentialDirectories.count==0)
 	{
-		// A COMPLETER
+		NSLog(@"No potential installation directories were found for \"%@\".",tPath);
 		
 		return NO;
 	}
@@ -159,7 +159,7 @@
 	
 	if (tString.length==0)
 	{
-		// A COMPLETER
+		NSLog(@"No bundle identifiers or empty one for bundle at path \"%@\".",tPath);
 		
 		return NO;
 	}

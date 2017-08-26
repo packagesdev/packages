@@ -164,7 +164,6 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 {
 	[super WB_viewDidLoad];
 	
-	// A COMPLETER
 	
 	_cornerView=[[PKGInstallationTypeCornerView alloc] initWithFrame:self.outlineView.cornerView.frame];
 	self.outlineView.cornerView=_cornerView;
@@ -176,8 +175,6 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	self.outlineView.dataSource=_dataSource;
 	
 	[self.outlineView registerForDraggedTypes:[PKGInstallationHierarchyDataSource supportedDraggedTypes]];
-	
-	// A COMPLETER
 	
 	
 	[self setHierarchyBoxHidden:([PKGApplicationPreferences sharedPreferences].appleMode==NO)];
@@ -1444,8 +1441,6 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 
 - (void)installationTypeSettingsDidChange:(NSNotification *)inNotification
 {
-	// A COMPLETER
-	
 	// OutlineView
 	
 	[self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfColumns)]];

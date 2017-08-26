@@ -78,8 +78,6 @@
 		
 		tMenuItem.tag=PKGLicenseTypeTemplate;
 	}
-	
-	// A COMPLETER
 }
 
 #pragma mark -
