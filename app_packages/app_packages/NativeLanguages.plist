@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Arabic</key>
+	<string>عربي</string>
+	<key>Bulgarian</key>
+	<string>български език</string>
+	<key>Canadian French</key>
+	<string>Français (Canada)</string>
+	<key>Catalan</key>
+	<string>Català</string>
+	<key>Croatian</key>
+	<string>Hrvatski</string>
+	<key>Czech</key>
+	<string>Čeština</string>
+	<key>Danish</key>
+	<string>Dansk</string>
+	<key>Dutch</key>
+	<string>Nederlands</string>
+	<key>English</key>
+	<string>English</string>
+	<key>Finnish</key>
+	<string>Suomi</string>
+	<key>French</key>
+	<string>Français</string>
+	<key>German</key>
+	<string>Deutsch</string>
+	<key>Greek</key>
+	<string>Ελληνικά</string>
+	<key>Hebrew</key>
+	<string>עברית</string>
+	<key>Hungarian</key>
+	<string>Magyar</string>
+	<key>Italian</key>
+	<string>Italiano</string>
+	<key>Indonesian</key>
+	<string>Bahasa Indonesia</string>
+	<key>Japanese</key>
+	<string>日本語</string>
+	<key>Korean</key>
+	<string>한글</string>
+	<key>Macedonian</key>
+	<string>македонски јазик</string>
+	<key>Malay</key>
+	<string>Bahasa Melayu</string>
+	<key>Mexican Spanish</key>
+	<string>Español (México)</string>
+	<key>Norwegian</key>
+	<string>Norsk</string>
+	<key>Polish</key>
+	<string>Polski</string>
+	<key>Portuguese</key>
+	<string>Português</string>
+	<key>Brazilian Portuguese</key>
+	<string>Português (Brasil)</string>
+	<key>Portuguese (Portugal)</key>
+	<string>Português (Portugal)</string>
+	<key>Romanian</key>
+	<string>Română</string>
+	<key>Russian</key>
+	<string>Русский</string>
+	<key>Simplified Chinese</key>
+	<string>简体中文</string>
+	<key>Slovak</key>
+	<string>Slovenčina</string>
+	<key>Slovenian</key>
+	<string>Slovenščina</string>
+	<key>Spanish</key>
+	<string>Español</string>
+	<key>Spanish (Latin America)</key>
+	<string>Español (Latinoamérica)</string>
+	<key>Swedish</key>
+	<string>Svenska</string>
+	<key>Swiss French</key>
+	<string>Français (Suisse)</string>
+	<key>Thai</key>
+	<string>ภาษาไทย</string>
+	<key>Traditional Chinese</key>
+	<string>繁體中文</string>
+	<key>Turkish</key>
+	<string>Türkçe</string>
+	<key>Ukrainian</key>
+	<string>Українська</string>
+	<key>Vietnamese</key>
+	<string>Tiếng Việt</string>
+	<key>Welsh</key>
+	<string>Cymraeg</string>
+</dict>
+</plist>
