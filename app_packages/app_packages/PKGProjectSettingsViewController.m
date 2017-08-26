@@ -346,13 +346,24 @@
 	
 	if (SecCertificateCopyCommonName(tCertificateRef, &tCertificateNameRef)!=errSecSuccess)
 	{
+		NSBeep();
+		
+		CFRelease(tCertificateRef);
+		
+		NSAlert * tAlert=[NSAlert new];
+		
+		tAlert.alertStyle=NSWarningAlertStyle;
+		
+		tAlert.messageText=NSLocalizedString(@"The Identity of the certificate could not be retrieved.",@"No comment");
+		tAlert.informativeText=NSLocalizedString(@"Packages will keep using the previous certificate set.",@"No comment");
+		
+		[tAlert runModal];
+		
+		return;
 	}
 	
 	self.projectSettings.certificateName=(__bridge_transfer NSString *)tCertificateNameRef;
 	self.projectSettings.certificateKeychainPath=[@"~/Library/Keychains/login.keychain" stringByExpandingTildeInPath];
-	
-	
-	//[IBcertificateStamp_ setCertificate:tCertificateRef];	// A COMPLETER
 		
 	[self updateCertificateSeal];
 		
@@ -370,7 +381,7 @@
 	NSAlert * tAlert=[NSAlert new];
 	
 	tAlert.messageText=NSLocalizedString(@"Do you really want to remove the certificate?",@"No comment");
-	tAlert.informativeText=NSLocalizedStringFromTable(@"This cannot be undone.",@"Project",@"");
+	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"");
 	
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No Comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No Comment")];
