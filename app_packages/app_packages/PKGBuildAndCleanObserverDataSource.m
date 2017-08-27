@@ -400,7 +400,9 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 				
 				if (tPackageComponent==nil)
 				{
-					// A COMPLETER
+					NSLog(@"No component with UUID \"%@\" was found in this project",tInfoEvent.packageUUID);
+					
+					return;
 				}
 				
 				if (tStep==PKGBuildStepPackageCreate)
@@ -419,7 +421,9 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					if (tImportpath==nil)
 					{
-						// A COMPLETER
+						NSLog(@"The import path for package UUID \"%@\" is missing",tInfoEvent.packageUUID);
+							  
+						return;
 					}
 					
 					tSubTitle=tImportpath.string;

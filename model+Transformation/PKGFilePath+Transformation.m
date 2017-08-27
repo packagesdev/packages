@@ -27,14 +27,14 @@
 	
 	if ([inSourceConverter shiftTypeOfFilePath:self toType:PKGFilePathTypeAbsolute]==NO)
 	{
-		// A COMPLETER
+		NSLog(@"PKGFilePath <0x%lx> (%@,%ld) could not be switched to type %ld",(unsigned long)self,self.string,self.type,PKGFilePathTypeAbsolute);
 		
 		return;
 	}
 	
 	if ([inDestinationConverter shiftTypeOfFilePath:self toType:tPathType]==NO)
 	{
-		// A COMPLETER
+		NSLog(@"PKGFilePath <0x%lx> (%@,%ld) could not be switched to type %ld",(unsigned long)self,self.string,self.type,tPathType);
 		
 		return;
 	}

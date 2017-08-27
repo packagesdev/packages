@@ -160,7 +160,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 	else
 	{
-		// A COMPLETER
+		NSLog(@"PKGFilePath <0x%lx> (%@,%ld) could not be switched to type %ld",(unsigned long)self.filePath,self.filePath.string,self.filePath.type,tPathType);
 	}
 }
 
