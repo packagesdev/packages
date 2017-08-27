@@ -126,6 +126,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	NSArray * _supportedLocalizations;
 	
+	BOOL _supportThemeYosemite;
+	
 	PKGPresentationThemeVersion _currentTheme;
 	
 	NSString * _currentPreviewLanguage;
@@ -265,16 +267,49 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	void (^displayDefaultImage)() = ^{
 		
-		// A COMPLETER (check if image is shown on 10.8 or later)
+		PKGPresentationThemeVersion tThemeVersion=_currentTheme;
 		
-		self->_backgroundView.image=nil;
+		switch (tThemeVersion)
+		{
+			case PKGPresentationThemeMountainLion:
+				
+				if (_supportThemeYosemite==NO)
+					tThemeVersion=PKGPresentationThemeYosemite;
+				
+				break;
+				
+			default:
+				
+				break;
+		}
+		
+		switch (tThemeVersion)
+		{
+			case PKGPresentationThemeMountainLion:
+			{
+				PKGInstallerApp * tInstallerApp=[PKGInstallerApp installerApp];
+				
+				self->_backgroundView.image=tInstallerApp.defaultBackground;
+				
+				self->_backgroundView.imageAlignment=NSImageAlignLeft;
+				self->_backgroundView.imageScaling=NSImageScaleProportionallyDown;
+				
+				break;
+			}
+			default:
+				
+				self->_backgroundView.image=nil;
+				
+				return;
+		}
 	};
 	
 	void (^displayImageNotFound)() = ^{
 		
-		// A COMPLETER (find the ? image)
+		self->_backgroundView.image=[NSImage imageNamed:@"MissingFile"];
 		
-		self->_backgroundView.image=nil;
+		self->_backgroundView.imageAlignment=NSImageAlignBottomLeft;
+		self->_backgroundView.imageScaling=NSImageScaleNone;
 	};
 	
 	PKGPresentationBackgroundSettings * tBackgroundSettings=[_presentationSettings backgroundSettings_safe];
@@ -421,6 +456,12 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	[super WB_viewWillAppear];
 	
+	
+	PKGInstallerApp * tInstallerApp=[PKGInstallerApp installerApp];
+	
+	_supportThemeYosemite=([tInstallerApp isVersion6_1OrLater]==NO);
+	
+	
 	NSNumber * tNumber=self.documentRegistry[PKGPresentationTheme];
 	
 	if (tNumber!=nil)
@@ -429,7 +470,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}
 	else
 	{
-		if ([[PKGInstallerApp installerApp] isVersion6_1OrLater]==YES)
+		if ([tInstallerApp isVersion6_1OrLater]==YES)
 			_currentTheme=PKGPresentationThemeYosemite;
 		else
 			_currentTheme=PKGPresentationThemeMountainLion;
@@ -1582,7 +1623,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	if (self.view.window==nil)
 		return;
 	
-	// A COMPLETER
+	[self updateBackgroundView];
 }
 
 - (void)pluginPathDidChange:(NSNotification *)inNotification

@@ -50,7 +50,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	
 	PKGPresentationThemeVersion _themeVersion;
 	
-	BOOL _supportThemeVersionChanges;
+	BOOL _supportThemeYosemite;
 	
 	NSInteger _firstVisibleStep;
 	
@@ -171,7 +171,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		
 		if ([tInstallerApp isVersion6_1OrLater]==NO)
 		{
-			_supportThemeVersionChanges=YES;
+			_supportThemeYosemite=YES;
 			
 			_themeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
 			
@@ -183,7 +183,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		}
 		else
 		{
-			_supportThemeVersionChanges=NO;
+			_supportThemeYosemite=NO;
 			
 			_themeVersion=PKGPresentationThemeYosemite;
 		}
@@ -1712,7 +1712,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	if (self.window==nil)
 		return;
 	
-	if (_supportThemeVersionChanges==YES)
+	if (_supportThemeYosemite==YES)
 		_themeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
 	
 	[self setNeedsDisplay:YES];
