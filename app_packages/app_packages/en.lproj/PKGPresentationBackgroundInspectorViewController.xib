@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationBackgroundInspectorViewController">
+            <connections>
+                <outlet property="_alignmentMatrix" destination="87" id="FJv-Dz-JXz"/>
+                <outlet property="_customBackgroundPopUpButton" destination="150" id="dpG-iT-Gb2"/>
+                <outlet property="_scalingPopUpButton" destination="syQ-NY-Sqp" id="8Sb-4p-e0b"/>
+                <outlet property="_showPopUpButton" destination="162" id="AqN-1j-9Hs"/>
+                <outlet property="_sizeLabel" destination="187" id="kIS-fu-rC5"/>
+                <outlet property="view" destination="5" id="SjH-Ps-6tx"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="5" userLabel="Background View" customClass="PKGControlledView">
+            <rect key="frame" x="0.0" y="0.0" width="283" height="262"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <popUpButton verticalHuggingPriority="750" id="162">
+                    <rect key="frame" x="82" y="221" width="184" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="191">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" title="OtherViews" id="163">
+                            <items>
+                                <menuItem title="Default Background" id="166">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Custom Background" tag="1" id="167">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchBackgroundValue:" target="-2" id="0R6-Eh-dQc"/>
+                    </connections>
+                </popUpButton>
+                <textField verticalHuggingPriority="750" id="65">
+                    <rect key="frame" x="28" y="226" width="52" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Show:" id="190">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="187">
+                    <rect key="frame" x="86" y="174" width="188" height="11"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT CHANGE &gt;&gt;" id="196">
+                        <font key="font" metaFont="miniSystem"/>
+                        <color key="textColor" white="0.72177422000000002" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="150" customClass="PKGReferencedPopUpButton">
+                    <rect key="frame" x="82" y="187" width="184" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="152" id="195" customClass="PKGReferencedPopUpButtonCell">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" title="OtherViews" id="151">
+                            <items>
+                                <menuItem title="-" state="on" id="152">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" id="154">
+                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                </menuItem>
+                                <menuItem title="Choose…" id="153">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <connections>
+                                        <action selector="chooseCustomBackground:" target="-2" id="noC-cD-swN"/>
+                                    </connections>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <textField verticalHuggingPriority="750" id="149">
+                    <rect key="frame" x="33" y="192" width="47" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Image:" id="194">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="101">
+                    <rect key="frame" x="17" y="149" width="63" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Alignment:" id="193">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="87">
+                    <rect key="frame" x="85" y="83" width="82" height="82"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="28" height="28"/>
+                    <size key="intercellSpacing" width="-1" height="-1"/>
+                    <buttonCell key="prototype" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" borderStyle="border" tag="-1" inset="2" id="197">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system" size="10"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconTopLeft_nib" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" tag="2" inset="2" id="91">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Top Left Alignment"/>
+                            </buttonCell>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconCenterLeft_nib" imagePosition="overlaps" alignment="center" borderStyle="border" tag="4" inset="2" id="96">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Left Alignment"/>
+                            </buttonCell>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconBottomLeft_nib" imagePosition="overlaps" alignment="center" borderStyle="border" tag="6" inset="2" id="94">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Bottom Left Alignment"/>
+                            </buttonCell>
+                        </column>
+                        <column>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconTop_nib" imagePosition="only" alignment="center" borderStyle="border" tag="1" inset="2" id="88">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Top Alignment"/>
+                            </buttonCell>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconCenter_nib" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="90">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Center Alignment"/>
+                            </buttonCell>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconBottom_nib" imagePosition="only" alignment="center" borderStyle="border" tag="5" inset="2" id="93">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Bottom Alignment"/>
+                            </buttonCell>
+                        </column>
+                        <column>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconTopRight_nib" imagePosition="only" alignment="center" borderStyle="border" tag="3" inset="2" id="89">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Top Right Alignment"/>
+                            </buttonCell>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconCenterRight_nib" imagePosition="only" alignment="center" borderStyle="border" tag="8" inset="2" id="92">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Right Alignment"/>
+                            </buttonCell>
+                            <buttonCell type="square" bezelStyle="shadowlessSquare" image="iconBottomRight_nib" imagePosition="only" alignment="center" borderStyle="border" tag="7" inset="2" id="95">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system" size="10"/>
+                                <accessibility description="Bottom Right Alignment"/>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                    <connections>
+                        <action selector="switchAlignment:" target="-2" id="tpN-VD-EW1"/>
+                    </connections>
+                </matrix>
+                <textField verticalHuggingPriority="750" id="86">
+                    <rect key="frame" x="23" y="51" width="57" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Scaling:" id="192">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="syQ-NY-Sqp">
+                    <rect key="frame" x="82" y="46" width="184" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Proportionally" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="xlW-hE-nMX" id="Vds-pk-oke">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" title="OtherViews" id="PkL-pq-TM6">
+                            <items>
+                                <menuItem title="Proportionally" state="on" id="xlW-hE-nMX">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="To Fit" tag="1" id="bt4-14-ic1">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="None" tag="2" id="as3-Bf-tZq">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchScaling:" target="-2" id="iRS-1y-7x1"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="594.5" y="541"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="iconBottomLeft_nib" width="22" height="22"/>
+        <image name="iconBottomRight_nib" width="22" height="22"/>
+        <image name="iconBottom_nib" width="22" height="22"/>
+        <image name="iconCenterLeft_nib" width="22" height="22"/>
+        <image name="iconCenterRight_nib" width="22" height="22"/>
+        <image name="iconCenter_nib" width="22" height="22"/>
+        <image name="iconTopLeft_nib" width="22" height="22"/>
+        <image name="iconTopRight_nib" width="22" height="22"/>
+        <image name="iconTop_nib" width="22" height="22"/>
+    </resources>
+</document>

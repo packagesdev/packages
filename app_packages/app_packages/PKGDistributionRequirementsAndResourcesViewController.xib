@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -10,13 +10,14 @@
                 <outlet property="_hierarchyPlaceHolderView" destination="X1t-qs-2Aq" id="ubb-yG-GwG"/>
                 <outlet property="_inspectorPlaceHolderView" destination="bz5-lS-M13" id="4k6-jc-Fym"/>
                 <outlet property="_requirementsPlaceHolderView" destination="KPX-sC-r8A" id="pIV-Ng-BaB"/>
+                <outlet property="_requirementsSectioniew" destination="avm-1B-65d" id="eEh-Uk-X3E"/>
                 <outlet property="_rootVolumeOnlyCheckbox" destination="WF5-gT-EWs" id="W9j-Gv-FEe"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY">
+        <customView id="Hz6-mo-xeY" customClass="PKGControlledView">
             <rect key="frame" x="0.0" y="0.0" width="948" height="557"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -54,7 +55,7 @@
                         </textField>
                         <customView id="KPX-sC-r8A">
                             <rect key="frame" x="0.0" y="0.0" width="585" height="158"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </customView>
                         <textField verticalHuggingPriority="750" id="Im8-J8-2zR">
                             <rect key="frame" x="36" y="165" width="78" height="17"/>

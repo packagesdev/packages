@@ -236,6 +236,7 @@
 						<string key="NSFrame">{{202, 19}, {192, 18}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="892455871">
 							<int key="NSCellFlags">67108864</int>
@@ -282,7 +283,7 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="784174588"/>
-				<string key="NSClassName">NSView</string>
+				<string key="NSClassName">PKGControlledView</string>
 				<string key="NSExtension">NSResponder</string>
 			</object>
 		</array>
@@ -573,6 +574,14 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGControlledView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGControlledView.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PKGPreferencePaneFilesViewController</string>
 					<string key="superclassName">PKGPreferencePaneViewController</string>

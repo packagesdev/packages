@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">14F2315</string>
+		<string key="IBDocument.SystemVersion">14F2511</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -272,7 +272,7 @@
 										<string key="NSFrameSize">{567, 138}</string>
 										<reference key="NSSuperview" ref="445274087"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="41611730"/>
+										<reference key="NSNextKeyView" ref="519573169"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -414,7 +414,7 @@
 						<string key="NSFrame">{{37, 50}, {569, 140}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="445274087"/>
+						<reference key="NSNextKeyView" ref="41611730"/>
 						<int key="NSsFlags">150034</int>
 						<reference key="NSVScroller" ref="804484922"/>
 						<reference key="NSHScroller" ref="41611730"/>
@@ -508,6 +508,7 @@
 						<string key="NSFrame">{{480, 27}, {125, 11}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="178974330">
 							<int key="NSCellFlags">67108864</int>
@@ -533,9 +534,7 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="486209048"/>
-				<object class="NSMutableString" key="NSClassName">
-					<characters key="NS.bytes">NSView</characters>
-				</object>
+				<string key="NSClassName">PKGControlledView</string>
 				<string key="NSExtension">NSResponder</string>
 			</object>
 		</array>
@@ -1000,6 +999,14 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGControlledView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGControlledView.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PKGDistributionInstallationRequirementBehaviorViewController</string>
 					<string key="superclassName">PKGRequirementBehaviorViewController</string>

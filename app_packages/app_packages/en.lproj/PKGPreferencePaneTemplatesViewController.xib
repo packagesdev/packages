@@ -137,6 +137,7 @@
 														<string key="NSFrameSize">{197, 15}</string>
 														<reference key="NSSuperview" ref="390543703"/>
 														<reference key="NSWindow"/>
+														<reference key="NSNextKeyView"/>
 														<string key="NSAntiCompressionPriority">{250, 750}</string>
 														<bool key="NSEnabled">YES</bool>
 														<object class="NSTextFieldCell" key="NSCell" id="757649710">
@@ -165,7 +166,7 @@
 										<string key="NSFrameSize">{409, 112}</string>
 										<reference key="NSSuperview" ref="1049199690"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="680088344"/>
+										<reference key="NSNextKeyView" ref="654169008"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -341,7 +342,7 @@
 						<string key="NSFrame">{{29, 20}, {411, 130}}</string>
 						<reference key="NSSuperview" ref="441468351"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1049199690"/>
+						<reference key="NSNextKeyView" ref="680088344"/>
 						<int key="NSsFlags">1051154</int>
 						<reference key="NSVScroller" ref="333635317"/>
 						<reference key="NSHScroller" ref="680088344"/>
@@ -359,7 +360,7 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="680989584"/>
-				<string key="NSClassName">NSView</string>
+				<string key="NSClassName">PKGControlledView</string>
 				<string key="NSExtension">NSResponder</string>
 			</object>
 		</array>
@@ -626,6 +627,14 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGControlledView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGControlledView.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PKGPreferencePaneTemplatesViewController</string>
 					<string key="superclassName">PKGPreferencePaneViewController</string>
