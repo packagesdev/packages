@@ -13,6 +13,8 @@
 
 #import "PKGViewController.h"
 
+#import "PKGControlledView.h"
+
 @interface PKGViewController ()
 
 @end
@@ -21,9 +23,31 @@
 
 - (void)dealloc
 {
-	// Remove observer
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_10)
+	
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)
+	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_10)
+	{
+#endif
+		// Remove observer
+		
+		PKGControlledView * tControlledView=(PKGControlledView *)self.view;
+		
+		if ([tControlledView isKindOfClass:PKGControlledView.class]==YES)
+		{
+			if (tControlledView.nextResponder==self)
+				[tControlledView superSetNextResponder:self.nextResponder];
+			
+			self.nextResponder=nil;
+		}
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)
+	}
+#endif
+	
+#endif
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 }
 
 #pragma mark -

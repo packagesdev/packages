@@ -17,6 +17,11 @@
 
 #if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_10)
 
+- (void)superSetNextResponder:(NSResponder *)inNextResponder
+{
+	[super setNextResponder:inNextResponder];
+}
+
 - (void)setNextResponder:(NSResponder *)inNextResponder
 {
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)
@@ -24,12 +29,10 @@
 	{
 #endif
 	
-		NSResponder * tResponder=self.nextResponder;
+		NSViewController * tViewController=(NSViewController *)self.nextResponder;
 		
-		if ([tResponder isKindOfClass:NSViewController.class]==YES)
+		if ([tViewController isKindOfClass:NSViewController.class]==YES)
 		{
-			NSViewController * tViewController=(NSViewController *)tResponder;
-			
 			if (self==tViewController.view)
 			{
 				tViewController.nextResponder=inNextResponder;
