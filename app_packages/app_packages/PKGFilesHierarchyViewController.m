@@ -1036,6 +1036,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (void)highlightExludedFilesStateDidChange:(NSNotification *)inNotification
 {
+	_lastRefreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
+	
 	_highlightExcludedItems=[self highlightExcludedItems];
 	
 	[self.outlineView reloadData];
