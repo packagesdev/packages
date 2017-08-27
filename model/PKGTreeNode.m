@@ -359,12 +359,10 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return NO;
 }
 
-- (PKGTreeNode *)descendantNodeAtIndexPath:(NSIndexPath *)inIndexPath
+/*- (PKGTreeNode *)descendantNodeAtIndexPath:(NSIndexPath *)inIndexPath
 {
-	// A COMPLETER
-	
 	return nil;
-}
+}*/
 
 - (PKGTreeNode *)childNodeAtIndex:(NSUInteger)inIndex
 {

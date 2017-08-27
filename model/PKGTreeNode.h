@@ -47,7 +47,7 @@
 - (BOOL)isDescendantOfNode:(PKGTreeNode *)inTreeNode;
 - (BOOL)isDescendantOfNodeInArray:(NSArray *)inTreeNodes;
 
-- (PKGTreeNode *)descendantNodeAtIndexPath:(NSIndexPath *)inIndexPath;
+//- (PKGTreeNode *)descendantNodeAtIndexPath:(NSIndexPath *)inIndexPath;	// A IMPLEMENTER (Not used yet)
 
 - (PKGTreeNode *)childNodeAtIndex:(NSUInteger)inIndex;
 - (PKGTreeNode *)childNodeMatching:(BOOL (^)(id bTreeNode))inBlock;
