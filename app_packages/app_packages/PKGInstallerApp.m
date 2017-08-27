@@ -113,6 +113,11 @@ NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.ap
 	return nil;
 }
 
+- (NSImage *)defaultBackground
+{
+	return [_bundle imageForResource:@"defaultBackground"];
+}
+
 - (NSImage *)anteriorStepDot
 {
 	return [_bundle imageForResource:@"DotGray"];

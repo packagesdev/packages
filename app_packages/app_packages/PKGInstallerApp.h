@@ -34,6 +34,8 @@ typedef NS_ENUM(NSUInteger, PKGInstallerAppPackageType)
 
 @interface PKGInstallerApp : NSObject
 
+	@property (nonatomic,readonly) NSImage * defaultBackground;
+
 	@property (nonatomic,readonly) NSImage * anteriorStepDot;
 
 	@property (nonatomic,readonly) NSImage * currentStepDot;
