@@ -70,6 +70,10 @@
 {
 	[super WB_viewDidLoad];
 	
+	[_segmentedControl setLabel:NSLocalizedString(@"Settings_tab",@"") forSegment:PKGPreferencesGeneralDistributionPackageComponentPaneSettings];
+	[_segmentedControl setLabel:NSLocalizedString(@"Payload_tab",@"") forSegment:PKGPreferencesGeneralDistributionPackageComponentPanePayload];
+	[_segmentedControl setLabel:NSLocalizedString(@"Scripts_tab",@"") forSegment:PKGPreferencesGeneralDistributionPackageComponentPaneScriptsAndResources];
+	
 	// Register for Notification
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) name:NSViewFrameDidChangeNotification object:self.view];

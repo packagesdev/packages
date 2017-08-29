@@ -231,7 +231,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		if (tAction==@selector(showProjectSettingsTab:))
 		{
-			inMenuItem.title=NSLocalizedString(@"Settings",@"");
+			inMenuItem.title=NSLocalizedString(@"Settings_Menu",@"");
 			inMenuItem.keyEquivalent=@"1";
 		}
 		else if (tAction==@selector(showDistributionPresentationTab:))

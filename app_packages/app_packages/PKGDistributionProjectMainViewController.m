@@ -297,7 +297,7 @@
 		
 		if (tAction==@selector(showProjectSettingsTab:))
 		{
-			inMenuItem.title=NSLocalizedString(@"Settings",@"");
+			inMenuItem.title=NSLocalizedString(@"Settings_Menu",@"");
 			inMenuItem.keyEquivalent=@"1";
 		}
 		else if (tAction==@selector(showDistributionPresentationTab:))

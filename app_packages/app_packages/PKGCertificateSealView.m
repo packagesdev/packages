@@ -77,7 +77,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		[_textStorage addLayoutManager:_layoutManager];
 
-		self.stringValue=@"CERTIFICATE OF AUTHENTICITY";
+		self.stringValue=NSLocalizedString(@"CERTIFICATE OF AUTHENTICITY",@"");
     }
 	
     return self;

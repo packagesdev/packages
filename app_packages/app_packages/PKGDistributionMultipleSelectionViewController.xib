@@ -20,7 +20,7 @@
                 <textField verticalHuggingPriority="750" id="m4j-Zi-s57">
                     <rect key="frame" x="-2" y="117" width="484" height="39"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Multiple Selection" id="2fT-gO-Op6">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="2fT-gO-Op6">
                         <font key="font" size="32" name="Helvetica"/>
                         <color key="textColor" white="0.35401458000000002" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

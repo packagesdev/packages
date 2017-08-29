@@ -88,7 +88,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="V6S-xc-46y">
                     <rect key="frame" x="18" y="163" width="228" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="krx-Vs-avv">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="krx-Vs-avv">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

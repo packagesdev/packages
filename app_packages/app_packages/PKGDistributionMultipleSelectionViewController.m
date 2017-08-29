@@ -28,7 +28,7 @@
 {
     [super WB_viewDidLoad];
 	
-	// A COMPLETER
+	_multipleSelectionLabel.stringValue=NSLocalizedString(@"Multiple Selection", @"");
 }
 
 - (void)WB_viewDidAppear

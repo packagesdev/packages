@@ -32,6 +32,8 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 
 @interface PKGDistributionProjectSettingsAdvancedOptionsViewController () <NSOutlineViewDelegate>
 {
+	IBOutlet NSTextField * _advancedOptionsLabel;
+	
 	BOOL _restoringDiscloseStates;
 }
 
@@ -52,7 +54,9 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
-
+	
+	_advancedOptionsLabel.stringValue=NSLocalizedString(@"Advanced Options", @"");
+	
 	self.outlineView.doubleAction=@selector(editWithEditor:);
 	self.outlineView.target=self;
 }
