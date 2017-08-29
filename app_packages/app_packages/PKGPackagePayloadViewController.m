@@ -49,6 +49,8 @@
 
 - (void)_updateLayout;
 
+- (IBAction)switchSplitForks:(id)sender;
+
 - (IBAction)switchPayloadType:(id)sender;
 
 // Hierarchy Menu
@@ -88,7 +90,7 @@
 		
 		_payloadHierarchyViewController=[[PKGPayloadFilesHierarchyViewController alloc] initWithDocument:inDocument];
 		
-		_payloadHierarchyViewController.label=@"Payload";
+		_payloadHierarchyViewController.label=NSLocalizedString(@"Contents",@"");
 		_payloadHierarchyViewController.hierarchyDataSource=_dataSource;
 		_payloadHierarchyViewController.disclosedStateKey=@"ui.package.payload.disclosed";
 		_payloadHierarchyViewController.selectionStateKey=@"ui.package.payload.selection";
@@ -194,6 +196,18 @@
 }
 
 #pragma mark -
+
+- (IBAction)switchSplitForks:(NSButton *)sender
+{
+	BOOL tState=(_splitForksCheckbox.state==NSOnState);
+	
+	if (tState==self.payload.splitForksIfNeeded)
+		return;
+	
+	self.payload.splitForksIfNeeded=tState;
+	
+	[self noteDocumentHasChanged];
+}
 
 - (IBAction)switchPayloadType:(id)sender
 {
