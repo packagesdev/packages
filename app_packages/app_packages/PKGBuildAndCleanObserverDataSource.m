@@ -650,7 +650,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					}
 					else if (tStep==PKGBuildStepDistribution)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_NAME"]==YES)
+						if ([tTag isEqualToString:@"ICDOCUMENT_PROJECT_SETTINGS_NAME"]==YES)
 							tTitle=NSLocalizedStringFromTable(@"The name of the project can not be empty.",@"Build",@"");
 					}
 					else if (tStep==PKGBuildStepPackageCreate)
