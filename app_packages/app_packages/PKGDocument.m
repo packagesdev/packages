@@ -288,7 +288,13 @@
 							return NO;
 						}
 						
-						if ([self shiftTypeOfFilePath:self.project.settings.buildPath toType:PKGFilePathTypeAbsolute]==NO)
+						PKGFilePath * tBuildPath=self.project.settings.buildPath;
+						
+						PKGFilePathType tSavedType=tBuildPath.type;
+						
+						// Switch to absolute path
+						
+						if ([self shiftTypeOfFilePath:tBuildPath toType:PKGFilePathTypeAbsolute]==NO)
 						{
 							// A COMPLETER
 							
@@ -302,8 +308,17 @@
 							return NO;
 						}
 						
+						// Restore path type
+						
+						if ([self shiftTypeOfFilePath:tBuildPath toType:tSavedType]==NO)
+						{
+							// A COMPLETER
+							
+							return NO;
+						}
+						
 						tProjectPath=_temporaryProjectURL.path;
-						tExternalSettings[PKGBuildOrderExternalSettingsReferenceProjectFolderKey]=tProjectPath.stringByDeletingLastPathComponent;
+						tExternalSettings[PKGBuildOrderExternalSettingsReferenceProjectFolderKey]=self.folder;
 						
 						break;
 					}
