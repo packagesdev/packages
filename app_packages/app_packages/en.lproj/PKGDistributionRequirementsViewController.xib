@@ -43,7 +43,7 @@
                 <textField verticalHuggingPriority="750" id="xi8-uP-mmd">
                     <rect key="frame" x="437" y="25" width="131" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Click + to add a requirement" id="ilU-vE-lNW">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Click + to add a requirement" id="ilU-vE-lNW">
                         <font key="font" metaFont="miniSystem"/>
                         <color key="textColor" white="0.49270072999999998" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

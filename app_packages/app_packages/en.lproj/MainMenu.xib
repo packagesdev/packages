@@ -582,7 +582,7 @@
                                     <action selector="build:" target="-1" id="430"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Build All" keyEquivalent="b" id="MmO-yM-QkU">
+                            <menuItem title="Build All" alternate="YES" keyEquivalent="b" id="MmO-yM-QkU">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="buildAll:" target="212" id="8Bq-CQ-fnB"/>
@@ -642,7 +642,7 @@
                             <menuItem isSeparatorItem="YES" id="446">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Send Feedback…" id="483">
+                            <menuItem title="Send Feedback" id="483">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="sendFeedback:" target="212" id="484"/>

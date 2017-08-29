@@ -1821,6 +1821,14 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">PKGControlledView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGControlledView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">PKGDocumentViewController</string>
 					<string key="superclassName">PKGViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1830,7 +1838,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">PKGFileDeadDropView</string>
-					<string key="superclassName">NSView</string>
+					<string key="superclassName">PKGControlledView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGFileDeadDropView.h</string>
