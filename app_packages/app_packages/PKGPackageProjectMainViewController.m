@@ -66,6 +66,12 @@
 {
 	[super WB_viewDidLoad];
 	
+	[_segmentedControl setLabel:NSLocalizedString(@"Project_tab",@"") forSegment:PKGPreferencesGeneralPackageProjectPaneProject];
+	[_segmentedControl setLabel:NSLocalizedString(@"Settings_tab",@"") forSegment:PKGPreferencesGeneralPackageProjectPaneSettings];
+	[_segmentedControl setLabel:NSLocalizedString(@"Payload_tab",@"") forSegment:PKGPreferencesGeneralPackageProjectPanePayload];
+	[_segmentedControl setLabel:NSLocalizedString(@"Scripts_tab",@"") forSegment:PKGPreferencesGeneralPackageProjectPaneScriptsAndResources];
+	[_segmentedControl setLabel:NSLocalizedString(@"Comments_tab",@"") forSegment:PKGPreferencesGeneralPackageProjectPaneComments];
+	
 	// Register for Notification
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) name:NSViewFrameDidChangeNotification object:self.view];
