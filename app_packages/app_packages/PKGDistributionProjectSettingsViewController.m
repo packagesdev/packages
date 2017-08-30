@@ -63,7 +63,7 @@
 
 - (NSString *)certificatePanelMessage
 {
-	return NSLocalizedString(@"Choose a certificate to be used for signing the distribution.",@"");
+	return NSLocalizedString(@"Choose the certificate to be used for signing the distribution.",@"");
 }
 
 - (void)WB_viewDidLoad
