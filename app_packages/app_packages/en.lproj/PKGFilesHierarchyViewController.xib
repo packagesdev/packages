@@ -304,12 +304,6 @@
                         <action selector="expandAll:" target="-2" id="ERG-NJ-Bts"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Contract" id="kHx-SV-kfm">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="contract:" target="-2" id="i4s-TG-zZI"/>
-                    </connections>
-                </menuItem>
             </items>
             <point key="canvasLocation" x="-13" y="-68.5"/>
         </menu>
