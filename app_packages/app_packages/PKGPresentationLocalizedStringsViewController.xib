@@ -101,8 +101,6 @@
                                                             <menu key="menu" id="oaQ-L9-UFE">
                                                                 <items>
                                                                     <menuItem title="Item 1" state="on" id="oYM-Qu-RPO"/>
-                                                                    <menuItem title="Item 2" id="ita-Ms-OvG"/>
-                                                                    <menuItem title="Item 3" id="juK-IO-tEG"/>
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>
