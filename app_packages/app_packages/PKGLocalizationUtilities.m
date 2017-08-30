@@ -15,8 +15,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGLanguageConverter.h"
 
-//#import "NSString+Iceberg.h"
-
 @implementation PKGLocalizationUtilities
 
 + (BOOL)allLanguagesUsedInLocalizations:(NSArray *) inLocalizationsArray
@@ -98,7 +96,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		NSMutableArray * tLocalizedLanguages=[[[PKGLocalizationUtilities englishLanguages] WB_arrayByMappingObjectsUsingBlock:^NSDictionary *(NSString * bEnglishLanguage, NSUInteger bIndex) {
 			
 			return @{@"Language":bEnglishLanguage,
-					 @"Localization":NSLocalizedString(bEnglishLanguage,@""),
+					 @"Localization":NSLocalizedStringFromTable(bEnglishLanguage,@"Languages",@""),
 					 @"Index":@(bIndex)};
 		}] mutableCopy];
 		
@@ -125,89 +123,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return [sMenu copyWithZone:[NSMenu menuZone]];
 }
 
-/*+ (NSArray *)localizationsFromLocalizationsArray:(NSArray *)inLocalizationsArray
-{
-	if (inLocalizationsArray.count==0)
-		return nil;
-	
-	NSMutableArray * tLocalizations=[NSMutableArray array];
-	
-	for(NSDictionary * tItemDictionary in inLocalizationsArray)
-	{
-		NSString * tLanguage=tItemDictionary[ICDOCUMENT_LANGUAGE];
-		
-		[tLocalizations addObject:(tLanguage==nil) ? @"" : tLanguage];
-	}
-	
-	return [tLocalizations copy];
-}
-
-+ (id) localizedValueForLanguage:(NSString *) inLanguage inLocalizations:(NSArray *) inLocalizationsArray lookForBestMatch:(BOOL) inLookForBestMatch
-{
-	if (inLanguage==nil || inLocalizationsArray==nil)
-		return nil;
-	
-	id tLocalizedValue=nil;
-	
-	NSArray * tAvailableLocalizations=[PKGLocalizationUtilities localizationsFromLocalizationsArray:inLocalizationsArray];
-	
-	if (tAvailableLocalizations!=nil)
-	{
-		NSUInteger tIndex=[tAvailableLocalizations indexOfObject:inLanguage];
-		
-		if (tIndex==NSNotFound && inLookForBestMatch==YES)
-		{
-			// Try with the ISO name
-			
-			inLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLanguage];
-			
-			tIndex=[tAvailableLocalizations indexOfObject:inLanguage];
-		
-			if (tIndex==NSNotFound)
-			{
-				NSArray * tPreferedLocalizations=(NSArray *) CFBundleCopyPreferredLocalizationsFromArray((CFArrayRef) tAvailableLocalizations);
-			
-				if (tPreferedLocalizations!=nil)
-				{
-					for(NSString * tLanguage in tPreferedLocalizations)
-					{
-						tIndex=[tAvailableLocalizations indexOfObject:tLanguage];
-						
-						if (tIndex!=NSNotFound)
-						{
-							break;
-						}
-						else
-						{
-							NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:tLanguage];
-							
-							tIndex=[tAvailableLocalizations indexOfObject:tISOLanguage];
-						
-							if (tIndex!=NSNotFound)
-								break;
-						}
-					}
-				}
-			}
-		}
-		
-		if (tIndex!=NSNotFound)
-		{
-			NSDictionary * tDictionary=[inLocalizationsArray objectAtIndex:tIndex];
-			
-			if (tDictionary!=nil)
-				tLocalizedValue=tDictionary[ICDOCUMENT_VALUE];
-		}
-	}
-	
-	return tLocalizedValue;
-}
-
-+ (id) localizedValueForLanguage:(NSString *) inLanguage inLocalizations:(NSArray *) inLocalizationsArray
-{
-	return [PKGLocalizationUtilities localizedValueForLanguage:inLanguage inLocalizations:inLocalizationsArray lookForBestMatch:YES];
-}
-*/
 + (NSString *)nextPreferredLanguageAfterLanguages:(NSArray *)inLanguagesArray
 {
 	if (inLanguagesArray==nil)
@@ -254,133 +169,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	return tLanguageName;
 }
-
-/*+ (NSArray *) allLanguagesFromLocalizations:(NSArray *) inLocalizationsArray
-{
-	if (inLocalizationsArray==nil)
-		return nil;
-	
-	NSMutableArray * tAllLanguages=[NSMutableArray array];
-	
-	for(NSDictionary * tDictionary in inLocalizationsArray)
-	{
-		NSString * tUsedLanguage=[tDictionary objectForKey:ICDOCUMENT_LANGUAGE];
-		
-		[tAllLanguages addObject:[[PKGLanguageConverter sharedConverter] englishFromISO:tUsedLanguage]];
-	}
-	
-	return tAllLanguages;
-}
-
-+ (BOOL) localizations:(NSArray *) inLocalizationsArray containsLanguage:(NSString *) inLanguage
-{
-	if (inLocalizationsArray!=nil && inLanguage!=nil)
-	{
-		for(NSDictionary * tDictionary in inLocalizationsArray)
-		{
-			NSString * tUsedLanguage=[tDictionary objectForKey:ICDOCUMENT_LANGUAGE];
-			
-			if ([tUsedLanguage isEqualToString:inLanguage]==YES)
-				return YES;
-		}
-	}
-	
-	return NO;
-}
-
-+ (NSUInteger) indexOfLanguage:(NSString *) inLanguage inLocalizations:(NSArray *) inLocalizationsArray
-{
-	if (inLocalizationsArray!=nil && inLanguage!=nil)
-	{
-		NSUInteger tCount=[inLocalizationsArray count];
-		
-		for(NSUInteger i=0;i<tCount;i++)
-		{
-			NSDictionary * tDictionary=[inLocalizationsArray objectAtIndex:i];
-			
-			NSString * tUsedLanguage=[tDictionary objectForKey:ICDOCUMENT_LANGUAGE];
-				
-			if ([tUsedLanguage isEqualToString:inLanguage]==YES)
-			{
-				return i;
-			}
-		}
-	}
-	
-	return NSNotFound;
-}
-
-+ (NSMutableDictionary *) validLocalizationsPathFromLocalizationsArray:(NSArray *) inLocalizationsArray  projectPath:(NSString *) inProjectPath referencePath:(NSString *) inReferencePath
-{
-	NSMutableDictionary * tValidLocalizationsPath=nil;
-	
-	if (inLocalizationsArray!=nil && inProjectPath!=nil && inReferencePath!=nil)
-	{
-		tValidLocalizationsPath=[NSMutableDictionary dictionary];
-		
-		if (tValidLocalizationsPath!=nil)
-		{
-			NSFileManager * tFileManager=[NSFileManager defaultManager];
-			
-			for(NSDictionary * tDictionary in inLocalizationsArray)
-			{
-				NSString * tLanguage=[[PKGLanguageConverter sharedConverter] englishFromISO:[tDictionary objectForKey:ICDOCUMENT_LANGUAGE]];
-				
-				NSDictionary * tPathDictionary=[tDictionary objectForKey:ICDOCUMENT_VALUE];
-				
-				if (tPathDictionary!=nil)
-				{
-					NSInteger tPathType=[[tPathDictionary objectForKey:ICDOCUMENT_PATH_TYPE] integerValue];
-						
-					NSString * tPath=[tPathDictionary objectForKey:ICDOCUMENT_PATH];
-					
-					if (tPath!=nil && [tPath length]>0)
-					{
-						if (tPathType==ICDOCUMENT_PATH_TYPE_RELATIVE_TO_PROJECT)
-						{
-							tPath=[tPath stringByAbsolutingWithPath:inProjectPath];
-						}
-						else if (tPathType==ICDOCUMENT_PATH_TYPE_RELATIVE_TO_REFERENCE_FOLDER)
-						{
-							tPath=[tPath stringByAbsolutingWithPath:inReferencePath];
-						}
-							
-						if ([tFileManager fileExistsAtPath:tPath]==YES)
-						{
-							NSString * tNativeLanguage;
-							
-							tNativeLanguage=[[PKGLanguageConverter sharedConverter] nativeForEnglish:tLanguage];
-							
-							[tValidLocalizationsPath setObject:[NSDictionary dictionaryWithObjectsAndKeys:tPath,ICDOCUMENT_PATH,
-																										  tLanguage,ICDOCUMENT_LANGUAGE,
-																										  nil]
-														forKey:tNativeLanguage];
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	return tValidLocalizationsPath;
-}
-
-+ (NSMutableArray *) localizationsArrayWithValue:(id) inValue forLanguage:(NSString *) inLanguage
-{
-	NSMutableArray * tLocalizationsArray=[NSMutableArray array];
-
-	if (tLocalizationsArray!=nil)
-	{
-		NSMutableDictionary * tLanguageDictionary=[NSMutableDictionary dictionaryWithObjectsAndKeys:inLanguage,ICDOCUMENT_LANGUAGE,
-																				  inValue,ICDOCUMENT_VALUE,
-																				  nil];
-
-		if (tLanguageDictionary!=nil)
-			[tLocalizationsArray addObject:tLanguageDictionary];
-	}
-	
-	return tLocalizationsArray;
-}*/
 
 + (NSString *)possibleLanguageForFileAtPath:(NSString *)inPath
 {
