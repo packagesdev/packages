@@ -48,7 +48,7 @@
 					<object class="NSButton" id="168041780">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{30, 202}, {309, 18}}</string>
+						<string key="NSFrame">{{30, 202}, {316, 18}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="494006790"/>
@@ -86,7 +86,7 @@
 					<object class="NSButton" id="83898426">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{30, 224}, {195, 18}}</string>
+						<string key="NSFrame">{{30, 224}, {202, 18}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="168041780"/>
@@ -272,7 +272,7 @@
 										<string key="NSFrameSize">{567, 138}</string>
 										<reference key="NSSuperview" ref="445274087"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="519573169"/>
+										<reference key="NSNextKeyView" ref="41611730"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -414,7 +414,7 @@
 						<string key="NSFrame">{{37, 50}, {569, 140}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="41611730"/>
+						<reference key="NSNextKeyView" ref="445274087"/>
 						<int key="NSsFlags">150034</int>
 						<reference key="NSVScroller" ref="804484922"/>
 						<reference key="NSHScroller" ref="41611730"/>
@@ -508,7 +508,6 @@
 						<string key="NSFrame">{{480, 27}, {125, 11}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="178974330">
 							<int key="NSCellFlags">67108864</int>
