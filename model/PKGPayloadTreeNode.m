@@ -24,9 +24,7 @@
 	NSDictionary * tAttributesDictionary=[[NSFileManager defaultManager] attributesOfItemAtPath:inPath error:&tError];
 	
 	if (tAttributesDictionary==nil)
-	{
 		return PKGFileItem.class;
-	}
 	
 	if ([tAttributesDictionary[NSFileType] isEqualToString:NSFileTypeDirectory]==NO)
 		return PKGFileItem.class;

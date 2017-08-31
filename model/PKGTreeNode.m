@@ -197,6 +197,17 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	if (tChildrenRepresentation.count>0)
 		tRepresentation[PKGTreeNodeChildrenKey]=tChildrenRepresentation;
+	else
+	{
+		static dispatch_once_t onceToken;
+		static NSArray * sEmptyChildrenArray=nil;
+		
+		dispatch_once(&onceToken, ^{
+			sEmptyChildrenArray=[NSArray array];
+		});
+		
+		tRepresentation[PKGTreeNodeChildrenKey]=sEmptyChildrenArray;
+	}
 	
 	return tRepresentation;
 }
