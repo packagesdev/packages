@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">14F2109</string>
+		<string key="IBDocument.SystemVersion">14F2315</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -51,7 +51,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="948860622">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Minimum Number of CPU Cores:</string>
+							<string key="NSContents">Minimum Number of Cores:</string>
 							<object class="NSFont" key="NSSupport" id="435906187">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>

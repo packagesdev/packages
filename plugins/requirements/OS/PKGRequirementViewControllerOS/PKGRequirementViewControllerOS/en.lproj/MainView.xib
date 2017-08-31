@@ -890,7 +890,6 @@
 						<string key="NSFrame">{{329, 17}, {203, 25}}</string>
 						<reference key="NSSuperview" ref="458994404"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="730402023">
 							<int key="NSCellFlags">75497472</int>
