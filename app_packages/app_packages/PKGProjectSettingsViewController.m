@@ -543,7 +543,7 @@
 		
 		if (tMenuItem!=nil)
 		{
-			tMenuItem.title=NSLocalizedStringFromTable(@"Project Folder",@"Project",@"");
+			tMenuItem.title=NSLocalizedString(@"Project Folder",@"");
 				
 			_buildReferenceFolderPopUpButton.toolTip=nil;
 				
@@ -614,7 +614,7 @@
 	{
 		if (self.projectSettings.referenceFolderPath!=nil && ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)==NSAlternateKeyMask)
 		{
-			inMenuItem.title=NSLocalizedStringFromTable(@"Revert to Default",@"Project",@"");
+			inMenuItem.title=NSLocalizedString(@"Revert to Default",@"");
 			inMenuItem.action=@selector(resetReferenceFolder:);
 		}
 		
@@ -625,7 +625,7 @@
 	{
 		if (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=NSAlternateKeyMask)
 		{
-			inMenuItem.title=NSLocalizedStringFromTable(@"Other...",@"Project",@"");
+			inMenuItem.title=NSLocalizedString(@"Other...",@"");
 			inMenuItem.action=@selector(setReferenceFolder:);
 		}
 		
