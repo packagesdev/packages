@@ -383,7 +383,7 @@
 	tAlert.messageText=NSLocalizedString(@"Do you really want to remove the certificate?",@"No comment");
 	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"");
 	
-	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No Comment")];
+	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove_Certificate",@"No Comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No Comment")];
 	
 	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
@@ -623,7 +623,7 @@
 	
 	if (tAction==@selector(resetReferenceFolder:))
 	{
-		if (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=NSAlternateKeyMask)
+		if (self.projectSettings.referenceFolderPath==nil || ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=NSAlternateKeyMask)
 		{
 			inMenuItem.title=NSLocalizedString(@"Other...",@"");
 			inMenuItem.action=@selector(setReferenceFolder:);
