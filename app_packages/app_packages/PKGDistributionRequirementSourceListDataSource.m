@@ -179,8 +179,9 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 	if ([tPasteBoard availableTypeFromArray:@[PKGDistributionRequirementInternalPboardType]]!=nil && [info draggingSource]==inTableView)
 	{
 		PKGDistributionRequirementSourceListNode * tDroppedNode=[_flatTree nodeAtIndex:_internalDragData.firstIndex];
-		NSUInteger tFirstDroppableRow=[_flatTree indexOfNode:tDroppedNode.parent];
-		NSUInteger tLastDroppableRow=tDroppedNode.parent.numberOfChildren+tFirstDroppableRow;
+		NSUInteger tParentRow=[_flatTree indexOfNode:tDroppedNode.parent];
+		NSUInteger tFirstDroppableRow=tParentRow+1;
+		NSUInteger tLastDroppableRow=tDroppedNode.parent.numberOfChildren+tParentRow;
 		
 		if (inRow<tFirstDroppableRow || inRow>(tLastDroppableRow+1))
 			return NSDragOperationNone;
