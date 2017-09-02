@@ -1951,7 +1951,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSString * tLocalization=bMessage.messageTitle;
 		
-		if ([tLocalization length]==0)
+		if (tLocalization.length==0)
 			tLocalization=@" ";
 		
 		tLanguageLocalizationsDictionary[*outErrorMessage]=tLocalization;
@@ -3559,14 +3559,14 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				
 				tErrorMessage=[NSString stringWithFormat:@"%@_REQUIREMENT_FAILED_%d",[inName uppercaseString],tErrorIndex];
 				
-				[tLocalizations enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,NSString * bLocalizedMessage,BOOL * bOutStop){
+				[tLocalizations enumerateKeysAndObjectsUsingBlock:^(NSString * bLanguage,PKGRequirementFailureMessage * bMessage,BOOL * bOutStop){
 				
 					NSMutableDictionary * tLanguageLocalizationsDictionary=tLocalizationsDictionary[bLanguage];
 					
 					if (tLanguageLocalizationsDictionary==nil)
 						tLocalizationsDictionary[bLanguage]=tLanguageLocalizationsDictionary=[NSMutableDictionary dictionary];
 					
-					tLanguageLocalizationsDictionary[tErrorMessage]=bLocalizedMessage;
+					tLanguageLocalizationsDictionary[tErrorMessage]=bMessage.messageTitle;
 					
 					tErrorIndex++;
 				}];
