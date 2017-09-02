@@ -134,7 +134,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(optionKeyDidChange:)
 												 name:PKGOptionKeyDidChangeStateNotification
-											   object:self];
+											   object:self.window];
 }
 
 #pragma mark -
