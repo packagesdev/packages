@@ -15,8 +15,6 @@
 
 #import "PKGEvent.h"
 
-
-
 @interface PKGWindow ()
 {
 	BOOL _optionKeyDown;
