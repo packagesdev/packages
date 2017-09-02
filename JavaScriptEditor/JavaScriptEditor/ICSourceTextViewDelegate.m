@@ -749,18 +749,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 											
 											tValue=[NSValue valueWithRange:tMultilineCommentRange];
 											
-											if (tValue!=nil)
-											{
-												[_commentsRangesArray addObject:tValue];
+											[_commentsRangesArray addObject:tValue];
 												
-												tIndex++;
-											}
-											else
-											{
-												// Log Error
-											
-												// A COMPLETER
-											}
+											tIndex++;
 											
 											break;
 										}
@@ -788,16 +779,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 											
 							tValue=[NSValue valueWithRange:tMultilineCommentRange];
 							
-							if (tValue!=nil)
-							{
-								[_commentsRangesArray addObject:tValue];
-							}
-							else
-							{
-								// Log Error
-								
-								// A COMPLETER
-							}
+							[_commentsRangesArray addObject:tValue];
 							
 							break;
 						}
@@ -822,16 +804,8 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 											
 									tValue=[NSValue valueWithRange:tSinglelineCommentRange];
 									
-									if (tValue!=nil)
-									{
-										[_commentsRangesArray addObject:tValue];
-									}
-									else
-									{
-										// Log Error
-										
-										// A COMPLETER
-									}
+									[_commentsRangesArray addObject:tValue];
+
 									
 									tIndex++;
 									
@@ -850,16 +824,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 											
 							tValue=[NSValue valueWithRange:tSinglelineCommentRange];
 							
-							if (tValue!=nil)
-							{
-								[_commentsRangesArray addObject:tValue];
-							}
-							else
-							{
-								// Log Error
-								
-								// A COMPLETER
-							}
+							[_commentsRangesArray addObject:tValue];
 							
 							break;
 						}
@@ -892,16 +857,8 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 									
 							tValue=[NSValue valueWithRange:tStringRange];
 							
-							if (tValue!=nil)
-							{
-								[_stringsRangesArray addObject:tValue];
-							}
-							else
-							{
-								// Log Error
-								
-								// A COMPLETER
-							}
+							[_stringsRangesArray addObject:tValue];
+							
 							
 							tIndex++;
 							
@@ -920,16 +877,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 									
 					tValue=[NSValue valueWithRange:tStringRange];
 					
-					if (tValue!=nil)
-					{
-						[_stringsRangesArray addObject:tValue];
-					}
-					else
-					{
-						// Log Error
-						
-						// A COMPLETER
-					}
+					[_stringsRangesArray addObject:tValue];
 					
 					break;
 				}
@@ -960,16 +908,8 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 									
 							tValue=[NSValue valueWithRange:tStringRange];
 							
-							if (tValue!=nil)
-							{
-								[_stringsRangesArray addObject:tValue];
-							}
-							else
-							{
-								// Log Error
-								
-								// A COMPLETER
-							}
+							[_stringsRangesArray addObject:tValue];
+							
 							
 							tIndex++;
 							
@@ -988,16 +928,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 									
 					tValue=[NSValue valueWithRange:tStringRange];
 					
-					if (tValue!=nil)
-					{
-						[_stringsRangesArray addObject:tValue];
-					}
-					else
-					{
-						// Log Error
-						
-						// A COMPLETER
-					}
+					[_stringsRangesArray addObject:tValue];
 					
 					break;
 				}
@@ -1047,14 +978,14 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		{
 			NSRange tRange=[tValue rangeValue];
 				
-			if ([_keywords count]>0)
+			if (_keywords.count>0)
 			{
 				tAttributeDictionary=_syntaxAttributeDictionary[@"KEYWORDS"];
 				
 				[self highlightKeywords:_keywords inRange:tRange withAttributes:tAttributeDictionary];
 			}
 			
-			if ([_distributionKeywords count]>0)
+			if (_distributionKeywords.count>0)
 			{
 				tAttributeDictionary=_syntaxAttributeDictionary[@"DISTRIBUTION"];
 				

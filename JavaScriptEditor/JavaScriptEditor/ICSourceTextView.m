@@ -202,16 +202,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					{
 						NSTextTab * tTextTab=[[NSTextTab alloc] initWithType:NSLeftTabStopType location:((double)tIndex+1) * tColumnWidth];
 						
-						if (tTextTab!=nil)
-						{
-							[tMutableArray addObject:tTextTab];
-						}
-						else
-						{
-							// A COMPLETER
-							
-							break;
-						}
+						[tMutableArray addObject:tTextTab];
 					}
 					
 					[tMutableParagraphStyle setTabStops:tMutableArray];

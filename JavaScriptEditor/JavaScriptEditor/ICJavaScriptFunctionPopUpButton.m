@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,11 +21,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		[self addItemWithTitle:NSLocalizedString(@"<No selected function>",@"")];
 		
-		[self selectItemAtIndex:[self numberOfItems]-1];
+		[self selectItemAtIndex:self.numberOfItems-1];
 		
 		[super sizeToFit];
 		
-		[self removeItemAtIndex:([self numberOfItems]-1)];
+		[self removeItemAtIndex:(self.numberOfItems-1)];
 		
 		[self selectItemAtIndex:-1];
 	}
@@ -35,27 +35,27 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 }
 
-- (void) drawRect:(NSRect) inRect
+- (void) drawRect:(NSRect)inRect
 {
-	NSRect tBounds=[self bounds];
+	NSRect tBounds=self.bounds;
 	
-	[[NSColor colorWithCalibratedWhite:0.6157f alpha:1.0f] set];
+	[[NSColor colorWithCalibratedWhite:0.6157 alpha:1.0] set];
 	
-	[NSBezierPath strokeLineFromPoint:NSMakePoint(0.5f,0.0f) toPoint:NSMakePoint(0.5f,NSMaxY(tBounds)-1.0f)];
+	[NSBezierPath strokeLineFromPoint:NSMakePoint(0.5,0.0) toPoint:NSMakePoint(0.5,NSMaxY(tBounds)-1.0)];
 
-	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMaxX(tBounds)-0.5f,0.0f) toPoint:NSMakePoint(NSMaxX(tBounds)-0.5f,NSMaxY(tBounds)-1.0f)];
+	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMaxX(tBounds)-0.5,0.0) toPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(tBounds)-1.0)];
 
-	tBounds.size.width-=5.0f;
+	tBounds.size.width-=5.0;
 	
 	if ([self indexOfSelectedItem]==-1)
 	{
 		[self addItemWithTitle:NSLocalizedString(@"<No selected function>",@"")];
 		
-		[self selectItemAtIndex:[self numberOfItems]-1];
+		[self selectItemAtIndex:self.numberOfItems-1];
 		
 		[[self cell] drawWithFrame:tBounds inView:self];
 		
-		[self removeItemAtIndex:([self numberOfItems]-1)];
+		[self removeItemAtIndex:(self.numberOfItems-1)];
 		
 		[self selectItemAtIndex:-1];
 	}

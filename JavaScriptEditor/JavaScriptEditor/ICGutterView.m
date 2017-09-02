@@ -57,7 +57,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return YES;
 }
 
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)
 - (NSAutoresizingMaskOptions)autoresizingMask
+#else
+- (NSUInteger)autoresizingMask
+#endif
 {
 	return NSViewHeightSizable;
 }
