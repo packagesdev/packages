@@ -45,6 +45,10 @@
 
 - (IBAction)switchRequirementType:(id)sender;
 
+// Notifications
+
+- (void)optionKeyDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGRequirementWindowController
@@ -116,7 +120,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(optionKeyDidChange:)
 												 name:PKGOptionKeyDidChangeStateNotification
-											   object:self];
+											   object:self.window];
 }
 
 #pragma mark -
@@ -392,6 +396,21 @@
 	self.requirement.settingsRepresentation=[_currentRequirementViewController settings];
 	
 	[NSApp endSheet:self.window returnCode:sender.tag];
+}
+
+#pragma mark - Notifications
+
+- (void)optionKeyDidChange:(NSNotification *)inNotification
+{
+	if (inNotification==nil)
+		return;
+	
+	NSNumber * tNumber=inNotification.userInfo[PKGOptionKeyState];
+	
+	if (tNumber==nil)
+		return;
+	
+	[_currentRequirementViewController optionKeyStateDidChange:[tNumber boolValue]];
 }
 
 @end
