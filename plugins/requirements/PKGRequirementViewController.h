@@ -41,9 +41,9 @@ extern NSString * const PKGRequirementTypeDidChangeNotification;
 
 - (NSDictionary *)defaultSettings;
 
-- (void)setNextKeyView:(NSView *) inView;
+- (void)setNextKeyView:(NSView *)inView;
 
-- (void)optionKeyStateDidChange:(BOOL) isOptionKeyPressed;
+- (void)optionKeyStateDidChange:(BOOL)isOptionKeyPressed;
 
 - (void)noteCheckTypeChange;
 
