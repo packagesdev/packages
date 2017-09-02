@@ -404,24 +404,18 @@ extended_attributes_bail:
 			case FTS_DNR:
 			case FTS_ERR:
 			case FTS_NS:
+			case FTS_DC:
 				fts_close(ftsp);
 				
 				return NO;
-				
-			case FTS_DOT:
-				
-				break;
 				
 			case FTS_DP:
 			case FTS_D:
 				
 				if (!strcmp(tCPath,tFile->fts_path))
 					break;
-				
-			case FTS_DC:
-			case FTS_F:
-			case FTS_SL:
-			case FTS_SLNONE:
+
+			case FTS_NSOK:
 				
 				fts_close(ftsp);
 				
