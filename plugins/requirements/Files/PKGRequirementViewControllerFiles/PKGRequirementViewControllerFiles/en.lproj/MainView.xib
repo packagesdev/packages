@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">101000</int>
-		<string key="IBDocument.SystemVersion">14F2315</string>
+		<string key="IBDocument.SystemVersion">14F2511</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -189,7 +189,7 @@
 										<string key="NSFrameSize">{547, 136}</string>
 										<reference key="NSSuperview" ref="1054133875"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="219068492"/>
+										<reference key="NSNextKeyView" ref="941166022"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -250,7 +250,7 @@
 											</object>
 										</object>
 										<double key="NSRowHeight">15</double>
-										<int key="NSTvFlags">314572800</int>
+										<int key="NSTvFlags">448790528</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
 										<int key="NSColumnAutoresizingStyle">4</int>
@@ -304,7 +304,7 @@
 						<string key="NSFrame">{{20, 48}, {546, 138}}</string>
 						<reference key="NSSuperview" ref="1043187812"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="941166022"/>
+						<reference key="NSNextKeyView" ref="1054133875"/>
 						<int key="NSsFlags">150162</int>
 						<reference key="NSVScroller" ref="802548641"/>
 						<reference key="NSHScroller" ref="941166022"/>
@@ -349,7 +349,6 @@
 						<string key="NSFrame">{{44, 19}, {24, 22}}</string>
 						<reference key="NSSuperview" ref="1043187812"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="712485596">
 							<int key="NSCellFlags">603979776</int>

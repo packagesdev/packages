@@ -318,7 +318,7 @@
 							<object class="NSButton" id="236050385">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{428, 84}, {171, 18}}</string>
+								<string key="NSFrame">{{428, 84}, {173, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="153195638"/>
@@ -343,7 +343,7 @@
 							<object class="NSTextField" id="153195638">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{601, 86}, {131, 14}}</string>
+								<string key="NSFrame">{{603, 86}, {139, 14}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1003306919"/>
@@ -1301,9 +1301,9 @@
 							<reference ref="220522824"/>
 							<reference ref="854914523"/>
 							<reference ref="236050385"/>
-							<reference ref="153195638"/>
 							<reference ref="155255017"/>
 							<reference ref="1003306919"/>
+							<reference ref="153195638"/>
 						</array>
 						<reference key="parent" ref="614911292"/>
 					</object>
@@ -1772,6 +1772,7 @@
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<reference key="29.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1787,6 +1788,7 @@
 				<string key="43.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<reference key="5.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="5.IBPersistedLastKnownCanvasPosition">{729, 228}</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

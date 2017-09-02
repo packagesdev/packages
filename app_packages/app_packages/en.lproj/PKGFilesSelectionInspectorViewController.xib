@@ -36,7 +36,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="dp4-1T-Ysx">
-                    <rect key="frame" x="18" y="412" width="78" height="14"/>
+                    <rect key="frame" x="12" y="412" width="84" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Architectures:" id="Ifs-Og-nFH">
                         <font key="font" metaFont="smallSystem"/>
@@ -54,7 +54,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="mCC-aH-ANP">
-                    <rect key="frame" x="99" y="440" width="54" height="14"/>
+                    <rect key="frame" x="99" y="440" width="55" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Modified:" id="UT6-86-v8w">
                         <font key="font" metaFont="smallSystem"/>
@@ -121,7 +121,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="dyr-Qt-ter">
-                    <rect key="frame" x="64" y="390" width="32" height="14"/>
+                    <rect key="frame" x="60" y="390" width="36" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Kind:" id="kDG-7q-nOY">
                         <font key="font" metaFont="smallSystem"/>
@@ -139,7 +139,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="mr6-YI-gj6">
-                    <rect key="frame" x="34" y="366" width="61" height="14"/>
+                    <rect key="frame" x="24" y="366" width="71" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Reference:" id="Syy-tL-YX6">
                         <font key="font" metaFont="smallSystem"/>
@@ -177,7 +177,7 @@
                     </tabViewItems>
                 </tabView>
             </subviews>
-            <point key="canvasLocation" x="685.5" y="427"/>
+            <point key="canvasLocation" x="656.5" y="383"/>
         </customView>
     </objects>
 </document>
