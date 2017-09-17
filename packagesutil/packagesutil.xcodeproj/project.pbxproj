@@ -12,7 +12,6 @@
 		F40BCABE1C7CDB1D00713F23 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCABD1C7CDB1D00713F23 /* libxml2.dylib */; };
 		F40BCAC01C7CDB2800713F23 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCABF1C7CDB2800713F23 /* libz.dylib */; };
 		F40BCAC21C7CDB2D00713F23 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */; };
-		F40BCAC41C7CDB4000713F23 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCAC31C7CDB4000713F23 /* libcrypto.dylib */; };
 		F40F55DB1F0318450037C8F5 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F40F55D91F0318450037C8F5 /* NSObject+Conformance.m */; };
 		F46FA1951DB97407001D3FA8 /* NSDictionary+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */; };
 		F477A1371DF22B4C00CA546B /* PKGPayloadTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */; };
@@ -131,7 +130,6 @@
 		F40BCABD1C7CDB1D00713F23 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		F40BCABF1C7CDB2800713F23 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
-		F40BCAC31C7CDB4000713F23 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		F40F55D91F0318450037C8F5 /* NSObject+Conformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Conformance.m"; path = "../Foundation + Extensions/NSObject+Conformance.m"; sourceTree = "<group>"; };
 		F40F55DA1F0318450037C8F5 /* NSObject+Conformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Conformance.h"; path = "../Foundation + Extensions/NSObject+Conformance.h"; sourceTree = "<group>"; };
 		F46FA1931DB97407001D3FA8 /* NSDictionary+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBExtensions.h"; path = "../Foundation + Extensions/NSDictionary+WBExtensions.h"; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				F481B3941CBD8C9C0063F4CD /* libxar.a in Frameworks */,
 				F48EB6E31CBD19210086190B /* libicucore.dylib in Frameworks */,
 				F40BCABA1C7CDAC900713F23 /* Foundation.framework in Frameworks */,
-				F40BCAC41C7CDB4000713F23 /* libcrypto.dylib in Frameworks */,
 				F40BCAC21C7CDB2D00713F23 /* libbz2.dylib in Frameworks */,
 				F40BCAC01C7CDB2800713F23 /* libz.dylib in Frameworks */,
 				F40BCABE1C7CDB1D00713F23 /* libxml2.dylib in Frameworks */,
@@ -305,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				F40BCAB91C7CDAC900713F23 /* Foundation.framework */,
-				F40BCAC31C7CDB4000713F23 /* libcrypto.dylib */,
 				F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */,
 				F40BCABF1C7CDB2800713F23 /* libz.dylib */,
 				F40BCABD1C7CDB1D00713F23 /* libxml2.dylib */,

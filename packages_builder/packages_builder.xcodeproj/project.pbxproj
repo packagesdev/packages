@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F40289BB1E6E288B00492CBF /* NSDictionary+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F40289BA1E6E288B00492CBF /* NSDictionary+DeepCopy.m */; };
 		F40B6EE41D247A300031D267 /* PKGBuildInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = F40B6EE31D247A300031D267 /* PKGBuildInformation.m */; };
-		F4138D960EEAD79600B98A64 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4138D950EEAD79600B98A64 /* libcrypto.dylib */; };
 		F43017011CFE0E9F00829D16 /* PKGBuildLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F43017001CFE0E9F00829D16 /* PKGBuildLogger.m */; };
 		F43017131CFE0EDB00829D16 /* ICFileSystemUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F43017121CFE0EDB00829D16 /* ICFileSystemUtilities.m */; };
 		F43017191CFE0EEF00829D16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F43017181CFE0EEF00829D16 /* main.m */; };
@@ -153,7 +152,6 @@
 		F40B6EE21D247A300031D267 /* PKGBuildInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBuildInformation.h; path = packages_builder/PKGBuildInformation.h; sourceTree = "<group>"; };
 		F40B6EE31D247A300031D267 /* PKGBuildInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBuildInformation.m; path = packages_builder/PKGBuildInformation.m; sourceTree = "<group>"; };
 		F412959E1D68FC3A00B2ABC4 /* PKGProjectBuilderInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGProjectBuilderInterface.h; path = ../shared/PKGProjectBuilderInterface.h; sourceTree = "<group>"; };
-		F4138D950EEAD79600B98A64 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = /usr/lib/libcrypto.dylib; sourceTree = "<absolute>"; };
 		F422BD8D1D89F94300BFCEC1 /* PKGBuildSignatureCreatorInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGBuildSignatureCreatorInterface.h; path = ../shared/PKGBuildSignatureCreatorInterface.h; sourceTree = "<group>"; };
 		F422BD961D89F94A00BFCEC1 /* PKGBuildOrderExecutionAgentInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGBuildOrderExecutionAgentInterface.h; path = ../shared/PKGBuildOrderExecutionAgentInterface.h; sourceTree = "<group>"; };
 		F43016FF1CFE0E9F00829D16 /* PKGBuildLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBuildLogger.h; path = packages_builder/PKGBuildLogger.h; sourceTree = "<group>"; };
@@ -338,7 +336,6 @@
 				F4B943441C75317D00D505BD /* libxml2.dylib in Frameworks */,
 				F4B943421C75316E00D505BD /* libbz2.dylib in Frameworks */,
 				F4B943401C75315600D505BD /* libz.dylib in Frameworks */,
-				F4138D960EEAD79600B98A64 /* libcrypto.dylib in Frameworks */,
 				F4E7D01E11EDD6B400D54D7C /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,7 +401,6 @@
 				F4B9436B1C75361000D505BD /* CoreServices.framework */,
 				F4B943691C7535F800D505BD /* Security.framework */,
 				F4B9433D1C75313700D505BD /* Foundation.framework */,
-				F4138D950EEAD79600B98A64 /* libcrypto.dylib */,
 				F4B943411C75316E00D505BD /* libbz2.dylib */,
 				F4B9433F1C75315600D505BD /* libz.dylib */,
 				F4B943431C75317D00D505BD /* libxml2.dylib */,
@@ -905,7 +901,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				OTHER_LDFLAGS = "-Wl,-search_paths_first,-lcrypto";
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 			};
 			name = Debug;
 		};
@@ -916,7 +912,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				OTHER_LDFLAGS = "-Wl,-search_paths_first,-lcrypto";
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 			};
 			name = Release;
 		};
