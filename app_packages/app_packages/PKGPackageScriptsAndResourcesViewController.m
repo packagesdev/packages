@@ -52,7 +52,8 @@
 
 	@property (readwrite) PKGFilesHierarchyViewController * additionalResourcesHierarchyViewController;
 
-// Hierarchy Menu
+- (PKGFilePath *)preInstallationScriptPath_safe;
+- (PKGFilePath *)postInstallationScriptPath_safe;
 
 // Hierarchy Menu
 
@@ -138,11 +139,45 @@
 	{
 		_scriptsAndResources=inScriptsAndResources;
 		
-		_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
-		_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
+		_preInstallationScriptViewController.installationScriptPath=[self preInstallationScriptPath_safe];
+		_postInstallationScriptViewController.installationScriptPath=[self postInstallationScriptPath_safe];
 		
 		_dataSource.rootNodes=self.scriptsAndResources.resourcesForest.rootNodes.array;
 	}
+}
+
+- (PKGFilePath *)preInstallationScriptPath_safe
+{
+	if (self.scriptsAndResources==nil)
+		return nil;
+	
+	if (self.scriptsAndResources.preInstallationScriptPath==nil)
+	{
+		PKGFilePath * tFilePath=[PKGFilePath new];
+		
+		tFilePath.type=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		
+		self.scriptsAndResources.preInstallationScriptPath=tFilePath;
+	}
+	
+	return self.scriptsAndResources.preInstallationScriptPath;
+}
+
+- (PKGFilePath *)postInstallationScriptPath_safe
+{
+	if (self.scriptsAndResources==nil)
+		return nil;
+	
+	if (self.scriptsAndResources.postInstallationScriptPath==nil)
+	{
+		PKGFilePath * tFilePath=[PKGFilePath new];
+		
+		tFilePath.type=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		
+		self.scriptsAndResources.postInstallationScriptPath=tFilePath;
+	}
+	
+	return self.scriptsAndResources.postInstallationScriptPath;
 }
 
 #pragma mark -
@@ -151,8 +186,8 @@
 {
 	[super WB_viewWillAppear];
 	
-	_preInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.preInstallationScriptPath;
-	_postInstallationScriptViewController.installationScriptPath=self.scriptsAndResources.postInstallationScriptPath;
+	_preInstallationScriptViewController.installationScriptPath=[self preInstallationScriptPath_safe];
+	_postInstallationScriptViewController.installationScriptPath=[self postInstallationScriptPath_safe];
 	
 	[_preInstallationScriptViewController WB_viewWillAppear];
 	[_postInstallationScriptViewController WB_viewWillAppear];
