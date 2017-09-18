@@ -138,7 +138,7 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="UcI-rY-hhl">
-                            <rect key="frame" x="599" y="88" width="137" height="14"/>
+                            <rect key="frame" x="599" y="87" width="137" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="(Mac OS X 10.6 or later)" id="CBD-eQ-hMF">
                                 <font key="font" metaFont="smallSystem"/>

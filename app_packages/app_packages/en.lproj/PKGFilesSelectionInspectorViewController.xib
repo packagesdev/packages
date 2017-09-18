@@ -139,7 +139,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="mr6-YI-gj6">
-                    <rect key="frame" x="24" y="366" width="71" height="14"/>
+                    <rect key="frame" x="25" y="366" width="71" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Reference:" id="Syy-tL-YX6">
                         <font key="font" metaFont="smallSystem"/>

@@ -108,7 +108,7 @@
 		{
 			case PKGBuildStepProject:
 				
-				_statusLabel.stringValue=NSLocalizedStringFromTable(@"Building...",@"BuildNotification",@"");
+				_statusLabel.stringValue=NSLocalizedStringFromTable(@"Building...",@"Build",@"");
 				
 				_progressIndicator.minValue=0.0;
 				_progressIndicator.maxValue=4.0;
@@ -129,7 +129,7 @@
 				
 			case PKGBuildStepPackage:
 				
-				_statusLabel.stringValue=NSLocalizedStringFromTable(@"Building package...",@"BuildNotification",@"");
+				_statusLabel.stringValue=NSLocalizedStringFromTable(@"Building package...",@"Build",@"");
 				
 				break;
 				
@@ -142,9 +142,9 @@
 					_indexOfPackagesBeingBuilt++;
 					
 					if (_numberOfPackagesToBuild==1)
-						_statusLabel.stringValue=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Building %lu of 1 package...",@"BuildNotification",@""),(unsigned long)_indexOfPackagesBeingBuilt];
+						_statusLabel.stringValue=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Building %lu of 1 package...",@"Build",@""),(unsigned long)_indexOfPackagesBeingBuilt];
 					else
-						_statusLabel.stringValue=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Building %lu of %lu packages...",@"BuildNotification",@""),(unsigned long)_indexOfPackagesBeingBuilt,(unsigned long)_numberOfPackagesToBuild];
+						_statusLabel.stringValue=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Building %lu of %lu packages...",@"Build",@""),(unsigned long)_indexOfPackagesBeingBuilt,(unsigned long)_numberOfPackagesToBuild];
 				}
 				
 				break;
@@ -158,7 +158,7 @@
 	
 	if (tState==PKGBuildStepStateFailure)
 	{
-		_statusLabel.stringValue=NSLocalizedStringFromTable(@"Build failed",@"BuildNotification",@"");
+		_statusLabel.stringValue=NSLocalizedStringFromTable(@"Build failed",@"Build",@"");
 		
 		_progressIndicator.hidden=YES;
 		
@@ -202,7 +202,7 @@
 		{
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
 			
-			_statusLabel.stringValue=NSLocalizedStringFromTable(@"Build succeeded",@"BuildNotification",@"");
+			_statusLabel.stringValue=NSLocalizedStringFromTable(@"Build succeeded",@"Build",@"");
 			
 			_progressIndicator.hidden=YES;
 		}

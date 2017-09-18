@@ -39,7 +39,7 @@
 		
 		PKGPresentationInspectorItem * tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"Title",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"Title",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemTitle;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionIntroductionViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationTitleInspectorViewController");
@@ -50,7 +50,7 @@
 		
 		tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"Background",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"Background",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemBackground;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionIntroductionViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationBackgroundInspectorViewController");
@@ -61,7 +61,7 @@
 		
 		tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"Introduction",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"Introduction",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemIntroduction;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionIntroductionViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationIntroductionInspectorViewController");
@@ -72,7 +72,7 @@
 		
 		tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"Read Me",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"Read Me",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemReadMe;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionReadMeViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationReadMeInspectorViewController");
@@ -83,7 +83,7 @@
 		
 		tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"License",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"License",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemLicense;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionLicenseViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationLicenseInspectorViewController");
@@ -94,7 +94,7 @@
 		
 		tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"Installation Type",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"Installation Type",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemInstallationType;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionInstallationTypeViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationInstallationTypeInspectorViewController");
@@ -105,7 +105,7 @@
 		
 		tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"Summary",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"Summary",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemSummary;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionSummaryViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationSummaryInspectorViewController");
@@ -115,7 +115,7 @@
 		
 		tInspectorItem=[PKGPresentationInspectorItem new];
 		
-		tInspectorItem.localizedTitle=NSLocalizedString(@"Installer Plugin",@"");
+		tInspectorItem.localizedTitle=NSLocalizedStringFromTable(@"Installer Plugin",@"Presentation",@"");
 		tInspectorItem.tag=PKGPresentationInspectorItemPlugIn;
 		tInspectorItem.viewControllerClass=NSClassFromString(@"PKGPresentationSectionInstallerPluginViewController");
 		tInspectorItem.inspectorViewControllerClass=NSClassFromString(@"PKGPresentationInstallerPluginInspectorViewController");

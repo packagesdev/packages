@@ -86,12 +86,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)drawRect:(NSRect)rect
 {
-    NSRect tBounds=[self bounds];
+    NSRect tBounds=self.bounds;
     CGFloat tHalfHeight=NSHeight(tBounds)*0.5;
         
     if (_pushed==NO && _hovered==NO)
 	{
-		[self.title drawAtPoint:NSMakePoint(tHalfHeight*0.75,2.0) 
+		[self.title drawAtPoint:NSMakePoint(round(tHalfHeight*0.75),2.0)
 				 withAttributes:@{NSForegroundColorAttributeName:[NSColor blackColor],
 			NSFontAttributeName:[self font]}];
 		
@@ -100,18 +100,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 	NSBezierPath * tPath=[NSBezierPath bezierPath];
         
-	[tPath moveToPoint:NSMakePoint(tHalfHeight*0.6875,tHalfHeight*0.125)];
-	[tPath lineToPoint:NSMakePoint(NSMaxX(tBounds),tHalfHeight*0.125)];
-	[tPath lineToPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(tBounds)-tHalfHeight*0.5)];
-	[tPath lineToPoint:NSMakePoint(tHalfHeight*0.6875,NSMaxY(tBounds)-tHalfHeight*0.5)];
+	[tPath moveToPoint:NSMakePoint(round(tHalfHeight*0.6875),round(tHalfHeight*0.125))];
+	[tPath lineToPoint:NSMakePoint(NSMaxX(tBounds),round(tHalfHeight*0.125))];
+	[tPath lineToPoint:NSMakePoint(NSMaxX(tBounds),round(NSMaxY(tBounds)-tHalfHeight*0.5))];
+	[tPath lineToPoint:NSMakePoint(round(tHalfHeight*0.6875),round(NSMaxY(tBounds)-tHalfHeight*0.5))];
 	
-	[tPath appendBezierPathWithArcWithCenter:NSMakePoint(tHalfHeight*0.6875,tHalfHeight*0.6875+tHalfHeight*0.125) radius:tHalfHeight*0.6875 startAngle:90.0 endAngle:270.0];
+	[tPath appendBezierPathWithArcWithCenter:NSMakePoint(round(tHalfHeight*0.6875),round(tHalfHeight*0.6875+tHalfHeight*0.125)) radius:round(tHalfHeight*0.6875) startAngle:90.0 endAngle:270.0];
     
     NSColor * tFillColor=[NSColor colorWithDeviceWhite:(_pushed==YES) ? 0.5 : 0.6941 alpha:1.0];
 	[tFillColor setFill];
 	[tPath fill];
         
-	[self.title drawAtPoint:NSMakePoint(tHalfHeight*0.75,2.0) 
+	[self.title drawAtPoint:NSMakePoint(round(tHalfHeight*0.75),2.0)
 			 withAttributes:@{NSForegroundColorAttributeName:[NSColor whiteColor],
 							  NSFontAttributeName:[self font]}];
 }
