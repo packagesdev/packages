@@ -28,7 +28,7 @@
 	
 	if (self!=nil)
 	{
-		_drawCell=[[NSTableHeaderCell alloc] initImageCell:nil];
+		_drawCell=[[NSTableHeaderCell alloc] initTextCell:@""];
 	}
 	
 	return self;

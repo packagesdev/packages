@@ -445,7 +445,7 @@
 		
 		[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
 		
-		if ([[NSApp delegate] launchedNormally]==NO)
+		if (((PKGApplicationController *)[NSApp delegate]).launchedNormally==NO)
 		{
 			if ([[NSDocumentController sharedDocumentController] documents].count==1)
 			{
@@ -477,7 +477,7 @@
 			
 			[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
 			
-			if ([[NSApp delegate] launchedNormally]==NO)
+			if (((PKGApplicationController *)[NSApp delegate]).launchedNormally==NO)
 			{
 				if ([[NSDocumentController sharedDocumentController] documents].count==1)
 				{
