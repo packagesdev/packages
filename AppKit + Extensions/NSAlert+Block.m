@@ -1,5 +1,5 @@
 
-#import "NSAlert+block.h"
+#import "NSAlert+Block.h"
 
 @implementation NSAlert (Block_WB)
 
