@@ -75,7 +75,7 @@
                         <menu key="menu" title="OtherViews" id="1B6-lX-RMO">
                             <items>
                                 <menuItem title="Always Enabled" state="on" id="d16-za-rDo"/>
-                                <menuItem title="Never Enabled" tag="1" id="krz-ye-oeq"/>
+                                <menuItem title="Always Disabled" tag="1" id="krz-ye-oeq"/>
                                 <menuItem title="Enabled When" tag="2" id="pGj-E0-Cbc"/>
                             </items>
                         </menu>

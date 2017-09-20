@@ -197,7 +197,7 @@
 								<int key="NSButtonFlags2">1</int>
 								<reference key="NSAlternateImage" ref="813182176"/>
 								<string key="NSAlternateContents"/>
-								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
+								<string key="NSKeyEquivalent"/>
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
