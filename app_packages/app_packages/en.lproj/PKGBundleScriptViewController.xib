@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button hidden="YES" verticalHuggingPriority="750" id="xR8-Uo-tLF">
-                    <rect key="frame" x="167" y="-1" width="65" height="20"/>
+                    <rect key="frame" x="185" y="-1" width="70" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="smallSquare" title="Remove…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="Fhf-Yh-Ytp">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -60,9 +60,9 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="hyY-4Y-QYZ">
-                    <rect key="frame" x="122" y="-1" width="46" height="20"/>
+                    <rect key="frame" x="122" y="-1" width="64" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="smallSquare" title="Set…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="U13-nR-J3k">
+                    <buttonCell key="cell" type="smallSquare" title="Choose…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="U13-nR-J3k">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>

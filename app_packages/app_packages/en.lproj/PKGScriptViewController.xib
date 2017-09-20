@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button hidden="YES" verticalHuggingPriority="750" id="xR8-Uo-tLF">
-                    <rect key="frame" x="179" y="22" width="65" height="20"/>
+                    <rect key="frame" x="198" y="22" width="70" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="smallSquare" title="Remove…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="Fhf-Yh-Ytp">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -69,9 +69,9 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="hyY-4Y-QYZ">
-                    <rect key="frame" x="134" y="22" width="46" height="20"/>
+                    <rect key="frame" x="134" y="22" width="65" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="smallSquare" title="Set…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="U13-nR-J3k">
+                    <buttonCell key="cell" type="smallSquare" title="Choose…" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="U13-nR-J3k">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>

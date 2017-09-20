@@ -272,7 +272,7 @@
 	
 	tOpenPanel.delegate=_openPanelDelegate;
 	
-	tOpenPanel.prompt=NSLocalizedString(@"Set",@"No comment");
+	tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
