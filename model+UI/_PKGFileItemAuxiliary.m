@@ -173,6 +173,21 @@
 	return tIcon;
 }
 
++ (_PKGFileItemAuxiliary *)itemMissingAuxiliary;
+{
+	_PKGFileItemAuxiliary * nFileItemAuxiliary=[_PKGFileItemAuxiliary new];
+	
+	nFileItemAuxiliary.refreshTimeMark=[NSDate timeIntervalSinceReferenceDate];
+	
+	nFileItemAuxiliary.fileType='f';
+	nFileItemAuxiliary.symbolicLink=NO;
+	nFileItemAuxiliary.referencedItemMissing=YES;
+	nFileItemAuxiliary.excluded=NO;
+	nFileItemAuxiliary.icon=[_PKGFileItemAuxiliary cachedUnknownFSObjectIcon];
+	
+	return nFileItemAuxiliary;
+}
+
 #pragma mark -
 
 - (id)copyWithZone:(NSZone *)inZone

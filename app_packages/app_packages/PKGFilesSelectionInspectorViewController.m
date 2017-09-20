@@ -277,14 +277,14 @@
 
 - (void)_refreshSelectionForFileSystemTreeNode:(PKGPayloadTreeNode *)inTreeNode atPath:(NSString *)inPath
 {
-	if (inTreeNode==nil || inPath==nil)
+	if (inTreeNode==nil)
 		return;
 	
 	PKGFileItem * tFileItem=[inTreeNode representedObject];
 	
 	NSError * tError=nil;
 	
-	NSDictionary * tAttributesDictionary=[[NSFileManager defaultManager] attributesOfItemAtPath:inPath error:&tError];
+	NSDictionary * tAttributesDictionary=(inPath!=nil) ? [[NSFileManager defaultManager] attributesOfItemAtPath:inPath error:&tError] : @{};
 	
 	if (tAttributesDictionary==nil)
 	{
@@ -300,7 +300,18 @@
 	
 	// Icon
 	
-	_iconView.image=[PKGFilesSelectionInspectorViewController iconForItemAtPath:inPath type:PKGFileItemTypeFileSystemItem];
+	// Icon
+	
+	static NSImage * sSelectionUnknownFSObjectIcon=nil;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		
+		sSelectionUnknownFSObjectIcon=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kUnknownFSObjectIcon)];
+		
+	});
+	
+	_iconView.image=(inPath!=nil) ? [PKGFilesSelectionInspectorViewController iconForItemAtPath:inPath type:PKGFileItemTypeFileSystemItem] : sSelectionUnknownFSObjectIcon;
 	
 	// Big Name
 	

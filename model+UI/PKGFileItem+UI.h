@@ -39,6 +39,8 @@
 
 + (NSString *)representationOfPOSIXPermissions:(mode_t)inPermissions mixedPermissions:(mode_t)inMixedPermissions fileType:(unsigned char)inFileType;
 
+- (void)refreshAuxiliaryAsMissingFileItem;
+
 - (void)refreshAuxiliaryWithAbsolutePath:(NSString *)inAbsolutePath fileFilters:(NSArray *)inFileFilters;
 
 - (void)createTemporaryAuxiliaryIfNeededWithAbsolutePath:(NSString *)inAbsolutePath;

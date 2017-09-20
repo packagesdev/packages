@@ -228,6 +228,14 @@
 
 #pragma mark -
 
+- (void)refreshAuxiliaryAsMissingFileItem
+{
+	if (_fileItemAuxiliary!=nil && self.type<PKGFileItemTypeNewFolder)
+		return;
+	
+	_fileItemAuxiliary=[_PKGFileItemAuxiliary itemMissingAuxiliary];
+}
+
 - (void)refreshAuxiliaryWithAbsolutePath:(NSString *)inAbsolutePath fileFilters:(NSArray *)inFileFilters
 {
 	if (_fileItemAuxiliary!=nil && self.type<PKGFileItemTypeNewFolder)
