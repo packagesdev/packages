@@ -4,6 +4,7 @@
 [submodule "goldin"]
 	path = goldin
 	url = https://github.com/packagesdev/goldin
+        branch = apfs
 [submodule "ohshit"]
 	path = ohshit
 	url = https://github.com/packagesdev/ohshit.git
