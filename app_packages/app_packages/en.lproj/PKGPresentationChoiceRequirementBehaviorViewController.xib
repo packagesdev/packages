@@ -172,7 +172,7 @@
                 <button id="mMS-tp-LdW">
                     <rect key="frame" x="30" y="183" width="152" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Remove this choice" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="xXi-6F-hO0">
+                    <buttonCell key="cell" type="radio" title="Hide this choice" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="xXi-6F-hO0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
