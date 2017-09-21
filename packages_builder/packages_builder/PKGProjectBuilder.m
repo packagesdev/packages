@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2016, Stephane Sudre
+Copyright (c) 2008-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -113,7 +113,7 @@ NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
 NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2";
 
-NSString * const PKGProjectBuilderAuthoringToolBuildNumber=@"2B120";
+//NSString * const PKGProjectBuilderAuthoringToolBuildNumber=@"2B120";
 
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
@@ -1183,7 +1183,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 	// authoringToolBuild
 		
-	tAttribute=[NSXMLNode attributeWithName:@"authoringToolBuild" stringValue:PKGProjectBuilderAuthoringToolBuildNumber];
+	tAttribute=[NSXMLNode attributeWithName:@"authoringToolBuild" stringValue:@TOOL_BUILD_NUMBER];
 	[_installerScriptElement addAttribute:tAttribute];
 	
 	// Options

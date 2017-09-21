@@ -851,11 +851,13 @@
 		1DEB927508733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 191;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TOOL_BUILD_NUMBER=\"\\\"$CURRENT_PROJECT_VERSION\\\"\"";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -872,15 +874,18 @@
 				OTHER_LDFLAGS = "-Wl,-search_paths_first,-all_load";
 				PRODUCT_NAME = packages_builder;
 				STRIP_STYLE = "non-global";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		1DEB927608733DD40010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 191;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TOOL_BUILD_NUMBER=\"\\\"$CURRENT_PROJECT_VERSION\\\"\"";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -891,6 +896,7 @@
 				OTHER_LDFLAGS = "-Wl,-search_paths_first,-all_load";
 				PRODUCT_NAME = packages_builder;
 				STRIP_STYLE = "non-global";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
