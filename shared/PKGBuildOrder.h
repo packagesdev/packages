@@ -22,6 +22,10 @@ typedef NS_ENUM(NSUInteger, PKGBuildOptions)
 extern NSString * const PKGBuildOrderExternalSettingsReferenceProjectFolderKey;
 extern NSString * const PKGBuildOrderExternalSettingsReferenceFolderKey;
 extern NSString * const PKGBuildOrderExternalSettingsScratchFolderKey;
+extern NSString * const PKGBuildOrderExternalSettingsBuildFolderKey;
+extern NSString * const PKGBuildOrderExternalSettingsSigningIdentityKey;
+extern NSString * const PKGBuildOrderExternalSettingsKeychainKey;
+extern NSString * const PKGBuildOrderExternalSettingsPackageVersionKey;
 extern NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey;
 
 @interface PKGBuildOrder : NSObject
