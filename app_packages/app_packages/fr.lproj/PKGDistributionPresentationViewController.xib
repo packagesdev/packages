@@ -41,7 +41,7 @@
                             <rect key="frame" x="128" y="15" width="332" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </customView>
-                        <box title="Preview in" id="93a-6P-7jl" customClass="PKGPresentationBox">
+                        <box title="Aperçu en" id="93a-6P-7jl" customClass="PKGPresentationBox">
                             <rect key="frame" x="467" y="16" width="169" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <view key="contentView">
@@ -70,7 +70,7 @@
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <font key="titleFont" metaFont="systemBold" size="12"/>
                         </box>
-                        <box title="Plugins" id="XID-uv-CCZ" customClass="PKGPresentationBox">
+                        <box title="Modules" id="XID-uv-CCZ" customClass="PKGPresentationBox">
                             <rect key="frame" x="30" y="16" width="92" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <view key="contentView">
@@ -189,36 +189,36 @@
                         <popUpButton verticalHuggingPriority="750" id="JtG-ef-AvS">
                             <rect key="frame" x="79" y="524" width="205" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="push" title="Title" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="rii-xD-hne" id="HmX-OJ-DcB">
+                            <popUpButtonCell key="cell" type="push" title="Titre" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="rii-xD-hne" id="HmX-OJ-DcB">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="smallSystem"/>
                                 <menu key="menu" title="OtherViews" id="fDV-pc-UMZ">
                                     <items>
-                                        <menuItem title="Title" state="on" keyEquivalent="0" id="rii-xD-hne">
+                                        <menuItem title="Titre" state="on" keyEquivalent="0" id="rii-xD-hne">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
-                                        <menuItem title="Background" tag="1" keyEquivalent="1" id="vnX-kz-fk5">
+                                        <menuItem title="Image de fond" tag="1" keyEquivalent="1" id="vnX-kz-fk5">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
                                         <menuItem title="Introduction" tag="2" keyEquivalent="2" id="Ya8-Jg-uoN">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
-                                        <menuItem title="Read Me" tag="3" keyEquivalent="3" id="XIn-YI-NVt">
+                                        <menuItem title="Lisez-moi" tag="3" keyEquivalent="3" id="XIn-YI-NVt">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
-                                        <menuItem title="License" tag="4" keyEquivalent="4" id="bsv-2L-uMy">
+                                        <menuItem title="Licence" tag="4" keyEquivalent="4" id="bsv-2L-uMy">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
-                                        <menuItem title="Installation Type" tag="5" keyEquivalent="5" id="B8k-6Q-uWx">
+                                        <menuItem title="Type d'installation" tag="5" keyEquivalent="5" id="B8k-6Q-uWx">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
-                                        <menuItem title="Summary" tag="6" keyEquivalent="6" id="63K-FH-E0y">
+                                        <menuItem title="Résumé" tag="6" keyEquivalent="6" id="63K-FH-E0y">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" title=" " tag="-555" id="BvZ-QB-c3s">
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
-                                        <menuItem title="Installer Plugin" tag="7" id="lwa-2B-2KC">
+                                        <menuItem title="Module Installer" tag="7" id="lwa-2B-2KC">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>
@@ -235,13 +235,13 @@
         </customView>
         <menu id="kly-rb-DGG">
             <items>
-                <menuItem title="Mountain Lion and earlier" id="K5d-K6-Meh">
+                <menuItem title="Mountain Lion et antérieur" id="K5d-K6-Meh">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="switchPresentationTheme:" target="-2" id="UXY-jp-qBb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Yosemite or later " tag="1" id="cRT-wB-4k9">
+                <menuItem title="Yosemite ou ultérieur " tag="1" id="cRT-wB-4k9">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="switchPresentationTheme:" target="-2" id="CsS-2g-CP6"/>

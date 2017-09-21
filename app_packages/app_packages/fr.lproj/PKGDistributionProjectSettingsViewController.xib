@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionProjectSettingsViewController">
+            <connections>
+                <outlet property="_advancedOptionsPlaceHolderView" destination="cnz-Ug-cbX" id="2Ii-bY-22d"/>
+                <outlet property="_buildFormatPopUpButton" destination="5o8-m3-i0j" id="fUg-co-dyp"/>
+                <outlet property="_buildFormatWarningLabel" destination="02T-uU-Q9R" id="q5a-uI-VSN"/>
+                <outlet property="_buildNameTextField" destination="fgf-hS-Uuh" id="CYQ-ln-9Ql"/>
+                <outlet property="_buildReferenceFolderPopUpButton" destination="jRX-Xb-nf0" id="pCP-es-B8G"/>
+                <outlet property="_buildSectionView" destination="fHE-6F-YFz" id="sa7-Vq-COL"/>
+                <outlet property="_exclusionsPlaceHolderView" destination="3Dl-eo-gNr" id="M2j-BC-Qv1"/>
+                <outlet property="_filterPayloadOnlyCheckbox" destination="TQe-N8-gAe" id="8Jc-Wq-Ozb"/>
+                <outlet property="buildPathTextField" destination="tjm-KB-8re" id="9mT-dM-AcD"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY" customClass="PKGControlledView">
+            <rect key="frame" x="0.0" y="5" width="692" height="581"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="fHE-6F-YFz">
+                    <rect key="frame" x="0.0" y="172" width="692" height="409"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <textField verticalHuggingPriority="750" id="aDm-Fz-eeY">
+                            <rect key="frame" x="125" y="334" width="45" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Nom :" id="Q1j-08-0fj">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="lwa-oE-8Qz">
+                            <rect key="frame" x="99" y="302" width="71" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Chemin :" id="jwK-Af-Nnh">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" id="GWt-Wv-i7U">
+                            <rect key="frame" x="635" y="299" width="37" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="smallSquare" title=" " bezelStyle="smallSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="X9L-Oa-Wtx" id="8Yn-k9-bgD">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" title="OtherViews" id="Rjb-96-eKV">
+                                    <items>
+                                        <menuItem title=" " image="NSActionTemplate" hidden="YES" id="X9L-Oa-Wtx"/>
+                                        <menuItem title="Choisir…" id="uQZ-FE-YNS">
+                                            <connections>
+                                                <action selector="selectBuildPath:" target="-2" id="E0M-M2-Re6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="nrC-vy-mU7"/>
+                                        <menuItem title="Afficher dans le Finder" id="mS0-GX-rwx">
+                                            <connections>
+                                                <action selector="showBuildPathInFinder:" target="-2" id="PZm-7E-aun"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                        </popUpButton>
+                        <textField verticalHuggingPriority="750" id="tjm-KB-8re" customClass="PKGFilePathTextField">
+                            <rect key="frame" x="175" y="300" width="452" height="22"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="MOi-kc-s0F" customClass="PKGFilePathTextFieldCell">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <connections>
+                                <action selector="setBuildPath:" target="-2" id="hGq-mc-AML"/>
+                            </connections>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="fgf-hS-Uuh">
+                            <rect key="frame" x="175" y="332" width="452" height="22"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="IZH-Us-Afo">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <connections>
+                                <action selector="setProjectName:" target="-2" id="uIj-Mj-yhG"/>
+                                <outlet property="delegate" destination="-2" id="P1P-KS-N23"/>
+                                <outlet property="formatter" destination="zKE-nv-S8P" id="ObN-dS-GtF"/>
+                                <outlet property="nextKeyView" destination="tjm-KB-8re" id="McJ-yW-CiT"/>
+                            </connections>
+                        </textField>
+                        <button id="TQe-N8-gAe">
+                            <rect key="frame" x="173" y="18" width="350" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="check" title="Exclure les éléments uniquement des chargements" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="EYI-Fy-WLi">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="setFilterPayloadOnly:" target="-2" id="dXC-yI-EUf"/>
+                            </connections>
+                        </button>
+                        <textField verticalHuggingPriority="750" id="Q4S-ZT-Slb">
+                            <rect key="frame" x="102" y="241" width="68" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Format :" id="9QR-b2-4yI">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="02T-uU-Q9R">
+                            <rect key="frame" x="272" y="241" width="442" height="14"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Les modules pour Installer ne sont supportés que par Mac OS X 10.6 et ultérieur." id="gKQ-Gv-F8J">
+                                <font key="font" metaFont="smallSystem"/>
+                                <color key="textColor" red="1" green="0.50196081000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" id="5o8-m3-i0j">
+                            <rect key="frame" x="173" y="235" width="89" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" title="Plat" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Ani-gD-Gl2" id="VaJ-DL-R1L">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" title="OtherViews" id="GXX-60-tym">
+                                    <items>
+                                        <menuItem title="Plat" state="on" id="Ani-gD-Gl2"/>
+                                        <menuItem title="Bundle" tag="1" id="NVi-ao-2bc"/>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <action selector="setBuildFormat:" target="-2" id="CAP-Yf-drY"/>
+                            </connections>
+                        </popUpButton>
+                        <customView id="3Dl-eo-gNr">
+                            <rect key="frame" x="0.0" y="48" width="692" height="174"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </customView>
+                        <textField verticalHuggingPriority="750" id="odm-mU-CdG">
+                            <rect key="frame" x="24" y="271" width="146" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dossier de référence :" id="Sgt-0D-VaR">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="7Tc-rX-KC6">
+                            <rect key="frame" x="18" y="371" width="104" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Construction" id="wIU-Er-BHZ">
+                                <font key="font" metaFont="systemBold" size="14"/>
+                                <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" id="jRX-Xb-nf0">
+                            <rect key="frame" x="173" y="265" width="270" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="w2G-Au-51E" id="Oqt-Ux-xOc" customClass="PKGReferenceFolderPopupButtonCell">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" title="OtherViews" id="dmI-5C-Q7C">
+                                    <items>
+                                        <menuItem title="-" state="on" id="w2G-Au-51E"/>
+                                        <menuItem isSeparatorItem="YES" id="v1c-PB-eus">
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Autre…" tag="-1" id="lex-gB-9FI">
+                                            <connections>
+                                                <action selector="setReferenceFolder:" target="-2" id="G9n-8m-s6Q"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                        </popUpButton>
+                    </subviews>
+                </customView>
+                <customView id="cnz-Ug-cbX" customClass="WBLightGrayView">
+                    <rect key="frame" x="0.0" y="0.0" width="694" height="173"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="511" y="186.5"/>
+        </customView>
+        <customFormatter id="zKE-nv-S8P" customClass="PKGProjectNameFormatter"/>
+    </objects>
+    <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
+    </resources>
+</document>

@@ -95,6 +95,13 @@
 {
 	_settings=[inSettings mutableCopy];
 	
+	_cachedFiles=[_settings[PKGRequirementFilesListKey] mutableCopy];
+	
+	if (_cachedFiles==nil)
+		_cachedFiles=[NSMutableArray array];
+	
+	_settings[PKGRequirementFilesListKey]=_cachedFiles;
+	
 	[self refreshUI];
 }
 
@@ -134,9 +141,7 @@
 	[_diskTypePopupButton selectItemWithTag:tTag];
 	
 	// Files
-	
-	_cachedFiles=[_settings[PKGRequirementFilesListKey] mutableCopy];
-	
+		
 	[_cachedFiles sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	
 	_addButton.enabled=YES;
@@ -418,7 +423,7 @@
 {
 	NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
 
-	NSString * tLabel=NSLocalizedStringFromTableInBundle(@"Add",@"Localizable",[NSBundle bundleForClass:[self class]],@"No comment");
+	NSString * tLabel=NSLocalizedString(@"Add",@"No comment");
 	
 	tOpenPanel.canChooseDirectories=YES;
 	tOpenPanel.showsHiddenFiles=YES;
@@ -449,9 +454,9 @@
 	NSAlert * tAlert=[NSAlert new];
 	
 	if ([_tableView numberOfSelectedRows]==1)
-		tAlert.messageText=NSLocalizedStringFromTableInBundle(@"Do you really want to remove this item?",@"Localizable",[NSBundle bundleForClass:[self class]],@"No comment");
+		tAlert.messageText=NSLocalizedString(@"Do you really want to remove this item?",@"No comment");
 	else
-		tAlert.messageText=NSLocalizedStringFromTableInBundle(@"Do you really want to remove these items?",@"Localizable",[NSBundle bundleForClass:[self class]],@"No comment");
+		tAlert.messageText=NSLocalizedString(@"Do you really want to remove these items?",@"No comment");
 	
 	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"No comment");
 	

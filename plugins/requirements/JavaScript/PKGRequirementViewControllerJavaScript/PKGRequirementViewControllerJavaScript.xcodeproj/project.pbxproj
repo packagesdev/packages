@@ -24,6 +24,7 @@
 		F4451B611C7BBD3D00516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F46DCE971E5CF9CC00794DF9 /* PKGTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableView.h; path = ../../../../shared/PKGTableView.h; sourceTree = "<group>"; };
 		F46DCE9C1E5D132B00794DF9 /* ICSourceTextTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextTopView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h; sourceTree = "<group>"; };
+		F47599F81F18298B00607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerJavaScript/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F48DDE3B1CE3DD30004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4CA27001E5A48CC00E196EB /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F4F30DF11C879DA700C8DB5B /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerJavaScript/Icon_32.png; sourceTree = "<group>"; };
@@ -205,7 +206,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
-				English,
+				fr,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerJavaScript */;
 			projectDirPath = "";
@@ -247,6 +248,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F4F5D0A21CC977900075C2EF /* en */,
+				F47599F81F18298B00607CC9 /* fr */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";

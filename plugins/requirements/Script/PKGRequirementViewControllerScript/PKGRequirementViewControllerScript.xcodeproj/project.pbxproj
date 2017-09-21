@@ -13,6 +13,7 @@
 		F43479B31C8A557D0091B2D7 /* PKGIntegerFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F43479B21C8A557D0091B2D7 /* PKGIntegerFormatter.m */; };
 		F43479B61C8A55840091B2D7 /* PKGRequirementViewControllerScript.m in Sources */ = {isa = PBXBuildFile; fileRef = F43479B51C8A55840091B2D7 /* PKGRequirementViewControllerScript.m */; };
 		F44314E01CCABFB1009C6E82 /* PKGRequirement_Script+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F44314DF1CCABFB1009C6E82 /* PKGRequirement_Script+Constants.m */; };
+		F486D5D11F58B61700495D33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F486D5CF1F58B61700495D33 /* InfoPlist.strings */; };
 		F4BCF2451CE2A223005C3501 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E017E1C7BC66D002E3641 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,9 @@
 		F44E017C1C7BC668002E3641 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F44E017E1C7BC66D002E3641 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F44E01801C7BC673002E3641 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F486D5D01F58B61700495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerScript/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F486D5D21F58B6B400495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerScript/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F486D5D31F58B6CA00495D33 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerScript/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F4970BDE1CD01B2B007CF76F /* PKGFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGFilePath.h; path = ../../../../model/PKGFilePath.h; sourceTree = "<group>"; };
 		F4BCF2441CE2A0EA005C3501 /* PKGObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGObjectProtocol.h; path = ../../../../model/PKGObjectProtocol.h; sourceTree = "<group>"; };
 		F4C829D61CCECD7A008FB226 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
@@ -88,6 +92,7 @@
 				F43479AE1C8A55760091B2D7 /* Icon_32@2x.png */,
 				F40932881CE29BD8002DBDF8 /* MainView.xib */,
 				F43479AC1C8A556E0091B2D7 /* Info.plist */,
+				F486D5CF1F58B61700495D33 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -198,8 +203,8 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
 				en,
+				fr,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerScript */;
 			projectDirPath = "";
@@ -216,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F409328A1CE29BD8002DBDF8 /* MainView.xib in Resources */,
+				F486D5D11F58B61700495D33 /* InfoPlist.strings in Resources */,
 				F43479B01C8A55760091B2D7 /* Icon_32@2x.png in Resources */,
 				F43479AF1C8A55760091B2D7 /* Icon_32.png in Resources */,
 			);
@@ -241,8 +247,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				F40932891CE29BD8002DBDF8 /* en */,
+				F486D5D31F58B6CA00495D33 /* fr */,
 			);
 			name = MainView.xib;
+			sourceTree = "<group>";
+		};
+		F486D5CF1F58B61700495D33 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F486D5D01F58B61700495D33 /* en */,
+				F486D5D21F58B6B400495D33 /* fr */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

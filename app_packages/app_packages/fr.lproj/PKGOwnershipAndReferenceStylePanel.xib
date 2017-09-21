@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGOwnershipAndReferenceStyleWindowController">
+            <connections>
+                <outlet property="_defaultButton" destination="Zte-AX-unw" id="Pg2-dN-uz4"/>
+                <outlet property="_placeHolderView" destination="uSN-Dr-0cj" id="Iee-5S-rRc"/>
+                <outlet property="window" destination="yUg-Mn-Sa7" id="i5f-3X-cKP"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="yUg-Mn-Sa7" customClass="PKGOwnershipAndReferenceStylePanel">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="272" y="172" width="558" height="279"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <view key="contentView" id="0He-yh-5R9">
+                <rect key="frame" x="0.0" y="0.0" width="558" height="279"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" id="O1i-Tb-Hxk">
+                        <rect key="frame" x="12" y="13" width="87" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Annuler" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Oqf-Hk-rRp">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="endDialog:" target="-2" id="600-n2-iAF"/>
+                        </connections>
+                    </button>
+                    <customView id="2tk-Vx-2af" customClass="WBWhiteFramedView">
+                        <rect key="frame" x="20" y="61" width="518" height="173"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView id="uSN-Dr-0cj">
+                                <rect key="frame" x="51" y="0.0" width="416" height="173"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                            </customView>
+                        </subviews>
+                    </customView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="g2c-fb-sPV">
+                        <rect key="frame" x="18" y="242" width="324" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choisissez les options pour l'ajout de ces fichiers :" id="MEq-Ns-HCd">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" tag="1" id="Zte-AX-unw">
+                        <rect key="frame" x="451" y="13" width="93" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Terminer" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Mh-nj-BKJ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="endDialog:" target="-2" id="rtR-xd-IJT"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="266" y="345.5"/>
+        </window>
+    </objects>
+</document>

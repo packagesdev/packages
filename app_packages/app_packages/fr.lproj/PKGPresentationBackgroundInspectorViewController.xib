@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -17,22 +17,22 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="5" userLabel="Background View">
+        <customView id="5" userLabel="Background View" customClass="PKGControlledView">
             <rect key="frame" x="0.0" y="0.0" width="283" height="262"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <popUpButton verticalHuggingPriority="750" id="162">
-                    <rect key="frame" x="82" y="221" width="184" height="22"/>
+                    <rect key="frame" x="90" y="221" width="176" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="191">
+                    <popUpButtonCell key="cell" type="push" title="Fond par défaut" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="166" id="191">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="163">
                             <items>
-                                <menuItem title="Default Background" id="166">
+                                <menuItem title="Fond par défaut" state="on" id="166">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Custom Background" tag="1" id="167">
+                                <menuItem title="Fond personnalisé" tag="1" id="167">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
@@ -43,16 +43,16 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="65">
-                    <rect key="frame" x="28" y="226" width="52" height="14"/>
+                    <rect key="frame" x="31" y="226" width="57" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Show:" id="190">
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Afficher :" id="190">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="187">
-                    <rect key="frame" x="86" y="174" width="188" height="11"/>
+                    <rect key="frame" x="94" y="174" width="180" height="11"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT CHANGE &gt;&gt;" id="196">
                         <font key="font" metaFont="miniSystem"/>
@@ -61,7 +61,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="150" customClass="PKGReferencedPopUpButton">
-                    <rect key="frame" x="82" y="187" width="184" height="22"/>
+                    <rect key="frame" x="90" y="187" width="176" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="152" id="195" customClass="PKGReferencedPopUpButtonCell">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -74,7 +74,7 @@
                                 <menuItem isSeparatorItem="YES" id="154">
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </menuItem>
-                                <menuItem title="Choose…" id="153">
+                                <menuItem title="Choisir…" id="153">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <connections>
                                         <action selector="chooseCustomBackground:" target="-2" id="noC-cD-swN"/>
@@ -85,25 +85,25 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="149">
-                    <rect key="frame" x="33" y="192" width="47" height="14"/>
+                    <rect key="frame" x="41" y="192" width="47" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Image:" id="194">
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Image :" id="194">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="101">
-                    <rect key="frame" x="17" y="149" width="63" height="14"/>
+                    <rect key="frame" x="12" y="149" width="76" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Alignment:" id="193">
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Alignement :" id="193">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="87">
-                    <rect key="frame" x="85" y="83" width="82" height="82"/>
+                    <rect key="frame" x="93" y="83" width="82" height="82"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     <size key="cellSize" width="28" height="28"/>
@@ -170,29 +170,29 @@
                     </connections>
                 </matrix>
                 <textField verticalHuggingPriority="750" id="86">
-                    <rect key="frame" x="23" y="51" width="57" height="14"/>
+                    <rect key="frame" x="31" y="51" width="57" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Scaling:" id="192">
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Échelle :" id="192">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="syQ-NY-Sqp">
-                    <rect key="frame" x="82" y="46" width="184" height="22"/>
+                    <rect key="frame" x="90" y="46" width="176" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Proportionally" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="xlW-hE-nMX" id="Vds-pk-oke">
+                    <popUpButtonCell key="cell" type="push" title="Proportionnelle" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="xlW-hE-nMX" id="Vds-pk-oke">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="PkL-pq-TM6">
                             <items>
-                                <menuItem title="Proportionally" state="on" id="xlW-hE-nMX">
+                                <menuItem title="Proportionnelle" state="on" id="xlW-hE-nMX">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="To Fit" tag="1" id="bt4-14-ic1">
+                                <menuItem title="Remplir" tag="1" id="bt4-14-ic1">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="None" tag="2" id="as3-Bf-tZq">
+                                <menuItem title="Aucune" tag="2" id="as3-Bf-tZq">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F4451B3D1C7BBC0100516075 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B3C1C7BBC0100516075 /* AppKit.framework */; };
 		F4451B3F1C7BBC0800516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B3E1C7BBC0800516075 /* Foundation.framework */; };
+		F486D5C11F58B4EF00495D33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F486D5BF1F58B4EF00495D33 /* InfoPlist.strings */; };
 		F4B1AAD01C8A504B006EE235 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACE1C8A504B006EE235 /* Icon_32.png */; };
 		F4B1AAD11C8A504B006EE235 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */; };
 		F4B1AAD41C8A5054006EE235 /* PKGRequirementViewControllerOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */; };
@@ -21,6 +22,9 @@
 		F4451B3C1C7BBC0100516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B3E1C7BBC0800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4451B401C7BBC1300516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F47599F71F18294500607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerOS/fr.lproj/MainView.xib; sourceTree = "<group>"; };
+		F486D5C01F58B4EF00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerOS/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F486D5C21F58B4F300495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerOS/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F48DDE2B1CE3D9FB004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4B1AACD1C8A5044006EE235 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerOS/Info.plist; sourceTree = "<group>"; };
 		F4B1AACE1C8A504B006EE235 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerOS/Icon_32.png; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 				F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */,
 				F4F5D0B41CC97D470075C2EF /* MainView.xib */,
 				F4B1AACD1C8A5044006EE235 /* Info.plist */,
+				F486D5BF1F58B4EF00495D33 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -180,7 +185,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
-				English,
+				fr,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerOS */;
 			projectDirPath = "";
@@ -197,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4F5D0B61CC97D470075C2EF /* MainView.xib in Resources */,
+				F486D5C11F58B4EF00495D33 /* InfoPlist.strings in Resources */,
 				F4B1AAD11C8A504B006EE235 /* Icon_32@2x.png in Resources */,
 				F4B1AAD01C8A504B006EE235 /* Icon_32.png in Resources */,
 			);
@@ -217,10 +223,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		F486D5BF1F58B4EF00495D33 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F486D5C01F58B4EF00495D33 /* en */,
+				F486D5C21F58B4F300495D33 /* fr */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		F4F5D0B41CC97D470075C2EF /* MainView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F4F5D0B51CC97D470075C2EF /* en */,
+				F47599F71F18294500607CC9 /* fr */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";

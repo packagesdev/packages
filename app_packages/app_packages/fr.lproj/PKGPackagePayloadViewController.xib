@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGPackagePayloadViewController">
+            <connections>
+                <outlet property="_defaultDestinationLabel" destination="s7D-3l-TUe" id="Uiy-5s-ZYa"/>
+                <outlet property="_defaultDestinationSetButton" destination="LMp-WX-7rj" id="3sM-sE-QoO"/>
+                <outlet property="_hierarchyPlaceHolderView" destination="32l-Ti-730" id="wyF-dL-dYd"/>
+                <outlet property="_inspectorPlaceHolderView" destination="ook-iR-vWX" id="aip-NK-oVe"/>
+                <outlet property="_payloadTypePopUpButton" destination="aqx-gA-pUY" id="Iyi-KH-3Kf"/>
+                <outlet property="_splitForksCheckbox" destination="DoL-Mn-EmK" id="TrI-Vz-eoN"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY" customClass="PKGControlledView">
+            <rect key="frame" x="0.0" y="0.0" width="1026" height="557"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="tg5-pB-XkD" customClass="WBWhiteView">
+                    <rect key="frame" x="0.0" y="436" width="663" height="121"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <button id="DoL-Mn-EmK">
+                            <rect key="frame" x="300" y="48" width="221" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="check" title="Séparer les forks si nécessaire" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="v66-oN-RtA">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="switchSplitForks:" target="-2" id="R6Z-59-Rfj"/>
+                            </connections>
+                        </button>
+                        <textField verticalHuggingPriority="750" id="78g-6y-2kq">
+                            <rect key="frame" x="135" y="49" width="50" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Type :" id="bVj-eF-62H">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" id="aqx-gA-pUY">
+                            <rect key="frame" x="187" y="43" width="110" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" title="Interne" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="OIS-Ut-hVE" id="Eyo-7a-5XN">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" title="OtherViews" id="1M0-Nl-bEX">
+                                    <items>
+                                        <menuItem title="Interne" state="on" id="OIS-Ut-hVE"/>
+                                        <menuItem title="Proxy" id="ca5-aw-874"/>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <action selector="switchPayloadType:" target="-2" id="t8a-Ni-3qW"/>
+                            </connections>
+                        </popUpButton>
+                        <button verticalHuggingPriority="750" id="LMp-WX-7rj">
+                            <rect key="frame" x="583" y="19" width="60" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="smallSquare" title="Choisir" bezelStyle="smallSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="L5N-BC-SAh">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="setDefaultDestination:" target="-2" id="tGX-Uc-ZmZ"/>
+                            </connections>
+                        </button>
+                        <textField verticalHuggingPriority="750" id="s7D-3l-TUe">
+                            <rect key="frame" x="187" y="22" width="390" height="17"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" id="ZKV-Jd-gwm">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="cEO-ca-Oh6">
+                            <rect key="frame" x="20" y="22" width="165" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Destination par défaut :" id="r1G-ZF-H3K">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="Sqs-Wy-nM8">
+                            <rect key="frame" x="20" y="83" width="96" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Paramètres" id="hnT-ZL-Ic5">
+                                <font key="font" metaFont="systemBold" size="14"/>
+                                <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                </customView>
+                <customView id="32l-Ti-730" customClass="WBLightGrayView">
+                    <rect key="frame" x="0.0" y="0.0" width="663" height="436"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </customView>
+                <customView id="ook-iR-vWX" customClass="PKGRightInspectorView">
+                    <rect key="frame" x="663" y="0.0" width="363" height="557"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="633" y="554.5"/>
+        </customView>
+    </objects>
+</document>

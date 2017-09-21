@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F4451B331C7BBAF300516075 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B321C7BBAF300516075 /* AppKit.framework */; };
 		F4451B351C7BBAF800516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B341C7BBAF800516075 /* Foundation.framework */; };
+		F486D5C91F58B59C00495D33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F486D5C71F58B59C00495D33 /* InfoPlist.strings */; };
 		F4ABD09D1CC8240100C69CA2 /* PKGRequirement_RAM+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4ABD09C1CC8240100C69CA2 /* PKGRequirement_RAM+Constants.m */; };
 		F4ABD0A21CC8251100C69CA2 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4ABD0A01CC8251100C69CA2 /* MainView.xib */; };
 		F4B1AAC81C8A4F77006EE235 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AAC61C8A4F77006EE235 /* Icon_32.png */; };
@@ -21,6 +22,8 @@
 		F4451B321C7BBAF300516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B341C7BBAF800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4451B361C7BBB0100516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F486D5C81F58B59C00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerRAM/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F486D5CA1F58B5A000495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerRAM/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F48DDE271CE3D988004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4ABD09A1CC823EF00C69CA2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4ABD09B1CC8240100C69CA2 /* PKGRequirement_RAM+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_RAM+Constants.h"; path = "../PKGRequirement_RAM+Constants.h"; sourceTree = "<group>"; };
@@ -33,6 +36,7 @@
 		F4B1AAC71C8A4F77006EE235 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerRAM/Icon_32@2x.png"; sourceTree = "<group>"; };
 		F4B1AACA1C8A4F7D006EE235 /* PKGRequirementViewControllerRAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerRAM.h; path = PKGRequirementViewControllerRAM/PKGRequirementViewControllerRAM.h; sourceTree = "<group>"; };
 		F4B1AACB1C8A4F7D006EE235 /* PKGRequirementViewControllerRAM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerRAM.m; path = PKGRequirementViewControllerRAM/PKGRequirementViewControllerRAM.m; sourceTree = "<group>"; };
+		F4C80FAF1F16B81A00049F53 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerRAM/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F4DDA9A71E59B6670080EFAD /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +83,7 @@
 				F4B1AAC71C8A4F77006EE235 /* Icon_32@2x.png */,
 				F4ABD0A01CC8251100C69CA2 /* MainView.xib */,
 				F4B1AAC21C8A4F6C006EE235 /* Info.plist */,
+				F486D5C71F58B59C00495D33 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -180,7 +185,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
-				English,
+				fr,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerRAM */;
 			projectDirPath = "";
@@ -197,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4ABD0A21CC8251100C69CA2 /* MainView.xib in Resources */,
+				F486D5C91F58B59C00495D33 /* InfoPlist.strings in Resources */,
 				F4B1AAC91C8A4F77006EE235 /* Icon_32@2x.png in Resources */,
 				F4B1AAC81C8A4F77006EE235 /* Icon_32.png in Resources */,
 			);
@@ -217,10 +223,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		F486D5C71F58B59C00495D33 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F486D5C81F58B59C00495D33 /* en */,
+				F486D5CA1F58B5A000495D33 /* fr */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		F4ABD0A01CC8251100C69CA2 /* MainView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F4ABD0A11CC8251100C69CA2 /* en */,
+				F4C80FAF1F16B81A00049F53 /* fr */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";

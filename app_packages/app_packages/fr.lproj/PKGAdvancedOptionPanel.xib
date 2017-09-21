@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <development version="5100" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGAdvancedOptionWindowController">
+            <connections>
+                <outlet property="_cancelButton" destination="TAn-Xe-aty" id="2eY-22-shh"/>
+                <outlet property="_okButton" destination="P18-Ri-4aP" id="EfV-VF-wfT"/>
+                <outlet property="_optionPlaceHolderView" destination="bbi-IK-GBz" id="CBs-uA-97J"/>
+                <outlet property="window" destination="rx8-ui-Erb" id="cee-2f-uXx"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="rx8-ui-Erb" customClass="PKGAdvancedOptionPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="272" y="172" width="255" height="378"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <view key="contentView" id="IMP-Md-yTV">
+                <rect key="frame" x="0.0" y="0.0" width="255" height="378"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" tag="1" id="P18-Ri-4aP">
+                        <rect key="frame" x="159" y="13" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8vq-Si-PzK">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="endDialog:" target="-2" id="YGp-CJ-vgg"/>
+                        </connections>
+                    </button>
+                    <customView id="bbi-IK-GBz">
+                        <rect key="frame" x="0.0" y="44" width="252" height="334"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </customView>
+                    <button verticalHuggingPriority="750" id="TAn-Xe-aty">
+                        <rect key="frame" x="72" y="13" width="87" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Annuler" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iRx-Lw-QJe">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="endDialog:" target="-2" id="kBT-Dt-YwD"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="475.5" y="372"/>
+        </window>
+    </objects>
+</document>
