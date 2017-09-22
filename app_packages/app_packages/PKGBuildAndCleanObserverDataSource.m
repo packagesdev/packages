@@ -613,12 +613,6 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;
 					
-				case PKGBuildErrorExternalToolFailureSplitForkNonHFSVolume:
-					
-					tTitle=NSLocalizedStringFromTable(@"The Temporary Build Path is on a non HFS volume",@"Build",@"");
-					
-					break;
-					
 				case PKGBuildErrorUnknownLanguage:
 					
 					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Language (%@) not supported",@"Build",@""),tTag];

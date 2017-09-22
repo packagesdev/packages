@@ -367,11 +367,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					(void)fprintf(stdout, "%s returned error code '%d'",[[tFilePath lastPathComponent] UTF8String],tErrorEvent.toolTerminationStatus);
 					break;
 					
-				case PKGBuildErrorExternalToolFailureSplitForkNonHFSVolume:
-					
-					(void)fprintf(stdout, "The Temporary Build Path is on a non HFS volume");
-					break;
-					
 				case PKGBuildErrorLicenseTemplateNotFound:
 					
 					(void)fprintf(stdout, "License template for \"%s\" can not be found",[tTag fileSystemRepresentation]);

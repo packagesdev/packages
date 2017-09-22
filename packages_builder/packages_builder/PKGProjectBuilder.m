@@ -4895,14 +4895,6 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		switch(tReturnValue)
 		{
-			case 254:
-				
-				// Not a HFS or Extended HFS volume
-				
-				tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorExternalToolFailureSplitForkNonHFSVolume filePath:inDirectoryPath fileKind:PKGFileKindFolder];
-				
-				break;
-				
 			default:
 				
 				tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorExternalToolFailure filePath:PKGProjectBuilderToolPath_goldin fileKind:PKGFileKindTool];
@@ -5011,7 +5003,15 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	NSString * tVersion=tPackageSettings.version;
 	
-	if ([tVersion length]==0)
+	if ([inPackageComponent isKindOfClass:PKGPackageProject.class]==YES)
+	{
+		NSString * tUserDefinedVersion=[_buildOrder userDefinedSettingsForKey:PKGBuildOrderExternalSettingsPackageVersionKey];
+		
+		if ([tUserDefinedVersion isKindOfClass:NSString.class]==YES)
+			tVersion=[tUserDefinedVersion copy];
+	}
+	
+	if (tVersion.length==0)
 	{
 		// Incorrect Value
 		

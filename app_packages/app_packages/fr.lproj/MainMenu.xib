@@ -569,7 +569,7 @@
                 <menuItem title="Construction" id="396">
                     <menu key="submenu" title="Construction" id="397">
                         <items>
-                            <menuItem title="Afficher la fenêtre de construction" keyEquivalent="B" id="404">
+                            <menuItem title="Historique de construction" keyEquivalent="B" id="404">
                                 <connections>
                                     <action selector="showHideBuildWindow:" target="-1" id="434"/>
                                 </connections>
