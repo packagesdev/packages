@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationLicenseInspectorViewController">
+            <connections>
+                <outlet property="_contentsHolderView" destination="Ldo-dX-R3p" id="wXI-YM-Uhy"/>
+                <outlet property="_customLicenseTypePopUpButton" destination="IdN-tw-klh" id="Emr-1h-vki"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY" customClass="PKGControlledView">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="430"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="Ldo-dX-R3p">
+                    <rect key="frame" x="0.0" y="0.0" width="348" height="386"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </customView>
+                <popUpButton id="IdN-tw-klh">
+                    <rect key="frame" x="11" y="394" width="266" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="bevel" title="Localisations personnalisées de la licence" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Z5H-XI-vm9" id="6kT-JT-cq4">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <menu key="menu" title="OtherViews" id="xw6-cM-ERW">
+                            <items>
+                                <menuItem title="Localisations personnalisées de la licence" state="on" id="Z5H-XI-vm9"/>
+                                <menuItem isSeparatorItem="YES" tag="-1" id="1rM-QH-aWm">
+                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                </menuItem>
+                                <menuItem title="Modèles de licences" tag="-1" id="6Tg-2P-LWe"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchLicenseType:" target="-2" id="pkI-Tu-rbV"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="448" y="754"/>
+        </customView>
+    </objects>
+</document>
