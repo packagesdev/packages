@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2016, Stephane Sudre
+Copyright (c) 2004-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,6 +15,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #include <sys/types.h>
 #include <unistd.h>
+#include <getopt.h>
 
 #import "PKGCommandLineBuildObserver.h"
 
@@ -37,45 +38,105 @@ int main (int argc, const char * argv[])
 {
 	@autoreleasepool
 	{
-		int ch;
 		BOOL tVerbose=NO;
 		BOOL tDebug=NO;
 		char * tCScratchPath=NULL;
 		char * tCReferenceFolder=NULL;
 		
-		// Check the parameters
+		char * tCBuildFolder=NULL;
 		
-		while ((ch = getopt(argc,(char **) argv,"vd?F:t:")) != -1)
+		char * tCIdentity=NULL;
+		char * tCKeychain=NULL;
+		
+		char * tCPackageVersion=NULL;
+		
+		int c;
+		
+		while (1)
 		{
-			switch(ch)
+			static struct option tLongOptions[] =
 			{
-				 case 'F':
+				{"verbose",						no_argument,		0,	'v'},
+				{"debug",						no_argument,		0,	'd'},
 				
-					tCReferenceFolder=optarg;
-					
-					break;
-					
-				case 'd':
+				{"temporary-build-location",	required_argument,	0,	't'},
+				{"reference-folder",			required_argument,	0,	'F'},
 				
-					tDebug=YES;
-					
-					break;
-					
-				case 't':
+				{"build-folder",				required_argument,	0,	0},
 				
-					tCScratchPath=optarg;
+				{"identity",					required_argument,	0,	0},
+				{"keychain",					required_argument,	0,	0},
+				
+				{"package-version",				required_argument,	0,	0},		/* Will only work for Raw Package project */
+
+				{0, 0, 0, 0}
+			};
+			
+			int tOptionIndex = 0;
+
+			c = getopt_long (argc, (char **) argv, "vdt:F:",tLongOptions, &tOptionIndex);
+
+			/* Detect the end of the options. */
+			if (c == -1)
+				break;
+
+			switch (c)
+			{
+				case 0:
+				
+					if (strncmp(tLongOptions[tOptionIndex].name,"build-folder",strlen("build-folder"))==0)
+					{
+						tCBuildFolder=optarg;
+					}
+					else if (strncmp(tLongOptions[tOptionIndex].name,"identity",strlen("identity"))==0)
+					{
+						tCIdentity=optarg;
+					}
+					else if (strncmp(tLongOptions[tOptionIndex].name,"keychain",strlen("keychain"))==0)
+					{
+						tCKeychain=optarg;
+					}
+					else if (strncmp(tLongOptions[tOptionIndex].name,"package-version",strlen("package-version"))==0)
+					{
+						tCPackageVersion=optarg;
+					}
 					
 					break;
 					
 				case 'v':
-				
+					
 					tVerbose=YES;
+					
+					break;
+					
+				case 'd':
+					
+					tDebug=YES;
+					
+					break;
+				
+				case 't':
+					
+					tCScratchPath=optarg;
+					
+					break;
+				
+				case 'F':
+					
+					tCReferenceFolder=optarg;
 					
 					break;
 					
 				case '?':
 				default:
 					usage();
+					
+					exit(EXIT_FAILURE);
+					
+				
+				
+				printf ("\n");
+				break;
 			}
 		}
 		
@@ -155,6 +216,18 @@ int main (int argc, const char * argv[])
 		
 		if (tScratchFolder!=nil)
 			tMutableDictionary[PKGBuildOrderExternalSettingsScratchFolderKey]=tScratchFolder;
+		
+		if (tCBuildFolder!=nil)
+			tMutableDictionary[PKGBuildOrderExternalSettingsBuildFolderKey]=[NSString stringWithUTF8String:tCBuildFolder];
+		
+		if (tCIdentity!=nil)
+			tMutableDictionary[PKGBuildOrderExternalSettingsSigningIdentityKey]=[NSString stringWithUTF8String:tCIdentity];
+		
+		if (tCKeychain!=nil)
+			tMutableDictionary[PKGBuildOrderExternalSettingsKeychainKey]=[NSString stringWithUTF8String:tCKeychain];
+		
+		if (tCPackageVersion!=nil)
+			tMutableDictionary[PKGBuildOrderExternalSettingsPackageVersionKey]=[NSString stringWithUTF8String:tCPackageVersion];
 		
 		// A COMPLETER (gestion des User Defined Settings)
 		
