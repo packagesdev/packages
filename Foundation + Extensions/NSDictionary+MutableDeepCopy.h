@@ -15,6 +15,6 @@
 
 @interface NSDictionary (WBMutableDeepCopy)
 
-- (id) mutableDeepCopy;
+- (id)mutableDeepCopy;
 
 @end

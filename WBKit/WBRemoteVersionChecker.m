@@ -42,7 +42,7 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 
 @implementation WBRemoteVersionChecker
 
-+ (WBRemoteVersionChecker *) sharedChecker
++ (WBRemoteVersionChecker *)sharedChecker
 {
 	static dispatch_once_t onceToken;
 	static WBRemoteVersionChecker * sRemoteVersionChecker=nil;
@@ -57,7 +57,7 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 
 #pragma mark -
 
-- (id) init
+- (id)init
 {
 	self=[super init];
 	
