@@ -152,27 +152,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
     // Try local first
     
-    NSURL * tURL=nil;
-    
-    /*if (NSAppKitVersionNumber>=664.0)
-    {
-        NSFileManager * tFileManager=[NSFileManager defaultManager];
-        
-        if ([tFileManager fileExistsAtPath:NSLocalizedString(@"/Developer/Documentation/DeveloperTools/Conceptual/SoftwareDistribution/index.html",@"No comment")]==YES)
-        {
-            tURL=[NSURL fileURLWithPath:NSLocalizedString(@"/Developer/Documentation/DeveloperTools/Conceptual/SoftwareDistribution/index.html",@"No comment")];
-        }
-    }
-    
-    if (tURL==nil)
-    {
-        tURL=[NSURL URLWithString:NSLocalizedString(@"http://developer.apple.com/documentation/DeveloperTools/Conceptual/SoftwareDistribution/index.html",@"No comment")];
-    }
+    NSURL * tURL=[NSURL URLWithString:NSLocalizedString(@"https://developer.apple.com/library/content/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html",@"No comment")];
     
     if (tURL!=nil)
-    {
-        [[NSWorkspace sharedWorkspace] openURL:tURL];
-    }*/
+		[[NSWorkspace sharedWorkspace] openURL:tURL];
 }
 
 - (IBAction)showUserGuide:(id)sender
