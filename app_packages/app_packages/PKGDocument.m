@@ -43,6 +43,8 @@
 	PKGBuildDocumentWindowController * _buildWindowController;
 }
 
+	@property (nonatomic,readonly) BOOL canPrint;
+
 	@property (readwrite) PKGDocumentRegistry * registry;
 
 	@property (readwrite) PKGDocumentWindowController * documentWindowController;
@@ -99,6 +101,11 @@
 }
 
 #pragma mark -
+
+- (BOOL)canPrint
+{
+	return NO;
+}
 
 - (NSURL *)folderURL
 {
@@ -169,6 +176,9 @@
 	
 	if (tPropertyList==nil)
 	{
+		// A COMPLETER
+		
+		return nil;
 	}
 	
 	NSError * tError;
@@ -177,16 +187,11 @@
 	
 	if (tData==nil)
 	{
+		if (outError!=NULL)
+			*outError=tError;
 	}
 	
 	return tData;
-	
-	/*// Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    if (outError) {
-        *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:nil];
-    }
-    return nil;*/
 }
 
 - (BOOL)readFromData:(NSData *)inData ofType:(NSString *)typeName error:(NSError **)outError
@@ -197,6 +202,8 @@
 	
 	if (tPropertyList==nil)
 	{
+		if (outError!=NULL)
+			*outError=tError;
 		
 		return NO;
 	}
@@ -205,6 +212,8 @@
 	
 	if (tProject==nil)
 	{
+		if (outError!=NULL)
+			*outError=tError;
 		
 		return NO;
 	}
@@ -212,14 +221,6 @@
 	self.documentWindowController=[[PKGDocumentWindowController alloc] initWithProject:tProject];
 	
 	return YES;
-	
-	/*// Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-    // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-    if (outError) {
-        *outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:nil];
-    }
-    return NO;*/
 }
 
 + (BOOL)autosavesInPlace
@@ -227,7 +228,27 @@
     return NO;
 }
 
-#pragma mark -
+#pragma mark - Printing not supported
+
+- (NSView *)printableView
+{
+	return nil;
+}
+
+- (void)printOperationDidRun:(NSPrintOperation *)inPrintOperation success:(BOOL)inSuccess contextInfo:(void *)info
+{
+}
+
+- (IBAction)printDocument:(id)sender
+{
+	NSPrintOperation * tPrintOperation=[NSPrintOperation printOperationWithView:[self printableView]
+												   printInfo:[self printInfo]];
+	
+	[tPrintOperation runOperationModalForWindow:[self windowForSheet]
+									   delegate:self
+								 didRunSelector:@selector(printOperationDidRun:success:contextInfo:)
+									contextInfo:NULL];
+}
 
 - (NSPrintOperation *)printOperationWithSettings:(NSDictionary *)printSettings error:(NSError **)outError
 {
@@ -371,10 +392,6 @@
 	
 	if (tScratchFolder!=nil)
 		tExternalSettings[PKGBuildOrderExternalSettingsScratchFolderKey]=tScratchFolder;
-	
-	// A COMPLETER (gestion des User Defined Settings)
-	
-	
 	
 	_currentBuildOrder=[PKGBuildOrder new];
 	
@@ -521,6 +538,11 @@
 {
 	SEL tAction=inMenuItem.action;
 	
+	if (tAction==@selector(printDocument:))
+	{
+		return self.canPrint;
+	}
+	
 	if (tAction==@selector(showHideBuildWindow:))
 	{
 		inMenuItem.title=(_buildWindowController.window.isVisible==YES)? NSLocalizedStringFromTable(@"Hide Build Log Window",@"Build",@"No comment") : NSLocalizedStringFromTable(@"Build Results",@"Build",@"No comment");
@@ -591,16 +613,12 @@
 	}
 	
 	if (tReferencePath==nil)
-	{
 		return nil;
-	}
 	
 	NSString * tConvertedPath=[inAbsolutePath PKG_stringByRelativizingToPath:tReferencePath];
 	
 	if (tConvertedPath==nil)
-	{
 		return nil;
-	}
 	
 	return [[PKGFilePath alloc] initWithString:tConvertedPath type:inType];
 }
