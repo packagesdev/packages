@@ -28,6 +28,7 @@
 + (WBVersion *)macOSYosemiteVersion;
 + (WBVersion *)macOSElCapitanVersion;
 + (WBVersion *)macOSSierraVersion;
++ (WBVersion *)macOSHighSierraVersion;
 
 + (WBVersion *)systemVersion;
 

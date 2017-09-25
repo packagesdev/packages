@@ -30,6 +30,7 @@
 #define WBMacOSYosemiteMinorVersion			10
 #define WBMacOSElCapitanMinorVersion		11
 #define WBMacOSSierraMinorVersion			12
+#define WBMacOSHighSierraMinorVersion		13
 
 @implementation WBMacOSVersionsHistory
 
@@ -170,6 +171,16 @@
 	return tNewVersion;
 }
 
++ (WBVersion *)macOSHighSierraVersion
+{
+	WBVersion * tNewVersion=[WBVersion new];
+	
+	tNewVersion.majorVersion=WBMacOSXMajorVersion;
+	tNewVersion.minorVersion=WBMacOSHighSierraMinorVersion;
+	
+	return tNewVersion;
+}
+
 #pragma mark -
 
 + (WBVersion *)systemVersion
@@ -289,6 +300,10 @@
 					return NSMakeRange(0, 7);
 					
 				case WBMacOSSierraMinorVersion:
+					
+					return NSMakeRange(0, 6);
+					
+				case WBMacOSHighSierraMinorVersion:
 					
 					return NSMakeRange(0, NSUIntegerMax);
 			}
