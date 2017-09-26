@@ -4760,13 +4760,21 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tResult!=ICFSU_OK)
 		{
-			PKGBuildErrorEvent * tErrorEvent=nil;
+			PKGBuildErrorEvent * tErrorEvent=tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tAbsolutePluginPath fileKind:PKGFileKindPlugin];
+			tErrorEvent.otherFilePath=tDestinationPath;
 			
-			if (tResult==ICFSU_MISSING_FILE)
+			switch (tResult)
 			{
-				tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tAbsolutePluginPath fileKind:PKGFileKindPlugin];
-				tErrorEvent.subcode=PKGBuildErrorFileNotFound;
-				tErrorEvent.otherFilePath=tDestinationPath;
+				case ICFSU_MISSING_FILE:
+					
+					tErrorEvent.subcode=PKGBuildErrorFileNotFound;;
+					break;
+					
+				case ICFSU_NOT_ENOUGH_SPACE:
+					
+					tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
+					
+					break;
 			}
 			
 			[self postCurrentStepFailureEvent:tErrorEvent];
@@ -7356,19 +7364,35 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				if (tResult!=ICFSU_OK)
 				{
 					PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tFullPath fileKind:PKGFileKindRegularFile];
-					tErrorEvent.subcode=PKGBuildErrorFileNotFound;
 					tErrorEvent.otherFilePath=inPath;
 					
-					if (tResult==ICFSU_MISSING_FILE && _treatMissingPresentationDocumentsAsWarnings==YES)
+					switch (tResult)
 					{
-						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelWarning format:@"[ICFileSystemUtilities copyPath:toPath:] File not found"];
-						
-						[self postCurrentStepWarningEvent:tErrorEvent];
-						
-						return YES;
+						case ICFSU_MISSING_FILE:
+							
+							tErrorEvent.subcode=PKGBuildErrorFileNotFound;
+							
+							if (_treatMissingPresentationDocumentsAsWarnings==YES)
+							{
+								[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelWarning format:@"[ICFileSystemUtilities copyPath:toPath:] File not found"];
+								
+								[self postCurrentStepWarningEvent:tErrorEvent];
+								
+								return YES;
+							}
+							
+							[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[ICFileSystemUtilities copyPath:toPath:] File not found"];
+							
+							break;
+							
+						case ICFSU_NOT_ENOUGH_SPACE:
+							
+							tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
+							
+							[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[ICFileSystemUtilities copyPath:toPath:] Not enough free space"];
+							
+							break;
 					}
-					
-					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[ICFileSystemUtilities copyPath:toPath:] File not found"];
 					
 					[self postCurrentStepFailureEvent:tErrorEvent];
 					
@@ -7447,6 +7471,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				
 				if ([_fileManager setAttributes:tItemAttributes ofItemAtPath:tFullPath error:&tError]==NO)
 				{
+					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"%@",tError.description];
+					
 					[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileAttributesCanNotBeSet filePath:tDestinationPath fileKind:PKGFileKindFolder]];
 					
 					return NO;

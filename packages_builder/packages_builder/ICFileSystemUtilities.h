@@ -13,9 +13,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import <Foundation/Foundation.h>
 
-#define ICFSU_OK			0
-#define ICFSU_MISSING_FILE	1
-#define ICFSU_ERROR			32
+#define ICFSU_OK				0
+#define ICFSU_MISSING_FILE		1
+#define ICFSU_NOT_ENOUGH_SPACE	2
+#define ICFSU_ERROR				32
 
 @interface ICFileSystemUtilities : NSObject
 {

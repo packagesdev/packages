@@ -29,12 +29,10 @@ static OSErr MyFSPathMakeRef(const char * inPath, FSRef * outFSRef );
 
 + (int) copyPath:(NSString *) fromPath toPath:(NSString *) toDirectoryPath
 {
-	OSStatus tStatus;
-	OSErr tErr;
 	FSRef sourceRef, destRef;
 	
-	tErr = MyFSPathMakeRef( [fromPath UTF8String], &sourceRef );
-        
+	OSErr tErr = MyFSPathMakeRef([fromPath UTF8String], &sourceRef );
+	
 	if( tErr == noErr)	// Get FSRef to destination object
 	{
 		// We don't have to worry about the symlink problem (2489632) here	
@@ -45,7 +43,7 @@ static OSErr MyFSPathMakeRef(const char * inPath, FSRef * outFSRef );
 		
 		if( tErr == noErr )					// make sure the dest is a directory
 		{
-			tStatus=FSCopyObjectSync(&sourceRef,&destRef,NULL,NULL,kFSFileOperationOverwrite);
+			OSStatus tStatus=FSCopyObjectSync(&sourceRef,&destRef,NULL,NULL,kFSFileOperationOverwrite);
 	
 			if (tStatus==noErr)
 			{
@@ -57,6 +55,10 @@ static OSErr MyFSPathMakeRef(const char * inPath, FSRef * outFSRef );
 				case fnfErr:
 				
 					return ICFSU_MISSING_FILE;
+					
+				case errFSNotEnoughSpaceForOperation:
+					
+					return ICFSU_NOT_ENOUGH_SPACE;
 			}
 		}
 	}
@@ -75,69 +77,74 @@ static OSErr MyFSPathMakeRef(const char * inPath, FSRef * outFSRef );
 
 @end
 
-static OSErr MyFSPathMakeRef( const char * inPath, FSRef * outFSRef )
+static OSErr MyFSPathMakeRef(const char * inPath, FSRef * outFSRef )
 {
 	FSRef			tmpFSRef;
-	char			tmpPath[ PATH_MAX ],
+	char			tmpPath[PATH_MAX],
 					*tmpNamePtr;
 	OSErr			err;
-        char * tCharPtr;
+	char * tCharPtr;
 					/* Get local copy of incoming path					*/
-	strcpy( tmpPath, (char*)inPath );
+	strcpy(tmpPath, (char*)inPath );
 
 					/* Get the name of the object from the given path	*/
 					/* Find the last / and change it to a '\0' so		*/
 					/* tmpPath is a path to the parent directory of the	*/
 					/* object and tmpNamePtr is the name				*/
-	tmpNamePtr = strrchr( tmpPath, '/' );
+	tmpNamePtr = strrchr(tmpPath, '/' );
 	if( *(tmpNamePtr + 1) == '\0' )
 	{				/* in case the last character in the path is a /	*/
 		*tmpNamePtr = '\0';
-		tmpNamePtr = strrchr( tmpPath, '/' );
+		tmpNamePtr = strrchr(tmpPath, '/' );
+		
+		if (tmpNamePtr==NULL)	// We don't support "/" for inPath
+			return fnfErr;
 	}
 	*tmpNamePtr = '\0';
 	tmpNamePtr++;
 	
-        tCharPtr=tmpNamePtr;
+	tCharPtr=tmpNamePtr;
         
-        while (*tCharPtr!='\0')
-        {
-            if ((*tCharPtr)==':')
-            {
-                *tCharPtr='/';
-            }
+	while (*tCharPtr!='\0')
+	{
+		if ((*tCharPtr)==':')
+			*tCharPtr='/';
         
-            tCharPtr++;
-        }
+		tCharPtr++;
+	}
         
-					/* Get the FSRef to the parent directory			*/
-	err = FSPathMakeRef( (unsigned char*)tmpPath, &tmpFSRef, NULL );
+	if (tmpPath[0]=='\0')
+	{
+		tmpPath[0]='/';
+		tmpPath[1]=0;
+	}
+	
+	/* Get the FSRef to the parent directory			*/
+	err = FSPathMakeRef((unsigned char*)tmpPath, &tmpFSRef, NULL );
 	
 	if( err == noErr )
 	{				/* Convert the name to a Unicode string and pass it	*/
 					/* to FSMakeFSRefUnicode to actually get the FSRef	*/
 					/* to the object (symlink)							*/
-            UniChar			uniName[255];
-            CFStringRef 	tmpStringRef = CFStringCreateWithCString( kCFAllocatorDefault, tmpNamePtr, kCFStringEncodingUTF8 );
-		
-			if( tmpStringRef != NULL )
-            {
-				CFStringGetCharacters(tmpStringRef, CFRangeMake(0, CFStringGetLength(tmpStringRef)), uniName);
-				
-				err = FSMakeFSRefUnicode( &tmpFSRef, CFStringGetLength( tmpStringRef ), uniName, kTextEncodingUnknown, &tmpFSRef );
-				
-				CFRelease( tmpStringRef );
-            }
-            else
-            {
-                err = 1;
-            }
-        }
+		UniChar			uniName[255];
+		CFStringRef 	tmpStringRef = CFStringCreateWithCString(kCFAllocatorDefault, tmpNamePtr, kCFStringEncodingUTF8 );
 	
-	if( err == noErr )
-        {
-            *outFSRef = tmpFSRef;
+		if( tmpStringRef != NULL )
+		{
+			CFStringGetCharacters(tmpStringRef, CFRangeMake(0, CFStringGetLength(tmpStringRef)), uniName);
+			
+			err = FSMakeFSRefUnicode(&tmpFSRef, CFStringGetLength(tmpStringRef ), uniName, kTextEncodingUnknown, &tmpFSRef );
+			
+			CFRelease(tmpStringRef );
+		}
+		else
+		{
+			err = 1;
+		}
 	}
+	
+	if (err == noErr )
+		*outFSRef = tmpFSRef;
         
 	return err;
 }
