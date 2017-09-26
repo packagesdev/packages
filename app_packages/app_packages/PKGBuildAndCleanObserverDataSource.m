@@ -591,7 +591,13 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 				case PKGBuildErrorFileIncorrectType:
 					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Incorrect type for file at path \"%@\"",@"Build",@""),tFilePath];
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Incorrect type for file at path '%@'",@"Build",@""),tFilePath];
+					
+					break;
+				
+				case PKGBuildErrorFileAbsolutePathCanNotBeComputed:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"An absolute path can not be computed from path '%@'",@"Build",@""),tFilePath];
 					
 					break;
 					
@@ -601,11 +607,25 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;
 					
-				case IC_BUILDER_FAILURE_REASON_FILE_INSUFFICIENT_PERMISSIONS_SET:
+				*/
+				
+				case PKGBuildErrorFileAccountsCanNotBeSet:
 					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Insufficient privileges to set permissions for path \"%@\"",@"Build",@""),tFilePath];
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Insufficient privileges to set accounts for path '%@'",@"Build",@""),tFilePath];
 					
-					break;*/
+					break;
+					
+				case PKGBuildErrorFileAttributesCanNotBeRead:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to read attributes of item at path '%@'",@"Build",@""),tFilePath];
+					
+					break;
+				
+				case PKGBuildErrorFileAttributesCanNotBeSet:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to set attributes of item at path '%@'",@"Build",@""),tFilePath];
+					
+					break;
 					
 				case PKGBuildErrorExternalToolFailure:
 					
