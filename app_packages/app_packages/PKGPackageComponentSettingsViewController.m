@@ -321,7 +321,7 @@
 			
 		case PKGPackageLocationCustomPath:
 			
-			_locationTipLabel.stringValue=NSLocalizedString(@"( './' represents the parent folder of the metapackage )",@"");
+			_locationTipLabel.stringValue=NSLocalizedString(@"( './' represents the parent folder of the distribution bundle )",@"");
 			
 			_locationLabel.stringValue=NSLocalizedString(@"Path:",@"");
 			
@@ -465,7 +465,7 @@
 	{
 		case PKGPackageLocationCustomPath:
 			
-			_locationTipLabel.stringValue=NSLocalizedString(@"( './' represents the parent folder of the metapackage )",@"");
+			_locationTipLabel.stringValue=NSLocalizedString(@"( './' represents the parent folder of the distribution bundle )",@"");
 			
 			_locationLabel.stringValue=NSLocalizedString(@"Path:","");
 			

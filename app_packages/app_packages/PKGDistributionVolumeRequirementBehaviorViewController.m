@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014-2017, Stephane Sudre
+ Copyright (c) 2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -9,54 +9,29 @@
  - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
  
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
-#import "PKGInstallerAppBundle.h"
+#import "PKGDistributionVolumeRequirementBehaviorViewController.h"
 
-NSString * const PKGInstallerAppVersionNumber6_1=@"6.1.0";
+@implementation PKGDistributionVolumeRequirementBehaviorViewController
 
-NSString * const PKGInstallerAppPath=@"/System/Library/CoreServices/Installer.app";
-
-@interface PKGInstallerAppBundle ()
-
-- (NSComparisonResult)compareVersion:(NSString *)inShortVersionString;
-
-@end
-
-@implementation PKGInstallerAppBundle
-
-+ (PKGInstallerAppBundle *)installerAppBundle
+- (PKGRequirementFailureMessage *)defaultMessage
 {
-	static dispatch_once_t onceToken;
-	static PKGInstallerAppBundle * sInstallerAppBundle=nil;
+	PKGRequirementFailureMessage * tMessage=[PKGRequirementFailureMessage new];
 	
-	dispatch_once(&onceToken, ^{
-		sInstallerAppBundle=[[PKGInstallerAppBundle alloc] initWithPath:PKGInstallerAppPath];
-	});
+	tMessage.messageTitle=@"";
+	tMessage.messageDescription=nil;
 	
-	return sInstallerAppBundle;
+	return tMessage;
 }
 
-#pragma mark -
-
-- (NSComparisonResult)compareVersion:(NSString *)inShortVersionString
+- (PKGRequirementOnFailureBehavior)requirementBehavior
 {
-	if (inShortVersionString==nil)
-		return NSOrderedDescending;
-	
-	static dispatch_once_t onceToken;
-	static NSString * sShortVersionNumber=nil;
-
-	dispatch_once(&onceToken, ^{
-		sShortVersionNumber=[self infoDictionary][@"CFBundleShortVersionString"];
-	});
-	
-	return [sShortVersionNumber compare:inShortVersionString options:NSNumericSearch];
+	return PKGRequirementOnFailureBehaviorInstallationStop;
 }
 
-- (BOOL)isVersion6_1OrLater
-{	
-	return [self compareVersion:PKGInstallerAppVersionNumber6_1];
+- (void)setRequirementBehavior:(PKGRequirementOnFailureBehavior)inRequirementBehavior
+{
 }
 
 @end
