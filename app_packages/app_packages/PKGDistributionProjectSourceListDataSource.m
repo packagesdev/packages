@@ -511,9 +511,17 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 		
 		__block NSMutableArray * tTemporaryComponents=[NSMutableArray arrayWithArray:self.distributionProject.packageComponents];
 		
+		NSFileManager * tFileManager=[NSFileManager defaultManager];
+		
 		NSArray * tImportedPackageComponents=[tImportPanel.URLs WB_arrayByMappingObjectsLenientlyUsingBlock:^PKGPackageComponent *(NSURL * bImportURL, NSUInteger bIndex) {
 			
-			PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:bImportURL.path type:tFileType];
+			NSString * tAbsolutePath=bImportURL.path;
+			BOOL tIsDirectory=NO;
+			
+			if ([tFileManager fileExistsAtPath:tAbsolutePath isDirectory:&tIsDirectory]==YES && tIsDirectory==YES)	// Exclude directories at this step as we can't disable them when browsing in the open panel
+				return nil;
+			
+			PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tAbsolutePath type:tFileType];
 			
 			if (tFilePath==nil)
 			{
@@ -524,7 +532,7 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 			
 			PKGPackageComponent * tPackageComponent=[PKGPackageComponent importedComponentWithFilePath:tFilePath];
 			
-			NSString * tName=[tTemporaryComponents uniqueNameWithBaseName:[bImportURL.path.lastPathComponent stringByDeletingPathExtension] usingNameExtractor:^NSString *(PKGPackageComponent * bPackageComponent, NSUInteger bIndex) {
+			NSString * tName=[tTemporaryComponents uniqueNameWithBaseName:[tAbsolutePath.lastPathComponent stringByDeletingPathExtension] usingNameExtractor:^NSString *(PKGPackageComponent * bPackageComponent, NSUInteger bIndex) {
 				return bPackageComponent.packageSettings.name;
 			}];
 			
