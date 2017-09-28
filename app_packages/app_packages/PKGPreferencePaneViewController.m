@@ -21,16 +21,4 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGPreferencePaneViewController
 
-- (NSString *)nibName
-{
-	return NSStringFromClass([self class]);
-}
-
-- (void) dealloc
-{
-    // Remove observer
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 @end

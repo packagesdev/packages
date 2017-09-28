@@ -36,15 +36,18 @@
 		{
 			case PKGRequirementTypeInstallation:
 				
-				_label=[NSLocalizedString(@"Packages", @"") copy];
+				_label=[NSLocalizedString(@"Installation Requirements", @"") copy];
 				break;
 				
 			case PKGRequirementTypeTarget:
 				
-				_label=[NSLocalizedString(@"Imported", @"") copy];
+				_label=[NSLocalizedString(@"Volume Requirements", @"") copy];
 				break;
 				
 			case PKGRequirementTypeUndefined:
+				
+				NSLog(@"oh oh");
+				
 				break;
 		}
 	}

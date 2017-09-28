@@ -51,7 +51,7 @@
 	tNewRawPackageProject.settings=[((PKGDistributionProjectSettings *)self.project.settings) packageProjectSettings];
 	tNewRawPackageProject.comments=[self.project.comments copy];
 	
-	// Operations that can be dispatched on a concurrent queue
+	// Operations that can be dispatched on another queue
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
 		
