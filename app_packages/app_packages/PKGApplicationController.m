@@ -160,7 +160,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction)showUserGuide:(id)sender
 {
-	NSURL * tURL=[NSURL URLWithString:NSLocalizedString(@"http://s.sudre.free.fr/Software/documentation/Packages/en/index.html",@"No comment")];
+	NSURL * tURL=[NSURL URLWithString:NSLocalizedString(@"http://s.sudre.free.fr/Software/documentation/Packages/en_2017/index.html",@"No comment")];
     
     if (tURL!=nil)
 		[[NSWorkspace sharedWorkspace] openURL:tURL];
