@@ -41,7 +41,7 @@
 			<object class="NSWindowTemplate" id="588466315">
 				<int key="NSWindowStyleMask">11</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{876, 328}, {626, 597}}</string>
+				<string key="NSWindowRect">{{876, 328}, {684, 597}}</string>
 				<int key="NSWTFlags">1886913536</int>
 				<string key="NSWindowTitle"/>
 				<string key="NSWindowClass">PKGPresentationChoiceRequirementPanel</string>
@@ -49,7 +49,7 @@
 					<characters key="NS.bytes">View</characters>
 				</object>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<string key="NSWindowContentMinSize">{626, 587}</string>
+				<string key="NSWindowContentMinSize">{684, 587}</string>
 				<object class="NSView" key="NSWindowView" id="537382948">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -121,10 +121,10 @@
 						<object class="NSButton" id="517009543">
 							<reference key="NSNextResponder" ref="537382948"/>
 							<int key="NSvFlags">-2147483383</int>
-							<string key="NSFrame">{{480, 551}, {126, 27}}</string>
+							<string key="NSFrame">{{538, 551}, {126, 27}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="648105565"/>
+							<reference key="NSNextKeyView" ref="960302900"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="949376335">
 								<int key="NSCellFlags">67108864</int>
@@ -147,17 +147,17 @@
 						<object class="NSCustomView" id="960302900">
 							<reference key="NSNextResponder" ref="537382948"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{20, 290}, {586, 244}}</string>
+							<string key="NSFrame">{{20, 290}, {644, 244}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="390765049"/>
+							<reference key="NSNextKeyView" ref="648105565"/>
 							<string key="NSClassName">WBWhiteFramedView</string>
 							<string key="NSExtension">NSView</string>
 						</object>
 						<object class="NSButton" id="390765049">
 							<reference key="NSNextResponder" ref="537382948"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{443, 13}, {87, 32}}</string>
+							<string key="NSFrame">{{501, 13}, {87, 32}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="51084367"/>
@@ -181,9 +181,10 @@
 						<object class="NSButton" id="51084367">
 							<reference key="NSNextResponder" ref="537382948"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{530, 13}, {82, 32}}</string>
+							<string key="NSFrame">{{588, 13}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<int key="NSTag">1</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="556686057">
@@ -233,14 +234,14 @@
 						<object class="NSCustomView" id="648105565">
 							<reference key="NSNextResponder" ref="537382948"/>
 							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{0, 41}, {626, 249}}</string>
+							<string key="NSFrame">{{0, 41}, {684, 249}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="960302900"/>
+							<reference key="NSNextKeyView" ref="390765049"/>
 							<string key="NSClassName">NSView</string>
 						</object>
 					</array>
-					<string key="NSFrameSize">{626, 597}</string>
+					<string key="NSFrameSize">{684, 597}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="591722012"/>
