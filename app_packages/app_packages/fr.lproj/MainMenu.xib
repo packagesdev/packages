@@ -598,7 +598,7 @@
                                     <action selector="buildAndDebug:" target="-1" id="433"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Purger…" keyEquivalent="K" id="399">
+                            <menuItem title="Purger…" hidden="YES" keyEquivalent="K" id="399">
                                 <connections>
                                     <action selector="clean:" target="-1" id="432"/>
                                 </connections>
