@@ -300,8 +300,6 @@
 	
 	// Icon
 	
-	// Icon
-	
 	static NSImage * sSelectionUnknownFSObjectIcon=nil;
 	static dispatch_once_t onceToken;
 	
@@ -423,6 +421,8 @@
 	
 	_referenceTypeTextField.hidden=YES;
 	_referenceTypePopUpButton.hidden=NO;
+	
+	_referenceTypePopUpButton.enabled=(inPath!=nil);
 	
 	_filePathType=tFileItem.filePath.type;
 	
