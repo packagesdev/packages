@@ -99,7 +99,7 @@
 													<object class="NSTextField" id="295292874">
 														<reference key="NSNextResponder" ref="654169008"/>
 														<int key="NSvFlags">266</int>
-														<string key="NSFrameSize">{208, 15}</string>
+														<string key="NSFrameSize">{245, 15}</string>
 														<reference key="NSSuperview" ref="654169008"/>
 														<reference key="NSWindow"/>
 														<reference key="NSNextKeyView" ref="390543703"/>
@@ -122,7 +122,7 @@
 														<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 													</object>
 												</array>
-												<string key="NSFrame">{{1, 0}, {208, 15}}</string>
+												<string key="NSFrame">{{1, 0}, {245, 15}}</string>
 												<reference key="NSSuperview" ref="765321290"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="295292874"/>
@@ -134,7 +134,7 @@
 													<object class="NSTextField" id="94653478">
 														<reference key="NSNextResponder" ref="390543703"/>
 														<int key="NSvFlags">266</int>
-														<string key="NSFrameSize">{255, 15}</string>
+														<string key="NSFrameSize">{217, 15}</string>
 														<reference key="NSSuperview" ref="390543703"/>
 														<reference key="NSWindow"/>
 														<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -156,7 +156,7 @@
 														<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 													</object>
 												</array>
-												<string key="NSFrame">{{212, 0}, {255, 15}}</string>
+												<string key="NSFrame">{{249, 0}, {217, 15}}</string>
 												<reference key="NSSuperview" ref="765321290"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="94653478"/>
@@ -189,7 +189,7 @@
 										<array class="NSMutableArray" key="NSTableColumns">
 											<object class="NSTableColumn" id="654687857">
 												<string key="NSIdentifier">Key</string>
-												<double key="NSWidth">208</double>
+												<double key="NSWidth">245</double>
 												<double key="NSMinWidth">40</double>
 												<double key="NSMaxWidth">1000</double>
 												<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -229,7 +229,7 @@
 											</object>
 											<object class="NSTableColumn" id="354521752">
 												<string key="NSIdentifier">Value</string>
-												<double key="NSWidth">255</double>
+												<double key="NSWidth">217</double>
 												<double key="NSMinWidth">8</double>
 												<double key="NSMaxWidth">1000</double>
 												<object class="NSTableHeaderCell" key="NSHeaderCell">
