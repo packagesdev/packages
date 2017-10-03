@@ -17,8 +17,42 @@
 							<key>CHILDREN</key>
 							<array>
 								<dict>
+									<key>BUNDLE_CAN_DOWNGRADE</key>
+									<false/>
+									<key>BUNDLE_POSTINSTALL_PATH</key>
+									<dict>
+										<key>PATH_TYPE</key>
+										<integer>1</integer>
+									</dict>
+									<key>BUNDLE_PREINSTALL_PATH</key>
+									<dict>
+										<key>PATH_TYPE</key>
+										<integer>1</integer>
+									</dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
+									<key>LOCATORS</key>
+									<array>
+										<dict>
+											<key>DICTIONARY</key>
+											<dict>
+												<key>BUNDLE_IDENTIFIER</key>
+												<string>fr.whitebox.Packages</string>
+												<key>DEFAULT_PATH</key>
+												<string>/Applications/Packages.app</string>
+												<key>PREFER_DEFAULT_PATH</key>
+												<integer>1</integer>
+											</dict>
+											<key>IDENTIFIER</key>
+											<string>fr.whitebox.Packages.locator.standard</string>
+											<key>NAME</key>
+											<string>Standard</string>
+											<key>STATE</key>
+											<true/>
+										</dict>
+									</array>
 									<key>PATH</key>
 									<string>build/Packages.app</string>
 									<key>PATH_TYPE</key>
@@ -31,6 +65,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>80</integer>
 									<key>PATH</key>
@@ -59,6 +95,8 @@
 							<integer>0</integer>
 						</dict>
 						<dict>
+							<key>CHILDREN</key>
+							<array/>
 							<key>GID</key>
 							<integer>0</integer>
 							<key>PATH</key>
@@ -79,6 +117,8 @@
 									<key>CHILDREN</key>
 									<array>
 										<dict>
+											<key>CHILDREN</key>
+											<array/>
 											<key>GID</key>
 											<integer>80</integer>
 											<key>PATH</key>
@@ -107,6 +147,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -121,6 +163,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -135,6 +179,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -149,6 +195,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -163,6 +211,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -177,6 +227,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -191,6 +243,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -208,6 +262,8 @@
 									<key>CHILDREN</key>
 									<array>
 										<dict>
+											<key>CHILDREN</key>
+											<array/>
 											<key>GID</key>
 											<integer>0</integer>
 											<key>PATH</key>
@@ -236,6 +292,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -250,6 +308,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -264,6 +324,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>80</integer>
 									<key>PATH</key>
@@ -287,6 +349,8 @@
 													<key>CHILDREN</key>
 													<array>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -301,6 +365,8 @@
 															<integer>0</integer>
 														</dict>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -329,6 +395,8 @@
 													<integer>0</integer>
 												</dict>
 												<dict>
+													<key>CHILDREN</key>
+													<array/>
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
@@ -343,6 +411,8 @@
 													<integer>0</integer>
 												</dict>
 												<dict>
+													<key>CHILDREN</key>
+													<array/>
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
@@ -360,6 +430,8 @@
 													<key>CHILDREN</key>
 													<array>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -374,6 +446,8 @@
 															<integer>0</integer>
 														</dict>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -388,6 +462,8 @@
 															<integer>0</integer>
 														</dict>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -402,6 +478,8 @@
 															<integer>0</integer>
 														</dict>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -416,6 +494,8 @@
 															<integer>0</integer>
 														</dict>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -430,6 +510,8 @@
 															<integer>0</integer>
 														</dict>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -444,6 +526,8 @@
 															<integer>0</integer>
 														</dict>
 														<dict>
+															<key>CHILDREN</key>
+															<array/>
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
@@ -500,6 +584,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -514,6 +600,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -528,6 +616,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -542,6 +632,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -556,6 +648,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -570,6 +664,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -601,6 +697,8 @@
 							<key>CHILDREN</key>
 							<array>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -615,6 +713,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -643,6 +743,8 @@
 							<integer>0</integer>
 						</dict>
 						<dict>
+							<key>CHILDREN</key>
+							<array/>
 							<key>GID</key>
 							<integer>0</integer>
 							<key>PATH</key>
@@ -663,6 +765,8 @@
 									<key>CHILDREN</key>
 									<array>
 										<dict>
+											<key>CHILDREN</key>
+											<array/>
 											<key>GID</key>
 											<integer>0</integer>
 											<key>PATH</key>
@@ -708,6 +812,8 @@
 							<key>CHILDREN</key>
 							<array>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -739,6 +845,8 @@
 							<key>CHILDREN</key>
 							<array>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -753,6 +861,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -767,6 +877,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -787,6 +899,8 @@
 											<key>CHILDREN</key>
 											<array>
 												<dict>
+													<key>CHILDREN</key>
+													<array/>
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
@@ -801,6 +915,8 @@
 													<integer>0</integer>
 												</dict>
 												<dict>
+													<key>CHILDREN</key>
+													<array/>
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
@@ -815,6 +931,8 @@
 													<integer>0</integer>
 												</dict>
 												<dict>
+													<key>CHILDREN</key>
+													<array/>
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
@@ -857,6 +975,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -871,6 +991,8 @@
 									<integer>0</integer>
 								</dict>
 								<dict>
+									<key>CHILDREN</key>
+									<array/>
 									<key>GID</key>
 									<integer>0</integer>
 									<key>PATH</key>
@@ -917,7 +1039,7 @@
 				<key>SHOW_INVISIBLE</key>
 				<true/>
 				<key>SPLIT_FORKS</key>
-				<true/>
+				<false/>
 				<key>TREAT_MISSING_FILES_AS_WARNING</key>
 				<false/>
 				<key>VERSION</key>
@@ -1010,6 +1132,41 @@
 				<key>SCALING</key>
 				<integer>0</integer>
 			</dict>
+			<key>INSTALLATION TYPE</key>
+			<dict>
+				<key>HIERARCHIES</key>
+				<dict>
+					<key>INSTALLER</key>
+					<dict>
+						<key>LIST</key>
+						<array>
+							<dict>
+								<key>DESCRIPTION</key>
+								<array/>
+								<key>OPTIONS</key>
+								<dict>
+									<key>HIDDEN</key>
+									<false/>
+									<key>STATE</key>
+									<integer>1</integer>
+								</dict>
+								<key>PACKAGE_UUID</key>
+								<string>F668CDB4-BBBE-457B-85D8-D2FA6E57E2D1</string>
+								<key>TITLE</key>
+								<array/>
+								<key>TYPE</key>
+								<integer>0</integer>
+								<key>UUID</key>
+								<string>0B8C44D8-C949-453D-B24A-FD25EA016417</string>
+							</dict>
+						</array>
+						<key>REMOVED</key>
+						<dict/>
+					</dict>
+				</dict>
+				<key>MODE</key>
+				<integer>1</integer>
+			</dict>
 			<key>INSTALLATION_STEPS</key>
 			<array>
 				<dict>
@@ -1079,7 +1236,18 @@
 						<key>VALUE</key>
 						<dict>
 							<key>PATH</key>
-							<string>Documents/Welcome.rtfd</string>
+							<string>Documents/en.lproj/Welcome.rtfd</string>
+							<key>PATH_TYPE</key>
+							<integer>1</integer>
+						</dict>
+					</dict>
+					<dict>
+						<key>LANGUAGE</key>
+						<string>French</string>
+						<key>VALUE</key>
+						<dict>
+							<key>PATH</key>
+							<string>Documents/fr.lproj/Welcome.rtfd</string>
 							<key>PATH_TYPE</key>
 							<integer>1</integer>
 						</dict>
@@ -1105,6 +1273,11 @@
 				<key>MODE</key>
 				<integer>0</integer>
 			</dict>
+			<key>README</key>
+			<dict>
+				<key>LOCALIZATIONS</key>
+				<array/>
+			</dict>
 			<key>TITLE</key>
 			<dict>
 				<key>LOCALIZATIONS</key>
@@ -1121,7 +1294,48 @@
 		<key>PROJECT_REQUIREMENTS</key>
 		<dict>
 			<key>LIST</key>
-			<array/>
+			<array>
+				<dict>
+					<key>BEHAVIOR</key>
+					<integer>3</integer>
+					<key>DICTIONARY</key>
+					<dict>
+						<key>IC_REQUIREMENT_OS_DISK_TYPE</key>
+						<integer>1</integer>
+						<key>IC_REQUIREMENT_OS_DISTRIBUTION_TYPE</key>
+						<integer>0</integer>
+						<key>IC_REQUIREMENT_OS_MINIMUM_VERSION</key>
+						<integer>100800</integer>
+					</dict>
+					<key>IC_REQUIREMENT_CHECK_TYPE</key>
+					<integer>0</integer>
+					<key>IDENTIFIER</key>
+					<string>fr.whitebox.Packages.requirement.os</string>
+					<key>MESSAGE</key>
+					<array>
+						<dict>
+							<key>LANGUAGE</key>
+							<string>English</string>
+							<key>SECONDARY_VALUE</key>
+							<string>If you want to run Packages on OS X 10.7 or earlier, use version 1.1.3.</string>
+							<key>VALUE</key>
+							<string>Packages requires OS X 10.8 or later.</string>
+						</dict>
+						<dict>
+							<key>LANGUAGE</key>
+							<string>French</string>
+							<key>SECONDARY_VALUE</key>
+							<string>Si vous souhaitez utiliser Packages sur OS X 10.7 ou antérieur, utilisez la version 1.1.3.</string>
+							<key>VALUE</key>
+							<string>Packages nécessite OS X 10.8 ou ultérieur.</string>
+						</dict>
+					</array>
+					<key>NAME</key>
+					<string>10.8 or later</string>
+					<key>STATE</key>
+					<true/>
+				</dict>
+			</array>
 			<key>RESOURCES</key>
 			<array/>
 			<key>ROOT_VOLUME_ONLY</key>
@@ -1137,13 +1351,6 @@
 				<string>build</string>
 				<key>PATH_TYPE</key>
 				<integer>1</integer>
-			</dict>
-			<key>CERTIFICATE</key>
-			<dict>
-				<key>NAME</key>
-				<string>Developer ID Installer: Stephane Sudre</string>
-				<key>PATH</key>
-				<string>/Users/stephane/Library/Keychains/login.keychain</string>
 			</dict>
 			<key>EXCLUDED_FILES</key>
 			<array>
