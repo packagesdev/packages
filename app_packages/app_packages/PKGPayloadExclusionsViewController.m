@@ -431,7 +431,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	{
 		PKGDefaultFileFilter * tDefaultFileFilter=(PKGDefaultFileFilter *)tFilter;
 		
-		tTableRowView.toolTip=tDefaultFileFilter.tooltip;
+		tTableRowView.toolTip=(tDefaultFileFilter.tooltip!=nil) ? NSLocalizedString(tDefaultFileFilter.tooltip ,@"") : nil;
 	}
 	
 	return tTableRowView;
