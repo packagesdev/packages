@@ -288,6 +288,27 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)applicationWillFinishLaunching:(NSNotification *)inNotification
 {
+	// Disable automatic window tabbing as it still does not work correctly on macOS High Sierra
+	
+	if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_12)
+	{
+		Class tWindowClass=[NSWindow class];
+		SEL tSelector=@selector(setAllowsAutomaticWindowTabbing:);
+		
+		if ([tWindowClass respondsToSelector:tSelector]==YES)
+		{
+			NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[tWindowClass methodSignatureForSelector:tSelector]];
+			tInvocation.selector=tSelector;
+			
+			tInvocation.target=tWindowClass;
+			
+			BOOL tBool=NO;
+			
+			[tInvocation setArgument:&tBool atIndex:2];
+			[tInvocation invoke];
+		}
+	}
+	
 	[PKGDocumentController sharedDocumentController];
 }
 
