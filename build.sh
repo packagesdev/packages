@@ -162,6 +162,18 @@ else
 	echo "Missing Read Before You Install Packages"
 fi
 
+## Copy the User Guide webloc
+
+if [ -f "Documents/Packages User Guide.webloc" ]
+then
+
+	/bin/cp "Documents/Packages User Guide.webloc" "build/diskimage_rw/Extras/Packages User Guide.webloc"
+
+else
+
+	echo "Missing Packages User Guide.webloc"
+fi
+
 ## Copy the uninstall.sh script
 
 if [ -f "Scripts/uninstall.sh" ]
