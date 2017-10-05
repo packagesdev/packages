@@ -18,6 +18,10 @@
 #define NSAppKitVersionNumber10_10 1343
 #endif
 
+#ifndef NSAppKitVersionNumber10_12
+#define NSAppKitVersionNumber10_12 1504
+#endif
+
 #define PKGAppkitMinimumPushButtonWidth	82.0
 
 // Foundation Extensions
