@@ -305,7 +305,8 @@ NSString * const PKGPresentationSummaryKey=@"SUMMARY";
 		}];
 	}
 	
-	tRepresentation[PKGPresentationTitleKey]=[self.titleSettings representation];
+	if (self.titleSettings!=nil)
+		tRepresentation[PKGPresentationTitleKey]=[self.titleSettings representation];
 	
 	NSMutableDictionary * tSettingsDictionary=[self.backgroundSettings representation];
 	
