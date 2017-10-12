@@ -41,6 +41,8 @@
 
 - (IBAction)upgradeToDistribution:(id)sender;
 
+- (void)layoutAccessoryViews;
+
 @end
 
 @implementation PKGDocumentWindowController
@@ -88,6 +90,8 @@
 	self.rightAccessoryView.frame=tRightFrame;
 	
 	[self setMainViewController];
+	
+	[self layoutAccessoryViews];
 }
 
 #pragma mark -
@@ -134,6 +138,39 @@
 		self.rightAccessoryView.frame=tRightFrame;
 	}
 }
+
+- (void)layoutAccessoryViews
+{
+	NSRect tLeftFrame=self.leftAccessoryView.frame;
+	NSRect tMiddleFrame=self.middleAccessoryView.frame;
+	NSRect tRightFrame=self.rightAccessoryView.frame;
+	
+	NSView * tContentView=self.window.contentView;
+	NSRect tContentFrame=tContentView.frame;
+	
+	switch (_project.type)
+	{
+		case PKGProjectTypeDistribution:
+			
+			tLeftFrame.origin.x=NSMinX(tContentFrame);
+			
+			break;
+		
+		case PKGProjectTypePackage:
+			
+			tLeftFrame.origin.x=NSMinX(tContentFrame)-tLeftFrame.size.width;
+			
+			break;
+	}
+	
+	tMiddleFrame.origin.x=NSMaxX(tLeftFrame);
+	tMiddleFrame.size.width=NSMinX(tRightFrame)-NSMinX(tMiddleFrame);
+	
+	self.leftAccessoryView.frame=tLeftFrame;
+	self.middleAccessoryView.frame=tMiddleFrame;
+}
+
+#pragma mark -
 
 - (NSArray *)buildNotificationObservers
 {
@@ -243,6 +280,10 @@
 	self.project=tDistributionProject;
 	
 	[self setMainViewController];
+	
+	[self layoutAccessoryViews];
+	
+	[self.document updateChangeCount:NSChangeDone];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
