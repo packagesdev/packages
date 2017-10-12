@@ -758,7 +758,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 							
 						case PKGBuildErrorWriteNoPermission:
 							
-							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because you don't have permission to create it to the folder \'%s\'",@"Build",@""),[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]];
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because you don't have permission to create it inside the folder \'%s\'",@"Build",@""),[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]];
 							break;
 							
 						default:
