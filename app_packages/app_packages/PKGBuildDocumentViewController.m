@@ -43,6 +43,41 @@
 	self.outlineView.autoresizesOutlineColumn=NO;
 }
 
+#pragma mark - Copy
+
+- (IBAction)copy:(id)sender
+{
+	NSInteger tSelectedRow=self.outlineView.selectedRow;
+	
+	if (tSelectedRow==-1)
+		return;
+	
+	PKGBuildEventTreeNode * BuildEventTreeNode=[self.outlineView itemAtRow:tSelectedRow];
+	
+	PKGBuildEventItem * tBuildEventItem=[BuildEventTreeNode representedObject];
+	
+	NSPasteboard *tPasteboard = [NSPasteboard generalPasteboard];
+	
+	NSMutableString * tMutableString=[NSMutableString stringWithString:(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @""];
+	
+	if (tBuildEventItem.subTitle!=nil)
+		[tMutableString appendFormat:@"\n%@",tBuildEventItem.subTitle];
+	
+	
+	[tPasteboard declareTypes:@[NSStringPboardType] owner:nil];
+	[tPasteboard setString:[NSString stringWithString:tMutableString] forType:NSStringPboardType];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(copy:))
+		return (self.outlineView.selectedRow!=-1);
+	
+	return YES;
+}
+
 #pragma mark - PKGBuildAndCleanObserverDataSourceDelegate
 
 - (void)buildAndCleanObserverDataSource:(PKGBuildAndCleanObserverDataSource *)inBuildAndCleanObserverDataSource shouldReloadDataAndExpandItem:(id)inItem
