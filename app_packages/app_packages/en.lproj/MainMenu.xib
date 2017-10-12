@@ -542,7 +542,7 @@
                             <menuItem isSeparatorItem="YES" id="436">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Upgrade to Distribution…" id="437">
+                            <menuItem title="Upgrade to Distribution" id="437">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="upgradeToDistribution:" target="-1" id="438"/>
