@@ -235,26 +235,26 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 {
 	NSMutableDictionary * tRepresentation=[super representation];
 	
-	if (tRepresentation!=nil)
-	{
-		tRepresentation[PKGProjectKey][PKGDistributionProjectProjectSettingsKey]=[self.settings representation];
-		
-		if (self.presentationSettings!=nil)
-			tRepresentation[PKGProjectKey][PKGDistributionProjectPresentationSettingsKey]=[self.presentationSettings representation];
-		
-		if (self.requirementsAndResources!=nil)
-			tRepresentation[PKGProjectKey][PKGDistributionProjectRequirementsAndResourcesKey]=[self.requirementsAndResources representation];
-		
-		if (self.comments!=nil)
-			tRepresentation[PKGProjectKey][PKGProjectCommentsKey]=[self.comments representation];
-		
-		tRepresentation[PKGDistributionProjectPackagesComponentsKey]=[self.packageComponents WB_arrayByMappingObjectsUsingBlock:^id(PKGPackageComponent * bPackageComponent,__attribute__((unused))NSUInteger bIndex){
-			return [bPackageComponent representation];
-		}];
-		
-		if ([self.sharedProjectData count]>0)
-			tRepresentation[PKGDistributionProjectSharedProjectDataKey]=[self.sharedProjectData copy];
-	}
+	if (tRepresentation==nil)
+		return nil;
+	
+	tRepresentation[PKGProjectKey][PKGDistributionProjectProjectSettingsKey]=[self.settings representation];
+	
+	if (self.presentationSettings!=nil)
+		tRepresentation[PKGProjectKey][PKGDistributionProjectPresentationSettingsKey]=[self.presentationSettings representation];
+	
+	if (self.requirementsAndResources!=nil)
+		tRepresentation[PKGProjectKey][PKGDistributionProjectRequirementsAndResourcesKey]=[self.requirementsAndResources representation];
+	
+	if (self.comments!=nil)
+		tRepresentation[PKGProjectKey][PKGProjectCommentsKey]=[self.comments representation];
+	
+	tRepresentation[PKGDistributionProjectPackagesComponentsKey]=[self.packageComponents WB_arrayByMappingObjectsUsingBlock:^id(PKGPackageComponent * bPackageComponent,__attribute__((unused))NSUInteger bIndex){
+		return [bPackageComponent representation];
+	}];
+	
+	if ([self.sharedProjectData count]>0)
+		tRepresentation[PKGDistributionProjectSharedProjectDataKey]=[self.sharedProjectData copy];
 	
 	return tRepresentation;
 }
