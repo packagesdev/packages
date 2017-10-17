@@ -64,8 +64,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGBuildLogger.h"
 
-#import "ICFileSystemUtilities.h"
-
 #import "PKGCertificatesUtilities.h"
 
 #import "PKGLanguageManager.h"
@@ -111,10 +109,7 @@ enum {
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2";
-
-//NSString * const PKGProjectBuilderAuthoringToolBuildNumber=@"2B120";
-
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.1";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -1865,16 +1860,40 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Make sure we only add an extra resource once.
 	
-	for(PKGAdditionalResource * tAdditionalResource in _buildInformation.resourcesExtras)
-	{
-		NSString * tSourcePath=[self absolutePathForFilePath:tAdditionalResource.filePath];
+	NSMutableSet * tAbsolutePathsSet=[NSMutableSet set];
+	NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
+	
+	__block BOOL tPathComputeError=NO;
+	
+	[_buildInformation.resourcesExtras enumerateObjectsUsingBlock:^(PKGAdditionalResource * bAdditionalResource,NSUInteger bIndex,BOOL * bOutStop){
+	
+		NSString * tSourcePath=[self absolutePathForFilePath:bAdditionalResource.filePath];
 		
 		if (tSourcePath==nil)
 		{
-			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileAbsolutePathCanNotBeComputed filePath:tAdditionalResource.filePath.string fileKind:PKGFileKindRegularFile]];
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileAbsolutePathCanNotBeComputed filePath:bAdditionalResource.filePath.string fileKind:PKGFileKindRegularFile]];
+			*bOutStop=YES;
 			
-			return NO;
+			tPathComputeError=YES;
+			
+			return;
 		}
+		
+		if ([tAbsolutePathsSet containsObject:tSourcePath]==NO)
+			[tAbsolutePathsSet addObject:tSourcePath];
+		else
+			[tMutableIndexSet addIndex:bIndex];
+	}];
+	
+	if (tPathComputeError==YES)
+		return NO;
+	
+	[_buildInformation.resourcesExtras removeObjectsAtIndexes:tMutableIndexSet];
+	
+	
+	for(PKGAdditionalResource * tAdditionalResource in _buildInformation.resourcesExtras)
+	{
+		NSString * tSourcePath=[self absolutePathForFilePath:tAdditionalResource.filePath];
 		
 		if ([_fileManager fileExistsAtPath:tSourcePath]==NO)
 		{
@@ -1895,11 +1914,53 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		// Copy the file
 		
-		int tResult=[ICFileSystemUtilities copyPath:tSourcePath toPath:tDestinationDirectory];
+		NSString * tDestinationPath=[tDestinationDirectory stringByAppendingPathComponent:tSourcePath.lastPathComponent];
 		
-		if (tResult!=ICFSU_OK)
+		NSError * tCopyError=NULL;
+		
+		if ([_fileManager copyItemAtPath:tSourcePath toPath:tDestinationPath error:&tCopyError]==NO)
 		{
-			[self postCurrentStepFailureEvent:nil];	// A COMPLETER
+			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tSourcePath fileKind:PKGFileKindRegularFile];
+			tErrorEvent.otherFilePath=tDestinationDirectory;
+			
+			if (tCopyError!=nil && [tCopyError.domain isEqualToString:NSCocoaErrorDomain]==YES)
+			{
+				switch(tCopyError.code)
+				{
+					case NSFileNoSuchFileError:
+						
+						tErrorEvent.subcode=PKGBuildErrorFileNotFound;
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder setExtraResources] File not found"];
+						
+						break;
+						
+					case NSFileWriteOutOfSpaceError:
+						
+						tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder setExtraResources] Not enough free space"];
+						
+						break;
+						
+					case NSFileWriteVolumeReadOnlyError:
+						
+						tErrorEvent.subcode=PKGBuildErrorReadOnlyVolume;
+						
+						break;
+						
+					case NSFileWriteNoPermissionError:
+						
+						tErrorEvent.subcode=PKGBuildErrorWriteNoPermission;
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder setExtraResources] Write permission error"];
+						
+						break;
+				}
+			}
+			
+			[self postCurrentStepFailureEvent:tErrorEvent];
+			
 			return NO;
 		}
 		
@@ -1912,7 +1973,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		NSError * tError=nil;
 		
-		if ([_fileManager PKG_setPosixPermissions:tSourcePermissions ofItemAtPath:[tDestinationDirectory stringByAppendingPathComponent:[tSourcePath lastPathComponent]] error:&tError]==NO)
+		if ([_fileManager PKG_setPosixPermissions:tSourcePermissions ofItemAtPath:tDestinationPath error:&tError]==NO)
 		{
 			[self postCurrentStepFailureEvent:nil];		// A COMPLETER
 			
@@ -4733,7 +4794,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			return NO;
 		}
 		
-		NSString * tDestinationPath=[tContentsPath stringByAppendingPathComponent:@"Plugins"];
+		NSString * tDestinationPluginsDirectoryPath=[tContentsPath stringByAppendingPathComponent:@"Plugins"];
 		
 		PKGStackedEffectiveUserAndGroup * tStackedEffectiveUserAndGroup=nil;
 		
@@ -4744,37 +4805,63 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tDirectoryCreated==NO)
 		{
-			if ([self createDirectoryAtPath:tDestinationPath withIntermediateDirectories:NO]==NO)
+			if ([self createDirectoryAtPath:tDestinationPluginsDirectoryPath withIntermediateDirectories:NO]==NO)
 				return NO;
 			
 			tDirectoryCreated=YES;
 		}
 		
-		NSString * tBundleName=[tAbsolutePluginPath lastPathComponent];
+		NSString * tBundleName=tAbsolutePluginPath.lastPathComponent;
 		
 		// Copy the plugin to the Plugins folder
 		
-		int tResult=[ICFileSystemUtilities copyPath:tAbsolutePluginPath toPath:tDestinationPath];
+		NSString * tDestinationPluginPath=[tDestinationPluginsDirectoryPath stringByAppendingPathComponent:tBundleName];
+		
+		NSError * tCopyError=NULL;
+		
+		BOOL tCopyResult=[_fileManager copyItemAtPath:tAbsolutePluginPath toPath:tDestinationPluginPath error:&tCopyError];
 		
 		tStackedEffectiveUserAndGroup=nil;
 		
-		if (tResult!=ICFSU_OK)
+		if (tCopyResult==NO)
 		{
-			PKGBuildErrorEvent * tErrorEvent=tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tAbsolutePluginPath fileKind:PKGFileKindPlugin];
-			tErrorEvent.otherFilePath=tDestinationPath;
+			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tAbsolutePluginPath fileKind:PKGFileKindPlugin];
+			tErrorEvent.otherFilePath=tDestinationPluginsDirectoryPath;
 			
-			switch (tResult)
+			if (tCopyError!=nil && [tCopyError.domain isEqualToString:NSCocoaErrorDomain]==YES)
 			{
-				case ICFSU_MISSING_FILE:
-					
-					tErrorEvent.subcode=PKGBuildErrorFileNotFound;;
-					break;
-					
-				case ICFSU_NOT_ENOUGH_SPACE:
-					
-					tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
-					
-					break;
+				switch(tCopyError.code)
+				{
+					case NSFileNoSuchFileError:
+						
+						tErrorEvent.subcode=PKGBuildErrorFileNotFound;
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder setPlugins] File not found"];
+						
+						break;
+						
+					case NSFileWriteOutOfSpaceError:
+						
+						tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder setPlugins] Not enough free space"];
+						
+						break;
+						
+					case NSFileWriteVolumeReadOnlyError:
+						
+						tErrorEvent.subcode=PKGBuildErrorReadOnlyVolume;
+						
+						break;
+						
+					case NSFileWriteNoPermissionError:
+						
+						tErrorEvent.subcode=PKGBuildErrorWriteNoPermission;
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder setPlugins] Write permission error"];
+						
+						break;
+				}
 			}
 			
 			[self postCurrentStepFailureEvent:tErrorEvent];
@@ -6464,7 +6551,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				}
 				else if ([tKey isEqualToString:@"path"]==YES)
 				{
-					tPath=[tBundleInformationDictionary objectForKey:tKey];
+					tPath=tBundleInformationDictionary[tKey];
 					
 					NSUInteger tIndex=[inDowngradableArray indexOfObject:tPath];
 					id tAttribute;
@@ -7359,39 +7446,56 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			{
 				// Copy the path
 				
-				int tResult=[ICFileSystemUtilities copyPath:tFullPath toPath:inPath];
+				NSError * tCopyError=NULL;
 				
-				if (tResult!=ICFSU_OK)
+				if ([_fileManager copyItemAtPath:tFullPath toPath:tDestinationPath error:&tCopyError]==NO)
 				{
 					PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tFullPath fileKind:PKGFileKindRegularFile];
 					tErrorEvent.otherFilePath=inPath;
 					
-					switch (tResult)
+					if (tCopyError!=nil && [tCopyError.domain isEqualToString:NSCocoaErrorDomain]==YES)
 					{
-						case ICFSU_MISSING_FILE:
-							
-							tErrorEvent.subcode=PKGBuildErrorFileNotFound;
-							
-							if (_treatMissingPresentationDocumentsAsWarnings==YES)
-							{
-								[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelWarning format:@"[ICFileSystemUtilities copyPath:toPath:] File not found"];
+						switch(tCopyError.code)
+						{
+							case NSFileNoSuchFileError:
 								
-								[self postCurrentStepWarningEvent:tErrorEvent];
+								tErrorEvent.subcode=PKGBuildErrorFileNotFound;
 								
-								return YES;
-							}
-							
-							[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[ICFileSystemUtilities copyPath:toPath:] File not found"];
-							
-							break;
-							
-						case ICFSU_NOT_ENOUGH_SPACE:
-							
-							tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
-							
-							[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[ICFileSystemUtilities copyPath:toPath:] Not enough free space"];
-							
-							break;
+								if (inBuildPackageAttributes.treatMissingPayloadFilesAsWarnings==YES)
+								{
+									[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelWarning format:@"[PKGProjectBuilder buildFileHierarchyComponent:atPath:contextInfo:] File not found"];
+									
+									[self postCurrentStepWarningEvent:tErrorEvent];
+									
+									return YES;
+								}
+								
+								[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder buildFileHierarchyComponent:atPath:contextInfo:] File not found"];
+								
+								break;
+								
+							case NSFileWriteOutOfSpaceError:
+								
+								tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
+								
+								[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder buildFileHierarchyComponent:atPath:contextInfo:] Not enough free space"];
+								
+								break;
+								
+							case NSFileWriteVolumeReadOnlyError:
+								
+								tErrorEvent.subcode=PKGBuildErrorReadOnlyVolume;
+								
+								break;
+								
+							case NSFileWriteNoPermissionError:
+								
+								tErrorEvent.subcode=PKGBuildErrorWriteNoPermission;
+								
+								[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"[PKGProjectBuilder buildFileHierarchyComponent:atPath:contextInfo:] Write permission error"];
+								
+								break;
+						}
 					}
 					
 					[self postCurrentStepFailureEvent:tErrorEvent];
@@ -7469,7 +7573,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				
 				// Set back the attributes (not done earlier because setting the Resource Fork will update the modification date according to xattr.h)
 				
-				if ([_fileManager setAttributes:tItemAttributes ofItemAtPath:tFullPath error:&tError]==NO)
+				if ([_fileManager setAttributes:tItemAttributes ofItemAtPath:tDestinationPath error:&tError]==NO)
 				{
 					[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"%@",tError.description];
 					
