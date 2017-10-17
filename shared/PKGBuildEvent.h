@@ -46,7 +46,6 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	
 	
 	PKGBuildErrorExternalToolFailure=50,
-	PKGBuildErrorExternalToolFailureSplitForkNonHFSVolume=51,
 	
 	PKGBuildErrorNoMoreSpaceOnVolume=100,
 	PKGBuildErrorReadOnlyVolume=101,
