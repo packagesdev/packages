@@ -633,14 +633,34 @@ extended_attributes_bail:
 		
 		if (chown(tFile->fts_accpath, inOwnerAccountID, inGroupAccountID) == -1)
 		{
-			fts_close(ftsp);
-			
-			if (outError!=NULL)
+			switch(errno)
 			{
-				// A COMPLETER
+				case EPERM:
+					
+					if ((tFile->fts_statp->st_flags & UF_IMMUTABLE)==UF_IMMUTABLE)
+					{
+						u_int tFlags=(tFile->fts_statp->st_flags & ~UF_IMMUTABLE);
+						
+						
+						
+						if (chflags(tFile->fts_accpath, tFlags)==0 &&								// Remove lock flag
+							chown(tFile->fts_accpath, inOwnerAccountID, inGroupAccountID) == 0 &&	// Try to set again the owner and group
+							chflags(tFile->fts_accpath, tFile->fts_statp->st_flags)==0)				// Put back the lock flag
+						
+							break;
+					}
+					
+				default:
+					
+					fts_close(ftsp);
+					
+					if (outError!=NULL)
+					{
+						// A COMPLETER
+					}
+					
+					return NO;
 			}
-			
-			return NO;
 		}
 	}
 	
