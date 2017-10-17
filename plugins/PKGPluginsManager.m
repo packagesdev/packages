@@ -119,6 +119,12 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 			return;
 		}
 		
+		// Fix backward & forward compatibility snafu introduced in version 1.2
+		
+		if ([tBundleIdentifier isEqualToString:@"fr.whitebox.Packages.requirement.script"]==YES)
+			tBundleIdentifier=@"fr.whitebox.Packages.requirement.scripts";
+			
+		
 		NSString * tUIPluginPath=[bBundle pathForAuxiliaryExecutable:@"ui.bundle"];
 		NSString * tConverterPluginPath=[bBundle pathForAuxiliaryExecutable:@"converter.bundle"];
 		
@@ -133,7 +139,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 			return;
 		}
 		
-		PKGPlugin * tPlugin=[[PKGPlugin alloc] init];
+		PKGPlugin * tPlugin=[PKGPlugin new];
 		
 		if (tPlugin==nil)
 		{
@@ -207,7 +213,14 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 - (NSString *)localizedPluginNameForIdentifier:(NSString *)inIdentifier
 {
 	if (inIdentifier!=nil)
+	{
+		// Fix backward & forward compatibility snafu introduced in version 1.2
+		
+		if ([inIdentifier isEqualToString:@"fr.whitebox.Packages.requirement.script"]==YES)
+			inIdentifier=@"fr.whitebox.Packages.requirement.scripts";
+		
 		return ((PKGPlugin *)[self dictionary][inIdentifier]).displayName;
+	}
 	
 	return nil;
 }
@@ -224,6 +237,11 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 {
 	if (inIdentifier==nil)
 		return nil;
+	
+	// Fix backward & forward compatibility snafu introduced in version 1.2
+	
+	if ([inIdentifier isEqualToString:@"fr.whitebox.Packages.requirement.script"]==YES)
+		inIdentifier=@"fr.whitebox.Packages.requirement.scripts";
 	
 	return [self dictionary][inIdentifier];
 }
