@@ -434,7 +434,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					}
 					
 					if (tTitle==nil)
-						tTitle=[NSString stringWithFormat:@"Unable to find %s '%s'",fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]];
+						tTitle=[NSString stringWithFormat:@"Unable to find %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]];
 					
 					(void)fprintf(stdout, "%s",[tTitle UTF8String]);
 					
