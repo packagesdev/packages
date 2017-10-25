@@ -300,6 +300,27 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[self.window.backgroundColor set];
 	
 	NSRectFillUsingOperation(tBounds,NSCompositeSourceOver);
+    
+	// Draw Title Bar bottom line if needed
+	
+	NSUInteger tAppKitMajorVersionNumber=floor(NSAppKitVersionNumber);
+	
+	if (tAppKitMajorVersionNumber<floor(NSAppKitVersionNumber10_13))
+	{
+		NSColor * tLineColor=nil;
+		
+		if (tAppKitMajorVersionNumber<floor(NSAppKitVersionNumber10_10))
+			tLineColor=([self.window isMainWindow]==YES) ? [NSColor colorWithDeviceWhite:0.34 alpha:1.0] :
+														   [NSColor colorWithDeviceWhite:0.59 alpha:1.0];
+		else
+			tLineColor=([self.window isMainWindow]==YES) ? [NSColor colorWithDeviceWhite:0.627 alpha:1.0] :
+														   [NSColor colorWithDeviceWhite:0.710 alpha:1.0];
+	
+		[tLineColor set];
+	
+		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMaxY(tBounds)+0.5)
+								  toPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(tBounds)+0.5)];
+	}
 }
 
 #pragma mark -
