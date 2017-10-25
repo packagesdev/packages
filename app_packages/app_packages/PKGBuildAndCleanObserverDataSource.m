@@ -271,27 +271,27 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 		{
 			case PKGFileKindRegularFile:
 				
-				return NSLocalizedStringFromTable(@"file",@"Build",@"");
+				return NSLocalizedStringFromTable(@"the file",@"Build",@"");
 				
 			case PKGFileKindFolder:
 				
-				return NSLocalizedStringFromTable(@"folder",@"Build",@"");
+				return NSLocalizedStringFromTable(@"the folder",@"Build",@"");
 				
 			case PKGFileKindPlugin:
 				
-				return NSLocalizedStringFromTable(@"plugin",@"Build",@"");
+				return NSLocalizedStringFromTable(@"the plugin",@"Build",@"");
 				
 			case PKGFileKindTool:
 				
-				return NSLocalizedStringFromTable(@"tool",@"Build",@"");
+				return NSLocalizedStringFromTable(@"the tool",@"Build",@"");
 				
 			case PKGFileKindPackage:
 				
-				return NSLocalizedStringFromTable(@"package",@"Build",@"");
+				return NSLocalizedStringFromTable(@"the package",@"Build",@"");
 				
 			case PKGFileKindBundle:
 				
-				return NSLocalizedStringFromTable(@"bundle",@"Build",@"");
+				return NSLocalizedStringFromTable(@"the bundle",@"Build",@"");
 		}
 		
 		return nil;
@@ -692,18 +692,18 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					if (tStep==PKGBuildStepPackageImport)
 					{
 						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
-							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find package at path '%@'",@"Build",@""),tFilePath];
+							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'",@"Build",@""),fileItemTypeName(PKGFileKindPackage),tFilePath];
 					}
 					
 					if (tTitle==nil)
-						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ '%@'",@"Build",@""),fileItemTypeName(tFileKind),tFilePath];
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'",@"Build",@""),fileItemTypeName(tFileKind),tFilePath];
 					
 					break;
 					
 				case PKGBuildErrorFileCanNotBeCreated:
 					
 					if ([tFilePath isEqualToString:@"Scratch_Location"]==NO)
-						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to create %@ at path '%@'",@"Build",@""),tFilePath];
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to create %@ at path '%@'",@"Build",@""),fileItemTypeName(tFileKind),tFilePath];
 					else
 						tTitle=NSLocalizedStringFromTable(@"Unable to create scratch location folder",@"Build",@"");
 					
@@ -775,7 +775,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					{
 						case PKGBuildErrorFileNotFound:
 							
-							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because the %@ can not be found",@"Build",@""),fileItemTypeName(tFileKind)];
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because the item could not be found",@"Build",@"")];
 							break;
 							
 						case PKGBuildErrorReadOnlyVolume:
@@ -979,11 +979,11 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					if (tStep==PKGBuildStepPackageImport)
 					{
 						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
-							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find package at path '%@'",@"Build",@""),tFilePath];
+							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'",@"Build",@""),fileItemTypeName(PKGFileKindPackage),tFilePath];
 					}
 					
 					if (tTitle==nil)
-						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'\n",@"Build",@""),fileItemTypeName(tErrorEvent.fileKind),[tFilePath fileSystemRepresentation]];
+						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'",@"Build",@""),fileItemTypeName(tErrorEvent.fileKind),tFilePath];
 					
 					break;
 					
@@ -1006,7 +1006,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 				case PKGBuildErrorFileCanNotBeDeleted:
 					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to remove %@ at path '%@'",@"Build",@""),fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]];
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to remove %@ at path '%@'",@"Build",@""),fileItemTypeName(tFileKind),tFilePath];
 					
 					switch(tErrorEvent.subcode)
 					{
