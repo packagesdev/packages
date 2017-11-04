@@ -140,12 +140,10 @@ NSString * const PKGFilePathStringKey=@"PATH";
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
-	if(self.string==nil)
-		return tRepresentation;
-	
 	tRepresentation[PKGFilePathTypeKey]=@(self.type);
 	
-	tRepresentation[PKGFilePathStringKey]=[self.string copy];
+	if (self.string!=nil)
+		tRepresentation[PKGFilePathStringKey]=[self.string copy];
 	
 	return tRepresentation;
 }
