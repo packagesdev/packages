@@ -968,6 +968,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 				break;
 			
+			case PKGBuildStepXarCreate:
+				
+				if (tState==PKGBuildStepStateBegin)
+					(void)fprintf(stdout, "\n\txar archive");
+				else
+					(void)fprintf(stdout, " (done)\n");
+				
+				break;
+				
 			case PKGBuildStepPackageCreate:
 				
 				if (tState==PKGBuildStepStateBegin)
@@ -990,8 +999,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "\n%s----------------------------------------------\n\n",tOffsetString);
 				}
-				
-				break;
 				
 				break;
 				

@@ -38,6 +38,8 @@ typedef NS_ENUM(NSUInteger, PKGBuildStep)
 	
 	PKGBuildStepDistributionInstallerPlugins=230,
 	
+	PKGBuildStepXarCreate=300,
+	
 	PKGBuildStepPackageCreate=400,
 	PKGBuildStepPackageReference=402,
 	PKGBuildStepPackageImport=404,

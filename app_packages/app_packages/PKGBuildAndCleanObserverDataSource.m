@@ -373,6 +373,11 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 				tTitle=NSLocalizedStringFromTable(@"Copy Installer plugins",@"Build",@"");
 				break;
 				
+			case PKGBuildStepXarCreate:
+				
+				tTitle=NSLocalizedStringFromTable(@"Create xar archive",@"Build",@"");
+				break;
+				
 			case PKGBuildStepDistributionResources:
 				
 				tTitle=NSLocalizedStringFromTable(@"Copy extra resources",@"Build",@"");
