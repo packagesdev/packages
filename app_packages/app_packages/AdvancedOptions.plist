@@ -66,6 +66,21 @@
 			</dict>
 			<dict>
 				<key>ID</key>
+				<string>installer-script.product</string>
+				<key>CHILDREN</key>
+				<array>
+					<dict>
+						<key>ID</key>
+						<string>installer-script.product:id</string>
+					</dict>
+					<dict>
+						<key>ID</key>
+						<string>installer-script.product:version</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>ID</key>
 				<string>installer-script.domains</string>
 				<key>CHILDREN</key>
 				<array>
@@ -236,6 +251,27 @@
 					</dict>
 				</array>
 			</dict>
+        </dict>
+        <key>installer-script.product</key>
+        <dict>
+           <key>TYPE</key>
+           <string>Header</string>
+           <key>TITLE</key>
+           <string>product</string>
+        </dict>
+        <key>installer-script.product:id</key>
+        <dict>
+           <key>TYPE</key>
+           <string>String</string>
+           <key>TITLE</key>
+           <string>id</string>
+        </dict>
+        <key>installer-script.product:version</key>
+        <dict>
+           <key>TYPE</key>
+           <string>String</string>
+           <key>TITLE</key>
+           <string>version</string>
         </dict>
 		<key>installer-script.domains</key>
 		<dict>
