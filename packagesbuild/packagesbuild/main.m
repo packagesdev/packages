@@ -26,10 +26,19 @@ void usage(void);
 
 void usage(void)
 {
-    (void)fprintf(stderr, "%s\n","usage: packagesbuild [-v] [-d] [-F <reference folder>] [-t <temporary build location>] "
-                          " file ...");
-    
-    exit(1);
+	(void)fprintf(stderr, "%s\n","Usage: packagesbuild [OPTIONS] file\n"
+				  "\n"
+				  "Options:\n"
+				  "  --verbose, -v                          provide additional status output\n"
+				  "  --debug, -d                            build project in debug mode (i.e. disable locators)\n"
+				  "  --temporary-build-location, -t PATH    use this folder as the temporary build folder\n"
+				  "  --reference-folder, -F PATH            use this path as the reference folder\n"
+				  "  --build-folder PATH                    create the build output in this folder\n"
+				  "  --identity NAME                        sign the build output with this identity\n"
+				  "  --keychain PATH                        look for the identity in the keychain at this path\n"
+				  "  --package-version VERSION              set the version of the built raw package project to this value\n\n");
+	
+	exit(1);
 }
 
 #pragma mark -
