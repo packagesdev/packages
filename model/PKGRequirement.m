@@ -106,6 +106,11 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 		
 		PKGFullCheckStringValueForKey(tString,PKGRequirementIdentifierKey);
 		
+		// Fix backward & forward compatibility snafu introduced in version 1.2
+		
+		if ([tString isEqualToString:@"fr.whitebox.Packages.requirement.script"]==YES)
+			tString=@"fr.whitebox.Packages.requirement.scripts";
+		
 		_identifier=[tString copy];
 		
 		
