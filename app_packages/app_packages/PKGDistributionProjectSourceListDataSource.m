@@ -617,12 +617,14 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 	if ([tName caseInsensitiveCompare:inNewName]!=NSOrderedSame)
 	{
 		NSUInteger tLength=inNewName.length;
-		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inPackageComponentTreeNode]];
-		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView columnWithIdentifier:@"sourcelist.name"]];
 		
 		if (tLength==0)
 		{
+			NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inPackageComponentTreeNode]];
+			NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView columnWithIdentifier:@"sourcelist.name"]];
+			
 			[inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+			
 			return NO;
 		}
 		
