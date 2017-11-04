@@ -195,7 +195,9 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 			PKGFullCheckArrayValueForKey(tArray,PKGProjectSettingsFilesFiltersKey);
 		
 			_filesFilters=[[tArray WB_arrayByMappingObjectsUsingBlock:^id(NSDictionary * bFileFilterRepresentation,__attribute__((unused))NSUInteger bIndex){
+				
 				return [PKGFileFilterFactory filterWithRepresentation:bFileFilterRepresentation error:&tError];
+				
 			}] mutableCopy];
 			
 			if (_filesFilters==nil)

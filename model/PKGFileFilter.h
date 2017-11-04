@@ -43,11 +43,11 @@ typedef NS_ENUM(NSUInteger, PKGFileSystemType)
 
 @interface PKGFilePredicate : NSObject <PKGObjectProtocol,NSCopying>
 
-@property (getter=isRegularExpression) BOOL regularExpression;
+	@property (getter=isRegularExpression) BOOL regularExpression;
 
-@property (copy) NSString * pattern;
+	@property (copy) NSString * pattern;
 
-@property PKGFileSystemType fileType;
+	@property PKGFileSystemType fileType;
 
 - (BOOL)matchesFileNamed:(NSString *)inFileName ofType:(PKGFileSystemType)inType;
 
