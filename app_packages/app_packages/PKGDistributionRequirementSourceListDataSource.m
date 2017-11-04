@@ -113,9 +113,9 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 		
 		Class tPluginUIClass=[[PKGRequirementPluginsManager defaultManager] pluginUIClassForIdentifier:tRequirementCopy.identifier];
 		
-		NSDictionary * tPasteboardSettingsRepresenation=[tPluginUIClass performSelector:@selector(pasteboardDictionaryFromDictionary:converter:) withObject:tRequirementCopy.settingsRepresentation withObject:self.filePathConverter];
+		NSDictionary * tPasteboardSettingsRepresentation=[tPluginUIClass performSelector:@selector(pasteboardDictionaryFromDictionary:converter:) withObject:tRequirementCopy.settingsRepresentation withObject:self.filePathConverter];
 		
-		tRequirementCopy.settingsRepresentation=tPasteboardSettingsRepresenation;
+		tRequirementCopy.settingsRepresentation=tPasteboardSettingsRepresentation;
 		
 		return [tRequirementCopy representation];
 	}];
@@ -130,7 +130,7 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 	_internalDragData=nil;
 }
 
-- (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
+- (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard
 {
 	NSMutableSet * tMutableSet=[NSMutableSet set];
 	
