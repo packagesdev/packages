@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -16,6 +16,19 @@
 #import "PKGObjectProtocol.h"
 
 #import "PKGRequirementFailureMessage.h"
+
+typedef NS_OPTIONS(NSUInteger, PKGRequirementDomain)
+{
+	PKGRequirementDomainDistribution	= 1 << 0,
+	PKGRequirementDomainChoice			= 1 << 1,
+	PKGRequirementDomainPackage			= 1 << 2
+};
+
+typedef NS_ENUM(NSUInteger, PKGRequirementOutputFormat)
+{
+	PKGRequirementOutputFormatJavaScript=0,
+	PKGRequirementOutputFormatXML=1
+};
 
 typedef NS_ENUM(NSInteger, PKGRequirementType)
 {
