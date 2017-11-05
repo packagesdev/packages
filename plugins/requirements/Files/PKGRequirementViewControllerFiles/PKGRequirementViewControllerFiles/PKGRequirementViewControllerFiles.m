@@ -293,7 +293,7 @@
 	
 	[_tableView deselectAll:self];
 	
-	[_tableView reloadData];
+	[_tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,_cachedFiles.count)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,_tableView.numberOfColumns)]];
 	
 	[_tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:[_cachedFiles indexOfObject:tNewFilePath]] byExtendingSelection:NO];
 }
@@ -337,16 +337,11 @@
 	tTableCellView.textField.editable=YES;
 	tTableCellView.textField.formatter=_cachedFormatter;
 	tTableCellView.textField.stringValue=_cachedFiles[inRow];
-	tTableCellView.textField.delegate=self;
 	
 	return tTableCellView;
 }
 
-- (void)control:(NSControl *) inControl didFailToValidatePartialString:(NSString *) inPartialString errorDescription:(NSString *) inError
-{
-	if (inError!=nil && [inError isEqualToString:@"NSBeep"]==YES)
-		NSBeep();
-}
+
 
 #pragma mark -
 

@@ -13,7 +13,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PKGRequirementFailureMessageTableCellView : NSTableCellView
+@interface PKGRequirementFailureMessageTableCellView : NSTableCellView <NSTextFieldDelegate>
 
 	@property (assign) IBOutlet NSTextField * titleTextField;
 

@@ -189,7 +189,7 @@
 										<string key="NSFrameSize">{547, 136}</string>
 										<reference key="NSSuperview" ref="1054133875"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="941166022"/>
+										<reference key="NSNextKeyView" ref="219068492"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -304,7 +304,7 @@
 						<string key="NSFrame">{{20, 48}, {546, 138}}</string>
 						<reference key="NSSuperview" ref="1043187812"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1054133875"/>
+						<reference key="NSNextKeyView" ref="941166022"/>
 						<int key="NSsFlags">150162</int>
 						<reference key="NSVScroller" ref="802548641"/>
 						<reference key="NSHScroller" ref="941166022"/>
@@ -349,6 +349,7 @@
 						<string key="NSFrame">{{44, 19}, {24, 22}}</string>
 						<reference key="NSSuperview" ref="1043187812"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="712485596">
 							<int key="NSCellFlags">603979776</int>
@@ -694,6 +695,14 @@
 					</object>
 					<int key="connectionID">174</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="470750941"/>
+						<reference key="destination" ref="219068492"/>
+					</object>
+					<int key="connectionID">210</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1009,6 +1018,7 @@
 				<string key="160.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="161.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="162.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="171.CustomClassName">PKGTableCellView</string>
 				<string key="171.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="171.userInterfaceItemIdentifier">file.path</string>
 				<string key="172.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1025,7 +1035,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">209</int>
+			<int key="maxID">210</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1034,7 +1044,7 @@
 					<string key="superclassName">PKGViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../PKGRequirementViewController.h</string>
+						<string key="minorKey">../../PKGRequirementViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1042,7 +1052,7 @@
 					<string key="superclassName">PKGRequirementViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.h</string>
+						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1122,7 +1132,23 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.m</string>
+						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGTableCellView</string>
+					<string key="superclassName">NSTableCellView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../../../../app_packages/app_packages/PKGTableCellView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGTableView</string>
+					<string key="superclassName">NSTableView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../../../../shared/PKGTableView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1130,7 +1156,7 @@
 					<string key="superclassName">NSViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../shared/PKGViewController.h</string>
+						<string key="minorKey">../../../../shared/PKGViewController.h</string>
 					</object>
 				</object>
 			</array>

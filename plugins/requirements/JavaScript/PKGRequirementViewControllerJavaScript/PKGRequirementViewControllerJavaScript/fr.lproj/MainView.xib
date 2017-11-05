@@ -84,7 +84,7 @@
 										<string key="NSFrameSize">{590, 299}</string>
 										<reference key="NSSuperview" ref="76365167"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="218235558"/>
+										<reference key="NSNextKeyView" ref="696631609"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="574521955">
 											<object class="NSLayoutManager" key="NSLayoutManager">
 												<object class="NSTextStorage" key="NSTextStorage">
@@ -215,7 +215,7 @@
 						<string key="NSFrame">{{37, 200}, {607, 301}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="76365167"/>
+						<reference key="NSNextKeyView" ref="218235558"/>
 						<int key="NSsFlags">133138</int>
 						<reference key="NSVScroller" ref="696631609"/>
 						<reference key="NSHScroller" ref="218235558"/>
@@ -372,7 +372,7 @@
 													<object class="NSTextField" id="979774447">
 														<reference key="NSNextResponder" ref="1028832704"/>
 														<int key="NSvFlags">266</int>
-														<string key="NSFrameSize">{479, 17}</string>
+														<string key="NSFrame">{{0, 1}, {479, 17}}</string>
 														<reference key="NSSuperview" ref="1028832704"/>
 														<reference key="NSWindow"/>
 														<reference key="NSNextKeyView" ref="607617159"/>
@@ -404,7 +404,7 @@
 										<string key="NSFrameSize">{482, 65}</string>
 										<reference key="NSSuperview" ref="825367745"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="968019404"/>
+										<reference key="NSNextKeyView" ref="1028832704"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -521,7 +521,7 @@
 						<string key="NSFrame">{{140, 81}, {484, 67}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="825367745"/>
+						<reference key="NSNextKeyView" ref="968019404"/>
 						<int key="NSsFlags">150034</int>
 						<reference key="NSVScroller" ref="607617159"/>
 						<reference key="NSHScroller" ref="968019404"/>
@@ -1031,6 +1031,14 @@
 					</object>
 					<int key="connectionID">192</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="979774447"/>
+						<reference key="destination" ref="1028832704"/>
+					</object>
+					<int key="connectionID">199</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -1398,6 +1406,7 @@
 				<string key="174.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="175.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="176.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="189.CustomClassName">PKGTableCellView</string>
 				<string key="189.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="190.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="191.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1414,7 +1423,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">198</int>
+			<int key="maxID">199</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1423,7 +1432,7 @@
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICGutterView.h</string>
+						<string key="minorKey">../../../../JavaScriptEditor/JavaScriptEditor/ICGutterView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1431,7 +1440,7 @@
 					<string key="superclassName">NSPopUpButton</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICJavaScriptFunctionPopUpButton.h</string>
+						<string key="minorKey">../../../../JavaScriptEditor/JavaScriptEditor/ICJavaScriptFunctionPopUpButton.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1439,7 +1448,7 @@
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h</string>
+						<string key="minorKey">../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1461,7 +1470,7 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView.h</string>
+						<string key="minorKey">../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1480,7 +1489,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.h</string>
+						<string key="minorKey">../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextViewDelegate.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1488,7 +1497,7 @@
 					<string key="superclassName">PKGViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../PKGRequirementViewController.h</string>
+						<string key="minorKey">../../PKGRequirementViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1496,7 +1505,7 @@
 					<string key="superclassName">PKGRequirementViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript.h</string>
+						<string key="minorKey">../PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1571,7 +1580,15 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript.m</string>
+						<string key="minorKey">../PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript/PKGRequirementViewControllerJavaScript.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGTableCellView</string>
+					<string key="superclassName">NSTableCellView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../../../../shared/PKGTableCellView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1579,7 +1596,7 @@
 					<string key="superclassName">NSTableView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../shared/PKGTableView.h</string>
+						<string key="minorKey">../../../../shared/PKGTableView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1587,7 +1604,7 @@
 					<string key="superclassName">NSViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../shared/PKGViewController.h</string>
+						<string key="minorKey">../../../../shared/PKGViewController.h</string>
 					</object>
 				</object>
 			</array>

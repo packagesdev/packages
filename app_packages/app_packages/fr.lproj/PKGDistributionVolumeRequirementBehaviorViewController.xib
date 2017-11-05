@@ -242,7 +242,7 @@
 										<string key="NSFrameSize">{567, 101}</string>
 										<reference key="NSSuperview" ref="722478202"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="641070495"/>
+										<reference key="NSNextKeyView" ref="981835746"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -384,7 +384,7 @@
 						<string key="NSFrame">{{37, 50}, {569, 103}}</string>
 						<reference key="NSSuperview" ref="560430375"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="722478202"/>
+						<reference key="NSNextKeyView" ref="641070495"/>
 						<int key="NSsFlags">133650</int>
 						<reference key="NSVScroller" ref="29579851"/>
 						<reference key="NSHScroller" ref="641070495"/>
@@ -478,6 +478,7 @@
 						<string key="NSFrame">{{420, 26}, {185, 12}}</string>
 						<reference key="NSSuperview" ref="560430375"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="416384977">
 							<int key="NSCellFlags">67108864</int>
@@ -596,6 +597,14 @@
 						<reference key="destination" ref="152394060"/>
 					</object>
 					<int key="connectionID">158</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="152394060"/>
+						<reference key="destination" ref="532310037"/>
+					</object>
+					<int key="connectionID">176</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -854,6 +863,7 @@
 				<reference key="151.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="151.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="151.userInterfaceItemIdentifier">message.language</string>
+				<string key="155.CustomClassName">PKGTableCellView</string>
 				<string key="155.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="155.userInterfaceItemIdentifier">message.value</string>
 				<boolean value="YES" key="156.IBNSControlSetsMaxLayoutWidthAtFirstLayoutMetadataKey"/>
@@ -887,7 +897,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">175</int>
+			<int key="maxID">176</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -995,6 +1005,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGRequirementBehaviorViewController.m</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGTableCellView</string>
+					<string key="superclassName">NSTableCellView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGTableCellView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

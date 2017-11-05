@@ -15,6 +15,20 @@
 
 @implementation PKGRequirementFailureMessageTableCellView
 
+- (BOOL)control:(NSControl *)inControl textView:(NSTextView *)inTextView doCommandBySelector:(SEL)inSelector
+{
+	if (inSelector==@selector(insertNewline:))
+	{
+		[inControl.window makeFirstResponder:self];
+		
+		return YES;
+	}
+	
+	return NO;
+}
+
+#pragma mark -
+
 - (void)drawRect:(NSRect)dirtyRect
 {
 	[super drawRect:dirtyRect];

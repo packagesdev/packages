@@ -176,7 +176,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" floatsGroupRows="NO" id="83B-wE-E64" customClass="PKGTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="456" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -220,6 +220,7 @@
                                                         </textFieldCell>
                                                         <connections>
                                                             <action selector="setArgumentValue:" target="-2" id="DnC-MV-3ot"/>
+                                                            <outlet property="delegate" destination="VM6-gD-Wkc" id="u6V-SF-f5R"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>

@@ -220,6 +220,7 @@
                                                         </textFieldCell>
                                                         <connections>
                                                             <action selector="setArgumentValue:" target="-2" id="DnC-MV-3ot"/>
+                                                            <outlet property="delegate" destination="VM6-gD-Wkc" id="SY5-RB-clw"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>

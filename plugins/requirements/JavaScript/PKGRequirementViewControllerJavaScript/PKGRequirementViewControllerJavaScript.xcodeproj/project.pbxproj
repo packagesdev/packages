@@ -26,6 +26,7 @@
 		F46DCE9C1E5D132B00794DF9 /* ICSourceTextTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextTopView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h; sourceTree = "<group>"; };
 		F47599F81F18298B00607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerJavaScript/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F48DDE3B1CE3DD30004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4B01EE21FAF27BF0027A553 /* PKGTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableCellView.h; path = ../../../../shared/PKGTableCellView.h; sourceTree = "<group>"; };
 		F4CA27001E5A48CC00E196EB /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F4F30DF11C879DA700C8DB5B /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerJavaScript/Icon_32.png; sourceTree = "<group>"; };
 		F4F30DF21C879DA700C8DB5B /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerJavaScript/Icon_32@2x.png"; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 				F48DDE3A1CE3DD29004B9A29 /* Model */,
 				F4CA27001E5A48CC00E196EB /* NSViewController+WBExtensions.h */,
 				F46DCE971E5CF9CC00794DF9 /* PKGTableView.h */,
+				F4B01EE21FAF27BF0027A553 /* PKGTableCellView.h */,
 				F4F5D0A01CC976350075C2EF /* PKGViewController.h */,
 				F4F5D0861CC975AE0075C2EF /* PKGRequirementViewController.h */,
 			);

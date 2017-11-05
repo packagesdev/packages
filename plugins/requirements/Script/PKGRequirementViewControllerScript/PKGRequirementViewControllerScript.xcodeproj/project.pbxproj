@@ -145,16 +145,16 @@
 		F46CB3D60E8AF7F300F0B8E2 /* Common Source */ = {
 			isa = PBXGroup;
 			children = (
-				F4CA26FF1E5A475400E196EB /* NSTableView+Selection.h */,
 				F4CA26FE1E5A456B00E196EB /* NSArray+WBExtensions.h */,
 				F4970BDF1CD01B2F007CF76F /* Model */,
 				F4CA26EA1E5A3E2000E196EB /* NSViewController+WBExtensions.h */,
 				F4E7D27A11EDE4AE00D54D7C /* PKGFilePathTextField.h */,
 				F44314E11CCABFCB009C6E82 /* PKGViewController.h */,
 				F44314E21CCABFD6009C6E82 /* PKGRequirementViewController.h */,
-				F4CA26FD1E5A3EF700E196EB /* PKGCheckboxTableCellView.h */,
 				F4CA26FC1E5A3EED00E196EB /* PKGTableViewDataSource.h */,
 				F4CA26FB1E5A3EE800E196EB /* PKGTableView.h */,
+				F4CA26FD1E5A3EF700E196EB /* PKGCheckboxTableCellView.h */,
+				F4CA26FF1E5A475400E196EB /* NSTableView+Selection.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

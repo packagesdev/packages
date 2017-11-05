@@ -39,6 +39,7 @@
 		F4AA48771CC231A3006CC13E /* PKGLocator_JavaScript+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGLocator_JavaScript+Constants.h"; path = "../PKGLocator_JavaScript+Constants.h"; sourceTree = "<group>"; };
 		F4AA48781CC231A3006CC13E /* PKGLocator_JavaScript+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGLocator_JavaScript+Constants.m"; path = "../PKGLocator_JavaScript+Constants.m"; sourceTree = "<group>"; };
 		F4AA487A1CC231BD006CC13E /* PKGLocator+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGLocator+Constants.h"; path = "../../PKGLocator+Constants.h"; sourceTree = "<group>"; };
+		F4B01EE31FAF280C0027A553 /* PKGTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableCellView.h; path = ../../../../shared/PKGTableCellView.h; sourceTree = "<group>"; };
 		F4F449D11CC2CFE0000D053A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F4F449D31CC2CFE4000D053A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4F449D51CC2CFE9000D053A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -148,6 +149,7 @@
 			children = (
 				F494B95D1E4D316A0000EBC4 /* NSViewController+WBExtensions.h */,
 				F46DCEC11E5D1E2800794DF9 /* PKGTableView.h */,
+				F4B01EE31FAF280C0027A553 /* PKGTableCellView.h */,
 				F4A20CC41CC26245004D9CC1 /* PKGViewController.h */,
 				F4AA487A1CC231BD006CC13E /* PKGLocator+Constants.h */,
 				F4AA48761CC23127006CC13E /* PKGLocatorViewController.h */,

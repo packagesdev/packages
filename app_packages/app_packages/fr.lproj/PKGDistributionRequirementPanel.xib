@@ -63,6 +63,9 @@
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" tag="1" inset="2" id="rdq-cP-wcL">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                         </buttonCell>
                         <connections>
                             <action selector="endDialog:" target="-2" id="vJ7-N1-Bwg"/>
