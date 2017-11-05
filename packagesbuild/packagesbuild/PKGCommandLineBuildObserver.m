@@ -971,7 +971,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			case PKGBuildStepXarCreate:
 				
 				if (tState==PKGBuildStepStateBegin)
-					(void)fprintf(stdout, "\n\txar archive");
+					(void)fprintf(stdout, "\n\tCreate xar archive");
 				else
 					(void)fprintf(stdout, " (done)\n");
 				
