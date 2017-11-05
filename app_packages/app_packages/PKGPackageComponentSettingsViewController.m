@@ -25,6 +25,10 @@
 
 #import "PKGLocationTextField.h"
 
+#import "PKGMustCloseApplicationItemsPanel.h"
+
+#import "NSCollection+DeepCopy.h"
+
 @interface PKGPackageComponentSettingsViewController () <PKGFileDeadDropViewDelegate,PKGLocationTextFieldDelegate>
 {
 	IBOutlet PKGPackageSettingsSourceView * _sourceSectionView;
@@ -53,6 +57,8 @@
 	
 	
 	IBOutlet NSView * _optionsSectionView;
+	
+	IBOutlet NSButton * _mustCloseApplicationsCheckbox;
 }
 
 - (PKGPackageSettings *)_packageSettingsForImportedPackageAtPath:(NSString *)inPath error:(NSError **)outError;
@@ -62,6 +68,10 @@
 - (IBAction)switchImportReferenceStyle:(id)sender;
 
 - (IBAction)switchLocationType:(id)sender;
+
+- (IBAction)switchMustCloseApplications:(id)sender;
+
+- (IBAction)editMustBeClosedApplications:(id)sender;
 
 // Notifications
 
@@ -352,6 +362,8 @@
 	
 	// Options Section
 	
+	_mustCloseApplicationsCheckbox.state=(self.packageComponent.mustCloseApplications==YES)? NSOnState : NSOffState;
+	
 	switch(self.packageComponent.type)
 	{
 		case PKGPackageComponentTypeProject:
@@ -563,6 +575,43 @@
 	// Notify Document Change
 	
 	[self noteDocumentHasChanged];
+}
+
+- (IBAction)switchMustCloseApplications:(id)sender
+{
+	BOOL tMustCloseApplications=(_mustCloseApplicationsCheckbox.state==NSOnState)? YES : NO;
+	
+	if (self.packageComponent.mustCloseApplications!=tMustCloseApplications)
+	{
+		self.packageComponent.mustCloseApplications=tMustCloseApplications;
+		
+		// Note change
+		
+		[self noteDocumentHasChanged];
+	}
+}
+
+- (IBAction)editMustBeClosedApplications:(id)sender
+{
+	PKGMustCloseApplicationItemsPanel * tPanel=[PKGMustCloseApplicationItemsPanel mustCloseApplicationItemsPanel];
+	
+	tPanel.mustCloseApplicationItems=[self.packageComponent.mustCloseApplicationItems deepCopy];
+	
+	[tPanel beginSheetModalForWindow:self.view.window
+				   completionHandler:^(NSInteger bResult) {
+					   
+					   if (bResult==PKGPanelCancelButton)
+						   return;
+					   
+					   if ([tPanel.mustCloseApplicationItems isEqualTo:self.packageComponent.mustCloseApplicationItems]==YES)
+						   return;
+					   
+					   [self.packageComponent.mustCloseApplicationItems removeAllObjects];
+					   [self.packageComponent.mustCloseApplicationItems addObjectsFromArray:tPanel.mustCloseApplicationItems];
+					   
+					   [self noteDocumentHasChanged];
+
+				   }];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem

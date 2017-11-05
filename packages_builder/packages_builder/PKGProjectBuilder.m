@@ -109,7 +109,7 @@ enum {
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.1";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.2";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -1310,7 +1310,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	tStackedEffectiveUserAndGroup=nil;
 	
 	[self postCurrentStepSuccessEvent:nil];
-
+	
 	if (_buildFormat==PKGProjectBuildFormatFlat)
 	{
 		if ([self isCertificateSetForProjectSettings:self.project.settings]==YES)
@@ -1350,6 +1350,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		PKGArchive * tArchive=[[PKGArchive alloc] initWithPath:tArchivePath];
 		tArchive.delegate=self;
+		
+		[self postStep:PKGBuildStepXarCreate beginEvent:nil];
 		
 		_signatureResult=0;
 		
@@ -1413,7 +1415,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			return NO;
 		}
-	
+		
+		[self postCurrentStepSuccessEvent:nil];
+		
 		tStackedEffectiveUserAndGroup=nil;
 		
 		// Remove the Packages Working folder
@@ -1641,18 +1645,35 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// Update Keys to use the installer-gui-script name instead of installer-script
 		
-		tAdvancedOptionsDictionary=[tAdvancedOptionsDictionary WB_dictionaryByMappingKeysUsingBlock:^NSString *(NSString *bKey,id bObject){
+		NSMutableDictionary * tAdvancedOptionsMutableDictionary=[[tAdvancedOptionsDictionary WB_dictionaryByMappingKeysUsingBlock:^NSString *(NSString *bKey,id bObject){
 		
 			if ([bKey hasPrefix:@"installer-script"]==NO)
 				return bKey;
 			
 			return [@"installer-gui-script" stringByAppendingString:[bKey substringFromIndex:[@"installer-script" length]]];
-		}];
+		}] mutableCopy];
 		
-		id tValue=tAdvancedOptionsDictionary[@"installer-gui-script:minSpecVersion"];
+		if (tAdvancedOptionsMutableDictionary==nil)
+			return NO;
+		
+		id tValue=tAdvancedOptionsMutableDictionary[@"installer-gui-script:minSpecVersion"];
 	
 		if ([tValue isKindOfClass:NSString.class]==YES && [(NSString *)tValue length]>0)
 			tMinSpecVersionSet=YES;
+		
+		// product element
+		
+		tValue=tAdvancedOptionsMutableDictionary[@"installer-gui-script.product:id"];
+		
+		if ([tValue isKindOfClass:NSString.class]==YES && [(NSString *)tValue length]==0)
+			[tAdvancedOptionsMutableDictionary removeObjectForKey:@"installer-gui-script.product:id"];
+		
+		tValue=tAdvancedOptionsDictionary[@"installer-gui-script.product:version"];
+		
+		if ([tValue isKindOfClass:NSString.class]==YES && [(NSString *)tValue length]==0)
+			[tAdvancedOptionsMutableDictionary removeObjectForKey:@"installer-gui-script.product:version"];
+		
+		// domains element
 		
 		NSNumber * tDomainsAnywhereValue=tAdvancedOptionsDictionary[@"installer-gui-script.domains:enable_anywhere"];
 		
@@ -1672,11 +1693,6 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		if (([tDomainsAnywhereValue boolValue]==YES || [tDomainsLocalSystemValue boolValue]==YES || [tDomainsCurrentUserHomeValue boolValue]==YES) &&
 			(tDomainsAnywhereValue==nil || tDomainsLocalSystemValue==nil || tDomainsCurrentUserHomeValue==nil))
 		{
-			NSMutableDictionary * tAdvancedOptionsMutableDictionary=[tAdvancedOptionsDictionary mutableCopy];
-			
-			if (tAdvancedOptionsMutableDictionary==nil)
-				return NO;
-
 			if (tDomainsAnywhereValue==nil)
 				tAdvancedOptionsMutableDictionary[@"installer-gui-script.domains:enable_anywhere"]=@(NO);
 			
@@ -1685,11 +1701,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 			if (tDomainsCurrentUserHomeValue==nil)
 				tAdvancedOptionsMutableDictionary[@"installer-gui-script.domains:enable_currentUserHome"]=@(NO);
-			
-			tAdvancedOptionsDictionary=[tAdvancedOptionsMutableDictionary copy];
 		}
-	
-		if ([self fillDistributionXMLWithDictionary:tAdvancedOptionsDictionary]==NO)
+		
+		if ([self fillDistributionXMLWithDictionary:[tAdvancedOptionsMutableDictionary copy]]==NO)
 			return NO;
 	}
 	
@@ -4562,6 +4576,26 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			[tPkgRefElement addAttribute:tAttribute];
 		}
 		
+		// Must Close ApplicationIDs
+		
+		if (bBuildPackageAttributes.mustBeClosedApplicationIDs.count>0)
+		{
+			NSXMLElement * tMustCloseElement=(NSXMLElement *) [NSXMLNode elementWithName:@"must-close"];
+			
+			[bBuildPackageAttributes.mustBeClosedApplicationIDs enumerateObjectsUsingBlock:^(NSString * bApplicationID, NSUInteger bIndex, BOOL *bOutStop2) {
+				
+				NSXMLElement * tApplicationElement=(NSXMLElement *) [NSXMLNode elementWithName:@"app"];
+				
+				id tIDAttribute=[NSXMLNode attributeWithName:@"id" stringValue:bApplicationID];
+				[tApplicationElement addAttribute:tIDAttribute];
+				
+				[tMustCloseElement addChild:tApplicationElement];
+				
+			}];
+			
+			[tPkgRefElement addChild:tMustCloseElement];
+		}
+		
 		[_installerScriptElement addChild:tPkgRefElement];
 	}];
 }
@@ -5468,6 +5502,30 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		tBuildPackageAttributes.name=tPackageName;
 	}
 	
+	// Must Close Applications
+	
+	if (tIsPackageProject==NO)
+	{
+		PKGPackageComponent * tPackageComponent=(PKGPackageComponent *)inPackageObject;
+		
+		if (tPackageComponent.mustCloseApplications==YES && tPackageComponent.mustCloseApplicationItems.count>0)
+		{
+			NSMutableArray * tFilteredArray=[tPackageComponent.mustCloseApplicationItems WB_arrayByMappingObjectsLenientlyUsingBlock:^NSString *(PKGMustCloseApplicationItem * bMustCloseApplicationItem, NSUInteger bIndex) {
+			
+				if (bMustCloseApplicationItem.isEnabled==NO || bMustCloseApplicationItem.applicationID.length==0)
+					return nil;
+				
+				return bMustCloseApplicationItem.applicationID;
+			
+			}];
+			
+			NSSet * tFilteredApplicationIDs=[NSSet setWithArray:tFilteredArray];
+			
+			if (tFilteredApplicationIDs.count>0)
+				tBuildPackageAttributes.mustBeClosedApplicationIDs=tFilteredApplicationIDs.allObjects;
+		}
+	}
+	
 	if (tPackageType==PKGPackageComponentTypeReference)
 	{
 		/* Nothing to build on disk, we just need to retrieve the information for the choices hierarchy */
@@ -5898,6 +5956,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		PKGArchive * tNewArchive=[[PKGArchive alloc] initWithPath:tNewArchivePath];
 		tNewArchive.delegate=self;
 		
+		[self postStep:PKGBuildStepXarCreate beginEvent:nil];
+		
 		_signatureResult=0;
 		
 		if ([tNewArchive createArchiveWithContentsAtPath:tPackageFolderPath error:&tError]==NO)
@@ -5960,6 +6020,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			return NO;
 		}
 
+		[self postCurrentStepSuccessEvent:nil];
+		
 		tStackedEffectiveUserAndGroup=nil;
 		
 		// Compute the SHA256 hash
