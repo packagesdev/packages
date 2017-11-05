@@ -19,6 +19,8 @@
 
 #import "PKGPackageObjectProtocol.h"
 
+#import "PKGMustCloseApplicationItem.h"
+
 typedef NS_ENUM(NSUInteger, PKGPackageComponentType)
 {
 	PKGPackageComponentTypeProject=0,
@@ -33,6 +35,11 @@ typedef NS_ENUM(NSUInteger, PKGPackageComponentType)
 	@property (readonly) PKGPackageComponentType type;
 
 	@property (readonly) PKGFilePath * importPath;	// can be nil
+
+
+	@property BOOL mustCloseApplications;
+
+	@property (readonly) NSMutableArray * mustCloseApplicationItems;
 
 + (PKGPackageComponent *)projectComponent;
 
