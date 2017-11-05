@@ -64,6 +64,9 @@ extern NSString * const PKGBuildDefaultLanguageKey;
 	@property PKGPackageAuthentication authenticationMode;
 
 
+	@property NSArray * mustBeClosedApplicationIDs;
+
+
 	@property NSInteger archiveSize;	// -1: Unknown/Not set (in KB)	Not Used??
 
 	@property NSInteger payloadSize;	// -1: Unknown/Not set (in KB)
