@@ -15,7 +15,7 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSDictionary+DeepCopy.h"
+#import "NSCollection+DeepCopy.h"
 
 NSString * const PKGLocatorEnabledKey=@"STATE";
 

@@ -15,8 +15,8 @@
 
 #import "PKGPackagesError.h"
 
-#import "NSDictionary+DeepCopy.h"
-#import "NSDictionary+MutableDeepCopy.h"
+#import "NSCollection+DeepCopy.h"
+
 #import "NSDictionary+WBExtensions.h"
 
 NSString * const PKGRequirementEnabledKey=@"STATE";
