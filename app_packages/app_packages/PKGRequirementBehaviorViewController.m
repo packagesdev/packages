@@ -107,6 +107,8 @@
 - (IBAction)addRequirementMessage:(id)sender
 {
 	[self.dataSource addNewItem:self.tableView];
+	
+	// A AMELIORER (Enter edition mode)
 }
 
 - (IBAction)delete:(id)sender
