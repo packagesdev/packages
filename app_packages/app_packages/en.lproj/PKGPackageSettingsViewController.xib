@@ -23,11 +23,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY" customClass="PKGControlledView">
-            <rect key="frame" x="0.0" y="0.0" width="761" height="389"/>
+            <rect key="frame" x="0.0" y="5" width="761" height="409"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <customView id="0Co-r8-wOS" customClass="WBLightGrayView">
-                    <rect key="frame" x="0.0" y="156" width="761" height="105"/>
+                    <rect key="frame" x="0.0" y="176" width="761" height="105"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <popUpButton verticalHuggingPriority="750" id="7CY-7R-muu">
@@ -70,11 +70,11 @@
                     </subviews>
                 </customView>
                 <customView id="kfF-lB-LB8" customClass="WBWhiteView">
-                    <rect key="frame" x="0.0" y="0.0" width="761" height="156"/>
+                    <rect key="frame" x="0.0" y="0.0" width="761" height="176"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <button id="UmS-vr-5Z1">
-                            <rect key="frame" x="117" y="64" width="105" height="18"/>
+                            <rect key="frame" x="117" y="84" width="105" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="check" title="Relocatable" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Izm-Ay-S8g">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -85,7 +85,7 @@
                             </connections>
                         </button>
                         <button id="6tp-RK-ogY">
-                            <rect key="frame" x="117" y="20" width="157" height="18"/>
+                            <rect key="frame" x="117" y="40" width="157" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="check" title="Follow symbolic links" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="cE7-T4-Ug7">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -95,19 +95,8 @@
                                 <action selector="switchFollowSymbolicLinks:" target="-2" id="xsQ-Wi-56B"/>
                             </connections>
                         </button>
-                        <button id="yvq-q7-yje">
-                            <rect key="frame" x="424" y="86" width="171" height="18"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="check" title="Use HFS+ compression" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1fj-zj-5S0">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="switchuseHFSPlusCompression:" target="-2" id="2R5-Vf-TTR"/>
-                            </connections>
-                        </button>
                         <button id="fTo-zI-kIQ">
-                            <rect key="frame" x="117" y="42" width="224" height="18"/>
+                            <rect key="frame" x="117" y="62" width="224" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="check" title="Overwrite directory permissions" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="IlT-lw-S3U">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -118,7 +107,7 @@
                             </connections>
                         </button>
                         <button id="oDB-P6-rld">
-                            <rect key="frame" x="117" y="86" width="274" height="18"/>
+                            <rect key="frame" x="117" y="106" width="274" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="check" title="Require admin password for installation" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rA1-Qm-12D">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -129,7 +118,7 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" id="YfK-rA-PVO">
-                            <rect key="frame" x="18" y="118" width="62" height="18"/>
+                            <rect key="frame" x="18" y="138" width="62" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Options" id="PGB-gf-uvd">
                                 <font key="font" metaFont="systemBold" size="14"/>
@@ -137,8 +126,19 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <button id="yvq-q7-yje">
+                            <rect key="frame" x="117" y="18" width="171" height="18"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="check" title="Use HFS+ compression" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1fj-zj-5S0">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="switchuseHFSPlusCompression:" target="-2" id="2R5-Vf-TTR"/>
+                            </connections>
+                        </button>
                         <textField verticalHuggingPriority="750" id="UcI-rY-hhl">
-                            <rect key="frame" x="599" y="87" width="137" height="14"/>
+                            <rect key="frame" x="292" y="19" width="137" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="(Mac OS X 10.6 or later)" id="CBD-eQ-hMF">
                                 <font key="font" metaFont="smallSystem"/>
@@ -149,7 +149,7 @@
                     </subviews>
                 </customView>
                 <customView id="DI4-VO-pWZ" customClass="WBWhiteView">
-                    <rect key="frame" x="0.0" y="261" width="761" height="128"/>
+                    <rect key="frame" x="0.0" y="281" width="761" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <textField verticalHuggingPriority="750" id="nyJ-So-Ae0">
@@ -209,7 +209,7 @@
                     </subviews>
                 </customView>
             </subviews>
-            <point key="canvasLocation" x="520.5" y="341.5"/>
+            <point key="canvasLocation" x="520.5" y="351.5"/>
         </customView>
         <customFormatter id="ciQ-ad-bPD" customClass="PKGBundleIdentifierFormatter"/>
     </objects>
