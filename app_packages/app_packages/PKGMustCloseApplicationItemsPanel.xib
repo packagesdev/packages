@@ -86,7 +86,7 @@ Gw
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="VHN-nw-7h5">
-                                                            <rect key="frame" x="19" y="2" width="495" height="17"/>
+                                                            <rect key="frame" x="19" y="1" width="495" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" id="5iI-Nd-lTz">
                                                                 <font key="font" metaFont="system"/>
@@ -99,7 +99,7 @@ Gw
                                                             </connections>
                                                         </textField>
                                                         <button id="Abd-Rj-nFQ">
-                                                            <rect key="frame" x="0.0" y="2" width="20" height="15"/>
+                                                            <rect key="frame" x="0.0" y="1" width="20" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" controlSize="mini" state="on" inset="2" id="ZYN-Zo-Tfi">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -110,11 +110,11 @@ Gw
                                                             </connections>
                                                         </button>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="uLi-VU-eyD">
-                                                            <rect key="frame" x="458" y="2" width="56" height="17"/>
+                                                            <rect key="frame" x="454" y="1" width="56" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="oVp-mn-pfd">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="oVp-mn-pfd">
                                                                 <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
