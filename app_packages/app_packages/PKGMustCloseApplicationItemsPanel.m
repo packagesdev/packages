@@ -19,12 +19,15 @@
 
 #import "PKGMustCloseApplicationItemCellView.h"
 
+#import "PKGBundleIdentifierFormatter.h"
 
 @interface PKGMustCloseApplicationItemsWindowController : NSWindowController <NSTableViewDelegate,PKGMustCloseApplicationItemsDataSourceDelegate>
 {
 	IBOutlet NSButton * _addButton;
 	
 	IBOutlet NSButton * _removeButton;
+	
+	PKGBundleIdentifierFormatter * _cachedFormatter;
 }
 
 	@property IBOutlet NSTableView * tableView;
@@ -54,6 +57,18 @@
 }
 
 #pragma mark -
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_cachedFormatter=[PKGBundleIdentifierFormatter new];
+	}
+	
+	return self;
+}
 
 - (NSString *)windowNibName
 {
@@ -164,6 +179,8 @@
 	if ([tTableColumnIdentifier isEqualToString:@"applicationItem"]==YES)
 	{
 		tTableCellView.checkbox.state=(tMustCloseApplicationItem.isEnabled==YES) ? NSOnState : NSOffState;
+		
+		tTableCellView.textField.formatter=_cachedFormatter;
 		tTableCellView.textField.stringValue=tMustCloseApplicationItem.applicationID;
 		
 		/*NSWorkspace * tSharedWorkspace=[NSWorkspace sharedWorkspace];
