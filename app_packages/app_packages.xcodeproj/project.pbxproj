@@ -315,6 +315,7 @@
 		F4880F571DE26C3300A9EAC7 /* PKGDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4880F551DE26C3300A9EAC7 /* PKGDocument.xib */; };
 		F4881C831E5E50490050B511 /* PKGDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4881C811E5E50490050B511 /* PKGDocumentWindowController.m */; };
 		F4881C841E5E50490050B511 /* PKGDocumentWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4881C821E5E50490050B511 /* PKGDocumentWindowController.xib */; };
+		F488D7561FB278B2003413C2 /* NSSet+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F488D7551FB278B2003413C2 /* NSSet+WBExtensions.m */; };
 		F48992B41ED4D15E0076C2E6 /* PKGLicenseKeywordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48992B21ED4D15E0076C2E6 /* PKGLicenseKeywordsViewController.m */; };
 		F48ACCF71E7A04B300749142 /* PKGDistributionVolumeRequirementBehaviorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48ACCF51E7A04B300749142 /* PKGDistributionVolumeRequirementBehaviorViewController.xib */; };
 		F48ACCFA1E7A04DB00749142 /* PKGDistributionVolumeRequirementBehaviorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48ACCF91E7A04DB00749142 /* PKGDistributionVolumeRequirementBehaviorViewController.m */; };
@@ -1314,6 +1315,8 @@
 		F4881C801E5E50490050B511 /* PKGDocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDocumentWindowController.h; path = app_packages/PKGDocumentWindowController.h; sourceTree = "<group>"; };
 		F4881C811E5E50490050B511 /* PKGDocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDocumentWindowController.m; path = app_packages/PKGDocumentWindowController.m; sourceTree = "<group>"; };
 		F4881C821E5E50490050B511 /* PKGDocumentWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PKGDocumentWindowController.xib; path = app_packages/PKGDocumentWindowController.xib; sourceTree = "<group>"; };
+		F488D7541FB278B2003413C2 /* NSSet+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSSet+WBExtensions.h"; path = "../Foundation + Extensions/NSSet+WBExtensions.h"; sourceTree = "<group>"; };
+		F488D7551FB278B2003413C2 /* NSSet+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSet+WBExtensions.m"; path = "../Foundation + Extensions/NSSet+WBExtensions.m"; sourceTree = "<group>"; };
 		F48992B11ED4D15E0076C2E6 /* PKGLicenseKeywordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLicenseKeywordsViewController.h; path = app_packages/PKGLicenseKeywordsViewController.h; sourceTree = "<group>"; };
 		F48992B21ED4D15E0076C2E6 /* PKGLicenseKeywordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLicenseKeywordsViewController.m; path = app_packages/PKGLicenseKeywordsViewController.m; sourceTree = "<group>"; };
 		F48ACCF61E7A04B300749142 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = app_packages/en.lproj/PKGDistributionVolumeRequirementBehaviorViewController.xib; sourceTree = "<group>"; };
@@ -2142,6 +2145,8 @@
 				F41BA2D20D9DC2EF00749037 /* NSArray+Reverse.m */,
 				F424D36C1DCE3E8B00F95165 /* NSArray+WBExtensions.h */,
 				F424D36D1DCE3E8B00F95165 /* NSArray+WBExtensions.m */,
+				F488D7541FB278B2003413C2 /* NSSet+WBExtensions.h */,
+				F488D7551FB278B2003413C2 /* NSSet+WBExtensions.m */,
 				F4AA58811FADFA86004872FD /* NSCollection+DeepCopy.h */,
 				F4AA58821FADFA86004872FD /* NSCollection+DeepCopy.m */,
 				F424D36E1DCE3E8B00F95165 /* NSDictionary+WBExtensions.h */,
@@ -4939,6 +4944,7 @@
 				F424D3681DCE3E4900F95165 /* PKGTreeNode.m in Sources */,
 				F485884D1DD7DCC400A1D892 /* PKGProjectTemplateCollectionViewItem.m in Sources */,
 				F424D3411DCE3E4900F95165 /* PKGChoiceDependencyTreeNode.m in Sources */,
+				F488D7561FB278B2003413C2 /* NSSet+WBExtensions.m in Sources */,
 				F4E241431E4A9E7E000BCA67 /* PKGPluginsManager.m in Sources */,
 				F46DCEBB1E5D1A9100794DF9 /* ICGutterView.m in Sources */,
 				F4EC28231DDA86AD006D8304 /* PKGFileNameFormatter.m in Sources */,
@@ -5914,7 +5920,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 241;
+				CURRENT_PROJECT_VERSION = 244;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5940,7 +5946,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 241;
+				CURRENT_PROJECT_VERSION = 244;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
