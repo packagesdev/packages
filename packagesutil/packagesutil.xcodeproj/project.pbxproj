@@ -22,6 +22,7 @@
 		F481B3941CBD8C9C0063F4CD /* libxar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F481B38E1CBD8C530063F4CD /* libxar.a */; };
 		F483B53D1CBC3F9E00BFDA6A /* PKGPackagesError.m in Sources */ = {isa = PBXBuildFile; fileRef = F483B53C1CBC3F9E00BFDA6A /* PKGPackagesError.m */; };
 		F48649C71FAF905D00161F19 /* NSCollection+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F48649C51FAF905D00161F19 /* NSCollection+DeepCopy.m */; };
+		F488D7621FB27E62003413C2 /* NSSet+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F488D7601FB27E62003413C2 /* NSSet+WBExtensions.m */; };
 		F48EB6E31CBD19210086190B /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EB6E21CBD19210086190B /* libicucore.dylib */; };
 		F49E06A61C7FB6C30044D067 /* packagesutil.m in Sources */ = {isa = PBXBuildFile; fileRef = F49E06A11C7FB6C30044D067 /* packagesutil.m */; };
 		F49E06A71C7FB6C30044D067 /* PUUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F49E06A31C7FB6C30044D067 /* PUUtilities.m */; };
@@ -151,6 +152,8 @@
 		F483B53C1CBC3F9E00BFDA6A /* PKGPackagesError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPackagesError.m; path = ../model/PKGPackagesError.m; sourceTree = "<group>"; };
 		F48649C51FAF905D00161F19 /* NSCollection+DeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSCollection+DeepCopy.m"; path = "../../../../../../Users/Shared/git/packages/Foundation + Extensions/NSCollection+DeepCopy.m"; sourceTree = "<group>"; };
 		F48649C61FAF905D00161F19 /* NSCollection+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCollection+DeepCopy.h"; path = "../../../../../../Users/Shared/git/packages/Foundation + Extensions/NSCollection+DeepCopy.h"; sourceTree = "<group>"; };
+		F488D7601FB27E62003413C2 /* NSSet+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSet+WBExtensions.m"; path = "../Foundation + Extensions/NSSet+WBExtensions.m"; sourceTree = "<group>"; };
+		F488D7611FB27E62003413C2 /* NSSet+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSSet+WBExtensions.h"; path = "../Foundation + Extensions/NSSet+WBExtensions.h"; sourceTree = "<group>"; };
 		F48EB6E21CBD19210086190B /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		F49E06A01C7FB6C30044D067 /* packagesutil_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = packagesutil_Prefix.pch; path = packagesutil/packagesutil_Prefix.pch; sourceTree = "<group>"; };
 		F49E06A11C7FB6C30044D067 /* packagesutil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = packagesutil.m; path = packagesutil/packagesutil.m; sourceTree = "<group>"; };
@@ -466,6 +469,8 @@
 				F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */,
 				F40F55D91F0318450037C8F5 /* NSObject+Conformance.m */,
 				F40F55DA1F0318450037C8F5 /* NSObject+Conformance.h */,
+				F488D7611FB27E62003413C2 /* NSSet+WBExtensions.h */,
+				F488D7601FB27E62003413C2 /* NSSet+WBExtensions.m */,
 				F481B3791CBD8ACF0063F4CD /* NSString+Packages.h */,
 				F481B3781CBD8ACF0063F4CD /* NSString+Packages.m */,
 			);
@@ -587,6 +592,7 @@
 				F4A786311CB4674600FC07B8 /* PKGFileFilter.m in Sources */,
 				F4A7863C1CB4674600FC07B8 /* PKGPayloadBundleItem.m in Sources */,
 				F4A786291CB4674600FC07B8 /* PKGChoiceDependencyTree.m in Sources */,
+				F488D7621FB27E62003413C2 /* NSSet+WBExtensions.m in Sources */,
 				F49E06A61C7FB6C30044D067 /* packagesutil.m in Sources */,
 				F483B53D1CBC3F9E00BFDA6A /* PKGPackagesError.m in Sources */,
 				F4A786341CB4674600FC07B8 /* PKGInstallationHierarchy.m in Sources */,

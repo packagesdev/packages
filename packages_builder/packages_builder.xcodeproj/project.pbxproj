@@ -24,6 +24,7 @@
 		F484A86E1D8748C700FCC361 /* PKGLocatorPluginsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F484A86D1D8748C700FCC361 /* PKGLocatorPluginsManager.m */; };
 		F48649BB1FAF903C00161F19 /* NSCollection+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F48649B91FAF903C00161F19 /* NSCollection+DeepCopy.m */; };
 		F4880F471DE2673900A9EAC7 /* NSString+Karelia.m in Sources */ = {isa = PBXBuildFile; fileRef = F4880F461DE2673900A9EAC7 /* NSString+Karelia.m */; };
+		F488D76E1FB27E8D003413C2 /* NSSet+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F488D76C1FB27E8D003413C2 /* NSSet+WBExtensions.m */; };
 		F48C21731CFCF05500B5A8CD /* NSMutableDictionary+PKGLocalizedValues.m in Sources */ = {isa = PBXBuildFile; fileRef = F48C211F1CFCF05500B5A8CD /* NSMutableDictionary+PKGLocalizedValues.m */; };
 		F48C21741CFCF05500B5A8CD /* PKGChoiceDependencyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = F48C21211CFCF05500B5A8CD /* PKGChoiceDependencyTree.m */; };
 		F48C21751CFCF05500B5A8CD /* PKGChoiceDependencyTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F48C21231CFCF05500B5A8CD /* PKGChoiceDependencyTreeNode.m */; };
@@ -186,6 +187,8 @@
 		F48649BA1FAF903C00161F19 /* NSCollection+DeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCollection+DeepCopy.h"; path = "../../../../../../Users/Shared/git/packages/Foundation + Extensions/NSCollection+DeepCopy.h"; sourceTree = "<group>"; };
 		F4880F451DE2673900A9EAC7 /* NSString+Karelia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Karelia.h"; path = "../external/NSString+Karelia.h"; sourceTree = "<group>"; };
 		F4880F461DE2673900A9EAC7 /* NSString+Karelia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Karelia.m"; path = "../external/NSString+Karelia.m"; sourceTree = "<group>"; };
+		F488D76C1FB27E8D003413C2 /* NSSet+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSet+WBExtensions.m"; path = "../Foundation + Extensions/NSSet+WBExtensions.m"; sourceTree = "<group>"; };
+		F488D76D1FB27E8D003413C2 /* NSSet+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSSet+WBExtensions.h"; path = "../Foundation + Extensions/NSSet+WBExtensions.h"; sourceTree = "<group>"; };
 		F48C21091CFCEFB400B5A8CD /* xar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = xar.xcodeproj; path = ../xar/xar.xcodeproj; sourceTree = "<group>"; };
 		F48C211E1CFCF05500B5A8CD /* NSMutableDictionary+PKGLocalizedValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+PKGLocalizedValues.h"; path = "../model/NSMutableDictionary+PKGLocalizedValues.h"; sourceTree = "<group>"; };
 		F48C211F1CFCF05500B5A8CD /* NSMutableDictionary+PKGLocalizedValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+PKGLocalizedValues.m"; path = "../model/NSMutableDictionary+PKGLocalizedValues.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -446,12 +449,14 @@
 				F48649B91FAF903C00161F19 /* NSCollection+DeepCopy.m */,
 				F48C219E1CFCF0A800B5A8CD /* NSDictionary+WBExtensions.h */,
 				F48C219F1CFCF0A800B5A8CD /* NSDictionary+WBExtensions.m */,
-				F4A2F3A61CFF9F7100FCED04 /* NSString+Packages.h */,
-				F4A2F3A71CFF9F7100FCED04 /* NSString+Packages.m */,
 				F4ACC9B11D3837BC00465EBA /* NSFileManager+Packages.h */,
 				F4ACC9B21D3837BC00465EBA /* NSFileManager+Packages.m */,
 				F4D112B71D6CFE9C0028F627 /* NSIndexPath+Packages.h */,
 				F4D112B81D6CFE9C0028F627 /* NSIndexPath+Packages.m */,
+				F488D76D1FB27E8D003413C2 /* NSSet+WBExtensions.h */,
+				F488D76C1FB27E8D003413C2 /* NSSet+WBExtensions.m */,
+				F4A2F3A61CFF9F7100FCED04 /* NSString+Packages.h */,
+				F4A2F3A71CFF9F7100FCED04 /* NSString+Packages.m */,
 			);
 			name = "Foundation Extensions";
 			sourceTree = "<group>";
@@ -813,6 +818,7 @@
 				F484A86E1D8748C700FCC361 /* PKGLocatorPluginsManager.m in Sources */,
 				F4B0C4DB1E74AB5900204FC4 /* RegexKitLite.m in Sources */,
 				F48C21771CFCF05500B5A8CD /* PKGChoiceItemOptions.m in Sources */,
+				F488D76E1FB27E8D003413C2 /* NSSet+WBExtensions.m in Sources */,
 				F430171F1CFE0EFD00829D16 /* PKGProjectBuilder.m in Sources */,
 				F48C21811CFCF05500B5A8CD /* PKGInstallationHierarchy.m in Sources */,
 				F48DD9CA1D686B6900F59638 /* PKGBuildOrder.m in Sources */,
@@ -871,7 +877,7 @@
 		1DEB927508733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 242;
+				CURRENT_PROJECT_VERSION = 245;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -901,7 +907,7 @@
 		1DEB927608733DD40010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 242;
+				CURRENT_PROJECT_VERSION = 245;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;
