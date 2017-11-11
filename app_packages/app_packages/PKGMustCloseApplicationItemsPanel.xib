@@ -110,11 +110,11 @@ Gw
                                                             </connections>
                                                         </button>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="uLi-VU-eyD">
-                                                            <rect key="frame" x="454" y="1" width="56" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="oVp-mn-pfd">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                            <rect key="frame" x="317" y="1" width="193" height="14"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Label" id="oVp-mn-pfd" customClass="PKGDimmedLabelCell">
+                                                                <font key="font" metaFont="smallSystemBold"/>
+                                                                <color key="textColor" white="0.65789473684210531" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>

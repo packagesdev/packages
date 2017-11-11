@@ -21,6 +21,8 @@
 
 #import "PKGBundleIdentifierFormatter.h"
 
+#import "PKGBundleIdentifierResolver.h"
+
 @interface PKGMustCloseApplicationItemsWindowController : NSWindowController <NSTableViewDelegate,PKGMustCloseApplicationItemsDataSourceDelegate>
 {
 	IBOutlet NSButton * _addButton;
@@ -172,7 +174,7 @@
 		return nil;
 	
 	NSString * tTableColumnIdentifier=inTableColumn.identifier;
-	PKGCheckboxTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
+	PKGMustCloseApplicationItemCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 	
 	PKGMustCloseApplicationItem * tMustCloseApplicationItem=[self.dataSource itemAtRow:inRow];
 	
@@ -183,11 +185,16 @@
 		tTableCellView.textField.formatter=_cachedFormatter;
 		tTableCellView.textField.stringValue=tMustCloseApplicationItem.applicationID;
 		
-		/*NSWorkspace * tSharedWorkspace=[NSWorkspace sharedWorkspace];
+		tTableCellView.applicationNameLabel.stringValue=@"";
 		
-		NSURL * tURL=[tSharedWorkspace URLForApplicationWithBundleIdentifier:tMustCloseApplicationItem.applicationID];
+		NSString * tDisplayName=[[PKGBundleIdentifierResolver sharedResolver] resolveBundleIdentifier:tMustCloseApplicationItem.applicationID completionHandler:^(NSString *bDisplayName){
 		
-		NSLog(@"%@",tURL);*/
+			[inTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:inRow] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, inTableView.numberOfColumns)]];
+		
+		}];
+		
+		if (tDisplayName!=nil)
+			tTableCellView.applicationNameLabel.stringValue=tDisplayName;
 		
 		return tTableCellView;
 	}
