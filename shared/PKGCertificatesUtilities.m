@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2016, Stephane Sudre
+Copyright (c) 2004-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -29,8 +29,16 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	
 	CFArrayRef tResults=NULL;
 	
-	if (SecItemCopyMatching((__bridge CFDictionaryRef)tQueryDictionary, (CFTypeRef *)&tResults)!=errSecSuccess)
+	OSStatus tStatus=SecItemCopyMatching((__bridge CFDictionaryRef)tQueryDictionary, (CFTypeRef *)&tResults);
+	
+	if (tStatus!=errSecSuccess)
+	{
+		NSString * tErrorString=(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus, NULL);
+		
+		NSLog(@"SecItemCopyMatching failed: %@",tErrorString);
+		
 		return [NSArray array];
+	}
 	
 	if (tResults==NULL)
 		return [NSArray array];
@@ -62,7 +70,7 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	
 		SecKeychainRef tKeyChainRef=NULL;
 		
-		OSStatus tStatus=SecKeychainOpen([inPath fileSystemRepresentation],&tKeyChainRef);
+		OSStatus tStatus=SecKeychainOpen(inPath.fileSystemRepresentation,&tKeyChainRef);
 			
 		if (tStatus!=errSecSuccess)
 		{

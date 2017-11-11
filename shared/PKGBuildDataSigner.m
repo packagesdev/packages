@@ -103,7 +103,9 @@
 			
 			if (tErrorRef!=NULL)
 			{
-				// A COMPLETER
+				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+				
+				NSLog(@"%@",tErrorDescription);
 				
 				CFRelease(tErrorRef);
 			}
@@ -119,7 +121,9 @@
 			
 			if (tErrorRef!=NULL)
 			{
-				// A COMPLETER
+				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+				
+				NSLog(@"%@",tErrorDescription);
 				
 				CFRelease(tErrorRef);
 			}
@@ -135,7 +139,9 @@
 			
 			if (tErrorRef!=NULL)
 			{
-				// A COMPLETER
+				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+				
+				NSLog(@"%@",tErrorDescription);
 				
 				CFRelease(tErrorRef);
 			}
@@ -164,6 +170,15 @@
 						return;
 						
 					// A COMPLETER
+						
+					default:
+					{
+						NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+						
+						NSLog(@"%@",tErrorDescription);
+					
+						break;
+					}
 				}
 				
 				
