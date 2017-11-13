@@ -218,7 +218,7 @@
 
 - (void)mustCloseApplicationItemsDataDidChange:(PKGMustCloseApplicationItemsDataSource *)inApplicationIDsDataSource
 {
-	// A COMPLETER
+	
 }
 
 @end
