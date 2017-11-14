@@ -22,6 +22,8 @@
 		F405AA501DCFB4DF006A9B11 /* PKGPreferencePaneTemplatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F405AA4E1DCFB4DF006A9B11 /* PKGPreferencePaneTemplatesViewController.xib */; };
 		F405AA511DCFCB0F006A9B11 /* PKGBundleIdentifierFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E482D61DA5B33800854527 /* PKGBundleIdentifierFormatter.m */; };
 		F405AA551DCFED9D006A9B11 /* PKGProjectTemplateDefaultValuesSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = F405AA541DCFED9D006A9B11 /* PKGProjectTemplateDefaultValuesSettings.m */; };
+		F4061DCD1FB74C5F00CE13E1 /* PKGBundleIdentifierResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = F4061DCC1FB74C5F00CE13E1 /* PKGBundleIdentifierResolver.m */; };
+		F4061DD81FB7560900CE13E1 /* PKGDimmedLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4061DD71FB7560900CE13E1 /* PKGDimmedLabelCell.m */; };
 		F407A8C61E624618006F71E1 /* PKGRetainedCycleControlledView.m in Sources */ = {isa = PBXBuildFile; fileRef = F407A8C51E624618006F71E1 /* PKGRetainedCycleControlledView.m */; };
 		F408B1E91F4062BA00331CFA /* MissingPlugin.png in Resources */ = {isa = PBXBuildFile; fileRef = F408B1E51F4062BA00331CFA /* MissingPlugin.png */; };
 		F408B1EA1F4062BA00331CFA /* MissingPlugin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F408B1E61F4062BA00331CFA /* MissingPlugin@2x.png */; };
@@ -373,6 +375,10 @@
 		F499DA9A1F71D4960003E31A /* PKGPresentationInstallationTypeChoiceRequirementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F499DA9C1F71D4960003E31A /* PKGPresentationInstallationTypeChoiceRequirementsViewController.xib */; };
 		F499DA9E1F71D4D50003E31A /* PKGPresentationInstallationTypeChoiceDependenciesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F499DAA01F71D4D50003E31A /* PKGPresentationInstallationTypeChoiceDependenciesViewController.xib */; };
 		F499F0CE1E50940300CD890A /* PKGPayloadTreeNode+Bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = F499F0CD1E50940300CD890A /* PKGPayloadTreeNode+Bundle.m */; };
+		F49A89661FB8A125002173C0 /* PKGMustCloseApplicationItemsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F49A89681FB8A125002173C0 /* PKGMustCloseApplicationItemsPanel.xib */; };
+		F49A89751FB8ADC2002173C0 /* PKGPreferencesTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F49A89741FB8ADC2002173C0 /* PKGPreferencesTabHeaderView.m */; };
+		F49A89781FB8AE12002173C0 /* PKGPreferencesTabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F49A89771FB8AE12002173C0 /* PKGPreferencesTabButton.m */; };
+		F49A897B1FB8AEB9002173C0 /* PKGPreferencesTabBox.m in Sources */ = {isa = PBXBuildFile; fileRef = F49A897A1FB8AEB9002173C0 /* PKGPreferencesTabBox.m */; };
 		F49AFF5B1E902A0C0001D7AE /* NSImage+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = F49AFF5A1E902A0C0001D7AE /* NSImage+Size.m */; };
 		F49AFF5E1E902D400001D7AE /* PKGPresentationBackgroundSettings+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = F49AFF5D1E902D400001D7AE /* PKGPresentationBackgroundSettings+UI.m */; };
 		F49AFF611E9044E40001D7AE /* NSFileManager+FileTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = F49AFF601E9044E40001D7AE /* NSFileManager+FileTypes.m */; };
@@ -508,7 +514,6 @@
 		F4B748941E6CE69F00E81F93 /* PKGRequirementConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E482E81DA5B42A00854527 /* PKGRequirementConverter.m */; };
 		F4B748971E6CE6BB00E81F93 /* PKGConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B748961E6CE6BB00E81F93 /* PKGConverter.m */; };
 		F4B835361FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B835351FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m */; };
-		F4B835381FAB3DD7003A6D94 /* PKGMustCloseApplicationItemsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4B835371FAB3DD7003A6D94 /* PKGMustCloseApplicationItemsPanel.xib */; };
 		F4B8A4F21F39067600A9A8B8 /* ProjectTemplateAssistant.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4B8A4F01F39067600A9A8B8 /* ProjectTemplateAssistant.strings */; };
 		F4B96CF41EC3BB1D003BD5A8 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B96CF31EC3BB1D003BD5A8 /* NSObject+Conformance.m */; };
 		F4BC683D1F731B0700363752 /* PKGPresentationChoiceRequirementPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4BC683F1F731B0700363752 /* PKGPresentationChoiceRequirementPanel.xib */; };
@@ -801,6 +806,10 @@
 		F405AA4F1DCFB4DF006A9B11 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = app_packages/en.lproj/PKGPreferencePaneTemplatesViewController.xib; sourceTree = "<group>"; };
 		F405AA531DCFED9D006A9B11 /* PKGProjectTemplateDefaultValuesSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGProjectTemplateDefaultValuesSettings.h; path = app_packages/PKGProjectTemplateDefaultValuesSettings.h; sourceTree = "<group>"; };
 		F405AA541DCFED9D006A9B11 /* PKGProjectTemplateDefaultValuesSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGProjectTemplateDefaultValuesSettings.m; path = app_packages/PKGProjectTemplateDefaultValuesSettings.m; sourceTree = "<group>"; };
+		F4061DCB1FB74C5F00CE13E1 /* PKGBundleIdentifierResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBundleIdentifierResolver.h; path = app_packages/PKGBundleIdentifierResolver.h; sourceTree = "<group>"; };
+		F4061DCC1FB74C5F00CE13E1 /* PKGBundleIdentifierResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBundleIdentifierResolver.m; path = app_packages/PKGBundleIdentifierResolver.m; sourceTree = "<group>"; };
+		F4061DD61FB7560900CE13E1 /* PKGDimmedLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDimmedLabelCell.h; path = app_packages/PKGDimmedLabelCell.h; sourceTree = "<group>"; };
+		F4061DD71FB7560900CE13E1 /* PKGDimmedLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDimmedLabelCell.m; path = app_packages/PKGDimmedLabelCell.m; sourceTree = "<group>"; };
 		F407A8C41E624618006F71E1 /* PKGRetainedCycleControlledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRetainedCycleControlledView.h; path = app_packages/PKGRetainedCycleControlledView.h; sourceTree = "<group>"; };
 		F407A8C51E624618006F71E1 /* PKGRetainedCycleControlledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRetainedCycleControlledView.m; path = app_packages/PKGRetainedCycleControlledView.m; sourceTree = "<group>"; };
 		F408B1E51F4062BA00331CFA /* MissingPlugin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MissingPlugin.png; path = app_packages/Images/MissingPlugin.png; sourceTree = "<group>"; };
@@ -1417,6 +1426,14 @@
 		F499DAA11F71D4D80003E31A /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PKGPresentationInstallationTypeChoiceDependenciesViewController.xib; sourceTree = "<group>"; };
 		F499F0CC1E50940300CD890A /* PKGPayloadTreeNode+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGPayloadTreeNode+Bundle.h"; path = "app_packages/PKGPayloadTreeNode+Bundle.h"; sourceTree = "<group>"; };
 		F499F0CD1E50940300CD890A /* PKGPayloadTreeNode+Bundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGPayloadTreeNode+Bundle.m"; path = "app_packages/PKGPayloadTreeNode+Bundle.m"; sourceTree = "<group>"; };
+		F49A89671FB8A125002173C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PKGMustCloseApplicationItemsPanel.xib; sourceTree = "<group>"; };
+		F49A89711FB8A128002173C0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PKGMustCloseApplicationItemsPanel.xib; sourceTree = "<group>"; };
+		F49A89731FB8ADC2002173C0 /* PKGPreferencesTabHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPreferencesTabHeaderView.h; path = app_packages/PKGPreferencesTabHeaderView.h; sourceTree = "<group>"; };
+		F49A89741FB8ADC2002173C0 /* PKGPreferencesTabHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPreferencesTabHeaderView.m; path = app_packages/PKGPreferencesTabHeaderView.m; sourceTree = "<group>"; };
+		F49A89761FB8AE12002173C0 /* PKGPreferencesTabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPreferencesTabButton.h; path = app_packages/PKGPreferencesTabButton.h; sourceTree = "<group>"; };
+		F49A89771FB8AE12002173C0 /* PKGPreferencesTabButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPreferencesTabButton.m; path = app_packages/PKGPreferencesTabButton.m; sourceTree = "<group>"; };
+		F49A89791FB8AEB9002173C0 /* PKGPreferencesTabBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPreferencesTabBox.h; path = app_packages/PKGPreferencesTabBox.h; sourceTree = "<group>"; };
+		F49A897A1FB8AEB9002173C0 /* PKGPreferencesTabBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPreferencesTabBox.m; path = app_packages/PKGPreferencesTabBox.m; sourceTree = "<group>"; };
 		F49AFF591E902A0C0001D7AE /* NSImage+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+Size.h"; path = "../AppKit + Extensions/NSImage+Size.h"; sourceTree = "<group>"; };
 		F49AFF5A1E902A0C0001D7AE /* NSImage+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+Size.m"; path = "../AppKit + Extensions/NSImage+Size.m"; sourceTree = "<group>"; };
 		F49AFF5C1E902D400001D7AE /* PKGPresentationBackgroundSettings+UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGPresentationBackgroundSettings+UI.h"; path = "../model+UI/PKGPresentationBackgroundSettings+UI.h"; sourceTree = "<group>"; };
@@ -1638,7 +1655,6 @@
 		F4B748961E6CE6BB00E81F93 /* PKGConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGConverter.m; path = ../plugins/PKGConverter.m; sourceTree = "<group>"; };
 		F4B835341FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGMustCloseApplicationItemsPanel.h; path = app_packages/PKGMustCloseApplicationItemsPanel.h; sourceTree = "<group>"; };
 		F4B835351FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMustCloseApplicationItemsPanel.m; path = app_packages/PKGMustCloseApplicationItemsPanel.m; sourceTree = "<group>"; };
-		F4B835371FAB3DD7003A6D94 /* PKGMustCloseApplicationItemsPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PKGMustCloseApplicationItemsPanel.xib; path = app_packages/PKGMustCloseApplicationItemsPanel.xib; sourceTree = "<group>"; };
 		F4B8A4E71F39046F00A9A8B8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = app_packages/fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F4B8A4F11F39067600A9A8B8 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = app_packages/en.lproj/ProjectTemplateAssistant.strings; sourceTree = "<group>"; };
 		F4B8A4F31F3907A700A9A8B8 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = app_packages/fr.lproj/ProjectTemplateAssistant.strings; sourceTree = "<group>"; };
@@ -2898,6 +2914,12 @@
 				F47AA5971DD2954A005AFC1D /* PKGTemporaryBuildLocationView.m */,
 				F47AA5991DD2959A005AFC1D /* PKGVerticallyCenteredTextField.h */,
 				F47AA59A1DD2959A005AFC1D /* PKGVerticallyCenteredTextField.m */,
+				F49A89731FB8ADC2002173C0 /* PKGPreferencesTabHeaderView.h */,
+				F49A89741FB8ADC2002173C0 /* PKGPreferencesTabHeaderView.m */,
+				F49A89761FB8AE12002173C0 /* PKGPreferencesTabButton.h */,
+				F49A89771FB8AE12002173C0 /* PKGPreferencesTabButton.m */,
+				F49A89791FB8AEB9002173C0 /* PKGPreferencesTabBox.h */,
+				F49A897A1FB8AEB9002173C0 /* PKGPreferencesTabBox.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -3471,6 +3493,8 @@
 		F49D025D1E68D35400F1BB55 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				F4061DD61FB7560900CE13E1 /* PKGDimmedLabelCell.h */,
+				F4061DD71FB7560900CE13E1 /* PKGDimmedLabelCell.m */,
 				F49EBB4C1E78BBD800B43387 /* PKGImportReferencePopUpButtonCell.h */,
 				F49EBB4D1E78BBD800B43387 /* PKGImportReferencePopUpButtonCell.m */,
 				F48649A51FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.h */,
@@ -3604,7 +3628,9 @@
 			children = (
 				F4B835341FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.h */,
 				F4B835351FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m */,
-				F4B835371FAB3DD7003A6D94 /* PKGMustCloseApplicationItemsPanel.xib */,
+				F4061DCB1FB74C5F00CE13E1 /* PKGBundleIdentifierResolver.h */,
+				F4061DCC1FB74C5F00CE13E1 /* PKGBundleIdentifierResolver.m */,
+				F49A89681FB8A125002173C0 /* PKGMustCloseApplicationItemsPanel.xib */,
 			);
 			name = panels;
 			sourceTree = "<group>";
@@ -4459,7 +4485,7 @@
 				F4E4B02C1F4C2AB10086427E /* flag_pl.png in Resources */,
 				F4B1ECEE1F4F617E00D8027D /* PKGDistributionProjectSourceListController.xib in Resources */,
 				F46B16461F522E83003EDDAF /* NativeLanguages.plist in Resources */,
-				F4B835381FAB3DD7003A6D94 /* PKGMustCloseApplicationItemsPanel.xib in Resources */,
+				F49A89661FB8A125002173C0 /* PKGMustCloseApplicationItemsPanel.xib in Resources */,
 				F45298271F46F67F0020CAF0 /* MixedSmallUbuntu.png in Resources */,
 				F4AB91E01F46F7B000BEB1E5 /* ReferenceFolderRegularUbuntu.png in Resources */,
 				F4881C841E5E50490050B511 /* PKGDocumentWindowController.xib in Resources */,
@@ -4643,6 +4669,7 @@
 				F485883D1DD7D03700A1D892 /* PKGProjectTemplate.m in Sources */,
 				F40A8AAD1E92EF5B000BE811 /* PKGInstallerPlugin.m in Sources */,
 				F481F63D1E18394000DBD566 /* PKGFilePathTextFieldCell.m in Sources */,
+				F49A897B1FB8AEB9002173C0 /* PKGPreferencesTabBox.m in Sources */,
 				F424D3451DCE3E4900F95165 /* PKGChoicesForest.m in Sources */,
 				F4BE51521F33BA2200073294 /* PKGPresentationFileNamePopUpButtonCell.m in Sources */,
 				F4EC281C1DDA7C07006D8304 /* PKGProjectTemplateAssistantSettingsKeys.m in Sources */,
@@ -4723,6 +4750,7 @@
 				F452C96B1DCFA41D002B7CBC /* PKGPreferencePaneGeneralViewController.m in Sources */,
 				F4FE99A91F293A1700BCB60F /* PKGBuildSubtitledTableCellView.m in Sources */,
 				F493EE871E5640FF00617AEF /* PKGDistributionProjectViewController.m in Sources */,
+				F49A89781FB8AE12002173C0 /* PKGPreferencesTabButton.m in Sources */,
 				F40F55D61F030D590037C8F5 /* PKGPackageComponent+Transformation.m in Sources */,
 				F45122A61E577E8D00F6DAC3 /* PKGDistributionRequirementsViewController.m in Sources */,
 				F424D3711DCE3E8B00F95165 /* NSDictionary+WBExtensions.m in Sources */,
@@ -4831,6 +4859,7 @@
 				F4C5B1301E6C513E00AF5E4B /* PKGDistributionRequirementSourceListNode.m in Sources */,
 				F45C1F761E807843009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsTree.m in Sources */,
 				F431AF701E4FDF7000E1CE28 /* PKGEvent.m in Sources */,
+				F4061DCD1FB74C5F00CE13E1 /* PKGBundleIdentifierResolver.m in Sources */,
 				F416801A1E7757B2006F2C88 /* PKGLanguagesPopupButtonCell.m in Sources */,
 				F48C61961DD64EAD0051E032 /* PKGAssistantStepViewController.m in Sources */,
 				F4BDE4921ED621110006495E /* PKGLicenseProvider+UI.m in Sources */,
@@ -4864,10 +4893,12 @@
 				F47477891DD540DF00FFA81F /* PKGProjectTemplateAssistantWindowController.m in Sources */,
 				F40F3FC71EBBDB9300170D47 /* WBVersionsHistory.m in Sources */,
 				F424D34C1DCE3E4900F95165 /* PKGFilePath.m in Sources */,
+				F4061DD81FB7560900CE13E1 /* PKGDimmedLabelCell.m in Sources */,
 				F49AFF611E9044E40001D7AE /* NSFileManager+FileTypes.m in Sources */,
 				F4DA5EA31DE51052005F9BCF /* PKGProjectSettingsViewController.m in Sources */,
 				F49E99851E3EA26C00A80249 /* PKGInstallerApp.m in Sources */,
 				F4DD1FF41E17EAFA0018140D /* PKGSeparatorTableRowView.m in Sources */,
+				F49A89751FB8ADC2002173C0 /* PKGPreferencesTabHeaderView.m in Sources */,
 				F40556071EDD96560022394B /* PKGPresentationChoiceRequirementPanel.m in Sources */,
 				F48588501DD7E4E000A1D892 /* WBWhiteFramedView.m in Sources */,
 				F4CAF09F1E1DC43F006954BD /* PKGProjectNameFormatter.m in Sources */,
@@ -5379,6 +5410,16 @@
 				F499DAA11F71D4D80003E31A /* fr */,
 			);
 			name = PKGPresentationInstallationTypeChoiceDependenciesViewController.xib;
+			path = app_packages;
+			sourceTree = "<group>";
+		};
+		F49A89681FB8A125002173C0 /* PKGMustCloseApplicationItemsPanel.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F49A89671FB8A125002173C0 /* en */,
+				F49A89711FB8A128002173C0 /* fr */,
+			);
+			name = PKGMustCloseApplicationItemsPanel.xib;
 			path = app_packages;
 			sourceTree = "<group>";
 		};
@@ -5920,7 +5961,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 244;
+				CURRENT_PROJECT_VERSION = 254;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5946,7 +5987,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 244;
+				CURRENT_PROJECT_VERSION = 254;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
