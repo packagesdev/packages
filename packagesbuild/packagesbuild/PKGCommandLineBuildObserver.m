@@ -1089,7 +1089,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		if (tStep==PKGBuildStepProject)
 		{
-			if (tState==PKGBuildStepStateSuccess)
+			if (tState==PKGBuildStepStateBegin)
+			{
+				_startTime=time(NULL);
+			}
+			else if (tState==PKGBuildStepStateSuccess)
 			{
 				double tDiffTime=difftime(time(NULL),_startTime);
 				
@@ -1108,8 +1112,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 				exit(EXIT_SUCCESS);
 			}
-			
-			_startTime=time(NULL);	// Necessarily state begin
 		}
 	}
 	
