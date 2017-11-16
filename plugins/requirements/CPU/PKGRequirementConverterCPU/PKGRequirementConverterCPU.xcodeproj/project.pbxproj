@@ -20,6 +20,7 @@
 		F40C13BF0E9C0A9700542EB0 /* PKGRequirement_CPU+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_CPU+Constants.m"; path = "../PKGRequirement_CPU+Constants.m"; sourceTree = SOURCE_ROOT; };
 		F40C13C00E9C0A9700542EB0 /* PKGRequirement_CPU+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_CPU+Constants.h"; path = "../PKGRequirement_CPU+Constants.h"; sourceTree = SOURCE_ROOT; };
 		F4451B421C7BBC5900516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F46068EA1F8E9D8D004DD6BC /* WBVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersion.h; path = ../../../../WBKit/WBVersion.h; sourceTree = "<group>"; };
 		F48C21B41CFCF84A00B5A8CD /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
 		F48C21B61CFCF88700B5A8CD /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F49E06D91C7FBBDF0044D067 /* PKGRequirementConverterCPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverterCPU.h; path = PKGRequirementConverterCPU/PKGRequirementConverterCPU.h; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		F48C21B51CFCF84C00B5A8CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F46068EA1F8E9D8D004DD6BC /* WBVersion.h */,
 				F48C21B61CFCF88700B5A8CD /* PKGPackages.h */,
 			);
 			name = Model;
