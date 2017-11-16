@@ -363,10 +363,17 @@
 											   }
 									   communicationErrorHandler:^(NSError * bCommunicationError){
 										   
-										   NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+										   // Play Failure Sound if needed
 										   
-										   if (tSoundName.length>0)
-											[[NSSound soundNamed:tSoundName] play];
+										   PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorFailure];
+										   
+										   if (tBuildResultBehavior.playSound==YES)
+										   {
+											   NSString * tSoundName=tBuildResultBehavior.soundName;
+											   
+											   if (tSoundName.length>0)
+												   [[NSSound soundNamed:tSoundName] play];
+										   }
 										   
 										   // Remove Temporary Folder
 										   
@@ -432,10 +439,17 @@
 	
 	if (tState==PKGBuildStepStateFailure)
 	{
-		NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+		// Play Failure Sound if needed
 		
-		if (tSoundName.length>0)
-			[[NSSound soundNamed:tSoundName] play];
+		PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorFailure];
+		
+		if (tBuildResultBehavior.playSound==YES)
+		{
+			NSString * tSoundName=tBuildResultBehavior.soundName;
+			
+			if (tSoundName.length>0)
+				[[NSSound soundNamed:tSoundName] play];
+		}
 		
 		[[PKGQuickBuildFeedbackWindowController sharedController] setStatus:PKGQuickBuildStateFailed forUUID:_UUID];
 		
@@ -464,10 +478,18 @@
 	{
 		if (tStep==PKGBuildStepProject)
 		{
-			NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
+			// Play Failure Sound if needed
 			
-			if (tSoundName.length>0)
-				[[NSSound soundNamed:tSoundName] play];
+			PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorSuccess];
+			
+			if (tBuildResultBehavior.playSound==YES)
+			{
+				NSString * tSoundName=tBuildResultBehavior.soundName;
+				
+				if (tSoundName.length>0)
+					[[NSSound soundNamed:tSoundName] play];
+			}
+			
 			
 			[[PKGQuickBuildFeedbackWindowController sharedController] setStatus:PKGQuickBuildStateSuccessful forUUID:_UUID];
 			

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -61,6 +61,31 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesBuildHideBuildWindowBehavior)
 	PKGPreferencesBuildHideBuildWindowOnSuccess=2
 };
 
+typedef NS_ENUM(NSInteger, PKGPreferencesBuildResultBehaviorType)
+{
+	PKGPreferencesBuildResultBehaviorSuccess=0,
+	PKGPreferencesBuildResultBehaviorFailure=1,
+};
+
+@interface PKGApplicationBuildResultBehavior : NSObject
+
+	@property (readonly) PKGPreferencesBuildResultBehaviorType type;
+
+	@property (nonatomic) BOOL playSound;
+	
+	@property (nonatomic,copy) NSString * soundName;
+
+	@property (nonatomic) BOOL speakAnnouncement;
+
+	@property (nonatomic,copy) NSString * announcementVoice;
+
+	@property (nonatomic) BOOL notifyUsingSystemNotification;
+
+	@property (nonatomic) BOOL bounceIconInDock;
+
+@end
+
+
 @interface PKGApplicationPreferences : NSObject
 
 	// General
@@ -91,9 +116,9 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesBuildHideBuildWindowBehavior)
 
 	@property (nonatomic) PKGPreferencesBuildHideBuildWindowBehavior hideBuildWindowBehavior;
 
-	@property (nonatomic,copy) NSString * playedSoundForSuccessfulBuild;
 
-	@property (nonatomic,copy) NSString * playedSoundForFailedBuild;
+	@property (readonly) NSArray * buildResultBehaviors;
+
 
 	@property (nonatomic) BOOL useBundleVersionForQuickBuild;
 

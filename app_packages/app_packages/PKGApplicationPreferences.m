@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2017, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -41,9 +41,28 @@ NSString * const PKGPreferencesBuildShowBuildWindowBehaviorKey=@"build.window.ev
 
 NSString * const PKGPreferencesBuildHideBuildWindowBehaviorKey=@"build.window.event.hide";
 
-NSString * const PKGPreferencesBuildPlayedSoundForSuccessfulBuildKey=@"build.sound.play.success";
 
-NSString * const PKGPreferencesBuildPlayedSoundForFailedBuildKey=@"build.sound.play.errors";
+NSString * const PKGPreferencesBuildPlayedSoundForSuccessfulBuildKey=@"build.sound.play.success";	// Deprecated
+
+NSString * const PKGPreferencesBuildPlayedSoundForFailedBuildKey=@"build.sound.play.errors";		// Deprecated
+
+
+NSString * const PKGPreferencesBuildSuccessKey=@"success";
+
+NSString * const PKGPreferencesBuildFailureKey=@"failure";
+
+NSString * const PKGPreferencesBuildResultBehaviorPlaySoundFormatKey=@"build.result.behavior.%@.playSound";
+
+NSString * const PKGPreferencesBuildResultBehaviorSoundNameFormatKey=@"build.result.behavior.%@.soundName";
+
+NSString * const PKGPreferencesBuildResultBehaviorSpeakAnnouncementFormatKey=@"build.result.behavior.%@.speakAnnouncement";
+
+NSString * const PKGPreferencesBuildResultBehaviorAnnouncementVoiceFormatKey=@"build.result.behavior.%@.announcementVoice";
+
+NSString * const PKGPreferencesBuildResultBehaviorNotifyUsingSystemNotificationFormatKey=@"build.result.behavior.%@.notifyUsingSystemNotification";
+
+NSString * const PKGPreferencesBuildResultBehaviorBounceIconInDockFormatKey=@"build.result.behavior.%@.bounceIconInDock";
+
 
 NSString * const PKGPreferencesQuickBuildUseBundleVersionKey=@"quickbuild.version.useBundle";
 
@@ -75,10 +94,210 @@ NSString * const PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification=@"
 NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKGPreferencesAdvancedAppleModeStateDidChangeNotification";
 
 
+@interface PKGApplicationBuildResultBehavior ()
+{
+	NSUserDefaults * _defaults;
+	
+	NSString * _buildResultTypeName;
+}
+
++ (NSArray *)buildResultBehaviors;
+
+- (instancetype)initWithBehaviorType:(PKGPreferencesBuildResultBehaviorType)inType;
+
+@end
+
+
+@implementation PKGApplicationBuildResultBehavior
+
++ (void)initialize
+{
+	NSUserDefaults * tUserDefaults=[NSUserDefaults standardUserDefaults];
+	
+	NSArray * tResultTypeNames=@[PKGPreferencesBuildSuccessKey,PKGPreferencesBuildFailureKey];
+	
+	for(NSString * tResultTypeName in tResultTypeNames)
+	{
+		[tUserDefaults registerDefaults:@{
+								  
+										  [NSString stringWithFormat:PKGPreferencesBuildResultBehaviorSpeakAnnouncementFormatKey,tResultTypeName]:@(NO),
+										  [NSString stringWithFormat:PKGPreferencesBuildResultBehaviorNotifyUsingSystemNotificationFormatKey,tResultTypeName]:@(YES),
+										  [NSString stringWithFormat:PKGPreferencesBuildResultBehaviorBounceIconInDockFormatKey,tResultTypeName]:@(YES),
+									  
+									  }];
+	}
+
+}
+
++ (NSArray *)buildResultBehaviors
+{
+	static NSMutableArray * sBuildResultBehaviors=nil;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		
+		NSMutableArray * tMutableArray=[NSMutableArray array];
+		
+		// Success
+		
+		PKGApplicationBuildResultBehavior * tBuildResultBehavior=[[PKGApplicationBuildResultBehavior alloc] initWithBehaviorType:PKGPreferencesBuildResultBehaviorSuccess];
+		
+		[tMutableArray addObject:tBuildResultBehavior];
+		
+		tBuildResultBehavior=[[PKGApplicationBuildResultBehavior alloc] initWithBehaviorType:PKGPreferencesBuildResultBehaviorFailure];
+		
+		[tMutableArray addObject:tBuildResultBehavior];
+		
+		sBuildResultBehaviors=[tMutableArray copy];
+		
+	});
+	
+	return sBuildResultBehaviors;
+}
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_defaults=[NSUserDefaults standardUserDefaults];
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithBehaviorType:(PKGPreferencesBuildResultBehaviorType)inType
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_type=inType;
+		
+		switch(_type)
+		{
+			case PKGPreferencesBuildResultBehaviorSuccess:
+				
+				_buildResultTypeName=PKGPreferencesBuildSuccessKey;
+				break;
+				
+			case PKGPreferencesBuildResultBehaviorFailure:
+				
+				_buildResultTypeName=PKGPreferencesBuildFailureKey;
+				break;
+				
+			default:
+				
+				return nil;
+		}
+		
+		_defaults=[NSUserDefaults standardUserDefaults];
+		
+		NSString * tPlaySoundKey=[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorPlaySoundFormatKey,_buildResultTypeName];
+		NSString * tSoundNameKey=[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorSoundNameFormatKey,_buildResultTypeName];
+		
+		if ([_defaults objectForKey:tPlaySoundKey]==nil &&
+			[_defaults objectForKey:tSoundNameKey]==nil)
+		{
+			NSString * tSpareKey=(_type==PKGPreferencesBuildResultBehaviorSuccess) ? PKGPreferencesBuildPlayedSoundForSuccessfulBuildKey: PKGPreferencesBuildPlayedSoundForFailedBuildKey;
+			
+			NSString * tPlayedSoundName=[_defaults stringForKey:tSpareKey];
+			
+			if (tPlayedSoundName.length==0)
+			{
+				_playSound=NO;
+				_soundName=nil;
+			}
+			else
+			{
+				_playSound=YES;
+				_soundName=[tPlayedSoundName copy];
+				
+				[_defaults setBool:_playSound forKey:tPlaySoundKey];
+				[_defaults setObject:_soundName forKey:tSoundNameKey];
+			}
+		}
+		else
+		{
+			_playSound=[_defaults boolForKey:tPlaySoundKey];
+			_soundName=[_defaults stringForKey:tSoundNameKey];
+		}
+		
+		_soundName=[_defaults stringForKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorSoundNameFormatKey,_buildResultTypeName]];
+		
+		_speakAnnouncement=[_defaults boolForKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorSpeakAnnouncementFormatKey,_buildResultTypeName]];
+		
+		_announcementVoice=[_defaults stringForKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorAnnouncementVoiceFormatKey,_buildResultTypeName]];
+		
+		_notifyUsingSystemNotification=[_defaults boolForKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorNotifyUsingSystemNotificationFormatKey,_buildResultTypeName]];
+		
+		_bounceIconInDock=[_defaults boolForKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorBounceIconInDockFormatKey,_buildResultTypeName]];
+	}
+	
+	return self;
+}
+
+#pragma mark -
+
+- (void)setPlaySound:(BOOL)inBool
+{
+	_playSound=inBool;
+	
+	[_defaults setInteger:inBool forKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorPlaySoundFormatKey,_buildResultTypeName]];
+}
+
+- (void)setSoundName:(NSString *)inSoundName
+{
+	if (inSoundName.length==0 || _soundName==nil || [_soundName caseInsensitiveCompare:inSoundName]!=NSOrderedSame)
+	{
+		_soundName=[inSoundName copy];
+		
+		[_defaults setObject:[inSoundName copy] forKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorSoundNameFormatKey,_buildResultTypeName]];
+	}
+}
+
+- (void)setSpeakAnnouncement:(BOOL)inBool
+{
+	_speakAnnouncement=inBool;
+	
+	[_defaults setBool:inBool forKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorSpeakAnnouncementFormatKey,_buildResultTypeName]];
+}
+
+- (void)setAnnouncementVoice:(NSString *)inAnnouncementVoice
+{
+	if (inAnnouncementVoice.length==0 || _announcementVoice==nil || [_announcementVoice caseInsensitiveCompare:inAnnouncementVoice]!=NSOrderedSame)
+	{
+		_announcementVoice=[inAnnouncementVoice copy];
+		
+		[_defaults setObject:[inAnnouncementVoice copy] forKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorAnnouncementVoiceFormatKey,_buildResultTypeName]];
+	}
+}
+
+- (void)setNotifyUsingSystemNotification:(BOOL)inBool
+{
+	_notifyUsingSystemNotification=inBool;
+	
+	[_defaults setBool:inBool forKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorNotifyUsingSystemNotificationFormatKey,_buildResultTypeName]];
+}
+
+- (void)setBounceIconInDock:(BOOL)inBool
+{
+	_bounceIconInDock=inBool;
+	
+	[_defaults setBool:inBool forKey:[NSString stringWithFormat:PKGPreferencesBuildResultBehaviorBounceIconInDockFormatKey,_buildResultTypeName]];
+}
+
+@end
+
+
+
 @interface PKGApplicationPreferences ()
 {
 	NSUserDefaults * _defaults;
 }
+
+	@property (readwrite) NSArray * buildResultBehaviors;
 
 @end
 
@@ -119,8 +338,7 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 									  PKGPreferencesBuildUnsavedProjectSaveBehaviorKey:@(PKGPreferencesBuildUnsavedProjectSaveAskBeforeBuild),
 									  PKGPreferencesBuildShowBuildWindowBehaviorKey:@(PKGPreferencesBuildShowBuildWindowAlways),
 									  PKGPreferencesBuildHideBuildWindowBehaviorKey:@(PKGPreferencesBuildHideBuildWindowNever),
-									  PKGPreferencesBuildPlayedSoundForSuccessfulBuildKey:@"",
-									  PKGPreferencesBuildPlayedSoundForFailedBuildKey:@"",
+									  
 									  PKGPreferencesQuickBuildUseBundleVersionKey:@(NO),
 									  //PKGPreferencesQuickBuildFailOverFolderKey = nil <=> NSHomeDirectory()
 									  PKGPreferencesBuildTemporaryBuildLocationKey:PKGPreferencesBuildDefautTemporationLocation,
@@ -162,9 +380,7 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		
 		_hideBuildWindowBehavior=[_defaults integerForKey:PKGPreferencesBuildHideBuildWindowBehaviorKey];
 		
-		_playedSoundForSuccessfulBuild=[_defaults stringForKey:PKGPreferencesBuildPlayedSoundForSuccessfulBuildKey];
-		
-		_playedSoundForFailedBuild=[_defaults stringForKey:PKGPreferencesBuildPlayedSoundForFailedBuildKey];
+		_buildResultBehaviors=[PKGApplicationBuildResultBehavior buildResultBehaviors];
 		
 		_useBundleVersionForQuickBuild=[_defaults boolForKey:PKGPreferencesQuickBuildUseBundleVersionKey];
 		
@@ -224,28 +440,28 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 {
 	_showAllFilesInOpenDialog=inBool;
 	
-	[_defaults setInteger:inBool forKey:PKGPreferencesFilesShowAllFilesInOpenDialogKey];
+	[_defaults setBool:inBool forKey:PKGPreferencesFilesShowAllFilesInOpenDialogKey];
 }
 
 - (void)setShowOwnershipAndReferenceStyleCustomizationDialog:(BOOL)inBool
 {
 	_showOwnershipAndReferenceStyleCustomizationDialog=inBool;
 	
-	[_defaults setInteger:inBool forKey:PKGPreferencesFilesShowOwnershipAndReferenceStyleCustomizationDialogKey];
+	[_defaults setBool:inBool forKey:PKGPreferencesFilesShowOwnershipAndReferenceStyleCustomizationDialogKey];
 }
 
 - (void)setKeepOwnership:(BOOL)inBool
 {
 	_keepOwnership=inBool;
 	
-	[_defaults setInteger:inBool forKey:PKGPreferencesFilesKeepOwnershipKey];
+	[_defaults setBool:inBool forKey:PKGPreferencesFilesKeepOwnershipKey];
 }
 
 - (void)setHighlightExcludedFiles:(BOOL)inBool
 {
 	_highlightExcludedFiles=inBool;
 	
-	[_defaults setInteger:inBool forKey:PKGPreferencesFilesHighlightExcludedFilesKey];
+	[_defaults setBool:inBool forKey:PKGPreferencesFilesHighlightExcludedFilesKey];
 }
 
 #pragma mark - Build
@@ -269,26 +485,6 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 	_hideBuildWindowBehavior=inTag;
 	
 	[_defaults setInteger:inTag forKey:PKGPreferencesBuildHideBuildWindowBehaviorKey];
-}
-
-- (void)setPlayedSoundForSuccessfulBuild:(NSString *)inSoundName
-{
-	if ([inSoundName length]==0 || [_playedSoundForSuccessfulBuild caseInsensitiveCompare:inSoundName]!=NSOrderedSame)
-	{
-		_playedSoundForSuccessfulBuild=[inSoundName copy];
-	
-		[_defaults setObject:[inSoundName copy] forKey:PKGPreferencesBuildPlayedSoundForSuccessfulBuildKey];
-	}
-}
-
-- (void)setPlayedSoundForFailedBuild:(NSString *)inSoundName
-{
-	if ([inSoundName length]==0 || [_playedSoundForFailedBuild caseInsensitiveCompare:inSoundName]!=NSOrderedSame)
-	{
-		_playedSoundForFailedBuild=[inSoundName copy];
-	
-		[_defaults setObject:[inSoundName copy] forKey:PKGPreferencesBuildPlayedSoundForFailedBuildKey];
-	}
 }
 
 - (void)setUseBundleVersionForQuickBuild:(BOOL)inBool

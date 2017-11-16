@@ -457,10 +457,38 @@
 										   
 										   // Play Failure Sound if needed
 										   
-										   NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+										   PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorFailure];
 										   
-										   if (tSoundName.length>0)
-											   [[NSSound soundNamed:tSoundName] play];
+										   if (tBuildResultBehavior.playSound==YES)
+										   {
+											   NSString * tSoundName=tBuildResultBehavior.soundName;
+										   
+											   if (tSoundName.length>0)
+												   [[NSSound soundNamed:tSoundName] play];
+										   }
+										   
+										   // Speak Announcement if needed
+										   
+										   if (tBuildResultBehavior.speakAnnouncement==YES && [NSSpeechSynthesizer isAnyApplicationSpeaking]==NO)
+										   {
+											   NSString * tAnnouncementVoice=tBuildResultBehavior.announcementVoice;
+											   
+											   if (tAnnouncementVoice.length==0)
+												   tAnnouncementVoice=[NSSpeechSynthesizer defaultVoice];
+											   
+											   if (tAnnouncementVoice.length>0)
+											   {
+												   NSSpeechSynthesizer * tSpeechSynthesizer=[[NSSpeechSynthesizer alloc] initWithVoice:tAnnouncementVoice];
+												   
+												   if ([tSpeechSynthesizer startSpeakingString:NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment")]==NO)
+												   {
+												   }
+											   }
+											   else
+											   {
+												   // A COMPLETER
+											   }
+										   }
 										   
 										   // Remove Temporary Folder
 										   
@@ -468,6 +496,25 @@
 										   {
 											   [[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
 											   _temporaryProjectURL=nil;
+										   }
+										   
+										   // Bounce Icon in Dock if needed
+										   
+										   if (tBuildResultBehavior.bounceIconInDock==YES)
+										   {
+											   [NSApp requestUserAttention:NSInformationalRequest];
+										   }
+										   
+										   // Post User Notification if needed
+										   
+										   if (tBuildResultBehavior.notifyUsingSystemNotification==YES)
+										   {
+											   NSUserNotification * tSuccessUserNotification=[NSUserNotification new];
+											   
+											   tSuccessUserNotification.title= NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment");
+											   tSuccessUserNotification.subtitle=self.fileURL.lastPathComponent;
+											   
+											   [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:tSuccessUserNotification];
 										   }
 										   
 										   // A COMPLETER
@@ -711,17 +758,56 @@
 		
 		// Play Failure Sound if needed
 		
-		NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
+		PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorFailure];
 		
-		if (tSoundName.length>0)
-			[[NSSound soundNamed:tSoundName] play];
-		
-		// Remove Temporary Folder
-		
-		if (_temporaryProjectURL!=nil)
+		if (tBuildResultBehavior.playSound==YES)
 		{
-			[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL.URLByDeletingLastPathComponent error:NULL];
-			_temporaryProjectURL=nil;
+			NSString * tSoundName=tBuildResultBehavior.soundName;
+			
+			if (tSoundName.length>0)
+				[[NSSound soundNamed:tSoundName] play];
+		}
+		
+		// Speak Announcement if needed
+		
+		if (tBuildResultBehavior.speakAnnouncement==YES && [NSSpeechSynthesizer isAnyApplicationSpeaking]==NO)
+		{
+			NSString * tAnnouncementVoice=tBuildResultBehavior.announcementVoice;
+			
+			if (tAnnouncementVoice.length==0)
+				tAnnouncementVoice=[NSSpeechSynthesizer defaultVoice];
+			
+			if (tAnnouncementVoice.length>0)
+			{
+				NSSpeechSynthesizer * tSpeechSynthesizer=[[NSSpeechSynthesizer alloc] initWithVoice:tAnnouncementVoice];
+				
+				if ([tSpeechSynthesizer startSpeakingString:NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment")]==NO)
+				{
+				}
+			}
+			else
+			{
+				// A COMPLETER
+			}
+		}
+		
+		// Bounce Icon in Dock if needed
+		
+		if (tBuildResultBehavior.bounceIconInDock==YES)
+		{
+			[NSApp requestUserAttention:NSInformationalRequest];
+		}
+		
+		// Post User Notification if needed
+		
+		if (tBuildResultBehavior.notifyUsingSystemNotification==YES)
+		{
+			NSUserNotification * tSuccessUserNotification=[NSUserNotification new];
+		
+			tSuccessUserNotification.title= NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment");
+			tSuccessUserNotification.subtitle=self.fileURL.lastPathComponent;
+		
+			[[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:tSuccessUserNotification];
 		}
 		
 		// Show Build Window if needed
@@ -766,10 +852,38 @@
 			
 			// Play Success Sound if needed
 			
-			NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
+			PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorSuccess];
 			
-			if (tSoundName.length>0)
-				[[NSSound soundNamed:tSoundName] play];
+			if (tBuildResultBehavior.playSound==YES)
+			{
+				NSString * tSoundName=tBuildResultBehavior.soundName;
+				
+				if (tSoundName.length>0)
+					[[NSSound soundNamed:tSoundName] play];
+			}
+			
+			// Speak Announcement if needed
+			
+			if (tBuildResultBehavior.speakAnnouncement==YES && [NSSpeechSynthesizer isAnyApplicationSpeaking]==NO)
+			{
+				NSString * tAnnouncementVoice=tBuildResultBehavior.announcementVoice;
+				
+				if (tAnnouncementVoice.length==0)
+					tAnnouncementVoice=[NSSpeechSynthesizer defaultVoice];
+				
+				if (tAnnouncementVoice.length>0)
+				{
+					NSSpeechSynthesizer * tSpeechSynthesizer=[[NSSpeechSynthesizer alloc] initWithVoice:tAnnouncementVoice];
+					
+					if ([tSpeechSynthesizer startSpeakingString:NSLocalizedStringFromTable(@"Build Succeeded",@"Build",@"No comment")]==NO)
+					{
+					}
+				}
+				else
+				{
+					// A COMPLETER
+				}
+			}
 			
 			// Remove Temporary Folder
 			
@@ -777,6 +891,25 @@
 			{
 				[[NSFileManager defaultManager] removeItemAtURL:_temporaryProjectURL.URLByDeletingLastPathComponent error:NULL];
 				_temporaryProjectURL=nil;
+			}
+			
+			// Bounce Icon in Dock if needed
+			
+			if (tBuildResultBehavior.bounceIconInDock==YES)
+			{
+				[NSApp requestUserAttention:NSInformationalRequest];
+			}
+			
+			// Post User Notification if needed
+			
+			if (tBuildResultBehavior.notifyUsingSystemNotification==YES)
+			{
+				NSUserNotification * tSuccessUserNotification=[NSUserNotification new];
+			
+				tSuccessUserNotification.title= NSLocalizedStringFromTable(@"Build Succeeded",@"Build",@"No comment");
+				tSuccessUserNotification.subtitle=self.fileURL.lastPathComponent;
+			
+				[[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:tSuccessUserNotification];
 			}
 			
 			// Hide Build Window if needed

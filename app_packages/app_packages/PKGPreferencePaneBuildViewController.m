@@ -18,7 +18,7 @@
 #import "PKGTemporaryBuildLocationView.h"
 #import "PKGVerticallyCenteredTextField.h"
 
-
+#import "NSArray+WBExtensions.h"
 
 @interface PKGPreferencePaneBuildViewController () <PKGFileDeadDropViewDelegate>
 {
@@ -30,9 +30,19 @@
 	IBOutlet NSPopUpButton * _hideBuildWindowBehaviorPopUpButton;
 	
 	
-	IBOutlet NSPopUpButton * _playSoundOnSuccessPopUpButton;
+	IBOutlet NSView * _buildResultBehaviorsTabHeaderView;
 	
-	IBOutlet NSPopUpButton * _playSoundOnErrorsPopUpButton;
+	IBOutlet NSButton * _playSoundCheckBox;
+	
+	IBOutlet NSPopUpButton * _soundNamePopUpButton;
+	
+	IBOutlet NSButton * _speakAnnouncementCheckBox;
+	
+	IBOutlet NSPopUpButton * _announcementVoicePopUpButton;
+	
+	IBOutlet NSButton * _notifyUsingSystemNotificationCheckBox;
+	
+	IBOutlet NSButton * _bounceIconInDockCheckBox;
 	
 	
 	IBOutlet NSButton * _quickBuildUseBundleVersionCheckBox;
@@ -45,9 +55,20 @@
 	IBOutlet NSImageView * _temporaryBuildLocationIconImageView;
 	
 	IBOutlet PKGVerticallyCenteredTextField * _temporaryBuildLocationTextField;
+	
+	
+	PKGPreferencesBuildResultBehaviorType _selectedBehaviorType;
+	
+	NSDictionary * _voiceDisplayNamesDictionary;
+	
+	NSDictionary * _voiceIdentifiersDictionary;
 }
 
-+ (NSMenu *)soundMenu;
+- (NSMenu *)soundsMenu;
+
+- (NSMenu *)voicesMenu;
+
+- (void)refreshBuildResultBehaviorUI;
 
 - (void)refreshTemporaryBuildLocationUI;
 
@@ -62,9 +83,20 @@
 - (IBAction)switchHideBuildWindowBehavior:(id) sender;
 
 
-- (IBAction)switchPlaySoundOnSuccess:(id) sender;
+- (IBAction)switchBuildResultBehavior:(id)sender;
 
-- (IBAction)switchPlaySoundOnErrors:(id) sender;
+
+- (IBAction)switchPlaySound:(id) sender;
+
+- (IBAction)switchSoundName:(id) sender;
+
+- (IBAction)switchSpeakAnnouncement:(id)sender;
+
+- (IBAction)switchAnnouncementVoice:(id)sender;
+
+- (IBAction)switchNotifyUsingSystemNotification:(id)sender;
+
+- (IBAction)switchBounceIconInDock:(id)sender;
 
 
 - (IBAction)setQuickBuildUseBundleVersion:(id) sender;
@@ -84,9 +116,14 @@
 	
 	[_temporaryBuildLocationView setDelegate:self];
 	
-	[_playSoundOnSuccessPopUpButton setMenu:[PKGPreferencePaneBuildViewController soundMenu]];
+	_selectedBehaviorType=PKGPreferencesBuildResultBehaviorSuccess;
 	
-	[_playSoundOnErrorsPopUpButton setMenu:[PKGPreferencePaneBuildViewController soundMenu]];
+	[((NSButton *)[_buildResultBehaviorsTabHeaderView viewWithTag:_selectedBehaviorType]) setState:NSOnState];
+	
+	
+	[_soundNamePopUpButton setMenu:[self soundsMenu]];
+	
+	[_announcementVoicePopUpButton setMenu:[self voicesMenu]];
 }
 
 - (void)WB_viewWillAppear
@@ -97,6 +134,41 @@
 }
 
 #pragma mark -
+
+- (void)refreshBuildResultBehaviorUI
+{
+	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
+	
+	_playSoundCheckBox.state=tResultBehavior.playSound;
+	
+	_soundNamePopUpButton.enabled=tResultBehavior.playSound;
+	
+	NSString * tSoundName=tResultBehavior.soundName;
+	
+	[_soundNamePopUpButton selectItemAtIndex:(tSoundName.length==0) ? 0 : [_soundNamePopUpButton indexOfItemWithTitle:tSoundName]];
+	
+	
+	_speakAnnouncementCheckBox.state=tResultBehavior.speakAnnouncement;
+	
+	_announcementVoicePopUpButton.enabled=tResultBehavior.speakAnnouncement;
+	
+	NSString * tAnnouncementVoice=tResultBehavior.announcementVoice;
+	
+	if (tAnnouncementVoice.length==0)
+		tAnnouncementVoice=[NSSpeechSynthesizer defaultVoice];
+	
+	NSString * tVoiceDisplayName=_voiceDisplayNamesDictionary[tAnnouncementVoice];
+	
+	if (tVoiceDisplayName==nil)
+		tVoiceDisplayName=_voiceDisplayNamesDictionary[[NSSpeechSynthesizer defaultVoice]];
+	
+	[_announcementVoicePopUpButton selectItemAtIndex:(tVoiceDisplayName.length==0) ? 0 : [_announcementVoicePopUpButton indexOfItemWithTitle:tVoiceDisplayName]];
+	
+	
+	_notifyUsingSystemNotificationCheckBox.state=tResultBehavior.notifyUsingSystemNotification;
+	
+	_bounceIconInDockCheckBox.state=tResultBehavior.bounceIconInDock;
+}
 
 - (void)refreshTemporaryBuildLocationUI
 {
@@ -138,13 +210,7 @@
 	
 	// Build Result
 	
-	NSString * tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
-	
-	[_playSoundOnSuccessPopUpButton selectItemAtIndex:(tSoundName.length==0) ? 0 : [_playSoundOnSuccessPopUpButton indexOfItemWithTitle:tSoundName]];
-	
-	tSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
-	
-	[_playSoundOnErrorsPopUpButton selectItemAtIndex:(tSoundName.length==0) ? 0 : [_playSoundOnErrorsPopUpButton indexOfItemWithTitle:tSoundName]];
+	[self refreshBuildResultBehaviorUI];
 	
 	// Quick Build
 	
@@ -159,62 +225,102 @@
 
 #pragma mark -
 
-+ (NSMenu *)soundMenu
+- (NSMenu *)soundsMenu
 {
-	NSArray * tLibraryArray=NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSSystemDomainMask+NSLocalDomainMask,NO);
-	NSFileManager * tFileManager=[NSFileManager defaultManager];
-	NSMutableSet * tMutableSet=[NSMutableSet set];
-	
-	for(NSString * tLibraryPath in tLibraryArray)
-	{
-		NSArray * tSoundsArray=[tFileManager contentsOfDirectoryAtPath:[tLibraryPath stringByAppendingPathComponent:@"Sounds"] error:NULL];
+	static NSMenu * _sSoundsMenu=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NSArray * tLibraryArray=NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSSystemDomainMask+NSLocalDomainMask,NO);
+		NSFileManager * tFileManager=[NSFileManager defaultManager];
+		NSMutableSet * tMutableSet=[NSMutableSet set];
 		
-		for(NSString * tSoundFile in tSoundsArray)
+		for(NSString * tLibraryPath in tLibraryArray)
 		{
-			if ([tSoundFile.pathExtension caseInsensitiveCompare:@"aiff"]==NSOrderedSame)
-				[tMutableSet addObject:tSoundFile.stringByDeletingPathExtension];
+			NSArray * tSoundsArray=[tFileManager contentsOfDirectoryAtPath:[tLibraryPath stringByAppendingPathComponent:@"Sounds"] error:NULL];
+			
+			for(NSString * tSoundFile in tSoundsArray)
+			{
+				if ([tSoundFile.pathExtension caseInsensitiveCompare:@"aiff"]==NSOrderedSame)
+					[tMutableSet addObject:tSoundFile.stringByDeletingPathExtension];
+			}
 		}
-	}
 		
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
-	
-	if (tMenu==nil)
-		return nil;
-	
-	if (tMutableSet.count==0)
-		return tMenu;
-	
-	// Sort by Names
-	
-	NSArray * tSortedArray=[tMutableSet.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-
-	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Mute",@"No comment")
-													  action:nil
-											   keyEquivalent:@""];
-	
-	if (tMenuItem!=nil)
-	{
-		tMenuItem.tag=-1;
+		_sSoundsMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
 		
-		[tMenu addItem:tMenuItem];
-	}
+		if (tMutableSet.count>0)
+		{
+			// Sort by Names
+			
+			NSArray * tSortedArray=[tMutableSet.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+			
+			NSMenuItem * tMenuItem;
+			
+			for(NSString * tTitle in tSortedArray)
+			{
+				tMenuItem=[[NSMenuItem alloc] initWithTitle:tTitle
+													 action:nil
+											  keyEquivalent:@""];
+				
+				if (tMenuItem!=nil)
+					[_sSoundsMenu addItem:tMenuItem];
+			}
+		}
+	});
 	
-	tMenuItem=[NSMenuItem separatorItem];
-	
-	if (tMenuItem!=nil)
-		[tMenu addItem:tMenuItem];
-	
-	for(NSString * tTitle in tSortedArray)
-	{
-		tMenuItem=[[NSMenuItem alloc] initWithTitle:tTitle
-											 action:nil
-									  keyEquivalent:@""];
+	return [_sSoundsMenu copy];
+}
 
-		if (tMenuItem!=nil)
-			[tMenu addItem:tMenuItem];
-	}
+- (NSMenu *)voicesMenu
+{
+	static NSMenu * _sVoicesMenu=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		NSArray * tAvailableVoiceIdentifiers=[NSSpeechSynthesizer availableVoices];
+		
+		NSMutableDictionary * tMutableVoiceDisplayNamesDictionary=[NSMutableDictionary dictionary];
+		NSMutableDictionary * tMutableVoiceIdentifiersDictionary=[NSMutableDictionary dictionary];
+		
+		NSArray * tDisplayVoiceNames=[tAvailableVoiceIdentifiers WB_arrayByMappingObjectsLenientlyUsingBlock:^NSString *(NSString * bVoiceIdentifier, NSUInteger bIndex) {
+			NSString * tVoiceDisplayName=[[NSSpeechSynthesizer attributesForVoice:bVoiceIdentifier] objectForKey:NSVoiceName];
+			
+			if (tVoiceDisplayName==nil)
+				return nil;
+			
+			tMutableVoiceDisplayNamesDictionary[bVoiceIdentifier]=tVoiceDisplayName;
+			tMutableVoiceIdentifiersDictionary[tVoiceDisplayName]=bVoiceIdentifier;
+			
+			return tVoiceDisplayName;
+		}];
+		
+		_voiceDisplayNamesDictionary=[tMutableVoiceDisplayNamesDictionary copy];
+		_voiceIdentifiersDictionary=[tMutableVoiceIdentifiersDictionary copy];
+		
+		NSMutableSet * tMutableSet=[NSMutableSet setWithArray:tDisplayVoiceNames];
+		
+		_sVoicesMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+		
+		if (tMutableSet.count>0)
+		{
+			// Sort by Names
+		
+			NSArray * tSortedArray=[tMutableSet.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+			
+			NSMenuItem * tMenuItem;
+			
+			for(NSString * tTitle in tSortedArray)
+			{
+				tMenuItem=[[NSMenuItem alloc] initWithTitle:tTitle
+													 action:nil
+											  keyEquivalent:@""];
+				
+				if (tMenuItem!=nil)
+					[_sVoicesMenu addItem:tMenuItem];
+			}
+		}
+	});
 	
-	return tMenu;
+	return [_sVoicesMenu copy];
 }
 
 - (void)setFailoverFolder:(NSString *) inFolderPath
@@ -284,46 +390,68 @@
 	[PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior=_hideBuildWindowBehaviorPopUpButton.selectedItem.tag;
 }
 
-- (IBAction)switchPlaySoundOnSuccess:(NSPopUpButton *) sender
+
+- (IBAction)switchBuildResultBehavior:(NSButton *)sender
 {
-	NSString * tOldSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild;
-	NSMenuItem * tMenuItem=sender.selectedItem;
-	NSInteger tTag=tMenuItem.tag;
+	_selectedBehaviorType=sender.tag;
 	
-	if (tTag==-1)
-	{
-		if (tOldSoundName.length>0)
-			[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild=@"";
-		
-		return;
-	}
+	[self refreshBuildResultBehaviorUI];
+}
+
+- (IBAction)switchPlaySound:(NSButton *)sender
+{
+	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
+	
+	tResultBehavior.playSound=([sender state]==NSOnState);
+	
+	_soundNamePopUpButton.enabled=tResultBehavior.playSound;
+}
+
+- (IBAction)switchSoundName:(NSPopUpButton *)sender
+{
+	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
+	
+	NSMenuItem * tMenuItem=sender.selectedItem;
 	
 	NSString * tSoundName=tMenuItem.title;
-		
-	[PKGApplicationPreferences sharedPreferences].playedSoundForSuccessfulBuild=tSoundName;
+	
+	tResultBehavior.soundName=tSoundName;
 	
 	[[NSSound soundNamed:tSoundName] play];
 }
 
-- (IBAction)switchPlaySoundOnErrors:(NSPopUpButton *) sender
+- (IBAction)switchSpeakAnnouncement:(NSButton *)sender
 {
-	NSString * tOldSoundName=[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild;
-	NSMenuItem * tMenuItem=sender.selectedItem;
-	NSInteger tTag=tMenuItem.tag;
+	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
 	
-	if (tTag==-1)
-	{
-		if (tOldSoundName.length>0)
-			[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild=@"";
-		
-		return;
-	}
+	tResultBehavior.speakAnnouncement=([sender state]==NSOnState);
+	
+	_announcementVoicePopUpButton.enabled=tResultBehavior.speakAnnouncement;
+}
 
-	NSString * tSoundName=tMenuItem.title;
+- (IBAction)switchAnnouncementVoice:(NSPopUpButton *)sender
+{
+	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
 	
-	[PKGApplicationPreferences sharedPreferences].playedSoundForFailedBuild=tSoundName;
+	NSMenuItem * tMenuItem=sender.selectedItem;
 	
-	[[NSSound soundNamed:tSoundName] play];
+	NSString * tAnnouncementVoiceDisplayName=tMenuItem.title;
+	
+	tResultBehavior.announcementVoice=_voiceIdentifiersDictionary[tAnnouncementVoiceDisplayName];
+}
+
+- (IBAction)switchNotifyUsingSystemNotification:(NSButton *)sender
+{
+	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
+	
+	tResultBehavior.notifyUsingSystemNotification=([sender state]==NSOnState);
+}
+
+- (IBAction)switchBounceIconInDock:(NSButton *)sender
+{
+	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
+	
+	tResultBehavior.bounceIconInDock=([sender state]==NSOnState);
 }
 
 - (IBAction)setQuickBuildUseBundleVersion:(id) sender
