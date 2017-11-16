@@ -715,7 +715,7 @@
 							<object class="NSTextField" id="479345772">
 								<reference key="NSNextResponder" ref="195220824"/>
 								<int key="NSvFlags">256</int>
-								<string key="NSFrame">{{54, 12}, {357, 32}}</string>
+								<string key="NSFrame">{{54, 12}, {408, 32}}</string>
 								<reference key="NSSuperview" ref="195220824"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="385772219"/>
@@ -740,7 +740,7 @@
 								<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 							</object>
 						</array>
-						<string key="NSFrame">{{71, 60}, {429, 56}}</string>
+						<string key="NSFrame">{{20, 60}, {480, 56}}</string>
 						<reference key="NSSuperview" ref="43725521"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="581036739"/>
@@ -912,7 +912,6 @@
 						<string key="NSFrame">{{18, 482}, {370, 17}}</string>
 						<reference key="NSSuperview" ref="43725521"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="568753111">
 							<int key="NSCellFlags">67108864</int>
@@ -1809,7 +1808,7 @@
 				<string key="176.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="198.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="20.IBNSViewMetadataGestureRecognizers" ref="0"/>
-				<string key="20.IBPersistedLastKnownCanvasPosition">{531, 379}</string>
+				<string key="20.IBPersistedLastKnownCanvasPosition">{528, 375}</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="200.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="202.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
