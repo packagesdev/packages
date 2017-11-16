@@ -33,14 +33,15 @@
 	@property (readwrite) IBOutlet NSTableView * tableView;
 
 
-
 - (IBAction)switchLanguage:(id)sender;
 
 - (IBAction)setMessageTitle:(id)sender;
 
 - (IBAction)setMessageDescription:(id)sender;
 
+
 - (IBAction)addRequirementMessage:(id)sender;
+
 - (IBAction)delete:(id)sender;
 
 @end
@@ -108,7 +109,10 @@
 {
 	[self.dataSource addNewItem:self.tableView];
 	
-	// A AMELIORER (Enter edition mode)
+	NSInteger tSelectedRow=self.tableView.selectedRow;
+		
+	if (tSelectedRow!=-1)
+		[self.tableView editColumn:[self.tableView columnWithIdentifier:@"message.value"] row:tSelectedRow withEvent:nil select:YES];
 }
 
 - (IBAction)delete:(id)sender
