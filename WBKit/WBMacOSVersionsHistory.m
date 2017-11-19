@@ -479,6 +479,8 @@
 		{
 			NSUInteger tDelta=(-tComponents.minorVersion);
 			
+			BOOL tDone=NO;
+			
 			while (tDelta>(tNewVersion.minorVersion-tMinorAllowedRange.location))
 			{
 				if (tNewVersion.majorVersion>=(tMajorAllowedRange.location+1))
@@ -494,11 +496,15 @@
 				else
 				{
 					tNewVersion.minorVersion=tMinorAllowedRange.location;
+					
+					tDone=YES;
+					
 					break;
 				}
 			}
 			
-			tNewVersion.minorVersion-=tDelta;
+			if (tDone==NO)
+				tNewVersion.minorVersion-=tDelta;
 		}
 	
 		NSRange tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
@@ -564,6 +570,8 @@
 		{
 			NSUInteger tDelta=(-tComponents.bugFixVersion);
 			
+			BOOL tDone=NO;
+			
 			while (tDelta>(tNewVersion.bugFixVersion-tBugFixAllowedRange.location))
 			{
 				NSRange tMinorAllowedRange=[self rangeOfUnit:WBMinorVersionUnit inUnit:WBMajorVersionUnit forVersion:tNewVersion];
@@ -600,12 +608,15 @@
 						
 						tNewVersion.bugFixVersion=tBugFixAllowedRange.location;
 						
+						tDone=YES;
+						
 						break;
 					}
 				}
 			}
 			
-			tNewVersion.bugFixVersion-=tDelta;
+			if (tDone==NO)
+				tNewVersion.bugFixVersion-=tDelta;
 		}
 	}
 	
