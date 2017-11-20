@@ -8,10 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPayloadFilesSelectionInspectorAttributesViewController">
             <connections>
-                <outlet property="_fileGroupLabel" destination="lqb-PL-T4C" id="EeR-Gr-DLI"/>
                 <outlet property="_fileGroupPopUpButton" destination="5xP-GU-nfh" id="Zfl-dk-eZ1"/>
                 <outlet property="_fileNameTextField" destination="tlw-6B-uWd" id="cXd-2K-WFP"/>
-                <outlet property="_fileOwnerLabel" destination="BHI-Jf-0x5" id="G4o-nu-pYh"/>
                 <outlet property="_fileOwnerPopUpButton" destination="rN5-eH-COT" id="dS7-5z-dAt"/>
                 <outlet property="_filePermissionsTableView" destination="iGI-ze-KWU" id="IFG-Yu-0ap"/>
                 <outlet property="_filePermissionsTextField" destination="B0u-42-ELt" id="pvr-dm-Mu9"/>
@@ -360,24 +358,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <textField verticalHuggingPriority="750" id="BHI-Jf-0x5">
-                    <rect key="frame" x="73" y="147" width="122" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="WHn-P4-0Gn">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="lqb-PL-T4C">
-                    <rect key="frame" x="72" y="122" width="122" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="TNN-jK-khm">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField verticalHuggingPriority="750" id="tlw-6B-uWd">
                     <rect key="frame" x="73" y="174" width="272" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

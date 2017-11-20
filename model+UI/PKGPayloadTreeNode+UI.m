@@ -282,14 +282,18 @@
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	return [[PKGUsersAndGroupsMonitor sharedMonitor] posixNameForUserAccountID:tFileItem.uid];
+	NSString * tTitle=[[PKGUsersAndGroupsMonitor sharedMonitor] posixNameForUserAccountID:tFileItem.uid];
+	
+	return (tTitle!=nil) ? tTitle : [NSString stringWithFormat:@"%u",tFileItem.uid];
 }
 
 - (NSString *)groupTitle
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	return [[PKGUsersAndGroupsMonitor sharedMonitor] posixNameForGroupAccountID:tFileItem.gid];
+	NSString * tTitle=[[PKGUsersAndGroupsMonitor sharedMonitor] posixNameForGroupAccountID:tFileItem.gid];
+	
+	return (tTitle!=nil) ? tTitle : [NSString stringWithFormat:@"%u",tFileItem.gid];
 }
 
 - (NSString *)posixPermissionsTitle

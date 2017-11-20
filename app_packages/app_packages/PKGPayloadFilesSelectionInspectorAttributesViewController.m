@@ -24,17 +24,13 @@
 
 #include <sys/stat.h>
 
-#define PKGAccountMenuMixedItemTag	(UINT16_MAX+1)
+#define PKGAccountMenuTemporaryUnselectableItemTag	(UINT16_MAX+1)
 
 @interface PKGPayloadFilesSelectionInspectorAttributesViewController () <NSTableViewDelegate,NSTableViewDataSource>
 {
 	IBOutlet NSPopUpButton * _fileOwnerPopUpButton;
 	
-	IBOutlet NSTextField * _fileOwnerLabel;
-	
 	IBOutlet NSPopUpButton * _fileGroupPopUpButton;
-	
-	IBOutlet NSTextField * _fileGroupLabel;
 	
 	
 	IBOutlet NSTextField * _filePermissionsTextField;
@@ -163,49 +159,59 @@
 	
 	// Owner & Group
 	
-	NSInteger tMixedIndex=[_fileOwnerPopUpButton indexOfItemWithTag:PKGAccountMenuMixedItemTag];
+	_fileOwnerPopUpButton.enabled=_canEditPOSIXPermissions;
 	
-	if (tMixedIndex!=-1)
-		[_fileOwnerPopUpButton removeItemAtIndex:tMixedIndex];
+	NSInteger tTemporaryUnselectableIndex=[_fileOwnerPopUpButton indexOfItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
+	
+	if (tTemporaryUnselectableIndex!=-1)
+		[_fileOwnerPopUpButton removeItemAtIndex:tTemporaryUnselectableIndex];
 	
 	NSString * tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:_cachedOwner];
 	
 	if (tPosixName==nil)
 	{
-		_fileOwnerLabel.hidden=NO;
-		_fileOwnerLabel.stringValue=[NSString stringWithFormat:@"%u",(unsigned int) _cachedOwner];
-		_fileOwnerPopUpButton.hidden=YES;
+		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%u",(uint32_t) _cachedOwner]
+																					action:nil
+																			 keyEquivalent:@""];
+		
+		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
+		tMenuItem.enabled=NO;
+		
+		[_fileOwnerPopUpButton.menu insertItem:tMenuItem atIndex:0];
+		
+		[_fileOwnerPopUpButton selectItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 	}
 	else
 	{
-		_fileOwnerLabel.hidden=YES;
-		_fileOwnerPopUpButton.hidden=NO;
-		_fileOwnerPopUpButton.enabled=_canEditPOSIXPermissions;
-		
 		[_fileOwnerPopUpButton selectItemWithTag:_cachedOwner];
 	}
 	
 	// Group
 	
-	tMixedIndex=[_fileGroupPopUpButton indexOfItemWithTag:PKGAccountMenuMixedItemTag];
+	_fileGroupPopUpButton.enabled=_canEditPOSIXPermissions;
 	
-	if (tMixedIndex!=-1)
-		[_fileGroupPopUpButton removeItemAtIndex:tMixedIndex];
+	tTemporaryUnselectableIndex=[_fileGroupPopUpButton indexOfItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
+	
+	if (tTemporaryUnselectableIndex!=-1)
+		[_fileGroupPopUpButton removeItemAtIndex:tTemporaryUnselectableIndex];
 	
 	tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:_cachedGroup];
 	
 	if (tPosixName==nil)
 	{
-		_fileGroupLabel.hidden=NO;
-		_fileGroupLabel.stringValue=[NSString stringWithFormat:@"%u",(unsigned int) _cachedGroup];
-		_fileGroupPopUpButton.hidden=YES;
+		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%u",(uint32_t) _cachedGroup]
+																					action:nil
+																			 keyEquivalent:@""];
+		
+		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
+		tMenuItem.enabled=NO;
+		
+		[_fileGroupPopUpButton.menu insertItem:tMenuItem atIndex:0];
+		
+		[_fileGroupPopUpButton selectItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 	}
 	else
 	{
-		_fileGroupLabel.hidden=YES;
-		_fileGroupPopUpButton.hidden=NO;
-		_fileGroupPopUpButton.enabled=_canEditPOSIXPermissions;
-		
 		[_fileGroupPopUpButton selectItemWithTag:_cachedGroup];
 	}
 	
@@ -291,98 +297,93 @@
 	
 	// Owner and Group
 	
-	NSString * tPosixName=@"";
+	_fileOwnerPopUpButton.enabled=_canEditPOSIXPermissions;
 	
-	if (tMixedUids==NO)
-		tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:tCommonUid];
+	NSInteger tTemporaryUnselectableIndex=[_fileOwnerPopUpButton indexOfItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 	
-	if (tMixedUids==NO && tPosixName==nil)
+	if (tTemporaryUnselectableIndex!=-1)
+		[_fileOwnerPopUpButton removeItemAtIndex:tTemporaryUnselectableIndex];
+	
+	if (tMixedUids==YES)
 	{
-		_fileOwnerLabel.hidden=NO;
-		_fileOwnerLabel.stringValue=[NSString stringWithFormat:@"%u",(unsigned int) tCommonUid];
-		_fileOwnerPopUpButton.hidden=YES;
+		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+																					action:nil
+																			 keyEquivalent:@""];
+		
+		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
+		tMenuItem.enabled=NO;
+		
+		[_fileOwnerPopUpButton.menu insertItem:tMenuItem atIndex:0];
+		
+		[_fileOwnerPopUpButton selectItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 	}
 	else
 	{
-		_fileOwnerLabel.hidden=YES;
-		_fileOwnerPopUpButton.hidden=NO;
-		_fileOwnerPopUpButton.enabled=_canEditPOSIXPermissions;
-		
-		NSInteger tMixedIndex=[_fileOwnerPopUpButton indexOfItemWithTag:PKGAccountMenuMixedItemTag];
-		
-		if (tMixedUids==YES)
+		NSString * tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:tCommonUid];
+	
+		if (tPosixName==nil)
 		{
-			if (tMixedIndex==-1)
-			{
-				NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
-																							action:nil
-																					 keyEquivalent:@""];
+			NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%d",(int32_t) tCommonUid]
+																						action:nil
+																				 keyEquivalent:@""];
 			
-				tMenuItem.tag=PKGAccountMenuMixedItemTag;
-				tMenuItem.enabled=NO;
-				
-				[_fileOwnerPopUpButton.menu insertItem:tMenuItem atIndex:0];
-			}
+			tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
+			tMenuItem.enabled=NO;
 			
-			tCommonUid=PKGAccountMenuMixedItemTag;
+			[_fileOwnerPopUpButton.menu insertItem:tMenuItem atIndex:0];
+			
+			[_fileOwnerPopUpButton selectItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 		}
 		else
 		{
-			if (tMixedIndex!=-1)
-				[_fileOwnerPopUpButton removeItemAtIndex:tMixedIndex];
-			
+			[_fileOwnerPopUpButton selectItemWithTag:tCommonUid];
 		}
-		
-		[_fileOwnerPopUpButton selectItemWithTag:tCommonUid];
 	}
 	
 	// Group
 	
-	tPosixName=@"";
+	_fileGroupPopUpButton.enabled=_canEditPOSIXPermissions;
 	
-	if (tMixedGids==NO)
-		tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:tCommonGid];
+	tTemporaryUnselectableIndex=[_fileGroupPopUpButton indexOfItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 	
-	if (tMixedGids==NO && tPosixName==nil)
+	if (tTemporaryUnselectableIndex!=-1)
+		[_fileGroupPopUpButton removeItemAtIndex:tTemporaryUnselectableIndex];
+	
+	if (tMixedGids==YES)
 	{
-		_fileGroupLabel.hidden=NO;
-		_fileGroupLabel.stringValue=[NSString stringWithFormat:@"%u",(unsigned int) tCommonGid];
-		_fileGroupPopUpButton.hidden=YES;
+		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+																					action:nil
+																			 keyEquivalent:@""];
+		
+		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
+		tMenuItem.enabled=NO;
+		
+		[_fileGroupPopUpButton.menu insertItem:tMenuItem atIndex:0];
+		
+		[_fileGroupPopUpButton selectItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 	}
 	else
 	{
-		_fileGroupLabel.hidden=YES;
-		_fileOwnerPopUpButton.hidden=NO;
-		_fileGroupPopUpButton.enabled=_canEditPOSIXPermissions;
+		NSString * tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:tCommonGid];
 		
-		NSInteger tMixedIndex=[_fileGroupPopUpButton indexOfItemWithTag:PKGAccountMenuMixedItemTag];
-		
-		if (tMixedGids==YES)
+		if (tPosixName==nil)
 		{
-			if (tMixedIndex==-1)
-			{
-				NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
-																							action:nil
-																					 keyEquivalent:@""];
-				
-				tMenuItem.tag=PKGAccountMenuMixedItemTag;
-				tMenuItem.enabled=NO;
-				
-				[_fileGroupPopUpButton.menu insertItem:tMenuItem atIndex:0];
-			}
+			NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%d",(int32_t) tCommonGid]
+																						action:nil
+																				 keyEquivalent:@""];
 			
-			tCommonGid=PKGAccountMenuMixedItemTag;
+			tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
+			tMenuItem.enabled=NO;
+			
+			[_fileGroupPopUpButton.menu insertItem:tMenuItem atIndex:0];
+			
+			[_fileGroupPopUpButton selectItemWithTag:PKGAccountMenuTemporaryUnselectableItemTag];
 		}
 		else
 		{
-			if (tMixedIndex!=-1)
-				[_fileGroupPopUpButton removeItemAtIndex:tMixedIndex];
-			
+			[_fileGroupPopUpButton selectItemWithTag:tCommonGid];
 		}
-		
-		[_fileGroupPopUpButton selectItemWithTag:tCommonGid];
 	}
-
 	
 	// Permissions
 	
