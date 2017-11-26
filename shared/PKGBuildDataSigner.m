@@ -51,7 +51,7 @@
 
 #pragma mark - PKGSignatureCreatorInterface
 
-- (void)createSignatureForData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
+- (void)createSignatureForData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
 {
 	if (inReply==nil)
 		return;
@@ -62,13 +62,21 @@
 		return;
 	}
 	
-	SecIdentityRef tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:[PKGLoginKeychainPath stringByExpandingTildeInPath]];
+	OSStatus tIdentityError=0;
 	
-	if (tSecIdentityRef==NULL && inKeychainpath!=nil)
-		tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:inKeychainpath];
+	SecIdentityRef tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:[PKGLoginKeychainPath stringByExpandingTildeInPath] error:&tIdentityError];
+	
+	if (tSecIdentityRef==NULL && inKeychainPath!=nil)
+	{
+		tIdentityError=0;
+		
+		tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:inKeychainPath error:&tIdentityError];
+	}
 	
 	if (tSecIdentityRef==NULL)
 	{
+		NSLog(@"identityWithName:atPath:error: error code (%d)",tIdentityError);
+		
 		inReply(PKGSignatureStatusIdentityNotFound,nil);
 		return;
 	}
@@ -83,7 +91,7 @@
 	{
 		NSString * tErrorString=(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL);
 		
-		NSLog(@"%@",tErrorString);
+		NSLog(@"SecIdentityCopyPrivateKey: %@",tErrorString);
 		
 		CFRelease(tPrivateKeyRef);
 		
@@ -105,7 +113,7 @@
 			{
 				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
 				
-				NSLog(@"%@",tErrorDescription);
+				NSLog(@"SecSignTransformCreate: %@",tErrorDescription);
 				
 				CFRelease(tErrorRef);
 			}
@@ -123,7 +131,7 @@
 			{
 				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
 				
-				NSLog(@"%@",tErrorDescription);
+				NSLog(@"SecTransformSetAttribute (kSecInputIsAttributeName): %@",tErrorDescription);
 				
 				CFRelease(tErrorRef);
 			}
@@ -141,7 +149,7 @@
 			{
 				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
 				
-				NSLog(@"%@",tErrorDescription);
+				NSLog(@"SecTransformSetAttribute (kSecTransformInputAttributeName): %@",tErrorDescription);
 				
 				CFRelease(tErrorRef);
 			}
@@ -175,7 +183,7 @@
 					{
 						NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
 						
-						NSLog(@"%@",tErrorDescription);
+						NSLog(@"SecTransformExecute: %@",tErrorDescription);
 					
 						break;
 					}

@@ -187,7 +187,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)isCertificateSetForProjectSettings:(PKGProjectSettings *)inProjectSettings;
 
-- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings;
+- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings error:(OSStatus *)outError;
 
 
 - (BOOL)createDirectoryAtPath:(NSString *)inDirectoryPath withIntermediateDirectories:(BOOL)inIntermediateDirectories;
@@ -385,21 +385,33 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	return (tCertificateName!=nil && [tCertificateName length]>0);
 }
 
-- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings
+- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings error:(OSStatus *)outError
 {
 	if (inProjectSettings==nil)
+	{
+		if (outError!=NULL)
+			*outError=0;
+		
 		return NULL;
-	
+	}
+		
 	NSString * tCertificateName=inProjectSettings.certificateName;
 
 	if (tCertificateName==nil)
+	{
+		if (outError!=NULL)
+			*outError=0;
+		
 		return NULL;
+	}
 	
 	PKGStackedEffectiveUserAndGroup * tStackedEffectiveUserAndGroup=[[PKGStackedEffectiveUserAndGroup alloc] initWithUserID:self.userID andGroupID:self.groupID];
 			
 	NSString * tKeychainPath=[PKGLoginKeychainPath stringByExpandingTildeInPath];
-			
-	SecIdentityRef tSecIdentityRef=[PKGCertificatesUtilities identityWithName:tCertificateName atPath:tKeychainPath];
+	
+	OSStatus tError;
+	
+	SecIdentityRef tSecIdentityRef=[PKGCertificatesUtilities identityWithName:tCertificateName atPath:tKeychainPath error:&tError];
 	
 	if (tSecIdentityRef!=NULL)
 		return tSecIdentityRef;
@@ -409,14 +421,22 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	NSString * tCertificateKeychainPath=inProjectSettings.certificateKeychainPath;
 				
 	if (tCertificateKeychainPath==nil)
+	{
+		if (outError!=NULL)
+			*outError=tError;
+		
 		return NULL;
+	}
 	
-	tSecIdentityRef=[PKGCertificatesUtilities identityWithName:tCertificateName atPath:tCertificateKeychainPath];
+	tError=0;
+	
+	tSecIdentityRef=[PKGCertificatesUtilities identityWithName:tCertificateName atPath:tCertificateKeychainPath error:&tError];
 	
 	if (tSecIdentityRef!=NULL)
 		return tSecIdentityRef;
 	
-	// A COMPLETER
+	if (outError!=NULL)
+		*outError=tError;
 			
 	return NULL;
 }
@@ -1316,13 +1336,40 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			if (_secIdentityRef==NULL)
 			{
-				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings];
+				OSStatus tIdentityError=0;
+				
+				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings error:&tIdentityError];
 				
 				if (_secIdentityRef==NULL)
 				{
-					// A COMPLETER
+					PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
 					
-					[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorSigningUnknown]];
+					PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
+					
+					switch(tIdentityError)
+					{
+						case errSecNoSuchKeychain:
+						
+							tBuildError=PKGBuildErrorSigningKeychainNotFound;
+							break;
+							
+						case errSecItemNotFound:
+							
+							tBuildError=PKGBuildErrorSigningCertificateNotFound;
+							break;
+							
+						default:
+							
+							tBuildErrorEvent.subcode=tIdentityError;
+							
+							// A COMPLETER
+							
+							break;
+					}
+					
+					tBuildErrorEvent.code=tBuildError;
+					
+					[self postCurrentStepFailureEvent:tBuildErrorEvent];
 					
 					return NO;
 				}
@@ -5921,13 +5968,40 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			if (_secIdentityRef==NULL)
 			{
-				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings];
+				OSStatus tIdentityError=0;
+				
+				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings error:&tIdentityError];
 				
 				if (_secIdentityRef==NULL)
 				{
-					// A COMPLETER
+					PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
 					
-					[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorSigningUnknown]];
+					PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
+					
+					switch(tIdentityError)
+					{
+						case errSecNoSuchKeychain:
+							
+							tBuildError=PKGBuildErrorSigningKeychainNotFound;
+							break;
+							
+						case errSecItemNotFound:
+							
+							tBuildError=PKGBuildErrorSigningCertificateNotFound;
+							break;
+							
+						default:
+							
+							tBuildErrorEvent.subcode=tIdentityError;
+							
+							// A COMPLETER
+							
+							break;
+					}
+					
+					tBuildErrorEvent.code=tBuildError;
+					
+					[self postCurrentStepFailureEvent:tBuildErrorEvent];
 					
 					return NO;
 				}
@@ -6323,13 +6397,40 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			if (_secIdentityRef==NULL)
 			{
-				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings];
+				OSStatus tIdentityError=0;
+				
+				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings error:&tIdentityError];
 				
 				if (_secIdentityRef==NULL)
 				{
-					// A COMPLETER
+					PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
 					
-					[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorSigningCertificateNotFound]];
+					PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
+					
+					switch(tIdentityError)
+					{
+						case errSecNoSuchKeychain:
+							
+							tBuildError=PKGBuildErrorSigningKeychainNotFound;
+							break;
+							
+						case errSecItemNotFound:
+							
+							tBuildError=PKGBuildErrorSigningCertificateNotFound;
+							break;
+							
+						default:
+							
+							tBuildErrorEvent.subcode=tIdentityError;
+							
+							// A COMPLETER
+							
+							break;
+					}
+					
+					tBuildErrorEvent.code=tBuildError;
+					
+					[self postCurrentStepFailureEvent:tBuildErrorEvent];
 					
 					return NO;
 				}

@@ -79,6 +79,7 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	PKGBuildErrorSigningCertificateChainBroken=504,
 	PKGBuildErrorSigningCertificatePrivateKeyNotFound=505,
 	PKGBuildErrorSigningTrustEvaluationFailure=506,
+	PKGBuildErrorSigningKeychainNotFound=507
 };
 
 typedef NS_ENUM(NSUInteger, PKGBuildErrorFileKind)

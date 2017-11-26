@@ -880,7 +880,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 				case PKGBuildErrorSigningUnknown:
 					
-					tTitle=NSLocalizedStringFromTable(@"Unable to sign the data",@"Build",@"");
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to sign the data (%d)",@"Build",@""),tErrorEvent.subcode];
 					
 					break;
 					
@@ -899,6 +899,12 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 				case PKGBuildErrorSigningCertificateNotFound:
 					
 					tTitle=NSLocalizedStringFromTable(@"Unable to find signing certificate",@"Build",@"");
+					
+					break;
+					
+				case PKGBuildErrorSigningKeychainNotFound:
+					
+					tTitle=NSLocalizedStringFromTable(@"Unable to find keychain",@"Build",@"");
 					
 					break;
 					

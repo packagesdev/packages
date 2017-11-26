@@ -23,6 +23,6 @@ extern NSString * const PKGLoginKeychainPath;
 
 + (SecCertificateRef)copyOfCertificateWithName:(NSString *) inName;
 
-+ (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath;
++ (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
 
 @end

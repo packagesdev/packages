@@ -619,7 +619,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorSigningUnknown:
 					
-					(void)fprintf(stdout, "Unable to sign the data");
+					(void)fprintf(stdout, "Unable to sign the data (%d)",(int)tErrorEvent.subcode);
 					break;
 					
 				case PKGBuildErrorSigningTimeOut:
@@ -633,6 +633,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					break;
 					
 				case PKGBuildErrorSigningCertificateNotFound:
+					
+					(void)fprintf(stdout, "Unable to find signing certificate");
+					break;
+					
+				case PKGBuildErrorSigningKeychainNotFound:
 					
 					(void)fprintf(stdout, "Unable to find signing certificate");
 					break;

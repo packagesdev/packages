@@ -46,9 +46,9 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	return (__bridge_transfer NSArray *)tResults;
 }
 
-+ (SecCertificateRef)copyOfCertificateWithName:(NSString *) inName
++ (SecCertificateRef)copyOfCertificateWithName:(NSString *)inName
 {
-	SecIdentityRef tIdentityRef=[PKGCertificatesUtilities identityWithName:inName atPath:nil];
+	SecIdentityRef tIdentityRef=[PKGCertificatesUtilities identityWithName:inName atPath:nil error:NULL];
 	
 	if (tIdentityRef==NULL)
 		return NULL;
@@ -59,10 +59,15 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	return tCertificateRef;
 }
 
-+ (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath
++ (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
 {
 	if (inName.length==0)
+	{
+		if (outError!=NULL)
+			*outError=0;
+		
 		return NULL;
+	}
 	
 	NSArray * tKeychainPaths=((inPath!=nil) ? @[inPath] : nil);
 	
@@ -103,8 +108,8 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	
 	OSStatus tStatus=SecItemCopyMatching((__bridge CFDictionaryRef)tQueryDictionary, (CFTypeRef *)&tResult);
 	
-	if (tStatus!=errSecSuccess)
-		return NULL;
+	if (outError!=NULL)
+		*outError=tStatus;
 	
 	return tResult;
 }
