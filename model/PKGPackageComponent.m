@@ -454,6 +454,17 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 		
 		nPackageComponent.importPath=[self.importPath copyWithZone:inZone];
 		
+		nPackageComponent.mustCloseApplications=self.mustCloseApplications;
+		
+		nPackageComponent.mustCloseApplicationItems=[NSMutableArray array];
+		
+		for(PKGMustCloseApplicationItem * tMustCloseApplicationItem in self.mustCloseApplicationItems)
+		{
+			PKGMustCloseApplicationItem * nMustCloseApplicationItem=[tMustCloseApplicationItem copyWithZone:inZone];
+			
+			[nPackageComponent.mustCloseApplicationItems addObject:nMustCloseApplicationItem];
+		}
+		
 		nPackageComponent.packageSettings=[self.packageSettings copyWithZone:inZone];
 		
 		nPackageComponent.payload=[self.payload copyWithZone:inZone];
