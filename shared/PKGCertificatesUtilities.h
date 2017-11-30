@@ -19,10 +19,14 @@ extern NSString * const PKGLoginKeychainPath;
 
 @interface PKGCertificatesUtilities : NSObject
 
++ (NSArray *)availableCertificates;
+
 + (NSArray *)availableIdentities;
 
 + (SecCertificateRef)copyOfCertificateWithName:(NSString *) inName;
 
 + (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
+
++ (SecCertificateRef)certificateWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
 
 @end

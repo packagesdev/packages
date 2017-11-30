@@ -19,6 +19,32 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 
 @implementation PKGCertificatesUtilities
 
++ (NSArray *)availableCertificates
+{
+	NSDictionary * tQueryDictionary=@{(id)kSecClass:(id)kSecClassCertificate,
+									  (id)kSecMatchSubjectStartsWith:@"Developer ID Installer:",
+									  (id)kSecReturnRef:@(YES),
+									  (id)kSecMatchLimit:(id)kSecMatchLimitAll};
+	
+	CFArrayRef tResults=NULL;
+	
+	OSStatus tStatus=SecItemCopyMatching((__bridge CFDictionaryRef)tQueryDictionary, (CFTypeRef *)&tResults);
+	
+	if (tStatus!=errSecSuccess)
+	{
+		NSString * tErrorString=(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus, NULL);
+		
+		NSLog(@"SecItemCopyMatching failed: %@",tErrorString);
+		
+		return [NSArray array];
+	}
+	
+	if (tResults==NULL)
+		return [NSArray array];
+	
+	return (__bridge_transfer NSArray *)tResults;
+}
+
 + (NSArray *)availableIdentities
 {
 	NSDictionary * tQueryDictionary=@{(id)kSecClass:(id)kSecClassIdentity,
@@ -57,6 +83,60 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	SecIdentityCopyCertificate(tIdentityRef,&tCertificateRef);
 	
 	return tCertificateRef;
+}
+
++ (SecCertificateRef)certificateWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError
+{
+	if (inName.length==0)
+	{
+		if (outError!=NULL)
+			*outError=0;
+		
+		return NULL;
+	}
+	
+	NSArray * tKeychainPaths=((inPath!=nil) ? @[inPath] : nil);
+	
+	NSArray * tSecKeychainArray=[tKeychainPaths WB_arrayByMappingObjectsLenientlyUsingBlock:^id(NSString * bKeychainPath,NSUInteger bIndex){
+		
+		SecKeychainRef tKeyChainRef=NULL;
+		
+		OSStatus tStatus=SecKeychainOpen(inPath.fileSystemRepresentation,&tKeyChainRef);
+		
+		if (tStatus!=errSecSuccess)
+		{
+			NSLog(@"SecKeychainOpen error:%ld",(long)tStatus);
+			
+			switch(tStatus)
+			{
+				case errSecNoSuchKeychain:
+					
+					break;
+			}
+			
+			return nil;
+		}
+		
+		return (__bridge id)tKeyChainRef;
+	}];
+	
+	NSMutableDictionary * tQueryDictionary=[@{(id)kSecClass:(id)kSecClassCertificate,
+											  (id)kSecMatchSubjectWholeString:inName,
+											  (id)kSecReturnRef:@(YES),
+											  (id)kSecMatchLimit:(id)kSecMatchLimitOne} mutableCopy];
+	
+	if (tSecKeychainArray.count>0)
+		tQueryDictionary[(__bridge NSString *)kSecMatchSearchList]=tSecKeychainArray;
+	
+	
+	SecCertificateRef tResult=NULL;
+	
+	OSStatus tStatus=SecItemCopyMatching((__bridge CFDictionaryRef)tQueryDictionary, (CFTypeRef *)&tResult);
+	
+	if (outError!=NULL)
+		*outError=tStatus;
+	
+	return tResult;
 }
 
 + (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
