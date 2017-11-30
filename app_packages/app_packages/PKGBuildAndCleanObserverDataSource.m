@@ -907,6 +907,12 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					tTitle=NSLocalizedStringFromTable(@"Unable to find keychain",@"Build",@"");
 					
 					break;
+				
+				case PKGBuildErrorSigningCertificatePrivateKeyNotFound:
+					
+					tTitle=NSLocalizedStringFromTable(@"Unable to find the private key for the Developer ID Installer certificate",@"Build",@"");
+					
+					break;
 					
 				default:
 					

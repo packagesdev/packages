@@ -641,6 +641,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "Unable to find signing certificate");
 					break;
+				
+				case PKGBuildErrorSigningCertificatePrivateKeyNotFound:
+					
+					(void)fprintf(stdout, "Unable to find the private key for the Developer ID Installer certificate");
+					break;
 					
 				default:
 					
