@@ -102,6 +102,11 @@ enum {
 
 };
 
+enum
+{
+	PKG_errSecMissingPrivateKey=31415
+};
+
 #define PKGRenamingAttemptsMax 32768
 
 #define __SET_CORRECT_PERMISSIONS__ 1
@@ -188,7 +193,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 - (BOOL)isCertificateSetForProjectSettings:(PKGProjectSettings *)inProjectSettings;
 
 - (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings error:(OSStatus *)outError;
-
+- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings;
 
 - (BOOL)createDirectoryAtPath:(NSString *)inDirectoryPath withIntermediateDirectories:(BOOL)inIntermediateDirectories;
 
@@ -416,6 +421,16 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (tSecIdentityRef!=NULL)
 		return tSecIdentityRef;
 	
+	SecCertificateRef tCertificateRef=[PKGCertificatesUtilities certificateWithName:tCertificateName atPath:tKeychainPath error:&tError];
+	
+	if (tCertificateRef!=NULL)
+	{
+		if (outError!=NULL)
+			*outError=PKG_errSecMissingPrivateKey;
+		
+		return NULL;
+	}
+	
 	tStackedEffectiveUserAndGroup=nil;
 	
 	NSString * tCertificateKeychainPath=inProjectSettings.certificateKeychainPath;
@@ -435,9 +450,65 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (tSecIdentityRef!=NULL)
 		return tSecIdentityRef;
 	
+	tCertificateRef=[PKGCertificatesUtilities certificateWithName:tCertificateName atPath:tCertificateKeychainPath error:&tError];
+	
+	if (tCertificateRef!=NULL)
+	{
+		if (outError!=NULL)
+			*outError=PKG_errSecMissingPrivateKey;
+		
+		return NULL;
+	}
+	
 	if (outError!=NULL)
 		*outError=tError;
 			
+	return NULL;
+}
+
+- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings
+{
+	OSStatus tIdentityError=errSecSuccess;
+	
+	SecIdentityRef tSecIdentityRef=[self secIdentifyForProjectSettings:inProjectSettings error:&tIdentityError];
+	
+	if (tSecIdentityRef!=NULL)
+		return tSecIdentityRef;
+	
+	PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
+	
+	PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
+	
+	switch(tIdentityError)
+	{
+		case PKG_errSecMissingPrivateKey:
+			
+			tBuildError=PKGBuildErrorSigningCertificatePrivateKeyNotFound;
+			break;
+			
+		case errSecNoSuchKeychain:
+			
+			tBuildError=PKGBuildErrorSigningKeychainNotFound;
+			break;
+			
+		case errSecItemNotFound:
+			
+			tBuildError=PKGBuildErrorSigningCertificateNotFound;
+			break;
+			
+		default:
+			
+			tBuildErrorEvent.subcode=tIdentityError;
+			
+			// A COMPLETER
+			
+			break;
+	}
+	
+	tBuildErrorEvent.code=tBuildError;
+	
+	[self postCurrentStepFailureEvent:tBuildErrorEvent];
+	
 	return NULL;
 }
 
@@ -1336,43 +1407,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			if (_secIdentityRef==NULL)
 			{
-				OSStatus tIdentityError=0;
-				
-				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings error:&tIdentityError];
+				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings];
 				
 				if (_secIdentityRef==NULL)
-				{
-					PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
-					
-					PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
-					
-					switch(tIdentityError)
-					{
-						case errSecNoSuchKeychain:
-						
-							tBuildError=PKGBuildErrorSigningKeychainNotFound;
-							break;
-							
-						case errSecItemNotFound:
-							
-							tBuildError=PKGBuildErrorSigningCertificateNotFound;
-							break;
-							
-						default:
-							
-							tBuildErrorEvent.subcode=tIdentityError;
-							
-							// A COMPLETER
-							
-							break;
-					}
-					
-					tBuildErrorEvent.code=tBuildError;
-					
-					[self postCurrentStepFailureEvent:tBuildErrorEvent];
-					
 					return NO;
-				}
 			}
 		}
 		
@@ -5968,43 +6006,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			if (_secIdentityRef==NULL)
 			{
-				OSStatus tIdentityError=0;
-				
-				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings error:&tIdentityError];
+				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings];
 				
 				if (_secIdentityRef==NULL)
-				{
-					PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
-					
-					PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
-					
-					switch(tIdentityError)
-					{
-						case errSecNoSuchKeychain:
-							
-							tBuildError=PKGBuildErrorSigningKeychainNotFound;
-							break;
-							
-						case errSecItemNotFound:
-							
-							tBuildError=PKGBuildErrorSigningCertificateNotFound;
-							break;
-							
-						default:
-							
-							tBuildErrorEvent.subcode=tIdentityError;
-							
-							// A COMPLETER
-							
-							break;
-					}
-					
-					tBuildErrorEvent.code=tBuildError;
-					
-					[self postCurrentStepFailureEvent:tBuildErrorEvent];
-					
 					return NO;
-				}
 			}
 		}
 		
@@ -6397,43 +6402,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			if (_secIdentityRef==NULL)
 			{
-				OSStatus tIdentityError=0;
-				
-				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings error:&tIdentityError];
+				_secIdentityRef=[self secIdentifyForProjectSettings:self.project.settings];
 				
 				if (_secIdentityRef==NULL)
-				{
-					PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
-					
-					PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
-					
-					switch(tIdentityError)
-					{
-						case errSecNoSuchKeychain:
-							
-							tBuildError=PKGBuildErrorSigningKeychainNotFound;
-							break;
-							
-						case errSecItemNotFound:
-							
-							tBuildError=PKGBuildErrorSigningCertificateNotFound;
-							break;
-							
-						default:
-							
-							tBuildErrorEvent.subcode=tIdentityError;
-							
-							// A COMPLETER
-							
-							break;
-					}
-					
-					tBuildErrorEvent.code=tBuildError;
-					
-					[self postCurrentStepFailureEvent:tBuildErrorEvent];
-					
 					return NO;
-				}
 			}
 		}
 	}

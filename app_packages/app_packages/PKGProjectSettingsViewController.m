@@ -293,13 +293,50 @@
 	
 	if (tIdentitiesArray.count==0)
 	{
+		NSArray * tCertificatesArray=[PKGCertificatesUtilities availableCertificates];
+		
 		NSAlert * tAlert=[NSAlert new];
 		
-		tAlert.messageText=NSLocalizedString(@"No certificates Alert Message Text",@"");
-		tAlert.informativeText=NSLocalizedString(@"No certificates Alert Informative Text",@"");
-		
 		[tAlert addButtonWithTitle:NSLocalizedString(@"OK",@"No Comment")];
-		[tAlert addButtonWithTitle:NSLocalizedString(@"Go to Apple Developer website",@"No Comment")];
+		
+		if (tCertificatesArray.count==0)
+		{
+			tAlert.messageText=NSLocalizedString(@"No certificates Alert Message Text",@"");
+			tAlert.informativeText=NSLocalizedString(@"No certificates Alert Informative Text",@"");
+			
+			[tAlert addButtonWithTitle:NSLocalizedString(@"Go to Apple Developer website",@"No Comment")];
+		}
+		else
+		{
+			if (tCertificatesArray.count==1)
+			{
+				SecCertificateRef tCertificateRef=(__bridge SecCertificateRef)tCertificatesArray.firstObject;
+				
+				CFStringRef tCommonNameRef=NULL;
+				
+				OSStatus tStatus=SecCertificateCopyCommonName(tCertificateRef,&tCommonNameRef);
+				
+				if (tStatus!=errSecSuccess)
+				{
+					NSLog(@"Could not obtain the Certificate Common Name (%d)",(int)tStatus);
+					
+					tAlert.messageText=NSLocalizedString(@"No signing certificate Alert Message Text",@"");
+				}
+				else
+				{
+					tAlert.messageText=[NSString stringWithFormat: NSLocalizedString(@"The \"%@\" certificate available in the Keychain can not be used to sign a package or flat distribution.",@""),(__bridge NSString *)tCommonNameRef];
+					
+					CFRelease(tCommonNameRef);
+				}
+				
+				tAlert.informativeText=NSLocalizedString(@"There is no private key associated to this certificate.",@"");
+			}
+			else
+			{
+				tAlert.messageText=NSLocalizedString(@"No signing certificates Alert Message Text",@"");
+				tAlert.informativeText=NSLocalizedString(@"There are no private keys associated to these certificates.",@"");
+			}
+		}
 		
 		[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
 		
