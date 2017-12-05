@@ -17,6 +17,6 @@
 
 	@property NSUInteger majorVersion;
 	@property NSUInteger minorVersion;
-	@property NSUInteger bugFixVersion;
+	@property NSUInteger patchVersion;
 
 @end

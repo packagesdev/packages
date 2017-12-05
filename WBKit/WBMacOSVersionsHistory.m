@@ -32,6 +32,8 @@
 #define WBMacOSSierraMinorVersion			12
 #define WBMacOSHighSierraMinorVersion		13
 
+#define WBMacOSReasonableMaxUnitValue          100
+
 @implementation WBMacOSVersionsHistory
 
 + (id)versionsHistory
@@ -202,7 +204,7 @@
 			
 			return NSMakeRange(0, 13);
 			
-		case WBBugFixVersionUnit:
+		case WBPatchVersionUnit:
 			
 			return NSMakeRange(0, 5);
 	}
@@ -222,7 +224,7 @@
 			
 			return NSMakeRange(0, NSUIntegerMax);
 			
-		case WBBugFixVersionUnit:
+		case WBPatchVersionUnit:
 			
 			return NSMakeRange(0, NSUIntegerMax);
 	}
@@ -245,9 +247,9 @@
 		
 		case WBMinorVersionUnit:
 		
-			return NSMakeRange(0, NSUIntegerMax);
+			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 		
-		case WBBugFixVersionUnit:
+		case WBPatchVersionUnit:
 		
 			switch(inVersion.minorVersion)
 			{
@@ -305,10 +307,10 @@
 					
 				case WBMacOSHighSierraMinorVersion:
 					
-					return NSMakeRange(0, NSUIntegerMax);
+					return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 			}
 			
-			return NSMakeRange(0, NSUIntegerMax);
+			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 	}
 	
 	return NSMakeRange(NSNotFound, 0);
@@ -319,13 +321,13 @@
 	if (comps==nil)
 		return nil;
 	
-	if (comps.majorVersion<0 || comps.minorVersion<0 || comps.bugFixVersion<0)
+	if (comps.majorVersion<0 || comps.minorVersion<0 || comps.patchVersion<0)
 		return nil;
 	
-	if (comps.minorVersion==WBUndefinedVersionComponent || comps.bugFixVersion==WBUndefinedVersionComponent)
+	if (comps.minorVersion==WBUndefinedVersionComponent || comps.patchVersion==WBUndefinedVersionComponent)
 		return nil;
 	
-	WBVersion * tVersion=[[WBVersion alloc] init];
+	WBVersion * tVersion=[WBVersion new];
 	
 	// Major
 	
@@ -351,9 +353,9 @@
 	{
 		tVersion.minorVersion=NSMaxRange(tAllowedRange)-1;
 		
-		tAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tVersion];
+		tAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tVersion];
 		
-		tVersion.bugFixVersion=tAllowedRange.location;
+		tVersion.patchVersion=tAllowedRange.location;
 		
 		WBVersionComponents * tNewComponents=[WBVersionComponents new];
 		tNewComponents.minorVersion=comps.minorVersion-tVersion.minorVersion;
@@ -365,24 +367,24 @@
 	else 
 		tVersion.minorVersion=comps.minorVersion;
 	
-	// BugFix
+	// Patch
 	
-	tAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tVersion];
+	tAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tVersion];
 	
-	if (comps.bugFixVersion>=NSMaxRange(tAllowedRange))
+	if (comps.patchVersion>=NSMaxRange(tAllowedRange))
 	{
-		tVersion.bugFixVersion=NSMaxRange(tAllowedRange)-1;
+		tVersion.patchVersion=NSMaxRange(tAllowedRange)-1;
 		
 		WBVersionComponents * tNewComponents=[WBVersionComponents new];
-		tNewComponents.bugFixVersion=comps.bugFixVersion-tVersion.bugFixVersion;
+		tNewComponents.patchVersion=comps.patchVersion-tVersion.patchVersion;
 		
 		return [self versionByAddingComponents:tNewComponents toVersion:tVersion];
 	}
 	
-	if (comps.bugFixVersion<tAllowedRange.location)
-		tVersion.bugFixVersion=tAllowedRange.location;
+	if (comps.patchVersion<tAllowedRange.location)
+		tVersion.patchVersion=tAllowedRange.location;
 	else 
-		tVersion.bugFixVersion=comps.bugFixVersion;
+		tVersion.patchVersion=comps.patchVersion;
 	
 	return tVersion;
 }
@@ -437,12 +439,12 @@
 			else if (tNewVersion.minorVersion<tMinorAllowedRange.location)
 				tNewVersion.minorVersion=tMinorAllowedRange.location;
 			
-			NSRange tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+			NSRange tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 			
-			if (tNewVersion.bugFixVersion>=NSMaxRange(tBugFixAllowedRange))
-				tNewVersion.bugFixVersion=NSMaxRange(tBugFixAllowedRange)-1;
-			else if (tNewVersion.bugFixVersion<tBugFixAllowedRange.location)
-				tNewVersion.bugFixVersion=tBugFixAllowedRange.location;
+			if (tNewVersion.patchVersion>=NSMaxRange(tPatchAllowedRange))
+				tNewVersion.patchVersion=NSMaxRange(tPatchAllowedRange)-1;
+			else if (tNewVersion.patchVersion<tPatchAllowedRange.location)
+				tNewVersion.patchVersion=tPatchAllowedRange.location;
 		}
 	}
 
@@ -454,7 +456,9 @@
 		
 		if (tComponents.minorVersion>0)
 		{
-			while ((tNewVersion.minorVersion+tComponents.minorVersion)>=NSMaxRange(tMinorAllowedRange))
+			BOOL tDone=NO;
+            
+            while ((tNewVersion.minorVersion+tComponents.minorVersion)>=NSMaxRange(tMinorAllowedRange))
 			{
 				if ((tNewVersion.majorVersion+1)<NSMaxRange(tMajorAllowedRange))
 				{
@@ -469,11 +473,15 @@
 				else
 				{
 					tNewVersion.minorVersion=NSMaxRange(tMinorAllowedRange)-1;
+                    
+                    tDone=YES;
+                    
 					break;
 				}
 			}
 			
-			tNewVersion.minorVersion+=tComponents.minorVersion;
+			if (tDone==NO)
+                tNewVersion.minorVersion+=tComponents.minorVersion;
 		}
 		else
 		{
@@ -507,35 +515,35 @@
 				tNewVersion.minorVersion-=tDelta;
 		}
 	
-		NSRange tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+		NSRange tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 			
-		if (tNewVersion.bugFixVersion>=NSMaxRange(tBugFixAllowedRange))
-			tNewVersion.bugFixVersion=NSMaxRange(tBugFixAllowedRange)-1;
-		else if (tNewVersion.bugFixVersion<tBugFixAllowedRange.location)
-			tNewVersion.bugFixVersion=tBugFixAllowedRange.location;
+		if (tNewVersion.patchVersion>=NSMaxRange(tPatchAllowedRange))
+			tNewVersion.patchVersion=NSMaxRange(tPatchAllowedRange)-1;
+		else if (tNewVersion.patchVersion<tPatchAllowedRange.location)
+			tNewVersion.patchVersion=tPatchAllowedRange.location;
 	}
 	
-	// BugFix version
+	// Patch version
 	
-	if (tComponents.bugFixVersion!=WBUndefinedVersionComponent && tComponents.bugFixVersion!=0)
+	if (tComponents.patchVersion!=WBUndefinedVersionComponent && tComponents.patchVersion!=0)
 	{
-		NSRange tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+		NSRange tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 		
-		if (comps.bugFixVersion>0)
+		if (comps.patchVersion>0)
 		{
-			while ((tNewVersion.bugFixVersion+tComponents.bugFixVersion)>=NSMaxRange(tBugFixAllowedRange))
+			while ((tNewVersion.patchVersion+tComponents.patchVersion)>=NSMaxRange(tPatchAllowedRange))
 			{
 				NSRange tMinorAllowedRange=[self rangeOfUnit:WBMinorVersionUnit inUnit:WBMajorVersionUnit forVersion:tNewVersion];
 				
-				tComponents.bugFixVersion-=(NSMaxRange(tBugFixAllowedRange)-tNewVersion.bugFixVersion);
+				tComponents.patchVersion-=(NSMaxRange(tPatchAllowedRange)-tNewVersion.patchVersion);
 				
 				if ((tNewVersion.minorVersion+1)<NSMaxRange(tMinorAllowedRange))
 				{
 					tNewVersion.minorVersion++;
 					
-					tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+					tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 					
-					tNewVersion.bugFixVersion=tBugFixAllowedRange.location;
+					tNewVersion.patchVersion=tPatchAllowedRange.location;
 				}
 				else
 				{
@@ -547,44 +555,44 @@
 						
 						tNewVersion.minorVersion=tMinorAllowedRange.location;
 						
-						tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+						tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 						
-						tNewVersion.bugFixVersion=tBugFixAllowedRange.location;
+						tNewVersion.patchVersion=tPatchAllowedRange.location;
 					}
 					else
 					{
 						tNewVersion.minorVersion=NSMaxRange(tMinorAllowedRange)-1;
 						
-						tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+						tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 						
-						tNewVersion.bugFixVersion=NSMaxRange(tBugFixAllowedRange)-1;
+						tNewVersion.patchVersion=NSMaxRange(tPatchAllowedRange)-1;
 						
 						break;
 					}
 				}
 			}
 			
-			tNewVersion.bugFixVersion+=tComponents.bugFixVersion;
+			tNewVersion.patchVersion+=tComponents.patchVersion;
 		}
 		else
 		{
-			NSUInteger tDelta=(-tComponents.bugFixVersion);
+			NSUInteger tDelta=(-tComponents.patchVersion);
 			
 			BOOL tDone=NO;
 			
-			while (tDelta>(tNewVersion.bugFixVersion-tBugFixAllowedRange.location))
+			while (tDelta>(tNewVersion.patchVersion-tPatchAllowedRange.location))
 			{
 				NSRange tMinorAllowedRange=[self rangeOfUnit:WBMinorVersionUnit inUnit:WBMajorVersionUnit forVersion:tNewVersion];
 				
-				tDelta-=(tNewVersion.bugFixVersion-tBugFixAllowedRange.location+1);
+				tDelta-=(tNewVersion.patchVersion-tPatchAllowedRange.location+1);
 				
 				if (tNewVersion.minorVersion>=(tMinorAllowedRange.location+1))
 				{
 					tNewVersion.minorVersion--;
 					
-					tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+					tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 					
-					tNewVersion.bugFixVersion=NSMaxRange(tBugFixAllowedRange)-1;
+					tNewVersion.patchVersion=NSMaxRange(tPatchAllowedRange)-1;
 				}
 				else
 				{
@@ -596,17 +604,17 @@
 						
 						tNewVersion.minorVersion=NSMaxRange(tMinorAllowedRange)-1;
 						
-						tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+						tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 						
-						tNewVersion.bugFixVersion=NSMaxRange(tBugFixAllowedRange)-1;
+						tNewVersion.patchVersion=NSMaxRange(tPatchAllowedRange)-1;
 					}
 					else
 					{
 						tNewVersion.minorVersion=tMinorAllowedRange.location;
 						
-						tBugFixAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
+						tPatchAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:tNewVersion];
 						
-						tNewVersion.bugFixVersion=tBugFixAllowedRange.location;
+						tNewVersion.patchVersion=tPatchAllowedRange.location;
 						
 						tDone=YES;
 						
@@ -616,7 +624,7 @@
 			}
 			
 			if (tDone==NO)
-				tNewVersion.bugFixVersion-=tDelta;
+				tNewVersion.patchVersion-=tDelta;
 		}
 	}
 	
