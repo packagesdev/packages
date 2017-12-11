@@ -159,7 +159,7 @@
 	{
 		if (comps.majorVersion<0)
 		{
-			if ((-comps.majorVersion)>tNewVersion.majorVersion)
+			if ((-comps.majorVersion)>((NSInteger)tNewVersion.majorVersion))
 				tNewVersion.majorVersion=0;
 			else
 				tNewVersion.majorVersion+=comps.majorVersion;
@@ -174,7 +174,7 @@
 	{
 		if (comps.minorVersion<0)
 		{
-			if ((-comps.minorVersion)>tNewVersion.minorVersion)
+			if ((-comps.minorVersion)>((NSInteger)tNewVersion.minorVersion))
 				tNewVersion.minorVersion=0;
 			else
 				tNewVersion.minorVersion+=comps.minorVersion;
@@ -189,7 +189,7 @@
 	{
 		if (comps.patchVersion<0)
 		{
-			if ((-comps.patchVersion)>tNewVersion.patchVersion)
+			if ((-comps.patchVersion)>((NSInteger)tNewVersion.patchVersion))
 				tNewVersion.patchVersion=0;
 			else
 				tNewVersion.patchVersion+=comps.patchVersion;
