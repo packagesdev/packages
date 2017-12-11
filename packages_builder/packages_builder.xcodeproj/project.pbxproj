@@ -19,6 +19,7 @@
 		F45BA0C21D06045500765C10 /* PKGPathComponentPatternsRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */; };
 		F46BFC911FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F46BFC901FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m */; };
 		F477CD991F0CCDC60091EFB0 /* PKGForest.m in Sources */ = {isa = PBXBuildFile; fileRef = F477CD981F0CCDC60091EFB0 /* PKGForest.m */; };
+		F4813D111FDF38DA0047055E /* WBVersionsHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = F4813D101FDF38DA0047055E /* WBVersionsHistory.m */; };
 		F484A8601D87487600FCC361 /* PKGCertificatesUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F484A85F1D87487600FCC361 /* PKGCertificatesUtilities.m */; };
 		F484A86B1D8748BD00FCC361 /* PKGRequirementPluginsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F484A86A1D8748BD00FCC361 /* PKGRequirementPluginsManager.m */; };
 		F484A86E1D8748C700FCC361 /* PKGLocatorPluginsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F484A86D1D8748C700FCC361 /* PKGLocatorPluginsManager.m */; };
@@ -177,6 +178,8 @@
 		F46BFC901FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMustCloseApplicationItem.m; path = ../model/PKGMustCloseApplicationItem.m; sourceTree = "<group>"; };
 		F477CD971F0CCDC60091EFB0 /* PKGForest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGForest.h; path = ../model/PKGForest.h; sourceTree = "<group>"; };
 		F477CD981F0CCDC60091EFB0 /* PKGForest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGForest.m; path = ../model/PKGForest.m; sourceTree = "<group>"; };
+		F4813D0F1FDF38DA0047055E /* WBVersionsHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBVersionsHistory.h; path = ../WBKit/WBVersionsHistory.h; sourceTree = "<group>"; };
+		F4813D101FDF38DA0047055E /* WBVersionsHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBVersionsHistory.m; path = ../WBKit/WBVersionsHistory.m; sourceTree = "<group>"; };
 		F484A85E1D87487600FCC361 /* PKGCertificatesUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGCertificatesUtilities.h; path = ../shared/PKGCertificatesUtilities.h; sourceTree = "<group>"; };
 		F484A85F1D87487600FCC361 /* PKGCertificatesUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGCertificatesUtilities.m; path = ../shared/PKGCertificatesUtilities.m; sourceTree = "<group>"; };
 		F484A8691D8748BD00FCC361 /* PKGRequirementPluginsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementPluginsManager.h; path = ../shared/PKGRequirementPluginsManager.h; sourceTree = "<group>"; };
@@ -466,6 +469,8 @@
 			children = (
 				F40B5D0B1F8D772E0054D746 /* WBVersion.h */,
 				F40B5D0C1F8D772E0054D746 /* WBVersion.m */,
+				F4813D0F1FDF38DA0047055E /* WBVersionsHistory.h */,
+				F4813D101FDF38DA0047055E /* WBVersionsHistory.m */,
 				F40B5D0E1F8D77490054D746 /* WBVersionFormatter.h */,
 				F40B5D0F1F8D77490054D746 /* WBVersionFormatter.m */,
 			);
@@ -823,6 +828,7 @@
 				F48C21811CFCF05500B5A8CD /* PKGInstallationHierarchy.m in Sources */,
 				F48DD9CA1D686B6900F59638 /* PKGBuildOrder.m in Sources */,
 				F48C21741CFCF05500B5A8CD /* PKGChoiceDependencyTree.m in Sources */,
+				F4813D111FDF38DA0047055E /* WBVersionsHistory.m in Sources */,
 				F45BA0C21D06045500765C10 /* PKGPathComponentPatternsRegister.m in Sources */,
 				F4DDC4301DF0EFAC0004AFB7 /* PKGPayloadTreeNode.m in Sources */,
 				F46BFC911FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m in Sources */,
@@ -877,7 +883,7 @@
 		1DEB927508733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 256;
+				CURRENT_PROJECT_VERSION = 267;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -907,7 +913,7 @@
 		1DEB927608733DD40010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 256;
+				CURRENT_PROJECT_VERSION = 267;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;

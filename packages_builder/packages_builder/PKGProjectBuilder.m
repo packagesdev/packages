@@ -980,6 +980,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Prepare the Build folder
 	
+	if (tProjectSettings.buildPath.string.length==0)
+		tProjectSettings.buildPath.string=@".";
+	
 	NSString * tBuildFolderPath=[self prepareBuildFolderAtPath:[self absolutePathForFilePath:tProjectSettings.buildPath]];
 	
 	if (tBuildFolderPath==nil)
