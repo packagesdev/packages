@@ -50,8 +50,8 @@ enum
 
 @interface WBVersionComponents : NSObject <NSCopying>
 
-@property NSInteger majorVersion;
-@property NSInteger minorVersion;
-@property NSInteger patchVersion;
+	@property NSInteger majorVersion;
+	@property NSInteger minorVersion;
+	@property NSInteger patchVersion;
 
 @end

@@ -13,6 +13,10 @@
 
 #import "WBMacOSVersionsHistory.h"
 
+#if (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_10)
+#include <CoreServices/CoreServices.h>
+#endif
+
 #import "WBVersion_Private.h"
 
 #define WBMacOSXMajorVersion				10		// No support for MacOS Classic (which is a good thing considering some minor versions are skipped with this OS)
@@ -187,7 +191,35 @@
 
 + (WBVersion *)systemVersion
 {
-	return nil;
+	static dispatch_once_t onceToken;
+	static WBVersion * sSystemVersion=nil;
+	dispatch_once(&onceToken, ^{
+		
+		sSystemVersion=[WBVersion new];
+	
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)
+		NSOperatingSystemVersion tOperatingSystemVersion=[NSProcessInfo processInfo].operatingSystemVersion;
+		
+		sSystemVersion.majorVersion=tOperatingSystemVersion.majorVersion;
+		sSystemVersion.minorVersion=tOperatingSystemVersion.minorVersion;
+		sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
+		
+#else
+		SInt32 tMajorVersion,tMinorVersion,tBugFixVersion;
+		
+		Gestalt(gestaltSystemVersionMajor,&tMajorVersion);
+		Gestalt(gestaltSystemVersionMinor,&tMinorVersion);
+		Gestalt(gestaltSystemVersionBugFix,&tBugFixVersion);
+		
+		sSystemVersion.majorVersion=tMajorVersion;
+		sSystemVersion.minorVersion=tMinorVersion;
+		sSystemVersion.patchVersion=tBugFixVersion;
+		
+#endif
+		
+	});
+	
+	return sSystemVersion;
 }
 
 #pragma mark -
