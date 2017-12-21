@@ -8,7 +8,7 @@
 	       <key>Class</key>
 	       <string>Applications</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/applications/applications.html#//apple_ref/javascript/instm/Applications/all</string>
+	       <string>https://developer.apple.com/documentation/installerjs/applications/1812212-all</string>
 	   </dict>
     </array>
     <key>applications</key>
@@ -17,7 +17,7 @@
 	       <key>Class</key>
 	       <string>Applications</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/applications/applications.html</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812235-applications</string>
 	   </dict>
     </array>
     <key>bundleAtPath</key>
@@ -26,7 +26,7 @@
 	       <key>Class</key>
 	       <string>Files</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/files/files.html#//apple_ref/javascript/instm/Files/bundleAtPath</string>
+	       <string>https://developer.apple.com/documentation/installerjs/files/1812190-bundleatpath</string>
 	   </dict>
     </array>
     <key>childrenOf</key>
@@ -35,7 +35,7 @@
 	       <key>Class</key>
 	       <string>IORegistry</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/ioregistry/ioregistry.html#//apple_ref/javascript/instm/IORegistry/childrenOf</string>
+	       <string>https://developer.apple.com/documentation/installerjs/ioregistry/1812215-childrenof</string>
 	   </dict>
     </array>
     <key>choices</key>
@@ -44,7 +44,7 @@
 	       <key>Class</key>
 	       <string>Choice</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/choices/choices.html</string>
+	       <string>https://developer.apple.com/documentation/installerjs/choice</string>
 	   </dict>
     </array>
     <key>compareVersions</key>
@@ -53,7 +53,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/compareVersions</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812314-compareversions</string>
 	   </dict>
     </array>
     <key>fileExistsAtPath</key>
@@ -62,7 +62,7 @@
 	       <key>Class</key>
 	       <string>Files</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/files/files.html#//apple_ref/javascript/instm/Files/fileExistsAtPath</string>
+	       <string>https://developer.apple.com/documentation/installerjs/files/1812173-fileexistsatpath</string>
 	   </dict>
     </array>
     <key>files</key>
@@ -71,7 +71,7 @@
 	       <key>Class</key>
 	       <string>Files</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/files/files.html</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812262-files</string>
 	   </dict>
     </array>
     <key>fromPath</key>
@@ -80,7 +80,7 @@
 	       <key>Class</key>
 	       <string>IORegistry</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/ioregistry/ioregistry.html#//apple_ref/javascript/instm/IORegistry/fromPath</string>
+	       <string>https://developer.apple.com/documentation/installerjs/ioregistry/1812172-frompath</string>
 	   </dict>
     </array>
     <key>fromPID</key>
@@ -89,7 +89,7 @@
 	       <key>Class</key>
 	       <string>Applications</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/applications/applications.html#//apple_ref/javascript/instm/Applications/fromPID</string>
+	       <string>https://developer.apple.com/documentation/installerjs/applications/1812189-frompid</string>
 	   </dict>
     </array>
     <key>fromIdentifier</key>
@@ -98,7 +98,7 @@
 	       <key>Class</key>
 	       <string>Applications</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/applications/applications.html#//apple_ref/javascript/instm/Applications/fromIdentifier</string>
+	       <string>https://developer.apple.com/documentation/installerjs/applications/1812198-fromidentifier</string>
 	   </dict>
     </array>
     <key>gestalt</key>
@@ -107,7 +107,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/gestalt</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812304-gestalt</string>
 	   </dict>
     </array>
     <key>ioregistry</key>
@@ -116,7 +116,7 @@
 	       <key>Class</key>
 	       <string>IORegistry</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/ioregistry/ioregistry.html</string>
+	       <string>https://developer.apple.com/documentation/installerjs/ioregistry</string>
 	   </dict>
     </array>
     <key>localizedStandardString</key>
@@ -125,7 +125,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/localizedStandardString</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812330-localizedstandardstring</string>
 	   </dict>
     </array>
     <key>localizedStandardStringWithFormat</key>
@@ -134,7 +134,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/localizedStandardStringWithFormat</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812327-localizedstringwithformat</string>
 	   </dict>
     </array>
     <key>localizedString</key>
@@ -143,7 +143,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/localizedString</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812321-localizedstring</string>
 	   </dict>
     </array>
     <key>localizedStringWithFormat</key>
@@ -152,7 +152,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/localizedStringWithFormat</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812327-localizedstringwithformat</string>
 	   </dict>
     </array>
     <key>log</key>
@@ -161,7 +161,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/log</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812348-log</string>
 	   </dict>
     </array>
     <key>matchingClass</key>
@@ -170,7 +170,7 @@
 	       <key>Class</key>
 	       <string>IORegistry</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/ioregistry/ioregistry.html#//apple_ref/javascript/instm/IORegistry/matchingClass</string>
+	       <string>https://developer.apple.com/documentation/installerjs/ioregistry/1812186-matchingclass</string>
 	   </dict>
     </array>
     <key>matchingName</key>
@@ -179,7 +179,7 @@
 	       <key>Class</key>
 	       <string>IORegistry</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/ioregistry/ioregistry.html#//apple_ref/javascript/instm/IORegistry/matchingName</string>
+	       <string>https://developer.apple.com/documentation/installerjs/ioregistry/1812200-matchingname</string>
 	   </dict>
     </array>
     <key>parentsOf</key>
@@ -188,7 +188,7 @@
 	       <key>Class</key>
 	       <string>IORegistry</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/ioregistry/ioregistry.html#//apple_ref/javascript/instm/IORegistry/parentsOf</string>
+	       <string>https://developer.apple.com/documentation/installerjs/ioregistry/1812225-parentsof</string>
 	   </dict>
     </array>
     <key>plistAtPath</key>
@@ -197,7 +197,7 @@
 	       <key>Class</key>
 	       <string>Files</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/files/files.html#//apple_ref/javascript/instm/Files/plistAtPath</string>
+	       <string>https://developer.apple.com/documentation/installerjs/files/1812182-plistatpath</string>
 	   </dict>
     </array>
     <key>propertiesOf</key>
@@ -206,7 +206,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/propertiesOf</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812294-propertiesof</string>
 	   </dict>
     </array>
     <key>receiptForIdentifier</key>
@@ -215,7 +215,7 @@
 	       <key>Class</key>
 	       <string>Target</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/target/target.html#//apple_ref/javascript/instm/Target/receiptForIdentifier</string>
+	       <string>https://developer.apple.com/documentation/installerjs/target/1812064-receiptforidentifier</string>
 	   </dict>
     </array>
     <key>result</key>
@@ -224,7 +224,7 @@
 	       <key>Class</key>
 	       <string>Result</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/result/result.html</string>
+	       <string>https://developer.apple.com/documentation/installerjs/result</string>
 	   </dict>
     </array>
     <key>run</key>
@@ -233,7 +233,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/run</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812364-run</string>
 	   </dict>
     </array>
     <key>runOnce</key>
@@ -242,7 +242,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/runOnce</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812367-runonce</string>
 	   </dict>
     </array>
     <key>sysctl</key>
@@ -251,7 +251,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html#//apple_ref/javascript/instm/System/sysctl</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system/1812308-sysctl</string>
 	   </dict>
     </array>
     <key>system</key>
@@ -260,7 +260,7 @@
 	       <key>Class</key>
 	       <string>System</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/system/system.html</string>
+	       <string>https://developer.apple.com/documentation/installerjs/system</string>
 	   </dict>
     </array>
     <key>target</key>
@@ -269,7 +269,7 @@
 	       <key>Class</key>
 	       <string>Target</string>
 	       <key>URL</key>
-	       <string>http://developer.apple.com/mac/library/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/target/target.html</string>
+	       <string>https://developer.apple.com/documentation/installerjs/target</string>
 	   </dict>
     </array>
 </dict>
