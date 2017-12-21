@@ -14,8 +14,11 @@
 #import <Foundation/Foundation.h>
 
 #import "WBVersion.h"
+#import "WBVersionsHistory.h"
 
 @interface WBVersionFormatter : NSFormatter
+
+    @property WBVersionsHistory * versionsHistory;
 
 - (NSString *)stringFromVersion:(WBVersion *)inVersion;
 - (WBVersion *)versionFromString:(NSString *)inString;

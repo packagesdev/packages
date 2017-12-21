@@ -19,7 +19,7 @@
 
 	@property NSUInteger majorVersion;
 	@property NSUInteger minorVersion;
-	@property NSUInteger bugFixVersion;
+	@property NSUInteger patchVersion;
 
 @end
 
@@ -33,7 +33,7 @@
 	{
 		_majorVersion=1;
 		_minorVersion=0;
-		_bugFixVersion=0;
+		_patchVersion=0;
 	}
 	
 	return self;
@@ -49,7 +49,7 @@
 	{
 		tCopy.majorVersion=self.majorVersion;
 		tCopy.minorVersion=self.minorVersion;
-		tCopy.bugFixVersion=self.bugFixVersion;
+		tCopy.patchVersion=self.patchVersion;
 	}
 	
 	return tCopy;
@@ -76,10 +76,10 @@
 	if (self.minorVersion<otherVersion.minorVersion)
 		return self;
 	
-	if (self.bugFixVersion>otherVersion.bugFixVersion)
+	if (self.patchVersion>otherVersion.patchVersion)
 		return otherVersion;
 	
-	if (self.bugFixVersion<otherVersion.bugFixVersion)
+	if (self.patchVersion<otherVersion.patchVersion)
 		return self;
 	
 	return self;
@@ -102,10 +102,10 @@
 	if (self.minorVersion<otherVersion.minorVersion)
 		return otherVersion;
 	
-	if (self.bugFixVersion>otherVersion.bugFixVersion)
+	if (self.patchVersion>otherVersion.patchVersion)
 		return self;
 	
-	if (self.bugFixVersion<otherVersion.bugFixVersion)
+	if (self.patchVersion<otherVersion.patchVersion)
 		return otherVersion;
 	
 	return self;
@@ -128,10 +128,10 @@
 	if (self.minorVersion<other.minorVersion)
 		return NSOrderedAscending;
 		
-	if (self.bugFixVersion>other.bugFixVersion)
+	if (self.patchVersion>other.patchVersion)
 		return NSOrderedDescending;
 	
-	if (self.bugFixVersion<other.bugFixVersion)
+	if (self.patchVersion<other.patchVersion)
 		return NSOrderedAscending;
 	
 	return NSOrderedSame;
@@ -144,7 +144,7 @@
 	
 	return (self.majorVersion==otherVersion.majorVersion &&
 			self.minorVersion==otherVersion.minorVersion &&
-			self.bugFixVersion==otherVersion.bugFixVersion);
+			self.patchVersion==otherVersion.patchVersion);
 }
 
 @end

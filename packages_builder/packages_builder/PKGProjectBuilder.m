@@ -980,7 +980,35 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Prepare the Build folder
 	
-	NSString * tBuildFolderPath=[self prepareBuildFolderAtPath:[self absolutePathForFilePath:tProjectSettings.buildPath]];
+	PKGFilePath * tBuildPath=tProjectSettings.buildPath;
+	
+	if (tBuildPath.string.length==0)
+	{
+		switch(tBuildPath.type)
+		{
+			case PKGFilePathTypeAbsolute:
+				
+				tBuildPath.string=@"build";
+				tBuildPath.type=PKGFilePathTypeRelativeToProject;
+				
+				break;
+				
+			case PKGFilePathTypeRelativeToProject:
+			case PKGFilePathTypeRelativeToReferenceFolder:
+				
+				tBuildPath.string=@"build";
+				
+				break;
+				
+			default:
+				
+				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:@"BUILD_PATH"]];
+				
+				return;
+		}
+	}
+	
+	NSString * tBuildFolderPath=[self prepareBuildFolderAtPath:[self absolutePathForFilePath:tBuildPath]];
 	
 	if (tBuildFolderPath==nil)
 	{

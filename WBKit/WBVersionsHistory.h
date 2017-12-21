@@ -21,10 +21,10 @@ typedef NS_ENUM(NSUInteger,WBVersionUnit)
 {
 	WBMajorVersionUnit=(1UL << 1),
 	WBMinorVersionUnit=(1UL << 2),
-	WBBugFixVersionUnit=(1UL << 3),
+	WBPatchVersionUnit=(1UL << 3),
 };
 
-@interface WBVersionsHistory : NSObject
+@interface WBVersionsHistory : NSObject <NSCopying>
 
 + (id)versionsHistory;
 
@@ -50,8 +50,8 @@ enum
 
 @interface WBVersionComponents : NSObject <NSCopying>
 
-@property NSInteger majorVersion;
-@property NSInteger minorVersion;
-@property NSInteger bugFixVersion;
+	@property NSInteger majorVersion;
+	@property NSInteger minorVersion;
+	@property NSInteger patchVersion;
 
 @end

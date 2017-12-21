@@ -13,21 +13,79 @@
 
 #import "WBVersionFormatter.h"
 
-#import "WBVersion_Private.h"
-
 @implementation WBVersionFormatter
+
+- (instancetype)init
+{
+    self=[super init];
+    
+    if (self!=nil)
+    {
+        _versionsHistory=[WBVersionsHistory versionsHistory];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)inCoder
+{
+    self=[super initWithCoder:inCoder];
+    
+    if (self!=nil)
+    {
+        _versionsHistory=[WBVersionsHistory versionsHistory];
+    }
+    
+    return self;
+}
+
+#pragma mark -
+
+- (NSString *)stringForObjectValue:(id)inObject
+{
+    return [self stringFromVersion:inObject];
+}
+
+- (BOOL)getObjectValue:(out id *)outObject forString:(NSString *)inString errorDescription:(out NSString **)outDescription
+{
+    if (outObject==NULL)
+    {
+        if (outDescription!=NULL)
+            ;
+        
+        return NO;
+    }
+    
+    WBVersion * tVersion=[self versionFromString:inString];
+    
+    if (tVersion==nil)
+    {
+        if (outDescription!=NULL)
+            ;
+        
+        return NO;
+    }
+    
+    *outObject=tVersion;
+    
+    return YES;
+}
+
+#pragma mark -
 
 - (NSString *)stringFromVersion:(WBVersion *)inVersion
 {
-	if (inVersion==nil)
+	if (inVersion==nil || [inVersion isKindOfClass:WBVersion.class]==NO)
 		return nil;
 	
-	return [NSString stringWithFormat:@"%lu.%lu.%lu",(unsigned long)inVersion.majorVersion,(unsigned long)inVersion.minorVersion,(unsigned long)inVersion.bugFixVersion];
+    WBVersionComponents * tComponents=[self.versionsHistory components:WBMajorVersionUnit|WBMinorVersionUnit|WBPatchVersionUnit fromVersion:inVersion];
+    
+	return [NSString stringWithFormat:@"%lu.%lu.%lu",(unsigned long)tComponents.majorVersion,(unsigned long)tComponents.minorVersion,(unsigned long)tComponents.patchVersion];
 }
 
 - (WBVersion *)versionFromString:(NSString *)inString
 {
-	if (inString.length==0)
+	if ([inString isKindOfClass:NSString.class]==NO || inString.length==0)
 		return nil;
 	
 	static NSCharacterSet * sForbidddenCharacterSet=nil;
@@ -39,54 +97,59 @@
 	if ([inString rangeOfCharacterFromSet:sForbidddenCharacterSet].location!=NSNotFound)
 		return nil;
 	
-	NSArray * tComponents=[inString componentsSeparatedByString:@"."];
-	NSUInteger tCount=tComponents.count;
+	NSArray * tStringComponents=[inString componentsSeparatedByString:@"."];
+	NSUInteger tCount=tStringComponents.count;
 	
 	if (tCount>3 || tCount==0)
 		return nil;
 	
-	WBVersion * tVersion=[WBVersion new];
+    WBVersionComponents * tComponents=[WBVersionComponents new];
 	
 	NSUInteger tIndex=0;
 	
 	// Major
 	
-	NSString * tComponent=tComponents[tIndex];
+	NSString * tComponent=tStringComponents[tIndex];
 	
 	if (tComponent.length==0)
 		return nil;
 	
-	tVersion.majorVersion=[tComponent integerValue];
+	tComponents.majorVersion=[tComponent integerValue];
 	
 	tIndex++;
 	
-	if (tIndex>=tCount)
-		return tVersion;
+	if (tIndex<tCount)
+	{
+        // Minor
 	
-	// Minor
+        tComponent=tStringComponents[tIndex];
 	
-	tComponent=tComponents[tIndex];
+        if (tComponent.length==0)
+            return nil;
 	
-	if (tComponent.length==0)
-		return nil;
+        tComponents.minorVersion=[tComponent integerValue];
 	
-	tVersion.minorVersion=[tComponent integerValue];
+        tIndex++;
 	
-	tIndex++;
+        if (tIndex<tCount)
+		{
+            // Patch
 	
-	if (tIndex>=tCount)
-		return tVersion;
+            tComponent=tStringComponents[tIndex];
 	
-	// BugFix
+            if (tComponent.length==0)
+                return nil;
 	
-	tComponent=tComponents[tIndex];
-	
-	if (tComponent.length==0)
-		return nil;
-	
-	tVersion.bugFixVersion=[tComponent integerValue];
-	
-	return tVersion;
+            tComponents.patchVersion=[tComponent integerValue];
+        }
+    }
+    
+	WBVersion * tVersion=[_versionsHistory versionFromComponents:tComponents];
+    
+    if ([_versionsHistory validateVersion:tVersion]==NO)
+        return nil;
+    
+    return tVersion;
 }
 
 @end

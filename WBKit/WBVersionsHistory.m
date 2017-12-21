@@ -30,6 +30,15 @@
 
 #pragma mark -
 
+- (id)copyWithZone:(NSZone *)inZone
+{
+	id tCopy=[[[self class] allocWithZone:inZone] init];
+	
+	return tCopy;
+}
+
+#pragma mark -
+
 - (BOOL)validateVersion:(WBVersion *)inVersion
 {
 	if (inVersion==nil)
@@ -45,9 +54,9 @@
 	if (inVersion.minorVersion<tAllowedRange.location || inVersion.minorVersion>=NSMaxRange(tAllowedRange))
 		return NO;
 	
-	tAllowedRange=[self rangeOfUnit:WBBugFixVersionUnit inUnit:WBMinorVersionUnit forVersion:inVersion];
+	tAllowedRange=[self rangeOfUnit:WBPatchVersionUnit inUnit:WBMinorVersionUnit forVersion:inVersion];
 	
-	if (inVersion.bugFixVersion<tAllowedRange.location || inVersion.bugFixVersion>=NSMaxRange(tAllowedRange))
+	if (inVersion.patchVersion<tAllowedRange.location || inVersion.patchVersion>=NSMaxRange(tAllowedRange))
 		return NO;
 	
 	return YES;
@@ -59,7 +68,7 @@
 	{
 		case WBMajorVersionUnit:
 		case WBMinorVersionUnit:
-		case WBBugFixVersionUnit:
+		case WBPatchVersionUnit:
 			return NSMakeRange(0, NSIntegerMax);
 	}
 	
@@ -72,7 +81,7 @@
 	{
 		case WBMajorVersionUnit:
 		case WBMinorVersionUnit:
-		case WBBugFixVersionUnit:
+		case WBPatchVersionUnit:
 			return NSMakeRange(0, NSIntegerMax);
 	}
 	
@@ -84,14 +93,14 @@
 	if (inVersion==nil)
 		return NSMakeRange(NSNotFound, 0);
 	
-	if (smaller>=larger)
+	if (larger>=smaller)
 		return NSMakeRange(NSNotFound, 0);
 	
 	switch (smaller)
 	{
 		case WBMajorVersionUnit:
 		case WBMinorVersionUnit:
-		case WBBugFixVersionUnit:
+		case WBPatchVersionUnit:
 			
 			return NSMakeRange(0, NSIntegerMax);
 	}
@@ -104,14 +113,14 @@
 	if (comps==nil)
 		return nil;
 	
-	if (comps.majorVersion==WBUndefinedVersionComponent || comps.minorVersion==WBUndefinedVersionComponent || comps.bugFixVersion==WBUndefinedVersionComponent)
+	if (comps.majorVersion==WBUndefinedVersionComponent || comps.minorVersion==WBUndefinedVersionComponent || comps.patchVersion==WBUndefinedVersionComponent)
 		return nil;
 	
-	WBVersion * tVersion=[[WBVersion alloc] init];
+	WBVersion * tVersion=[WBVersion new];
 	
 	tVersion.majorVersion=comps.majorVersion;
 	tVersion.minorVersion=comps.minorVersion;
-	tVersion.bugFixVersion=comps.bugFixVersion;
+	tVersion.patchVersion=comps.patchVersion;
 	
 	return tVersion;
 }
@@ -130,8 +139,8 @@
 	if ((unitFlags&WBMinorVersionUnit)==WBMinorVersionUnit)
 		tComponents.minorVersion=inVersion.minorVersion;
 	
-	if ((unitFlags&WBBugFixVersionUnit)==WBBugFixVersionUnit)
-		tComponents.bugFixVersion=inVersion.bugFixVersion;
+	if ((unitFlags&WBPatchVersionUnit)==WBPatchVersionUnit)
+		tComponents.patchVersion=inVersion.patchVersion;
 	
 	return tComponents;
 }
@@ -150,8 +159,10 @@
 	{
 		if (comps.majorVersion<0)
 		{
-			if ((-comps.majorVersion)>tNewVersion.majorVersion)
+			if ((-comps.majorVersion)>((NSInteger)tNewVersion.majorVersion))
 				tNewVersion.majorVersion=0;
+			else
+				tNewVersion.majorVersion+=comps.majorVersion;
 		}
 		else
 		{
@@ -163,8 +174,10 @@
 	{
 		if (comps.minorVersion<0)
 		{
-			if ((-comps.minorVersion)>tNewVersion.minorVersion)
+			if ((-comps.minorVersion)>((NSInteger)tNewVersion.minorVersion))
 				tNewVersion.minorVersion=0;
+			else
+				tNewVersion.minorVersion+=comps.minorVersion;
 		}
 		else
 		{
@@ -172,16 +185,18 @@
 		}
 	}
 	
-	if (comps.bugFixVersion!=WBUndefinedVersionComponent)
+	if (comps.patchVersion!=WBUndefinedVersionComponent)
 	{
-		if (comps.bugFixVersion<0)
+		if (comps.patchVersion<0)
 		{
-			if ((-comps.bugFixVersion)>tNewVersion.bugFixVersion)
-				tNewVersion.bugFixVersion=0;
+			if ((-comps.patchVersion)>((NSInteger)tNewVersion.patchVersion))
+				tNewVersion.patchVersion=0;
+			else
+				tNewVersion.patchVersion+=comps.patchVersion;
 		}
 		else
 		{
-			tNewVersion.bugFixVersion+=comps.bugFixVersion;
+			tNewVersion.patchVersion+=comps.patchVersion;
 		}
 	}
 	
@@ -192,7 +207,7 @@
 
 @implementation WBVersionComponents
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -200,7 +215,7 @@
 	{
 		_majorVersion=WBUndefinedVersionComponent;
 		_minorVersion=WBUndefinedVersionComponent;
-		_bugFixVersion=WBUndefinedVersionComponent;
+		_patchVersion=WBUndefinedVersionComponent;
 	}
 	
 	return self;
@@ -216,7 +231,7 @@
 	{
 		tCopy.majorVersion=self.majorVersion;
 		tCopy.minorVersion=self.minorVersion;
-		tCopy.bugFixVersion=self.bugFixVersion;
+		tCopy.patchVersion=self.patchVersion;
 	}
 	
 	return tCopy;
