@@ -92,7 +92,6 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
-                                <action selector="setProjectName:" target="-2" id="uIj-Mj-yhG"/>
                                 <outlet property="delegate" destination="-2" id="P1P-KS-N23"/>
                                 <outlet property="formatter" destination="zKE-nv-S8P" id="ObN-dS-GtF"/>
                                 <outlet property="nextKeyView" destination="tjm-KB-8re" id="McJ-yW-CiT"/>

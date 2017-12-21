@@ -58,8 +58,6 @@
 
 - (void)updateCertificateSeal;
 
-- (IBAction)setProjectName:(id)sender;
-
 - (IBAction)setBuildPath:(id)sender;
 - (IBAction)selectBuildPath:(id)sender;
 - (IBAction)showBuildPathInFinder:(id)sender;
@@ -441,18 +439,6 @@
 	}];
 }
 
-- (IBAction)setProjectName:(NSTextField *)sender
-{
-	NSString * tOldProjectName=(self.projectSettings.name==nil) ? @"" : self.projectSettings.name;
-	
-	if ([tOldProjectName isEqualToString:sender.stringValue]==YES)
-		return;
-	
-	self.projectSettings.name=sender.stringValue;
-	
-	[self noteDocumentHasChanged];
-}
-
 - (IBAction)setBuildPath:(PKGFilePathTextField *)sender
 {
 	PKGFilePath * tFilePath=[sender filePath];
@@ -699,6 +685,32 @@
 - (void)viewFrameDidChange:(NSNotification *)inNotification
 {
 	[self updateLayout];
+}
+
+- (void)controlTextDidChange:(NSNotification *)inNotification
+{
+	NSString * tValue=[inNotification.userInfo[@"NSFieldEditor"] string];
+	
+	if (tValue==nil)
+		return;
+	
+	if (inNotification.object==_buildNameTextField)
+	{
+		NSString * tOldProjectName=(self.projectSettings.name==nil) ? @"" : self.projectSettings.name;
+		
+		if ([tOldProjectName isEqualToString:tValue]==YES)
+			return;
+		
+		self.projectSettings.name=tValue;
+	}
+	else if (inNotification.object==self.buildPathTextField)
+	{
+		return;
+	}
+	
+	// Note change
+	
+	[self noteDocumentHasChanged];
 }
 
 @end
