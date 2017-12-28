@@ -23,6 +23,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSDiskType)
 
 #define PKGRequirementOSMinimumVersionLeopard			100500
 
+#define PKGRequirementOSMaximumVersionNotDefined		0
+
 typedef NS_ENUM(NSUInteger, PKGRequirementOSDistributionType)
 {
 	PKGRequirementOSDistributionAny=0,
@@ -32,6 +34,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSDistributionType)
 
 extern NSString * const PKGRequirementOSTargetDiskKey;
 
+extern NSString * const PKGRequirementOSDistributionKey;
+
 extern NSString * const PKGRequirementOSMinimumVersionKey;
 
-extern NSString * const PKGRequirementOSDistributionKey;
+extern NSString * const PKGRequirementOSMaximumVersionKey;

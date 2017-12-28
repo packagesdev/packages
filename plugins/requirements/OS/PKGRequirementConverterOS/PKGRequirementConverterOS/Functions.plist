@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>IC_CheckOS</key>
-	<string>	function IC_CheckOS(inDiskType,inMustBeInstalled,inMinimumVersion,inDistributionType)
+	<string>	function IC_CheckOS(inDiskType,inMustBeInstalled,inMinimumVersion,inMaximumVersion,inDistributionType)
 	{
 		var tOSVersion=undefined;
 		
-		/* Check Minimum Version */
+		/* Check Version Constraints */
 		
 		if (inDiskType==IC_DISK_TYPE_DESTINATION)
 		{
@@ -34,6 +34,10 @@
 		}
 		
 		if (system.compareVersions(tOSVersion,inMinimumVersion)==-1)
+			return false;
+			
+		if (inMaximumVersion!=undefined &amp;&amp;
+			system.compareVersions(tOSVersion,inMaximumVersion)==1)
 			return false;
 		
 		/* Check Distribution Type */

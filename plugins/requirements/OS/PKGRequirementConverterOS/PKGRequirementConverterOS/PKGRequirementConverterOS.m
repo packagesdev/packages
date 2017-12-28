@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2016, Stephane Sudre
+Copyright (c) 2008-2017, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -65,6 +65,25 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 	
+	NSInteger tMaximumVersion=PKGRequirementOSMaximumVersionNotDefined;
+	
+	tNumber=inParameters[PKGRequirementOSMaximumVersionKey];
+	
+	if (tNumber!=nil)
+	{
+		tMaximumVersion=[tNumber integerValue];
+		
+		if (tMinimumVersion<0)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGConverterErrorDomain
+											  code:PKGConverterErrorInvalidParameter
+										  userInfo:@{PKGConverterErrorParameterKey:PKGRequirementOSMaximumVersionKey}];
+			
+			return nil;
+		}
+	}
+	
 	NSString * tDiskTypeString=@"IC_DISK_TYPE_DESTINATION";
 	
 	if (tMinimumVersion==PKGRequirementOSMinimumVersionNotInstalled)
@@ -104,6 +123,23 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		tMinimumVersionString=[NSString stringWithFormat:@"'%d.%d'",(int)tMinimumVersion/10000,(int)((tMinimumVersion/100)%100)];
 	else
 		tMinimumVersionString=[NSString stringWithFormat:@"'%d.%d.%d'",(int)tMinimumVersion/10000,(int)((tMinimumVersion/100)%100),(int)(tMinimumVersion%100)];
+	
+	/* Create Maximum Version String */
+	
+	NSString * tMaximumVersionString;
+	
+	if (tMaximumVersion==PKGRequirementOSMaximumVersionNotDefined)
+	{
+		tMaximumVersionString=@"undefined";
+	}
+	else
+	{
+		if ((tMaximumVersion%100)==0)
+			tMaximumVersionString=[NSString stringWithFormat:@"'%d.%d'",(int)tMaximumVersion/10000,(int)((tMaximumVersion/100)%100)];
+		else
+			tMaximumVersionString=[NSString stringWithFormat:@"'%d.%d.%d'",(int)tMaximumVersion/10000,(int)((tMaximumVersion/100)%100),(int)(tMaximumVersion%100)];
+	}
+	
 	
 	tNumber=inParameters[PKGRequirementOSDistributionKey];
 
@@ -147,7 +183,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			return nil;
 	}
 	
-	return [NSString stringWithFormat:inFormat,tDiskTypeString,@"true",tMinimumVersionString,tDistributionTypeString];
+	return [NSString stringWithFormat:inFormat,tDiskTypeString,@"true",tMinimumVersionString,tMaximumVersionString,tDistributionTypeString];
 }
 
 @end

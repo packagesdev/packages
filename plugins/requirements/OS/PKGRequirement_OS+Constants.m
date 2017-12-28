@@ -15,6 +15,8 @@
 
 NSString * const PKGRequirementOSTargetDiskKey=@"IC_REQUIREMENT_OS_DISK_TYPE";
 
+NSString * const PKGRequirementOSDistributionKey=@"IC_REQUIREMENT_OS_DISTRIBUTION_TYPE";
+
 NSString * const PKGRequirementOSMinimumVersionKey=@"IC_REQUIREMENT_OS_MINIMUM_VERSION";
 
-NSString * const PKGRequirementOSDistributionKey=@"IC_REQUIREMENT_OS_DISTRIBUTION_TYPE";
+NSString * const PKGRequirementOSMaximumVersionKey=@"IC_REQUIREMENT_OS_MAXIMUM_VERSION";
