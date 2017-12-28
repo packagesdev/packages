@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">14F2315</string>
+		<string key="IBDocument.SystemVersion">14F2511</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -83,7 +83,7 @@
 					<object class="NSTextField" id="181671536">
 						<reference key="NSNextResponder" ref="32007587"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{163, 90}, {63, 17}}</string>
+						<string key="NSFrame">{{151, 90}, {75, 17}}</string>
 						<reference key="NSSuperview" ref="32007587"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="359453870"/>
