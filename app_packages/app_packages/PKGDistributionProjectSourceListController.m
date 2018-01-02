@@ -386,8 +386,9 @@
 		
 		tView.imageView.image=tSourceListItem.icon;
 		tView.textField.stringValue=tSourceListItem.label;
+		tView.textField.textColor=[NSColor blackColor];
 		tView.textField.delegate=nil;
-		
+
 		return tView;
 	}
 	
