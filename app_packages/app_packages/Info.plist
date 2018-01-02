@@ -60,7 +60,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>299</string>
+	<string>310</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>LSExecutableArchitectures</key>
@@ -99,5 +99,7 @@
 	</array>
 	<key>WBVersionCheckURL</key>
 	<string>http://s.sudre.free.fr/Software/documentation/RemoteVersion.plist</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2009–2018 Stéphane Sudre</string>
 </dict>
 </plist>
