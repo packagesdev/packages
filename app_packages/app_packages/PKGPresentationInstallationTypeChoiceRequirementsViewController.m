@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -47,6 +47,7 @@
 	[super WB_viewDidLoad];
 	
 	self.tableView.dataSource=self.dataSource;
+	self.tableView.doubleAction=@selector(editRequirement:);
 	
 	[self.tableView registerForDraggedTypes:[PKGPresentationInstallationTypeChoiceRequirementsDataSource supportedDraggedTypes]];
 }
