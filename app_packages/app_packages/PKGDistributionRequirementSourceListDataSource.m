@@ -373,6 +373,9 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 - (void)editRequirement:(NSTableView *)inTableView
 {
 	NSUInteger tIndex=inTableView.WB_selectedOrClickedRowIndexes.firstIndex;
+	if (tIndex==NSNotFound)	// Double-click with no requirements in list for example
+		return;
+	
 	PKGDistributionRequirementSourceListNode * tTreeNode=[_flatTree nodeAtIndex:tIndex];
 	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)tTreeNode.representedObject;
 	PKGRequirement * tOriginalRequirement=tRequirementItem.requirement;

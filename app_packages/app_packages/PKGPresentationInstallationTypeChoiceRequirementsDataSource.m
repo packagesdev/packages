@@ -301,6 +301,9 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 - (void)editRequirement:(NSTableView *)inTableView
 {
 	NSUInteger tIndex=inTableView.WB_selectedOrClickedRowIndexes.firstIndex;
+	if (tIndex==NSNotFound)	// Double-click with no requirements in list for example
+		return;
+	
 	PKGRequirement * tOriginalRequirement=_requirements[tIndex];
 	PKGRequirement * tEditedRequirement=[tOriginalRequirement copy];
 	
