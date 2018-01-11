@@ -19,6 +19,7 @@
 		8D5B49B6048680CD000E48DA /* converter.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = converter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F408FEC50F4CCABE0030210D /* PKGRequirement_Files+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_Files+Constants.h"; path = "../PKGRequirement_Files+Constants.h"; sourceTree = SOURCE_ROOT; };
 		F408FEC60F4CCABE0030210D /* PKGRequirement_Files+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_Files+Constants.m"; path = "../PKGRequirement_Files+Constants.m"; sourceTree = SOURCE_ROOT; };
+		F46068ED1F8E9DBE004DD6BC /* WBVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersion.h; path = ../../../../WBKit/WBVersion.h; sourceTree = "<group>"; };
 		F4742E251D5922C800FD1966 /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
 		F4742E261D5922E500FD1966 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4C781921C7BC4420019D5ED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -115,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				F4742E271D5922EA00FD1966 /* Model */,
-				F4742E261D5922E500FD1966 /* PKGPackages.h */,
+				F4742E251D5922C800FD1966 /* PKGConverter.h */,
 				F4D24D4A1CC6D038008D41A0 /* PKGRequirementConverter.h */,
 			);
 			name = "Common Source";
@@ -124,7 +125,8 @@
 		F4742E271D5922EA00FD1966 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F4742E251D5922C800FD1966 /* PKGConverter.h */,
+				F46068ED1F8E9DBE004DD6BC /* WBVersion.h */,
+				F4742E261D5922E500FD1966 /* PKGPackages.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";

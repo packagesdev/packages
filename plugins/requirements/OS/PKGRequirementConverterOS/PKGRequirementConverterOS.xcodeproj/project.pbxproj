@@ -26,6 +26,7 @@
 		F416E6181C810F750026C02C /* PKGRequirementConverterOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverterOS.h; path = PKGRequirementConverterOS/PKGRequirementConverterOS.h; sourceTree = "<group>"; };
 		F416E6191C810F790026C02C /* PKGRequirementConverterOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementConverterOS.m; path = PKGRequirementConverterOS/PKGRequirementConverterOS.m; sourceTree = "<group>"; };
 		F4451B3A1C7BBBD300516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F46068E91F8E9C39004DD6BC /* WBVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersion.h; path = ../../../../WBKit/WBVersion.h; sourceTree = "<group>"; };
 		F48C21BC1CFCF96800B5A8CD /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
 		F48C21BE1CFCF9A000B5A8CD /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4ABD07E1CC8208400C69CA2 /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		F48C21BD1CFCF99A00B5A8CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F46068E91F8E9C39004DD6BC /* WBVersion.h */,
 				F48C21BE1CFCF9A000B5A8CD /* PKGPackages.h */,
 			);
 			name = Model;

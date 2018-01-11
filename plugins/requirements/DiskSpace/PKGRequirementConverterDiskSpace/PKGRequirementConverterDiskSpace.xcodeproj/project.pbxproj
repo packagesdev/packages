@@ -19,6 +19,7 @@
 		8D5B49B6048680CD000E48DA /* converter.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = converter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4085DD10E9965E3002CC0CD /* PKGRequirement_DiskSpace+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_DiskSpace+Constants.m"; path = "../PKGRequirement_DiskSpace+Constants.m"; sourceTree = SOURCE_ROOT; };
 		F4085DD20E9965E3002CC0CD /* PKGRequirement_DiskSpace+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_DiskSpace+Constants.h"; path = "../PKGRequirement_DiskSpace+Constants.h"; sourceTree = SOURCE_ROOT; };
+		F46068EE1F8E9DD8004DD6BC /* WBVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersion.h; path = ../../../../WBKit/WBVersion.h; sourceTree = "<group>"; };
 		F48C21B91CFCF91A00B5A8CD /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
 		F48C21BB1CFCF94300B5A8CD /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4ABD06C1CC81F0800C69CA2 /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		F48C21BA1CFCF93C00B5A8CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F46068EE1F8E9DD8004DD6BC /* WBVersion.h */,
 				F48C21BB1CFCF94300B5A8CD /* PKGPackages.h */,
 			);
 			name = Model;

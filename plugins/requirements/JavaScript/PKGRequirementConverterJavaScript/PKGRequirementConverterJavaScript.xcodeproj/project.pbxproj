@@ -19,6 +19,7 @@
 		F407CCCC106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_JavaScript+Constants.m"; path = "../PKGRequirement_JavaScript+Constants.m"; sourceTree = SOURCE_ROOT; };
 		F407CCCD106C21B700E3D372 /* PKGRequirement_JavaScript+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_JavaScript+Constants.h"; path = "../PKGRequirement_JavaScript+Constants.h"; sourceTree = SOURCE_ROOT; };
 		F4451B6D1C7BBDDD00516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F46068EB1F8E9D9F004DD6BC /* WBVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersion.h; path = ../../../../WBKit/WBVersion.h; sourceTree = "<group>"; };
 		F48C21AE1CFCF6F900B5A8CD /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
 		F4E878B61C862863000EB552 /* Code.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Code.strings; path = PKGRequirementConverterJavaScript/Code.strings; sourceTree = "<group>"; };
 		F4E878B81C862869000EB552 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementConverterJavaScript/Info.plist; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		F40314A01CFA001500A23A4A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F46068EB1F8E9D9F004DD6BC /* WBVersion.h */,
 				F40314A11CFA002300A23A4A /* PKGPackages.h */,
 			);
 			name = Model;
