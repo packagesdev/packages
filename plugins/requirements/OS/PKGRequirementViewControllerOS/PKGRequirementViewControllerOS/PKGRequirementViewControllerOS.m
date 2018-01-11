@@ -15,26 +15,169 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGRequirement_OS+Constants.h"
 
-@interface PKGRequirementViewControllerOS ()
+#import "WBVersionPicker.h"
+
+#import "WBMacOSVersionsHistory.h"
+
+typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 {
-	IBOutlet NSPopUpButton * _minimumVersionPopupButton;
-	
+	PKGRequirementOSInstallationStatusInstalled=0,
+	PKGRequirementOSInstallationStatusNotInstalled
+};
+
+@interface PKGRequirementViewControllerOS () <WBVersionPickerCellDelegate>
+{
 	IBOutlet NSPopUpButton * _diskTypePopupButton;
 	
-	IBOutlet NSSegmentedControl * _distributionSegmentedControl;
+	IBOutlet NSPopUpButton * _installationStatusPopupButton;
+	
+	IBOutlet NSPopUpButton * _distributionPopupButton;
+	
+	
+	IBOutlet WBVersionPicker * _minimumVersionPicker;
+	
+	IBOutlet NSTextField * _minimumVersionOSNameLabel;
+	
+	IBOutlet NSButton * _maximumVersionCheckBox;
+	
+	IBOutlet WBVersionPicker * _maximumVersionPicker;
+	
+	IBOutlet NSTextField * _maximumVersionOSNameLabel;
+	
 	
 	NSMutableDictionary * _settings;
+	
+	
 }
 
-- (IBAction)switchDiskType:(id) sender;
++ (NSString *)operatingSystemNameOfVersion:(WBVersion *)inVersion;
 
-- (IBAction)switchMinimumVersion:(id) sender;
++ (WBMacOSVersionsHistory *)macOSVersionsHistory;
 
-- (IBAction)switchDistribution:(id) sender;
++ (WBVersion *)versionFromInteger:(NSInteger)inInteger;
+
++ (NSInteger)integerFromVersion:(WBVersion *)inVersion;
+
+- (IBAction)switchDiskType:(id)sender;
+
+- (IBAction)switchInstallationStatus:(id)sender;
+
+- (IBAction)switchDistribution:(id)sender;
+
+- (IBAction)setMinimumVersion:(id)sender;
+
+- (IBAction)switchMaximumVersionStatus:(id)sender;
+
+- (IBAction)setMaximumVersion:(id)sender;
 
 @end
 
 @implementation PKGRequirementViewControllerOS
+
++ (NSString *)operatingSystemNameOfVersion:(WBVersion *)inVersion
+{
+	static NSArray * sKnownMacOSNames=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sKnownMacOSNames=@[@"Cheetah",
+						   @"Puma",
+						   @"Jaguar",
+						   @"Panther",
+						   @"Tiger",
+						   @"Leopard",
+						   @"Snow Leopard",
+						   @"Lion",
+						   @"Mountain Lion",
+						   @"Mavericks",
+						   @"Yosemite",
+						   @"El Capitan",
+						   @"Sierra",
+						   @"High Sierra"];
+	});
+	
+	WBVersionComponents * tVersionComponents=[[PKGRequirementViewControllerOS macOSVersionsHistory] components:WBMinorVersionUnit fromVersion:inVersion];
+	
+	NSInteger tMinorComponent=tVersionComponents.minorVersion;
+	
+	if (tMinorComponent<0 || tMinorComponent>=sKnownMacOSNames.count)
+		return @"-";
+	
+	return sKnownMacOSNames[tMinorComponent];
+}
+
++ (WBMacOSVersionsHistory *)macOSVersionsHistory
+{
+	static WBMacOSVersionsHistory * sMacOSVersionsHistory=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		sMacOSVersionsHistory=[WBMacOSVersionsHistory versionsHistory];
+	});
+	
+	return sMacOSVersionsHistory;
+}
+
++ (WBVersion *)versionFromInteger:(NSInteger)inInteger
+{
+	WBVersionComponents * tVersionComponents=[WBVersionComponents new];
+	
+	NSInteger tInteger=inInteger;
+	
+	tVersionComponents.patchVersion=tInteger%100;
+	
+	tInteger/=100;
+	
+	tVersionComponents.minorVersion=tInteger%100;
+	
+	tInteger/=100;
+	
+	tVersionComponents.majorVersion=tInteger%100;
+	
+	return [[self macOSVersionsHistory] versionFromComponents:tVersionComponents];
+}
+
++ (NSInteger)integerFromVersion:(WBVersion *)inVersion
+{
+	if (inVersion==nil)
+		return 0;
+	
+	WBVersionComponents * tVersionComponents=[[self macOSVersionsHistory] components:WBMajorVersionUnit|WBMinorVersionUnit|WBPatchVersionUnit fromVersion:inVersion];
+	
+	if (tVersionComponents==nil)
+		return 0;
+	
+	return (tVersionComponents.majorVersion*10000+tVersionComponents.minorVersion*100+tVersionComponents.patchVersion);
+}
+
+#pragma mark -
+
+- (void)WB_viewDidLoad
+{
+	[super WB_viewDidLoad];
+	
+	_minimumVersionPicker.versionsHistory=[PKGRequirementViewControllerOS macOSVersionsHistory];
+	_minimumVersionPicker.minVersion=[WBMacOSVersionsHistory macOSLeopardVersion];
+	
+	[_minimumVersionPicker sizeToFit];
+	
+	_minimumVersionPicker.delegate=self;
+	
+	_maximumVersionPicker.versionsHistory=[PKGRequirementViewControllerOS macOSVersionsHistory];
+	_maximumVersionPicker.minVersion=[WBMacOSVersionsHistory macOSLeopardVersion];
+	
+	[_maximumVersionPicker sizeToFit];
+	
+	_maximumVersionPicker.delegate=self;
+}
+
+- (void)WB_viewWillAppear
+{
+	[super WB_viewWillAppear];
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+}
 
 #pragma mark -
 
@@ -56,44 +199,108 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSNumber * tNumber=_settings[PKGRequirementOSTargetDiskKey];
 	
-	NSInteger tTag;
+	NSInteger tDiskTypeTag;
 	
 	if (tNumber==nil)
-		tTag=PKGRequirementOSTargetDestinationDisk;
+		tDiskTypeTag=PKGRequirementOSTargetDestinationDisk;
 	else
-		tTag=[tNumber integerValue];
+		tDiskTypeTag=[tNumber integerValue];
 	
-	[_diskTypePopupButton selectItemWithTag:tTag];
+	[_diskTypePopupButton selectItemWithTag:tDiskTypeTag];
 	
-	// Minimum Version
+	// Installation Status & Minimum Version & Maximum Version
+	
+	NSInteger tInstallationStatusTag=PKGRequirementOSInstallationStatusInstalled;
+	
+	NSInteger tMinimumOSVersion=PKGRequirementOSMinimumVersionLeopard;
+	NSInteger tMaximumOSVersion=PKGRequirementOSMaximumVersionNotDefined;
 	
 	tNumber=_settings[PKGRequirementOSMinimumVersionKey];
 	
-	if (tNumber==nil)
-		tTag=PKGRequirementOSMinimumVersionLeopard;
-	else
-		tTag=[tNumber integerValue];
+	if (tNumber!=nil)
+		tMinimumOSVersion=[tNumber integerValue];
 	
-	[_minimumVersionPopupButton selectItemWithTag:tTag];
-	
-	// Distribution Type
-	
-	if (tTag==PKGRequirementOSMinimumVersionNotInstalled)
+	if (tMinimumOSVersion==PKGRequirementOSMinimumVersionNotInstalled)
 	{
-		_distributionSegmentedControl.enabled=NO;
-		
-		[_distributionSegmentedControl selectSegmentWithTag:PKGRequirementOSDistributionAny];
+		if (tDiskTypeTag==PKGRequirementOSTargetStartupDisk)
+		{
+			// This does not make sense
+			
+			tMinimumOSVersion=PKGRequirementOSMinimumVersionLeopard;
+			tMaximumOSVersion=PKGRequirementOSMaximumVersionNotDefined;
+			
+			_minimumVersionPicker.enabled=YES;
+			_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+			_maximumVersionCheckBox.enabled=YES;
+		}
+		else
+		{
+			tMinimumOSVersion=PKGRequirementOSMinimumVersionLeopard;
+			tMaximumOSVersion=PKGRequirementOSMaximumVersionNotDefined;
+			tInstallationStatusTag=PKGRequirementOSInstallationStatusNotInstalled;
+			
+			_minimumVersionPicker.enabled=NO;
+			_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+			_maximumVersionCheckBox.enabled=NO;
+		}
 	}
 	else
 	{
-		tNumber=_settings[PKGRequirementOSDistributionKey];
-	
-		if (tNumber==nil)
-			tTag=PKGRequirementOSDistributionAny;
-		else
-			tTag=[tNumber intValue];
+		if (tMinimumOSVersion<PKGRequirementOSMinimumVersionLeopard)
+			tMinimumOSVersion=PKGRequirementOSMinimumVersionLeopard;
 		
-		[_distributionSegmentedControl selectSegmentWithTag:tTag];
+		_minimumVersionPicker.enabled=YES;
+		_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+		_maximumVersionCheckBox.enabled=YES;
+	}
+	
+	[_installationStatusPopupButton selectItemWithTag:tInstallationStatusTag];
+	
+	
+	_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:tMinimumOSVersion];
+	
+	_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
+	
+	tNumber=_settings[PKGRequirementOSMaximumVersionKey];
+	
+	if (tNumber!=nil)
+		tMaximumOSVersion=[tNumber integerValue];
+	
+	_maximumVersionCheckBox.state=(tMaximumOSVersion==PKGRequirementOSMaximumVersionNotDefined) ? NSOffState : NSOnState;
+	_maximumVersionPicker.enabled=(tMaximumOSVersion!=PKGRequirementOSMaximumVersionNotDefined);
+	
+	if (tMaximumOSVersion==PKGRequirementOSMaximumVersionNotDefined)
+	{
+		tMaximumOSVersion=tMinimumOSVersion;
+	
+		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+	}
+	else
+	{
+		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+	}
+	
+	_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:tMaximumOSVersion];
+	
+	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
+	
+	// Distribution Type
+	
+	if (tInstallationStatusTag==PKGRequirementOSInstallationStatusNotInstalled)
+	{
+		_distributionPopupButton.enabled=NO;
+		[_distributionPopupButton selectItemWithTag:PKGRequirementOSDistributionAny];
+	}
+	else
+	{
+		NSInteger tTag=PKGRequirementOSDistributionAny;
+		
+		tNumber=_settings[PKGRequirementOSDistributionKey];
+		
+		if (tNumber!=nil)
+			tTag=[tNumber integerValue];
+		
+		[_distributionPopupButton selectItemWithTag:tTag];
 	}
 }
 
@@ -126,30 +333,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
-{    
-    if (inMenuItem.action==@selector(switchMinimumVersion:))
-    {
-		if (inMenuItem.tag==PKGRequirementOSMinimumVersionNotInstalled)
-		{
-			NSInteger tTag;
-			
-			NSNumber * tNumber=_settings[PKGRequirementOSTargetDiskKey];
-			
-			if (tNumber==nil)
-				tTag=PKGRequirementOSTargetDestinationDisk;
-			else
-				tTag=[tNumber integerValue];
-		
-			return (tTag!=PKGRequirementOSTargetStartupDisk);
-		}
-	}
-	
-	return YES;
-}
-
-#pragma mark -
-
 - (IBAction)switchDiskType:(NSPopUpButton *)sender
 {
 	NSInteger tTag=sender.selectedItem.tag;
@@ -158,6 +341,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tTag==PKGRequirementOSTargetStartupDisk)
 	{
+		[_installationStatusPopupButton selectItemWithTag:PKGRequirementOSInstallationStatusInstalled];
+		
 		NSNumber * tNumber=_settings[PKGRequirementOSMinimumVersionKey];
 		
 		tTag=[tNumber integerValue];
@@ -166,40 +351,163 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		{
 			_settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionLeopard);
 			
-			[_minimumVersionPopupButton selectItemWithTag:PKGRequirementOSMinimumVersionLeopard];
+			
+			_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+			_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
+			_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+			
+			[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
+			
+			_maximumVersionCheckBox.state=NSOffState;
+			_maximumVersionPicker.enabled=NO;
+			
+			_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+			_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
 		}
 		
-		_distributionSegmentedControl.enabled=YES;
+		_maximumVersionCheckBox.enabled=YES;
+		
+		_minimumVersionPicker.enabled=YES;
+		
+		_distributionPopupButton.enabled=YES;
 	}
 	
 	[self noteCheckTypeChange];
 }
 
-- (IBAction)switchMinimumVersion:(NSPopUpButton *)sender
+- (IBAction)switchInstallationStatus:(NSPopUpButton *)sender
 {
 	NSInteger tTag=sender.selectedItem.tag;
 	
-	_settings[PKGRequirementOSMinimumVersionKey]=@(tTag);
-	
-	if (tTag==PKGRequirementOSMinimumVersionNotInstalled)
+	if (tTag==PKGRequirementOSInstallationStatusNotInstalled)
 	{
 		_settings[PKGRequirementOSDistributionKey]=@(PKGRequirementOSDistributionAny);
 		
-		_distributionSegmentedControl.enabled=NO;
+		_distributionPopupButton.enabled=NO;
+		[_distributionPopupButton selectItemWithTag:PKGRequirementOSDistributionAny];
 		
-		[_distributionSegmentedControl selectSegmentWithTag:PKGRequirementOSDistributionAny];
+		_settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionNotInstalled);
+		
+		_minimumVersionPicker.enabled=NO;
+		_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+		_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
+		_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+		
+		[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
+		
+		_maximumVersionCheckBox.enabled=NO;
+		_maximumVersionCheckBox.state=NSOffState;
+		
+		_maximumVersionPicker.enabled=NO;
+		_maximumVersionPicker.minVersion=_minimumVersionPicker.versionValue;
+		_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+		_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
+		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
 	}
 	else
 	{
-		_distributionSegmentedControl.enabled=YES;
+		_distributionPopupButton.enabled=YES;
+		
+		_settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionLeopard);
+		
+		_minimumVersionPicker.enabled=YES;
+		_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+		
+		_maximumVersionCheckBox.enabled=YES;
 	}
 }
 
-- (IBAction)switchDistribution:(NSSegmentedControl *)sender
+- (IBAction)switchDistribution:(NSPopUpButton *)sender
 {
-	NSInteger tTag=[[sender cell] tagForSegment:sender.selectedSegment];
+	NSInteger tTag=sender.selectedItem.tag;
 	
 	_settings[PKGRequirementOSDistributionKey]=@(tTag);
+}
+
+- (IBAction)setMinimumVersion:(WBVersionPicker *)sender
+{
+	WBVersion * tVersion=[sender versionValue];
+	
+	NSInteger tMinInteger=[PKGRequirementViewControllerOS integerFromVersion:tVersion];
+	
+	_settings[PKGRequirementOSMinimumVersionKey]=@(tMinInteger);
+	
+	_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:tVersion];
+	
+	_maximumVersionPicker.minVersion=tVersion;
+	
+	NSInteger tMaxInteger=[_settings[PKGRequirementOSMaximumVersionKey] integerValue];
+	NSInteger tEffectiveMaxInteger=(tMaxInteger==PKGRequirementOSMaximumVersionNotDefined) ? PKGRequirementOSMinimumVersionLeopard : tMaxInteger;
+	
+	if (tEffectiveMaxInteger<=tMinInteger)
+	{
+		if (tMaxInteger!=PKGRequirementOSMaximumVersionNotDefined)
+			_settings[PKGRequirementOSMaximumVersionKey]=@(tMinInteger);
+		
+		_maximumVersionPicker.versionValue=tVersion;
+		
+		_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:tVersion];
+	}
+}
+
+- (IBAction)switchMaximumVersionStatus:(NSButton *)sender
+{
+	NSInteger tState=sender.state;
+	
+	if (tState==NSOffState)
+	{
+		NSNumber * tNumber=_settings[PKGRequirementOSMaximumVersionKey];
+		
+		if (tNumber==nil || [tNumber integerValue]==PKGRequirementOSMaximumVersionNotDefined)
+			return;
+		
+		[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
+		
+		_maximumVersionPicker.enabled=NO;
+		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+	}
+	else
+	{
+		_maximumVersionPicker.enabled=YES;
+		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+		
+		_settings[PKGRequirementOSMaximumVersionKey]=[_settings[PKGRequirementOSMinimumVersionKey] copy];
+	}
+	
+	_maximumVersionPicker.minVersion=_minimumVersionPicker.versionValue;
+	_maximumVersionPicker.versionValue=_minimumVersionPicker.versionValue;
+	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
+}
+
+- (IBAction)setMaximumVersion:(WBVersionPicker *)sender
+{
+	WBVersion * tVersion=[sender versionValue];
+	
+	NSInteger tMaxInteger=[PKGRequirementViewControllerOS integerFromVersion:tVersion];
+	
+	_settings[PKGRequirementOSMaximumVersionKey]=@(tMaxInteger);
+	
+	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:tVersion];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(switchInstallationStatus:))
+	{
+		if (inMenuItem.tag==PKGRequirementOSInstallationStatusNotInstalled)
+			return ([_settings[PKGRequirementOSTargetDiskKey] integerValue]!=PKGRequirementOSTargetStartupDisk);
+	}
+	
+	return YES;
+}
+
+#pragma mark -
+
+- (BOOL)versionPickerCell:(WBVersionPickerCell *)inVersionPickerCell shouldSelectElementType:(WBVersionPickerCellElementType)inElementType
+{	
+	return (inElementType!=WBVersionPickerCellElementMajorVersion);
 }
 
 @end

@@ -13,15 +13,20 @@
 		F4B1AAD01C8A504B006EE235 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACE1C8A504B006EE235 /* Icon_32.png */; };
 		F4B1AAD11C8A504B006EE235 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */; };
 		F4B1AAD41C8A5054006EE235 /* PKGRequirementViewControllerOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */; };
+		F4F06E821FF31CFD00E8D70C /* PKGMaximumVersionButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F06E811FF31CFD00E8D70C /* PKGMaximumVersionButtonCell.m */; };
 		F4F5D0B01CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m */; };
 		F4F5D0B61CC97D470075C2EF /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F5D0B41CC97D470075C2EF /* MainView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F43A6ACC1FD9EC0700B02509 /* WBVersionPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionPicker.h; path = ../../../../WBKit/WBVersionPicker.h; sourceTree = "<group>"; };
+		F43A6ACD1FD9EC0700B02509 /* WBVersionPickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionPickerCell.h; path = ../../../../WBKit/WBVersionPickerCell.h; sourceTree = "<group>"; };
 		F4451B3C1C7BBC0100516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B3E1C7BBC0800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4451B401C7BBC1300516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F463EB961FF3041A0097533F /* WBMacOSVersionsHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBMacOSVersionsHistory.h; path = ../../../../WBKit/WBMacOSVersionsHistory.h; sourceTree = "<group>"; };
+		F463EB971FF3041F0097533F /* WBVersionsHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionsHistory.h; path = ../../../../WBKit/WBVersionsHistory.h; sourceTree = "<group>"; };
 		F47599F71F18294500607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerOS/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F486D5C01F58B4EF00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerOS/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F486D5C21F58B4F300495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerOS/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -32,6 +37,8 @@
 		F4B1AAD21C8A5054006EE235 /* PKGRequirementViewControllerOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerOS.h; path = PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.h; sourceTree = "<group>"; };
 		F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerOS.m; path = PKGRequirementViewControllerOS/PKGRequirementViewControllerOS.m; sourceTree = "<group>"; };
 		F4DDA9A61E59B5790080EFAD /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
+		F4F06E801FF31CFD00E8D70C /* PKGMaximumVersionButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGMaximumVersionButtonCell.h; path = PKGRequirementViewControllerOS/PKGMaximumVersionButtonCell.h; sourceTree = "<group>"; };
+		F4F06E811FF31CFD00E8D70C /* PKGMaximumVersionButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMaximumVersionButtonCell.m; path = PKGRequirementViewControllerOS/PKGMaximumVersionButtonCell.m; sourceTree = "<group>"; };
 		F4F5D0AE1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_OS+Constants.h"; path = "../PKGRequirement_OS+Constants.h"; sourceTree = "<group>"; };
 		F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_OS+Constants.m"; path = "../PKGRequirement_OS+Constants.m"; sourceTree = "<group>"; };
 		F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
@@ -91,6 +98,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F4F06E801FF31CFD00E8D70C /* PKGMaximumVersionButtonCell.h */,
+				F4F06E811FF31CFD00E8D70C /* PKGMaximumVersionButtonCell.m */,
 				F4B1AAD21C8A5054006EE235 /* PKGRequirementViewControllerOS.h */,
 				F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOS.m */,
 			);
@@ -138,6 +147,10 @@
 				F4DDA9A61E59B5790080EFAD /* NSViewController+WBExtensions.h */,
 				F4F5D0B21CC97AB60075C2EF /* PKGViewController.h */,
 				F4F5D0B31CC97CB00075C2EF /* PKGRequirementViewController.h */,
+				F43A6ACC1FD9EC0700B02509 /* WBVersionPicker.h */,
+				F43A6ACD1FD9EC0700B02509 /* WBVersionPickerCell.h */,
+				F463EB971FF3041F0097533F /* WBVersionsHistory.h */,
+				F463EB961FF3041A0097533F /* WBMacOSVersionsHistory.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";
@@ -215,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F06E821FF31CFD00E8D70C /* PKGMaximumVersionButtonCell.m in Sources */,
 				F4B1AAD41C8A5054006EE235 /* PKGRequirementViewControllerOS.m in Sources */,
 				F4F5D0B01CC97A9C0075C2EF /* PKGRequirement_OS+Constants.m in Sources */,
 			);

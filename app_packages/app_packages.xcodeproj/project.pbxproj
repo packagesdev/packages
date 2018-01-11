@@ -240,6 +240,8 @@
 		F461CB101E2EA24300DED723 /* PKGPopUpButtonSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F461CB0E1E2EA24300DED723 /* PKGPopUpButtonSource.m */; };
 		F46288E91ED237FB005F7298 /* Warning_12.png in Resources */ = {isa = PBXBuildFile; fileRef = F46288E71ED237FB005F7298 /* Warning_12.png */; };
 		F46288EA1ED237FB005F7298 /* Warning_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F46288E81ED237FB005F7298 /* Warning_12@2x.png */; };
+		F463EB8C1FF2F44B0097533F /* WBVersionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F463EB881FF2F44B0097533F /* WBVersionPicker.m */; };
+		F463EB8D1FF2F44B0097533F /* WBVersionPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F463EB891FF2F44B0097533F /* WBVersionPickerCell.m */; };
 		F46A82221F19619C000D296C /* NSTableView+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = F46A82211F19619C000D296C /* NSTableView+Geometry.m */; };
 		F46B16461F522E83003EDDAF /* NativeLanguages.plist in Resources */ = {isa = PBXBuildFile; fileRef = F46B16451F522E83003EDDAF /* NativeLanguages.plist */; };
 		F46B2BF81EA1851B00BCDC7C /* PKGLicenseTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = F46B2BF51EA1851B00BCDC7C /* PKGLicenseTemplate.m */; };
@@ -1196,6 +1198,10 @@
 		F461CB0F1E2EA24300DED723 /* PKGPopUpButtonSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPopUpButtonSource.h; path = app_packages/PKGPopUpButtonSource.h; sourceTree = "<group>"; };
 		F46288E71ED237FB005F7298 /* Warning_12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Warning_12.png; path = app_packages/Images/Warning_12.png; sourceTree = "<group>"; };
 		F46288E81ED237FB005F7298 /* Warning_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Warning_12@2x.png"; path = "app_packages/Images/Warning_12@2x.png"; sourceTree = "<group>"; };
+		F463EB881FF2F44B0097533F /* WBVersionPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBVersionPicker.m; path = ../WBKit/WBVersionPicker.m; sourceTree = "<group>"; };
+		F463EB891FF2F44B0097533F /* WBVersionPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBVersionPickerCell.m; path = ../WBKit/WBVersionPickerCell.m; sourceTree = "<group>"; };
+		F463EB8A1FF2F44B0097533F /* WBVersionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBVersionPicker.h; path = ../WBKit/WBVersionPicker.h; sourceTree = "<group>"; };
+		F463EB8B1FF2F44B0097533F /* WBVersionPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBVersionPickerCell.h; path = ../WBKit/WBVersionPickerCell.h; sourceTree = "<group>"; };
 		F46A82201F19619C000D296C /* NSTableView+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTableView+Geometry.h"; path = "../AppKit + Extensions/NSTableView+Geometry.h"; sourceTree = "<group>"; };
 		F46A82211F19619C000D296C /* NSTableView+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTableView+Geometry.m"; path = "../AppKit + Extensions/NSTableView+Geometry.m"; sourceTree = "<group>"; };
 		F46B16451F522E83003EDDAF /* NativeLanguages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NativeLanguages.plist; path = app_packages/NativeLanguages.plist; sourceTree = "<group>"; };
@@ -3003,6 +3009,10 @@
 				F40F3FC11EBBDB9300170D47 /* WBVersionFormatter.m */,
 				F40F3FC21EBBDB9300170D47 /* WBVersionsHistory.h */,
 				F40F3FC31EBBDB9300170D47 /* WBVersionsHistory.m */,
+				F463EB8B1FF2F44B0097533F /* WBVersionPickerCell.h */,
+				F463EB891FF2F44B0097533F /* WBVersionPickerCell.m */,
+				F463EB8A1FF2F44B0097533F /* WBVersionPicker.h */,
+				F463EB881FF2F44B0097533F /* WBVersionPicker.m */,
 				F40F3FBB1EBBDB9200170D47 /* WBMacOSVersionsHistory.h */,
 				F40F3FBC1EBBDB9200170D47 /* WBMacOSVersionsHistory.m */,
 			);
@@ -4605,6 +4615,7 @@
 				F41A98911EB7758D001304F7 /* PKGDistributionProject+UI.m in Sources */,
 				F46B432B1F08FEB600BC5EF0 /* PKGChoicesForest+DependenciesEdition.m in Sources */,
 				F424D35B1DCE3E4900F95165 /* PKGPresentationLocalizableStepSettings.m in Sources */,
+				F463EB8C1FF2F44B0097533F /* WBVersionPicker.m in Sources */,
 				F424D35C1DCE3E4900F95165 /* PKGPresentationReadMeStepSettings.m in Sources */,
 				F4881C831E5E50490050B511 /* PKGDocumentWindowController.m in Sources */,
 				F4DD20031E17EB600018140D /* PKGOwnershipAndReferenceStylePanel.m in Sources */,
@@ -4794,6 +4805,7 @@
 				F4E13E771DD919A700E63E24 /* PKGNavigationController.m in Sources */,
 				F4DD1FF81E17EB110018140D /* PKGPayloadExclusionsViewController.m in Sources */,
 				F4E817041EA50F3C00FE2782 /* PKGInstallationTypeOutlineView.m in Sources */,
+				F463EB8D1FF2F44B0097533F /* WBVersionPickerCell.m in Sources */,
 				F4A556361DD9253E00C28BB5 /* PKGAssistantSettings.m in Sources */,
 				F4D8CBCB1E75733400C90896 /* PKGDistributionInstallationRequirementBehaviorViewController.m in Sources */,
 				F4880F561DE26C3300A9EAC7 /* PKGDocument.m in Sources */,
@@ -5961,7 +5973,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 255;
+				CURRENT_PROJECT_VERSION = 313;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5987,7 +5999,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 255;
+				CURRENT_PROJECT_VERSION = 313;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
