@@ -124,7 +124,7 @@
 							<string key="NSFrame">{{480, 551}, {126, 27}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="648105565"/>
+							<reference key="NSNextKeyView" ref="960302900"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="949376335">
 								<int key="NSCellFlags">67108864</int>
@@ -150,7 +150,7 @@
 							<string key="NSFrame">{{20, 290}, {586, 244}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="390765049"/>
+							<reference key="NSNextKeyView" ref="648105565"/>
 							<string key="NSClassName">WBWhiteFramedView</string>
 							<string key="NSExtension">NSView</string>
 						</object>
@@ -184,6 +184,7 @@
 							<string key="NSFrame">{{530, 13}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<int key="NSTag">1</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="556686057">
@@ -197,7 +198,7 @@
 								<int key="NSButtonFlags2">1</int>
 								<reference key="NSAlternateImage" ref="813182176"/>
 								<string key="NSAlternateContents"/>
-								<string key="NSKeyEquivalent"/>
+								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
@@ -236,7 +237,7 @@
 							<string key="NSFrame">{{0, 41}, {626, 249}}</string>
 							<reference key="NSSuperview" ref="537382948"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="960302900"/>
+							<reference key="NSNextKeyView" ref="390765049"/>
 							<string key="NSClassName">NSView</string>
 						</object>
 					</array>
