@@ -99,6 +99,28 @@
 	return PKGPreferencesGeneralDistributionPackageComponentPaneSettings;
 }
 
+- (void)setOptionsSectionSimplified:(BOOL)inSimplified
+{
+	if (self.isOptionsSectionSimplified==inSimplified)
+		return;
+	
+	[super setOptionsSectionSimplified:inSimplified];
+	
+	if (inSimplified==YES)
+	{
+		NSView * tLowerView=_mustCloseApplicationsCheckbox;
+		
+		NSRect tOptionsSectionFrame=_mustCloseApplicationsCheckbox.superview.frame;
+		CGFloat tMaxY=NSMaxY(tOptionsSectionFrame);
+		CGFloat tHeight=tMaxY-(NSMinY(tOptionsSectionFrame)+NSMinY(tLowerView.frame)-20.0);
+		
+		tOptionsSectionFrame.size.height=tHeight;
+		tOptionsSectionFrame.origin.y=tMaxY-tHeight;
+		
+		_mustCloseApplicationsCheckbox.superview.frame=tOptionsSectionFrame;
+	}
+}
+
 #pragma mark -
 
 - (void)setPackageComponent:(PKGPackageComponent *)inPackageComponent
