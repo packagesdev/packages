@@ -12,7 +12,7 @@
                 <outlet property="_conclusionActionPopupButton" destination="7CY-7R-muu" id="pWF-8H-8iH"/>
                 <outlet property="_followSymbolicLinksCheckbox" destination="6tp-RK-ogY" id="a1W-dL-FzT"/>
                 <outlet property="_identifierTextField" destination="51W-em-EyB" id="dDd-pP-lqs"/>
-                <outlet property="_overwriteDirectoryPermissionsCheckbox" destination="6tp-RK-ogY" id="Cnm-4m-aWI"/>
+                <outlet property="_overwriteDirectoryPermissionsCheckbox" destination="fTo-zI-kIQ" id="j4k-pb-d7o"/>
                 <outlet property="_relocatableCheckbox" destination="UmS-vr-5Z1" id="NtR-XH-BEl"/>
                 <outlet property="_useHFSPlusCompressionCheckbox" destination="yvq-q7-yje" id="Ptb-UZ-0z2"/>
                 <outlet property="_useHFSPlusCompressionLabel" destination="UcI-rY-hhl" id="O9F-Fo-k8f"/>
