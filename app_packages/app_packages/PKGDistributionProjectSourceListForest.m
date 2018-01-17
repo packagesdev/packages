@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -81,7 +81,7 @@
 				PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem1=[bTreeNode1 representedObject];
 				PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem2=[bTreeNode2 representedObject];
 				
-				return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name options:NSNumericSearch];
+				return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name options:NSNumericSearch|NSForcedOrderingSearch];
 			}];
 		}
 		
@@ -124,7 +124,7 @@
 		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem1=[bTreeNode1 representedObject];
 		PKGDistributionProjectSourceListPackageComponentItem * tPackageComponentItem2=[bTreeNode2 representedObject];
 		
-		return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name options:NSNumericSearch];
+		return [tPackageComponentItem1.packageComponent.packageSettings.name compare:tPackageComponentItem2.packageComponent.packageSettings.name options:NSNumericSearch|NSForcedOrderingSearch];
 	}];
  
 	if (tGroupIndex==NSNotFound)

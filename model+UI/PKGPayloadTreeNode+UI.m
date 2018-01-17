@@ -81,7 +81,7 @@
 	if (inPayloadTreeNode==nil)
 		return NSOrderedDescending;
 	
-	return [((PKGFileItem *)self.representedObject).fileName compare:((PKGFileItem *)inPayloadTreeNode.representedObject).fileName options:NSCaseInsensitiveSearch|NSNumericSearch];
+	return [((PKGFileItem *)self.representedObject).fileName compare:((PKGFileItem *)inPayloadTreeNode.representedObject).fileName options:NSCaseInsensitiveSearch|NSNumericSearch|NSForcedOrderingSearch];
 }
 
 - (void)setNewFolderName:(NSString *)inFolderName

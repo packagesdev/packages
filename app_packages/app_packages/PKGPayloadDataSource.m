@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -444,6 +444,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	[inOutlineView reloadData];
 	
 	NSInteger tRow=[inOutlineView rowForItem:inTreeNode];
+	
+	[inOutlineView scrollRowToVisible:tRow];
 	
 	[inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
 	
@@ -995,7 +997,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			tInsertionIndex=[self.rootNodes indexOfObjectPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL *bOutStop) {
 				
-				return ([tFirstName compare:bTreeNode.fileName options:NSCaseInsensitiveSearch|NSNumericSearch]==NSOrderedSame);
+				return ([tFirstName compare:bTreeNode.fileName options:NSCaseInsensitiveSearch|NSNumericSearch|NSForcedOrderingSearch]==NSOrderedSame);
 				
 			}];
 		}
@@ -1003,7 +1005,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		{
 			tInsertionIndex=[inProposedTreeNode indexOfChildMatching:^BOOL(PKGPayloadTreeNode * bTreeNode) {
 				
-				return ([tFirstName compare:bTreeNode.fileName options:NSCaseInsensitiveSearch|NSNumericSearch]!=NSOrderedDescending);
+				return ([tFirstName compare:bTreeNode.fileName options:NSCaseInsensitiveSearch|NSNumericSearch|NSForcedOrderingSearch]!=NSOrderedDescending);
 			}];
 		}
 		
