@@ -438,31 +438,16 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					tString=@"Create reference to package";
 					
 					PKGPackageSettings * tPackageSettings=tPackageComponent.packageSettings;
-					
-					PKGPackageLocationType tLocationType=tPackageSettings.locationType;
 						
 					NSString * tLocationURL=tPackageSettings.locationURL;
 					
 					if (tLocationURL.length>0)
 					{
-						NSString * tURLPrefix=nil;
-						
-						if (tLocationType==PKGPackageLocationHTTPURL)
-						{
-							tURLPrefix=@"http://";
-						}
-						else if (tLocationType==PKGPackageLocationRemovableMedia)
-						{
-							tURLPrefix=@"x-disc://";
-						}
+						NSString * tURLPrefix=tPackageSettings.locationScheme;
 						
 						if (tURLPrefix!=nil)
 						{
-							if ([tLocationURL hasPrefix:tURLPrefix]==YES)
-								tLocationURL=[tLocationURL substringFromIndex:tURLPrefix.length];
-							
-							if ([tLocationURL hasPrefix:@"/"]==YES)
-								tLocationURL=[tLocationURL substringFromIndex:1];
+							tLocationURL=tPackageSettings.locationPath;
 							
 							tLocationURL=[tLocationURL stringByAppendingPathComponent:tPackageName];
 							
@@ -575,8 +560,8 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 			{
 				case PKGBuildErrorMissingInformation:
 					
-					if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]==YES)
-						tTitle=NSLocalizedStringFromTable(@"The location of the referenced package has not been fully defined.",@"Build",@"");
+					if ([tTag isEqualToString:@"PKGPackageSettingsLocationTypeKey"]==YES)
+						tTitle=NSLocalizedStringFromTable(@"The location of the package has not been fully defined.",@"Build",@"");
 					else
 						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Missing information for tag '%@'",@"Build",@""),tTag];
 					
@@ -660,28 +645,27 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					tTitle=nil;
 					
-					if (tStep==PKGBuildStepPackageInfo)
+					if (tStep==PKGBuildStepPackageInfo ||
+						tStep==PKGBuildStepPackageReference)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER"]==YES)
+						if ([tTag isEqualToString:@"PKGPackageSettingsIdentifierKey"]==YES)
 							tTitle=NSLocalizedStringFromTable(@"The identifier of the package can not be empty.",@"Build",@"");
-						else if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION"]==YES)
+						else if ([tTag isEqualToString:@"PKGPackageSettingsVersionKey"]==YES)
 							tTitle=NSLocalizedStringFromTable(@"The version of the package can not be empty.",@"Build",@"");
 					}
 					else if (tStep==PKGBuildStepDistribution)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PROJECT_SETTINGS_NAME"]==YES)
+						if ([tTag isEqualToString:@"PKGProjectSettingsNameKey"]==YES)
 							tTitle=NSLocalizedStringFromTable(@"The name of the project can not be empty.",@"Build",@"");
 					}
 					else if (tStep==PKGBuildStepPackageCreate)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_NAME"]==YES)
+						if ([tTag isEqualToString:@"PKGPackageSettingsNameKey"]==YES)
 							tTitle=NSLocalizedStringFromTable(@"The name of the package can not be empty.",@"Build",@"");
 					}
-					else
-					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]==YES)
-							tTitle=NSLocalizedStringFromTable(@"The location of the referenced package has not been fully defined.",@"Build",@"");
-					}
+					
+					if ([tTag isEqualToString:@"PKGPackageSettingsLocationTypeKey"]==YES)
+						tTitle=NSLocalizedStringFromTable(@"The location of the package has not been fully defined.",@"Build",@"");
 					
 					if (tTitle==nil)
 						tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"String can not be empty for tag '%@'",@"Build",@""),tTag];
@@ -696,7 +680,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					if (tStep==PKGBuildStepPackageImport)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
+						if ([tTag isEqualToString:@"PKGPackageSettingsLocationPathKey"]==YES)
 							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'",@"Build",@""),fileItemTypeName(PKGFileKindPackage),tFilePath];
 					}
 					
@@ -995,7 +979,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					if (tStep==PKGBuildStepPackageImport)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_REFERENCE_PATH"]==YES)
+						if ([tTag isEqualToString:@"PKGPackageSettingsLocationPathKey"]==YES)
 							tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find %@ at path '%@'",@"Build",@""),fileItemTypeName(PKGFileKindPackage),tFilePath];
 					}
 					
