@@ -35,6 +35,8 @@
 
 #import "PKGDistributionProjectExporter.h"
 
+NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackageComponentNameChangeDidRequestNotitication";
+
 @interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate,NSTextFieldDelegate>
 {
 	IBOutlet NSView * _sourceListAuxiliaryView;
@@ -63,6 +65,8 @@
 // Notifications
 
 - (void)optionKeyDidChange:(NSNotification *)inNotification;
+
+- (void)packageComponentDidRequestNameChange:(NSNotification *)inNotification;
 
 - (void)removedPackagesListDidChange:(NSNotification *)inNotification;
 
@@ -115,12 +119,16 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionKeyDidChange:) name:PKGOptionKeyDidChangeStateNotification object:self.view.window];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(packageComponentDidRequestNameChange:) name:PKGPackageComponentDidRequestNameChangeNotitication object:nil];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedPackagesListDidChange:) name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
-
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	
+	
 }
 
 - (void)WB_viewWillDisappear
@@ -128,6 +136,8 @@
 	[super WB_viewWillDisappear];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGOptionKeyDidChangeStateNotification object:self.view.window];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPackageComponentDidRequestNameChangeNotitication object:nil];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGInstallationHierarchyRemovedPackagesListDidChangeNotification object:self.document];
 	
@@ -507,6 +517,25 @@
 		_addButton.image=[NSImage imageNamed:@"NSAddTemplate"];
 		_addButton.action=@selector(addPackage:);
 	}
+}
+
+- (void)packageComponentDidRequestNameChange:(NSNotification *)inNotification
+{
+	PKGPackageComponent * tComponent=inNotification.object;
+	
+	PKGDistributionProjectSourceListTreeNode * tNode=[self.dataSource packageComponentItemMatchingPackageComponent:tComponent];
+	
+	if (tNode==nil)
+		return;
+	
+	NSString * tNewName=inNotification.userInfo[@"Name"];
+	
+	if (tNewName==nil)
+		return;
+	
+	[self.dataSource outlineView:self.outlineView renamePackageComponent:tNode as:tNewName];
+	
+	// A COMPLETER
 }
 
 - (void)removedPackagesListDidChange:(NSNotification *)inNotification

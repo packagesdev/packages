@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -16,6 +16,9 @@
 extern NSString * const PKGPackageComponentUUIDsPboardType;
 
 extern NSString * const PKGPackageComponentPromisedPboardType;
+
+
+extern NSString * const PKGPackageComponentDidRequestNameChangeNotitication;
 
 @interface PKGPackageComponent (UI)
 

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -39,6 +39,14 @@ NSString * const PKGPackageSettingsUseHFSPlusCompressionKey=@"USE_HFS+_COMPRESSI
 
 NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 
+
+NSString * const PKGLocationURLPrefixFile=@"file:";
+
+NSString * const PKGLocationURLPrefixHTTP=@"http://";
+
+NSString * const PKGLocationURLPrefixHTTPS=@"https://";
+
+NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 
 @interface PKGPackageSettings ()
 
@@ -262,7 +270,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		
 		_locationType=[inRepresentation[PKGPackageSettingsLocationTypeKey] unsignedIntegerValue];
 		
-		if (_locationType>PKGPackageLocationRemovableMedia)
+		if (_locationType>PKGPackageLocationHTTPSURL)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -345,7 +353,7 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
 	
@@ -354,9 +362,9 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	
 	tMutableDictionary[PKGPackageSettingsLocationTypeKey]=@(self.locationType);
 	
-	NSString * tLocationPath=self.locationPath;
-	if (tLocationPath!=nil)
-		tMutableDictionary[PKGPackageSettingsLocationPathKey]=tLocationPath;
+	NSString * tLocationURL=self.locationURL;
+	if (tLocationURL!=nil)
+		tMutableDictionary[PKGPackageSettingsLocationPathKey]=tLocationURL;
 	
 	// Only available to project and referenced packages
 	
@@ -387,19 +395,23 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	{
 		case PKGPackageLocationEmbedded:
 			
-			return @"file:";
+			return PKGLocationURLPrefixFile;
 			
 		case PKGPackageLocationCustomPath:
 			
-			return @"file:";
+			return PKGLocationURLPrefixFile;
 			
 		case PKGPackageLocationHTTPURL:
 			
-			return @"http://";
+			return PKGLocationURLPrefixHTTP;
+		
+		case PKGPackageLocationHTTPSURL:
+			
+			return PKGLocationURLPrefixHTTPS;
 			
 		case PKGPackageLocationRemovableMedia:
 		
-			return @"x-disc://";
+			return PKGLocationURLPrefixRemovableMedia;
 	}
 	
 	return nil;
@@ -410,34 +422,21 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 	if (self.locationURL==nil)
 		return nil;
 	
-	NSString * tLocationPath=[self.locationURL copy];
+	if (self.locationType==PKGPackageLocationEmbedded)
+		return nil;
 	
-	switch(self.locationType)
+	NSString * tLocationPath=[self.locationURL copy];
+	NSString * tURLPrefix=[self locationScheme];
+	
+	if ([tLocationPath rangeOfString:tURLPrefix options:NSCaseInsensitiveSearch].location==0)
+		tLocationPath=[tLocationPath substringFromIndex:[tURLPrefix length]];
+	
+	if (self.locationType==PKGPackageLocationHTTPURL ||
+		self.locationType==PKGPackageLocationHTTPSURL ||
+		self.locationType==PKGPackageLocationRemovableMedia)
 	{
-		case PKGPackageLocationEmbedded:
-			
-			return nil;
-			
-		case PKGPackageLocationCustomPath:
-			
-			if ([tLocationPath hasPrefix:@"file:"]==YES)
-				tLocationPath=[tLocationPath substringFromIndex:5];
-			
-			break;
-			
-		case PKGPackageLocationHTTPURL:
-		case PKGPackageLocationRemovableMedia:
-		{
-			NSString * tURLPrefix=[self locationScheme];
-			
-			if ([tLocationPath hasPrefix:tURLPrefix]==YES)
-				tLocationPath=[tLocationPath substringFromIndex:[tURLPrefix length]];
-			
-			if ([tLocationPath hasPrefix:@"/"]==YES)
-				tLocationPath=[tLocationPath substringFromIndex:1];
-			
-			break;
-		}
+		if ([tLocationPath hasPrefix:@"/"]==YES)
+			tLocationPath=[tLocationPath substringFromIndex:1];
 	}
 	
 	if ([tLocationPath length]==0)
@@ -508,6 +507,11 @@ NSString * const PKGPackageSettingsPayloadSizeKey=@"PAYLOAD_SIZE";
 		case PKGPackageLocationHTTPURL:
 			
 			[tDescription appendString:@"HTTP URL"];
+			break;
+			
+		case PKGPackageLocationHTTPSURL:
+			
+			[tDescription appendString:@"HTTPS URL"];
 			break;
 			
 		case PKGPackageLocationRemovableMedia:

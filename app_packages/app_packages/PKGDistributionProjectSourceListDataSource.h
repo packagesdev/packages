@@ -45,6 +45,8 @@
 
 - (void)importPackageComponent:(NSOutlineView *)inOutlineView;
 
+- (id)packageComponentItemMatchingPackageComponent:(PKGPackageComponent *)inPackageComponent;
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenamePackageComponent:(id)inPackageComponentItem as:(NSString *)inNewName;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView renamePackageComponent:(id)inPackageComponentItem as:(NSString *)inNewName;

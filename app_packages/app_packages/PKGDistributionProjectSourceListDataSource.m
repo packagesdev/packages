@@ -603,6 +603,14 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 	[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
 }
 
+- (id)packageComponentItemMatchingPackageComponent:(PKGPackageComponent *)inPackageComponent
+{
+	if (inPackageComponent==nil)
+		return nil;
+	
+	return [_forest treeNodeForPackageComponent:inPackageComponent];
+}
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenamePackageComponent:(PKGDistributionProjectSourceListTreeNode *)inPackageComponentTreeNode as:(NSString *)inNewName
 {
 	if (inOutlineView==nil || inPackageComponentTreeNode==nil || inNewName==nil)

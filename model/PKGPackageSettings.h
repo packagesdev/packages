@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -35,8 +35,18 @@ typedef NS_ENUM(NSUInteger, PKGPackageLocationType)
 	PKGPackageLocationEmbedded=0,
 	PKGPackageLocationCustomPath,
 	PKGPackageLocationHTTPURL,
-	PKGPackageLocationRemovableMedia
+	PKGPackageLocationRemovableMedia,
+	PKGPackageLocationHTTPSURL
 };
+
+extern NSString * const PKGLocationURLPrefixFile;
+
+extern NSString * const PKGLocationURLPrefixHTTP;
+
+extern NSString * const PKGLocationURLPrefixHTTPS;
+
+extern NSString * const PKGLocationURLPrefixRemovableMedia;
+
 
 @interface PKGPackageSettings : NSObject <PKGObjectProtocol,NSCopying>
 

@@ -17,6 +17,8 @@ NSString * const PKGPackageComponentUUIDsPboardType=@"fr.whitebox.packages.compo
 
 NSString * const PKGPackageComponentPromisedPboardType=@"fr.whitebox.packages.components";
 
+NSString * const PKGPackageComponentDidRequestNameChangeNotitication=@"PKGPackageComponentDidRequestNameChangeNotitication";
+
 @implementation PKGPackageComponent (UI)
 
 - (NSString *)payloadDisclosedStatesKey
