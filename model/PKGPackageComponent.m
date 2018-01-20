@@ -89,6 +89,7 @@ NSString * const PKGPackageComponentScriptsAndResourcesKey=@"PACKAGE_SCRIPTS";
 		nReferenceComponent.mustCloseApplicationItems=[NSMutableArray array];
 		
 		nReferenceComponent.packageSettings=[PKGPackageSettings new];
+		nReferenceComponent.packageSettings.locationType=PKGPackageLocationHTTPURL;
 	}
 	
 	return nReferenceComponent;
