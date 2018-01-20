@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2017, Stephane Sudre
+Copyright (c) 2008-2018, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -114,7 +114,7 @@ enum
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.2";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.3";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -1093,7 +1093,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// Missing Information
 		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorMissingInformation tag:@"ICDOCUMENT_PROJECT_SETTINGS_NAME"]];
+		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorMissingInformation tag:@"PKGProjectSettingsNameKey"]];
 		
 		return NO;
 	}
@@ -1102,7 +1102,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// Empty String Value
 		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PROJECT_SETTINGS_NAME"]];
+		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGProjectSettingsNameKey"]];
 		
 		return NO;
 	}
@@ -1598,7 +1598,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// Missing Information
 		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorMissingInformation tag:@"ICDOCUMENT_PROJECT_SETTINGS_NAME"]];
+		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorMissingInformation tag:@"PKGProjectSettingsNameKey"]];
 		
 		return NO;
 	}
@@ -1607,7 +1607,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// String is Empty
 		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PROJECT_SETTINGS_NAME"]];
+		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGProjectSettingsNameKey"]];
 		
 		return NO;
 	}
@@ -5276,9 +5276,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// Incorrect Value (Empty String)
 		
-		[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER string can not be empty."];
+		[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"IDENTIFIER string can not be empty."];
 		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER"]];
+		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsIdentifierKey"]];
 		
 		return NO;
 	}
@@ -5304,9 +5304,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// Incorrect Value
 		
-		[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION string can not be empty."];
+		[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"VERSION string can not be empty."];
 		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION"]];
+		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsVersionKey"]];
 		
 		return NO;
 	}
@@ -5694,9 +5694,11 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		PKGPackageLocationType tLocationType=tPackageSettings.locationType;
 		
-		if (tLocationType!=PKGPackageLocationHTTPURL && tLocationType!=PKGPackageLocationRemovableMedia)
+		if (tLocationType!=PKGPackageLocationHTTPURL && tLocationType!=PKGPackageLocationHTTPSURL && tLocationType!=PKGPackageLocationRemovableMedia)
 		{
-			// A COMPLETER
+			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Incorrect location type for referenced package"];
+			
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:@"LOCATION"]];
 			
 			return NO;
 		}
@@ -5709,11 +5711,11 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			// Incorrect Value (Empty String)
 			
-			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH string can not be empty."];
+			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"LOCATION string can not be empty."];
 			
 			
 			
-			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]];
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsLocationTypeKey"]];
 			
 			return NO;
 		}
@@ -5731,9 +5733,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			// Incorrect Value
 			
-			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER string can not be empty."];
+			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"IDENTIFIER string can not be empty."];
 			
-			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorIncorrectValue tag:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER"]];
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsIdentifierKey"]];
 			
 			return NO;
 		}
@@ -5748,9 +5750,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			// Incorrect Value (Empty String)
 			
-			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION string can not be empty."];
+			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"VERSION string can not be empty."];
 			
-			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION"]];
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsVersionKey"]];
 			
 			return NO;
 		}
@@ -5895,9 +5897,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			{
 				// Incorrect Value (Empty String)
 				
-				[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH string can not be empty."];
+				[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"PKGPackageSettingsLocationTypeKey string can not be empty."];
 				
-				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]];
+				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsLocationTypeKey"]];
 				
 				return NO;
 			}
@@ -5931,6 +5933,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				if (tLocationType==PKGPackageLocationHTTPURL)
 				{
 					tPackageFinalDestination=[[[inPath stringByAppendingPathComponent:@"../http"] stringByAppendingPathComponent:tPackageName] stringByStandardizingPath];
+				}
+				else if (tLocationType==PKGPackageLocationHTTPSURL)
+				{
+					tPackageFinalDestination=[[[inPath stringByAppendingPathComponent:@"../https"] stringByAppendingPathComponent:tPackageName] stringByStandardizingPath];
 				}
 				else if (tLocationType==PKGPackageLocationRemovableMedia)
 				{
@@ -5969,7 +5975,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			// Incorrect Value (Empty String)
 			
-			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER"]];
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsIdentifierKey"]];
 			
 			return NO;
 		}
@@ -5984,7 +5990,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			// Incorrect Value (Empty String)
 			
-			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION"]];
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsVersionKey"]];
 			
 			return NO;
 		}
@@ -6239,9 +6245,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		// Incorrect value (Empty String)
 		
-		[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_NAME string can not be empty."];
+		[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"PKGPackageSettingsNameKey string can not be empty."];
 		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_NAME"]];
+		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsNameKey"]];
 		
 		return NO;
 	}
@@ -6359,9 +6365,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			{
 				// Incorrect Value (Empty String)
 				
-				[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH string can not be empty."];
+				[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"PKGPackageSettingsLocationTypeKey string can not be empty."];
 				
-				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]];
+				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorEmptyString tag:@"PKGPackageSettingsLocationTypeKey"]];
 				
 				return NO;
 			}
@@ -6400,6 +6406,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				if (tLocationType==PKGPackageLocationHTTPURL)
 				{
 					tPackageFinalDestination=[[[inPath stringByAppendingPathComponent:@"../http"] stringByAppendingPathComponent:tPackageName] stringByStandardizingPath];
+				}
+				else if (tLocationType==PKGPackageLocationHTTPSURL)
+				{
+					tPackageFinalDestination=[[[inPath stringByAppendingPathComponent:@"../https"] stringByAppendingPathComponent:tPackageName] stringByStandardizingPath];
 				}
 				else if (tLocationType==PKGPackageLocationRemovableMedia)
 				{

@@ -304,7 +304,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			{
 				case PKGBuildErrorMissingInformation:
 					
-					if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]==YES)
+					if ([tTag isEqualToString:@"PKGPackageSettingsLocationTypeKey"]==YES)
 						tTitle=@"The location of the referenced package has not been fully defined.";
 					else
 						tTitle=[NSString stringWithFormat:@"Missing information for tag '%@'",tTag];
@@ -392,29 +392,28 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					tTitle=nil;
 					
-					if (tStep==PKGBuildStepPackageInfo)
+					if (tStep==PKGBuildStepPackageInfo ||
+						tStep==PKGBuildStepPackageReference)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_IDENTIFIER"]==YES)
+						if ([tTag isEqualToString:@"PKGPackageSettingsIdentifierKey"]==YES)
 							tTitle=@"The identifier of the package can not be empty.";
-						else if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_VERSION"]==YES)
+						else if ([tTag isEqualToString:@"PKGPackageSettingsVersionKey"]==YES)
 							tTitle=@"The version of the package can not be empty.";
 					}
 					else if (tStep==PKGBuildStepDistribution)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PROJECT_SETTINGS_NAME"]==YES)
+						if ([tTag isEqualToString:@"PKGProjectSettingsNameKey"]==YES)
 							tTitle=@"The name of the project can not be empty.";
 						
 					}
 					else if (tStep==PKGBuildStepPackageCreate)
 					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_NAME"]==YES)
+						if ([tTag isEqualToString:@"PKGPackageSettingsNameKey"]==YES)
 							tTitle=@"The name of the package can not be empty.";
 					}
-					else
-					{
-						if ([tTag isEqualToString:@"ICDOCUMENT_PACKAGE_SETTINGS_LOCATION_PATH"]==YES)
-							tTitle=@"The location of the referenced package has not been fully defined.";
-					}
+					
+					if ([tTag isEqualToString:@"PKGPackageSettingsLocationTypeKey"]==YES)
+							tTitle=@"The location of the package has not been fully defined.";
 					
 					if (tTitle==nil)
 						tTitle=[NSString stringWithFormat:@"String can not be empty for tag '%@'",tTag];
