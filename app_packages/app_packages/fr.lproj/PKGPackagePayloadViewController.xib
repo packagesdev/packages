@@ -7,12 +7,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPackagePayloadViewController">
             <connections>
+                <outlet property="_advancedBuildOptionsView" destination="2Re-vG-8qb" id="7GW-Io-R5v"/>
                 <outlet property="_defaultDestinationLabel" destination="s7D-3l-TUe" id="Uiy-5s-ZYa"/>
                 <outlet property="_defaultDestinationSetButton" destination="LMp-WX-7rj" id="3sM-sE-QoO"/>
                 <outlet property="_hierarchyPlaceHolderView" destination="32l-Ti-730" id="wyF-dL-dYd"/>
                 <outlet property="_inspectorPlaceHolderView" destination="ook-iR-vWX" id="aip-NK-oVe"/>
-                <outlet property="_payloadTypePopUpButton" destination="aqx-gA-pUY" id="Iyi-KH-3Kf"/>
-                <outlet property="_splitForksCheckbox" destination="DoL-Mn-EmK" id="TrI-Vz-eoN"/>
+                <outlet property="_payloadTypePopUpButton" destination="4Aa-hM-lec" id="mNU-dF-5Ze"/>
+                <outlet property="_payloadTypeView" destination="If4-Mu-rNO" id="VK7-so-Q1K"/>
+                <outlet property="_settingsView" destination="tg5-pB-XkD" id="q3Y-lh-iqW"/>
+                <outlet property="_splitForksCheckbox" destination="zhk-5N-WbZ" id="Gl4-1i-tho"/>
+                <outlet property="_treatMissingFilesAsWarningsCheckbox" destination="Vup-V0-aZ5" id="ZgY-sk-DdE"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -23,48 +27,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <customView id="tg5-pB-XkD" customClass="WBWhiteView">
-                    <rect key="frame" x="0.0" y="436" width="663" height="121"/>
+                    <rect key="frame" x="0.0" y="420" width="663" height="137"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <button id="DoL-Mn-EmK">
-                            <rect key="frame" x="300" y="48" width="221" height="18"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="check" title="Séparer les forks si nécessaire" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="v66-oN-RtA">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="switchSplitForks:" target="-2" id="R6Z-59-Rfj"/>
-                            </connections>
-                        </button>
-                        <textField verticalHuggingPriority="750" id="78g-6y-2kq">
-                            <rect key="frame" x="135" y="49" width="50" height="17"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Type :" id="bVj-eF-62H">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <popUpButton verticalHuggingPriority="750" id="aqx-gA-pUY">
-                            <rect key="frame" x="187" y="43" width="110" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="push" title="Interne" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="OIS-Ut-hVE" id="Eyo-7a-5XN">
-                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="menu"/>
-                                <menu key="menu" title="OtherViews" id="1M0-Nl-bEX">
-                                    <items>
-                                        <menuItem title="Interne" state="on" id="OIS-Ut-hVE"/>
-                                        <menuItem title="Proxy" id="ca5-aw-874"/>
-                                    </items>
-                                </menu>
-                            </popUpButtonCell>
-                            <connections>
-                                <action selector="switchPayloadType:" target="-2" id="t8a-Ni-3qW"/>
-                            </connections>
-                        </popUpButton>
                         <button verticalHuggingPriority="750" id="LMp-WX-7rj">
-                            <rect key="frame" x="583" y="19" width="60" height="24"/>
+                            <rect key="frame" x="583" y="62" width="60" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="smallSquare" title="Choisir" bezelStyle="smallSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="L5N-BC-SAh">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -75,7 +42,7 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" id="s7D-3l-TUe">
-                            <rect key="frame" x="187" y="22" width="390" height="17"/>
+                            <rect key="frame" x="200" y="65" width="377" height="17"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" id="ZKV-Jd-gwm">
                                 <font key="font" metaFont="system"/>
@@ -84,7 +51,7 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="cEO-ca-Oh6">
-                            <rect key="frame" x="20" y="22" width="165" height="17"/>
+                            <rect key="frame" x="40" y="65" width="156" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Destination par défaut :" id="r1G-ZF-H3K">
                                 <font key="font" metaFont="system"/>
@@ -93,7 +60,7 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="Sqs-Wy-nM8">
-                            <rect key="frame" x="20" y="83" width="96" height="18"/>
+                            <rect key="frame" x="20" y="99" width="96" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Paramètres" id="hnT-ZL-Ic5">
                                 <font key="font" metaFont="systemBold" size="14"/>
@@ -101,10 +68,47 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <customView id="2Re-vG-8qb">
+                            <rect key="frame" x="0.0" y="12" width="663" height="45"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" id="Ggy-Dq-O6b">
+                                    <rect key="frame" x="26" y="28" width="170" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Options de construction :" id="EXq-mt-3lK">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button id="zhk-5N-WbZ">
+                                    <rect key="frame" x="200" y="26" width="210" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Séparer les forks si nécessaire" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="g7i-rF-LbH">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="switchSplitForks:" target="-2" id="6FI-jx-4tq"/>
+                                    </connections>
+                                </button>
+                                <button id="Vup-V0-aZ5">
+                                    <rect key="frame" x="200" y="6" width="465" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Considerer les fichiers absents seulement comme des avertissements  " bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="bAV-te-ljQ">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="switchTreatMissingFilesAsWarnings:" target="-2" id="S1i-YW-3m7"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </customView>
                     </subviews>
                 </customView>
                 <customView id="32l-Ti-730" customClass="WBLightGrayView">
-                    <rect key="frame" x="0.0" y="0.0" width="663" height="436"/>
+                    <rect key="frame" x="0.0" y="0.0" width="663" height="420"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>
                 <customView id="ook-iR-vWX" customClass="PKGRightInspectorView">
@@ -112,7 +116,40 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                 </customView>
             </subviews>
-            <point key="canvasLocation" x="633" y="554.5"/>
+            <point key="canvasLocation" x="787" y="735.5"/>
+        </customView>
+        <customView id="If4-Mu-rNO">
+            <rect key="frame" x="0.0" y="0.0" width="166" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="pLa-T8-2Jg">
+                    <rect key="frame" x="7" y="4" width="50" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Type :" id="b06-sw-xAs">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="4Aa-hM-lec">
+                    <rect key="frame" x="59" y="-2" width="110" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Interne" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="ZHn-HI-Vnp" id="ayg-eK-05j">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="yRE-6Q-tq3">
+                            <items>
+                                <menuItem title="Interne" state="on" id="ZHn-HI-Vnp"/>
+                                <menuItem title="Proxy" id="gqa-cn-vYf"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchPayloadType:" target="-2" id="LGC-WA-PG3"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="363" y="272"/>
         </customView>
     </objects>
 </document>

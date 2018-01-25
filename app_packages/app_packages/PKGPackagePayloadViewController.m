@@ -28,11 +28,18 @@
 
 @interface PKGPackagePayloadViewController ()
 {
-	IBOutlet NSPopUpButton * _payloadTypePopUpButton;
-	IBOutlet NSButton * _splitForksCheckbox;
+	IBOutlet NSView * _settingsView;
 	
 	IBOutlet NSTextField * _defaultDestinationLabel;
 	IBOutlet NSButton * _defaultDestinationSetButton;
+	
+	IBOutlet NSView * _advancedBuildOptionsView;
+	IBOutlet NSButton * _splitForksCheckbox;
+	IBOutlet NSButton * _treatMissingFilesAsWarningsCheckbox;
+	
+	IBOutlet NSView * _payloadTypeView;
+	IBOutlet NSPopUpButton * _payloadTypePopUpButton;
+	
 	
 	IBOutlet NSView * _hierarchyPlaceHolderView;
 	IBOutlet NSView * _inspectorPlaceHolderView;
@@ -50,6 +57,7 @@
 - (void)_updateLayout;
 
 - (IBAction)switchSplitForks:(id)sender;
+- (IBAction)switchTreatMissingFilesAsWarnings:(id)sender;
 
 - (IBAction)switchPayloadType:(id)sender;
 
@@ -113,6 +121,8 @@
 	_payloadHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
 	
 	[_hierarchyPlaceHolderView addSubview:_payloadHierarchyViewController.view];
+	
+	_payloadHierarchyViewController.accessoryView=_payloadTypeView;
 }
 
 #pragma mark -
@@ -133,6 +143,8 @@
 	[_payloadTypePopUpButton selectItemWithTag:self.payload.type];
 	
 	_splitForksCheckbox.state=(self.payload.splitForksIfNeeded==YES) ? NSOnState : NSOffState;
+	
+	_treatMissingFilesAsWarningsCheckbox.state=(self.payload.treatMissingPayloadFilesAsWarnings==YES) ? NSOnState : NSOffState;
 	
 	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
 	
@@ -192,27 +204,45 @@
 {
 	BOOL tAdvancedModeEnabled=[PKGApplicationPreferences sharedPreferences].advancedMode;
 	
-	_splitForksCheckbox.hidden=(tAdvancedModeEnabled==NO);
+	if (tAdvancedModeEnabled==NO && _advancedBuildOptionsView.hidden==NO)
+	{
+		NSRect tSettingsViewFrame=_settingsView.frame;
+		NSRect tFilesHierarchyViewFrame=_hierarchyPlaceHolderView.frame;
+		
+		CGFloat tDeltaHeight=NSHeight(_advancedBuildOptionsView.frame);
+		
+		_advancedBuildOptionsView.hidden=YES;
+		
+		tSettingsViewFrame.size.height-=tDeltaHeight;
+		tSettingsViewFrame.origin.y+=tDeltaHeight;
+		
+		_settingsView.frame=tSettingsViewFrame;
+		
+		tFilesHierarchyViewFrame.size.height+=tDeltaHeight;
+		
+		_hierarchyPlaceHolderView.frame=tFilesHierarchyViewFrame;
+	}
+	else if (tAdvancedModeEnabled==YES && _advancedBuildOptionsView.hidden==YES)
+	{
+		NSRect tSettingsViewFrame=_settingsView.frame;
+		NSRect tFilesHierarchyViewFrame=_hierarchyPlaceHolderView.frame;
+		
+		CGFloat tDeltaHeight=NSHeight(_advancedBuildOptionsView.frame);
+		
+		_advancedBuildOptionsView.hidden=NO;
+		
+		tSettingsViewFrame.size.height+=tDeltaHeight;
+		tSettingsViewFrame.origin.y-=tDeltaHeight;
+		
+		_settingsView.frame=tSettingsViewFrame;
+		
+		tFilesHierarchyViewFrame.size.height-=tDeltaHeight;
+		
+		_hierarchyPlaceHolderView.frame=tFilesHierarchyViewFrame;
+	}
 }
 
 #pragma mark -
-
-- (IBAction)switchSplitForks:(NSButton *)sender
-{
-	BOOL tState=(_splitForksCheckbox.state==NSOnState);
-	
-	if (tState==self.payload.splitForksIfNeeded)
-		return;
-	
-	self.payload.splitForksIfNeeded=tState;
-	
-	[self noteDocumentHasChanged];
-}
-
-- (IBAction)switchPayloadType:(id)sender
-{
-	// A COMPLETER
-}
 
 - (IBAction)setDefaultDestination:(id)sender
 {
@@ -240,6 +270,35 @@
 							columnIndexes:[NSIndexSet indexSetWithIndex:[tOutlineView columnWithIdentifier:@"file.name"]]];
 	
 	[self noteDocumentHasChanged];
+}
+
+- (IBAction)switchSplitForks:(NSButton *)sender
+{
+	BOOL tState=(_splitForksCheckbox.state==NSOnState);
+	
+	if (tState==self.payload.splitForksIfNeeded)
+		return;
+	
+	self.payload.splitForksIfNeeded=tState;
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)switchTreatMissingFilesAsWarnings:(id)sender
+{
+	BOOL tState=(_treatMissingFilesAsWarningsCheckbox.state==NSOnState);
+	
+	if (tState==self.payload.treatMissingPayloadFilesAsWarnings)
+		return;
+	
+	self.payload.treatMissingPayloadFilesAsWarnings=tState;
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)switchPayloadType:(id)sender
+{
+	// A COMPLETER
 }
 
 - (IBAction)addFiles:(id)sender

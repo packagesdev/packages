@@ -68,6 +68,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 {
 	IBOutlet NSTextField * _viewLabel;
 	
+	IBOutlet NSView * _accessoryViewPlaceHolder;
+	
 	IBOutlet NSButton * _addButton;
 	IBOutlet NSButton * _removeButton;
 	
@@ -253,6 +255,31 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 	
 	if (self.outlineView!=nil)
 		self.outlineView.dataSource=_hierarchyDataSource;
+}
+
+- (NSView *)accessoryView
+{
+	NSArray * tSubviews=_accessoryViewPlaceHolder.subviews;
+	
+	if (tSubviews.count==0)
+		return nil;
+	
+	return tSubviews.firstObject;
+}
+
+- (void)setAccessoryView:(NSView *)inAccessoryView
+{
+	NSArray * tSubviews=_accessoryViewPlaceHolder.subviews;
+	
+	for(NSView * tSubView in tSubviews)
+		[tSubView removeFromSuperview];
+	
+	if (inAccessoryView!=nil)
+	{
+		inAccessoryView.frame=_accessoryViewPlaceHolder.bounds;
+		
+		[_accessoryViewPlaceHolder addSubview:inAccessoryView];
+	}
 }
 
 - (void)setLabel:(NSString *)inLabel

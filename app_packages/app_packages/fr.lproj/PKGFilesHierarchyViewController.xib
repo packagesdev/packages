@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGFilesHierarchyViewController">
             <connections>
+                <outlet property="_accessoryViewPlaceHolder" destination="w03-Ep-m70" id="JIK-uq-XUw"/>
                 <outlet property="_addButton" destination="Spv-Qi-Xah" id="POO-Cc-ELx"/>
                 <outlet property="_removeButton" destination="k3S-CP-r18" id="sRb-xJ-v4t"/>
                 <outlet property="_viewInformationLabel" destination="F9o-fE-km2" id="dAh-FL-R3g"/>
@@ -220,8 +221,8 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="zuz-Lg-yvq">
-                    <rect key="frame" x="18" y="514" width="701" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <rect key="frame" x="18" y="514" width="356" height="18"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Contenu" id="SnW-DJ-6WQ">
                         <font key="font" metaFont="systemBold" size="14"/>
                         <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
@@ -237,6 +238,10 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <customView id="w03-Ep-m70">
+                    <rect key="frame" x="388" y="510" width="330" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                </customView>
             </subviews>
             <connections>
                 <outlet property="fileHierarchyOutlineView" destination="jNy-Xc-1CN" id="1TV-o3-XNh"/>
