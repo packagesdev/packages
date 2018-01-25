@@ -7779,6 +7779,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					{
 						switch(tCopyError.code)
 						{
+							case NSFileReadNoSuchFileError:
 							case NSFileNoSuchFileError:
 								
 								tErrorEvent.subcode=PKGBuildErrorFileNotFound;
