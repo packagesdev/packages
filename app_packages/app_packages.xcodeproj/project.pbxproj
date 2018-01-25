@@ -312,7 +312,6 @@
 		F48588501DD7E4E000A1D892 /* WBWhiteFramedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F40E5BF00D8F420800A89986 /* WBWhiteFramedView.m */; };
 		F485A0631E3011B00078F79A /* PKGUsersAndGroupsMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = F485A0611E3011B00078F79A /* PKGUsersAndGroupsMonitor.m */; };
 		F485A06E1E3011D00078F79A /* OpenDirectory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F485A06D1E3011D00078F79A /* OpenDirectory.framework */; };
-		F485AF881E6B66480055790A /* PKGLocationTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F485AF871E6B66480055790A /* PKGLocationTextField.m */; };
 		F48649A71FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = F48649A61FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.m */; };
 		F4880F391DE2644600A9EAC7 /* NSString+Karelia.m in Sources */ = {isa = PBXBuildFile; fileRef = F4880F381DE2644600A9EAC7 /* NSString+Karelia.m */; };
 		F4880F561DE26C3300A9EAC7 /* PKGDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F4880F541DE26C3300A9EAC7 /* PKGDocument.m */; };
@@ -534,6 +533,7 @@
 		F4C2918F1EB63913004DDBE3 /* PKGChoicesForest+Edition.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C2918D1EB63913004DDBE3 /* PKGChoicesForest+Edition.m */; };
 		F4C291931EB651F4004DDBE3 /* PKGChoiceDependencyTreeLogicNode+Edition.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C291921EB651F4004DDBE3 /* PKGChoiceDependencyTreeLogicNode+Edition.m */; };
 		F4C291961EB685E5004DDBE3 /* PKGInstallationHierarchy+Edition.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C291951EB685E5004DDBE3 /* PKGInstallationHierarchy+Edition.m */; };
+		F4C38E8A2016893800F069DF /* PKGLocationDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C38E892016893800F069DF /* PKGLocationDropView.m */; };
 		F4C42C291F0C5C5B00E9141A /* PKGChoiceDependencyContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C42C271F0C5C5B00E9141A /* PKGChoiceDependencyContainerView.m */; };
 		F4C4E08C1F17EB9E00E95E3D /* PKGProjectAssistantFinishViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4C4E08E1F17EB9E00E95E3D /* PKGProjectAssistantFinishViewController.xib */; };
 		F4C4F1C31E0A10BF004DB9C9 /* InvisibleHierarchy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4C4F1C21E0A10BF004DB9C9 /* InvisibleHierarchy.plist */; };
@@ -1318,8 +1318,6 @@
 		F485A0611E3011B00078F79A /* PKGUsersAndGroupsMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGUsersAndGroupsMonitor.m; path = app_packages/PKGUsersAndGroupsMonitor.m; sourceTree = "<group>"; };
 		F485A0621E3011B00078F79A /* PKGUsersAndGroupsMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGUsersAndGroupsMonitor.h; path = app_packages/PKGUsersAndGroupsMonitor.h; sourceTree = "<group>"; };
 		F485A06D1E3011D00078F79A /* OpenDirectory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenDirectory.framework; path = System/Library/Frameworks/OpenDirectory.framework; sourceTree = SDKROOT; };
-		F485AF861E6B66480055790A /* PKGLocationTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocationTextField.h; path = app_packages/PKGLocationTextField.h; sourceTree = "<group>"; };
-		F485AF871E6B66480055790A /* PKGLocationTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLocationTextField.m; path = app_packages/PKGLocationTextField.m; sourceTree = "<group>"; };
 		F48649A51FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGMustCloseApplicationItemCellView.h; path = app_packages/PKGMustCloseApplicationItemCellView.h; sourceTree = "<group>"; };
 		F48649A61FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMustCloseApplicationItemCellView.m; path = app_packages/PKGMustCloseApplicationItemCellView.m; sourceTree = "<group>"; };
 		F4880F371DE2644600A9EAC7 /* NSString+Karelia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Karelia.h"; path = "../external/NSString+Karelia.h"; sourceTree = "<group>"; };
@@ -1711,6 +1709,8 @@
 		F4C291921EB651F4004DDBE3 /* PKGChoiceDependencyTreeLogicNode+Edition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGChoiceDependencyTreeLogicNode+Edition.m"; path = "../model+Edition/PKGChoiceDependencyTreeLogicNode+Edition.m"; sourceTree = "<group>"; };
 		F4C291941EB685E5004DDBE3 /* PKGInstallationHierarchy+Edition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGInstallationHierarchy+Edition.h"; path = "../model+Edition/PKGInstallationHierarchy+Edition.h"; sourceTree = "<group>"; };
 		F4C291951EB685E5004DDBE3 /* PKGInstallationHierarchy+Edition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGInstallationHierarchy+Edition.m"; path = "../model+Edition/PKGInstallationHierarchy+Edition.m"; sourceTree = "<group>"; };
+		F4C38E882016893800F069DF /* PKGLocationDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocationDropView.h; path = app_packages/PKGLocationDropView.h; sourceTree = "<group>"; };
+		F4C38E892016893800F069DF /* PKGLocationDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLocationDropView.m; path = app_packages/PKGLocationDropView.m; sourceTree = "<group>"; };
 		F4C42C271F0C5C5B00E9141A /* PKGChoiceDependencyContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGChoiceDependencyContainerView.m; path = app_packages/PKGChoiceDependencyContainerView.m; sourceTree = "<group>"; };
 		F4C42C281F0C5C5B00E9141A /* PKGChoiceDependencyContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGChoiceDependencyContainerView.h; path = app_packages/PKGChoiceDependencyContainerView.h; sourceTree = "<group>"; };
 		F4C4E0801F17EB7900E95E3D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = app_packages/fr.lproj/PKGProjectTemplateAssistantController.xib; sourceTree = "<group>"; };
@@ -3503,6 +3503,8 @@
 		F49D025D1E68D35400F1BB55 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				F4C38E882016893800F069DF /* PKGLocationDropView.h */,
+				F4C38E892016893800F069DF /* PKGLocationDropView.m */,
 				F4061DD61FB7560900CE13E1 /* PKGDimmedLabelCell.h */,
 				F4061DD71FB7560900CE13E1 /* PKGDimmedLabelCell.m */,
 				F49EBB4C1E78BBD800B43387 /* PKGImportReferencePopUpButtonCell.h */,
@@ -3513,8 +3515,6 @@
 				F49D02621E68D4CA00F1BB55 /* PKGPackageSettingsView.m */,
 				F49D025F1E68D35F00F1BB55 /* PKGPackageSettingsSourceView.h */,
 				F49D025E1E68D35F00F1BB55 /* PKGPackageSettingsSourceView.m */,
-				F485AF861E6B66480055790A /* PKGLocationTextField.h */,
-				F485AF871E6B66480055790A /* PKGLocationTextField.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -4694,7 +4694,6 @@
 				F49D419F1DE3C3CB003D4DA6 /* PKGDistributionProjectMainViewController.m in Sources */,
 				F4DA5EA71DE51522005F9BCF /* PKGSegmentViewController.m in Sources */,
 				F4FC4B831ED75F8C00AE3042 /* PKGPresentationInstallationTypeNonSingleSelectionViewController.m in Sources */,
-				F485AF881E6B66480055790A /* PKGLocationTextField.m in Sources */,
 				F4CEC42B1E833EA900BA0472 /* PKGDistributionProjectSettingsAdvancedOptionBoolean.m in Sources */,
 				F457278E1DD13541005883C2 /* NSArray+Reverse.m in Sources */,
 				F46DCEBE1E5D1A9100794DF9 /* ICSourceTextView.m in Sources */,
@@ -4727,6 +4726,7 @@
 				F42448C01E17E22300E5A618 /* PKGPayloadTreeNodeImageView.m in Sources */,
 				F404C9F31DCEB5AF00017CC8 /* PKGPreferencesWindowController.m in Sources */,
 				F4F12DB91F214DDD00FEFC8F /* PKGBuildEventsForest.m in Sources */,
+				F4C38E8A2016893800F069DF /* PKGLocationDropView.m in Sources */,
 				F4C5B1361E6C538800AF5E4B /* PKGDistributionRequirementSourceListDataSource.m in Sources */,
 				F48ACCFA1E7A04DB00749142 /* PKGDistributionVolumeRequirementBehaviorViewController.m in Sources */,
 				F45069C51E8AFE2A005B5A8D /* PKGPresentationImageView.m in Sources */,
@@ -5973,7 +5973,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 313;
+				CURRENT_PROJECT_VERSION = 333;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5999,7 +5999,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 313;
+				CURRENT_PROJECT_VERSION = 333;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;

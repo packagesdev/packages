@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -24,15 +24,17 @@
 
 #import "PKGArchive.h"
 
-#import "PKGFileDeadDropView.h"
+#import "PKGLocationDropView.h"
 
-#import "PKGLocationTextField.h"
+#import "PKGFileDeadDropView.h"
 
 #import "PKGMustCloseApplicationItemsPanel.h"
 
 #import "NSCollection+DeepCopy.h"
 
-@interface PKGPackageComponentSettingsViewController () <PKGFileDeadDropViewDelegate,PKGLocationTextFieldDelegate>
+#import "NSObject+Conformance.h"
+
+@interface PKGPackageComponentSettingsViewController () <PKGFileDeadDropViewDelegate,PKGLocationDropViewDelegate>
 {
 	IBOutlet PKGPackageSettingsSourceView * _sourceSectionView;
 	
@@ -48,13 +50,13 @@
 	IBOutlet NSView * _postInstallationSectionView;
 	
 	
-	IBOutlet NSView * _locationSectionView;
+	IBOutlet PKGLocationDropView * _locationSectionView;
 	
 	IBOutlet NSTextField * _locationTipLabel;
 	
 	IBOutlet NSTextField * _locationLabel;
 	
-	IBOutlet PKGLocationTextField * _locationTextField;
+	IBOutlet NSTextField * _locationTextField;
 	
 	IBOutlet NSPopUpButton * _locationPopUpButton;
 	
@@ -96,7 +98,10 @@
 	
 	_referenceSectionView.backgroundColor=[NSColor colorWithDeviceWhite:0.8392 alpha:1.0];
 	
-	[_locationTextField registerForDraggedTypes:@[NSFilenamesPboardType,NSStringPboardType]];
+	if ([self WB_doesReallyConformToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
+		_locationSectionView.delegate=(id<PKGFileDeadDropViewDelegate>)self;
+	
+	[_locationSectionView registerForDraggedTypes:@[NSFilenamesPboardType,NSStringPboardType]];
 }
 
 - (NSUInteger)tag
@@ -549,7 +554,7 @@
 	
 	__block NSString * tLocationPath=self.packageComponent.packageSettings.locationURL;
 	
-	void (^removePrefixFromLocationPathIfNeeded)(NSArray *) = ^void(NSArray * bPrefixes)
+	BOOL (^removePrefixFromLocationPathIfNeeded)(NSArray *) = ^BOOL(NSArray * bPrefixes)
 	{
 		for(NSString * tPrefix in bPrefixes)
 		{
@@ -559,9 +564,11 @@
 				
 				self.packageComponent.packageSettings.locationURL=tLocationPath;
 				
-				return;
+				return YES;
 			}
 		}
+		
+		return NO;
 	};
 	
 	switch(tNewLocationType)
@@ -595,14 +602,13 @@
 			}
 			else
 			{
-				removePrefixFromLocationPathIfNeeded(@[PKGLocationURLPrefixFile,PKGLocationURLPrefixHTTPS,PKGLocationURLPrefixRemovableMedia]);
-				
-				if ([tLocationPath rangeOfString:PKGLocationURLPrefixHTTP options:NSCaseInsensitiveSearch].location!=0)
+				if (removePrefixFromLocationPathIfNeeded(@[PKGLocationURLPrefixFile,PKGLocationURLPrefixHTTPS,PKGLocationURLPrefixRemovableMedia])==YES)
 				{
-					tLocationPath=[PKGLocationURLPrefixHTTP stringByAppendingString:tLocationPath];
-					
-					self.packageComponent.packageSettings.locationURL=tLocationPath;
+					if ([tLocationPath rangeOfString:PKGLocationURLPrefixHTTP options:NSCaseInsensitiveSearch].location!=0)
+						tLocationPath=[PKGLocationURLPrefixHTTP stringByAppendingString:tLocationPath];
 				}
+				
+				self.packageComponent.packageSettings.locationURL=tLocationPath;
 			}
 			
 			break;
@@ -619,14 +625,13 @@
 			}
 			else
 			{
-				removePrefixFromLocationPathIfNeeded(@[PKGLocationURLPrefixFile,PKGLocationURLPrefixHTTP,PKGLocationURLPrefixRemovableMedia]);
-				
-				if ([tLocationPath rangeOfString:PKGLocationURLPrefixHTTPS options:NSCaseInsensitiveSearch].location!=0)
+				if (removePrefixFromLocationPathIfNeeded(@[PKGLocationURLPrefixFile,PKGLocationURLPrefixHTTP,PKGLocationURLPrefixRemovableMedia])==YES)
 				{
-					tLocationPath=[PKGLocationURLPrefixHTTPS stringByAppendingString:tLocationPath];
-					
-					self.packageComponent.packageSettings.locationURL=tLocationPath;
+					if ([tLocationPath rangeOfString:PKGLocationURLPrefixHTTPS options:NSCaseInsensitiveSearch].location!=0)
+						tLocationPath=[PKGLocationURLPrefixHTTPS stringByAppendingString:tLocationPath];
 				}
+				
+				self.packageComponent.packageSettings.locationURL=tLocationPath;
 			}
 			
 			break;
@@ -643,14 +648,13 @@
 			}
 			else
 			{
-				removePrefixFromLocationPathIfNeeded(@[PKGLocationURLPrefixFile,PKGLocationURLPrefixHTTP,PKGLocationURLPrefixHTTPS]);
-				
-				if ([tLocationPath rangeOfString:PKGLocationURLPrefixRemovableMedia options:NSCaseInsensitiveSearch].location!=0)
+				if (removePrefixFromLocationPathIfNeeded(@[PKGLocationURLPrefixFile,PKGLocationURLPrefixHTTP,PKGLocationURLPrefixHTTPS])==YES)
 				{
-					tLocationPath=[PKGLocationURLPrefixRemovableMedia stringByAppendingString:tLocationPath];
-					
-					self.packageComponent.packageSettings.locationURL=tLocationPath;
+					if ([tLocationPath rangeOfString:PKGLocationURLPrefixRemovableMedia options:NSCaseInsensitiveSearch].location!=0)
+						tLocationPath=[PKGLocationURLPrefixRemovableMedia stringByAppendingString:tLocationPath];
 				}
+				
+				self.packageComponent.packageSettings.locationURL=tLocationPath;
 			}
 			
 			break;
@@ -788,29 +792,49 @@
 	return YES;
 }
 
-#pragma mark - PKGFilePathTextFieldDelegate
+#pragma mark - PKGLocationDropViewDelegate
 
-- (BOOL)locationTextField:(PKGLocationTextField *)inLocationTextField validateDrop:(id <NSDraggingInfo>)inInfo
+- (BOOL)locationDropView:(PKGLocationDropView *)inView validateDrop:(id <NSDraggingInfo>)inInfo
 {
-	if (inLocationTextField==nil || inInfo==nil)
+	if (inView==nil || inInfo==nil)
 		return NO;
 	
 	NSPasteboard * tPasteBoard=[inInfo draggingPasteboard];
 	
 	NSString * tString=nil;
 	
-	if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+	if ([tPasteBoard availableTypeFromArray:@[(__bridge NSString *)kUTTypeURL]]!=nil)
 	{
-		tString=[tPasteBoard stringForType:NSStringPboardType];
+		tString=[tPasteBoard stringForType:(__bridge NSString *)kUTTypeURL];
+		
+		// If tString!=nil then it's probably a webloc (it's not an alias).
 	}
-	else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+	
+	if (tString==nil)
 	{
-		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
-		
-		if (tArray.count!=1)
-			return NO;
-		
-		tString=tArray.lastObject;
+		if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+		{
+			tString=[tPasteBoard stringForType:NSStringPboardType];
+		}
+		else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+		{
+			NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
+			
+			if (tArray.count!=1)
+				return NO;
+			
+			tString=tArray.lastObject;
+			
+			BOOL isDirectory=NO;
+			
+			if ([[NSFileManager defaultManager] fileExistsAtPath:tString isDirectory:&isDirectory]==YES && isDirectory==YES)
+				return YES;
+			
+			PKGArchive * tArchive=[PKGArchive archiveAtPath:tString];
+			
+			if ([tArchive isFlatPackage]==NO)
+				return NO;
+		}
 	}
 	
 	if (tString==nil)
@@ -862,9 +886,9 @@
 	return NO;
 }
 
-- (BOOL)locationTextField:(PKGLocationTextField *)inLocationTextField acceptDrop:(id <NSDraggingInfo>)inInfo
+- (BOOL)locationDropView:(PKGLocationDropView *)inView acceptDrop:(id <NSDraggingInfo>)inInfo
 {
-	if (inLocationTextField==nil || inInfo==nil)
+	if (inView==nil || inInfo==nil)
 		return NO;
 	
 	NSPasteboard * tPasteBoard=[inInfo draggingPasteboard];
@@ -873,24 +897,68 @@
 	BOOL tMayNeedToChangeType=NO;
 	PKGPackageLocationType tLocationType=PKGPackageLocationCustomPath;
 	
-	if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+	if ([tPasteBoard availableTypeFromArray:@[(__bridge NSString *)kUTTypeURL]]!=nil)
 	{
-		tString=[tPasteBoard stringForType:NSStringPboardType];
+		tString=[tPasteBoard stringForType:(__bridge NSString *)kUTTypeURL];
+		
+		if (tString!=nil)
+			tLocationType=PKGPackageLocationHTTPURL;
 	}
-	else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+	
+	BOOL isLocalFlatPackage=NO;
+	BOOL isDirectory=NO;
+	
+	if (tString==nil)
 	{
-		NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
-		
-		if (tArray.count!=1)
-			return NO;
-		
-		tString=tArray.lastObject;
-		
-		tMayNeedToChangeType=YES;
+		if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+		{
+			tString=[tPasteBoard stringForType:NSStringPboardType];
+		}
+		else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
+		{
+			NSArray * tArray=(NSArray *) [tPasteBoard propertyListForType:NSFilenamesPboardType];
+			
+			if (tArray.count!=1)
+				return NO;
+			
+			tString=tArray.lastObject;
+			
+			tMayNeedToChangeType=YES;
+			
+			if ([[NSFileManager defaultManager] fileExistsAtPath:tString isDirectory:&isDirectory]==NO)
+				return NO;
+			
+			if (isDirectory==NO)
+				isLocalFlatPackage=YES;
+			
+			if (self.packageComponent.type==PKGPackageComponentTypeReference)
+			{
+				tLocationType=PKGPackageLocationRemovableMedia;
+			}
+			else
+			{
+				tLocationType=PKGPackageLocationCustomPath;
+			}
+		}
 	}
 	
 	if (tString==nil)
 		return NO;
+	
+	// Check whether the current Location URL has a prefix or not
+	
+	NSString * tOldLocationURL=self.packageComponent.packageSettings.locationURL;
+	BOOL tOldURLHasPrefix=NO;
+	
+	for(NSString * tPrefix in @[PKGLocationURLPrefixHTTP,PKGLocationURLPrefixHTTPS,PKGLocationURLPrefixRemovableMedia])
+	{
+		if ([tOldLocationURL rangeOfString:tPrefix options:NSCaseInsensitiveSearch].location==0)
+		{
+			tOldURLHasPrefix=YES;
+			break;
+		}
+	}
+	
 	
 	BOOL tHTTPURL=NO;
 	NSString * tPrefix=nil;
@@ -929,13 +997,17 @@
 	
 	NSString * tName=nil;
 	
-	if ([tLastComponent length]>0 && [tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)
+	if (isDirectory==NO &&
+		(isLocalFlatPackage==YES ||
+		([tLastComponent length]>0 && [tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)))
+	{
 		tName=[tLastComponent stringByDeletingPathExtension];
+	}
 	
 	if (tName!=nil)
 		tString=[tString stringByDeletingLastPathComponent];
 	
-	if (tPrefix!=nil)
+	if (tPrefix!=nil && tOldURLHasPrefix==YES)
 		tString=[tPrefix stringByAppendingString:tString];
 	
 	// Set the new location URL
@@ -959,7 +1031,7 @@
 	
 	if (tName!=nil && self.packageComponent.type==PKGPackageComponentTypeReference)
 	{
-		if ([self.packageComponent.packageSettings.name caseInsensitiveCompare:@"pkg"]!=NSOrderedSame)
+		if ([self.packageComponent.packageSettings.name caseInsensitiveCompare:tName]!=NSOrderedSame)
 			[[NSNotificationCenter defaultCenter] postNotificationName:PKGPackageComponentDidRequestNameChangeNotitication object:self.packageComponent userInfo:@{@"Name":tName}];
 	}
 	

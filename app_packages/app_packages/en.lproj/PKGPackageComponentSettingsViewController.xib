@@ -874,7 +874,7 @@
 						<reference key="NSSuperview" ref="614911292"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="146167231"/>
-						<string key="NSClassName">WBWhiteView</string>
+						<string key="NSClassName">PKGLocationDropView</string>
 						<string key="NSExtension">NSView</string>
 					</object>
 					<object class="NSCustomView" id="59871820">
@@ -1969,7 +1969,6 @@
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="69.CustomClassName">PKGLocationTextField</string>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="74.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2024,11 +2023,11 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">PKGLocationTextField</string>
-					<string key="superclassName">NSTextField</string>
+					<string key="className">PKGLocationDropView</string>
+					<string key="superclassName">WBWhiteView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGLocationTextField.h</string>
+						<string key="minorKey">../app_packages/PKGLocationDropView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2068,8 +2067,8 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="_locationLabel">NSTextField</string>
 						<string key="_locationPopUpButton">NSPopUpButton</string>
-						<string key="_locationSectionView">NSView</string>
-						<string key="_locationTextField">PKGLocationTextField</string>
+						<string key="_locationSectionView">PKGLocationDropView</string>
+						<string key="_locationTextField">NSTextField</string>
 						<string key="_locationTipLabel">NSTextField</string>
 						<string key="_mustCloseApplicationsCheckbox">NSButton</string>
 						<string key="_optionsSectionView">NSView</string>
@@ -2091,11 +2090,11 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="_locationSectionView">
 							<string key="name">_locationSectionView</string>
-							<string key="candidateClassName">NSView</string>
+							<string key="candidateClassName">PKGLocationDropView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="_locationTextField">
 							<string key="name">_locationTextField</string>
-							<string key="candidateClassName">PKGLocationTextField</string>
+							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="_locationTipLabel">
 							<string key="name">_locationTipLabel</string>
