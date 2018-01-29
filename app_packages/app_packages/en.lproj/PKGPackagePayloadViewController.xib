@@ -94,7 +94,7 @@
                                     </connections>
                                 </button>
                                 <button id="v5T-LP-idW">
-                                    <rect key="frame" x="172" y="6" width="254" height="18"/>
+                                    <rect key="frame" x="172" y="6" width="265" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Treat missing files as simple warnings" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3dq-7m-cDI">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
