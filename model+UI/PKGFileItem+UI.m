@@ -130,28 +130,6 @@
 	return _fileItemAuxiliary.refreshTimeMark;
 }
 
-- (NSString *)fileName
-{
-	switch(self.type)
-	{
-		case PKGFileItemTypeHiddenFolderTemplate:
-		case PKGFileItemTypeFolderTemplate:
-		case PKGFileItemTypeNewFolder:
-			
-			return self.filePath.string;
-			
-		case PKGFileItemTypeFileSystemItem:
-			
-			return self.filePath.string.lastPathComponent;
-			
-		default:
-			
-			return nil;
-	}
-	
-	return nil;
-}
-
 - (NSString *)referencedItemPath
 {
 	if (_fileItemAuxiliary==nil)

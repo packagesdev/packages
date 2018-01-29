@@ -441,6 +441,48 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	[_children addObjectsFromArray:inChildren];
 }
 
+- (BOOL)mergeDescendantsOfNode:(PKGTreeNode *)inTreeNode usingComparator:(NSComparator)inComparator representedObjectMergeHandler:(BOOL (^)(id bOriginalTreeNode,id bModifiedTreeNode))inMergeHandler
+{
+	if (inTreeNode==nil)
+		return NO;
+	
+	__block BOOL tDidAddDescendantsOrMergedRepresentedObjects=NO;
+	
+	for(PKGTreeNode * tDescendant in inTreeNode.children)
+	{
+		__block BOOL tMatched=NO;
+		
+		[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+			
+			NSComparisonResult tComparisonResult=inComparator(tDescendant,bTreeNode);
+			
+			if (tComparisonResult==NSOrderedSame)
+			{
+				tMatched=YES;
+				
+				if (inMergeHandler!=nil)
+				{
+					tDidAddDescendantsOrMergedRepresentedObjects|=inMergeHandler(bTreeNode,tDescendant);
+				}
+				
+				// Checked with the descendants
+				
+				tDidAddDescendantsOrMergedRepresentedObjects|=[bTreeNode mergeDescendantsOfNode:tDescendant usingComparator:inComparator representedObjectMergeHandler:inMergeHandler];
+
+				*bOutStop=YES;
+			}
+		}];
+		
+		if (tMatched==NO)
+		{
+			tDidAddDescendantsOrMergedRepresentedObjects=YES;
+			[tDescendant insertAsSiblingOfChildren:_children ofNode:self sortedUsingComparator:inComparator];
+		}
+	}
+	
+	return tDidAddDescendantsOrMergedRepresentedObjects;
+}
+
 - (BOOL)addUnmatchedDescendantsOfNode:(PKGTreeNode *)inTreeNode usingSelector:(SEL)inComparator
 {
 	if (inTreeNode==nil)

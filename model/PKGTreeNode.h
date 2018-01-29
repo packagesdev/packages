@@ -58,6 +58,8 @@
 - (void)addChild:(PKGTreeNode *)inChild;
 - (void)addChildren:(NSArray *)inChildren;
 
+
+- (BOOL)mergeDescendantsOfNode:(PKGTreeNode *)inTreeNode usingComparator:(NSComparator)inComparator representedObjectMergeHandler:(BOOL (^)(id bOriginalTreeNode,id bModifiedTreeNode))inMergeHandler;
 - (BOOL)addUnmatchedDescendantsOfNode:(PKGTreeNode *)inTreeNode usingSelector:(SEL)inComparator;
 - (PKGTreeNode *)filterRecursivelyUsingBlock:(BOOL (^)(id bTreeNode))inBlock;
 - (PKGTreeNode *)filterRecursivelyUsingBlock:(BOOL (^)(id bTreeNode))inBlock maximumDepth:(NSUInteger)inMaximumDepth;

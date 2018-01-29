@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 }
 
 	@property (readonly) PKGFileItemType type;
+
+	@property (nonatomic,readonly,copy) NSString *fileName;
 
 	@property (readonly) PKGFilePath * filePath;
 

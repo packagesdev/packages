@@ -239,6 +239,30 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 
 #pragma mark -
 
+- (NSString *)fileName
+{
+	switch(self.type)
+	{
+		case PKGFileItemTypeHiddenFolderTemplate:
+		case PKGFileItemTypeFolderTemplate:
+		case PKGFileItemTypeNewFolder:
+			
+			return self.filePath.string;
+			
+		case PKGFileItemTypeFileSystemItem:
+			
+			return self.filePath.string.lastPathComponent;
+			
+		default:
+			
+			return nil;
+	}
+	
+	return nil;
+}
+
+#pragma mark -
+
 - (void)resetAuxiliaryData
 {
 	if (_fileItemAuxiliary!=nil)

@@ -19,8 +19,6 @@
 
 	@property (nonatomic,readonly) NSTimeInterval refreshTimeMark;
 
-	@property (nonatomic,readonly,copy) NSString *fileName;
-
 	@property (nonatomic,readonly,copy) NSString *referencedItemPath;
 
 	@property (nonatomic,readonly) unsigned char fileType;
