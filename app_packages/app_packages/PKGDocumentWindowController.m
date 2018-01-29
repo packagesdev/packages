@@ -15,6 +15,8 @@
 
 #import "PKGDocument.h"
 
+#import "PKGProject+Update.h"
+
 #import "PKGDistributionProject+Edition.h"
 
 #import "PKGPackageProjectMainViewController.h"
@@ -92,6 +94,35 @@
 	[self setMainViewController];
 	
 	[self layoutAccessoryViews];
+	
+	// Check whether we need to update the default payload hierarchies with fixed/updated permissions and items
+	
+	[self.project updateProjectAttributes:PKGProjectAttributeDefaultPayloadHierarchy completionHandler:^(PKGProjectAttribute bUpdatedAttributes) {
+		
+		if (bUpdatedAttributes!=PKGProjectAttributeNone)
+			[self.document updateChangeCount:NSChangeDone];
+		
+		if ((bUpdatedAttributes & PKGProjectAttributeDefaultPayloadHierarchy)==PKGProjectAttributeDefaultPayloadHierarchy)
+		{
+			dispatch_async(dispatch_get_main_queue(), ^{
+				
+				NSAlert * tAlert=[NSAlert new];
+				
+				tAlert.messageText=NSLocalizedString(@"The standard folders have been updated.",@"No Comments");
+				
+				NSString * tInformativeText;
+				
+				if (self.project.type==PKGProjectTypePackage)
+					tInformativeText=NSLocalizedString(@"The standard folders in the payload of this project have been updated to match the ones defined by this version of Packages. No existing items were removed.",@"No Comments");
+				else
+					tInformativeText=NSLocalizedString(@"The standard folders in the payload(s) of this project have been updated to match the ones defined by this version of Packages. No existing items were removed.",@"No Comments");
+				
+				tAlert.informativeText=tInformativeText;
+				
+				[tAlert beginSheetModalForWindow:self.window completionHandler:nil];
+			});
+		}
+	}];
 }
 
 #pragma mark -
