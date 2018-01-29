@@ -99,7 +99,7 @@
 	_referenceSectionView.backgroundColor=[NSColor colorWithDeviceWhite:0.8392 alpha:1.0];
 	
 	if ([self WB_doesReallyConformToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
-		_locationSectionView.delegate=(id<PKGFileDeadDropViewDelegate>)self;
+		_locationSectionView.delegate=(id<PKGLocationDropViewDelegate>)self;
 	
 	[_locationSectionView registerForDraggedTypes:@[NSFilenamesPboardType,NSStringPboardType]];
 }
