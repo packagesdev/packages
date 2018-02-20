@@ -18,4 +18,6 @@
 
 - (void)processBuildEventNotification:(NSNotification *)inNotification;
 
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification;
+
 @end

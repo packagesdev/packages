@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -36,6 +36,8 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)WB_viewDidLoad
@@ -207,6 +209,15 @@
 			_progressIndicator.hidden=YES;
 		}
 	}
+}
+
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification
+{
+	_statusLabel.stringValue=NSLocalizedStringFromTable(@"Build failed",@"Build",@"");
+	
+	_progressIndicator.hidden=YES;
+	
+	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
