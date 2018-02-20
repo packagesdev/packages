@@ -643,7 +643,7 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 				xar_opt_set(tArchive,XAR_OPT_COMPRESSION,XAR_OPT_VAL_GZIP);
 			}
 			
-			if (xar_add(tArchive,[tItemPath fileSystemRepresentation])==NULL)
+			if (xar_add(tArchive,[[tItemPath precomposedStringWithCanonicalMapping] UTF8String])==NULL)		// canonical mapping + UTF8String to provide the xar API with a UTF-8 string that does not require a base64 encoding.
 			{
 				if (outError!=NULL)
 					;// A COMPLETER
