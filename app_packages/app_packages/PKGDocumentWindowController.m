@@ -119,7 +119,7 @@
 				
 				tAlert.informativeText=tInformativeText;
 				
-				[tAlert beginSheetModalForWindow:self.window completionHandler:nil];
+				[tAlert WB_beginSheetModalForWindow:self.window completionHandler:nil];
 			});
 		}
 	}];
