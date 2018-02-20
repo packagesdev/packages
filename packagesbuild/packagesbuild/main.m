@@ -17,6 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <unistd.h>
 #include <getopt.h>
 
+#import "PKGBuildDispatcher+Constants.h"
 #import "PKGCommandLineBuildObserver.h"
 
 #import "PKGBuildOrderManager.h"
@@ -43,7 +44,7 @@ void usage(void)
 
 #pragma mark -
 
-int main (int argc, const char * argv[])
+int main(int argc, const char * argv[])
 {
 	@autoreleasepool
 	{
@@ -249,6 +250,9 @@ int main (int argc, const char * argv[])
 		tBuildOrder.buildOptions=(tDebug==YES) ? PKGBuildOptionDebugBuild : 0;
 		tBuildOrder.externalSettings=[tMutableDictionary copy];
 		
+		
+
+		
 		[[PKGBuildOrderManager defaultManager] executeBuildOrder:tBuildOrder
 													setupHandler:^(PKGBuildNotificationCenter * bBuildNotificationCenter){
 												 
@@ -256,7 +260,10 @@ int main (int argc, const char * argv[])
 												 
 												 [bBuildNotificationCenter addObserver:tBuildObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:nil];
 												 [bBuildNotificationCenter addObserver:tBuildObserver selector:@selector(processBuildDebugNotification:) name:PKGBuildDebugNotification object:nil];
-											 }
+														
+												 [[NSDistributedNotificationCenter defaultCenter] addObserver:tBuildObserver selector:@selector(processDispatchErrorNotification:) name:PKGPackagesDispatcherErrorDidOccurNotification object:tBuildOrder.UUID suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
+														
+												 											 }
 											   completionHandler:^(PKGBuildResult bResult){
 												   
 												   if (bResult==PKGBuildResultSuccessful)
@@ -269,7 +276,7 @@ int main (int argc, const char * argv[])
 										   // A COMPLETER
 									   }];
 		
-		dispatch_main();
+		[[NSRunLoop mainRunLoop] run];
 	}
 	
     return EXIT_FAILURE;

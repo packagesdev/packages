@@ -1,5 +1,19 @@
+/*
+ Copyright (c) 2017-2018, Stephane Sudre
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ - Neither the name of the WhiteBox nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "PKGBuildAndCleanObserverDataSource.h"
+
+#import "PKGBuildDispatcher+Constants.h"
 
 #import "PKGProject.h"
 #import "PKGDistributionProject.h"
@@ -1111,6 +1125,75 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 			}
 		}
 	}
+}
+
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification
+{
+	PKGBuildEventItem * nBuildEventItem=[PKGBuildEventItem new];
+	
+	nBuildEventItem.type=PKGBuildEventItemErrorDescription;
+	nBuildEventItem.state=PKGBuildEventItemStateFailure;
+	
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	
+	if (tUserInfo==nil)
+	{
+		nBuildEventItem.title=NSLocalizedStringFromTable(@"Unknown Error",@"Build",@"No comment");
+	}
+	else
+	{
+		NSNumber * tNumber=tUserInfo[PKGPackagesDispatcherErrorTypeKey];
+		
+		if ([tNumber isKindOfClass:NSNumber.class]==NO)
+		{
+			nBuildEventItem.title=NSLocalizedStringFromTable(@"Unknown Error",@"Build",@"No comment");
+		}
+		else
+		{
+			PKGPackagesDispatcherErrorType tErrroType=[tNumber unsignedIntegerValue];
+			
+			switch(tErrroType)
+			{
+				case PKGPackagesDispatcherErrorPackageBuilderNotFound:
+					
+					nBuildEventItem.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find tool '%@'",@"Build",@"No comment"),@"packages_builder"];
+					
+					break;
+			}
+		}
+	}
+	
+	PKGBuildEventTreeNode * tBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:nBuildEventItem children:nil];
+	
+	[_currentBuildTreeNode addChild:tBuildEventTreeNode];
+	
+	PKGBuildEventTreeNode * tBuildEventParentTreeNode=_currentBuildTreeNode;
+	
+	while (tBuildEventParentTreeNode!=nil)
+	{
+		PKGBuildEventItem * tBuildEventItem=[tBuildEventParentTreeNode representedObject];
+		tBuildEventItem.state=PKGBuildEventItemStateFailure;
+		
+		tBuildEventParentTreeNode=(PKGBuildEventTreeNode *) [tBuildEventParentTreeNode parent];
+	}
+	
+	NSDateFormatter * tDateFormatter=[NSDateFormatter new];
+	tDateFormatter.formatterBehavior=NSDateFormatterBehavior10_4;
+	tDateFormatter.dateStyle=NSDateFormatterShortStyle;
+	tDateFormatter.timeStyle=NSDateFormatterShortStyle;
+	
+	nBuildEventItem=[PKGBuildEventItem new];
+	
+	nBuildEventItem.type=PKGBuildEventItemConclusion;
+	nBuildEventItem.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Build Failed \t%@",@"Build",@"No comment"),[tDateFormatter stringForObjectValue:[NSDate date]]];
+	nBuildEventItem.subTitle=NSLocalizedStringFromTable(@"1 error",@"Build",@"No comment");
+	nBuildEventItem.state=PKGBuildEventItemStateFailure;
+	
+	PKGBuildEventTreeNode * nBuildEventTreeNode=[[PKGBuildEventTreeNode alloc] initWithRepresentedObject:nBuildEventItem children:nil];
+	
+	[_tree.rootNodes.array addObject:nBuildEventTreeNode];
+	
+	[_delegate buildAndCleanObserverDataSource:self shouldReloadDataAndExpandItem:([_currentBuildTreeNode isLeaf]==NO) ? _currentBuildTreeNode : nil];
 }
 
 @end

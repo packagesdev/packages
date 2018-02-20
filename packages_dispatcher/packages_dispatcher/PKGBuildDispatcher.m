@@ -104,6 +104,14 @@ NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.
 		if ([[NSFileManager defaultManager] fileExistsAtPath:PKGPackagesBuilderToolPath]==NO)
 		{
 			fprintf(stderr, "Command line tool not found at path \"%s\"\n",[PKGPackagesBuilderToolPath UTF8String]);
+			
+			// Post Distributed Notification with inUUID
+			
+			[[NSDistributedNotificationCenter defaultCenter] postNotificationName:PKGPackagesDispatcherErrorDidOccurNotification
+																		   object:inUUID
+																		 userInfo:@{PKGPackagesDispatcherErrorTypeKey:@(PKGPackagesDispatcherErrorPackageBuilderNotFound)}
+																		  options:NSNotificationDeliverImmediately|NSNotificationPostToAllSessions];
+			
 			return;
 		}
 		

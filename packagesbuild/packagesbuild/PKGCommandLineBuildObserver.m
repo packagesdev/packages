@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2016, Stéphane Sudre
+Copyright (c) 2004-2018, Stéphane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -12,6 +12,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 */
 
 #import "PKGCommandLineBuildObserver.h"
+#import "PKGBuildDispatcher+Constants.h"
 
 #import "PKGBuildNotificationCenter.h"
 
@@ -35,6 +36,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 @end
 
 @implementation PKGCommandLineBuildObserver
+
+- (void)dealloc
+{
+	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)printStepPath:(NSIndexPath *)inStepPath
 {
@@ -1133,6 +1139,49 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSDictionary * tUserInfo=[inNotification userInfo];
 	
 	NSLog(@"DEBUG_DATA: %@",tUserInfo[PKGBuildStepEventRepresentationKey]);
+}
+
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification
+{
+	(void)fprintf(stdout, "==============================================================================\n");
+	
+	(void)fprintf(stdout, "ERROR:\n");
+	
+	NSDictionary * tUserInfo=inNotification.userInfo;
+	
+	if (tUserInfo==nil)
+	{
+		(void)fprintf(stdout, "Unknown error\n");
+	}
+	else
+	{
+		NSNumber * tNumber=tUserInfo[PKGPackagesDispatcherErrorTypeKey];
+		
+		if ([tNumber isKindOfClass:NSNumber.class]==NO)
+		{
+			(void)fprintf(stdout, "Unknown error\n");		
+		}
+		else
+		{
+			PKGPackagesDispatcherErrorType tErrroType=[tNumber unsignedIntegerValue];
+			
+			switch(tErrroType)
+			{
+				case PKGPackagesDispatcherErrorPackageBuilderNotFound:
+					
+					(void)fprintf(stdout, "Unable to find tool 'packages_builder'\n");
+					
+					break;
+			}
+		}
+	}
+	
+	
+	(void)fprintf(stdout, "\n==============================================================================");
+	
+	(void)fprintf(stdout, "\nBuild Failed\n");
+	
+	exit(EXIT_FAILURE);
 }
 
 @end
