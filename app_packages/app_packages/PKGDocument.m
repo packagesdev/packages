@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -12,6 +12,8 @@
  */
 
 #import "PKGDocument.h"
+
+#import "PKGBuildDispatcher+Constants.h"
 
 #import "PKGApplicationPreferences.h"
 
@@ -64,11 +66,15 @@
 
 - (IBAction)clean:(id)sender;
 
+- (void)_processBuildFailure;
+
 // Notifications
 
 - (void)buildWindowWillClose:(NSNotification *)inNotification;
 
 - (void)processBuildEventNotification:(NSNotification *)inNotification;
+
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification;
 
 @end
 
@@ -408,10 +414,19 @@
 														
 														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_currentBuildOrder];
 														
+														[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(processDispatchErrorNotification:) name:PKGPackagesDispatcherErrorDidOccurNotification object:_currentBuildOrder.UUID suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
+														
 														[bBuildNotificationCenter addObserver:_buildObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_currentBuildOrder];
 														
+														[[NSDistributedNotificationCenter defaultCenter] addObserver:_buildObserver selector:@selector(processDispatchErrorNotification:) name:PKGPackagesDispatcherErrorDidOccurNotification object:_currentBuildOrder.UUID suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
+														
 														for(id tObserver in _documentWindowController.buildNotificationObservers)
+														{
 															[bBuildNotificationCenter addObserver:tObserver selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:_currentBuildOrder];
+														
+															[[NSDistributedNotificationCenter defaultCenter] addObserver:tObserver selector:@selector(processDispatchErrorNotification:) name:PKGPackagesDispatcherErrorDidOccurNotification object:_currentBuildOrder.UUID suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
+															
+														}
 														
 														// Build Window
 														
@@ -698,11 +713,100 @@
 	return YES;
 }
 
+#pragma mark -
+
+- (void)_processBuildFailure
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
+	
+	// Play Failure Sound if needed
+	
+	PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorFailure];
+	
+	if (tBuildResultBehavior.playSound==YES)
+	{
+		NSString * tSoundName=tBuildResultBehavior.soundName;
+		
+		if (tSoundName.length>0)
+			[[NSSound soundNamed:tSoundName] play];
+	}
+	
+	// Speak Announcement if needed
+	
+	if (tBuildResultBehavior.speakAnnouncement==YES && [NSSpeechSynthesizer isAnyApplicationSpeaking]==NO)
+	{
+		NSString * tAnnouncementVoice=tBuildResultBehavior.announcementVoice;
+		
+		if (tAnnouncementVoice.length==0)
+			tAnnouncementVoice=[NSSpeechSynthesizer defaultVoice];
+		
+		if (tAnnouncementVoice.length>0)
+		{
+			NSSpeechSynthesizer * tSpeechSynthesizer=[[NSSpeechSynthesizer alloc] initWithVoice:tAnnouncementVoice];
+			
+			if ([tSpeechSynthesizer startSpeakingString:NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment")]==NO)
+			{
+			}
+		}
+		else
+		{
+			// A COMPLETER
+		}
+	}
+	
+	// Bounce Icon in Dock if needed
+	
+	if (tBuildResultBehavior.bounceIconInDock==YES)
+	{
+		[NSApp requestUserAttention:NSInformationalRequest];
+	}
+	
+	// Post User Notification if needed
+	
+	if (tBuildResultBehavior.notifyUsingSystemNotification==YES)
+	{
+		NSUserNotification * tSuccessUserNotification=[NSUserNotification new];
+		
+		tSuccessUserNotification.title= NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment");
+		tSuccessUserNotification.subtitle=self.fileURL.lastPathComponent;
+		
+		[[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:tSuccessUserNotification];
+	}
+	
+	// Show Build Window if needed
+	
+	if (_buildWindowController==nil)
+	{
+		if ([PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior==PKGPreferencesBuildShowBuildWindowOnErrors)
+		{
+			_buildWindowController=[PKGBuildDocumentWindowController new];
+			_buildWindowController.dataSource=_buildObserver;
+			
+			[self addWindowController:_buildWindowController];
+			
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildWindowWillClose:) name:NSWindowWillCloseNotification object:_buildWindowController.window];
+			
+			[_buildWindowController showWindow:self];
+		}
+		
+		return;
+	}
+	
+	// Hide Build Window if needed
+	
+	if ([PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior==PKGPreferencesBuildHideBuildWindowAlways)
+	{
+		if (_buildWindowController!=nil && _buildWindowController.window.isVisible==YES)
+			[_buildWindowController.window performClose:self];
+	}
+	
+	_currentBuildOrder=nil;
+}
+
 #pragma mark - Notifications
 
 - (void)buildWindowWillClose:(NSNotification *)inNotification
 {
-	
 	_buildWindowController=nil;
 }
 
@@ -754,90 +858,7 @@
 	
 	if (tState==PKGBuildStepStateFailure)
 	{
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGBuildEventNotification object:nil];
-		
-		// Play Failure Sound if needed
-		
-		PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorFailure];
-		
-		if (tBuildResultBehavior.playSound==YES)
-		{
-			NSString * tSoundName=tBuildResultBehavior.soundName;
-			
-			if (tSoundName.length>0)
-				[[NSSound soundNamed:tSoundName] play];
-		}
-		
-		// Speak Announcement if needed
-		
-		if (tBuildResultBehavior.speakAnnouncement==YES && [NSSpeechSynthesizer isAnyApplicationSpeaking]==NO)
-		{
-			NSString * tAnnouncementVoice=tBuildResultBehavior.announcementVoice;
-			
-			if (tAnnouncementVoice.length==0)
-				tAnnouncementVoice=[NSSpeechSynthesizer defaultVoice];
-			
-			if (tAnnouncementVoice.length>0)
-			{
-				NSSpeechSynthesizer * tSpeechSynthesizer=[[NSSpeechSynthesizer alloc] initWithVoice:tAnnouncementVoice];
-				
-				if ([tSpeechSynthesizer startSpeakingString:NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment")]==NO)
-				{
-				}
-			}
-			else
-			{
-				// A COMPLETER
-			}
-		}
-		
-		// Bounce Icon in Dock if needed
-		
-		if (tBuildResultBehavior.bounceIconInDock==YES)
-		{
-			[NSApp requestUserAttention:NSInformationalRequest];
-		}
-		
-		// Post User Notification if needed
-		
-		if (tBuildResultBehavior.notifyUsingSystemNotification==YES)
-		{
-			NSUserNotification * tSuccessUserNotification=[NSUserNotification new];
-		
-			tSuccessUserNotification.title= NSLocalizedStringFromTable(@"Build Failed",@"Build",@"No comment");
-			tSuccessUserNotification.subtitle=self.fileURL.lastPathComponent;
-		
-			[[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:tSuccessUserNotification];
-		}
-		
-		// Show Build Window if needed
-		
-		if (_buildWindowController==nil)
-		{
-			if ([PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior==PKGPreferencesBuildShowBuildWindowOnErrors)
-			{
-				_buildWindowController=[PKGBuildDocumentWindowController new];
-				_buildWindowController.dataSource=_buildObserver;
-				
-				[self addWindowController:_buildWindowController];
-				
-				[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildWindowWillClose:) name:NSWindowWillCloseNotification object:_buildWindowController.window];
-				
-				[_buildWindowController showWindow:self];
-			}
-			
-			return;
-		}
-		
-		// Hide Build Window if needed
-		
-		if ([PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior==PKGPreferencesBuildHideBuildWindowAlways)
-		{
-			if (_buildWindowController!=nil && _buildWindowController.window.isVisible==YES)
-				[_buildWindowController.window performClose:self];
-		}
-		
-		_currentBuildOrder=nil;
+		[self _processBuildFailure];
 		
 		return;
 	}
@@ -940,6 +961,11 @@
 			NSLog(@"[PKGDocument processBuildEventNotification:] Error when opening file \'%@\'",_productPath);
 		}
 	}
+}
+
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification
+{
+	[self _processBuildFailure];
 }
 
 @end
