@@ -50,7 +50,10 @@
 
 - (NSString *)stringForObjectValue:(id) inObject
 {
-    if ([inObject isKindOfClass:NSString.class]==NO)
+	if ([inObject isKindOfClass:NSAttributedString.class]==YES)
+		return ((NSAttributedString *)inObject).string;
+	
+	if ([inObject isKindOfClass:NSString.class]==NO)
 		return inObject;
     
     return inObject;
