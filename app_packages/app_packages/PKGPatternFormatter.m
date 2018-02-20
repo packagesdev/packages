@@ -15,14 +15,25 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGPatternFormatter
 
-- (BOOL) getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(NSString **)error
+- (BOOL)getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(NSString **)error
 {
 	*outObject=inString;
 	
 	return YES;
 }
 
-- (NSString *) stringForObjectValue:(id) inObject
+- (NSString *)stringForObjectValue:(id)inObject
+{
+	if ([inObject isKindOfClass:NSAttributedString.class]==YES)
+		return ((NSAttributedString *)inObject).string;
+	
+	if ([inObject isKindOfClass:NSString.class]==NO)
+		return @"";
+	
+	return inObject;
+}
+
+- (NSString *)editingStringForObjectValue:(id)inObject
 {
 	if (![inObject isKindOfClass:NSString.class])
 		return @"";
@@ -30,15 +41,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return inObject;
 }
 
-- (NSString *) editingStringForObjectValue:(id) inObject
-{
-	if (![inObject isKindOfClass:NSString.class])
-		return @"";
-	
-	return inObject;
-}
-
-- (NSAttributedString *) attributedStringForObjectValue:(id) inObject withDefaultAttributes:(NSDictionary *) inAttributes
+- (NSAttributedString *)attributedStringForObjectValue:(id) inObject withDefaultAttributes:(NSDictionary *) inAttributes
 {
 	NSAttributedString * tAttributedString=nil;
 
