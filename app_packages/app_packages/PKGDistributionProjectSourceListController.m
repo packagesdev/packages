@@ -35,6 +35,8 @@
 
 #import "PKGDistributionProjectExporter.h"
 
+#import "PKGPackageNameFormatter.h"
+
 NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackageComponentNameChangeDidRequestNotitication";
 
 @interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate,NSTextFieldDelegate>
@@ -42,6 +44,8 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	IBOutlet NSView * _sourceListAuxiliaryView;
 	
 	IBOutlet NSButton * _addButton;
+	
+	PKGPackageNameFormatter * _packageNameFormatter;
 }
 
 	@property IBOutlet NSMenu * contextualMenu;
@@ -78,6 +82,18 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 @end
 
 @implementation PKGDistributionProjectSourceListController
+
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+	self=[super initWithDocument:inDocument];
+	
+	if (self!=nil)
+	{
+		_packageNameFormatter=[PKGPackageNameFormatter new];
+	}
+	
+	return self;
+}
 
 - (void)WB_viewDidLoad
 {
@@ -395,6 +411,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
 		
 		tView.imageView.image=tSourceListItem.icon;
+		tView.textField.formatter=nil;
 		tView.textField.stringValue=tSourceListItem.label;
 		tView.textField.textColor=[NSColor blackColor];
 		tView.textField.delegate=nil;
@@ -446,6 +463,12 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		tView.textField.textColor=tTextColor;
 		
 		tView.textField.editable=tSourceListItem.editable;
+		
+		// Add Formatter
+		
+		tView.textField.formatter=(tSourceListItem.editable==YES) ? _packageNameFormatter : nil;
+
+		
 		tView.textField.delegate=self;
 		
 		return tView;

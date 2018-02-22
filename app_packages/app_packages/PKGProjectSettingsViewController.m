@@ -21,12 +21,9 @@
 
 #import "PKGCertificateSealWindowController.h"
 
-
+#import "PKGChooseIdentityPanel.h"
 
 #import "PKGCertificatesUtilities.h"
-
-#import <SecurityInterface/SFChooseIdentityPanel.h>
-#import <SecurityInterface/SFCertificatePanel.h>
 
 #import "NSAlert+block.h"
 
@@ -45,14 +42,9 @@
 	PKGTableViewDataSource * _fileFiltersDataSource;
 	
 	PKGCertificateSealWindowController * _certificateSealWindowController;
-	
-	SFChooseIdentityPanel * _chooseIdentityPanel;
 }
 
 	@property (readwrite) IBOutlet PKGFilePathTextField * buildPathTextField;
-
-
-- (void)selectCertificateDidEnd:(NSWindow *) inSheet returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
 
 
 
@@ -287,128 +279,26 @@
 
 - (IBAction)selectCertificate:(id)sender
 {
-	NSArray * tIdentitiesArray=[PKGCertificatesUtilities availableIdentities];
+	PKGChooseIdentityPanel * tChooseIdentityPanel=[PKGChooseIdentityPanel new];
 	
-	if (tIdentitiesArray.count==0)
-	{
-		NSArray * tCertificatesArray=[PKGCertificatesUtilities availableCertificates];
-		
-		NSAlert * tAlert=[NSAlert new];
-		
-		[tAlert addButtonWithTitle:NSLocalizedString(@"OK",@"No Comment")];
-		
-		if (tCertificatesArray.count==0)
-		{
-			tAlert.messageText=NSLocalizedString(@"No certificates Alert Message Text",@"");
-			tAlert.informativeText=NSLocalizedString(@"No certificates Alert Informative Text",@"");
-			
-			[tAlert addButtonWithTitle:NSLocalizedString(@"Go to Apple Developer website",@"No Comment")];
-		}
-		else
-		{
-			if (tCertificatesArray.count==1)
-			{
-				SecCertificateRef tCertificateRef=(__bridge SecCertificateRef)tCertificatesArray.firstObject;
-				
-				CFStringRef tCommonNameRef=NULL;
-				
-				OSStatus tStatus=SecCertificateCopyCommonName(tCertificateRef,&tCommonNameRef);
-				
-				if (tStatus!=errSecSuccess)
-				{
-					NSLog(@"Could not obtain the Certificate Common Name (%d)",(int)tStatus);
-					
-					tAlert.messageText=NSLocalizedString(@"No signing certificate Alert Message Text",@"");
-				}
-				else
-				{
-					tAlert.messageText=[NSString stringWithFormat: NSLocalizedString(@"The \"%@\" certificate available in the Keychain can not be used to sign a package or flat distribution.",@""),(__bridge NSString *)tCommonNameRef];
-					
-					CFRelease(tCommonNameRef);
-				}
-				
-				tAlert.informativeText=NSLocalizedString(@"There is no private key associated to this certificate.",@"");
-			}
-			else
-			{
-				tAlert.messageText=NSLocalizedString(@"No signing certificates Alert Message Text",@"");
-				tAlert.informativeText=NSLocalizedString(@"There are no private keys associated to these certificates.",@"");
-			}
-		}
-		
-		[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
-		
-			if (bReturnCode==NSAlertSecondButtonReturn)
-				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:NSLocalizedString(@"url.apple.developer.website.certificates",@"")]];
-		}];
-		
-		return;
-	}
+	tChooseIdentityPanel.messageText=self.certificatePanelMessage;
+	tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");
 	
-	_chooseIdentityPanel=[SFChooseIdentityPanel new];
-	
-	[_chooseIdentityPanel setInformativeText:NSLocalizedString(@"Certificate Chooser Informative Text",@"")];
-	
-	[_chooseIdentityPanel setAlternateButtonTitle:NSLocalizedString(@"Cancel",@"")];
-	
-	[_chooseIdentityPanel beginSheetForWindow:self.view.window
-								modalDelegate:self
-							   didEndSelector:@selector(selectCertificateDidEnd:returnCode:contextInfo:)
-								  contextInfo:NULL
-								   identities:tIdentitiesArray
-									  message:self.certificatePanelMessage];
-}
-
-- (void)selectCertificateDidEnd:(NSWindow *)inSheet returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
-{
-	if (inReturnCode!=NSOKButton)
-		return;
-	
-	SecIdentityRef tIdentityRef=[_chooseIdentityPanel identity];
-	
-	if (tIdentityRef==NULL)
-	{
-	}
-	
-	SecCertificateRef tCertificateRef;
-	OSStatus tStatus=SecIdentityCopyCertificate(tIdentityRef,&tCertificateRef);
-	
-	if (tStatus!=noErr)
-	{
-	}
-	
-	CFStringRef tCertificateNameRef;
-	
-	if (SecCertificateCopyCommonName(tCertificateRef, &tCertificateNameRef)!=errSecSuccess)
-	{
-		NSBeep();
-		
-		CFRelease(tCertificateRef);
-		
-		NSAlert * tAlert=[NSAlert new];
-		
-		tAlert.alertStyle=NSWarningAlertStyle;
-		
-		tAlert.messageText=NSLocalizedString(@"The Identity of the certificate could not be retrieved.",@"No comment");
-		tAlert.informativeText=NSLocalizedString(@"Packages will keep using the previous certificate set.",@"No comment");
-		
-		[tAlert runModal];
-		
-		return;
-	}
-	
-	self.projectSettings.certificateName=(__bridge_transfer NSString *)tCertificateNameRef;
-	self.projectSettings.certificateKeychainPath=[@"~/Library/Keychains/login.keychain" stringByExpandingTildeInPath];
-		
-	[self updateCertificateSeal];
-		
-	// Notify Document Change
-		
-	[self noteDocumentHasChanged];
-	
-	// Release Memory
-	
-	CFRelease(tCertificateRef);
+	[tChooseIdentityPanel beginSheetModalForWindow:self.view.window
+								 completionHandler:^(NSInteger bReturnCode) {
+									 
+									 if (bReturnCode==NSCancelButton)
+										 return;
+									 
+									 self.projectSettings.certificateName=tChooseIdentityPanel.identity;
+									 self.projectSettings.certificateKeychainPath=[@"~/Library/Keychains/login.keychain" stringByExpandingTildeInPath];
+									 
+									 [self updateCertificateSeal];
+									 
+									 // Notify Document Change
+									 
+									 [self noteDocumentHasChanged];
+								 }];
 }
 
 - (IBAction)removeCertificate:(id) sender
@@ -425,8 +315,6 @@
 		
 		if (bReturnCode==NSAlertSecondButtonReturn)
 			return;
-		
-		_chooseIdentityPanel=nil;	// Good opportunity to release this panel
 		
 		self.projectSettings.certificateName=nil;
 		self.projectSettings.certificateKeychainPath=nil;

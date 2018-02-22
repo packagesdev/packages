@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -85,6 +85,13 @@ typedef NS_ENUM(NSInteger, PKGPreferencesBuildResultBehaviorType)
 
 @end
 
+typedef NS_ENUM(NSUInteger, PKGPreferencesQuickBuildSigningAction)
+{
+	PKGPreferencesQuickBuildSigningDontSign=0,
+	PKGPreferencesQuickBuildSigningAskForEachBuild,
+	PKGPreferencesQuickBuildSigningSign
+};
+
 
 @interface PKGApplicationPreferences : NSObject
 
@@ -119,6 +126,10 @@ typedef NS_ENUM(NSInteger, PKGPreferencesBuildResultBehaviorType)
 
 	@property (readonly) NSArray * buildResultBehaviors;
 
+
+	@property (nonatomic) PKGPreferencesQuickBuildSigningAction quickBuildSigningAction;
+
+	@property (nonatomic,copy) NSString * quickBuildSigningIdentity;
 
 	@property (nonatomic) BOOL useBundleVersionForQuickBuild;
 

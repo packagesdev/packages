@@ -13,6 +13,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * const PKGQuickBuildErrorDomain;
+
 @interface PKGQuickBuildDocument : NSDocument
 
 @end

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -63,6 +63,10 @@ NSString * const PKGPreferencesBuildResultBehaviorNotifyUsingSystemNotificationF
 
 NSString * const PKGPreferencesBuildResultBehaviorBounceIconInDockFormatKey=@"build.result.behavior.%@.bounceIconInDock";
 
+
+NSString * const PKGPreferencesQuickBuildSigningActionKey=@"quickbuild.signing.action";
+
+NSString * const PKGPreferencesQuickBuildSigningIdentityKey=@"quickbuild.signing.identity";
 
 NSString * const PKGPreferencesQuickBuildUseBundleVersionKey=@"quickbuild.version.useBundle";
 
@@ -339,6 +343,7 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 									  PKGPreferencesBuildShowBuildWindowBehaviorKey:@(PKGPreferencesBuildShowBuildWindowAlways),
 									  PKGPreferencesBuildHideBuildWindowBehaviorKey:@(PKGPreferencesBuildHideBuildWindowNever),
 									  
+									  PKGPreferencesQuickBuildSigningActionKey:@(PKGPreferencesQuickBuildSigningDontSign),
 									  PKGPreferencesQuickBuildUseBundleVersionKey:@(NO),
 									  //PKGPreferencesQuickBuildFailOverFolderKey = nil <=> NSHomeDirectory()
 									  PKGPreferencesBuildTemporaryBuildLocationKey:PKGPreferencesBuildDefautTemporationLocation,
@@ -381,6 +386,10 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		_hideBuildWindowBehavior=[_defaults integerForKey:PKGPreferencesBuildHideBuildWindowBehaviorKey];
 		
 		_buildResultBehaviors=[PKGApplicationBuildResultBehavior buildResultBehaviors];
+		
+		_quickBuildSigningAction=[_defaults integerForKey:PKGPreferencesQuickBuildSigningActionKey];
+		
+		_quickBuildSigningIdentity=[_defaults stringForKey:PKGPreferencesQuickBuildSigningIdentityKey];
 		
 		_useBundleVersionForQuickBuild=[_defaults boolForKey:PKGPreferencesQuickBuildUseBundleVersionKey];
 		
@@ -485,6 +494,20 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 	_hideBuildWindowBehavior=inTag;
 	
 	[_defaults setInteger:inTag forKey:PKGPreferencesBuildHideBuildWindowBehaviorKey];
+}
+
+- (void)setQuickBuildSigningAction:(PKGPreferencesQuickBuildSigningAction)inTag
+{
+	_quickBuildSigningAction=inTag;
+	
+	[_defaults setInteger:inTag forKey:PKGPreferencesQuickBuildSigningActionKey];
+}
+
+- (void)setQuickBuildSigningIdentity:(NSString *)inQuickBuildSigningIdentity
+{
+	_quickBuildSigningIdentity=[inQuickBuildSigningIdentity copy];
+	
+	[_defaults setObject:_quickBuildSigningIdentity forKey:PKGPreferencesQuickBuildSigningIdentityKey];
 }
 
 - (void)setUseBundleVersionForQuickBuild:(BOOL)inBool

@@ -59,6 +59,8 @@
 		F419923E1E32C3AE009F011C /* PKGCertificateSealView.m in Sources */ = {isa = PBXBuildFile; fileRef = F419923C1E32C3AE009F011C /* PKGCertificateSealView.m */; };
 		F419924A1E32C8A5009F011C /* PKGCertificatesUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E482E21DA5B38400854527 /* PKGCertificatesUtilities.m */; };
 		F41A98911EB7758D001304F7 /* PKGDistributionProject+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A98901EB7758D001304F7 /* PKGDistributionProject+UI.m */; };
+		F41EF199203E247200F42407 /* PKGChooseIdentityPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F41EF197203E247200F42407 /* PKGChooseIdentityPanel.m */; };
+		F41EF1A4203E24C200F42407 /* PKGPackageNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F41EF1A2203E24C200F42407 /* PKGPackageNameFormatter.m */; };
 		F42448C01E17E22300E5A618 /* PKGPayloadTreeNodeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42448BD1E17E22300E5A618 /* PKGPayloadTreeNodeImageView.m */; };
 		F42448C11E17E22300E5A618 /* PKGPayloadFilenameTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42448BF1E17E22300E5A618 /* PKGPayloadFilenameTableCellView.m */; };
 		F42448C61E17E24000E5A618 /* NSOutlineView+Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = F42448C31E17E24000E5A618 /* NSOutlineView+Selection.m */; };
@@ -882,6 +884,10 @@
 		F41A98901EB7758D001304F7 /* PKGDistributionProject+UI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGDistributionProject+UI.m"; path = "../model+UI/PKGDistributionProject+UI.m"; sourceTree = "<group>"; };
 		F41BA2D20D9DC2EF00749037 /* NSArray+Reverse.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Reverse.m"; path = "../Foundation + Extensions/NSArray+Reverse.m"; sourceTree = SOURCE_ROOT; };
 		F41BA2D30D9DC2EF00749037 /* NSArray+Reverse.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "NSArray+Reverse.h"; path = "../Foundation + Extensions/NSArray+Reverse.h"; sourceTree = SOURCE_ROOT; };
+		F41EF197203E247200F42407 /* PKGChooseIdentityPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGChooseIdentityPanel.m; path = app_packages/PKGChooseIdentityPanel.m; sourceTree = "<group>"; };
+		F41EF198203E247200F42407 /* PKGChooseIdentityPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGChooseIdentityPanel.h; path = app_packages/PKGChooseIdentityPanel.h; sourceTree = "<group>"; };
+		F41EF1A2203E24C200F42407 /* PKGPackageNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPackageNameFormatter.m; path = app_packages/PKGPackageNameFormatter.m; sourceTree = "<group>"; };
+		F41EF1A3203E24C200F42407 /* PKGPackageNameFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPackageNameFormatter.h; path = app_packages/PKGPackageNameFormatter.h; sourceTree = "<group>"; };
 		F42448BC1E17E22300E5A618 /* PKGPayloadTreeNodeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPayloadTreeNodeImageView.h; path = app_packages/PKGPayloadTreeNodeImageView.h; sourceTree = "<group>"; };
 		F42448BD1E17E22300E5A618 /* PKGPayloadTreeNodeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPayloadTreeNodeImageView.m; path = app_packages/PKGPayloadTreeNodeImageView.m; sourceTree = "<group>"; };
 		F42448BE1E17E22300E5A618 /* PKGPayloadFilenameTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPayloadFilenameTableCellView.h; path = app_packages/PKGPayloadFilenameTableCellView.h; sourceTree = "<group>"; };
@@ -3881,6 +3887,8 @@
 		F4DD1FFA1E17EB4E0018140D /* panels */ = {
 			isa = PBXGroup;
 			children = (
+				F41EF197203E247200F42407 /* PKGChooseIdentityPanel.m */,
+				F41EF198203E247200F42407 /* PKGChooseIdentityPanel.h */,
 				F4DD1FFE1E17EB600018140D /* PKGOwnershipAndReferenceStylePanel.h */,
 				F4DD1FFF1E17EB600018140D /* PKGOwnershipAndReferenceStylePanel.m */,
 				F476DABC1E341BB1008C32AC /* PKGCertificatePanel.h */,
@@ -4149,6 +4157,8 @@
 		F4EC28201DDA86A3006D8304 /* formatters */ = {
 			isa = PBXGroup;
 			children = (
+				F41EF1A2203E24C200F42407 /* PKGPackageNameFormatter.m */,
+				F41EF1A3203E24C200F42407 /* PKGPackageNameFormatter.h */,
 				F4EC28211DDA86AD006D8304 /* PKGFileNameFormatter.h */,
 				F4EC28221DDA86AD006D8304 /* PKGFileNameFormatter.m */,
 			);
@@ -4639,6 +4649,7 @@
 				F424D3571DCE3E4900F95165 /* PKGPayloadTree.m in Sources */,
 				F424D37F1DCE404800F95165 /* PKGApplicationController.m in Sources */,
 				F4DD20071E17EBB60018140D /* PKGPackageProjectSettingsViewController.m in Sources */,
+				F41EF1A4203E24C200F42407 /* PKGPackageNameFormatter.m in Sources */,
 				F49068A51E42975B003C5D38 /* PKGPresentationBox.m in Sources */,
 				F47AA5981DD2954A005AFC1D /* PKGTemporaryBuildLocationView.m in Sources */,
 				F4C2918F1EB63913004DDBE3 /* PKGChoicesForest+Edition.m in Sources */,
@@ -4983,6 +4994,7 @@
 				F4E877551E72112600C47505 /* PKGHighlightWindow.m in Sources */,
 				F405AA551DCFED9D006A9B11 /* PKGProjectTemplateDefaultValuesSettings.m in Sources */,
 				F40F55CB1F0303530037C8F5 /* PKGFilePathConverter+Edition.m in Sources */,
+				F41EF199203E247200F42407 /* PKGChooseIdentityPanel.m in Sources */,
 				F424D3531DCE3E4900F95165 /* PKGPackageScriptsAndResources.m in Sources */,
 				F48C120C1E395CBA002EEC66 /* PKGPresentationWindowView.m in Sources */,
 				F4CD44321EF9D1D90087D75B /* PKGPayloadBundleItem+Transformation.m in Sources */,

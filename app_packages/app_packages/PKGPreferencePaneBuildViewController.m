@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2017, Stephane Sudre
+ Copyright (c) 2008-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,6 +17,8 @@
 
 #import "PKGTemporaryBuildLocationView.h"
 #import "PKGVerticallyCenteredTextField.h"
+
+#import "PKGChooseIdentityPanel.h"
 
 #import "NSArray+WBExtensions.h"
 
@@ -44,6 +46,7 @@
 	
 	IBOutlet NSButton * _bounceIconInDockCheckBox;
 	
+	IBOutlet NSPopUpButton * _quickBuildSigningCertificatePopUpButton;
 	
 	IBOutlet NSButton * _quickBuildUseBundleVersionCheckBox;
 	
@@ -72,23 +75,23 @@
 
 - (void)refreshTemporaryBuildLocationUI;
 
-- (void)setFailoverFolder:(NSString *) inFolderPath;
+- (void)setFailoverFolder:(NSString *)inFolderPath;
 
 
-- (IBAction)switchUnsavedProjectBehavior:(id) sender;
+- (IBAction)switchUnsavedProjectBehavior:(id)sender;
 
 
-- (IBAction)switchShowBuildWindowBehavior:(id) sender;
+- (IBAction)switchShowBuildWindowBehavior:(id)sender;
 
-- (IBAction)switchHideBuildWindowBehavior:(id) sender;
+- (IBAction)switchHideBuildWindowBehavior:(id)sender;
 
 
 - (IBAction)switchBuildResultBehavior:(id)sender;
 
 
-- (IBAction)switchPlaySound:(id) sender;
+- (IBAction)switchPlaySound:(id)sender;
 
-- (IBAction)switchSoundName:(id) sender;
+- (IBAction)switchSoundName:(id)sender;
 
 - (IBAction)switchSpeakAnnouncement:(id)sender;
 
@@ -99,12 +102,14 @@
 - (IBAction)switchBounceIconInDock:(id)sender;
 
 
-- (IBAction)setQuickBuildUseBundleVersion:(id) sender;
+- (IBAction)switchQuickBuildSigningCertificate:(id)sender;
 
-- (IBAction)switchQuickBuildFailoverFolder:(id) sender;
+- (IBAction)setQuickBuildUseBundleVersion:(id)sender;
+
+- (IBAction)switchQuickBuildFailoverFolder:(id)sender;
 
 
-- (IBAction)setTemporaryBuildLocation:(id) sender;
+- (IBAction)setTemporaryBuildLocation:(id)sender;
 
 @end
 
@@ -213,6 +218,19 @@
 	[self refreshBuildResultBehaviorUI];
 	
 	// Quick Build
+	
+	[_quickBuildSigningCertificatePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction];
+	
+	NSMenuItem * tMenuItem=[_quickBuildSigningCertificatePopUpButton itemAtIndex:[_quickBuildSigningCertificatePopUpButton indexOfItemWithTag:PKGPreferencesQuickBuildSigningSign]];
+	
+	NSString * tSigningIdentity=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
+	
+	if ([tSigningIdentity length]==0)
+		tSigningIdentity=@"-";
+	else
+		tMenuItem.enabled=YES;
+		
+	tMenuItem.title=tSigningIdentity;
 	
 	[_quickBuildUseBundleVersionCheckBox setState:([PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild==YES) ? NSOnState : NSOffState];
 	
@@ -323,7 +341,7 @@
 	return [_sVoicesMenu copy];
 }
 
-- (void)setFailoverFolder:(NSString *) inFolderPath
+- (void)setFailoverFolder:(NSString *)inFolderPath
 {
 	if (inFolderPath!=nil)
 	{
@@ -375,17 +393,17 @@
 
 #pragma mark -
 
-- (IBAction)switchUnsavedProjectBehavior:(id) sender
+- (IBAction)switchUnsavedProjectBehavior:(id)sender
 {
 	[PKGApplicationPreferences sharedPreferences].unsavedProjectSaveBehavior=_unsavedProjectBehaviorPopUpButton.selectedItem.tag;
 }
 
-- (IBAction)switchShowBuildWindowBehavior:(id) sender
+- (IBAction)switchShowBuildWindowBehavior:(id)sender
 {
 	[PKGApplicationPreferences sharedPreferences].showBuildWindowBehavior=_showBuildWindowBehaviorPopUpButton.selectedItem.tag;
 }
 
-- (IBAction)switchHideBuildWindowBehavior:(id) sender
+- (IBAction)switchHideBuildWindowBehavior:(id)sender
 {
 	[PKGApplicationPreferences sharedPreferences].hideBuildWindowBehavior=_hideBuildWindowBehaviorPopUpButton.selectedItem.tag;
 }
@@ -454,7 +472,53 @@
 	tResultBehavior.bounceIconInDock=([sender state]==NSOnState);
 }
 
-- (IBAction)setQuickBuildUseBundleVersion:(id) sender
+- (IBAction)switchQuickBuildSigningCertificate:(NSPopUpButton *)sender
+{
+	NSInteger tTag=[sender selectedItem].tag;
+	
+	if (tTag==-1)
+	{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			
+			PKGChooseIdentityPanel * tChooseIdentityPanel=[PKGChooseIdentityPanel new];
+			
+			tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing Quick Builds.",@"");;
+			tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");;
+			
+			[tChooseIdentityPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode) {
+				
+				if (bReturnCode==NSCancelButton)
+				{
+					[_quickBuildSigningCertificatePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction];
+					
+					return;
+				}
+				
+				[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity=tChooseIdentityPanel.identity;
+				
+				[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction=PKGPreferencesQuickBuildSigningSign;
+				
+				// Update the PopUpButton first menu item
+				
+				NSMenuItem * tMenuItem=[_quickBuildSigningCertificatePopUpButton itemAtIndex:[_quickBuildSigningCertificatePopUpButton indexOfItemWithTag:PKGPreferencesQuickBuildSigningSign]];
+				
+				tMenuItem.title=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
+				tMenuItem.enabled=YES;
+				
+				[_quickBuildSigningCertificatePopUpButton selectItemWithTag:PKGPreferencesQuickBuildSigningSign];
+			}];
+		});
+		
+		return;
+	}
+	
+	if (tTag!=[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction)
+	{
+		[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction=(PKGPreferencesQuickBuildSigningAction)tTag;
+	}
+}
+
+- (IBAction)setQuickBuildUseBundleVersion:(id)sender
 {
 	[PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild=(_quickBuildUseBundleVersionCheckBox.state==NSOnState);
 }
@@ -517,6 +581,24 @@
 		
 		[self refreshTemporaryBuildLocationUI];
 	}];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+	SEL tAction=inMenuItem.action;
+	
+	if (tAction==@selector(switchQuickBuildSigningCertificate:))
+	{
+		if (inMenuItem.tag==PKGPreferencesQuickBuildSigningSign)
+		{
+			NSString * tString=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
+		
+			if ([tString length]==0)
+				return NO;
+		}
+	}
+	
+	return YES;
 }
 
 #pragma mark - PKGFileDeadDropViewDelegate

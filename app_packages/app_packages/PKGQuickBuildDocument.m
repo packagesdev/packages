@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2017, Stephane Sudre
+ Copyright (c) 2008-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -12,6 +12,8 @@
  */
 
 #import "PKGQuickBuildDocument.h"
+
+#import "PKGBuildDispatcher+Constants.h"
 
 #import "PKGQuickBuildFeedbackWindowController.h"
 
@@ -27,8 +29,14 @@
 #import "PKGBuildOrderManager.h"
 #import "PKGBuildOrder.h"
 
+#import "PKGChooseIdentityPanel.h"
+
+#import "NSAlert+block.h"
+
 #include <sys/stat.h>
 #include <unistd.h>
+
+NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 
 @interface PKGQuickBuildDocument ()
 {
@@ -42,6 +50,8 @@
 // Notifications
 
 - (void)processBuildEventNotification:(NSNotification *)inNotification;
+
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification;
 
 @end
 
@@ -144,6 +154,144 @@
 	
 	tProjectSettings.buildPath=[PKGFilePath filePathWithAbsolutePath:tParentFolderPath];
 	
+		// Certificates
+	
+	switch([PKGApplicationPreferences sharedPreferences].quickBuildSigningAction)
+	{
+		case PKGPreferencesQuickBuildSigningDontSign:
+			
+			break;
+		
+		case PKGPreferencesQuickBuildSigningAskForEachBuild:
+		{
+			NSString * tSigningIdentity=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
+			BOOL tIsSigningIdentityDefined=([tSigningIdentity length]>0);
+			
+			NSAlert * tAlert=[NSAlert new];
+			
+			[tAlert addButtonWithTitle:NSLocalizedString(@"Sign",@"")];
+			[tAlert addButtonWithTitle:NSLocalizedString(@"Don't Sign",@"")];
+			
+			if (tIsSigningIdentityDefined==YES)
+			{
+				tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"Do you want to sign the package \"%@\" with the certificate \"%@\"?", @""),tProjectSettings.name,tSigningIdentity];
+				tAlert.informativeText=NSLocalizedString(@"Quick Build Signing Informative Text",@"");
+				
+				[tAlert addButtonWithTitle:NSLocalizedString(@"Sign With Another Certificate",@"")];
+			}
+			else
+			{
+				tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"Do you want to sign the package \"%@\"?", @""),tProjectSettings.name];
+				tAlert.informativeText=NSLocalizedString(@"Quick Build Signing Informative Text",@"");
+			}
+			
+			NSModalResponse tResponse=[tAlert runModal];
+			
+			PKGChooseIdentityPanel * tChooseIdentityPanel;
+			
+			switch(tResponse)
+			{
+				case NSAlertFirstButtonReturn:
+					
+					// Sign
+					
+					if (tIsSigningIdentityDefined==NO)
+					{
+						// Choose a certificate
+						
+						tChooseIdentityPanel=[PKGChooseIdentityPanel new];
+						
+						tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing the package.", @"");
+						tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");
+						
+						if ([tChooseIdentityPanel runModal]!=NSOKButton)
+						{
+							[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
+							
+							PKGQuickBuildDocument * __weak tWeakSelf = self;
+							
+							dispatch_async(dispatch_get_main_queue(), ^{
+								
+								[tWeakSelf close];
+								
+							});
+							
+							return YES;
+						}
+						
+						tSigningIdentity=tChooseIdentityPanel.identity;
+					}
+					
+					tProjectSettings.certificateName=tSigningIdentity;
+					tProjectSettings.certificateKeychainPath=nil;
+					
+					break;
+					
+				case NSAlertSecondButtonReturn:
+					
+					// Don't Sign
+					
+					// Nothing to do
+					
+					break;
+					
+				case NSAlertThirdButtonReturn:
+					
+					// Sign With Another Certificate
+					
+					tChooseIdentityPanel=[PKGChooseIdentityPanel new];
+					
+					tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing the package.", @"");;
+					tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");
+					
+					if ([tChooseIdentityPanel runModal]!=NSOKButton)
+					{
+						[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
+						
+						PKGQuickBuildDocument * __weak tWeakSelf = self;
+						
+						dispatch_async(dispatch_get_main_queue(), ^{
+							
+							[tWeakSelf close];
+							
+						});
+						
+						return YES;
+					}
+					
+					tSigningIdentity=tChooseIdentityPanel.identity;
+					
+					break;
+			}
+			
+			break;
+		}
+			
+		case PKGPreferencesQuickBuildSigningSign:
+		{
+			NSString * tSigningIdentity=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
+			
+			if (tSigningIdentity==nil)
+			{
+				// This should not happen
+				
+				// A COMPLETER
+			}
+			
+			if (tSigningIdentity.length==0)
+			{
+				// This should not happen
+				
+				// A COMPLETER
+			}
+			
+			tProjectSettings.certificateName=tSigningIdentity;
+			tProjectSettings.certificateKeychainPath=nil;
+			
+			break;
+		}
+	}
+	
 		// Excluded files
 	
 	[tProjectSettings.filesFilters removeAllObjects];
@@ -159,7 +307,12 @@
 	
 	if (tString.length==0)
 	{
+		[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
+		
 		NSLog(@"No bundle identifiers or empty one for bundle at path \"%@\".",tPath);
+		
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGQuickBuildErrorDomain code:1 userInfo:nil];	// A COMPLETER
 		
 		return NO;
 	}
@@ -249,6 +402,8 @@
 	{
 		// A COMPLETER
 		
+		[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
+		
 		return NO;
 	}
 	
@@ -257,6 +412,8 @@
 	if (lstat([tPath fileSystemRepresentation], &tStat)!=0)
 	{
 		// A COMPLETER
+		
+		[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
 		
 		return NO;
 	}
@@ -286,6 +443,8 @@
 	{
 		// A COMPLETER
 		
+		[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
+		
 		return NO;
 	}
 	
@@ -294,6 +453,8 @@
 	if ([tRawPackageProject writeToURL:_temporaryProjectURL atomically:YES]==NO)
 	{
 		// A COMPLETER
+		
+		[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
 		
 		return NO;
 	}
@@ -345,6 +506,8 @@
 														// Register for notifications
 														
 														[bBuildNotificationCenter addObserver:self selector:@selector(processBuildEventNotification:) name:PKGBuildEventNotification object:tBuildOrder];
+														
+														[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(processDispatchErrorNotification:) name:PKGPackagesDispatcherErrorDidOccurNotification object:tBuildOrder.UUID suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
 													}
 											   completionHandler:^(PKGBuildResult bResult){
 												   
@@ -514,6 +677,41 @@
 		
 		return;
 	}
+}
+
+- (void)processDispatchErrorNotification:(NSNotification *)inNotification
+{
+	// Play Failure Sound if needed
+	
+	PKGApplicationBuildResultBehavior * tBuildResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[PKGPreferencesBuildResultBehaviorFailure];
+	
+	if (tBuildResultBehavior.playSound==YES)
+	{
+		NSString * tSoundName=tBuildResultBehavior.soundName;
+		
+		if (tSoundName.length>0)
+			[[NSSound soundNamed:tSoundName] play];
+	}
+	
+	[[PKGQuickBuildFeedbackWindowController sharedController] setStatus:PKGQuickBuildStateFailed forUUID:_UUID];
+	
+	[[PKGQuickBuildFeedbackWindowController sharedController] performSelector:@selector(removeViewForUUID:) withObject:_UUID afterDelay:2.0];
+	
+	// Remove Temporary Folder
+	
+	[[NSFileManager defaultManager] removeItemAtURL:[_temporaryProjectURL URLByDeletingLastPathComponent] error:NULL];
+	
+	if (((PKGApplicationController *)[NSApp delegate]).launchedNormally==NO)
+	{
+		if ([[NSDocumentController sharedDocumentController] documents].count==1)
+		{
+			[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:3.0];
+			
+			return;
+		}
+	}
+	
+	[self close];
 }
 
 @end

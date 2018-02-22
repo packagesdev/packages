@@ -226,11 +226,10 @@
 			}
 		}
 		
-		/*[tAlert WB_beginSheetModalForWindow:sheetWindow completionHandler:^(NSModalResponse bReturnCode){
-			
-			if (bReturnCode==NSAlertSecondButtonReturn)
+		NSModalResponse tResponse=[tAlert runModal];
+		
+		if (tResponse==NSAlertSecondButtonReturn)
 				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:NSLocalizedString(@"url.apple.developer.website.certificates",@"")]];
-		}];*/
 		
 		return NSAlertErrorReturn;
 	}
