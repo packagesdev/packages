@@ -729,7 +729,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 							if ([tFilePath isEqualToString:@"Scratch_Location"]==YES)
 								tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@"\'/tmp/private/\'",@"Build",@"")];
 							else
-								tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@"\'%s\'",@"Build",@""),tFilePath.stringByDeletingLastPathComponent.lastPathComponent];
+								tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@"\'%s\'",@"Build",@""),[tFilePath.stringByDeletingLastPathComponent.lastPathComponent UTF8String]];
 							
 							break;
 							
