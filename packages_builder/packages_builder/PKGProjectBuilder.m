@@ -5886,6 +5886,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					
 				[tFinalPackageName replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange(0,[tFinalPackageName length])];
 				
+				tFinalPackageName=[[[tFinalPackageName decomposedStringWithCanonicalMapping] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+				
+				[tFinalPackageName replaceOccurrencesOfString:@"%" withString:@"_" options:0 range:NSMakeRange(0,[tFinalPackageName length])];
+				
 				tBuildPackageAttributes.referencePath=[NSString stringWithFormat:@"#%@",tFinalPackageName];
 			}
 		}
@@ -6267,6 +6271,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 		[tFinalPackageName replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange(0,[tFinalPackageName length])];
 
+		tFinalPackageName=[[[tFinalPackageName decomposedStringWithCanonicalMapping] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+		
+		[tFinalPackageName replaceOccurrencesOfString:@"%" withString:@"_" options:0 range:NSMakeRange(0,[tFinalPackageName length])];
+		
 		tPackageFolderPath=[_buildInformation.contentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pkg",tFinalPackageName]];
 	}
 	else
@@ -6499,7 +6507,13 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				switch(tError.code)
 				{
 					case PKGArchiveErrorFileCanNotBeCreated:
+						
+						tErrorEvent.code=PKGBuildErrorFileCanNotBeCreated;
+						tErrorEvent.filePath=tArchivePath;
+						tErrorEvent.fileKind=PKGFileKindPackage;
+						
 						// A COMPLETER
+						
 						break;
 					
 					case PKGArchiveErrorCertificatesCanNotBeRetrieved:
