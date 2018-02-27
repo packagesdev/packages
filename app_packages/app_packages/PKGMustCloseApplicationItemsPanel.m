@@ -163,6 +163,8 @@
 
 - (IBAction)endDialog:(NSButton *)sender
 {
+	[self.window makeFirstResponder:nil];
+	
 	[NSApp endSheet:self.window returnCode:sender.tag];
 }
 
