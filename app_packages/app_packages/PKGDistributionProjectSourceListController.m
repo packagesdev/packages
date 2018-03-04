@@ -466,7 +466,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		
 		// Add Formatter
 		
-		tView.textField.formatter=(tSourceListItem.editable==YES) ? _packageNameFormatter : nil;
+		//tView.textField.formatter=(tSourceListItem.editable==YES) ? _packageNameFormatter : nil;
 
 		
 		tView.textField.delegate=self;
