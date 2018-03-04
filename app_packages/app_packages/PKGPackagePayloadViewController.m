@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -204,7 +204,7 @@
 {
 	BOOL tAdvancedModeEnabled=[PKGApplicationPreferences sharedPreferences].advancedMode;
 	
-	if (tAdvancedModeEnabled==NO && _advancedBuildOptionsView.hidden==NO)
+	if (tAdvancedModeEnabled==NO && [_advancedBuildOptionsView isHidden]==NO)
 	{
 		NSRect tSettingsViewFrame=_settingsView.frame;
 		NSRect tFilesHierarchyViewFrame=_hierarchyPlaceHolderView.frame;
@@ -222,7 +222,7 @@
 		
 		_hierarchyPlaceHolderView.frame=tFilesHierarchyViewFrame;
 	}
-	else if (tAdvancedModeEnabled==YES && _advancedBuildOptionsView.hidden==YES)
+	else if (tAdvancedModeEnabled==YES && [_advancedBuildOptionsView isHidden]==YES)
 	{
 		NSRect tSettingsViewFrame=_settingsView.frame;
 		NSRect tFilesHierarchyViewFrame=_hierarchyPlaceHolderView.frame;
