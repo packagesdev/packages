@@ -32,6 +32,13 @@
 		_savedUserID=geteuid();
 		_savedGroupID=getegid();
 		
+		if (setegid(inGroupID)==-1)
+		{
+			int errfound=errno;
+			
+			fprintf(stdout, "%d",errfound);
+		}
+		
 		if (seteuid(inUserID)==-1)
 		{
 			fprintf(stdout, "Unable to set the effective user id to %d (%d).\n",inUserID,errno);
@@ -39,7 +46,7 @@
 			exit(EXIT_FAILURE);
 		}
 		
-		setegid(inGroupID);
+		
 	}
 	
 	return self;
