@@ -6267,8 +6267,6 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		tFinalPackageName=[NSMutableString stringWithString:tPackageName];
 				
-		//CFStringTrimWhitespace((CFMutableStringRef) tFinalPackageName);
-			
 		[tFinalPackageName replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange(0,[tFinalPackageName length])];
 
 		tFinalPackageName=[[[tFinalPackageName decomposedStringWithCanonicalMapping] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] mutableCopy];
