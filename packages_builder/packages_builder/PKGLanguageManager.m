@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -50,6 +50,7 @@
 								  @"Italian":@"it.lproj",
 								  @"Japanese":@"ja.lproj",
 								  @"Korean":@"ko.lproj",
+								  @"Latvian":@"lv.lproj",
 								  @"Macedonian":@"mk.lproj",
 								  @"Malay":@"ms.lproj",
 								  @"Mexican Spanish":@"es-MX.lproj",
@@ -110,6 +111,7 @@
 								  @"Italian":@"Italian.lproj",
 								  @"Japanese":@"Japanese.lproj",
 								  @"Korean":@"Korean.lproj",
+								  @"Latvian":@"Latvian.lproj",
 								  @"Macedonian":@"Macedonian.lproj",
 								  @"Malay":@"Malay.lproj",
 								  @"Mexican Spanish":@"es_MX.lproj",

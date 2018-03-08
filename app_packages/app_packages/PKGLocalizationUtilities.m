@@ -52,6 +52,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 							   @"Italian",
 							   @"Japanese",
 							   @"Korean",
+							   @"Latvian",
 							   @"Macedonian",
 							   @"Malay",
 							   @"Mexican Spanish",
