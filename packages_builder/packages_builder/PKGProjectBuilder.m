@@ -8322,6 +8322,20 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			exit(EXIT_FAILURE);
 		}
 	
+		/* Init Supplemental Groups */
+		
+		struct passwd * tPasswordPtr=getpwuid((uid_t)self.userID);
+		
+		if (tPasswordPtr==NULL)
+		{
+			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Could not retrieve user name from uid"];
+			exit(EXIT_FAILURE);
+		}
+		
+		initgroups(tPasswordPtr->pw_name, (int)self.groupID);
+		
+		/* Build */
+		
 		[self build];
 	
 		// Delayed exit to make sure the last even notification is sent

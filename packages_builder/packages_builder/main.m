@@ -17,6 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #include <unistd.h>
 #include <sys/types.h>
+#include <pwd.h>
 
 #import "PKGPackagesBuilder.h"
 #import "PKGProjectBuilder.h"
@@ -163,6 +164,19 @@ int main (int argc, const char * argv[])
 			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Missing Group ID (-g)"];
 			return EXIT_FAILURE;
 		}
+		
+		/* Init Supplemental Groups */
+		
+		struct passwd * tPasswordPtr=getpwuid((uid_t)tUserID);
+		
+		if (tPasswordPtr==NULL)
+		{
+			[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Could not retrieve user name from uid"];
+			return EXIT_FAILURE;
+		}
+		
+		initgroups(tPasswordPtr->pw_name, (int)tGroupID);
+		
 		
 		NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
 		
