@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -33,25 +33,24 @@
 {
 	[super WB_viewWillAppear];
 	
+	[_textView setString:@""];
+	
 	NSData * tData=self.comments.htmlData;
 	
-	if (tData.length==0)
+	if (tData.length>0)
 	{
-		[_textView setString:@""];
-		return;
+		NSTextStorage * tTextStorage=_textView.textStorage;
+	
+		[tTextStorage beginEditing];
+		
+		NSDictionary * tAttributesDictionary;
+		[tTextStorage readFromData:tData
+						   options:@{NSDocumentTypeDocumentOption:NSHTMLTextDocumentType}
+				documentAttributes:&tAttributesDictionary
+							 error:NULL];
+		
+		[tTextStorage endEditing];
 	}
-	
-	NSTextStorage * tTextStorage=_textView.textStorage;
-	
-	[tTextStorage beginEditing];
-	
-	NSDictionary * tAttributesDictionary;
-	[tTextStorage readFromData:tData
-					   options:@{NSDocumentTypeDocumentOption:NSHTMLTextDocumentType}
-			documentAttributes:&tAttributesDictionary
-						 error:NULL];
-	
-	[tTextStorage endEditing];
 }
 
 - (void)WB_viewDidAppear
