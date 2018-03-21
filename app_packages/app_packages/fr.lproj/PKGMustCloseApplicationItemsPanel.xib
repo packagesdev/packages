@@ -137,7 +137,7 @@ DQ
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="pp9-Gb-y0a">
                             <font key="font" metaFont="system"/>
                             <string key="title">Les applications en cours d'utilisation et avec les bundle identifiers ci-dessous devront être quittées avant que l'installation de ce paquet puisse démarrer :</string>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
