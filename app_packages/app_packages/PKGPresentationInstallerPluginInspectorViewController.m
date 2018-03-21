@@ -109,8 +109,6 @@
 	
 	// Icon
 	
-	_iconView.image=[PKGPresentationSection installerPluginIcon];
-	
 	if (_presentationSection.pluginPath.isSet==NO)
 	{
 		// Oh oh

@@ -159,6 +159,7 @@
 						<string key="NSFrame">{{98, 245}, {247, 178}}</string>
 						<reference key="NSSuperview" ref="632465284"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="480924702">
 							<int key="NSCellFlags">67108864</int>
@@ -191,6 +192,10 @@
 						<object class="NSImageCell" key="NSCell" id="597461172">
 							<int key="NSCellFlags">134217728</int>
 							<int key="NSCellFlags2">33554432</int>
+							<object class="NSCustomResource" key="NSContents">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Plugin_32</string>
+							</object>
 							<int key="NSAlign">0</int>
 							<int key="NSScale">0</int>
 							<int key="NSStyle">0</int>
@@ -1187,6 +1192,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSMenuCheckmark">{12, 12}</string>
 			<string key="NSMenuMixedState">{10, 2}</string>
+			<string key="Plugin_32">{32, 32}</string>
 		</dictionary>
 	</data>
 </archive>
