@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -78,7 +78,36 @@
 		
 		if (tMutexError!=0)
 		{
-			// A COMPLETER
+			switch(tMutexError)
+			{
+				case EAGAIN:
+					
+					NSLog(@"The system lacks the necessary resources to initialize the read/write lock");
+					
+					break;
+					
+				case ENOMEM:
+					
+					NSLog(@"Memory is not sufficient enough to initialize the read/write lock");
+					
+					break;
+					
+				case EBUSY:
+					
+					NSLog(@"Trying to re-initialize the read/write lock");
+					
+					break;
+					
+				case EINVAL:
+					
+					NSLog(@"Incorrect attributes are used to initialize the read/write lock");
+					
+					break;
+					
+				default:
+					
+					NSLog(@"Unknown reason prevents the initialization of the read/write lock");
+			}
 			
 			return nil;
 		}
@@ -89,7 +118,36 @@
 		{
 			pthread_rwlock_destroy(&_userAccountMutex);
 			
-			// A COMPLETER
+			switch(tMutexError)
+			{
+				case EAGAIN:
+					
+					NSLog(@"The system lacks the necessary resources to initialize the read/write lock");
+					
+					break;
+					
+				case ENOMEM:
+					
+					NSLog(@"Memory is not sufficient enough to initialize the read/write lock");
+					
+					break;
+					
+				case EBUSY:
+					
+					NSLog(@"Trying to re-initialize the read/write lock");
+					
+					break;
+					
+				case EINVAL:
+					
+					NSLog(@"Incorrect attributes are used to initialize the read/write lock");
+					
+					break;
+					
+				default:
+					
+					NSLog(@"Unknown reason prevents the initialization of the read/write lock");
+			}
 			
 			return nil;
 		}
@@ -102,13 +160,20 @@
 		
 		if (_openDirectoryRootNode==nil)
 		{
-			// A COMPLETER
+			NSLog(@"Could not create a ODNode for the default session and local nodes: %@",tError);
+			
+			pthread_rwlock_destroy(&_userAccountMutex);
+			
+			pthread_rwlock_destroy(&_groupAccountMutex);
+			
+			return nil;
 		}
 		
 		_usersQuery = [ODQuery queryWithNode:_openDirectoryRootNode forRecordTypes:kODRecordTypeUsers attribute:nil matchType:0 queryValues:nil returnAttributes:@[kODAttributeTypeUniqueID] maximumResults:0 error:&tError];
 		
 		if (_usersQuery==nil)
 		{
+			// A COMPLETER
 		}
 		
 		
@@ -116,6 +181,7 @@
 		
 		if (_groupsQuery==nil)
 		{
+			// A COMPLETER
 		}
 		
 		[self refreshCache];
