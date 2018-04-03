@@ -535,21 +535,6 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 		return NO;
 	}
 	
-	// Check whether the file already exists
-	
-	if ([tFileManager fileExistsAtPath:self.path]==YES)
-	{
-		NSError * tError;
-		
-		if ([tFileManager removeItemAtPath:self.path error:&tError]==NO)
-		{
-			if (outError!=NULL)
-				*outError=tError;
-			
-			return NO;
-		}
-	}
-	
 	xar_t tArchive=xar_open([self.path fileSystemRepresentation],WRITE);
 	
 	if (tArchive==NULL)
