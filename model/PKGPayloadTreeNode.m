@@ -116,6 +116,8 @@
 		
 		if (tAttributes==nil)
 		{
+			NSLog(@"Unable to retrieve attributes of item at path \"%@\": %@",tDirectoryPath,tError);
+			
 			// A COMPLETER
 		}
 		
