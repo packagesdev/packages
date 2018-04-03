@@ -219,7 +219,8 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 			{
 				if (tError!=nil)
 				{
-					// A COMPLETER
+					NSLog(@"Unable to init requirement from representation (%@)",bRequirementRepresentation);
+					NSLog(@"%@",tError);
 				}
 				
 				return nil;
