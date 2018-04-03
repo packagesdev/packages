@@ -70,7 +70,7 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 	
 	if (tPath==nil)
 	{
-		// A COMPLETER
+		NSLog(@"Could not retrieve the path from NSURL: %@",inURL);
 		
 		return NO;
 	}
@@ -81,7 +81,7 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 	
 	if (tBundle==nil)
 	{
-		// A COMPLETER
+		NSLog(@"Could not build bundle from path: %@",tPath);
 		
 		return NO;
 	}
@@ -275,14 +275,14 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 			{
 				// This should not happen
 				
-				// A COMPLETER
+				NSLog(@"WARNING: Signing identity is nil");
 			}
 			
 			if (tSigningIdentity.length==0)
 			{
 				// This should not happen
 				
-				// A COMPLETER
+				NSLog(@"WARNING: Signing identity is empty");
 			}
 			
 			tProjectSettings.certificateName=tSigningIdentity;
