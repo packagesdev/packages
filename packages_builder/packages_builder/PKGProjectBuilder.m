@@ -111,7 +111,6 @@ enum
 
 #define __SET_CORRECT_PERMISSIONS__ 1
 
-
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
 NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.3";
@@ -4401,6 +4400,19 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				return NO;
 			}
 			
+#ifdef __SUPPORT_CUSTOM_LOCATION__
+			
+			NSString * tPackageUUID=((PKGChoicePackageItem *)tChoiceItem).packageUUID;
+			
+			PKGBuildPackageAttributes * tBuildPackageAttributes=_buildInformation.packagesAttributes[tPackageUUID];
+			
+			if (tBuildPackageAttributes.customLocation!=nil)
+			{
+				tAttribute=[NSXMLNode attributeWithName:@"customLocation" stringValue:tBuildPackageAttributes.customLocation];
+				[tChoiceElement addAttribute:tAttribute];
+			}
+#endif
+			
 			[tChoiceElement addChild:tPkgRefElement];
 		}
 		else
@@ -5767,7 +5779,6 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 		tBuildPackageAttributes.authenticationMode=tPackageSettings.authenticationMode;
 		
-		
 		// Payload Size (May not be known)
 		
 		if (tPackageSettings.payloadSize>=0)
@@ -5826,31 +5837,68 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		PKGArchive * tArchive=[[PKGArchive alloc] initWithPath:tImportedPackagePath];
 		
-		if (tArchive==nil)
+		if ([tArchive isFlatPackage]==NO)
 		{
-			// A COMPLETER
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileIncorrectType filePath:tImportedPackagePath fileKind:PKGFileKindPackage]];
 			
 			return NO;
 		}
 		
-		if ([tArchive isFlatPackage]==NO)
-		{
-			// A COMPLETER
+		void(^handleArchiveExtractionError)(NSError *)=^void(NSError *inError){
 			
-			return NO;
-		}
+			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
+			
+			if (inError!=nil)
+			{
+				if ([inError.domain isEqualToString:PKGArchiveErrorDomain]==YES)
+				{
+					switch(inError.code)
+					{
+						case PKGArchiveErrorMemoryAllocationFailed:
+							
+							tErrorEvent.code=PKGBuildErrorOutOfMemory;
+							
+							break;
+							
+						case PKGArchiveErrorFileCanNotBeExtracted:
+							
+							tErrorEvent.code=PKGBuildErrorCanNotExtractFileFromImportedPackage;
+							tErrorEvent.filePath=inError.userInfo[PKGArchiveErrorFilePath];
+							
+							break;
+							
+						case PKGArchiveErrorFileNotFound:
+							
+							tErrorEvent.code=PKGBuildErrorFileNotFound;
+							tErrorEvent.filePath=tImportedPackagePath;
+							tErrorEvent.fileKind=PKGFileKindPackage;
+							
+							break;
+							
+						case PKGArchiveErrorFileNotReadable:
+							
+							tErrorEvent.code=PKGBuildErrorFileCanNotBeRead;
+							tErrorEvent.filePath=tImportedPackagePath;
+							tErrorEvent.fileKind=PKGFileKindPackage;
+							
+							break;
+					}
+				}
+				else
+				{
+					// A COMPLETER
+				}
+			}
+			
+			[self postCurrentStepFailureEvent:tErrorEvent];
+		};
 		
 		NSData * tData;
 		NSError * tError=nil;
 		
 		if ([tArchive extractFile:@"PackageInfo" intoData:&tData error:&tError]==NO)
 		{
-			if (tError!=nil)
-			{
-				// A COMPLETER
-			}
-			
-			[self postCurrentStepFailureEvent:nil];	// A COMPLETER
+			handleArchiveExtractionError(tError);
 			
 			return NO;
 		}
@@ -5859,7 +5907,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tImportedPackageSettings==nil)
 		{
-			[self postCurrentStepFailureEvent:nil];	// A COMPLETER
+			[self postCurrentStepFailureEvent:nil];	// A COMPLETER	-> PKGBuildErrorCanNotExtractInfoFromImportedPackage
 			
 			return NO;
 		}
@@ -5881,8 +5929,6 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			else
 			{
 				tFinalPackageName=[tPackageName mutableCopy];
-				
-				//CFStringTrimWhitespace((CFMutableStringRef) tFinalPackageName);
 					
 				[tFinalPackageName replaceOccurrencesOfString:@" " withString:@"_" options:0 range:NSMakeRange(0,[tFinalPackageName length])];
 				
@@ -6016,12 +6062,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			if ([tArchive extractToPath:tPackageFolderPath error:&tError]==NO)
 			{
-				if (tError!=nil)
-				{
-					// A COMPLETER
-				}
-				
-				[self postCurrentStepFailureEvent:nil];	// A COMPLETER
+				handleArchiveExtractionError(tError);
 				
 				cleanPackageFolder(tPackageFolderPath);
 				
@@ -6087,12 +6128,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if ([tArchive extractToPath:tPackageFolderPath error:&tError]==NO)
 		{
-			if (tError!=nil)
-			{
-				// A COMPLETER
-			}
-			
-			[self postCurrentStepFailureEvent:nil];	// A COMPLETER
+			handleArchiveExtractionError(tError);
 			
 			[_fileManager removeItemAtPath:tPackageFolderPath error:NULL];
 			
@@ -6327,6 +6363,23 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	}
 	
 	// Settings
+
+#ifdef __SUPPORT_CUSTOM_LOCATION__
+	
+	if (tIsPackageProject==NO && inPackageObject.packageSettings.relocatable==YES)
+	{
+		// Get the Custom Location
+		
+		// A VOIR (pour le PKGPayloadExternal)
+		
+		tBuildPackageAttributes.customLocation=tPackagePayload.defaultInstallLocation;
+		
+		// Set the default installation path to / to work around logical bug in the Installation engine.
+		
+		tPackagePayload.defaultInstallLocation=@"/";
+	}
+
+#endif
 	
 	// Create the XML Document
 	
@@ -6336,7 +6389,17 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		return NO;
 	}
+
+#ifdef __SUPPORT_CUSTOM_LOCATION__
 	
+	if (tIsPackageProject==NO && inPackageObject.packageSettings.relocatable==YES)
+	{
+		// Restore the default installation path
+		
+		tPackagePayload.defaultInstallLocation=tBuildPackageAttributes.customLocation;
+	}
+	
+#endif
 	
 	tPackageName=[tPackageName stringByAppendingPathExtension:@"pkg"];
 
