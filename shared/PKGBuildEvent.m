@@ -82,6 +82,18 @@ NSString * const PKGBuildErrorEventTagKey=@"Tag";
 
 @implementation PKGBuildErrorEvent
 
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_code=PKGBuildErrorUnknown;
+	}
+	
+	return self;
+}
+
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation
 {
 	self=[super initWithRepresentation:inRepresentation];

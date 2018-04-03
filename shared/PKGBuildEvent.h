@@ -59,6 +59,9 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	
 	PKGBuildErrorBundleIdentifierNotFound=250,
 	
+	PKGBuildErrorCanNotExtractInfoFromImportedPackage=300,
+	PKGBuildErrorCanNotExtractFileFromImportedPackage=301,
+	
 	PKGBuildErrorEmptyString=400,
 	
 	
