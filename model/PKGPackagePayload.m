@@ -42,6 +42,58 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 	return [[PKGPackagePayload alloc] init];
 }
 
++ (NSString *)installLocationWithXMLData:(NSData *)inData
+{
+	if (inData==nil)
+	{
+		
+		return nil;
+	}
+	
+	NSError * tError;
+	NSXMLDocument * tXMLDocument=[[NSXMLDocument alloc] initWithData:inData options:0 error:&tError];
+	
+	if (tXMLDocument==nil)
+	{
+		
+		return nil;
+	}
+	
+	NSArray * tNodes=[tXMLDocument nodesForXPath:@"pkg-info" error:&tError];
+	
+	if (tNodes.count==0)
+	{
+		
+		return nil;
+	}
+	
+	NSXMLElement * tElement=(NSXMLElement *) [tNodes objectAtIndex:0];
+	
+	if (tElement==nil)
+	{
+		
+		return nil;
+	}
+	
+	NSArray * tAttributes=[tElement attributes];
+	
+	if (tAttributes==nil)
+	{
+		
+		return nil;
+	}
+	
+	for(NSXMLNode * tAttributeNode in tAttributes)
+	{
+		NSString * tAttributeName=[tAttributeNode name];
+		
+		if ([tAttributeName isEqualToString:@"install-location"]==YES)
+			return [tAttributeNode stringValue];
+	}
+	
+	return nil;
+}
+
 - (instancetype) init
 {
 	self=[super init];
