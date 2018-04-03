@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,7 @@
 
 extern NSString * const PKGBuildDefaultLanguageKey;
 
-
+//#define __SUPPORT_CUSTOM_LOCATION__	1
 
 @interface PKGBuildJavaScriptInformation : NSObject
 
@@ -63,6 +63,11 @@ extern NSString * const PKGBuildDefaultLanguageKey;
 
 	@property PKGPackageAuthentication authenticationMode;
 
+#ifdef __SUPPORT_CUSTOM_LOCATION__
+
+	@property (copy) NSString * customLocation;
+
+#endif
 
 	@property NSArray * mustBeClosedApplicationIDs;
 

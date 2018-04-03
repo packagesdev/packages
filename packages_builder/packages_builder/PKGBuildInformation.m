@@ -240,14 +240,16 @@ NSString * const PKGBuildDefaultLanguageKey=@"PKGBuildDefaultLanguageKey";
 	
 	if ([tFileManager fileExistsAtPath:tResourcesPath]==NO)
 	{
+		NSError * tError=nil;
+		
 		BOOL tResult=[tFileManager createDirectoryAtPath:tResourcesPath
 							 withIntermediateDirectories:NO
 											  attributes:@{NSFilePosixPermissions:@(S_IRWXU+S_IRGRP+S_IXGRP+S_IROTH+S_IXOTH)}
-												   error:NULL];
+												   error:&tError];
 		
 		if (tResult==NO)
 		{
-			// A COMPLETER
+			NSLog(@"Unable to create directory at path \"%@\": %@",tResourcesPath,tError);
 			
 			return nil;
 		}
