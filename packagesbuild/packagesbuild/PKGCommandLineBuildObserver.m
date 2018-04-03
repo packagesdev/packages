@@ -654,7 +654,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				default:
 					
-					// A COMPLETER
+					(void)fprintf(stdout, "Error code (%lu)",(unsigned long) tFailureReason);
 					
 					break;
 			}
@@ -761,7 +761,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				default:
 					
-					// A COMPLETER
+					(void)fprintf(stdout, "Warning code (%lu)",(unsigned long) tFailureReason);
 					
 					break;
 			}
