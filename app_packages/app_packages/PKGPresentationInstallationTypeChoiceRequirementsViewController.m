@@ -243,8 +243,6 @@
 
 - (void)requirementsDataDidChange:(PKGPresentationInstallationTypeChoiceRequirementsDataSource *)inRequirementsDataSource
 {
-	// A COMPLETER ?
-	
 	[self noteDocumentHasChanged];
 }
 
