@@ -66,7 +66,7 @@ NSString * const PKGFileResourceForkKey=@XATTR_RESOURCEFORK_NAME;
 	
 	if (tCPath==NULL)
 	{
-		// A COMPLETER
+		NSLog(@"Unable to get file system representation for path: %@",inPath);
 		
 		return nil;
 	}
@@ -253,7 +253,7 @@ extended_attributes_bail:
 	
 	if (tCPath==NULL)
 	{
-		// A COMPLETER
+		NSLog(@"Unable to get file system representation for path: %@",inPath);
 		
 		return NO;
 	}
