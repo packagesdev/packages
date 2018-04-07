@@ -466,12 +466,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 							
 						case PKGBuildErrorWriteNoPermission:
 							
-							(void)fprintf(stdout, " because you don't have permission to create it in the folder ");
+							(void)fprintf(stdout, " because you don't have permission to create it inside the folder ");
 							
 							if ([tFilePath isEqualToString:@"Scratch_Location"]==YES)
 								(void)fprintf(stdout, "\'/tmp/private/\'");
 							else
-								(void)fprintf(stdout, "\'%s\'",[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]);
+								(void)fprintf(stdout, "\'%s\'",[tFilePath.stringByDeletingLastPathComponent.lastPathComponent UTF8String]);
 							
 							break;
 						
@@ -508,7 +508,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						
 						case PKGBuildErrorWriteNoPermission:
 							
-							(void)fprintf(stdout, " because you don't have permission to create it inside the folder \'%s\'",[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]);
+							(void)fprintf(stdout, " because you don't have permission to create it inside the folder \'%s\'",[tFilePath.stringByDeletingLastPathComponent.lastPathComponent UTF8String]);
 							break;
 							
 						default:

@@ -724,13 +724,9 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 							
 						case PKGBuildErrorWriteNoPermission:
 							
-							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because you don't have permission to create it in the folder ",@"Build",@"")];
+							// A COMPLETER (Improve the scratch location with the path from the preferences) 
 							
-							if ([tFilePath isEqualToString:@"Scratch_Location"]==YES)
-								tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@"\'/tmp/private/\'",@"Build",@"")];
-							else
-								tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@"\'%s\'",@"Build",@""),[tFilePath.stringByDeletingLastPathComponent.lastPathComponent UTF8String]];
-							
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because you don't have permission to create it inside the folder \'%@\'",@"Build",@""),([tFilePath isEqualToString:@"Scratch_Location"]==YES) ? @"/tmp/private/" : tFilePath.stringByDeletingLastPathComponent.lastPathComponent];
 							break;
 							
 						default:
@@ -761,7 +757,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 							
 						case PKGBuildErrorWriteNoPermission:
 							
-							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because you don't have permission to create it inside the folder \'%s\'",@"Build",@""),[[[tFilePath stringByDeletingLastPathComponent] lastPathComponent] UTF8String]];
+							tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@" because you don't have permission to create it inside the folder \'%@\'",@"Build",@""),tFilePath.stringByDeletingLastPathComponent.lastPathComponent];
 							break;
 							
 						default:
