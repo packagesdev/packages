@@ -325,8 +325,13 @@
 			
 		case PKGBuildEventItemStep:
 		case PKGBuildEventItemStepParent:
+			
+			return 14.0;
+			
 		case PKGBuildEventItemErrorDescription:
 		case PKGBuildEventItemWarningDescription:
+			
+			// A COMPLETER (we probably should handle variable height)
 			
 			return 14.0;
 			

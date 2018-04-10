@@ -79,6 +79,8 @@ NSString * const PKGBuildErrorEventOtherFileKey=@"OtherFile";
 
 NSString * const PKGBuildErrorEventTagKey=@"Tag";
 
+NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationStatus";
+
 
 @implementation PKGBuildErrorEvent
 
@@ -144,6 +146,18 @@ NSString * const PKGBuildErrorEventTagKey=@"Tag";
 				return nil;
 			
 			_tag=[tString copy];
+		}
+		
+		// toolTerminationStatus
+		
+		tNumber=inRepresentation[PKGBuildErrorEventToolTerminationStatusKey];
+		
+		if (tNumber!=nil)
+		{
+			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+				return nil;
+			
+			_toolTerminationStatus=[tNumber intValue];
 		}
 		
 		// otherFilePath
@@ -224,6 +238,9 @@ NSString * const PKGBuildErrorEventTagKey=@"Tag";
 	
 	if (self.otherFilePath!=nil)
 		tRepresentation[PKGBuildErrorEventOtherFileKey]=[self.otherFilePath copy];
+	
+	if (self.toolTerminationStatus!=0)
+		tRepresentation[PKGBuildErrorEventToolTerminationStatusKey]=@(self.toolTerminationStatus);
 	
 	return [tRepresentation copy];
 }

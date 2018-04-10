@@ -370,7 +370,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorExternalToolFailure:
 					
-					(void)fprintf(stdout, "%s returned error code '%d'",[[tFilePath lastPathComponent] UTF8String],tErrorEvent.toolTerminationStatus);
+					(void)fprintf(stdout, "%s returned error code (%d)",[[tFilePath lastPathComponent] UTF8String],tErrorEvent.toolTerminationStatus);
+					
+					if (tErrorEvent.tag!=nil)
+						(void)fprintf(stdout, ": %s ",tErrorEvent.tag.UTF8String);
+					
 					break;
 					
 				case PKGBuildErrorLicenseTemplateNotFound:

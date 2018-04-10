@@ -113,7 +113,7 @@ enum
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.3";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.4";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -5185,6 +5185,11 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	tTask.launchPath=PKGProjectBuilderToolPath_goldin;
 	tTask.arguments=@[inDirectoryPath];
 	
+	NSPipe * tOutputPipe = [NSPipe pipe];
+	
+	tTask.standardOutput=tOutputPipe;
+	tTask.standardError=tOutputPipe;
+	
 	[tTask launch];
 	[tTask waitUntilExit];
 	
@@ -5199,8 +5204,14 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			default:
 				
 				tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorExternalToolFailure filePath:PKGProjectBuilderToolPath_goldin fileKind:PKGFileKindTool];
+				tErrorEvent.toolTerminationStatus=tReturnValue;
 				
-				// A COMPLETER (Recuperer sdterr si il y a)
+				NSData * tData=[tOutputPipe.fileHandleForReading readDataToEndOfFile];
+				
+				NSString * tErrorString=[[NSString alloc] initWithData:tData encoding:NSUTF8StringEncoding];
+				
+				if (tErrorString.length>0)
+					tErrorEvent.tag=tErrorString;
 				
 				break;
 		}

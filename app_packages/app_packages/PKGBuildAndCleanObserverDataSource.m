@@ -633,8 +633,11 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 				case PKGBuildErrorExternalToolFailure:
 					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ returned error code '%d'",@"Build",@""),[tFilePath lastPathComponent],tErrorEvent.toolTerminationStatus];
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ returned error code (%d)",@"Build",@""),[tFilePath lastPathComponent],tErrorEvent.toolTerminationStatus];
 					
+					if (tErrorEvent.tag!=nil)
+						tTitle=[tTitle stringByAppendingFormat:NSLocalizedStringFromTable(@": %@",@"Build",@""),tErrorEvent.tag];
+
 					break;
 					
 				case PKGBuildErrorUnknownLanguage:
