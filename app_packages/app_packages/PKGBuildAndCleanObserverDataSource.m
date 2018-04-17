@@ -630,6 +630,12 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to set attributes of item at path '%@'",@"Build",@""),tFilePath];
 					
 					break;
+				
+				case PKGBuildErrorBuildFolderNotWritable:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"The existing folder at path '%@' can not be used as a build folder because it's not a writable folder.",@"Build",@""),tFilePath];
+					
+					break;
 					
 				case PKGBuildErrorExternalToolFailure:
 					
