@@ -839,15 +839,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					if (tDiffTime>=2.0)
 					{
-						(void)fprintf(stdout, "Build Successful (%g seconds)\n",tDiffTime);
+						(void)fprintf(stdout, "\033[1mBuild Successful\033[0m (%g seconds)\n",tDiffTime);
 					}
 					else if (tDiffTime<1.0)
 					{
-						(void)fprintf(stdout, "Build Successful (less than a second)\n");
+						(void)fprintf(stdout, "\033[1mBuild Successful\033[0m (less than a second)\n");
 					}
 					else
 					{
-						(void)fprintf(stdout, "Build Successful (1 second)\n");
+						(void)fprintf(stdout, "\033[1mBuild Successful\033[0m (1 second)\n");
 					}
 					
 					exit(EXIT_SUCCESS);
@@ -1188,7 +1188,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	(void)fprintf(stdout, "\n==============================================================================");
 	
-	(void)fprintf(stdout, "\nBuild Failed\n");
+	if (self.verbose==YES)
+		(void)fprintf(stdout, "\n\033[1mBuild Failed\033[0m\n");
+	else
+		(void)fprintf(stdout, "\nBuild Failed\n");
 	
 	exit(EXIT_FAILURE);
 }
