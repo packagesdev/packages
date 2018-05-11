@@ -146,6 +146,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "Plugins");
 					break;
+				
+				case PKGBuildStepXarCreate:
+					
+					(void)fprintf(stdout, "xar");
+					break;
 					
 				case PKGBuildStepPackageCreate:
 				case PKGBuildStepPackageReference:
@@ -659,6 +664,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				case PKGBuildErrorSigningCertificatePrivateKeyNotFound:
 					
 					(void)fprintf(stdout, "Unable to find the private key for the Developer ID Installer certificate");
+					break;
+					
+				case PKGBuildErrorSigningCertificateExpired:
+					
+					(void)fprintf(stdout, "The Developer ID Installer certificate used for this project is expired.");
+					break;
+					
+				case PKGBuildErrorSigningNotTrustedCertificate:
+					
+					(void)fprintf(stdout, "The Developer ID Installer certificate used for this project is not trusted.");
 					break;
 					
 				default:

@@ -81,7 +81,9 @@ typedef NS_ENUM(NSUInteger, PKGArchiveSignatureResult)
 	PKGArchiveSignatureResultCertificateNotFound,
 	PKGArchiveSignatureResultPrivateKeyNotRetrieved,
 	PKGArchiveSignatureResultTrustEvaluationFailed,
-	PKGArchiveSignatureResultTrustNoAnchor
+	PKGArchiveSignatureResultTrustNoAnchor,
+	PKGArchiveSignatureResultTrustExpiredCertificate,
+	PKGArchiveSignatureResultTrustNotTrustedCertificate,
 };
 
 typedef NS_ENUM(NSUInteger, PKGArchiveFormat)
@@ -1481,7 +1483,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 							break;
 							
 						case PKGArchiveErrorCertificatesCanNotBeRetrieved:
-							// A COMPLETER
+							
+							tErrorEvent=[self buildErrorEventWithSignatureResult:_signatureResult];
+							
 							break;
 							
 						case PKGArchiveErrorMemoryAllocationFailed:
@@ -1499,59 +1503,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			}
 			else
 			{
-				if (_signatureResult!=0)
-				{
-					PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
-					
-					switch(_signatureResult)
-					{
-						case PKGArchiveSignatureResultGenericError:
-							
-							tErrorEvent.code=PKGBuildErrorSigningUnknown;
-							break;
-							
-						case PKGArchiveSignatureResultTimeOut:
-							
-							tErrorEvent.code=PKGBuildErrorSigningTimeOut;
-							break;
-							
-						case PKGArchiveSignatureResultAuthenticationDenied:
-							
-							tErrorEvent.code=PKGBuildErrorSigningAuthorizationDenied;
-							break;
-							
-						case PKGArchiveSignatureResultCertificateNotFound:
-							
-							tErrorEvent.code=PKGBuildErrorSigningCertificateNotFound;
-							break;
-							
-						case PKGArchiveSignatureResultPrivateKeyNotRetrieved:
-							
-							tErrorEvent.code=PKGBuildErrorSigningCertificatePrivateKeyNotFound;
-							break;
-							
-						case PKGArchiveSignatureResultTrustEvaluationFailed:
-							
-							tErrorEvent.code=PKGBuildErrorSigningTrustEvaluationFailure;
-							break;
-							
-						case PKGArchiveSignatureResultTrustNoAnchor:
-							
-							tErrorEvent.code=PKGBuildErrorSigningCertificateChainBroken;
-							break;
-							
-						default:
-							break;
-					}
-					
-					[self postCurrentStepFailureEvent:tErrorEvent];
-				}
-				else
-				{
-					PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
-					
-					[self postCurrentStepFailureEvent:tErrorEvent];
-				}
+				PKGBuildErrorEvent * tErrorEvent=[self buildErrorEventWithSignatureResult:_signatureResult];
+				
+				[self postCurrentStepFailureEvent:tErrorEvent];
 			}
 			
 			// A COMPLETER
@@ -6186,7 +6140,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 							break;
 							
 						case PKGArchiveErrorCertificatesCanNotBeRetrieved:
-							// A COMPLETER
+							
+							tErrorEvent=[self buildErrorEventWithSignatureResult:_signatureResult];
+							
 							break;
 							
 						case PKGArchiveErrorMemoryAllocationFailed:
@@ -6204,59 +6160,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			}
 			else
 			{
-				if (_signatureResult!=0)
-				{
-					PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
-					
-					switch(_signatureResult)
-					{
-						case PKGArchiveSignatureResultGenericError:
-							
-							tErrorEvent.code=PKGBuildErrorSigningUnknown;
-							break;
-							
-						case PKGArchiveSignatureResultTimeOut:
-							
-							tErrorEvent.code=PKGBuildErrorSigningTimeOut;
-							break;
-							
-						case PKGArchiveSignatureResultAuthenticationDenied:
-							
-							tErrorEvent.code=PKGBuildErrorSigningAuthorizationDenied;
-							break;
-							
-						case PKGArchiveSignatureResultCertificateNotFound:
-							
-							tErrorEvent.code=PKGBuildErrorSigningCertificateNotFound;
-							break;
-							
-						case PKGArchiveSignatureResultPrivateKeyNotRetrieved:
-							
-							tErrorEvent.code=PKGBuildErrorSigningCertificatePrivateKeyNotFound;
-							break;
-							
-						case PKGArchiveSignatureResultTrustEvaluationFailed:
-							
-							tErrorEvent.code=PKGBuildErrorSigningTrustEvaluationFailure;
-							break;
-							
-						case PKGArchiveSignatureResultTrustNoAnchor:
-							
-							tErrorEvent.code=PKGBuildErrorSigningCertificateChainBroken;
-							break;
-							
-						default:
-							break;
-					}
-					
-					[self postCurrentStepFailureEvent:tErrorEvent];
-				}
-				else
-				{
-					PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
-					
-					[self postCurrentStepFailureEvent:tErrorEvent];
-				}
+				PKGBuildErrorEvent * tErrorEvent=[self buildErrorEventWithSignatureResult:_signatureResult];
+				
+				[self postCurrentStepFailureEvent:tErrorEvent];
 			}
 			
 			[_fileManager removeItemAtPath:tPackageFolderPath error:NULL];
@@ -6589,7 +6495,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 						break;
 					
 					case PKGArchiveErrorCertificatesCanNotBeRetrieved:
-						// A COMPLETER
+						
+						tErrorEvent=[self buildErrorEventWithSignatureResult:_signatureResult];
+						
 						break;
 						
 					case PKGArchiveErrorMemoryAllocationFailed:
@@ -6607,59 +6515,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		}
 		else
 		{
-			if (_signatureResult!=0)
-			{
-				PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
-				
-				switch(_signatureResult)
-				{
-					case PKGArchiveSignatureResultGenericError:
-						
-						tErrorEvent.code=PKGBuildErrorSigningUnknown;
-						break;
-						
-					case PKGArchiveSignatureResultTimeOut:
-						
-						tErrorEvent.code=PKGBuildErrorSigningTimeOut;
-						break;
-						
-					case PKGArchiveSignatureResultAuthenticationDenied:
-						
-						tErrorEvent.code=PKGBuildErrorSigningAuthorizationDenied;
-						break;
-						
-					case PKGArchiveSignatureResultCertificateNotFound:
-						
-						tErrorEvent.code=PKGBuildErrorSigningCertificateNotFound;
-						break;
-						
-					case PKGArchiveSignatureResultPrivateKeyNotRetrieved:
-						
-						tErrorEvent.code=PKGBuildErrorSigningCertificatePrivateKeyNotFound;
-						break;
-						
-					case PKGArchiveSignatureResultTrustEvaluationFailed:
-						
-						tErrorEvent.code=PKGBuildErrorSigningTrustEvaluationFailure;
-						break;
-						
-					case PKGArchiveSignatureResultTrustNoAnchor:
-						
-						tErrorEvent.code=PKGBuildErrorSigningCertificateChainBroken;
-						break;
-						
-					default:
-						break;
-				}
-				
-				[self postCurrentStepFailureEvent:tErrorEvent];
-			}
-			else
-			{
-				PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
-				
-				[self postCurrentStepFailureEvent:tErrorEvent];
-			}
+			PKGBuildErrorEvent * tErrorEvent=[self buildErrorEventWithSignatureResult:_signatureResult];
+			
+			[self postCurrentStepFailureEvent:tErrorEvent];
 		}
 		
 		// A COMPLETER
@@ -8524,6 +8382,64 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 #pragma mark - PKGArchiveDelegate
 
+- (PKGBuildErrorEvent *)buildErrorEventWithSignatureResult:(PKGArchiveSignatureResult)inSignatureResult
+{
+	PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent new];
+	
+	switch(_signatureResult)
+	{
+		case PKGArchiveSignatureResultGenericError:
+			
+			tErrorEvent.code=PKGBuildErrorSigningUnknown;
+			break;
+			
+		case PKGArchiveSignatureResultTimeOut:
+			
+			tErrorEvent.code=PKGBuildErrorSigningTimeOut;
+			break;
+			
+		case PKGArchiveSignatureResultAuthenticationDenied:
+			
+			tErrorEvent.code=PKGBuildErrorSigningAuthorizationDenied;
+			break;
+			
+		case PKGArchiveSignatureResultCertificateNotFound:
+			
+			tErrorEvent.code=PKGBuildErrorSigningCertificateNotFound;
+			break;
+			
+		case PKGArchiveSignatureResultPrivateKeyNotRetrieved:
+			
+			tErrorEvent.code=PKGBuildErrorSigningCertificatePrivateKeyNotFound;
+			break;
+			
+		case PKGArchiveSignatureResultTrustEvaluationFailed:
+			
+			tErrorEvent.code=PKGBuildErrorSigningTrustEvaluationFailure;
+			break;
+			
+		case PKGArchiveSignatureResultTrustNoAnchor:
+			
+			tErrorEvent.code=PKGBuildErrorSigningCertificateChainBroken;
+			break;
+			
+		case PKGArchiveSignatureResultTrustExpiredCertificate:
+			
+			tErrorEvent.code=PKGBuildErrorSigningCertificateExpired;
+			break;
+			
+		case PKGArchiveSignatureResultTrustNotTrustedCertificate:
+			
+			tErrorEvent.code=PKGBuildErrorSigningNotTrustedCertificate;
+			break;
+			
+		default:
+			break;
+	}
+	
+	return tErrorEvent;
+}
+
 - (BOOL)archiveShouldSign:(PKGArchive *)inArchive
 {
 	return (_secIdentityRef!=NULL);
@@ -8594,6 +8510,70 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		case kSecTrustResultUnspecified:
 		case kSecTrustResultProceed:
 			
+			break;
+			
+		case kSecTrustResultDeny:
+			
+			_signatureResult=PKGArchiveSignatureResultTrustNotTrustedCertificate;
+			
+			return nil;
+			
+		case kSecTrustResultRecoverableTrustFailure:
+			
+			
+			{
+				NSDictionary * tResultDictionary=(__bridge_transfer NSDictionary *)SecTrustCopyResult(tTrustRef);
+				
+				CFRelease(tTrustRef);
+				
+				NSString * const PRIVATE_TRUSTRESULTDETAILS_KEY=@"TrustResultDetails";
+				NSString * const PRIVATE_STATUSCODES_KEY=@"StatusCodes";
+				
+				NSArray * tDetailsArray=tResultDictionary[PRIVATE_TRUSTRESULTDETAILS_KEY];
+				
+				if (tDetailsArray.count==0)
+				{
+					NSLog(@"kSecTrustResultRecoverableTrustFailure > Missing TrustResultDetails key");
+					
+					_signatureResult=PKGArchiveSignatureResultTrustEvaluationFailed;
+					
+					return nil;
+				}
+				
+				NSDictionary * tDetailOfTopCertificate=tDetailsArray[0];
+				
+				NSArray * tStatusCodes=tDetailOfTopCertificate[PRIVATE_STATUSCODES_KEY];
+				
+				NSNumber * tNumber=tStatusCodes.firstObject;
+					
+				if (tNumber==nil || [tNumber isKindOfClass:NSNumber.class]==NO)
+				{
+					NSLog(@"kSecTrustResultRecoverableTrustFailure > Missing StatusCodes key");
+					
+					_signatureResult=PKGArchiveSignatureResultTrustEvaluationFailed;
+					
+					return nil;
+				}
+				
+				NSInteger tStatusCode=[tNumber integerValue];
+				
+				switch (tStatusCode)
+				{
+					case errSecCertificateExpired:
+						
+						_signatureResult=PKGArchiveSignatureResultTrustExpiredCertificate;
+						
+						break;
+						
+					default:
+						
+						_signatureResult=PKGArchiveSignatureResultTrustEvaluationFailed;
+						
+						break;
+				}
+				
+				return nil;
+			}
 			break;
 			
 		default:

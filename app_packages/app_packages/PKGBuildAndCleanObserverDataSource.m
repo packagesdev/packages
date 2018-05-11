@@ -916,10 +916,22 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					tTitle=NSLocalizedStringFromTable(@"Unable to find the private key for the Developer ID Installer certificate",@"Build",@"");
 					
 					break;
+				
+				case PKGBuildErrorSigningCertificateExpired:
+					
+					tTitle=NSLocalizedStringFromTable(@"The Developer ID Installer certificate is expired.",@"Build",@"");
+					
+					break;
+					
+				case PKGBuildErrorSigningNotTrustedCertificate:
+					
+					tTitle=NSLocalizedStringFromTable(@"The Developer ID Installer certificate is not trusted.",@"Build",@"");
+					
+					break;
 					
 				default:
 					
-					// A COMPLETER
+					tTitle=[NSString stringWithFormat:@"Error code (%lu)",(unsigned long) tFailureReason];
 					
 					break;
 			}
@@ -1045,6 +1057,8 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					}
 					
 				default:
+					
+					tTitle=[NSString stringWithFormat:@"Warning code (%lu)",(unsigned long) tFailureReason];
 					
 					break;
 			}
