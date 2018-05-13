@@ -1765,24 +1765,24 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		if ([tValue isKindOfClass:NSString.class]==YES && [(NSString *)tValue length]==0)
 			[tAdvancedOptionsMutableDictionary removeObjectForKey:@"installer-gui-script.product:id"];
 		
-		tValue=tAdvancedOptionsDictionary[@"installer-gui-script.product:version"];
+		tValue=tAdvancedOptionsMutableDictionary[@"installer-gui-script.product:version"];
 		
 		if ([tValue isKindOfClass:NSString.class]==YES && [(NSString *)tValue length]==0)
 			[tAdvancedOptionsMutableDictionary removeObjectForKey:@"installer-gui-script.product:version"];
 		
 		// domains element
 		
-		NSNumber * tDomainsAnywhereValue=tAdvancedOptionsDictionary[@"installer-gui-script.domains:enable_anywhere"];
+		NSNumber * tDomainsAnywhereValue=tAdvancedOptionsMutableDictionary[@"installer-gui-script.domains:enable_anywhere"];
 		
 		if (tDomainsAnywhereValue!=nil && [tDomainsAnywhereValue isKindOfClass:NSNumber.class]==NO)
 			return NO;
 		
-		NSNumber * tDomainsLocalSystemValue=tAdvancedOptionsDictionary[@"installer-gui-script.domains:enable_localSystem"];
+		NSNumber * tDomainsLocalSystemValue=tAdvancedOptionsMutableDictionary[@"installer-gui-script.domains:enable_localSystem"];
 		
 		if (tDomainsLocalSystemValue!=nil && [tDomainsLocalSystemValue isKindOfClass:NSNumber.class]==NO)
 			return NO;
 		
-		NSNumber * tDomainsCurrentUserHomeValue=tAdvancedOptionsDictionary[@"installer-gui-script.domains:enable_currentUserHome"];
+		NSNumber * tDomainsCurrentUserHomeValue=tAdvancedOptionsMutableDictionary[@"installer-gui-script.domains:enable_currentUserHome"];
 		
 		if (tDomainsCurrentUserHomeValue!=nil && [tDomainsCurrentUserHomeValue isKindOfClass:NSNumber.class]==NO)
 			return NO;
