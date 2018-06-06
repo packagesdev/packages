@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -87,7 +87,7 @@
 	
 	tView=_scriptsTabViewItem.view;
 	
-	tTabViewItemViewController=[PKGPayloadFilesSelectionInspectorScriptsViewController new];
+	tTabViewItemViewController=[[PKGPayloadFilesSelectionInspectorScriptsViewController alloc] initWithDocument:self.document];
 	
 	if (tTabViewItemViewController==nil)
 	{
