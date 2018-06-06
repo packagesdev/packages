@@ -1000,14 +1000,6 @@
 			<array key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">view</string>
-						<reference key="source" ref="948299736"/>
-						<reference key="destination" ref="614911292"/>
-					</object>
-					<int key="connectionID">160</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">_authenticationModeCheckbox</string>
 						<reference key="source" ref="948299736"/>
 						<reference key="destination" ref="403522152"/>
@@ -1261,6 +1253,14 @@
 						<reference key="destination" ref="629109396"/>
 					</object>
 					<int key="connectionID">213</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">view</string>
+						<reference key="source" ref="948299736"/>
+						<reference key="destination" ref="614911292"/>
+					</object>
+					<int key="connectionID">414</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1958,7 +1958,7 @@
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="5.IBNSViewMetadataGestureRecognizers" ref="0"/>
-				<string key="5.IBPersistedLastKnownCanvasPosition">{729, 250}</string>
+				<string key="5.IBPersistedLastKnownCanvasPosition">{1204, 472}</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="60.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1978,7 +1978,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">216</int>
+			<int key="maxID">414</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
