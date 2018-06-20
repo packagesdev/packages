@@ -3125,7 +3125,17 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	tAttribute=[NSXMLNode attributeWithName:@"alignment" stringValue:tAlignmentString];
 	[tBackgroundElement addAttribute:tAttribute];
-		
+	
+	// layout-direction [optional]
+	
+	PKGImageLayoutDirection tLayoutDirection=tPresentationBackgroundSettings.imageLayoutDirection;
+	
+	if (tLayoutDirection==PKGImageLayoutDirectionNatural)
+	{
+		tAttribute=[NSXMLNode attributeWithName:@"layout-direction" stringValue:@"natural"];
+		[tBackgroundElement addAttribute:tAttribute];
+	}
+	
 	[_installerScriptElement addChild:tBackgroundElement];
 
 	[self postCurrentStepSuccessEvent:nil];
@@ -3135,7 +3145,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)setIntroduction
 {
-	PKGDistributionProjectPresentationSettings *tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
+	PKGDistributionProjectPresentationSettings * tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
 	PKGPresentationWelcomeStepSettings * tPresentationWelcomeSettings=tPresentationSettings.welcomeSettings;
 	
 	NSDictionary * tLocalizations=tPresentationWelcomeSettings.localizations;
@@ -3155,7 +3165,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)setReadMe
 {
-	PKGDistributionProjectPresentationSettings *tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
+	PKGDistributionProjectPresentationSettings * tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
 	PKGPresentationReadMeStepSettings * tPresentationReadMeSettings=tPresentationSettings.readMeSettings;
 	
 	NSDictionary * tLocalizations=tPresentationReadMeSettings.localizations;
@@ -3175,7 +3185,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)setLicense
 {
-	PKGDistributionProjectPresentationSettings *tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
+	PKGDistributionProjectPresentationSettings * tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
 	PKGPresentationLicenseStepSettings * tPresentationLicenseSettings=tPresentationSettings.licenseSettings;
 	
 	PKGLicenseType tLicenseMode=tPresentationLicenseSettings.licenseType;
@@ -7704,7 +7714,10 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				return NO;
 			}
 			
-			tDestinationPath=[inPath stringByAppendingPathComponent:[tFullPath lastPathComponent]];
+			if (tFileItem.payloadFileName!=nil)
+				tDestinationPath=[inPath stringByAppendingPathComponent:tFileItem.payloadFileName];
+			else
+				tDestinationPath=[inPath stringByAppendingPathComponent:[tFullPath lastPathComponent]];
 			
 			// We need to check the item is not expanded and empty in fact
 			
