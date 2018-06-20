@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,6 +14,8 @@
 #import "PKGFileItem.h"
 
 #import "PKGPackagesError.h"
+
+NSString * const PKGFileItemPayloadFileNameKey=@"PAYLOAD_FILENAME";
 
 NSString * const PKGFileItemTypeKey=@"TYPE";
 
@@ -49,6 +51,8 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	
 	if (nFileItem!=nil)
 	{
+		nFileItem.payloadFileName=nil;
+		
 		nFileItem.type=inType;
 		
 		nFileItem.filePath=[PKGFilePath filePathWithName:inName];
@@ -88,6 +92,8 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	
 	if (self!=nil)
 	{
+		_payloadFileName=[inFileItem.payloadFileName copy];
+		
 		_type=inFileItem.type;
 		
 		_filePath=[inFileItem.filePath copy];
@@ -111,6 +117,8 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	
 	if (self!=nil)
 	{
+		_payloadFileName=nil;
+		
 		_type=PKGFileItemTypeFileSystemItem;
 		
 		_filePath=inFilePath;
@@ -145,6 +153,18 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	
 	if (self!=nil)
 	{
+		_payloadFileName=[inRepresentation[PKGFileItemPayloadFileNameKey] copy];
+		
+		if (_payloadFileName!=nil && [_payloadFileName isKindOfClass:NSString.class]==NO)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											  code:PKGRepresentationInvalidTypeOfValueError
+										  userInfo:@{PKGKeyPathErrorKey:PKGFileItemPayloadFileNameKey}];
+			
+			return nil;
+		}
+		
 		_type=[inRepresentation[PKGFileItemTypeKey] integerValue];
 		
 		if (_type>PKGFileItemTypeFileSystemItem)
@@ -198,6 +218,9 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 {
 	NSMutableDictionary * tRepresentation=[self.filePath representation];
 	
+	if (self.payloadFileName!=nil)
+		tRepresentation[PKGFileItemPayloadFileNameKey]=self.payloadFileName;
+	
 	tRepresentation[PKGFileItemTypeKey]=@(self.type);
 	
 	tRepresentation[PKGFileItemUserIDKey]=@(self.uid);
@@ -221,6 +244,8 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	{
 		nFileItem->_fileItemAuxiliary=[(id)_fileItemAuxiliary copyWithZone:inZone];
 	
+		nFileItem.payloadFileName=[self.payloadFileName copyWithZone:inZone];
+		
 		nFileItem.type=self.type;
 	
 		nFileItem.filePath=[self.filePath copyWithZone:inZone];
@@ -250,6 +275,9 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 			return self.filePath.string;
 			
 		case PKGFileItemTypeFileSystemItem:
+			
+			if (self.payloadFileName!=nil)
+				return self.payloadFileName;
 			
 			return self.filePath.string.lastPathComponent;
 			

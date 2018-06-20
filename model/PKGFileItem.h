@@ -35,6 +35,8 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 
 	@property (readonly) PKGFileItemType type;
 
+	@property (copy) NSString *payloadFileName;
+
 	@property (nonatomic,readonly,copy) NSString *fileName;
 
 	@property (readonly) PKGFilePath * filePath;
