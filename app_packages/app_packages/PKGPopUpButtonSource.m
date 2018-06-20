@@ -92,7 +92,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     if (_pushed==NO && _hovered==NO)
 	{
 		[self.title drawAtPoint:NSMakePoint(round(tHalfHeight*0.75),2.0)
-				 withAttributes:@{NSForegroundColorAttributeName:[NSColor blackColor],
+				 withAttributes:@{NSForegroundColorAttributeName:[NSColor controlTextColor],
 			NSFontAttributeName:[self font]}];
 		
 		return;

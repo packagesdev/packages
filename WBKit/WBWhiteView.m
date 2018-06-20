@@ -12,7 +12,7 @@
 
 - (void)drawRect:(NSRect)rect
 {
-	[[NSColor whiteColor] set];
+	[[NSColor textBackgroundColor] set];
 	
 	NSRectFill(rect);
 }

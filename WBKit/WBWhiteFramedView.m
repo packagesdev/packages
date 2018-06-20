@@ -24,7 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)drawRect:(NSRect)inRect
 {
-    [[NSColor whiteColor] set];
+    [[NSColor textBackgroundColor] set];
 	
 	NSRectFill(inRect);
 	

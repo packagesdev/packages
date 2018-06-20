@@ -73,7 +73,7 @@
 			
 			
 			sUnselectedAttributesDictionary=@{
-											  NSForegroundColorAttributeName : [NSColor blackColor],
+											  NSForegroundColorAttributeName : [NSColor controlTextColor],
 											  NSParagraphStyleAttributeName : tMutableParagraphStyle,
 											  NSFontAttributeName : self.font
 											  };

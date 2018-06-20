@@ -24,7 +24,7 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	[[NSColor colorWithDeviceWhite:1.0 alpha:0.8] set];
+	[[NSColor controlBackgroundColor] set];
 	
 	NSRectFillUsingOperation(dirtyRect, NSCompositeSourceOver);
 	

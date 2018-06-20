@@ -54,7 +54,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         
 	_versionLabel.stringValue=[NSString stringWithFormat:NSLocalizedString(@"version %@ (%@)",@""),tDictionary[@"CFBundleShortVersionString"],tDictionary[@"CFBundleVersion"]];
     
-    [self.window setBackgroundColor:[NSColor whiteColor]];
+    [self.window setBackgroundColor:[NSColor textBackgroundColor]];
 	
 	[self.window center];
 }

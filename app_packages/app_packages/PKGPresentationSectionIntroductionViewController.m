@@ -114,7 +114,7 @@
 	[tTextStorage beginEditing];
 	
 	[tTextStorage setAttributes:@{NSFontAttributeName:[NSFont systemFontOfSize:[NSFont systemFontSize]],
-								  NSForegroundColorAttributeName:[NSColor blackColor]}
+								  NSForegroundColorAttributeName:[NSColor controlTextColor]}
 						  range:NSMakeRange(0,tString.length)];
 	
 	[tTextStorage endEditing];

@@ -430,14 +430,14 @@
 	
 	// Source
 	
-	_sourcePathTextField.textColor=[NSColor blackColor];
+	_sourcePathTextField.textColor=[NSColor controlTextColor];
 	_sourcePathTextField.stringValue=tFileItem.filePath.string;
 	
 	// Destination
 	
 	if (_destinationPathTextField!=nil)
 	{
-		_destinationPathTextField.textColor=[NSColor blackColor];
+		_destinationPathTextField.textColor=[NSColor controlTextColor];
 		_destinationPathTextField.stringValue=inTreeNode.filePath;
 	}
 }
@@ -469,7 +469,7 @@
 	
 	// Type
 	
-	_fileTypeTextField.textColor=[NSColor blackColor];
+	_fileTypeTextField.textColor=[NSColor controlTextColor];
 	
 	NSString * tTypeString=nil;
 	
@@ -503,14 +503,14 @@
 	
 	// Source
 	
-	_sourcePathTextField.textColor=[NSColor blackColor];
+	_sourcePathTextField.textColor=[NSColor controlTextColor];
 	_sourcePathTextField.stringValue=@"-";
 	
 	// Destination
 	
 	if (_destinationPathTextField!=nil)
 	{
-		_destinationPathTextField.textColor=[NSColor blackColor];
+		_destinationPathTextField.textColor=[NSColor controlTextColor];
 		_destinationPathTextField.stringValue=inPath;
 	}
 }

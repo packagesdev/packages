@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -24,7 +24,12 @@
 {
 	NSRect tBounds=self.bounds;
 	
-	[[NSColor whiteColor] set];
+	NSArray * tArray=[NSColor controlAlternatingRowBackgroundColors];
+	
+	if (tArray.count>0)
+		[(NSColor *)tArray[0] set];
+	else
+		[[NSColor whiteColor] set];
 	
 	NSRectFill(dirtyRect);
 	

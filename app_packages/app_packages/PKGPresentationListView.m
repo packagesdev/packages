@@ -428,7 +428,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
                                      else
                                          tFont=[NSFont systemFontOfSize:13.0];
                                      
-                                     NSColor * tColor= (inStep >self.selectedStep) ? [NSColor colorWithDeviceWhite:0.0 alpha: 0.5] : [NSColor blackColor];
+                                     NSColor * tColor= (inStep >self.selectedStep) ? [NSColor colorWithDeviceWhite:0.0 alpha: 0.5] : [NSColor controlTextColor];
 									 
 									 NSDictionary * tFontAttributes=@{NSFontAttributeName:tFont,
 																	  NSForegroundColorAttributeName:tColor};
@@ -977,7 +977,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			else
 			{
 				if (tWillBeVisible==YES)
-					tColor=[NSColor blackColor];
+					tColor=[NSColor controlTextColor];
 				else
 					tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32"]];
 				

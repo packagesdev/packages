@@ -22,7 +22,7 @@
 
 - (void)drawRect:(NSRect)inRect
 {
-	[[NSColor colorWithDeviceWhite:1.0 alpha:1.0] set];
+	[[NSColor controlBackgroundColor] set];
 	
 	NSRectFillUsingOperation(inRect, NSCompositeSourceOver);
 	

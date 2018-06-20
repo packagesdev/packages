@@ -75,7 +75,7 @@
 	else
 	{
 		if (_pushed==YES)
-			tColor=[NSColor blackColor];
+			tColor=[NSColor controlTextColor];
 		else
 			tColor=[NSColor colorWithDeviceWhite:0.39 alpha:1.0];
 	}

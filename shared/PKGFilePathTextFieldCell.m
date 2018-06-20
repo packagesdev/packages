@@ -141,11 +141,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (self.fileNotFound==YES)
 	{
-        //[self setTextColor:[NSColor blackColor]];
+        //[self setTextColor:[NSColor controlTextColor]];
                             
         NSMutableAttributedString * tMutableAttributedString=[[self attributedStringValue] mutableCopy];
 		
-		[tMutableAttributedString addAttribute:NSForegroundColorAttributeName value:[NSColor blackColor] range:NSMakeRange(0, [tMutableAttributedString length])];
+		[tMutableAttributedString addAttribute:NSForegroundColorAttributeName value:[NSColor controlTextColor] range:NSMakeRange(0, [tMutableAttributedString length])];
 		
 		[super setAttributedStringValue:tMutableAttributedString];
 	}

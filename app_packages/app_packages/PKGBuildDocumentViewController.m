@@ -254,7 +254,7 @@
 			
 			tTableCellView.imageView.image=[tBuildEventItem stateIcon];
 			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
-			tTableCellView.textField.textColor=[NSColor blackColor];
+			tTableCellView.textField.textColor=[NSColor controlTextColor];
 			
 			return tTableCellView;
 		}

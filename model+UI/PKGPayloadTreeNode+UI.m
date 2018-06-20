@@ -261,7 +261,7 @@
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	NSMutableDictionary * tAttributesDictionary=[NSMutableDictionary dictionaryWithObject:(tFileItem.isReferencedItemMissing==YES) ? [NSColor redColor] : [NSColor blackColor]
+	NSMutableDictionary * tAttributesDictionary=[NSMutableDictionary dictionaryWithObject:(tFileItem.isReferencedItemMissing==YES) ? [NSColor redColor] : [NSColor controlTextColor]
 																				   forKey:NSForegroundColorAttributeName];
 	
 	if (self.isExcluded==YES)

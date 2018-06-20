@@ -166,7 +166,7 @@
 		return;
 	}
 	
-	_scriptNameTextField.textColor=[NSColor blackColor];
+	_scriptNameTextField.textColor=[NSColor controlTextColor];
 	
 	_lastModificationTextField.stringValue=[_lastModifiedDateFormatter stringForObjectValue:tAttributes[NSFileModificationDate]];
 }
