@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="_alignmentMatrix" destination="87" id="FJv-Dz-JXz"/>
                 <outlet property="_customBackgroundPopUpButton" destination="150" id="dpG-iT-Gb2"/>
+                <outlet property="_layoutDirectionCheckBox" destination="ZET-ZD-c7W" id="hDX-e7-B6w"/>
                 <outlet property="_scalingPopUpButton" destination="syQ-NY-Sqp" id="8Sb-4p-e0b"/>
                 <outlet property="_showPopUpButton" destination="162" id="AqN-1j-9Hs"/>
                 <outlet property="_sizeLabel" destination="187" id="kIS-fu-rC5"/>
@@ -170,7 +171,7 @@
                     </connections>
                 </matrix>
                 <textField verticalHuggingPriority="750" id="86">
-                    <rect key="frame" x="23" y="51" width="57" height="14"/>
+                    <rect key="frame" x="23" y="29" width="57" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Scaling:" id="192">
                         <font key="font" metaFont="smallSystem"/>
@@ -179,7 +180,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="syQ-NY-Sqp">
-                    <rect key="frame" x="82" y="46" width="184" height="22"/>
+                    <rect key="frame" x="82" y="24" width="184" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Proportionally" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="xlW-hE-nMX" id="Vds-pk-oke">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -202,6 +203,17 @@
                         <action selector="switchScaling:" target="-2" id="iRS-1y-7x1"/>
                     </connections>
                 </popUpButton>
+                <button id="ZET-ZD-c7W">
+                    <rect key="frame" x="82" y="58" width="152" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Natural layout direction" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="T4s-ur-JRH">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="switchLayoutDirection:" target="-2" id="hdG-NA-iSJ"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="594.5" y="541"/>
         </customView>

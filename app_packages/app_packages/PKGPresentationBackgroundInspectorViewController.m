@@ -103,6 +103,8 @@
 	
 	IBOutlet NSMatrix * _alignmentMatrix;
 	
+	IBOutlet NSButton * _layoutDirectionCheckBox;
+	
 	IBOutlet NSPopUpButton * _scalingPopUpButton;
 	
 	PKGPresentationBackgroundOpenPanelDelegate * _openPanelDelegate;
@@ -115,6 +117,9 @@
 - (IBAction)chooseCustomBackground:(id)sender;
 
 - (IBAction)switchAlignment:(id)sender;
+
+- (IBAction)switchLayoutDirection:(id)sender;
+
 - (IBAction)switchScaling:(id)sender;
 
 @end
@@ -199,6 +204,9 @@
 	
 	_alignmentMatrix.enabled=tShowCustomImage;
 	[_alignmentMatrix selectCellWithTag:_backgroundSettings.imageAlignment];
+	
+	_layoutDirectionCheckBox.enabled=tShowCustomImage;
+	_layoutDirectionCheckBox.state=(_backgroundSettings.imageLayoutDirection==PKGImageLayoutDirectionNatural) ? NSOnState : NSOffState;
 	
 	// Scaling
 	
@@ -302,6 +310,22 @@
 		return;
 	
 	_backgroundSettings.imageAlignment=tTag;
+	
+	[self noteDocumentHasChanged];
+	
+	// Post Notification
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+}
+
+- (IBAction)switchLayoutDirection:(NSButton *)sender
+{
+	PKGImageLayoutDirection tLayoutDirection=([sender state]==NSOnState) ? PKGImageLayoutDirectionNatural : PKGImageLayoutDirectionNone;
+	
+	if (tLayoutDirection==_backgroundSettings.imageLayoutDirection)
+		return;
+	
+	_backgroundSettings.imageLayoutDirection=tLayoutDirection;
 	
 	[self noteDocumentHasChanged];
 	
