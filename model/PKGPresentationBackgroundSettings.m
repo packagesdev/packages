@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,6 +23,8 @@ NSString * const PKGPresentationBackgroundImageAlignmentKey=@"ALIGNMENT";
 
 NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 
+NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIRECTION";
+
 @implementation PKGPresentationBackgroundSettings
 
 - (instancetype)init
@@ -37,6 +39,7 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 		
 		_imageAlignment=PKGImageAlignmentleft;
 		_imageScaling=PKGImageScalingProportionnaly;
+		_imageLayoutDirection=PKGImageLayoutDirectionNone;
 	}
 	
 	return self;
@@ -154,6 +157,37 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 				return nil;
 			}
 		}
+		
+		tNumber=inRepresentation[PKGPresentationBackgroundImageLayoutDirectionKey];
+		
+		if (tNumber==nil)
+		{
+			_imageLayoutDirection=PKGImageLayoutDirectionNone;
+		}
+		else
+		{
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImageLayoutDirectionKey}];
+				
+				return nil;
+			}
+			
+			_imageLayoutDirection=[tNumber unsignedIntegerValue];
+			
+			if (_imageLayoutDirection>PKGImageLayoutDirectionNatural)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundImageLayoutDirectionKey}];
+				
+				return nil;
+			}
+		}
 	}
 	else
 	{
@@ -181,6 +215,8 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 	tRepresentation[PKGPresentationBackgroundImageAlignmentKey]=@(self.imageAlignment);
 	
 	tRepresentation[PKGPresentationBackgroundImageScalingKey]=@(self.imageScaling);
+	
+	tRepresentation[PKGPresentationBackgroundImageLayoutDirectionKey]=@(self.imageLayoutDirection);
 	
 	return tRepresentation;
 }
@@ -214,6 +250,8 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 		nPresentationBackgroundSettings.imageAlignment=self.imageAlignment;
 		
 		nPresentationBackgroundSettings.imageScaling=self.imageScaling;
+		
+		nPresentationBackgroundSettings.imageLayoutDirection=self.imageLayoutDirection;
 	}
 	
 	return nPresentationBackgroundSettings;

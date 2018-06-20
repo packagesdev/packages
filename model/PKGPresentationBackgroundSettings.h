@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -35,6 +35,12 @@ typedef NS_ENUM(NSUInteger, PKGImageScaling)
 	PKGImageScalingNone
 };
 
+typedef NS_ENUM(NSUInteger, PKGImageLayoutDirection)
+{
+	PKGImageLayoutDirectionNone=0,
+	PKGImageLayoutDirectionNatural=1
+};
+
 @interface PKGPresentationBackgroundSettings : PKGPresentationStepSettings
 
 	@property BOOL showCustomImage;
@@ -44,5 +50,7 @@ typedef NS_ENUM(NSUInteger, PKGImageScaling)
 	@property PKGImageAlignment imageAlignment;
 
 	@property PKGImageScaling imageScaling;
+
+	@property PKGImageLayoutDirection imageLayoutDirection;
 
 @end
