@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -945,9 +945,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	if (tNewClass==nil)
 		return;
 	
+	BOOL tIsInstallerPluginInspectorViewController=[NSStringFromClass(tNewClass) isEqualToString:@"PKGPresentationInstallerPluginInspectorViewController"];
+	
 	if (_currentInspectorViewController!=nil)
 	{
-		if ([_currentInspectorViewController class]==tNewClass)
+		if ([_currentInspectorViewController class]==tNewClass && tIsInstallerPluginInspectorViewController==NO)
 		{
 			// A COMPLETER
 			
@@ -963,7 +965,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	PKGPresentationInspectorViewController * tNewInspectorViewController=nil;
 	
-	if ([NSStringFromClass(tNewClass) isEqualToString:@"PKGPresentationInstallerPluginInspectorViewController"]==NO)
+	if (tIsInstallerPluginInspectorViewController==NO)
 		tNewInspectorViewController=[[tNewClass alloc] initWithDocument:self.document presentationSettings:self.presentationSettings];
 	else
 		tNewInspectorViewController=[[tNewClass alloc] initWithDocument:self.document presentationSection:self.presentationSettings.sections[_listView.selectedStep]];
