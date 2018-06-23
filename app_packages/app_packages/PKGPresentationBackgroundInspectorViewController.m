@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -225,6 +225,8 @@
 		return;
 	
 	_backgroundSettings.showCustomImage=tCustomBackground;
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:_backgroundSettings];
 	
 	[self refreshUI];
 }
