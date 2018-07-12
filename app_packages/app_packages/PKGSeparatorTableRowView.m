@@ -24,12 +24,7 @@
 {
 	NSRect tBounds=self.bounds;
 	
-	NSArray * tArray=[NSColor controlAlternatingRowBackgroundColors];
-	
-	if (tArray.count>0)
-		[(NSColor *)tArray[0] set];
-	else
-		[[NSColor whiteColor] set];
+	[[self backgroundColor] set];
 	
 	NSRectFill(dirtyRect);
 	
