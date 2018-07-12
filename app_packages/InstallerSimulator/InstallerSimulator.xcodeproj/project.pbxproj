@@ -11,8 +11,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F417B37E20E5731E005BAC33 /* en_AU */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en_AU; path = en_AU.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F417B37F20E57345005BAC33 /* en-GB */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en_GB; path = en_GB.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F456CA1A1F0EBB8300B9D1DE /* hi */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F45E7E551F100F7C005641CD /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F489C74120E57F22008758E0 /* zh_HK */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_HK; path = zh_HK.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4A5EE0C1E9EE4EE00A73843 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4AED1D11E9EE31A007B5031 /* InstallerSimulator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstallerSimulator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C52A241E9EE51E00ED82ED /* ar */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -40,7 +43,6 @@
 		F4D135A31E9EE5A80017DCB9 /* ro */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135A41E9EE5B80017DCB9 /* ru */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135A51E9EE5BD0017DCB9 /* sk */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F4D135A61E9EE5C20017DCB9 /* Spanish */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135A71E9EE5D20017DCB9 /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135A81E9EE5D60017DCB9 /* th */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135A91E9EE5DA0017DCB9 /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 		F4D135AC1E9EE5EB0017DCB9 /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4D135AD1E9EE5EF0017DCB9 /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4DA62331E9F899B007E5319 /* es_MX */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es_MX; path = es_MX.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4DED59A201D36B800C3FA5B /* Spanish */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4E4AFD71F4C1EC60086427E /* es_419 */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es_419; path = es_419.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,7 +139,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				ar,
 				ca,
 				cs,
@@ -144,6 +146,8 @@
 				Dutch,
 				el,
 				English,
+				en_AU,
+				en_GB,
 				fi,
 				French,
 				German,
@@ -169,6 +173,7 @@
 				uk,
 				vi,
 				zh_CN,
+				zh_HK,
 				zh_TW,
 				es_MX,
 				hi,
@@ -234,7 +239,6 @@
 				F4D135A31E9EE5A80017DCB9 /* ro */,
 				F4D135A41E9EE5B80017DCB9 /* ru */,
 				F4D135A51E9EE5BD0017DCB9 /* sk */,
-				F4D135A61E9EE5C20017DCB9 /* Spanish */,
 				F4D135A71E9EE5D20017DCB9 /* sv */,
 				F4D135A81E9EE5D60017DCB9 /* th */,
 				F4D135A91E9EE5DA0017DCB9 /* tr */,
@@ -245,6 +249,10 @@
 				F4DA62331E9F899B007E5319 /* es_MX */,
 				F456CA1A1F0EBB8300B9D1DE /* hi */,
 				F4E4AFD71F4C1EC60086427E /* es_419 */,
+				F4DED59A201D36B800C3FA5B /* Spanish */,
+				F417B37E20E5731E005BAC33 /* en_AU */,
+				F417B37F20E57345005BAC33 /* en_GB */,
+				F489C74120E57F22008758E0 /* zh_HK */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
