@@ -42,7 +42,7 @@
 	
 	if (self!=nil)
 	{
-		[_cell setBezeled:YES];
+		[[self cell] setBezeled:YES];
 	}
 	
 	return self;
@@ -54,7 +54,7 @@
 	
 	if (self!=nil)
 	{
-		[_cell setBezeled:YES];
+		[[self cell] setBezeled:YES];
 	}
 	
 	return self;
@@ -170,7 +170,7 @@
 
 - (id<WBVersionPickerCellDelegate>)delegate
 {
-	return [[self cell] delegate];
+	return ((id<WBVersionPickerCellDelegate>)[[self cell] delegate]);
 }
 
 - (void)setDelegate:(id<WBVersionPickerCellDelegate>)inDelegate
