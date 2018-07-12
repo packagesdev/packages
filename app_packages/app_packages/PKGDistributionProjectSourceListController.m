@@ -532,7 +532,10 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	
 	if ([tNumber boolValue]==YES)
 	{
-		_addButton.image=[NSImage imageNamed:@"packageReferenceAdd"];
+        NSImage * tImage=[NSImage imageNamed:@"packageReferenceAdd"];
+        tImage.template=YES;
+        
+        _addButton.image=tImage;
 		_addButton.action=@selector(addPackageReference:);
 	}
 	else
