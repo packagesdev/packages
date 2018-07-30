@@ -15,7 +15,7 @@
 
 #import <objc/objc-class.h>
 
-@interface NSColor (LabelColor_WB_Private)
+@interface NSColor (LabelColor_WB)
 
 + (NSColor *)WB_labelColor;
 
@@ -31,9 +31,9 @@
 
 @implementation NSColor (LabelColor_WB)
 
-+ (void)initializeMountainLion
++ (void)load
 {
-	Class tClass = object_getClass((id)self);
+	Class tClass = self;
 	
 	if ([tClass respondsToSelector:@selector(labelColor)]==NO)
 	{

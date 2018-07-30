@@ -22,9 +22,3 @@
 + (NSColor *)containerBorderColor;
 
 @end
-
-@interface NSColor (LabelColor_WB)
-
-+ (void)initializeMountainLion;
-
-@end
