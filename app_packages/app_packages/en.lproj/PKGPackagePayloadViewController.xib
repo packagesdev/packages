@@ -27,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="1026" height="557"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView id="tg5-pB-XkD" customClass="WBWhiteView">
+                <customView id="tg5-pB-XkD" customClass="PKGSectionView">
                     <rect key="frame" x="0.0" y="420" width="663" height="137"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -51,35 +51,35 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="Sqs-Wy-nM8">
+                        <textField verticalHuggingPriority="750" id="Sqs-Wy-nM8" customClass="PKGSectionTitle">
                             <rect key="frame" x="20" y="99" width="63" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Settings" id="hnT-ZL-Ic5">
                                 <font key="font" metaFont="systemBold" size="14"/>
                                 <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" white="0.75" alpha="1" colorSpace="calibratedWhite"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="cEO-ca-Oh6">
+                        <textField verticalHuggingPriority="750" id="cEO-ca-Oh6" customClass="PKGLabel">
                             <rect key="frame" x="37" y="65" width="131" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Default Destination:" id="r1G-ZF-H3K">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <customView id="rjD-CM-fEd">
                             <rect key="frame" x="0.0" y="12" width="663" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" id="fcW-bt-mZS">
+                                <textField verticalHuggingPriority="750" id="fcW-bt-mZS" customClass="PKGLabel">
                                     <rect key="frame" x="69" y="28" width="99" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Build Options:" id="E0a-ML-y5u">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <button id="DoL-Mn-EmK">
@@ -108,8 +108,8 @@
                         </customView>
                     </subviews>
                 </customView>
-                <customView id="32l-Ti-730" customClass="WBLightGrayView">
-                    <rect key="frame" x="0.0" y="0.0" width="663" height="420"/>
+                <customView id="32l-Ti-730" customClass="PKGAlternateSectionView">
+                    <rect key="frame" x="0.0" y="-1" width="663" height="421"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>
                 <customView id="ook-iR-vWX" customClass="PKGRightInspectorView">

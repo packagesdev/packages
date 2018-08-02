@@ -70,8 +70,8 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" id="AcQ-c9-kHL">
-                    <rect key="frame" x="36" y="275" width="114" height="17"/>
+                <textField verticalHuggingPriority="750" id="AcQ-c9-kHL" customClass="PKGLabel">
+                    <rect key="frame" x="30" y="275" width="120" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Reference Folder:" id="Klo-98-VBm">
                         <font key="font" metaFont="system"/>
@@ -93,8 +93,8 @@
                         <outlet property="nextKeyView" destination="dLO-iy-AiD" id="rq1-DT-MYq"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="xjC-xU-3GV">
-                    <rect key="frame" x="105" y="338" width="45" height="17"/>
+                <textField verticalHuggingPriority="750" id="xjC-xU-3GV" customClass="PKGLabel">
+                    <rect key="frame" x="98" y="338" width="52" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="3yq-yF-fo2">
                         <font key="font" metaFont="system"/>
@@ -102,8 +102,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="8QZ-9q-uMG">
-                    <rect key="frame" x="113" y="306" width="37" height="17"/>
+                <textField verticalHuggingPriority="750" id="8QZ-9q-uMG" customClass="PKGLabel">
+                    <rect key="frame" x="105" y="306" width="45" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Path:" id="HOI-85-3bo">
                         <font key="font" metaFont="system"/>
@@ -111,7 +111,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="Ofq-yE-hYd">
+                <textField verticalHuggingPriority="750" id="Ofq-yE-hYd" customClass="PKGSectionTitle">
                     <rect key="frame" x="18" y="375" width="41" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Build" id="lSS-8E-thz">

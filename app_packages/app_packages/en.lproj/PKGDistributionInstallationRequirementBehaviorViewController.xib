@@ -272,7 +272,7 @@
 										<string key="NSFrameSize">{567, 138}</string>
 										<reference key="NSSuperview" ref="445274087"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="41611730"/>
+										<reference key="NSNextKeyView" ref="519573169"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -414,7 +414,7 @@
 						<string key="NSFrame">{{37, 50}, {569, 140}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="445274087"/>
+						<reference key="NSNextKeyView" ref="41611730"/>
 						<int key="NSsFlags">150034</int>
 						<reference key="NSVScroller" ref="804484922"/>
 						<reference key="NSHScroller" ref="41611730"/>
@@ -496,8 +496,21 @@
 							<string key="NSContents">When this requirement is not met:</string>
 							<reference key="NSSupport" ref="819553117"/>
 							<reference key="NSControlView" ref="486209048"/>
-							<reference key="NSBackgroundColor" ref="455474502"/>
-							<reference key="NSTextColor" ref="878404145"/>
+							<object class="NSColor" key="NSBackgroundColor" id="513665827">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">textBackgroundColor</string>
+								<object class="NSColor" key="NSColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MQA</bytes>
+								</object>
+							</object>
+							<object class="NSColor" key="NSTextColor">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">textColor</string>
+								<reference key="NSColor" ref="617931282"/>
+							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -508,6 +521,7 @@
 						<string key="NSFrame">{{480, 27}, {125, 11}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="178974330">
 							<int key="NSCellFlags">67108864</int>
@@ -519,10 +533,13 @@
 								<int key="NSfFlags">3614</int>
 							</object>
 							<reference key="NSControlView" ref="2689326"/>
-							<reference key="NSBackgroundColor" ref="455474502"/>
+							<reference key="NSBackgroundColor" ref="513665827"/>
 							<object class="NSColor" key="NSTextColor">
 								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MC40OTI3MDA3MwA</bytes>
+								<bytes key="NSWhite">MCAwLjUAA</bytes>
+								<object class="NSColorSpace" key="NSCustomColorSpace">
+									<int key="NSID">2</int>
+								</object>
 							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1003,7 +1020,9 @@
 				</array>
 				<string key="93.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="94.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="95.CustomClassName">PKGLabel</string>
 				<string key="95.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="96.CustomClassName">PKGSecondaryLabel</string>
 				<string key="96.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
@@ -1068,6 +1087,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGInstallationRequirementMessageTableView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGLabel</string>
+					<string key="superclassName">NSTextField</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGLabel.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1180,6 +1207,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGRequirementFailureMessageTableCellView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PKGSecondaryLabel</string>
+					<string key="superclassName">NSTextField</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../app_packages/PKGSecondaryLabel.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

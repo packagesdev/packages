@@ -109,64 +109,76 @@
                             <rect key="frame" x="13" y="88" width="640" height="451"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <customView id="r9y-27-Gl9" customClass="PKGPresentationImageView">
+                                <box autoresizesSubviews="NO" borderWidth="0.0" title="Box" boxType="custom" borderType="none" id="XuV-uL-31X" customClass="PKGPresentationWindowContentView">
                                     <rect key="frame" x="10" y="9" width="620" height="418"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button verticalHuggingPriority="750" id="Bj5-td-sYZ">
-                                            <rect key="frame" x="273" y="8" width="98" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="ms1-S3-Eeh">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button verticalHuggingPriority="750" id="MSe-d8-GPH">
-                                            <rect key="frame" x="175" y="8" width="98" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="fbn-eI-RNU">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button verticalHuggingPriority="750" id="hj5-nv-vct">
-                                            <rect key="frame" x="410" y="8" width="98" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="Y1N-VJ-qUA">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <button verticalHuggingPriority="750" id="5XG-tp-MLF">
-                                            <rect key="frame" x="508" y="8" width="98" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                            <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="9lu-Ev-Jth">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
-                                        <customView id="LV5-xr-d27" customClass="PKGPresentationListView">
-                                            <rect key="frame" x="18" y="50" width="154" height="332"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                                        </customView>
-                                        <customView id="WHD-ej-XMP">
-                                            <rect key="frame" x="181" y="50" width="418" height="331"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </customView>
-                                        <textField verticalHuggingPriority="750" id="u6l-Pd-zlH" customClass="PKGPresentationPaneTitleView">
-                                            <rect key="frame" x="181" y="384" width="418" height="19"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="ZpR-gg-CYN">
-                                                <font key="font" metaFont="systemBold" size="14"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                    </subviews>
-                                    <connections>
-                                        <outlet property="menu" destination="kly-rb-DGG" id="Esf-5B-fMn"/>
-                                    </connections>
-                                </customView>
+                                    <view key="contentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="620" height="418"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <customView id="r9y-27-Gl9" customClass="PKGPresentationImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="620" height="418"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" id="Bj5-td-sYZ">
+                                                        <rect key="frame" x="273" y="8" width="98" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="ms1-S3-Eeh">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" id="MSe-d8-GPH">
+                                                        <rect key="frame" x="175" y="8" width="98" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="fbn-eI-RNU">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" id="hj5-nv-vct">
+                                                        <rect key="frame" x="410" y="8" width="98" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="Y1N-VJ-qUA">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" id="5XG-tp-MLF">
+                                                        <rect key="frame" x="508" y="8" width="98" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="&lt;&lt; DO" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="9lu-Ev-Jth">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
+                                                    <customView id="LV5-xr-d27" customClass="PKGPresentationListView">
+                                                        <rect key="frame" x="18" y="50" width="154" height="332"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                                    </customView>
+                                                    <customView id="WHD-ej-XMP">
+                                                        <rect key="frame" x="181" y="50" width="418" height="331"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    </customView>
+                                                    <textField verticalHuggingPriority="750" id="u6l-Pd-zlH" customClass="PKGPresentationPaneTitleView">
+                                                        <rect key="frame" x="181" y="384" width="418" height="19"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="ZpR-gg-CYN">
+                                                            <font key="font" metaFont="systemBold" size="14"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <connections>
+                                                    <outlet property="menu" destination="kly-rb-DGG" id="Esf-5B-fMn"/>
+                                                </connections>
+                                            </customView>
+                                        </subviews>
+                                    </view>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </box>
                             </subviews>
                         </customView>
                     </subviews>
@@ -175,10 +187,6 @@
                     <rect key="frame" x="665" y="0.0" width="363" height="557"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                     <subviews>
-                        <customView id="LZz-Ff-z4a">
-                            <rect key="frame" x="1" y="0.0" width="362" height="516"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        </customView>
                         <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="Tcw-Fr-S4f">
                             <rect key="frame" x="0.0" y="513" width="363" height="5"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -228,6 +236,10 @@
                                 <action selector="switchInspectedView:" target="-2" id="Wy0-ed-D79"/>
                             </connections>
                         </popUpButton>
+                        <customView id="LZz-Ff-z4a">
+                            <rect key="frame" x="1" y="0.0" width="362" height="516"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </customView>
                     </subviews>
                 </customView>
             </subviews>

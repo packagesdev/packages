@@ -116,7 +116,7 @@
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">BuildPreferences</string>
+								<string key="NSResourceName">BuildPreferencesTemplate</string>
 							</object>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
@@ -485,7 +485,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="BuildPreferences">{32, 32}</string>
+			<string key="BuildPreferencesTemplate">{32, 32}</string>
 			<string key="FilesPreferences">{32, 32}</string>
 			<string key="NSAdvanced">{32, 32}</string>
 			<string key="NSPreferencesGeneral">{32, 32}</string>
