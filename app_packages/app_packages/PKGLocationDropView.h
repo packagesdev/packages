@@ -1,5 +1,5 @@
 
-#import "WBWhiteView.h"
+#import "PKGSectionView.h"
 
 @class PKGLocationDropView;
 
@@ -11,7 +11,7 @@
 
 @end
 
-@interface PKGLocationDropView : WBWhiteView
+@interface PKGLocationDropView : PKGSectionView
 
 	@property (weak) id<PKGLocationDropViewDelegate> delegate;
 

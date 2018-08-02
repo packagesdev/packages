@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -39,6 +39,8 @@
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
+	
+	self.outlineView.gridColor=self.outlineView.backgroundColor;
 	
 	self.outlineView.autoresizesOutlineColumn=NO;
 }
@@ -254,7 +256,7 @@
 			
 			tTableCellView.imageView.image=[tBuildEventItem stateIcon];
 			tTableCellView.textField.stringValue=(tBuildEventItem.title!=nil) ? tBuildEventItem.title : @"";
-			tTableCellView.textField.textColor=[NSColor controlTextColor];
+			tTableCellView.textField.textColor=[NSColor labelColor];
 			
 			return tTableCellView;
 		}
@@ -321,19 +323,19 @@
 		case PKGBuildEventItemDistributionPackage:
 		case PKGBuildEventItemPackage:
 			
-			return 34.0;
+			return 35.0;
 			
 		case PKGBuildEventItemStep:
 		case PKGBuildEventItemStepParent:
 			
-			return 14.0;
+			return 15.0;
 			
 		case PKGBuildEventItemErrorDescription:
 		case PKGBuildEventItemWarningDescription:
 			
 			// A COMPLETER (we probably should handle variable height)
 			
-			return 14.0;
+			return 15.0;
 			
 		case PKGBuildEventItemConclusion:
 			

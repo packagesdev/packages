@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -26,7 +26,17 @@ NSString * const PKGBuildSubtitledTableRowViewIdentifier=@"PKGBuildSubtitledTabl
 		return;
 	}
 	
-	[[NSColor colorWithCalibratedWhite:0.92 alpha:1.0] set];
+	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+		[[NSColor colorWithCalibratedWhite:0.92 alpha:1.0] set];
+	else
+		[[NSColor colorWithCalibratedWhite:0.17 alpha:1.0] set];
+	
+	if (NSMinY(inRect)==0)
+	{
+		inRect.origin.y+=1.0;
+		inRect.size.height-=1.0;
+	}
+	
 	NSRectFill(inRect);
 }
 

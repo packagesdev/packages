@@ -13,6 +13,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * const PKGPresentationWindowViewEffectiveAppearanceDidChangeNotification;
+
 @interface PKGPresentationWindowView : NSView
 
 	@property (nonatomic,copy) NSString * title;

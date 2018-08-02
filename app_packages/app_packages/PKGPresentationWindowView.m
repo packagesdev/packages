@@ -30,6 +30,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #define PKGPresentationWindowTitleBarMarginRightNoIcon 18.0
 #define PKGPresentationWindowTitleBarMarginRight 35.0
 
+NSString * const PKGPresentationWindowViewEffectiveAppearanceDidChangeNotification=@"PKGPresentationWindowViewEffectiveAppearanceDidChangeNotification";
+
 @interface NSWindow (Private_PKG)
 
 	@property BOOL showsLockButton;
@@ -117,6 +119,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			NSButton * tButton=[tWindow standardWindowButton:5];
 			
 			_lockButtonImage=tButton.image;
+			
+			[_lockButtonImage setTemplate:YES];
 		}
 	}
 	
@@ -146,7 +150,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	tShadow.shadowOffset=NSMakeSize(0.0,-3.0);
 	tShadow.shadowBlurRadius=12.0;
-	tShadow.shadowColor=[([[self window] isMainWindow]==YES) ? [NSColor blackColor] : [NSColor lightGrayColor] colorWithAlphaComponent:0.5];
+	tShadow.shadowColor=[[NSColor blackColor] colorWithAlphaComponent:([[self window] isMainWindow]==YES) ? 0.5 : 0.20];
 	
 	[tShadow set];
 	
@@ -295,9 +299,22 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	tBounds=NSMakeRect(tContentRect.origin.x,tContentRect.origin.y,tContentRect.size.width,tContentRect.size.height);
 	
 	if (_helperWindow!=nil)
+	{
 		[_helperWindow.backgroundColor set];
+	}
 	else
-		[self.window.backgroundColor set];
+	{
+		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+		{
+			//[self.window.backgroundColor set];	// A VOIR
+			[[NSColor colorWithDeviceWhite:0.925 alpha:1.0] set];
+		}
+		else
+		{
+			[[NSColor colorWithDeviceWhite:0.15 alpha:1.0] set];
+		}
+	}
+	
 	
 	NSRectFillUsingOperation(tBounds,NSCompositeSourceOver);
     
@@ -351,6 +368,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (void)windowDidResignMain:(NSNotification *) inNotification
 {
 	[self setNeedsDisplay:YES];
+}
+
+#pragma mark -
+
+- (void)viewDidChangeEffectiveAppearance
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationWindowViewEffectiveAppearanceDidChangeNotification object:self];
 }
 
 @end

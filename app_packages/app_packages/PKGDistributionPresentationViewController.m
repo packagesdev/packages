@@ -37,6 +37,7 @@
 #import "PKGPresentationSection+UI.h"
 
 #import "PKGPresentationTheme.h"
+#import "PKGPresentationBackgroundSettings+Theme.h"
 
 #import "PKGInstallerApp.h"
 
@@ -69,6 +70,9 @@
 
 #import "PKGPresentationInstallationTypeChoiceDependenciesViewController.h"
 
+#ifndef NSAppKitVersionNumber10_13
+#define NSAppKitVersionNumber10_13 1504
+#endif
 
 NSString * const PKGDistributionPresentationSelectedStep=@"ui.project.presentation.step.selected";
 
@@ -163,6 +167,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 - (void)windowStateDidChange:(NSNotification *)inNotification;
 
+- (void)windowViewEffectiveAppearanceDidChange:(NSNotification *)inNotification;
+
 - (void)titleSettingsDidChange:(NSNotificationCenter *)inNotification;
 
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification;
@@ -226,6 +232,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}];
 	
 	_languagePreviewPopUpButton.menu=tLanguagesMenu;
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowViewEffectiveAppearanceDidChange:) name:PKGPresentationWindowViewEffectiveAppearanceDidChangeNotification object:_windowView];
 }
 
 #pragma mark -
@@ -314,17 +322,48 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	PKGPresentationBackgroundSettings * tBackgroundSettings=[_presentationSettings backgroundSettings_safe];
 	
-	if (tBackgroundSettings.showCustomImage==NO)
+	PKGPresentationBackgroundAppearanceSettings * tBackgroundAppearanceSettings=nil;
+	
+	if (tBackgroundSettings.sharedSettingsForAllAppearances==YES)
+	{
+		tBackgroundAppearanceSettings=[tBackgroundSettings appearanceSettingsForAppearanceMode:PKGPresentationAppareanceModeShared];
+	}
+	else
+	{
+		PKGPresentationThemeVersion tTheme=_currentTheme;
+		
+		if (tTheme==PKGPresentationThemeMojaveDynamic)
+		{
+			if ([_windowView WB_isEffectiveAppareanceDarkAqua]==NO)
+				tTheme=PKGPresentationThemeMojaveLight;
+			else
+				tTheme=PKGPresentationThemeMojaveDark;
+		}
+		
+		tBackgroundAppearanceSettings=[tBackgroundSettings appearanceSettingsForTheme:tTheme];
+	}
+	
+	if (tBackgroundAppearanceSettings.showCustomImage==NO)
 	{
 		displayDefaultImage();
 		
 		return;
 	}
 	
-	_backgroundView.imageAlignment=tBackgroundSettings.imageAlignment;
-	_backgroundView.imageScaling=tBackgroundSettings.imageScaling;
+	if (tBackgroundAppearanceSettings.imageLayoutDirection==PKGImageLayoutDirectionNatural)
+	{
+		// A COMPLETER (Alignment should match script)
+		
+		_backgroundView.imageAlignment=tBackgroundAppearanceSettings.imageAlignment;
+	}
+	else
+	{
+		_backgroundView.imageAlignment=tBackgroundAppearanceSettings.imageAlignment;
+	}
 	
-	PKGFilePath * tFilePath=tBackgroundSettings.imagePath;
+	_backgroundView.imageScaling=tBackgroundAppearanceSettings.imageScaling;
+	
+	PKGFilePath * tFilePath=tBackgroundAppearanceSettings.imagePath;
 	
 	if (tFilePath==nil)
 	{
@@ -352,6 +391,48 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}
 	
 	_backgroundView.image=tImage;
+}
+
+- (void)updateTitleViewFont
+{
+	PKGPresentationThemeVersion tTheme=_currentTheme;
+	
+	if (tTheme==PKGPresentationThemeMojaveDynamic)
+	{
+		NSWindowController * tWindowController=((PKGDocument *)self.document).windowControllers.firstObject;	// A VOIR
+		
+		if ([tWindowController.window WB_isEffectiveAppareanceDarkAqua]==NO)
+			tTheme=PKGPresentationThemeMojaveLight;
+		else
+			tTheme=PKGPresentationThemeMojaveDark;
+	}
+	
+	switch(tTheme)
+	{
+		case PKGPresentationThemeMountainLion:
+			
+			_pageTitleView.font=[NSFont boldSystemFontOfSize:14.0];
+			
+			break;
+			
+			//case PKGPresentationThemeYosemite:
+		case PKGPresentationThemeMojaveLight:
+			
+			_pageTitleView.font=[NSFont labelFontOfSize:[NSFont systemFontSize]];
+			
+			break;
+			
+		case PKGPresentationThemeMojaveDark:
+			
+			_pageTitleView.font=[NSFont labelFontOfSize:[NSFont systemFontSize]];
+			
+			break;
+			
+		default:
+			
+			NSLog(@"Unsupported theme");
+			break;
+	}
 }
 
 - (void)updateTitleViews
@@ -470,28 +551,22 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}
 	else
 	{
-		if ([tInstallerApp isVersion6_1OrLater]==YES)
-			_currentTheme=PKGPresentationThemeYosemite;
-		else
-			_currentTheme=PKGPresentationThemeMountainLion;
+		/*if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_13)*/
+		{
+			_currentTheme=PKGPresentationThemeMojaveDynamic;
+		}
+		/*else
+		{
+			if ([tInstallerApp isVersion6_1OrLater]==YES)
+				_currentTheme=PKGPresentationThemeYosemite;
+			else
+				_currentTheme=PKGPresentationThemeMountainLion;
+		}*/
 		
 		self.documentRegistry[PKGPresentationTheme]=@(_currentTheme);
 	}
 	
-	switch(_currentTheme)
-	{
-		case PKGPresentationThemeYosemite:
-			
-			_pageTitleView.font=[NSFont labelFontOfSize:[NSFont systemFontSize]];
-			
-			break;
-			
-		case PKGPresentationThemeMountainLion:
-			
-			_pageTitleView.font=[NSFont boldSystemFontOfSize:14.0];
-			
-			break;
-	}
+	[self updateTitleViewFont];
 	
 	_currentPreviewLanguage=self.documentRegistry[PKGDistributionPresentationCurrentPreviewLanguage];
 	
@@ -572,20 +647,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 	_currentTheme=sender.tag;
 	
-	switch(_currentTheme)
-	{
-		case PKGPresentationThemeYosemite:
-			
-			_pageTitleView.font=[NSFont labelFontOfSize:[NSFont systemFontSize]];
-			
-			break;
-			
-		case PKGPresentationThemeMountainLion:
-			
-			_pageTitleView.font=[NSFont boldSystemFontOfSize:13.0];
-			
-			break;
-	}
+	[self updateTitleViewFont];
 	
 	self.documentRegistry[PKGPresentationTheme]=@(_currentTheme);
 	
@@ -1420,9 +1482,35 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	void (^finalizeSetBackgroundImagePath)(PKGFilePath *) = ^(PKGFilePath * bFilePath) {
 		
-		self.presentationSettings.backgroundSettings.showCustomImage=YES;
+		PKGPresentationBackgroundSettings * tBackgroundSettings=self.presentationSettings.backgroundSettings;
 		
-		self.presentationSettings.backgroundSettings.imagePath=bFilePath;
+		if (tBackgroundSettings.sharedSettingsForAllAppearances==YES)
+		{
+			[tBackgroundSettings.appearancesSettings enumerateKeysAndObjectsUsingBlock:^(NSString * bAppearanceNameKey, PKGPresentationBackgroundAppearanceSettings * bAppearanceSettings, BOOL *bOutStop) {
+				
+				bAppearanceSettings.showCustomImage=YES;
+				
+				bAppearanceSettings.imagePath=[bFilePath copy];
+			}];
+		}
+		else
+		{
+			PKGPresentationThemeVersion tTheme=_currentTheme;
+			
+			if (tTheme==PKGPresentationThemeMojaveDynamic)
+			{
+				if ([_windowView WB_isEffectiveAppareanceDarkAqua]==NO)
+					tTheme=PKGPresentationThemeMojaveLight;
+				else
+					tTheme=PKGPresentationThemeMojaveDark;
+			}
+			
+			PKGPresentationBackgroundAppearanceSettings * tAppearanceSettings=[tBackgroundSettings appearanceSettingsForTheme:tTheme];
+			
+			tAppearanceSettings.showCustomImage=YES;
+			
+			tAppearanceSettings.imagePath=[bFilePath copy];
+		}
 		
 		self->_backgroundView.image=tImage;
 		
@@ -1479,6 +1567,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	// Refresh List (in case a plugin file disappeared or reappeared)
 	
 	[_listView reloadData];
+}
+
+- (void)windowViewEffectiveAppearanceDidChange:(NSNotification *)inNotification
+{
+	[self updateBackgroundView];
 }
 
 - (void)titleSettingsDidChange:(NSNotificationCenter *)inNotification

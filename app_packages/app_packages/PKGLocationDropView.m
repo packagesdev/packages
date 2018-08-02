@@ -11,7 +11,7 @@
 
 - (BOOL)isOpaque
 {
-	return YES;
+	return NO;
 }
 
 #pragma mark -
@@ -30,7 +30,7 @@
 	
 - (void)drawRect:(NSRect)inRect
 {
-	[super drawRect:inRect];
+	//[super drawRect:inRect];
 	
 	if (self.isHighlighted==YES)
 	{

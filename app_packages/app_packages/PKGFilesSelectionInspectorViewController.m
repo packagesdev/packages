@@ -430,14 +430,14 @@
 	
 	// Source
 	
-	_sourcePathTextField.textColor=[NSColor controlTextColor];
+	_sourcePathTextField.textColor=[NSColor labelColor];
 	_sourcePathTextField.stringValue=tFileItem.filePath.string;
 	
 	// Destination
 	
 	if (_destinationPathTextField!=nil)
 	{
-		_destinationPathTextField.textColor=[NSColor controlTextColor];
+		_destinationPathTextField.textColor=[NSColor labelColor];
 		_destinationPathTextField.stringValue=inTreeNode.filePath;
 	}
 }
@@ -469,7 +469,7 @@
 	
 	// Type
 	
-	_fileTypeTextField.textColor=[NSColor controlTextColor];
+	_fileTypeTextField.textColor=[NSColor labelColor];
 	
 	NSString * tTypeString=nil;
 	
@@ -503,14 +503,14 @@
 	
 	// Source
 	
-	_sourcePathTextField.textColor=[NSColor controlTextColor];
+	_sourcePathTextField.textColor=[NSColor labelColor];
 	_sourcePathTextField.stringValue=@"-";
 	
 	// Destination
 	
 	if (_destinationPathTextField!=nil)
 	{
-		_destinationPathTextField.textColor=[NSColor controlTextColor];
+		_destinationPathTextField.textColor=[NSColor labelColor];
 		_destinationPathTextField.stringValue=inPath;
 	}
 }
@@ -566,7 +566,7 @@
 	
 	// Type
 	
-	_fileTypeTextField.textColor=[NSColor grayColor];
+	_fileTypeTextField.textColor=[NSColor secondaryLabelColor];
 	_fileTypeTextField.stringValue=NSLocalizedString(@"Multiple Selection",@"No comment");
 	
 	// Reference Type
@@ -657,14 +657,14 @@
 	
 	// Source
 	
-	_sourcePathTextField.textColor=[NSColor grayColor];
+	_sourcePathTextField.textColor=[NSColor secondaryLabelColor];
 	_sourcePathTextField.stringValue=NSLocalizedString(@"Multiple Selection",@"No comment");
 	
 	// Destination
 	
 	if (_destinationPathTextField!=nil)
 	{
-		_destinationPathTextField.textColor=[NSColor grayColor];
+		_destinationPathTextField.textColor=[NSColor secondaryLabelColor];
 		_destinationPathTextField.stringValue=NSLocalizedString(@"Multiple Selection",@"No comment");
 	}
 }

@@ -248,7 +248,7 @@
 		
 		// Source
 		
-		_sourcePathTextField.textColor=[NSColor controlTextColor];
+		_sourcePathTextField.textColor=[NSColor labelColor];
 	}
 }
 

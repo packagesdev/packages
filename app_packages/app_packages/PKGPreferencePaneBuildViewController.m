@@ -183,24 +183,33 @@
 	
 	NSImage * tImage;
 	BOOL isDirectory;
-	
+    BOOL tEverythingIsFine=YES;
+    
 	if ([[NSFileManager defaultManager] fileExistsAtPath:tPath isDirectory:&isDirectory]==YES)
 	{
 		tImage=[[NSWorkspace sharedWorkspace] iconForFile:tPath];
 		
-		if (isDirectory==NO)
-			_temporaryBuildLocationTextField.textColor=[NSColor redColor];
+        tEverythingIsFine=isDirectory;
 	}
 	else
 	{
 		tImage=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kQuestionMarkIcon)];
 		
-		_temporaryBuildLocationTextField.textColor=[NSColor redColor];
+        tEverythingIsFine=NO;
 	}
 	
 	tImage.size=NSMakeSize(32.0,32.0);
 	
 	_temporaryBuildLocationIconImageView.image=tImage;
+    
+	if (tEverythingIsFine==NO)
+	{
+		_temporaryBuildLocationTextField.textColor=[NSColor redColor];
+	}
+	else
+	{
+		_temporaryBuildLocationTextField.textColor=[NSColor labelColor];
+	}
 }
 
 - (void)refreshUI

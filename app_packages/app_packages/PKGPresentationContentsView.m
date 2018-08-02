@@ -21,6 +21,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface PKGPresentationContentsView ()
 
+- (void)updateTheme;
+
 // Notifications
 
 - (void)presentationThemeDidChange:(NSNotification *)inNotification;
@@ -34,12 +36,96 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)awakeFromNib
+{
+	self.boxType=NSBoxCustom;
+	self.borderType=NSLineBorder;
+	self.borderWidth=1.0;
+	self.contentViewMargins=NSZeroSize;
+}
+
 #pragma mark -
 
 - (BOOL)isOpaque
 {
 	return NO;
 }
+
+- (void)updateTheme
+{
+	PKGPresentationThemeVersion tThemeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
+	
+	if (tThemeVersion==PKGPresentationThemeMojaveDynamic)
+	{
+		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+			tThemeVersion=PKGPresentationThemeMojaveLight;
+		else
+			tThemeVersion=PKGPresentationThemeMojaveDark;
+	}
+	
+	switch(tThemeVersion)
+	{
+		case PKGPresentationThemeMountainLion:
+			
+			self.borderColor=[NSColor grayColor];
+			break;
+			
+		case PKGPresentationThemeMojaveLight:
+			
+			if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+			{
+				self.borderColor=[NSColor colorWithDeviceWhite:0.8 alpha:1.0];
+				break;
+			}
+			
+		case PKGPresentationThemeMojaveDark:
+			
+			self.borderColor=[NSColor containerBorderColor];
+
+			break;
+			
+		default:
+			
+			self.borderColor=[NSColor redColor];
+			NSLog(@"Unsupported Theme");
+			
+			break;
+	}
+	
+	switch(tThemeVersion)
+	{
+		case PKGPresentationThemeMountainLion:
+			
+			self.fillColor=[NSColor colorWithCalibratedWhite:1.0 alpha:0.6];
+			break;
+			
+		case PKGPresentationThemeMojaveLight:
+		case PKGPresentationThemeMojaveDark:
+			
+			self.fillColor=(NSAppKitVersionNumber>=NSAppKitVersionNumber10_14) ? [NSColor controlBackgroundColor] : [NSColor whiteColor];
+			break;
+			
+		default:
+			
+			self.fillColor=[NSColor redColor];
+			NSLog(@"Unsupported Theme");
+			
+			break;
+	}
+	
+	[self setNeedsDisplay:YES];
+}
+
+#pragma mark - PKGControlledView
+
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_10)
+
+- (void)superSetNextResponder:(NSResponder *)inNextResponder
+{
+	[super setNextResponder:inNextResponder];
+}
+
+#endif
 
 - (void)viewWillMoveToWindow:(NSWindow *)inWindow
 {
@@ -52,29 +138,82 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:inWindow];
 }
 
+- (void)viewDidMoveToWindow
+{
+	[self updateTheme];
+}
+
 #pragma mark -
 
-- (void)drawRect:(NSRect)frame
+/*- (void)drawRect:(NSRect)frame
 {
 	PKGPresentationThemeVersion tThemeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
 	
+	if (tThemeVersion==PKGPresentationThemeMojaveDynamic)
+	{
+		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+			tThemeVersion=PKGPresentationThemeMojaveLight;
+		else
+			tThemeVersion=PKGPresentationThemeMojaveDark;
+	}
+	
+	switch(tThemeVersion)
+	{
+		case PKGPresentationThemeMountainLion:
+			
+			[[NSColor colorWithDeviceWhite:0.5 alpha:1.0] set];
+			break;
+		
+		case PKGPresentationThemeMojaveLight:
+			
+			[[NSColor colorWithDeviceWhite:0.8 alpha:1.0] set];
+			break;
+			
+		case PKGPresentationThemeMojaveDark:
+			
+			[[NSColor colorWithDeviceWhite:0.21 alpha:1.0] set];
+			break;
+			
+		default:
+			
+			[[NSColor redColor] set];
+			NSLog(@"Unsupported Theme");
+			
+			break;
+	}
+	
 	NSRect tBounds=self.bounds;
-    
-	if (tThemeVersion==PKGPresentationThemeYosemite)
-		[[NSColor colorWithDeviceWhite:193.0/255.0 alpha:1.0] set];
-	else
-		[[NSColor colorWithDeviceWhite:0.5 alpha:1.0] set];
-    
     NSFrameRect(tBounds);
     
-    tBounds.origin=NSMakePoint(1,1);
+	tBounds=NSInsetRect(tBounds, 1.0,1.0);
     
-    tBounds.size.width-=2;
-    tBounds.size.height-=2;
-    
-	[[NSColor colorWithDeviceWhite:1.0 alpha:(tThemeVersion==PKGPresentationThemeYosemite) ? 1.0 : 0.6] set];
+	switch(tThemeVersion)
+	{
+		case PKGPresentationThemeMountainLion:
+			
+			[[NSColor colorWithDeviceWhite:1.0 alpha:0.6] set];
+			break;
+			
+		case PKGPresentationThemeMojaveLight:
+			
+			[[NSColor whiteColor] set];
+			break;
+			
+		case PKGPresentationThemeMojaveDark:
+			
+			[[NSColor colorWithDeviceWhite:0.10 alpha:1.0] set];
+			break;
+			
+		default:
+			
+			[[NSColor redColor] set];
+			NSLog(@"Unsupported Theme");
+			
+			break;
+	}
+	
     NSRectFillUsingOperation(tBounds,NSCompositeSourceOver);
-}
+}*/
 
 #pragma mark - Notifications
 
@@ -83,7 +222,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (self.window==nil)
 		return;
 	
-	[self setNeedsDisplay:YES];
+	[self updateTheme];
 }
 
 @end

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -37,17 +37,37 @@ NSString * const PKGConclusionTableRowViewIdentifier=@"PKGConclusionTableRowView
 	
 	NSRect tBounds=self.bounds;
 	
-	if (self.state==PKGBuildEventItemStateSuccess)
-		[[NSColor colorWithCalibratedRed:0.8471f green:0.9647f blue:0.8510f alpha:1.0] set];
+	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+	{
+		if (self.state==PKGBuildEventItemStateSuccess)
+			[[NSColor colorWithCalibratedRed:0.8471f green:0.9647f blue:0.8510f alpha:1.0] set];
+		else
+			[[NSColor colorWithCalibratedRed:0.9647f green:0.8471f blue:0.8510f alpha:1.0] set];
+	}
 	else
-		[[NSColor colorWithCalibratedRed:0.9647f green:0.8471f blue:0.8510f alpha:1.0] set];
+	{
+		if (self.state==PKGBuildEventItemStateSuccess)
+			[[NSColor colorWithCalibratedRed:0.1647f green:0.7882f blue:0.0902f alpha:1.0] set];
+		else
+			[[NSColor colorWithCalibratedRed:0.7882f green:0.1647f blue:0.0902f alpha:1.0] set];
+	}
 	
 	NSRectFill(tBounds);
 	
-	if (self.state==PKGBuildEventItemStateSuccess)
-		[[NSColor colorWithCalibratedRed:0.1647f green:0.7882f blue:0.0902f alpha:1.0] set];
+	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+	{
+		if (self.state==PKGBuildEventItemStateSuccess)
+			[[NSColor colorWithCalibratedRed:0.1647f green:0.7882f blue:0.0902f alpha:1.0] set];
+		else
+			[[NSColor colorWithCalibratedRed:0.7882f green:0.1647f blue:0.0902f alpha:1.0] set];
+	}
 	else
-		[[NSColor colorWithCalibratedRed:0.7882f green:0.1647f blue:0.0902f alpha:1.0] set];
+	{
+		if (self.state==PKGBuildEventItemStateSuccess)
+			[[NSColor colorWithCalibratedRed:0.8471f green:0.9647f blue:0.8510f alpha:1.0] set];
+		else
+			[[NSColor colorWithCalibratedRed:0.9647f green:0.8471f blue:0.8510f alpha:1.0] set];
+	}
 	
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMinY(tBounds)+0.5) toPoint:NSMakePoint(NSMaxX(tBounds),NSMinY(tBounds)+0.5)];
 	

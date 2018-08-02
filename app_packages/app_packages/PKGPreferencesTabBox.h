@@ -13,6 +13,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PKGPreferencesTabBox : NSView
+@interface PKGPreferencesTabBox : NSBox
 
 @end

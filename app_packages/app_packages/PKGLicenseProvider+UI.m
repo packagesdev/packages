@@ -59,17 +59,39 @@
 	
 	NSBezierPath* tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tRect xRadius:tRadius yRadius:tRadius];
 	
-	if (_highlighted==NO)
-		[[NSColor colorWithCalibratedRed:215.0/255.0 green:226.0/255.0 blue:246.0/255.0 alpha:1.0] setFill];
+	BOOL tIsDarkAqua=[inControlView WB_isEffectiveAppareanceDarkAqua];
+	
+	if (tIsDarkAqua==NO)
+	{
+		if (_highlighted==NO)
+			[[NSColor colorWithCalibratedRed:215.0/255.0 green:226.0/255.0 blue:246.0/255.0 alpha:1.0] setFill];
+		else
+			[[NSColor colorWithCalibratedRed:60.0/255.0 green:116.0/255.0 blue:231.0/255.0 alpha:1.0] setFill];	// 36 /93 / 226  ; 60 / 116 /231
+	}
 	else
-		[[NSColor colorWithCalibratedRed:60.0/255.0 green:116.0/255.0 blue:231.0/255.0 alpha:1.0] setFill];	// 36 /93 / 226  ; 60 / 116 /231
+	{
+		if (_highlighted==NO)
+			[[NSColor colorWithCalibratedRed:40.0/255.0 green:75.0/255.0 blue:141.0/255.0 alpha:1.0] setFill];
+		else
+			[[NSColor colorWithCalibratedRed:40.0/255.0 green:75.0/255.0 blue:141.0/255.0 alpha:1.0] setFill];
+	}
 	
 	[tBezierPath fill];
 	
-	if (_highlighted==NO)
-		[[NSColor colorWithCalibratedRed:149.0/255.0 green:176.0/255.0 blue:231.0/255.0 alpha:1.0] setStroke];
+	if (tIsDarkAqua==NO)
+	{
+		if (_highlighted==NO)
+			[[NSColor colorWithCalibratedRed:149.0/255.0 green:176.0/255.0 blue:231.0/255.0 alpha:1.0] setStroke];
+		else
+			[[NSColor colorWithCalibratedRed:40.0/255.0 green:75.0/255.0 blue:141.0/255.0 alpha:1.0] setStroke];
+	}
 	else
-		[[NSColor colorWithCalibratedRed:40.0/255.0 green:75.0/255.0 blue:141.0/255.0 alpha:1.0] setStroke];
+	{
+		if (_highlighted==NO)
+			[[NSColor colorWithCalibratedRed:149.0/255.0 green:176.0/255.0 blue:231.0/255.0 alpha:1.0] setStroke];
+		else
+			[[NSColor colorWithCalibratedRed:60.0/255.0 green:116.0/255.0 blue:231.0/255.0 alpha:1.0] setStroke];
+	}
 	
 	[tBezierPath stroke];
 	

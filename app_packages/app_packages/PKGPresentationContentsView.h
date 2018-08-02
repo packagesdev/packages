@@ -13,7 +13,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGControlledView.h"
 
-@interface PKGPresentationContentsView : PKGControlledView
+@interface PKGPresentationContentsView : NSBox <PKGControlledView>
 
 
 @end

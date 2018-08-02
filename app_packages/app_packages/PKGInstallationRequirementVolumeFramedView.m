@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2018, Stephane Sudre
+ Copyright (c) 2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -11,18 +11,35 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "PKGPreferencesTabBox.h"
+#import "PKGInstallationRequirementVolumeFramedView.h"
 
-@implementation PKGPreferencesTabBox
+@implementation PKGInstallationRequirementVolumeFramedView
 
-- (void)awakeFromNib
+- (BOOL)isOpaque
 {
-	self.boxType=NSBoxCustom;
-	self.borderType=NSLineBorder;
-	self.borderWidth=1.0;
-	self.borderColor=[NSColor containerBorderColor];
-	self.fillColor=(NSAppKitVersionNumber>=NSAppKitVersionNumber10_14) ? [NSColor controlBackgroundColor] : [NSColor whiteColor];
-	self.contentViewMargins=NSZeroSize;
+	return NO;
+}
+
+#pragma mark -
+
+- (void)drawRect:(NSRect)inFrame
+{
+	NSRect tBounds=self.bounds;
+	
+	[[NSColor colorWithDeviceWhite:0.0 alpha:0.07] set];
+		
+	NSRectFillUsingOperation(NSInsetRect(tBounds,1,1),NSCompositeSourceOver);
+	
+    [[NSColor containerBorderColor] setStroke];
+	
+	NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
+	
+	[tBezierPath moveToPoint:NSMakePoint(NSMinX(tBounds)+0.5,NSMaxY(tBounds)-0.5)];
+	[tBezierPath lineToPoint:NSMakePoint(NSMinX(tBounds)+0.5,NSMinY(tBounds)+0.5)];
+	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMinY(tBounds)+0.5)];
+	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(tBounds)-0.5)];
+	
+	[tBezierPath stroke];
 }
 
 @end
