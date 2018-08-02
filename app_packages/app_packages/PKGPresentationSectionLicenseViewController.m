@@ -265,6 +265,9 @@
 	
 	if (tSuccess==YES)
 	{
+		if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_14)
+			[self.textView setTextColor:[NSColor textColor]];
+		
 		if (_settings.licenseType==PKGLicenseTypeTemplate)
 			[PKGLicenseProvider UI_replaceKeywords:_settings.templateValues inAttributedString:tTextStorage];
 
