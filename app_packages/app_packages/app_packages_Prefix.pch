@@ -4,39 +4,53 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+
+	#ifndef NSAppKitVersionNumber10_9
+	#define NSAppKitVersionNumber10_9 1265
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_10
+	#define NSAppKitVersionNumber10_10 1343
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_11
+	#define NSAppKitVersionNumber10_11 1404
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_12
+	#define NSAppKitVersionNumber10_12 1504
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_13
+	#define NSAppKitVersionNumber10_13 1561
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_14
+	#define NSAppKitVersionNumber10_14 1641
+	#endif
+
+	#define PKGAppkitMinimumPushButtonWidth	82.0
+
+	// Foundation Extensions
+
+	#import "NSArray+WBExtensions.h"
+	#import "NSDictionary+WBExtensions.h"
+
+	// AppKit Extensions
+
+	#import "NSView+Appearance.h"
+	#import "NSWindow+Appearance.h"
+
+	#import "NSViewController+WBExtensions.h"
+
+	#import "NSColor+LabelColor.h"
+
 #endif
 
 #ifndef MAC_OS_X_VERSION_10_10
-#define MAC_OS_X_VERSION_10_10      101000
+#define MAC_OS_X_VERSION_10_10	101000
 #endif
 
-#ifndef NSAppKitVersionNumber10_9
-#define NSAppKitVersionNumber10_9 1265
-#endif
+// Debug
 
-#ifndef NSAppKitVersionNumber10_10
-#define NSAppKitVersionNumber10_10 1343
-#endif
-
-#ifndef NSAppKitVersionNumber10_11
-#define NSAppKitVersionNumber10_11 1404
-#endif
-
-#ifndef NSAppKitVersionNumber10_12
-#define NSAppKitVersionNumber10_12 1504
-#endif
-
-#ifndef NSAppKitVersionNumber10_13
-#define NSAppKitVersionNumber10_13 1561
-#endif
-
-#define PKGAppkitMinimumPushButtonWidth	82.0
-
-// Foundation Extensions
-
-#import "NSArray+WBExtensions.h"
-#import "NSDictionary+WBExtensions.h"
-
-// AppKit Extensions
-
-#import "NSViewController+WBExtensions.h"
+#define DEBUG_DARK_AQUA_PKG 0
