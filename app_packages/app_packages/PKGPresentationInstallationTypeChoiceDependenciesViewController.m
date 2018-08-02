@@ -26,8 +26,6 @@
 #import "PKGChoiceDependencyPopUpButton.h"
 #import "PKGChoiceDependencyContainerView.h"
 
-#import "WBWhiteView.h"
-
 #define ICDEPENDENCYCONTAINERVIEW_BRANCH_INTERSPACE_VERTICAL	5.0
 
 //#define ICDEPENDENCYCONTAINERVIEW_LEAF_WIDTH	400
@@ -65,13 +63,13 @@
 	
 	IBOutlet NSScrollView * _choiceEnabledDependencyScrollView;
 	
-	IBOutlet WBWhiteView * _choiceEnabledDependencyView;
+	IBOutlet NSView * _choiceEnabledDependencyView;
 	
 	IBOutlet NSTextField * _choiceSelectedDependencyTextLabel;
 	
 	IBOutlet NSScrollView * _choiceSelectedDependencyScrollView;
 	
-	IBOutlet WBWhiteView * _choiceSelectedDependencyView;
+	IBOutlet NSView * _choiceSelectedDependencyView;
 	
 	
 	IBOutlet NSView * _accessoryView;

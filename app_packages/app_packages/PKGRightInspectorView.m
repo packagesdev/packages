@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2017, Stephane Sudre
+Copyright (c) 2007-2018, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,19 +17,32 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (BOOL)isOpaque
 {
-	return YES;
+	return NO;
 }
 
-- (void)drawRect:(NSRect) inFrame
+- (void)drawRect:(NSRect)inFrame
 {
-	[[NSColor colorWithDeviceWhite:0.96 alpha:1.0] set];
+	BOOL tIsDarkMode=[self WB_isEffectiveAppareanceDarkAqua];
 	
-	NSRectFill(inFrame);
+	/*if (tIsDarkMode==NO)
+		[[NSColor colorWithDeviceWhite:0.96 alpha:1.0] set];
+	else
+		[[NSColor colorWithDeviceWhite:0.20 alpha:1.0] set];*/
+	
+	if (tIsDarkMode==NO)
+		[[NSColor colorWithDeviceWhite:0.96 alpha:1.0] set];
+	else
+		[[NSColor colorWithDeviceWhite:0.0 alpha:0.02] set];
+	
+	NSRectFillUsingOperation(inFrame,NSCompositeSourceOver);
 	
 	// Draw Left Separator line
 	
-	[[NSColor grayColor] setStroke];
-	
+	if (tIsDarkMode==NO)
+		[[NSColor grayColor] setStroke];
+	else
+		[[NSColor colorWithDeviceWhite:0.28 alpha:1.0] set];
+		
 	NSRect tBounds=[self bounds];
 	
 	[NSBezierPath strokeLineFromPoint:NSZeroPoint toPoint:NSMakePoint(0.0,NSMaxY(tBounds))];

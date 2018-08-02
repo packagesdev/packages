@@ -671,7 +671,12 @@
 		return;
 	
 	if ((inRow%2)==1)
-		inRowView.backgroundColor=[NSColor colorWithDeviceRed:1.0 green:213.0/255.0 blue:202.0/255.0 alpha:1.0];
+	{
+		if ([inTableView WB_isEffectiveAppareanceDarkAqua]==NO)
+			inRowView.backgroundColor=[NSColor colorWithDeviceRed:1.0 green:213.0/255.0 blue:202.0/255.0 alpha:1.0];
+		else
+			inRowView.backgroundColor=[NSColor colorWithDeviceRed:210.0/255.0 green:68.0/255.0 blue:72.0/255.0 alpha:0.5];
+	}
 }
 
 @end

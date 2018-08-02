@@ -95,6 +95,10 @@
 
 @interface PKGPresentationBackgroundInspectorViewController () <PKGReferencedPopUpButtonDelegate>
 {
+	IBOutlet NSButton * _sharedSettingsCheckBox;
+	
+	IBOutlet NSPopUpButton * _appearanceModePopUpButton;
+	
 	IBOutlet NSPopUpButton * _showPopUpButton;
 	
 	IBOutlet PKGReferencedPopUpButton * _customBackgroundPopUpButton;
@@ -110,7 +114,13 @@
 	PKGPresentationBackgroundOpenPanelDelegate * _openPanelDelegate;
 	
 	PKGPresentationBackgroundSettings * _backgroundSettings;
+	
+	PKGPresentationAppareanceMode _selectedAppearanceMode;
 }
+
+- (IBAction)switchSharedSettingsValue:(id)sender;
+
+- (IBAction)switchAppearanceMode:(id)sender;
 
 - (IBAction)switchBackgroundValue:(id)sender;
 
@@ -133,6 +143,8 @@
 	if (self!=nil)
 	{
 		_backgroundSettings=[inPresentationSettings backgroundSettings];
+		
+		_selectedAppearanceMode=PKGPresentationAppareanceModeShared;
 	}
 	
 	return self;
@@ -142,6 +154,28 @@
 
 - (void)WB_viewDidLoad
 {
+	[super WB_viewDidLoad];
+
+	// AppearanceMode popupbutton
+	
+	NSMenu * tApperancesModeMenu=_appearanceModePopUpButton.menu;
+	
+	[tApperancesModeMenu removeAllItems];
+	
+	[[PKGPresentationBackgroundAppearanceSettings allAppearancesNames] enumerateObjectsUsingBlock:^(NSString * bAppearanceName, NSUInteger bIndex, BOOL *bOutStop) {
+		
+		PKGPresentationAppareanceMode tAppearanceMode=[PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:bAppearanceName];
+		NSString * tLocalizationKey=[NSString stringWithFormat:@"title.appearance-mode.%d",(int)tAppearanceMode];
+		
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(tLocalizationKey,@"Presentation",@"") action:nil keyEquivalent:@""];
+		
+		tMenuItem.tag=tAppearanceMode;
+		
+		[tApperancesModeMenu addItem:tMenuItem];
+	}];
+	
+	_appearanceModePopUpButton.menu=tApperancesModeMenu;
+	
 	_customBackgroundPopUpButton.delegate=self;
 	
 	[_customBackgroundPopUpButton unregisterDraggedTypes];
@@ -155,6 +189,16 @@
 	return _backgroundSettings;
 }
 
+- (PKGPresentationBackgroundAppearanceSettings *)selectedAppearanceSettings
+{
+	BOOL tShareSettings=_backgroundSettings.sharedSettingsForAllAppearances;
+	
+	if (tShareSettings==YES)
+		_selectedAppearanceMode=PKGPresentationAppareanceModeShared;
+	
+	return [_backgroundSettings appearanceSettingsForAppearanceMode:_selectedAppearanceMode];
+}
+
 #pragma mark -
 
 - (void)refreshUI
@@ -162,28 +206,49 @@
 	if (_showPopUpButton==nil)
 		return;
 	
-	BOOL tShowCustomImage=_backgroundSettings.showCustomImage;
+	BOOL tShareSettings=_backgroundSettings.sharedSettingsForAllAppearances;
+	
+	_sharedSettingsCheckBox.state=(tShareSettings==YES) ? NSOnState : NSOffState;
+	
+	if (tShareSettings==YES)
+		_selectedAppearanceMode=PKGPresentationAppareanceModeShared;
+	
+	NSMenuItem * tMenuItem=[_appearanceModePopUpButton  itemAtIndex:[_appearanceModePopUpButton indexOfItemWithTag:PKGPresentationAppareanceModeShared]];
+	NSString * tLocalizationKey=[NSString stringWithFormat:@"title.appearance-mode.%d",(int)PKGPresentationAppareanceModeShared];
+	
+	tMenuItem.title=(tShareSettings==YES) ? @"-" : NSLocalizedStringFromTable(tLocalizationKey,@"Presentation",@"");
+	
+	[_appearanceModePopUpButton setEnabled:(tShareSettings==NO)];
+	
+	[_appearanceModePopUpButton selectItemWithTag:_selectedAppearanceMode];
+	
+	PKGPresentationBackgroundAppearanceSettings * tAppearanceSettings=[_backgroundSettings appearanceSettingsForAppearanceMode:_selectedAppearanceMode];
+	
+	
+	BOOL tShowCustomImage=tAppearanceSettings.showCustomImage;
 	
 	[_showPopUpButton selectItemWithTag:(tShowCustomImage==YES) ? PKGPresentationBackgroundSettingsCustomBackground : PKGPresentationBackgroundSettingsDefaultBackground];
 
+	
+	
 	// Path
 	
 	_customBackgroundPopUpButton.enabled=tShowCustomImage;
 	
-	[_customBackgroundPopUpButton setFileNameWithPath:(tShowCustomImage==YES) ? _backgroundSettings.imagePath.string : nil];
+	[_customBackgroundPopUpButton setFileNameWithPath:(tShowCustomImage==YES) ? tAppearanceSettings.imagePath.string : nil];
 	
-	_customBackgroundPopUpButton.pathType=(_backgroundSettings.imagePath!=nil) ? _backgroundSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+	_customBackgroundPopUpButton.pathType=(tAppearanceSettings.imagePath!=nil) ? tAppearanceSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 	
-	_customBackgroundPopUpButton.toolTip=(tShowCustomImage==YES) ? _backgroundSettings.imagePath.string : nil;
+	_customBackgroundPopUpButton.toolTip=(tShowCustomImage==YES) ? tAppearanceSettings.imagePath.string : nil;
 	
-	if (_backgroundSettings.imagePath.isSet==NO)
+	if (tAppearanceSettings.imagePath.isSet==NO)
 	{
 		[_customBackgroundPopUpButton setFileNotFound:NO];
 		_sizeLabel.stringValue=@"";
 	}
 	else
 	{
-		NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:_backgroundSettings.imagePath];
+		NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:tAppearanceSettings.imagePath];
 		
 		if ([[NSFileManager defaultManager] fileExistsAtPath:tAbsolutePath]==YES)
 		{
@@ -203,28 +268,65 @@
 	// Alignment
 	
 	_alignmentMatrix.enabled=tShowCustomImage;
-	[_alignmentMatrix selectCellWithTag:_backgroundSettings.imageAlignment];
+	[_alignmentMatrix selectCellWithTag:tAppearanceSettings.imageAlignment];
 	
 	_layoutDirectionCheckBox.enabled=tShowCustomImage;
-	_layoutDirectionCheckBox.state=(_backgroundSettings.imageLayoutDirection==PKGImageLayoutDirectionNatural) ? NSOnState : NSOffState;
+	_layoutDirectionCheckBox.state=(tAppearanceSettings.imageLayoutDirection==PKGImageLayoutDirectionNatural) ? NSOnState : NSOffState;
 	
 	// Scaling
 	
 	_scalingPopUpButton.enabled=tShowCustomImage;
-	[_scalingPopUpButton selectItemWithTag:_backgroundSettings.imageScaling];
+	[_scalingPopUpButton selectItemWithTag:tAppearanceSettings.imageScaling];
 }
 
 #pragma mark -
 
+- (IBAction)switchSharedSettingsValue:(id)sender
+{
+	BOOL tSharedSettings=([sender state]==NSOnState);
+	
+	if (tSharedSettings==_backgroundSettings.sharedSettingsForAllAppearances)
+		return;
+	
+	_backgroundSettings.sharedSettingsForAllAppearances=tSharedSettings;
+	
+	[self noteDocumentHasChanged];
+	
+	// Post Notification
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+	
+	[self refreshUI];
+}
+
+- (IBAction)switchAppearanceMode:(NSPopUpButton *)sender
+{
+	NSInteger tTag=sender.selectedItem.tag;
+	
+	if (tTag==_selectedAppearanceMode)
+		return;
+	
+	_selectedAppearanceMode=tTag;
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:_backgroundSettings];
+	
+	[self refreshUI];
+}
+
 - (IBAction)switchBackgroundValue:(NSPopUpButton *)sender
 {
 	NSInteger tTag=sender.selectedItem.tag;
+	
+	PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
+	
 	BOOL tCustomBackground=(tTag==PKGPresentationBackgroundSettingsCustomBackground);
 	
-	if (tCustomBackground==_backgroundSettings.showCustomImage)
+	if (tCustomBackground==tSelectedAppearanceSettings.showCustomImage)
 		return;
 	
-	_backgroundSettings.showCustomImage=tCustomBackground;
+	tSelectedAppearanceSettings.showCustomImage=tCustomBackground;
+	
+	[self noteDocumentHasChanged];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:_backgroundSettings];
 	
@@ -236,7 +338,9 @@
 	// Use dispatch_async to fluidify the animation (because of NSPopUpButton stupidity)
 	
 	dispatch_async(dispatch_get_main_queue(), ^{
-		NSString * tAbsoluteImagePath=(_backgroundSettings.imagePath.isSet==YES) ? [self.filePathConverter absolutePathForFilePath:_backgroundSettings.imagePath] : nil;
+		PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
+		
+		NSString * tAbsoluteImagePath=(tSelectedAppearanceSettings.imagePath.isSet==YES) ? [self.filePathConverter absolutePathForFilePath:tSelectedAppearanceSettings.imagePath] : nil;
 	
 		NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
 		
@@ -252,7 +356,7 @@
 		
 		tOpenPanel.delegate=_openPanelDelegate;
 		
-		__block PKGFilePathType tReferenceStyle=(_backgroundSettings.imagePath!=nil) ? _backgroundSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		__block PKGFilePathType tReferenceStyle=(tSelectedAppearanceSettings.imagePath!=nil) ? tSelectedAppearanceSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 		
 		PKGOwnershipAndReferenceStyleViewController * tOwnershipAndReferenceStyleViewController=nil;
 		
@@ -288,7 +392,7 @@
 				return bURL.path;
 			}];
 			
-			_backgroundSettings.imagePath=[self.filePathConverter filePathForAbsolutePath:tPaths[0] type:tReferenceStyle];
+			tSelectedAppearanceSettings.imagePath=[self.filePathConverter filePathForAbsolutePath:tPaths[0] type:tReferenceStyle];
 				
 			[self noteDocumentHasChanged];
 			
@@ -308,10 +412,12 @@
 {
 	NSInteger tTag=((NSButtonCell *)sender.selectedCell).tag;
 	
-	if (tTag==_backgroundSettings.imageAlignment)
+	PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
+	
+	if (tTag==tSelectedAppearanceSettings.imageAlignment)
 		return;
 	
-	_backgroundSettings.imageAlignment=tTag;
+	tSelectedAppearanceSettings.imageAlignment=tTag;
 	
 	[self noteDocumentHasChanged];
 	
@@ -324,10 +430,12 @@
 {
 	PKGImageLayoutDirection tLayoutDirection=([sender state]==NSOnState) ? PKGImageLayoutDirectionNatural : PKGImageLayoutDirectionNone;
 	
-	if (tLayoutDirection==_backgroundSettings.imageLayoutDirection)
+	PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
+	
+	if (tLayoutDirection==tSelectedAppearanceSettings.imageLayoutDirection)
 		return;
 	
-	_backgroundSettings.imageLayoutDirection=tLayoutDirection;
+	tSelectedAppearanceSettings.imageLayoutDirection=tLayoutDirection;
 	
 	[self noteDocumentHasChanged];
 	
@@ -340,10 +448,12 @@
 {
 	NSInteger tTag=sender.selectedItem.tag;
 	
-	if (tTag==_backgroundSettings.imageScaling)
+	PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
+	
+	if (tTag==tSelectedAppearanceSettings.imageScaling)
 		return;
 	
-	_backgroundSettings.imageScaling=tTag;
+	tSelectedAppearanceSettings.imageScaling=tTag;
 	
 	[self noteDocumentHasChanged];
 	
@@ -388,9 +498,11 @@
 	if (inPopUpButton!=_customBackgroundPopUpButton || inPath==nil)
 		return NO;
 	
+	PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
+	
 	void (^finalizeSetBackgroundImagePath)(PKGFilePath *) = ^(PKGFilePath * bFilePath) {
 		
-		_backgroundSettings.imagePath=bFilePath;
+		tSelectedAppearanceSettings.imagePath=bFilePath;
 		
 		[self refreshUI];
 		
@@ -405,7 +517,7 @@
 		
 		tPanel.canChooseOwnerAndGroupOptions=NO;
 		tPanel.keepOwnerAndGroup=NO;
-		tPanel.referenceStyle=(_backgroundSettings.imagePath!=nil) ? _backgroundSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+		tPanel.referenceStyle=(tSelectedAppearanceSettings.imagePath!=nil) ? tSelectedAppearanceSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 		
 		[tPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode){
 			
@@ -420,7 +532,7 @@
 		return YES;
 	}
 	
-	PKGFilePathType tPathType=(_backgroundSettings.imagePath!=nil) ? _backgroundSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+	PKGFilePathType tPathType=(tSelectedAppearanceSettings.imagePath!=nil) ? tSelectedAppearanceSettings.imagePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 	
 	PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:inPath type:tPathType];
 	
@@ -434,10 +546,12 @@
 	if (inNotification.object!=_customBackgroundPopUpButton)
 		return;
 	
-	if (_backgroundSettings.imagePath==nil)
-		_backgroundSettings.imagePath=[PKGFilePath new];
+	PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
 	
-	if ([self.filePathConverter shiftTypeOfFilePath:_backgroundSettings.imagePath toType:_customBackgroundPopUpButton.pathType]==NO)
+	if (tSelectedAppearanceSettings.imagePath==nil)
+		tSelectedAppearanceSettings.imagePath=[PKGFilePath new];
+	
+	if ([self.filePathConverter shiftTypeOfFilePath:tSelectedAppearanceSettings.imagePath toType:_customBackgroundPopUpButton.pathType]==NO)
 	{
 		// Oh oh
 		
@@ -446,7 +560,7 @@
 	
 	[self noteDocumentHasChanged];
 	
-	_customBackgroundPopUpButton.toolTip=_backgroundSettings.imagePath.string;
+	_customBackgroundPopUpButton.toolTip=tSelectedAppearanceSettings.imagePath.string;
 }
 
 #pragma mark - Notifications

@@ -22,11 +22,13 @@
 
 - (void)drawBackgroundInRect:(NSRect)dirtyRect
 {
+	[super drawBackgroundInRect:dirtyRect];
+	
 	NSRect tBounds=self.bounds;
 	
-	[[self backgroundColor] set];
+	/*[[self backgroundColor] set];
 	
-	NSRectFill(dirtyRect);
+	NSRectFill(dirtyRect);*/
 	
 	[[NSColor colorWithDeviceWhite:0.702 alpha:1.0] set];
 	
