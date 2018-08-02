@@ -15,6 +15,7 @@
 
 #import "PKGApplicationPreferences.h"
 
+#import "PKGOwnershipAndReferenceStyleViewController.h"
 #import "PKGScriptDeadDropView.h"
 
 #import "PKGTellerView.h"
@@ -127,7 +128,7 @@
 	
 	if (tIsPathSet==NO)
 	{
-		_scriptNameTextField.textColor=[NSColor colorWithDeviceWhite:0.0 alpha:0.20];
+		_scriptNameTextField.textColor=[NSColor tertiaryLabelColor];
 		_scriptNameTextField.stringValue=NSLocalizedString(@"No Script Set",@"");
 		_scriptNameTextField.toolTip=@"";
 		
@@ -148,7 +149,7 @@
 		return;
 	}
 	
-	_scriptNameTextField.toolTip=tAbsolutePath;
+	_scriptNameTextField.toolTip=self.installationScriptPath.string;
 	
 	NSError * tError=nil;
 	NSDictionary * tAttributes=[[NSFileManager defaultManager] attributesOfItemAtPath:tAbsolutePath error:&tError];
@@ -166,7 +167,7 @@
 		return;
 	}
 	
-	_scriptNameTextField.textColor=[NSColor controlTextColor];
+	_scriptNameTextField.textColor=[NSColor labelColor];
 	
 	_lastModificationTextField.stringValue=[_lastModifiedDateFormatter stringForObjectValue:tAttributes[NSFileModificationDate]];
 }
@@ -252,6 +253,9 @@
 			// A COMPLETER
 		}
 		
+		if (_installationScriptPath.isSet==YES)
+			_scriptNameTextField.toolTip=self.installationScriptPath.string;
+		
 		[self noteDocumentHasChanged];
 	}
 }
@@ -277,29 +281,53 @@
 	
 	tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
 	
+	__block PKGFilePathType tReferenceStyle=(self.installationScriptPath.isSet==YES) ? self.installationScriptPath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+	
+	PKGOwnershipAndReferenceStyleViewController * tOwnershipAndReferenceStyleViewController=nil;
+	BOOL tShowOwnershipAndReferenceStyleCustomizationDialog=[PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog;
+	
+	
+	if (tShowOwnershipAndReferenceStyleCustomizationDialog==YES)
+	{
+		tOwnershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
+		
+		tOwnershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=NO;
+		tOwnershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
+		
+		NSView * tAccessoryView=tOwnershipAndReferenceStyleViewController.view;
+		
+		tOpenPanel.accessoryView=tAccessoryView;
+	}
+	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult==NSFileHandlingPanelOKButton)
+		if (bResult!=NSFileHandlingPanelOKButton)
+			return;
+		
+		if (tShowOwnershipAndReferenceStyleCustomizationDialog==YES)
 		{
-			NSString * tNewPath=tOpenPanel.URL.path;
-			
-			if (tAbsolutePath!=nil && [tAbsolutePath caseInsensitiveCompare:tNewPath]==NSOrderedSame)
-				return;
-			
-			PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tNewPath type:self.installationScriptPath.type];
-			
-			if (tFilePath==nil)
-			{
-				NSLog(@"<PKGScriptViewController> File Path conversion failed.");
-				return;
-			}
-			
-			self.installationScriptPath.string=tFilePath.string;
-			
-			[self noteDocumentHasChanged];
-			
-			[self refreshUI];
+			tReferenceStyle=tOwnershipAndReferenceStyleViewController.referenceStyle;
 		}
+		
+		NSString * tNewPath=tOpenPanel.URL.path;
+		
+		if (tAbsolutePath!=nil && [tAbsolutePath caseInsensitiveCompare:tNewPath]==NSOrderedSame)
+			return;
+		
+		PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tNewPath type:tReferenceStyle];
+		
+		if (tFilePath==nil)
+		{
+			NSLog(@"<PKGScriptViewController> File Path conversion failed.");
+			return;
+		}
+		
+		self.installationScriptPath.string=tFilePath.string;
+		self.installationScriptPath.type=tFilePath.type;
+		
+		[self noteDocumentHasChanged];
+		
+		[self refreshUI];
 	}];
 }
 
