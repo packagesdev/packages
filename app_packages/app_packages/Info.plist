@@ -60,7 +60,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>374</string>
+	<string>437</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>LSExecutableArchitectures</key>
@@ -71,6 +71,8 @@
 	<string>10.8</string>
 	<key>LSRequiresNativeExecution</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2009–2018 Stéphane Sudre</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -99,7 +101,16 @@
 	</array>
 	<key>WBVersionCheckURL</key>
 	<string>http://s.sudre.free.fr/Software/documentation/RemoteVersion.plist</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>© 2009–2018 Stéphane Sudre</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>s.sudre.free.fr</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
