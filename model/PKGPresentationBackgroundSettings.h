@@ -41,7 +41,16 @@ typedef NS_ENUM(NSUInteger, PKGImageLayoutDirection)
 	PKGImageLayoutDirectionNatural=1
 };
 
-@interface PKGPresentationBackgroundSettings : PKGPresentationStepSettings
+typedef NS_ENUM(NSUInteger, PKGPresentationAppareanceMode)
+{
+	PKGPresentationAppareanceModeUnknown=-1,
+	PKGPresentationAppareanceModeLight=0,
+	PKGPresentationAppareanceModeDark=1,
+	
+	PKGPresentationAppareanceModeShared=PKGPresentationAppareanceModeLight
+};
+
+@interface PKGPresentationBackgroundAppearanceSettings : NSObject <PKGObjectProtocol,NSCopying>
 
 	@property BOOL showCustomImage;
 
@@ -52,5 +61,23 @@ typedef NS_ENUM(NSUInteger, PKGImageLayoutDirection)
 	@property PKGImageScaling imageScaling;
 
 	@property PKGImageLayoutDirection imageLayoutDirection;
+
++ (NSArray *)allAppearancesNames;
+
++ (NSString *)appearanceNameForAppearanceMode:(PKGPresentationAppareanceMode)inMode;
+
++ (PKGPresentationAppareanceMode)appearanceModeForAppearanceName:(NSString *)inApperanceName;
+
+@end
+
+
+@interface PKGPresentationBackgroundSettings : PKGPresentationStepSettings
+
+	@property BOOL sharedSettingsForAllAppearances;
+
+	@property (readonly,nonatomic) NSDictionary * appearancesSettings;
+
+- (PKGPresentationBackgroundAppearanceSettings *)appearanceSettingsForAppearanceMode:(PKGPresentationAppareanceMode)inAppareanceMode;
+
 
 @end

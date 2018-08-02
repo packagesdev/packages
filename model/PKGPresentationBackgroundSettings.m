@@ -15,7 +15,15 @@
 
 #import "PKGPackagesError.h"
 
+#import "NSDictionary+WBExtensions.h"
+
+#define PKGPRESENTATION_BACKGROUND_SETTINGS_1_2_3_OR_EARLIER_BACKWARDCOMPATIBILITY	1
+
 NSString * const PKGPresentationBackgroundShowCustomImageKey=@"CUSTOM";
+
+NSString * const PKGPresentationBackgroundSharedSettingsForAllAppearancesKey=@"SHARED_SETTINGS_FOR_ALL_APPAREANCES";
+
+NSString * const PKGPresentationBackgroundAppearancesSettingsKey=@"APPAREANCES";
 
 NSString * const PKGPresentationBackgroundImagePathKey=@"BACKGROUND_PATH";
 
@@ -25,7 +33,59 @@ NSString * const PKGPresentationBackgroundImageScalingKey=@"SCALING";
 
 NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIRECTION";
 
-@implementation PKGPresentationBackgroundSettings
+
+NSString * const PKGPresentationBackgroundImageAppearanceLightAquaNameKey=@"LIGHT_AQUA";
+
+NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_AQUA";
+
+@implementation PKGPresentationBackgroundAppearanceSettings
+
++ (NSArray *)allAppearancesNames
+{
+	static NSArray * sAllAppareancesNames=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		sAllAppareancesNames=@[PKGPresentationBackgroundImageAppearanceLightAquaNameKey,
+							   PKGPresentationBackgroundImageAppearanceDarkAquaNameKey];
+	});
+	
+	return sAllAppareancesNames;
+}
+
++ (NSString *)appearanceNameForAppearanceMode:(PKGPresentationAppareanceMode)inMode
+{
+	static NSDictionary * sAllAppareanceModesToNamesDictionary=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		sAllAppareanceModesToNamesDictionary=@{@(PKGPresentationAppareanceModeLight):PKGPresentationBackgroundImageAppearanceLightAquaNameKey,
+											   @(PKGPresentationAppareanceModeDark):PKGPresentationBackgroundImageAppearanceDarkAquaNameKey
+											   };
+	});
+	
+	return sAllAppareanceModesToNamesDictionary[@(inMode)];
+}
+
++ (PKGPresentationAppareanceMode)appearanceModeForAppearanceName:(NSString *)inName
+{
+	if (inName==nil)
+		return PKGPresentationAppareanceModeUnknown;
+	
+	static NSDictionary * sAllAppareanceNameKeysToModesDictionary=nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		sAllAppareanceNameKeysToModesDictionary=@{PKGPresentationBackgroundImageAppearanceLightAquaNameKey:@(PKGPresentationAppareanceModeLight),
+												  PKGPresentationBackgroundImageAppearanceDarkAquaNameKey:@(PKGPresentationAppareanceModeDark)
+											   };
+	});
+	
+	NSNumber * tNumber=sAllAppareanceNameKeysToModesDictionary[inName];
+	
+	return (tNumber==nil) ? PKGPresentationAppareanceModeUnknown : [tNumber unsignedIntegerValue];
+}
+
 
 - (instancetype)init
 {
@@ -45,11 +105,27 @@ NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIREC
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
-	self=[super initWithRepresentation:inRepresentation error:&tError];
+	if (inRepresentation==nil)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationNilRepresentationError userInfo:nil];
+		
+		return nil;
+	}
+	
+	if ([inRepresentation isKindOfClass:NSDictionary.class]==NO)
+	{
+		if (outError!=NULL)
+			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain code:PKGRepresentationInvalidTypeOfValueError userInfo:nil];
+		
+		return nil;
+	}
+	
+	self=[super init];
 	
 	if (self!=nil)
 	{
@@ -113,9 +189,9 @@ NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIREC
 				
 				return nil;
 			}
-
+			
 			_imageAlignment=[tNumber unsignedIntegerValue];
-		
+			
 			if (_imageAlignment>PKGImageAlignmentRight)
 			{
 				if (outError!=NULL)
@@ -146,7 +222,7 @@ NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIREC
 			}
 			
 			_imageScaling=[tNumber unsignedIntegerValue];
-		
+			
 			if (_imageScaling>PKGImageScalingNone)
 			{
 				if (outError!=NULL)
@@ -198,9 +274,9 @@ NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIREC
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
-	NSMutableDictionary * tRepresentation=[super representation];
+	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	
 	if (self.showCustomImage==NO)
 		return tRepresentation;
@@ -223,7 +299,221 @@ NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIREC
 
 #pragma mark -
 
-- (NSString *) description
+- (NSUInteger)hash
+{
+	return [self.imagePath hash];
+}
+
+- (NSString *)description
+{
+	NSMutableString * tDescription=[NSMutableString string];
+	
+	[tDescription appendString:@"  Background Appearance Settings:\n"];
+	[tDescription appendString:@"  -------------------------------\n\n"];
+	
+	[tDescription appendFormat:@"%@",[super description]];
+	
+	return tDescription;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)inZone
+{
+	PKGPresentationBackgroundAppearanceSettings * nPresentationBackgroundAppearanceSettings=[[[self class] allocWithZone:inZone] init];
+	
+	if (nPresentationBackgroundAppearanceSettings!=nil)
+	{
+		nPresentationBackgroundAppearanceSettings.showCustomImage=self.showCustomImage;
+		
+		nPresentationBackgroundAppearanceSettings.imagePath=[self.imagePath copyWithZone:inZone];
+		
+		nPresentationBackgroundAppearanceSettings.imageAlignment=self.imageAlignment;
+		
+		nPresentationBackgroundAppearanceSettings.imageScaling=self.imageScaling;
+		
+		nPresentationBackgroundAppearanceSettings.imageLayoutDirection=self.imageLayoutDirection;
+	}
+	
+	return nPresentationBackgroundAppearanceSettings;
+}
+
+@end
+
+@interface PKGPresentationBackgroundSettings ()
+
+@property (readwrite,nonatomic) NSDictionary * appearancesSettings;
+
+@end
+
+@implementation PKGPresentationBackgroundSettings
+
+- (instancetype)init
+{
+	self=[super init];
+	
+	if (self!=nil)
+	{
+		_sharedSettingsForAllAppearances=YES;
+		
+		NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
+		
+		for(NSString * tAppearanceNameKey in [PKGPresentationBackgroundAppearanceSettings allAppearancesNames])
+		{
+			tMutableDictionary[tAppearanceNameKey]=[PKGPresentationBackgroundAppearanceSettings new];
+		}
+		
+		_appearancesSettings=[tMutableDictionary copy];
+	}
+	
+	return self;
+}
+
+- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+{
+	NSError * tError=nil;
+	
+	self=[super initWithRepresentation:inRepresentation error:&tError];
+	
+	if (self!=nil)
+	{
+		NSNumber * tNumber=inRepresentation[PKGPresentationBackgroundSharedSettingsForAllAppearancesKey];
+		
+		if (tNumber==nil)
+		{
+			_sharedSettingsForAllAppearances=YES;
+		}
+		else
+		{
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundSharedSettingsForAllAppearancesKey}];
+				
+				return nil;
+			}
+			
+			_sharedSettingsForAllAppearances=[tNumber boolValue];
+		}
+		
+		NSDictionary * tAppearancesSettingsDictionary=inRepresentation[PKGPresentationBackgroundAppearancesSettingsKey];
+		
+		if (tAppearancesSettingsDictionary==nil)
+		{
+			NSMutableDictionary * tMutableDictionary=[NSMutableDictionary dictionary];
+			
+			PKGPresentationBackgroundAppearanceSettings * tAppearanceSettings=[[PKGPresentationBackgroundAppearanceSettings alloc] initWithRepresentation:inRepresentation error:&tError];
+			
+			if (tAppearanceSettings==nil)
+			{
+				if (outError!=NULL)
+					*outError=[tError copy];
+				
+				return nil;
+			}
+			
+			for(NSString * tAppearanceNameKey in [PKGPresentationBackgroundAppearanceSettings allAppearancesNames])
+			{
+				tMutableDictionary[tAppearanceNameKey]=[tAppearanceSettings copy];
+			}
+			
+			_appearancesSettings=[tMutableDictionary copy];
+		}
+		else
+		{
+			if ([tAppearancesSettingsDictionary isKindOfClass:NSDictionary.class]==NO)
+			{
+				if (outError!=NULL)
+					*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+												  code:PKGRepresentationInvalidTypeOfValueError
+											  userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundAppearancesSettingsKey}];
+				
+				return nil;
+			}
+			
+			__block NSError * bError=nil;
+			
+			NSMutableDictionary * tMutableDictionary=[[tAppearancesSettingsDictionary WB_dictionaryByMappingObjectsLenientlyUsingBlock:^PKGPresentationBackgroundAppearanceSettings *(NSString * bAppearanceNameKey, NSDictionary * bRepresentation) {
+				
+				if ([bAppearanceNameKey isKindOfClass:NSString.class]==NO)
+				{
+					bError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+											   code:PKGRepresentationInvalidTypeOfValueError
+										   userInfo:@{PKGKeyPathErrorKey:PKGPresentationBackgroundAppearancesSettingsKey}];
+					
+					return nil;
+				}
+				
+				if ([PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:bAppearanceNameKey]==PKGPresentationAppareanceModeUnknown)
+					return nil;
+				
+				return [[PKGPresentationBackgroundAppearanceSettings alloc] initWithRepresentation:bRepresentation error:&bError];
+			}] mutableCopy];
+			
+			if (tMutableDictionary==nil)
+			{
+				if (outError!=NULL)
+					*outError=[bError copy];
+				
+				return nil;
+			}
+			
+			for(NSString * tAppearanceNameKey in [PKGPresentationBackgroundAppearanceSettings allAppearancesNames])
+			{
+				if (tMutableDictionary[tAppearanceNameKey]==nil)
+					tMutableDictionary[tAppearanceNameKey]=[PKGPresentationBackgroundAppearanceSettings new];
+			}
+			
+			_appearancesSettings=[tMutableDictionary copy];
+		}
+	}
+	else
+	{
+		if (outError!=NULL)
+			*outError=tError;
+	}
+	
+	return self;
+}
+
+- (NSMutableDictionary *)representation
+{
+	NSMutableDictionary * tRepresentation=[super representation];
+	
+	tRepresentation[PKGPresentationBackgroundSharedSettingsForAllAppearancesKey]=@(_sharedSettingsForAllAppearances);
+
+#if (PKGPRESENTATION_BACKGROUND_SETTINGS_1_2_3_OR_EARLIER_BACKWARDCOMPATIBILITY == 1)
+
+	NSMutableDictionary * tLightAquaAppearanceSettingsRepresentation=[[self appearanceSettingsForAppearanceMode:PKGPresentationAppareanceModeLight] representation];
+	
+	if (tLightAquaAppearanceSettingsRepresentation==nil)
+	{
+		// A COMPLETER
+		
+		// Oh Oh
+		
+		return nil;
+	}
+	
+	[tRepresentation addEntriesFromDictionary:tLightAquaAppearanceSettingsRepresentation];
+	
+#endif
+	
+	NSDictionary * tAppearanceSettingsDictionary=[self.appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^NSMutableDictionary *(NSString * bApperanceNameKey, PKGPresentationBackgroundAppearanceSettings * bAppearanceSettings) {
+		return [bAppearanceSettings representation];
+	}];
+	
+	if (tAppearanceSettingsDictionary!=nil)
+		tRepresentation[PKGPresentationBackgroundAppearancesSettingsKey]=tAppearanceSettingsDictionary;
+	
+	return tRepresentation;
+}
+
+#pragma mark -
+
+- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	
@@ -243,18 +533,22 @@ NSString * const PKGPresentationBackgroundImageLayoutDirectionKey=@"LAYOUT_DIREC
 	
 	if (nPresentationBackgroundSettings!=nil)
 	{
-		nPresentationBackgroundSettings.showCustomImage=self.showCustomImage;
+		nPresentationBackgroundSettings.sharedSettingsForAllAppearances=self.sharedSettingsForAllAppearances;
 		
-		nPresentationBackgroundSettings.imagePath=[self.imagePath copyWithZone:inZone];
-		
-		nPresentationBackgroundSettings.imageAlignment=self.imageAlignment;
-		
-		nPresentationBackgroundSettings.imageScaling=self.imageScaling;
-		
-		nPresentationBackgroundSettings.imageLayoutDirection=self.imageLayoutDirection;
+		nPresentationBackgroundSettings.appearancesSettings=[self->_appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^PKGPresentationBackgroundAppearanceSettings *(NSString * bAppearanceKey, PKGPresentationBackgroundAppearanceSettings * bBackgroundAppearanceSettings) {
+			
+			return [bBackgroundAppearanceSettings copy];
+		}];
 	}
 	
 	return nPresentationBackgroundSettings;
+}
+
+#pragma mark -
+
+- (PKGPresentationBackgroundAppearanceSettings *)appearanceSettingsForAppearanceMode:(PKGPresentationAppareanceMode)inAppareanceMode
+{
+	return self.appearancesSettings[[PKGPresentationBackgroundAppearanceSettings appearanceNameForAppearanceMode:inAppareanceMode]];
 }
 
 @end
