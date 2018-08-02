@@ -4,7 +4,10 @@
 typedef NS_ENUM(NSUInteger, PKGPresentationThemeVersion)
 {
 	PKGPresentationThemeMountainLion=0,
-	PKGPresentationThemeYosemite
+	PKGPresentationThemeYosemite=1,
+	PKGPresentationThemeMojaveLight=PKGPresentationThemeYosemite,
+	PKGPresentationThemeMojaveDark=3,
+	PKGPresentationThemeMojaveDynamic=255
 };
 
 extern NSString * const PKGPresentationTheme;
