@@ -157,6 +157,11 @@ NSString * const PKGFilePathStringKey=@"PATH";
 
 #pragma mark -
 
+- (NSUInteger)hash
+{
+	return [self.string hash];
+}
+
 - (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
