@@ -25,13 +25,13 @@
                     <rect key="frame" x="0.0" y="59" width="416" height="36"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="egG-ir-jBW">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="egG-ir-jBW" customClass="PKGLabel">
                             <rect key="frame" x="65" y="1" width="77" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Propriété :" id="RfS-Xr-Gvd">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <button id="PaN-tX-ahd">
@@ -69,13 +69,13 @@
                                 <action selector="switchReferenceStyle:" target="-2" id="6JU-71-Vei"/>
                             </connections>
                         </popUpButton>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Mvf-s2-7M8">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Mvf-s2-7M8" customClass="PKGLabel">
                             <rect key="frame" x="12" y="23" width="130" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Style de référence :" id="ZzS-aP-zhH">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                     </subviews>

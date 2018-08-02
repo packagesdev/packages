@@ -20,13 +20,13 @@
             <rect key="frame" x="1" y="0.0" width="585" height="153"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="g0c-0g-ekH">
+                <textField verticalHuggingPriority="750" id="g0c-0g-ekH" customClass="PKGLabel">
                     <rect key="frame" x="54" y="136" width="58" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Autres :" id="MaI-eW-rH2">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="bDH-uT-Sa2">
@@ -40,13 +40,13 @@
                         <action selector="editRequirement:" target="-2" id="cSm-DC-ul1"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="xi8-uP-mmd">
+                <textField verticalHuggingPriority="750" id="xi8-uP-mmd" customClass="PKGSecondaryLabel">
                     <rect key="frame" x="394" y="24" width="173" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Cliquer sur + pour ajouter un critère." id="ilU-vE-lNW">
                         <font key="font" metaFont="miniSystem"/>
-                        <color key="textColor" white="0.49270072999999998" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="keR-Mp-wmD">
@@ -79,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" floatsGroupRows="NO" id="7HC-EE-lnE" customClass="PKGTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="445" height="103"/>
+                                <rect key="frame" x="0.0" y="0.0" width="445" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

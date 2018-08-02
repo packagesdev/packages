@@ -26,7 +26,7 @@
             <rect key="frame" x="0.0" y="5" width="761" height="410"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView id="0Co-r8-wOS" customClass="WBLightGrayView">
+                <customView id="0Co-r8-wOS" customClass="PKGAlternateSectionView">
                     <rect key="frame" x="0.0" y="177" width="761" height="105"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -49,7 +49,7 @@
                                 <action selector="switchConclusionAction:" target="-2" id="le8-Jd-qFR"/>
                             </connections>
                         </popUpButton>
-                        <textField verticalHuggingPriority="750" id="49A-9z-XwI">
+                        <textField verticalHuggingPriority="750" id="49A-9z-XwI" customClass="PKGSectionTitle">
                             <rect key="frame" x="18" y="67" width="283" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Comportement à la fin de l'installation" id="aHB-97-qhw">
@@ -58,18 +58,18 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="Z6Z-UV-oUV">
+                        <textField verticalHuggingPriority="750" id="Z6Z-UV-oUV" customClass="PKGLabel">
                             <rect key="frame" x="25" y="22" width="126" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="En cas de succès :" id="lXA-ON-4dw">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                     </subviews>
                 </customView>
-                <customView id="kfF-lB-LB8" customClass="WBWhiteView">
+                <customView id="kfF-lB-LB8" customClass="PKGSectionView">
                     <rect key="frame" x="0.0" y="0.0" width="761" height="177"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -117,7 +117,7 @@
                                 <action selector="switchAuthenticationMode:" target="-2" id="I4k-Uu-pKW"/>
                             </connections>
                         </button>
-                        <textField verticalHuggingPriority="750" id="YfK-rA-PVO">
+                        <textField verticalHuggingPriority="750" id="YfK-rA-PVO" customClass="PKGSectionTitle">
                             <rect key="frame" x="20" y="139" width="62" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Options" id="PGB-gf-uvd">
@@ -137,22 +137,22 @@
                                 <action selector="switchuseHFSPlusCompression:" target="-2" id="2R5-Vf-TTR"/>
                             </connections>
                         </button>
-                        <textField verticalHuggingPriority="750" id="UcI-rY-hhl">
+                        <textField verticalHuggingPriority="750" id="UcI-rY-hhl" customClass="PKGSecondaryLabel">
                             <rect key="frame" x="365" y="20" width="164" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="(Mac OS X 10.6 ou ultérieur)" id="CBD-eQ-hMF">
                                 <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                     </subviews>
                 </customView>
-                <customView id="DI4-VO-pWZ" customClass="WBWhiteView">
+                <customView id="DI4-VO-pWZ" customClass="PKGSectionView">
                     <rect key="frame" x="0.0" y="282" width="761" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" id="nyJ-So-Ae0">
+                        <textField verticalHuggingPriority="750" id="nyJ-So-Ae0" customClass="PKGSectionTitle">
                             <rect key="frame" x="18" y="90" width="122" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Immatriculation" id="Vv3-eI-chC">
@@ -174,13 +174,13 @@
                                 <outlet property="nextKeyView" destination="51W-em-EyB" id="Ivy-CM-Ph1"/>
                             </connections>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="6Q8-z6-l4O">
+                        <textField verticalHuggingPriority="750" id="6Q8-z6-l4O" customClass="PKGLabel">
                             <rect key="frame" x="86" y="23" width="65" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Version :" id="XVi-Xc-8h9">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="51W-em-EyB">
@@ -197,13 +197,13 @@
                                 <outlet property="nextKeyView" destination="quT-Qj-Kr0" id="djm-5L-woR"/>
                             </connections>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="tyo-fn-uZq">
+                        <textField verticalHuggingPriority="750" id="tyo-fn-uZq" customClass="PKGLabel">
                             <rect key="frame" x="68" y="54" width="83" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Identifiant :" id="mLN-kE-CsF">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                     </subviews>

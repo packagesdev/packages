@@ -34,12 +34,12 @@
                         <action selector="removePath:" target="-2" id="R6E-CB-2aI"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="Jls-c8-yGS">
+                <textField verticalHuggingPriority="750" id="Jls-c8-yGS" customClass="PKGSecondaryLabel">
                     <rect key="frame" x="92" y="28" width="54" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Modifié :" id="VTf-Hd-ELu">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -50,7 +50,7 @@
                         <outlet property="menu" destination="6vK-8T-cho" id="8VA-5W-7aV"/>
                     </connections>
                 </customView>
-                <textField verticalHuggingPriority="750" id="5t6-7W-gy9" userLabel="Name Label">
+                <textField verticalHuggingPriority="750" id="5t6-7W-gy9" userLabel="Name Label" customClass="PKGLabel">
                     <rect key="frame" x="92" y="43" width="213" height="16"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" id="yY1-uy-aL4">
@@ -70,12 +70,12 @@
                         <action selector="selectPath:" target="-2" id="zHR-hw-H7P"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="FnT-l0-gyk" userLabel="View Label">
+                <textField verticalHuggingPriority="750" id="FnT-l0-gyk" userLabel="View Label" customClass="PKGLabel">
                     <rect key="frame" x="18" y="72" width="297" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="7ds-AL-evX">
                         <font key="font" metaFont="smallSystemBold"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -95,12 +95,12 @@
                         <action selector="switchPathType:" target="-2" id="ngz-NX-Esc"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" id="8Yq-Ef-Rgu" userLabel="Modified date Label">
+                <textField verticalHuggingPriority="750" id="8Yq-Ef-Rgu" userLabel="Modified date Label" customClass="PKGSecondaryLabel">
                     <rect key="frame" x="148" y="28" width="157" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="4ez-Ls-ay2">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

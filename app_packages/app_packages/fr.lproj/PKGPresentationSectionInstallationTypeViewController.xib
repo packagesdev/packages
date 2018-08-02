@@ -35,40 +35,40 @@
                             <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" id="AiQ-pO-MHS">
+                                <textField verticalHuggingPriority="750" id="AiQ-pO-MHS" customClass="PKGLabel">
                                     <rect key="frame" x="145" y="8" width="11" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="-" id="HCv-7y-8Mv">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="RXK-2k-WpT">
+                                <textField verticalHuggingPriority="750" id="RXK-2k-WpT" customClass="PKGLabel">
                                     <rect key="frame" x="402" y="8" width="11" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="-" id="KdK-Cc-ueE">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="vXO-Ha-io9">
+                                <textField verticalHuggingPriority="750" id="vXO-Ha-io9" customClass="PKGLabel">
                                     <rect key="frame" x="292" y="8" width="106" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Remaining:" id="myA-4s-DwN">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="IqL-A7-T7A">
+                                <textField verticalHuggingPriority="750" id="IqL-A7-T7A" customClass="PKGLabel">
                                     <rect key="frame" x="8" y="8" width="133" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Space Required:" id="Oxz-Cd-DfR">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <scrollView horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="Q0S-Uf-zpq" customClass="PKGInstallationTypeScrollView">
@@ -278,7 +278,7 @@
                     </connections>
                 </splitView>
             </subviews>
-            <point key="canvasLocation" x="466.5" y="649.5"/>
+            <point key="canvasLocation" x="721.5" y="596.5"/>
         </customView>
         <menu title="Menu" id="0xN-c9-FI5" userLabel="Item Menu">
             <items>

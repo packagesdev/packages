@@ -29,13 +29,13 @@
                         <action selector="setNewFolderName:" target="-2" id="6Nj-bQ-JsH"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="aLW-xe-KFS">
+                <textField verticalHuggingPriority="750" id="aLW-xe-KFS" customClass="PKGLabel">
                     <rect key="frame" x="23" y="176" width="45" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Nom :" id="9FR-Js-uou">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>

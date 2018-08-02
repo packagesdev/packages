@@ -43,13 +43,13 @@
                         <action selector="delete:" target="-2" id="C1J-nn-AUt"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="cgf-eP-9VM">
+                <textField verticalHuggingPriority="750" id="cgf-eP-9VM" customClass="PKGLabel">
                     <rect key="frame" x="18" y="240" width="54" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Version" id="qjK-cO-QML">
                         <font key="font" metaFont="smallSystemBold"/>
-                        <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button id="ufl-Qi-HWd">
@@ -63,13 +63,13 @@
                         <action selector="switchAllowDowngrade:" target="-2" id="BdJ-Hy-CpF"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="tca-PT-I0c">
+                <textField verticalHuggingPriority="750" id="tca-PT-I0c" customClass="PKGLabel">
                     <rect key="frame" x="18" y="186" width="89" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Localisateurs" id="JYP-uq-Q8x">
                         <font key="font" metaFont="smallSystemBold"/>
-                        <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="TNQ-dw-vWW">

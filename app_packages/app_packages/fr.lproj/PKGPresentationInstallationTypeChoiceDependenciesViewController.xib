@@ -32,12 +32,12 @@
                         <rect key="frame" x="1" y="1" width="501" height="57"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView id="Byh-Ed-SJL" customClass="WBWhiteView">
+                            <customView id="Byh-Ed-SJL">
                                 <rect key="frame" x="0.0" y="0.0" width="501" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="me6-v4-dLN">
                         <rect key="frame" x="1" y="43" width="486" height="15"/>
@@ -48,13 +48,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <textField verticalHuggingPriority="750" id="4Ny-HX-oVT">
+                <textField verticalHuggingPriority="750" id="4Ny-HX-oVT" customClass="PKGLabel">
                     <rect key="frame" x="18" y="101" width="204" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Le choix est sélectionné quand :" id="LAo-61-jXA">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="Y1l-rQ-EC6">
@@ -82,12 +82,12 @@
                         <rect key="frame" x="1" y="1" width="501" height="57"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView id="eXe-JC-8cR" customClass="WBWhiteView">
+                            <customView id="eXe-JC-8cR">
                                 <rect key="frame" x="0.0" y="0.0" width="501" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="7Xy-YS-Ere">
                         <rect key="frame" x="1" y="43" width="486" height="15"/>
@@ -98,22 +98,22 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <textField verticalHuggingPriority="750" id="icj-K5-ohy">
+                <textField verticalHuggingPriority="750" id="icj-K5-ohy" customClass="PKGLabel">
                     <rect key="frame" x="18" y="213" width="84" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Le choix est" id="PBd-qa-bEw">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="bd2-We-8KF">
+                <textField verticalHuggingPriority="750" id="bd2-We-8KF" customClass="PKGLabel">
                     <rect key="frame" x="263" y="213" width="9" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title=":" id="TlE-sf-0sO">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>

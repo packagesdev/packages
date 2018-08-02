@@ -32,22 +32,22 @@
                         <action selector="addRequirementMessage:" target="-2" id="Nch-yH-7vo"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="oQi-Lm-uMz">
+                <textField verticalHuggingPriority="750" id="oQi-Lm-uMz" customClass="PKGLabel">
                     <rect key="frame" x="17" y="212" width="220" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Quand ce critère n'est pas rempli :" id="EYe-7O-TIC">
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="Hqe-ni-SXB">
+                <textField verticalHuggingPriority="750" id="Hqe-ni-SXB" customClass="PKGSecondaryLabel">
                     <rect key="frame" x="421" y="26" width="184" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Utiliser ⌥↩ pour les retours à la ligne" id="p7p-c7-rlS">
                         <font key="font" metaFont="miniSystem"/>
-                        <color key="textColor" white="0.49270072999999998" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="oKD-65-8Gj">
@@ -192,7 +192,7 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="508" y="340.5"/>
+            <point key="canvasLocation" x="741" y="326.5"/>
         </customView>
     </objects>
     <resources>

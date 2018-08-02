@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="692" height="163"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="E0K-tA-T9p">
+                <textField verticalHuggingPriority="750" id="E0K-tA-T9p" customClass="PKGLabel">
                     <rect key="frame" x="82" y="146" width="88" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Exclusions :" id="Gdr-EF-0lO">
@@ -57,8 +57,8 @@
                         <rect key="frame" x="1" y="17" width="494" height="117"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" headerView="nAr-u2-VPm" viewBased="YES" floatsGroupRows="NO" id="Bi0-3q-8uK" customClass="PKGTableView_fixed">
-                                <rect key="frame" x="0.0" y="0.0" width="494" height="117"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" headerView="nAr-u2-VPm" viewBased="YES" floatsGroupRows="NO" id="Bi0-3q-8uK" customClass="PKGTableView">
+                                <rect key="frame" x="0.0" y="0.0" width="494" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

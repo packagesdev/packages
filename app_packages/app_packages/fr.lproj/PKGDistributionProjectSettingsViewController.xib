@@ -29,22 +29,22 @@
                     <rect key="frame" x="0.0" y="172" width="692" height="409"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" id="aDm-Fz-eeY">
+                        <textField verticalHuggingPriority="750" id="aDm-Fz-eeY" customClass="PKGLabel">
                             <rect key="frame" x="125" y="334" width="45" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Nom :" id="Q1j-08-0fj">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="lwa-oE-8Qz">
+                        <textField verticalHuggingPriority="750" id="lwa-oE-8Qz" customClass="PKGLabel">
                             <rect key="frame" x="99" y="302" width="71" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Chemin :" id="jwK-Af-Nnh">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" id="GWt-Wv-i7U">
@@ -108,13 +108,13 @@
                                 <action selector="setFilterPayloadOnly:" target="-2" id="dXC-yI-EUf"/>
                             </connections>
                         </button>
-                        <textField verticalHuggingPriority="750" id="Q4S-ZT-Slb">
+                        <textField verticalHuggingPriority="750" id="Q4S-ZT-Slb" customClass="PKGLabel">
                             <rect key="frame" x="102" y="241" width="68" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Format :" id="9QR-b2-4yI">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="02T-uU-Q9R">
@@ -147,22 +147,22 @@
                             <rect key="frame" x="0.0" y="48" width="692" height="174"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </customView>
-                        <textField verticalHuggingPriority="750" id="odm-mU-CdG">
+                        <textField verticalHuggingPriority="750" id="odm-mU-CdG" customClass="PKGLabel">
                             <rect key="frame" x="24" y="271" width="146" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dossier de référence :" id="Sgt-0D-VaR">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="7Tc-rX-KC6">
+                        <textField verticalHuggingPriority="750" id="7Tc-rX-KC6" customClass="PKGSectionTitle">
                             <rect key="frame" x="18" y="371" width="104" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Construction" id="wIU-Er-BHZ">
                                 <font key="font" metaFont="systemBold" size="14"/>
-                                <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" id="jRX-Xb-nf0">
@@ -188,7 +188,7 @@
                         </popUpButton>
                     </subviews>
                 </customView>
-                <customView id="cnz-Ug-cbX" customClass="WBLightGrayView">
+                <customView id="cnz-Ug-cbX" customClass="PKGAlternateSectionView">
                     <rect key="frame" x="0.0" y="0.0" width="694" height="173"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>

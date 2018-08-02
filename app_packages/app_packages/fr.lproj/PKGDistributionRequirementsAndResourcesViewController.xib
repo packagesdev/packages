@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="948" height="557"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView id="X1t-qs-2Aq" customClass="WBLightGrayView">
+                <customView id="X1t-qs-2Aq" customClass="PKGAlternateSectionView">
                     <rect key="frame" x="0.0" y="0.0" width="585" height="319"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>
@@ -29,7 +29,7 @@
                     <rect key="frame" x="585" y="0.0" width="363" height="557"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                 </customView>
-                <customView id="avm-1B-65d" customClass="WBWhiteView">
+                <customView id="avm-1B-65d" customClass="PKGSectionView">
                     <rect key="frame" x="0.0" y="318" width="585" height="239"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -44,20 +44,20 @@
                                 <action selector="switchRootVolumeOnlyRequirement:" target="-2" id="gEs-pe-tvu"/>
                             </connections>
                         </button>
-                        <textField verticalHuggingPriority="750" id="5Pa-j8-h1n">
+                        <textField verticalHuggingPriority="750" id="5Pa-j8-h1n" customClass="PKGSectionTitle">
                             <rect key="frame" x="18" y="201" width="71" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Critères" id="Ku3-St-F9c">
                                 <font key="font" metaFont="systemBold" size="14"/>
                                 <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" white="0.70065789469999995" alpha="1" colorSpace="calibratedWhite"/>
                             </textFieldCell>
                         </textField>
                         <customView id="KPX-sC-r8A">
                             <rect key="frame" x="0.0" y="0.0" width="585" height="158"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </customView>
-                        <textField verticalHuggingPriority="750" id="Im8-J8-2zR">
+                        <textField verticalHuggingPriority="750" id="Im8-J8-2zR" customClass="PKGLabel">
                             <rect key="frame" x="24" y="165" width="88" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Destination :" id="5RB-BG-mwC">

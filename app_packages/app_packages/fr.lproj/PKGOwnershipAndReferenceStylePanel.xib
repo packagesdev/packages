@@ -8,7 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGOwnershipAndReferenceStyleWindowController">
             <connections>
                 <outlet property="_defaultButton" destination="Zte-AX-unw" id="Pg2-dN-uz4"/>
-                <outlet property="_placeHolderView" destination="uSN-Dr-0cj" id="Iee-5S-rRc"/>
+                <outlet property="_placeHolderView" destination="1DG-l7-ZOt" id="UTX-wr-DgK"/>
                 <outlet property="window" destination="yUg-Mn-Sa7" id="i5f-3X-cKP"/>
             </connections>
         </customObject>
@@ -37,16 +37,6 @@ Gw
                             <action selector="endDialog:" target="-2" id="600-n2-iAF"/>
                         </connections>
                     </button>
-                    <customView id="2tk-Vx-2af" customClass="WBWhiteFramedView">
-                        <rect key="frame" x="20" y="61" width="518" height="173"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <customView id="uSN-Dr-0cj">
-                                <rect key="frame" x="51" y="0.0" width="416" height="173"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                            </customView>
-                        </subviews>
-                    </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="g2c-fb-sPV">
                         <rect key="frame" x="18" y="242" width="324" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -70,6 +60,22 @@ DQ
                             <action selector="endDialog:" target="-2" id="rtR-xd-IJT"/>
                         </connections>
                     </button>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" id="oG5-dA-0xt" customClass="PKGContentBox">
+                        <rect key="frame" x="20" y="61" width="518" height="173"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="516" height="171"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView id="1DG-l7-ZOt">
+                                    <rect key="frame" x="71" y="-1" width="374" height="173"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                </customView>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
                 </subviews>
             </view>
             <point key="canvasLocation" x="266" y="345.5"/>
