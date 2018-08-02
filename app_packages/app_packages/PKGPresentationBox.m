@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2017, Stephane Sudre
+Copyright (c) 2007-2018, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,7 +19,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #define PKGPresentationBoxTextPadding	6.0
 
-#define PKGPresentationBoxTextHeight		16.0
+#define PKGPresentationBoxTextHeight    16.0
 
 @implementation PKGPresentationBox
 
@@ -81,14 +81,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (tSideWidth>0)
 		[tBezierPath lineToPoint:NSMakePoint(tWidth-PKGPresentationBoxCornerRadius-tSideWidth,round(tHeight-PKGPresentationBoxTextHeight*0.5-1.0)-0.5)];
 	
-	[[NSColor colorWithDeviceWhite:0.25 alpha:1.0] set];
+	[[NSColor labelColor] set];
 	
 	[tBezierPath stroke];
 		
 	// Draw Text
 										
 	[[self title] drawInRect:tTitleRect 
-			  withAttributes:@{NSForegroundColorAttributeName:[NSColor colorWithDeviceWhite:0.25 alpha:1.0],
+              withAttributes:@{NSForegroundColorAttributeName:[NSColor labelColor],
 							   NSFontAttributeName:[self titleFont]}];
 }
 
