@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPackageProjectMainViewController">
             <connections>
-                <outlet property="_contentsView" destination="r1k-GZ-Jmo" id="bG9-0e-VDF"/>
+                <outlet property="_contentsView" destination="r1k-GZ-Jmo" id="H9a-f0-cjn"/>
                 <outlet property="_segmentedControl" destination="1Pk-bt-4W1" id="dyM-xH-7uY"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="722" height="416"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView id="r1k-GZ-Jmo" customClass="WBWhiteFramedView">
+                <customView id="r1k-GZ-Jmo" customClass="PKGContentsView">
                     <rect key="frame" x="-1" y="33" width="724" height="363"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>

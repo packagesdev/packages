@@ -22,13 +22,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="348" height="383"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>
-                <textField verticalHuggingPriority="750" id="56E-dp-hxA">
+                <textField verticalHuggingPriority="750" id="56E-dp-hxA" customClass="PKGLabel">
                     <rect key="frame" x="19" y="393" width="311" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="tEU-uE-h9h">
                         <font key="font" metaFont="smallSystemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>

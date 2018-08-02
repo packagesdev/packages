@@ -8,22 +8,27 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationSectionInstallerPluginViewController">
             <connections>
                 <outlet property="_iconView" destination="JPW-qs-YaG" id="EVp-tv-VBL"/>
-                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="view" destination="usz-S2-jLV" id="bES-H4-HsX"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY" customClass="PKGPresentationContentsView">
+        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" id="usz-S2-jLV" customClass="PKGPresentationContentsView">
             <rect key="frame" x="0.0" y="0.0" width="364" height="364"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView id="JPW-qs-YaG">
-                    <rect key="frame" x="118" y="118" width="128" height="128"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ClO-Gz-Ytc"/>
-                </imageView>
-            </subviews>
-            <point key="canvasLocation" x="512" y="451"/>
-        </customView>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="1" y="1" width="362" height="362"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <imageView id="JPW-qs-YaG">
+                        <rect key="frame" x="117" y="117" width="128" height="128"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ClO-Gz-Ytc"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+        </box>
     </objects>
 </document>

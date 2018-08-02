@@ -7,9 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionProjectViewController">
             <connections>
-                <outlet property="_contentsView" destination="pQ9-41-KAt" id="6jK-kR-EZp"/>
+                <outlet property="_contentsView" destination="pQ9-41-KAt" id="yRu-WH-iTM"/>
                 <outlet property="_segmentedControl" destination="bEd-ZX-8K9" id="gLk-9b-Czb"/>
-                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="axY-ju-euy"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -18,10 +18,6 @@
             <rect key="frame" x="0.0" y="0.0" width="577" height="417"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView id="pQ9-41-KAt" customClass="WBWhiteFramedView">
-                    <rect key="frame" x="-1" y="-1" width="579" height="398"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                </customView>
                 <segmentedControl verticalHuggingPriority="750" id="bEd-ZX-8K9">
                     <rect key="frame" x="-7" y="393" width="589" height="25"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -38,8 +34,12 @@
                         <action selector="showTabView:" target="-2" id="cja-bK-r4p"/>
                     </connections>
                 </segmentedControl>
+                <customView id="pQ9-41-KAt" customClass="PKGContentsView">
+                    <rect key="frame" x="-1" y="-1" width="579" height="397"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </customView>
             </subviews>
-            <point key="canvasLocation" x="494.5" y="326.5"/>
+            <point key="canvasLocation" x="627.5" y="317.5"/>
         </customView>
     </objects>
 </document>

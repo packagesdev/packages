@@ -14,86 +14,92 @@
                 <outlet property="_missingIconView" destination="QRP-pj-aEX" id="0Gg-fk-iNI"/>
                 <outlet property="_successIconView" destination="jcu-NP-NVr" id="bqg-nx-PQN"/>
                 <outlet property="textView" destination="JBh-Ui-sD4" id="nO1-hl-Dl7"/>
-                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="view" destination="SeF-xT-p83" id="TSl-ZB-RXu"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY" customClass="PKGPresentationContentsView">
+        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" id="SeF-xT-p83" customClass="PKGPresentationContentsView">
             <rect key="frame" x="0.0" y="0.0" width="421" height="329"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="zai-0z-DOk">
-                    <rect key="frame" x="1" y="1" width="419" height="327"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" id="2L3-vU-tip">
-                        <rect key="frame" x="0.0" y="0.0" width="404" height="327"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="1" y="1" width="419" height="327"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="zai-0z-DOk">
+                        <rect key="frame" x="0.0" y="0.0" width="419" height="327"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="2L3-vU-tip">
+                            <rect key="frame" x="0.0" y="0.0" width="404" height="327"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView drawsBackground="NO" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="JBh-Ui-sD4" customClass="PKGPresentationTextView">
+                                    <rect key="frame" x="0.0" y="0.0" width="404" height="327"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="404" height="327"/>
+                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <size key="minSize" width="404" height="327"/>
+                                    <size key="maxSize" width="463" height="10000000"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="2Q3-PZ-ajm">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="K4q-Ds-UfQ">
+                            <rect key="frame" x="224" y="1" width="15" height="133"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <customView id="bG3-g7-krx" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                        <rect key="frame" x="-1" y="-1" width="421" height="329"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="JBh-Ui-sD4" customClass="PKGPresentationTextView">
-                                <rect key="frame" x="0.0" y="0.0" width="404" height="327"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="404" height="327"/>
-                                <size key="maxSize" width="463" height="10000000"/>
-                                <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="404" height="327"/>
-                                <size key="maxSize" width="463" height="10000000"/>
-                            </textView>
+                            <textField verticalHuggingPriority="750" id="rFK-BH-Uri">
+                                <rect key="frame" x="-2" y="30" width="425" height="125"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Content Text &lt;&lt;DO NOT LOCALIZE&gt;&gt;" id="XWX-mp-5jv">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" id="ImR-4K-eBb">
+                                <rect key="frame" x="-2" y="182" width="425" height="29"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="&lt;&lt;DO NOT LOCALIZE&gt;&gt;" id="988-j7-ILa">
+                                    <font key="font" metaFont="systemBold" size="22"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView id="jcu-NP-NVr">
+                                <rect key="frame" x="173" y="223" width="72" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jK1-mJ-xdr"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="2Q3-PZ-ajm">
-                        <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="K4q-Ds-UfQ">
-                        <rect key="frame" x="224" y="1" width="15" height="133"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                </scrollView>
-                <customView id="bG3-g7-krx" customClass="PKGPresentationSectionTextDocumentViewDropView">
-                    <rect key="frame" x="0.0" y="0.0" width="421" height="329"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <textField verticalHuggingPriority="750" id="rFK-BH-Uri">
-                            <rect key="frame" x="-2" y="30" width="425" height="125"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Content Text &lt;&lt;DO NOT LOCALIZE&gt;&gt;" id="XWX-mp-5jv">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <textField verticalHuggingPriority="750" id="ImR-4K-eBb">
-                            <rect key="frame" x="-2" y="182" width="425" height="29"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="&lt;&lt;DO NOT LOCALIZE&gt;&gt;" id="988-j7-ILa">
-                                <font key="font" metaFont="systemBold" size="22"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <imageView id="jcu-NP-NVr">
-                            <rect key="frame" x="173" y="223" width="72" height="72"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jK1-mJ-xdr"/>
-                        </imageView>
-                    </subviews>
-                </customView>
-                <customView hidden="YES" id="nbg-7k-uHf" customClass="PKGPresentationSectionTextDocumentViewDropView">
-                    <rect key="frame" x="-35" y="-19" width="490" height="367"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="QRP-pj-aEX">
-                            <rect key="frame" x="221" y="159" width="128" height="128"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Jwd-Co-T69"/>
-                        </imageView>
-                    </subviews>
-                </customView>
-            </subviews>
-            <point key="canvasLocation" x="143.5" y="331.5"/>
-        </customView>
+                    </customView>
+                    <customView hidden="YES" id="nbg-7k-uHf" customClass="PKGPresentationSectionTextDocumentViewDropView">
+                        <rect key="frame" x="-36" y="-20" width="490" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="QRP-pj-aEX">
+                                <rect key="frame" x="221" y="159" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Jwd-Co-T69"/>
+                            </imageView>
+                        </subviews>
+                    </customView>
+                </subviews>
+            </view>
+            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="297.5" y="388.5"/>
+        </box>
     </objects>
 </document>
