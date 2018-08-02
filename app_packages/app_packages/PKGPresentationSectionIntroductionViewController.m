@@ -94,7 +94,7 @@
 	
 	if (tAvailableLocalizations.count>0)
 	{
-		self.textView.textContainerInset=NSMakeSize(6.0,6.0);
+		self.textView.textContainerInset=NSMakeSize(7.0,7.0);
 		
 		[super refreshUIForLocalization:inLocalization];
 		
@@ -120,7 +120,7 @@
 	[tTextStorage endEditing];
 	
 	
-	self.textView.textContainerInset=NSMakeSize(41.0,41.0);
+	self.textView.textContainerInset=NSMakeSize(7.0,7.0);
 }
 
 @end

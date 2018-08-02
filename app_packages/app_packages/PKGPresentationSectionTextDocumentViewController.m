@@ -50,7 +50,7 @@
 	[super WB_viewDidLoad];
 	
 	
-	self.textView.textContainerInset=NSMakeSize(6.0,6.0);
+	self.textView.textContainerInset=NSMakeSize(7.0,7.0);
 	self.textView.drawsBackground=NO;
 	self.textView.enclosingScrollView.drawsBackground=NO;
 	
