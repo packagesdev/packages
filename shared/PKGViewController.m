@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -31,12 +31,12 @@
 #endif
 		// Remove observer
 		
-		PKGControlledView * tControlledView=(PKGControlledView *)self.view;
+		NSView * tControlledView=self.view;
 		
-		if ([tControlledView isKindOfClass:PKGControlledView.class]==YES)
+		if ([tControlledView conformsToProtocol:@protocol(PKGControlledView)]==YES)
 		{
 			if (tControlledView.nextResponder==self)
-				[tControlledView superSetNextResponder:self.nextResponder];
+				[(id<PKGControlledView>)tControlledView superSetNextResponder:self.nextResponder];
 			
 			self.nextResponder=nil;
 		}
