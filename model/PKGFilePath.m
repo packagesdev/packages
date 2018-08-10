@@ -204,7 +204,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 
 - (BOOL)isSet
 {
-	return (self.string!=nil);
+	return (self.string.length!=0);
 }
 
 #pragma mark -
