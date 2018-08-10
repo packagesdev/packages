@@ -413,7 +413,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		tView.imageView.image=tSourceListItem.icon;
 		tView.textField.formatter=nil;
 		tView.textField.stringValue=tSourceListItem.label;
-		tView.textField.textColor=[NSColor labelColor];
+		tView.textField.textColor=[NSColor controlTextColor];
 		tView.textField.delegate=nil;
 
 		return tView;
