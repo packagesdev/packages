@@ -12,6 +12,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 */
 
 #import "PKGProjectBuilder.h"
+#import "PKGProjectBuilder+PKGBuildEvent.h"
 
 //#import "OHSHITManager.h"
 
@@ -68,6 +69,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGLanguageManager.h"
 #import "PKGPayloadBundleItem.h"
+
+#import "PKGPresentationBackgroundSettings+Builder.h"
 
 
 #define SIGNATURE_REQUEST_TIME_OUT		10*60.0f // 10 minutes
@@ -127,7 +130,7 @@ NSString * const PKGProjectBuilderToolPath_goldin=@"/usr/local/bin/goldin";
 NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 
-@interface PKGProjectBuilder () <PKGFilePathConverter,PKGArchiveDelegate>
+@interface PKGProjectBuilder () <PKGArchiveDelegate>
 {
 	PKGBuildOrder * _buildOrder;
 	
@@ -983,7 +986,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	PKGFilePath * tBuildPath=tProjectSettings.buildPath;
 	
-	if (tBuildPath.string.length==0)
+	if (tBuildPath.isSet==NO)
 	{
 		switch(tBuildPath.type)
 		{
@@ -2638,6 +2641,33 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 #pragma mark - Distribution Documents utilities
 
+- (NSString *)distributionResources
+{
+	return _buildInformation.resourcesPath;
+}
+
+- (NSString *)suitableFileNameForProposedFileName:(NSString *)inName inDirectory:(NSString *)inDirectory
+{
+	NSUInteger tIndex=1;
+	NSString * tFileName=inName;
+	
+	do
+	{
+		NSString * tFilePath=[inDirectory stringByAppendingPathComponent:tFileName];
+		
+		if ([_fileManager fileExistsAtPath:tFilePath]==NO)
+			return tFileName;
+		
+		tFileName=[NSString stringWithFormat:@"%@_%d",inName,(int)tIndex];
+		
+		tIndex++;
+	}
+	while (tIndex<PKGRenamingAttemptsMax);
+	
+	return nil;
+	
+}
+
 - (BOOL)setPosixPermissionsOfDocumentAtPath:(NSString *)inPath
 {
 	if (inPath==nil)
@@ -2767,9 +2797,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	{
 		NSUInteger tIndex=0;
 		
-		for(NSString * tLocalizationDictionary in inLocalizationsDirectories)
+		for(NSString * tLocalizationDirectory in inLocalizationsDirectories)
 		{
-			NSString * tDestinationPath=[tLocalizationDictionary stringByAppendingPathComponent:tFileName];
+			NSString * tDestinationPath=[tLocalizationDirectory stringByAppendingPathComponent:tFileName];
 			
 			if ([_fileManager fileExistsAtPath:tDestinationPath]==YES)
 				break;
@@ -2810,16 +2840,16 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if (tLocalizedPathDictionary.count==0)
 		return YES;
 	
-	NSArray * tAllLlocalizationsDirectories=tLocalizedPathDictionary.allKeys;
+	NSArray * tAllLocalizationsDirectories=tLocalizedPathDictionary.allKeys;
 	
-	NSString * tFileName=[self finalDocumentNameForLocalizationsDirectories:tAllLlocalizationsDirectories usingBaseName:inName extension:[tLocalizedPathDictionary[tAllLlocalizationsDirectories[0]] pathExtension]];
+	NSString * tFileName=[self finalDocumentNameForLocalizationsDirectories:tAllLocalizationsDirectories usingBaseName:inName extension:[tLocalizedPathDictionary[tAllLocalizationsDirectories[0]] pathExtension]];
 	
 	if (tFileName==nil)
 		return NO;
 	
 	// Copy the files to the destination
 	
-	for(NSString * tLocalizationDirectory in tAllLlocalizationsDirectories)
+	for(NSString * tLocalizationDirectory in tAllLocalizationsDirectories)
 	{
 		NSString * tDestinationPath=[tLocalizationDirectory stringByAppendingPathComponent:tFileName];
 		
@@ -2832,6 +2862,24 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tLocalizedPathDictionary[tLocalizationDirectory] fileKind:PKGFileKindRegularFile];
 			tErrorEvent.otherFilePath=tDestinationPath;
+			
+			if (tError!=nil && [tError.domain isEqualToString:NSCocoaErrorDomain]==YES)
+			{
+				switch(tError.code)
+				{
+					case NSFileWriteVolumeReadOnlyError:
+						tErrorEvent.subcode=PKGBuildErrorReadOnlyVolume;
+						break;
+						
+					case NSFileWriteNoPermissionError:
+						tErrorEvent.subcode=PKGBuildErrorWriteNoPermission;
+						break;
+						
+					case NSFileWriteOutOfSpaceError:
+						tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
+						break;
+				}
+			}
 			
 			[self postCurrentStepFailureEvent:tErrorEvent];
 			
@@ -2954,7 +3002,19 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	PKGDistributionProjectPresentationSettings *tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
 	PKGPresentationBackgroundSettings * tPresentationBackgroundSettings=tPresentationSettings.backgroundSettings;
 	
-	if (tPresentationBackgroundSettings.showCustomImage==NO)
+	NSArray * tElements=[tPresentationBackgroundSettings elementsForProjectBuilder:self];
+	
+	if (tElements==nil)
+	{
+		return NO;
+	}
+	
+	for(NSXMLElement * tBackgroundElement in tElements)
+		[_installerScriptElement addChild:tBackgroundElement];
+	
+	return YES;
+	
+	/*if (tPresentationBackgroundSettings.showCustomImage==NO)
 		return YES;
 	
 	PKGFilePath * tFilePath=tPresentationBackgroundSettings.imagePath;
@@ -3140,7 +3200,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 	[self postCurrentStepSuccessEvent:nil];
 	
-	return YES;
+	return YES;*/
 }
 
 - (BOOL)setIntroduction
@@ -4963,6 +5023,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			
 			return NO;
 		}
+		
+		// Note to future self: check which minimum version of Mac OS X or Installer.app do support cpio.gz Plugins (also check case sensitivity, PlugIns?)
 		
 		NSString * tDestinationPluginsDirectoryPath=[tContentsPath stringByAppendingPathComponent:@"Plugins"];
 		
@@ -7063,6 +7125,54 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 		NSString * tDestinationFolder=[bDestinationPath stringByDeletingLastPathComponent];
 		NSString * tBaseName=[[bDestinationPath lastPathComponent] stringByDeletingPathExtension];
+		NSString * tSuitableFileName=[self suitableFileNameForProposedFileName:tBaseName inDirectory:tDestinationFolder];
+		
+		if (tSuitableFileName==nil)
+		{
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileAlreadyExists tag:tBaseName]];
+			
+			return NO;
+		}
+		
+		NSString * tDestinationPath=[tDestinationFolder stringByAppendingPathComponent:tSuitableFileName];
+		
+		NSError * tError=nil;
+		
+		if ([_fileManager PKG_copyItemAtPath:bSourcePath toPath:tDestinationPath options:0 error:&tError]==NO)
+		{
+			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:bSourcePath fileKind:PKGFileKindRegularFile];
+			tErrorEvent.otherFilePath=tDestinationPath;
+			
+			if (tError!=nil && [tError.domain isEqualToString:NSCocoaErrorDomain]==YES)
+			{
+				switch(tError.code)
+				{
+					case NSFileWriteVolumeReadOnlyError:
+						tErrorEvent.subcode=PKGBuildErrorReadOnlyVolume;
+						break;
+						
+					case NSFileWriteNoPermissionError:
+						tErrorEvent.subcode=PKGBuildErrorWriteNoPermission;
+						break;
+						
+					case NSFileWriteOutOfSpaceError:
+						tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
+						break;
+				}
+			}
+			
+			[self postCurrentStepFailureEvent:tErrorEvent];
+			
+			return NO;
+		}
+		
+		if (bOutScriptName!=NULL)
+			*bOutScriptName=tSuitableFileName;
+		
+		return YES;
+		
+		
+		/*NSString * tBaseName=[[bDestinationPath lastPathComponent] stringByDeletingPathExtension];
 		
 		NSUInteger tIndex=1;
 		NSString * tFileScriptName=tBaseName;
@@ -7119,7 +7229,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		 
 		 // A COMPLETER
 		
-		return NO;
+		return NO;*/
 	
 	};
 	
