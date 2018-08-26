@@ -1666,7 +1666,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	return _currentDragOperation;
 }
 
-- (BOOL) wantsPeriodicDraggingUpdates
+- (BOOL)wantsPeriodicDraggingUpdates
 {
 	// To Scroll when it's still possible
 	
