@@ -145,6 +145,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
+- (void)drawRect:(NSRect)frame
+{
+	[super drawRect:frame];
+}
+
 /*- (void)drawRect:(NSRect)frame
 {
 	PKGPresentationThemeVersion tThemeVersion=[((PKGDocument *)((NSWindowController *)self.window.windowController).document).registry[PKGPresentationTheme] unsignedIntegerValue];
