@@ -46,10 +46,10 @@
 	NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
 	[tBezierPath setLineDash:tDash count:2 phase:0.0];
 		
-	[tBezierPath moveToPoint:NSZeroPoint];
-	[tBezierPath lineToPoint:NSMakePoint(0.0,NSMaxY(tBounds))];
-	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(tBounds))];
-	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),0.0)];
+	[tBezierPath moveToPoint:NSMakePoint(0.5,0.5)];
+	[tBezierPath lineToPoint:NSMakePoint(0.5,NSMaxY(tBounds)-0.5)];
+	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(tBounds)-0.5)];
+	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,0.5)];
 	[tBezierPath closePath];
 	
 	[[NSColor colorWithDeviceWhite:0.530 alpha:1.0] setStroke];
