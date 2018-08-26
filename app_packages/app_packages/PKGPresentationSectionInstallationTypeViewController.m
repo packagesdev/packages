@@ -68,6 +68,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	IBOutlet NSPopUpButton * _installationTypeModePopUpButton;
 	
+	PKGInstallationTypeTableHeaderView * _headerView;
 	PKGInstallationTypeCornerView * _cornerView;
 	
 	PKGPresentationInstallationTypeStepSettings * _settings;
@@ -164,9 +165,19 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 {
 	[super WB_viewDidLoad];
 	
-	
-	_cornerView=[[PKGInstallationTypeCornerView alloc] initWithFrame:self.outlineView.cornerView.frame];
-	self.outlineView.cornerView=_cornerView;
+	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+	{
+		_headerView=[[PKGInstallationTypeTableHeaderView alloc] initWithFrame:self.outlineView.headerView.frame];
+		_headerView.tableView=self.outlineView;
+		self.outlineView.headerView=_headerView;
+		
+		_cornerView=[[PKGInstallationTypeCornerView alloc] initWithFrame:self.outlineView.cornerView.frame];
+		self.outlineView.cornerView=_cornerView;
+	}
+	else
+	{
+		// A COMPLETER
+	}
 	
 	_indentationColumn.hidden=YES;
 	
@@ -250,7 +261,6 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	[super WB_viewWillAppear];
 	
 	_showRawNames=[self.documentRegistry boolForKey:PKGPresentationSectionInstallationTypeShowRawNamesKey];
-	_cornerView.mixedState=_showRawNames;
 	
 	NSString * tCurrentHierarchyName=self.documentRegistry[PKGPresentationSectionInstallationTypeCurrentHierarchyKey];
 	
@@ -400,9 +410,12 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		tCustomModeWillBeInvisible=(_settings.mode==PKGPresentationInstallationTypeStandardInstallOnly);
 	
 	((PKGInstallationTypeScrollView *)self.outlineView.enclosingScrollView).dashedBorder=tCustomModeWillBeInvisible;
-	((PKGInstallationTypeTableHeaderView *)self.outlineView.headerView).dashedBorder=tCustomModeWillBeInvisible;
-	((PKGInstallationTypeCornerView *)self.outlineView.cornerView).dashedBorder=tCustomModeWillBeInvisible;
-
+	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+	{
+		_headerView.dashedBorder=tCustomModeWillBeInvisible;
+		_cornerView.dashedBorder=tCustomModeWillBeInvisible;
+	}
+	
 	((PKGInstallationTypeScrollView *)_descriptionTextView.enclosingScrollView).dashedBorder=tCustomModeWillBeInvisible;
 	
 	[_splitView setNeedsDisplay:YES];
@@ -611,7 +624,13 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	// Column Headers
 	
 	NSTableColumn * tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.name"];
-	[[tTableColumn headerCell] setTitle:[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Name" localization:inLocalization]];
+	
+	NSString * tTitle=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Name" localization:inLocalization];
+	
+	if (_showRawNames==YES)
+		tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" - <RAW>", @"Presentation", @"")];
+	
+	[[tTableColumn headerCell] setTitle:tTitle];
 	
 	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.action"];
 	[[tTableColumn headerCell] setTitle:[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Action" localization:inLocalization]];
@@ -858,7 +877,17 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	self.documentRegistry[PKGPresentationSectionInstallationTypeShowRawNamesKey]=@(_showRawNames);
 	
-	_cornerView.mixedState=_showRawNames;
+	[self refreshUIForLocalization:self.localization];
+	
+	[self.outlineView.headerView setNeedsDisplay:YES];
+	
+	/*if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+	{
+		_cornerView.mixedState=_showRawNames;
+	}
+	else
+	{
+	}*/
 	
 	[self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfColumns)]];
 }

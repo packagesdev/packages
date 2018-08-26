@@ -232,7 +232,7 @@
                                         <rect key="frame" x="507" y="17" width="16" height="207"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
-                                    <tableHeaderView key="headerView" id="ste-hR-GAp" customClass="PKGInstallationTypeTableHeaderView">
+                                    <tableHeaderView key="headerView" id="ste-hR-GAp">
                                         <rect key="frame" x="0.0" y="0.0" width="522" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
