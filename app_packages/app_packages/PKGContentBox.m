@@ -29,6 +29,8 @@
 	{
 		self.borderColor=[NSColor containerBorderColor];
 	}
+	
+	self.contentViewMargins=NSZeroSize;
 }
 
 @end
