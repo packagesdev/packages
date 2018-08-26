@@ -118,6 +118,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 		self.tableView.dataSource=_fileFiltersDataSource;
 }
 
+- (void)awakeFromNib
+{
+	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+		[self.tableView setBackgroundColor:[NSColor clearColor]];	// Fix a bug in AppKit on OS X 10.10
+}
+
 #pragma mark -
 
 - (void)WB_viewWillAppear
