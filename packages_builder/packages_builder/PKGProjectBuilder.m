@@ -3002,6 +3002,9 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	PKGDistributionProjectPresentationSettings *tPresentationSettings=((PKGDistributionProject *)self.project).presentationSettings;
 	PKGPresentationBackgroundSettings * tPresentationBackgroundSettings=tPresentationSettings.backgroundSettings;
 	
+	if (tPresentationBackgroundSettings==nil)
+		return YES;
+	
 	NSArray * tElements=[tPresentationBackgroundSettings elementsForProjectBuilder:self];
 	
 	if (tElements==nil)
