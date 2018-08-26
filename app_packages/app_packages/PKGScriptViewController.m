@@ -250,7 +250,11 @@
 	{
 		if ([self.filePathConverter shiftTypeOfFilePath:_installationScriptPath toType:tTag]==NO)
 		{
-			// A COMPLETER
+			NSLog(@"Unable to switch the path type");
+			
+			NSBeep();
+			
+			return;
 		}
 		
 		if (_installationScriptPath.isSet==YES)
