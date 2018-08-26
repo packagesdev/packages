@@ -36,8 +36,8 @@
 		
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
 		
-		[tBezierPath moveToPoint:NSZeroPoint];
-		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),0.0)];
+		[tBezierPath moveToPoint:NSMakePoint(0,0.5)];
+		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),0.5)];
 		
 		[[NSColor whiteColor] setStroke];
 		

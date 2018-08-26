@@ -70,8 +70,8 @@
 	{
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
 		
-		[tBezierPath moveToPoint:NSMakePoint(0.0,NSMaxY(tBounds)-1.0)];
-		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(tBounds)-1.0)];
+		[tBezierPath moveToPoint:NSMakePoint(0.0,NSMaxY(tBounds)-0.5)];
+		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(tBounds)-0.5)];
 		
 		[[NSColor whiteColor] setStroke];
 		[tBezierPath stroke];
