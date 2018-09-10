@@ -164,6 +164,7 @@
 		F412959E1D68FC3A00B2ABC4 /* PKGProjectBuilderInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGProjectBuilderInterface.h; path = ../shared/PKGProjectBuilderInterface.h; sourceTree = "<group>"; };
 		F422BD8D1D89F94300BFCEC1 /* PKGBuildSignatureCreatorInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGBuildSignatureCreatorInterface.h; path = ../shared/PKGBuildSignatureCreatorInterface.h; sourceTree = "<group>"; };
 		F422BD961D89F94A00BFCEC1 /* PKGBuildOrderExecutionAgentInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGBuildOrderExecutionAgentInterface.h; path = ../shared/PKGBuildOrderExecutionAgentInterface.h; sourceTree = "<group>"; };
+		F4295026214717A200C1A425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = packages_builder/Info.plist; sourceTree = "<group>"; };
 		F43016FF1CFE0E9F00829D16 /* PKGBuildLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBuildLogger.h; path = packages_builder/PKGBuildLogger.h; sourceTree = "<group>"; };
 		F43017001CFE0E9F00829D16 /* PKGBuildLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBuildLogger.m; path = packages_builder/PKGBuildLogger.m; sourceTree = "<group>"; };
 		F43017171CFE0EEB00829D16 /* packagesbuilder_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = packagesbuilder_Prefix.pch; path = packages_builder/packagesbuilder_Prefix.pch; sourceTree = "<group>"; };
@@ -456,6 +457,7 @@
 		F40054390EE1C6BC0003E373 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F4295026214717A200C1A425 /* Info.plist */,
 				F43017181CFE0EEF00829D16 /* main.m */,
 			);
 			name = "Other Sources";
@@ -907,7 +909,8 @@
 		1DEB927508733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 454;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 463;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -926,6 +929,7 @@
 					../xar/xar/lib,
 					/usr/include/libxml2,
 				);
+				INFOPLIST_FILE = packages_builder/Info.plist;
 				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/;
 				OTHER_LDFLAGS = "-Wl,-search_paths_first,-all_load";
 				PRODUCT_NAME = packages_builder;
@@ -937,7 +941,8 @@
 		1DEB927608733DD40010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 454;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 463;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;
@@ -948,6 +953,7 @@
 					../xar/xar/lib,
 					/usr/include/libxml2,
 				);
+				INFOPLIST_FILE = packages_builder/Info.plist;
 				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/;
 				OTHER_LDFLAGS = "-Wl,-search_paths_first,-all_load";
 				PRODUCT_NAME = packages_builder;
