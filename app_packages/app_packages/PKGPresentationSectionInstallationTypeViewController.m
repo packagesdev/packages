@@ -68,7 +68,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	IBOutlet NSPopUpButton * _installationTypeModePopUpButton;
 	
-	PKGInstallationTypeTableHeaderView * _headerView;
+	IBOutlet PKGInstallationTypeTableHeaderView * _headerView;
 	PKGInstallationTypeCornerView * _cornerView;
 	
 	PKGPresentationInstallationTypeStepSettings * _settings;
@@ -167,10 +167,6 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 	{
-		_headerView=[[PKGInstallationTypeTableHeaderView alloc] initWithFrame:self.outlineView.headerView.frame];
-		_headerView.tableView=self.outlineView;
-		self.outlineView.headerView=_headerView;
-		
 		_cornerView=[[PKGInstallationTypeCornerView alloc] initWithFrame:self.outlineView.cornerView.frame];
 		self.outlineView.cornerView=_cornerView;
 	}
@@ -410,11 +406,11 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		tCustomModeWillBeInvisible=(_settings.mode==PKGPresentationInstallationTypeStandardInstallOnly);
 	
 	((PKGInstallationTypeScrollView *)self.outlineView.enclosingScrollView).dashedBorder=tCustomModeWillBeInvisible;
+	
+	_headerView.dashedBorder=tCustomModeWillBeInvisible;
+	
 	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
-	{
-		_headerView.dashedBorder=tCustomModeWillBeInvisible;
 		_cornerView.dashedBorder=tCustomModeWillBeInvisible;
-	}
 	
 	((PKGInstallationTypeScrollView *)_descriptionTextView.enclosingScrollView).dashedBorder=tCustomModeWillBeInvisible;
 	
