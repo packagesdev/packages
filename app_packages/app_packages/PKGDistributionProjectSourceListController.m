@@ -164,15 +164,6 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 
 	
 	[_sourceListAuxiliaryView removeFromSuperview];
-	
-	// A COMPLETER
-}
-
-- (void)WB_viewDidDisappear
-{
-	[super WB_viewDidDisappear];
-	
-	// A COMPLETER
 }
 
 #pragma mark -
@@ -560,8 +551,6 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		return;
 	
 	[self.dataSource outlineView:self.outlineView renamePackageComponent:tNode as:tNewName];
-	
-	// A COMPLETER
 }
 
 - (void)removedPackagesListDidChange:(NSNotification *)inNotification
