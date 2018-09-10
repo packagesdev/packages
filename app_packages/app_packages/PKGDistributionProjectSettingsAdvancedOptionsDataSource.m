@@ -47,6 +47,8 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 		
 		if (tPath==nil)
 		{
+			NSLog(@"Unable to locate the resource file AdvancedOptions.plist");
+			
 			// A COMPLETER
 			
 			return nil;
@@ -58,6 +60,8 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 		
 		if (tData==nil)
 		{
+			NSLog(@"Unable to read the resource file AdvancedOptions.plist: %@",tError);
+			
 			// A COMPLETER
 			
 			return nil;
@@ -67,6 +71,8 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 		
 		if (tDictionary==nil)
 		{
+			NSLog(@"Unable to decode the resource file AdvancedOptions.plist");
+			
 			// A COMPLETER
 			
 			return nil;
@@ -74,7 +80,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 		
 		if ([tDictionary isKindOfClass:NSDictionary.class]==NO)
 		{
-			// A COMPLETER
+			NSLog(@"The resource file AdvancedOptions.plist is corrupted");
 			
 			return nil;
 		}
@@ -83,6 +89,8 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 		
 		if (_tree==nil)
 		{
+			NSLog(@"%@",tError);
+			
 			// A COMPLETER
 			
 			return nil;
@@ -92,6 +100,8 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsDescriptionsKey=@"
 		
 		if (_advancedOptionsDescriptions==nil)
 		{
+			NSLog(@"%@",tError);
+			
 			// A COMPLETER
 			
 			return nil;
