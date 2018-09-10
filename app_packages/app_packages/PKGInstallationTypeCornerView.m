@@ -76,7 +76,7 @@
 		[[NSColor whiteColor] setStroke];
 		[tBezierPath stroke];
 		
-		const CGFloat tDash[2]={2.0,2.0};
+		const CGFloat tDash[2]={2.0,3.0};
 		[tBezierPath setLineDash:tDash count:2 phase:0.0];
 		
 		[[NSColor colorWithDeviceWhite:0.530 alpha:1.0] setStroke];

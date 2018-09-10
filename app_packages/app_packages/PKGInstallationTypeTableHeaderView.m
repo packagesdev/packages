@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -27,12 +27,20 @@
 
 #pragma mark -
 
+- (BOOL)_canSupportTallerHeight
+{
+	return (NSAppKitVersionNumber>NSAppKitVersionNumber10_11);
+}
+
 - (void)drawRect:(NSRect)inRect
 {
+	[NSGraphicsContext saveGraphicsState];
+	
 	if (self.dashedBorder==YES)
 	{
 		NSRect tBounds=self.bounds;
-		const CGFloat tDash[2]={2.0,2.0};
+		
+		const CGFloat tDash[2]={2.0,3.0};
 		
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
 		
@@ -49,6 +57,7 @@
 		
 		[tBezierPath stroke];
 		
+		
 		tBounds.size.height-=1.0;
 		
 		tBounds.origin.y+=1.0;
@@ -57,6 +66,8 @@
 	}
 	
 	[super drawRect:inRect];
+	
+	[NSGraphicsContext restoreGraphicsState];
 }
 
 @end

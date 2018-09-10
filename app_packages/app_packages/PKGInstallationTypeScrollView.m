@@ -41,16 +41,22 @@
 	}
 	
 	NSRect tBounds=self.bounds;
-	const CGFloat tDash[2]={2.0,2.0};
+	const CGFloat tDash[2]={2.0,3.0};
 	
 	NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
-	[tBezierPath setLineDash:tDash count:2 phase:0.0];
+	
 		
 	[tBezierPath moveToPoint:NSMakePoint(0.5,0.5)];
 	[tBezierPath lineToPoint:NSMakePoint(0.5,NSMaxY(tBounds)-0.5)];
 	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(tBounds)-0.5)];
 	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,0.5)];
 	[tBezierPath closePath];
+	
+	[[NSColor whiteColor] setStroke];
+	
+	[tBezierPath stroke];
+	
+	[tBezierPath setLineDash:tDash count:2 phase:0.0];
 	
 	[[NSColor colorWithDeviceWhite:0.530 alpha:1.0] setStroke];
 	[tBezierPath stroke];

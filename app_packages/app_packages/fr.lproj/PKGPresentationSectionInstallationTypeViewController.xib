@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationSectionInstallationTypeViewController">
             <connections>
                 <outlet property="_descriptionTextView" destination="AQQ-fG-fO2" id="J3W-Hk-hRR"/>
+                <outlet property="_headerView" destination="ste-hR-GAp" id="fEA-d2-c2f"/>
                 <outlet property="_hierarchyBox" destination="rAY-ZE-6oY" id="Dhw-Jn-y36"/>
                 <outlet property="_hierarchyPopUpButton" destination="jlB-Gz-5Rr" id="kg3-Gp-bQy"/>
                 <outlet property="_indentationColumn" destination="51k-ZI-gcs" id="AoU-OG-HIC"/>
@@ -232,7 +233,7 @@
                                         <rect key="frame" x="507" y="17" width="16" height="207"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
-                                    <tableHeaderView key="headerView" id="ste-hR-GAp">
+                                    <tableHeaderView key="headerView" id="ste-hR-GAp" customClass="PKGInstallationTypeTableHeaderView">
                                         <rect key="frame" x="0.0" y="0.0" width="522" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
