@@ -369,6 +369,8 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 			{
 				if (tError!=nil)
 				{
+					NSLog(@"%@",tError);
+					
 					// A COMPLETER
 				}
 				
@@ -578,7 +580,7 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 	
 	// Post Notification
 	
-	// A COMPLETER
+	// A COMPLETER (PKGDistributionProjectDidAddPackageComponentNotification ?)
 	
 	[inOutlineView reloadData];
 	
