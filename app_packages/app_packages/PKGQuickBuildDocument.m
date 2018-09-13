@@ -241,7 +241,7 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 					
 					tChooseIdentityPanel=[PKGChooseIdentityPanel new];
 					
-					tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing the package.", @"");;
+					tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing the package.", @"");
 					tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");
 					
 					if ([tChooseIdentityPanel runModal]!=NSOKButton)
