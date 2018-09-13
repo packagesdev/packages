@@ -491,10 +491,10 @@
 			
 			PKGChooseIdentityPanel * tChooseIdentityPanel=[PKGChooseIdentityPanel new];
 			
-			tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing Quick Builds.",@"");;
-			tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");;
+			tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing Quick Builds.",@"");
+			tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");
 			
-			[tChooseIdentityPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode) {
+			if ([tChooseIdentityPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode) {
 				
 				if (bReturnCode==NSCancelButton)
 				{
@@ -515,7 +515,12 @@
 				tMenuItem.enabled=YES;
 				
 				[_quickBuildSigningCertificatePopUpButton selectItemWithTag:PKGPreferencesQuickBuildSigningSign];
-			}];
+			}]==NO)
+			{
+				// Revert to previously selected menu item
+				
+				[_quickBuildSigningCertificatePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction];
+			}
 		});
 		
 		return;
