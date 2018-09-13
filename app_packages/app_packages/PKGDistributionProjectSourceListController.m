@@ -100,8 +100,6 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
     [super WB_viewDidLoad];
 	
 	[self.outlineView registerForDraggedTypes:[PKGDistributionProjectSourceListDataSource supportedDraggedTypes]];
-	
-	// A COMPLETER
 }
 
 #pragma mark -
@@ -128,8 +126,6 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	[self.outlineView reloadData];
 	
 	[self.outlineView expandItem:nil expandChildren:YES];
-	
-	// A COMPLETER
 	
 	// Register for Notifications
 	
@@ -259,7 +255,14 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		tDistributionProjectExporter.project=(PKGDistributionProject *)self.documentProject;
 		tDistributionProjectExporter.projectFilePathConverter=self.filePathConverter;
 		
-		[tDistributionProjectExporter exportPackageComponent:tPackageComponent asPackageProjectAtURL:tExportPanel.URL completionHandler:nil];	// A COMPLETER
+		[tDistributionProjectExporter exportPackageComponent:tPackageComponent asPackageProjectAtURL:tExportPanel.URL completionHandler:^(BOOL bSuccess) {
+			
+			if (bSuccess==YES)
+			{
+				[[NSWorkspace sharedWorkspace] selectFile:tExportPanel.URL.path inFileViewerRootedAtPath:@""];
+			}
+			
+		}];
 	}];
 }
 
