@@ -25,6 +25,6 @@
 	@property id<PKGFilePathConverter> projectFilePathConverter;
 
 
-- (void)exportPackageComponent:(PKGPackageComponent *)inPackageComponent asPackageProjectAtURL:(NSURL *)inURL completionHandler:(void (^)(BOOL))inCompletionHandler;
+- (void)exportPackageComponent:(PKGPackageComponent *)inPackageComponent asPackageProjectAtURL:(NSURL *)inURL completionHandler:(void (^)(BOOL bSuccess))inCompletionHandler;
 
 @end

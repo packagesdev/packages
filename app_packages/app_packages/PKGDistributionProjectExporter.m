@@ -24,7 +24,7 @@
 
 @implementation PKGDistributionProjectExporter
 
-- (void)exportPackageComponent:(PKGPackageComponent *)inPackageComponent asPackageProjectAtURL:(NSURL *)inURL completionHandler:(void (^)(BOOL))inCompletionHandler
+- (void)exportPackageComponent:(PKGPackageComponent *)inPackageComponent asPackageProjectAtURL:(NSURL *)inURL completionHandler:(void (^)(BOOL bSuccess))inCompletionHandler
 {
 	if (self.project==nil || self.projectFilePathConverter==nil)
 	{
