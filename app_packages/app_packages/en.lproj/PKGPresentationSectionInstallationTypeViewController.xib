@@ -369,7 +369,7 @@
                             <popUpButton id="rMJ-Ms-166">
                                 <rect key="frame" x="13" y="8" width="225" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="bevel" title="Standard and Custom Install" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="W4M-is-XJA" id="k0J-g4-cKK">
+                                <popUpButtonCell key="cell" type="bevel" title="Standard and Custom Install" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="W4M-is-XJA" id="k0J-g4-cKK" customClass="PKGPresentationSettingsPopUpButtonCell">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemBold"/>
                                     <menu key="menu" title="OtherViews" id="ZMs-R9-6gA">

@@ -17,6 +17,8 @@
 
 #import "PKGPresentationWindowView.h"
 
+#import <HumanInterface/HumanInterface.h>
+
 #import "PKGPresentationListView.h"
 
 #import "PKGPresentationImageView.h"
@@ -87,7 +89,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	IBOutlet NSView * _leftView;
 	
-	IBOutlet PKGPresentationWindowView * _windowView;
+	IBOutlet HIWWindowView * _windowView;
 	
 	IBOutlet PKGPresentationImageView * _backgroundView;
 	
@@ -199,6 +201,12 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
+	
+	// Window
+	
+	_windowView.drawsShadow=YES;
+	
+	// Background
 	
 	_backgroundView.presentationDelegate=self;
 	
@@ -393,6 +401,52 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	_backgroundView.image=tImage;
 }
 
+- (void)updateWindowView
+{
+	HIWOperatingSystemVersion tSystemVersion;
+	HIWAppearance tAppearance=HIWAppearanceEffective;
+	
+	switch(_currentTheme)
+	{
+		case PKGPresentationThemeMountainLion:
+			
+			tSystemVersion.majorVersion=10;
+			tSystemVersion.minorVersion=8;
+			tSystemVersion.patchVersion=0;
+			
+			tAppearance=HIWAppearanceAqua;
+			
+			break;
+			
+		case PKGPresentationThemeMojaveDynamic:
+			
+			tSystemVersion=HIWOperatingSystemVersionCurrent;
+			
+			tAppearance=HIWAppearanceEffective;
+			
+			break;
+			
+		case PKGPresentationThemeMojaveLight:
+			
+			tSystemVersion=HIWOperatingSystemVersionCurrent;
+			
+			tAppearance=HIWAppearanceAqua;
+			
+			break;
+			
+		case PKGPresentationThemeMojaveDark:
+			
+			tSystemVersion=HIWOperatingSystemVersionCurrent;
+			
+			tAppearance=HIWAppearanceDarkAqua;
+			
+			break;
+	}
+	
+	_windowView.operatingSystemVersion=tSystemVersion;
+	_windowView.displayedAppearance=tAppearance;
+}
+
 - (void)updateTitleViewFont
 {
 	PKGPresentationThemeVersion tTheme=_currentTheme;
@@ -566,6 +620,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		self.documentRegistry[PKGPresentationTheme]=@(_currentTheme);
 	}
 	
+	[self updateWindowView];
+	
 	[self updateTitleViewFont];
 	
 	_currentPreviewLanguage=self.documentRegistry[PKGDistributionPresentationCurrentPreviewLanguage];
@@ -646,6 +702,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		return;
 
 	_currentTheme=sender.tag;
+	
+	[self updateWindowView];
 	
 	[self updateTitleViewFont];
 	

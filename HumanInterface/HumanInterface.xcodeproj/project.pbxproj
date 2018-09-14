@@ -1,0 +1,400 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F43C66F421217B6B00FD8D80 /* Mojave.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F43C66A821217B1E00FD8D80 /* Mojave.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F49740C321204F5E00BC1AD3 /* HumanInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = F49740C221204F5E00BC1AD3 /* HumanInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F49740DB21204FAE00BC1AD3 /* HIWWindowView.h in Headers */ = {isa = PBXBuildFile; fileRef = F49740D921204FAE00BC1AD3 /* HIWWindowView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F49740DC21204FAE00BC1AD3 /* HIWWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = F49740DA21204FAE00BC1AD3 /* HIWWindowView.m */; };
+		F4FF818921231D9700B50029 /* Lion.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4FF818621231D8600B50029 /* Lion.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F43C66A721217B1E00FD8D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F43C66A321217B1E00FD8D80 /* Mojave.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F43C669321217AD800FD8D80;
+			remoteInfo = Mojave;
+		};
+		F43C66F221217B6100FD8D80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F43C66A321217B1E00FD8D80 /* Mojave.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F43C669221217AD800FD8D80;
+			remoteInfo = Mojave;
+		};
+		F4FF818521231D8600B50029 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4FF818121231D8600B50029 /* Lion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4FF812B21231C4500B50029;
+			remoteInfo = Lion;
+		};
+		F4FF818721231D9000B50029 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4FF818121231D8600B50029 /* Lion.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F4FF812A21231C4500B50029;
+			remoteInfo = Lion;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F4B05C84212093D1006EC12E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				F4FF818921231D9700B50029 /* Lion.bundle in CopyFiles */,
+				F43C66F421217B6B00FD8D80 /* Mojave.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F43C66A321217B1E00FD8D80 /* Mojave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Mojave.xcodeproj; sourceTree = "<group>"; };
+		F49740BD21204F5E00BC1AD3 /* HumanInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HumanInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F49740C121204F5E00BC1AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F49740C221204F5E00BC1AD3 /* HumanInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HumanInterface.h; sourceTree = "<group>"; };
+		F49740D921204FAE00BC1AD3 /* HIWWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIWWindowView.h; sourceTree = "<group>"; };
+		F49740DA21204FAE00BC1AD3 /* HIWWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIWWindowView.m; sourceTree = "<group>"; };
+		F4D8CC782126C0F7006AE46D /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4FF818121231D8600B50029 /* Lion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Lion.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F49740B921204F5E00BC1AD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F43C66A421217B1E00FD8D80 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F43C66A821217B1E00FD8D80 /* Mojave.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F49740B321204F5E00BC1AD3 = {
+			isa = PBXGroup;
+			children = (
+				F4D8CC782126C0F7006AE46D /* SharedConfigurationSettings.xcconfig */,
+				F4FF818121231D8600B50029 /* Lion.xcodeproj */,
+				F43C66A321217B1E00FD8D80 /* Mojave.xcodeproj */,
+				F49740BF21204F5E00BC1AD3 /* HumanInterface */,
+				F49740BE21204F5E00BC1AD3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F49740BE21204F5E00BC1AD3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F49740BD21204F5E00BC1AD3 /* HumanInterface.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F49740BF21204F5E00BC1AD3 /* HumanInterface */ = {
+			isa = PBXGroup;
+			children = (
+				F49740C221204F5E00BC1AD3 /* HumanInterface.h */,
+				F49740D921204FAE00BC1AD3 /* HIWWindowView.h */,
+				F49740DA21204FAE00BC1AD3 /* HIWWindowView.m */,
+				F49740C021204F5E00BC1AD3 /* Supporting Files */,
+			);
+			path = HumanInterface;
+			sourceTree = "<group>";
+		};
+		F49740C021204F5E00BC1AD3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F49740C121204F5E00BC1AD3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F4FF818221231D8600B50029 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF818621231D8600B50029 /* Lion.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F49740BA21204F5E00BC1AD3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F49740DB21204FAE00BC1AD3 /* HIWWindowView.h in Headers */,
+				F49740C321204F5E00BC1AD3 /* HumanInterface.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F49740BC21204F5E00BC1AD3 /* HumanInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F49740D321204F5E00BC1AD3 /* Build configuration list for PBXNativeTarget "HumanInterface" */;
+			buildPhases = (
+				F49740B821204F5E00BC1AD3 /* Sources */,
+				F49740B921204F5E00BC1AD3 /* Frameworks */,
+				F49740BA21204F5E00BC1AD3 /* Headers */,
+				F49740BB21204F5E00BC1AD3 /* Resources */,
+				F4B05C84212093D1006EC12E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4FF818821231D9000B50029 /* PBXTargetDependency */,
+				F43C66F321217B6100FD8D80 /* PBXTargetDependency */,
+			);
+			name = HumanInterface;
+			productName = HumanInterface;
+			productReference = F49740BD21204F5E00BC1AD3 /* HumanInterface.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F49740B421204F5E00BC1AD3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = WhiteBox;
+				TargetAttributes = {
+					F49740BC21204F5E00BC1AD3 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = F49740B721204F5E00BC1AD3 /* Build configuration list for PBXProject "HumanInterface" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F49740B321204F5E00BC1AD3;
+			productRefGroup = F49740BE21204F5E00BC1AD3 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F4FF818221231D8600B50029 /* Products */;
+					ProjectRef = F4FF818121231D8600B50029 /* Lion.xcodeproj */;
+				},
+				{
+					ProductGroup = F43C66A421217B1E00FD8D80 /* Products */;
+					ProjectRef = F43C66A321217B1E00FD8D80 /* Mojave.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F49740BC21204F5E00BC1AD3 /* HumanInterface */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F43C66A821217B1E00FD8D80 /* Mojave.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Mojave.bundle;
+			remoteRef = F43C66A721217B1E00FD8D80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F4FF818621231D8600B50029 /* Lion.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Lion.bundle;
+			remoteRef = F4FF818521231D8600B50029 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F49740BB21204F5E00BC1AD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F49740B821204F5E00BC1AD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F49740DC21204FAE00BC1AD3 /* HIWWindowView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F43C66F321217B6100FD8D80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Mojave;
+			targetProxy = F43C66F221217B6100FD8D80 /* PBXContainerItemProxy */;
+		};
+		F4FF818821231D9000B50029 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Lion;
+			targetProxy = F4FF818721231D9000B50029 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F49740D121204F5E00BC1AD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F49740D221204F5E00BC1AD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F49740D421204F5E00BC1AD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4D8CC782126C0F7006AE46D /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = HumanInterface/Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F49740D521204F5E00BC1AD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4D8CC782126C0F7006AE46D /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = HumanInterface/Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F49740B721204F5E00BC1AD3 /* Build configuration list for PBXProject "HumanInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F49740D121204F5E00BC1AD3 /* Debug */,
+				F49740D221204F5E00BC1AD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F49740D321204F5E00BC1AD3 /* Build configuration list for PBXNativeTarget "HumanInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F49740D421204F5E00BC1AD3 /* Debug */,
+				F49740D521204F5E00BC1AD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F49740B421204F5E00BC1AD3 /* Project object */;
+}

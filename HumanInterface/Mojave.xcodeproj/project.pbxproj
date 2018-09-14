@@ -1,0 +1,555 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F43C66CE21217B3D00FD8D80 /* Aqua.Active.00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66AA21217B3D00FD8D80 /* Aqua.Active.00@2x.png */; };
+		F43C66CF21217B3D00FD8D80 /* Aqua.Active.01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66AB21217B3D00FD8D80 /* Aqua.Active.01@2x.png */; };
+		F43C66D021217B3D00FD8D80 /* Aqua.Active.02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66AC21217B3D00FD8D80 /* Aqua.Active.02@2x.png */; };
+		F43C66D121217B3D00FD8D80 /* Aqua.Active.03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66AD21217B3D00FD8D80 /* Aqua.Active.03@2x.png */; };
+		F43C66D221217B3D00FD8D80 /* Aqua.Active.04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66AE21217B3D00FD8D80 /* Aqua.Active.04@2x.png */; };
+		F43C66D321217B3D00FD8D80 /* Aqua.Active.05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66AF21217B3D00FD8D80 /* Aqua.Active.05@2x.png */; };
+		F43C66D421217B3D00FD8D80 /* Aqua.Active.06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B021217B3D00FD8D80 /* Aqua.Active.06@2x.png */; };
+		F43C66D521217B3D00FD8D80 /* Aqua.Active.07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B121217B3D00FD8D80 /* Aqua.Active.07@2x.png */; };
+		F43C66D621217B3D00FD8D80 /* Aqua.Active.08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B221217B3D00FD8D80 /* Aqua.Active.08@2x.png */; };
+		F43C66D721217B3D00FD8D80 /* Aqua.Inactive.00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B321217B3D00FD8D80 /* Aqua.Inactive.00@2x.png */; };
+		F43C66D821217B3D00FD8D80 /* Aqua.Inactive.01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B421217B3D00FD8D80 /* Aqua.Inactive.01@2x.png */; };
+		F43C66D921217B3D00FD8D80 /* Aqua.Inactive.02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B521217B3D00FD8D80 /* Aqua.Inactive.02@2x.png */; };
+		F43C66DA21217B3D00FD8D80 /* Aqua.Inactive.03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B621217B3D00FD8D80 /* Aqua.Inactive.03@2x.png */; };
+		F43C66DB21217B3D00FD8D80 /* Aqua.Inactive.04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B721217B3D00FD8D80 /* Aqua.Inactive.04@2x.png */; };
+		F43C66DC21217B3D00FD8D80 /* Aqua.Inactive.05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B821217B3D00FD8D80 /* Aqua.Inactive.05@2x.png */; };
+		F43C66DD21217B3D00FD8D80 /* Aqua.Inactive.06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66B921217B3D00FD8D80 /* Aqua.Inactive.06@2x.png */; };
+		F43C66DE21217B3D00FD8D80 /* Aqua.Inactive.07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66BA21217B3D00FD8D80 /* Aqua.Inactive.07@2x.png */; };
+		F43C66DF21217B3D00FD8D80 /* Aqua.Inactive.08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66BB21217B3D00FD8D80 /* Aqua.Inactive.08@2x.png */; };
+		F43C66E021217B3D00FD8D80 /* DarkAqua.Active.00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66BC21217B3D00FD8D80 /* DarkAqua.Active.00@2x.png */; };
+		F43C66E121217B3D00FD8D80 /* DarkAqua.Active.01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66BD21217B3D00FD8D80 /* DarkAqua.Active.01@2x.png */; };
+		F43C66E221217B3D00FD8D80 /* DarkAqua.Active.02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66BE21217B3D00FD8D80 /* DarkAqua.Active.02@2x.png */; };
+		F43C66E321217B3D00FD8D80 /* DarkAqua.Active.03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66BF21217B3D00FD8D80 /* DarkAqua.Active.03@2x.png */; };
+		F43C66E421217B3D00FD8D80 /* DarkAqua.Active.04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C021217B3D00FD8D80 /* DarkAqua.Active.04@2x.png */; };
+		F43C66E521217B3D00FD8D80 /* DarkAqua.Active.05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C121217B3D00FD8D80 /* DarkAqua.Active.05@2x.png */; };
+		F43C66E621217B3D00FD8D80 /* DarkAqua.Active.06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C221217B3D00FD8D80 /* DarkAqua.Active.06@2x.png */; };
+		F43C66E721217B3D00FD8D80 /* DarkAqua.Active.07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C321217B3D00FD8D80 /* DarkAqua.Active.07@2x.png */; };
+		F43C66E821217B3D00FD8D80 /* DarkAqua.Active.08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C421217B3D00FD8D80 /* DarkAqua.Active.08@2x.png */; };
+		F43C66E921217B3D00FD8D80 /* DarkAqua.Inactive.00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C521217B3D00FD8D80 /* DarkAqua.Inactive.00@2x.png */; };
+		F43C66EA21217B3D00FD8D80 /* DarkAqua.Inactive.01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C621217B3D00FD8D80 /* DarkAqua.Inactive.01@2x.png */; };
+		F43C66EB21217B3D00FD8D80 /* DarkAqua.Inactive.02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C721217B3D00FD8D80 /* DarkAqua.Inactive.02@2x.png */; };
+		F43C66EC21217B3D00FD8D80 /* DarkAqua.Inactive.03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C821217B3D00FD8D80 /* DarkAqua.Inactive.03@2x.png */; };
+		F43C66ED21217B3D00FD8D80 /* DarkAqua.Inactive.04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66C921217B3D00FD8D80 /* DarkAqua.Inactive.04@2x.png */; };
+		F43C66EE21217B3D00FD8D80 /* DarkAqua.Inactive.05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66CA21217B3D00FD8D80 /* DarkAqua.Inactive.05@2x.png */; };
+		F43C66EF21217B3D00FD8D80 /* DarkAqua.Inactive.06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66CB21217B3D00FD8D80 /* DarkAqua.Inactive.06@2x.png */; };
+		F43C66F021217B3D00FD8D80 /* DarkAqua.Inactive.07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66CC21217B3D00FD8D80 /* DarkAqua.Inactive.07@2x.png */; };
+		F43C66F121217B3D00FD8D80 /* DarkAqua.Inactive.08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F43C66CD21217B3D00FD8D80 /* DarkAqua.Inactive.08@2x.png */; };
+		F4A6490A2126E4A400A2CCE8 /* Aqua.LockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A649092126E4A400A2CCE8 /* Aqua.LockButton.png */; };
+		F4AF73BF2124407D003AEEA9 /* DarkAqua.Inactive.00.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF739A2124407D003AEEA9 /* DarkAqua.Inactive.00.png */; };
+		F4AF73C02124407D003AEEA9 /* DarkAqua.Inactive.01.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF739B2124407D003AEEA9 /* DarkAqua.Inactive.01.png */; };
+		F4AF73C12124407D003AEEA9 /* DarkAqua.Inactive.02.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF739C2124407D003AEEA9 /* DarkAqua.Inactive.02.png */; };
+		F4AF73C22124407D003AEEA9 /* DarkAqua.Inactive.03.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF739D2124407D003AEEA9 /* DarkAqua.Inactive.03.png */; };
+		F4AF73C32124407D003AEEA9 /* DarkAqua.Inactive.04.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF739E2124407D003AEEA9 /* DarkAqua.Inactive.04.png */; };
+		F4AF73C42124407D003AEEA9 /* DarkAqua.Inactive.05.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF739F2124407D003AEEA9 /* DarkAqua.Inactive.05.png */; };
+		F4AF73C52124407D003AEEA9 /* DarkAqua.Inactive.06.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A02124407D003AEEA9 /* DarkAqua.Inactive.06.png */; };
+		F4AF73C62124407D003AEEA9 /* DarkAqua.Inactive.07.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A12124407D003AEEA9 /* DarkAqua.Inactive.07.png */; };
+		F4AF73C72124407D003AEEA9 /* DarkAqua.Inactive.08.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A22124407D003AEEA9 /* DarkAqua.Inactive.08.png */; };
+		F4AF73C82124407D003AEEA9 /* DarkAqua.Active.00.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A32124407D003AEEA9 /* DarkAqua.Active.00.png */; };
+		F4AF73C92124407D003AEEA9 /* DarkAqua.Active.01.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A42124407D003AEEA9 /* DarkAqua.Active.01.png */; };
+		F4AF73CA2124407D003AEEA9 /* DarkAqua.Active.02.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A52124407D003AEEA9 /* DarkAqua.Active.02.png */; };
+		F4AF73CB2124407D003AEEA9 /* DarkAqua.Active.03.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A62124407D003AEEA9 /* DarkAqua.Active.03.png */; };
+		F4AF73CC2124407D003AEEA9 /* DarkAqua.Active.04.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A72124407D003AEEA9 /* DarkAqua.Active.04.png */; };
+		F4AF73CD2124407D003AEEA9 /* DarkAqua.Active.05.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A82124407D003AEEA9 /* DarkAqua.Active.05.png */; };
+		F4AF73CE2124407D003AEEA9 /* DarkAqua.Active.06.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73A92124407D003AEEA9 /* DarkAqua.Active.06.png */; };
+		F4AF73CF2124407D003AEEA9 /* DarkAqua.Active.07.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73AA2124407D003AEEA9 /* DarkAqua.Active.07.png */; };
+		F4AF73D02124407D003AEEA9 /* DarkAqua.Active.08.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73AB2124407D003AEEA9 /* DarkAqua.Active.08.png */; };
+		F4AF73D12124407D003AEEA9 /* Aqua.Inactive.00.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73AC2124407D003AEEA9 /* Aqua.Inactive.00.png */; };
+		F4AF73D22124407D003AEEA9 /* Aqua.Inactive.01.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73AD2124407D003AEEA9 /* Aqua.Inactive.01.png */; };
+		F4AF73D32124407D003AEEA9 /* Aqua.Inactive.02.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73AE2124407D003AEEA9 /* Aqua.Inactive.02.png */; };
+		F4AF73D42124407D003AEEA9 /* Aqua.Inactive.03.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73AF2124407D003AEEA9 /* Aqua.Inactive.03.png */; };
+		F4AF73D52124407D003AEEA9 /* Aqua.Inactive.04.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B02124407D003AEEA9 /* Aqua.Inactive.04.png */; };
+		F4AF73D62124407D003AEEA9 /* Aqua.Inactive.05.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B12124407D003AEEA9 /* Aqua.Inactive.05.png */; };
+		F4AF73D72124407D003AEEA9 /* Aqua.Inactive.06.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B22124407D003AEEA9 /* Aqua.Inactive.06.png */; };
+		F4AF73D82124407D003AEEA9 /* Aqua.Inactive.07.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B32124407D003AEEA9 /* Aqua.Inactive.07.png */; };
+		F4AF73D92124407D003AEEA9 /* Aqua.Inactive.08.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B42124407D003AEEA9 /* Aqua.Inactive.08.png */; };
+		F4AF73DA2124407D003AEEA9 /* Aqua.Active.00.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B52124407D003AEEA9 /* Aqua.Active.00.png */; };
+		F4AF73DB2124407D003AEEA9 /* Aqua.Active.01.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B62124407D003AEEA9 /* Aqua.Active.01.png */; };
+		F4AF73DC2124407D003AEEA9 /* Aqua.Active.02.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B72124407D003AEEA9 /* Aqua.Active.02.png */; };
+		F4AF73DD2124407D003AEEA9 /* Aqua.Active.03.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B82124407D003AEEA9 /* Aqua.Active.03.png */; };
+		F4AF73DE2124407D003AEEA9 /* Aqua.Active.04.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73B92124407D003AEEA9 /* Aqua.Active.04.png */; };
+		F4AF73DF2124407D003AEEA9 /* Aqua.Active.05.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73BA2124407D003AEEA9 /* Aqua.Active.05.png */; };
+		F4AF73E02124407D003AEEA9 /* Aqua.Active.06.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73BB2124407D003AEEA9 /* Aqua.Active.06.png */; };
+		F4AF73E12124407D003AEEA9 /* Aqua.Active.07.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73BC2124407D003AEEA9 /* Aqua.Active.07.png */; };
+		F4AF73E22124407D003AEEA9 /* Aqua.Active.08.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73BD2124407D003AEEA9 /* Aqua.Active.08.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F43C669321217AD800FD8D80 /* Mojave.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Mojave.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F43C669721217AD800FD8D80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F43C66AA21217B3D00FD8D80 /* Aqua.Active.00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.00@2x.png"; sourceTree = "<group>"; };
+		F43C66AB21217B3D00FD8D80 /* Aqua.Active.01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.01@2x.png"; sourceTree = "<group>"; };
+		F43C66AC21217B3D00FD8D80 /* Aqua.Active.02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.02@2x.png"; sourceTree = "<group>"; };
+		F43C66AD21217B3D00FD8D80 /* Aqua.Active.03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.03@2x.png"; sourceTree = "<group>"; };
+		F43C66AE21217B3D00FD8D80 /* Aqua.Active.04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.04@2x.png"; sourceTree = "<group>"; };
+		F43C66AF21217B3D00FD8D80 /* Aqua.Active.05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.05@2x.png"; sourceTree = "<group>"; };
+		F43C66B021217B3D00FD8D80 /* Aqua.Active.06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.06@2x.png"; sourceTree = "<group>"; };
+		F43C66B121217B3D00FD8D80 /* Aqua.Active.07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.07@2x.png"; sourceTree = "<group>"; };
+		F43C66B221217B3D00FD8D80 /* Aqua.Active.08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.08@2x.png"; sourceTree = "<group>"; };
+		F43C66B321217B3D00FD8D80 /* Aqua.Inactive.00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.00@2x.png"; sourceTree = "<group>"; };
+		F43C66B421217B3D00FD8D80 /* Aqua.Inactive.01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.01@2x.png"; sourceTree = "<group>"; };
+		F43C66B521217B3D00FD8D80 /* Aqua.Inactive.02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.02@2x.png"; sourceTree = "<group>"; };
+		F43C66B621217B3D00FD8D80 /* Aqua.Inactive.03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.03@2x.png"; sourceTree = "<group>"; };
+		F43C66B721217B3D00FD8D80 /* Aqua.Inactive.04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.04@2x.png"; sourceTree = "<group>"; };
+		F43C66B821217B3D00FD8D80 /* Aqua.Inactive.05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.05@2x.png"; sourceTree = "<group>"; };
+		F43C66B921217B3D00FD8D80 /* Aqua.Inactive.06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.06@2x.png"; sourceTree = "<group>"; };
+		F43C66BA21217B3D00FD8D80 /* Aqua.Inactive.07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.07@2x.png"; sourceTree = "<group>"; };
+		F43C66BB21217B3D00FD8D80 /* Aqua.Inactive.08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.08@2x.png"; sourceTree = "<group>"; };
+		F43C66BC21217B3D00FD8D80 /* DarkAqua.Active.00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.00@2x.png"; sourceTree = "<group>"; };
+		F43C66BD21217B3D00FD8D80 /* DarkAqua.Active.01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.01@2x.png"; sourceTree = "<group>"; };
+		F43C66BE21217B3D00FD8D80 /* DarkAqua.Active.02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.02@2x.png"; sourceTree = "<group>"; };
+		F43C66BF21217B3D00FD8D80 /* DarkAqua.Active.03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.03@2x.png"; sourceTree = "<group>"; };
+		F43C66C021217B3D00FD8D80 /* DarkAqua.Active.04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.04@2x.png"; sourceTree = "<group>"; };
+		F43C66C121217B3D00FD8D80 /* DarkAqua.Active.05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.05@2x.png"; sourceTree = "<group>"; };
+		F43C66C221217B3D00FD8D80 /* DarkAqua.Active.06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.06@2x.png"; sourceTree = "<group>"; };
+		F43C66C321217B3D00FD8D80 /* DarkAqua.Active.07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.07@2x.png"; sourceTree = "<group>"; };
+		F43C66C421217B3D00FD8D80 /* DarkAqua.Active.08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Active.08@2x.png"; sourceTree = "<group>"; };
+		F43C66C521217B3D00FD8D80 /* DarkAqua.Inactive.00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.00@2x.png"; sourceTree = "<group>"; };
+		F43C66C621217B3D00FD8D80 /* DarkAqua.Inactive.01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.01@2x.png"; sourceTree = "<group>"; };
+		F43C66C721217B3D00FD8D80 /* DarkAqua.Inactive.02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.02@2x.png"; sourceTree = "<group>"; };
+		F43C66C821217B3D00FD8D80 /* DarkAqua.Inactive.03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.03@2x.png"; sourceTree = "<group>"; };
+		F43C66C921217B3D00FD8D80 /* DarkAqua.Inactive.04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.04@2x.png"; sourceTree = "<group>"; };
+		F43C66CA21217B3D00FD8D80 /* DarkAqua.Inactive.05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.05@2x.png"; sourceTree = "<group>"; };
+		F43C66CB21217B3D00FD8D80 /* DarkAqua.Inactive.06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.06@2x.png"; sourceTree = "<group>"; };
+		F43C66CC21217B3D00FD8D80 /* DarkAqua.Inactive.07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.07@2x.png"; sourceTree = "<group>"; };
+		F43C66CD21217B3D00FD8D80 /* DarkAqua.Inactive.08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DarkAqua.Inactive.08@2x.png"; sourceTree = "<group>"; };
+		F4A649092126E4A400A2CCE8 /* Aqua.LockButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.LockButton.png; sourceTree = "<group>"; };
+		F4AF739A2124407D003AEEA9 /* DarkAqua.Inactive.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.00.png; sourceTree = "<group>"; };
+		F4AF739B2124407D003AEEA9 /* DarkAqua.Inactive.01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.01.png; sourceTree = "<group>"; };
+		F4AF739C2124407D003AEEA9 /* DarkAqua.Inactive.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.02.png; sourceTree = "<group>"; };
+		F4AF739D2124407D003AEEA9 /* DarkAqua.Inactive.03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.03.png; sourceTree = "<group>"; };
+		F4AF739E2124407D003AEEA9 /* DarkAqua.Inactive.04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.04.png; sourceTree = "<group>"; };
+		F4AF739F2124407D003AEEA9 /* DarkAqua.Inactive.05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.05.png; sourceTree = "<group>"; };
+		F4AF73A02124407D003AEEA9 /* DarkAqua.Inactive.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.06.png; sourceTree = "<group>"; };
+		F4AF73A12124407D003AEEA9 /* DarkAqua.Inactive.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.07.png; sourceTree = "<group>"; };
+		F4AF73A22124407D003AEEA9 /* DarkAqua.Inactive.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Inactive.08.png; sourceTree = "<group>"; };
+		F4AF73A32124407D003AEEA9 /* DarkAqua.Active.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.00.png; sourceTree = "<group>"; };
+		F4AF73A42124407D003AEEA9 /* DarkAqua.Active.01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.01.png; sourceTree = "<group>"; };
+		F4AF73A52124407D003AEEA9 /* DarkAqua.Active.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.02.png; sourceTree = "<group>"; };
+		F4AF73A62124407D003AEEA9 /* DarkAqua.Active.03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.03.png; sourceTree = "<group>"; };
+		F4AF73A72124407D003AEEA9 /* DarkAqua.Active.04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.04.png; sourceTree = "<group>"; };
+		F4AF73A82124407D003AEEA9 /* DarkAqua.Active.05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.05.png; sourceTree = "<group>"; };
+		F4AF73A92124407D003AEEA9 /* DarkAqua.Active.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.06.png; sourceTree = "<group>"; };
+		F4AF73AA2124407D003AEEA9 /* DarkAqua.Active.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.07.png; sourceTree = "<group>"; };
+		F4AF73AB2124407D003AEEA9 /* DarkAqua.Active.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAqua.Active.08.png; sourceTree = "<group>"; };
+		F4AF73AC2124407D003AEEA9 /* Aqua.Inactive.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.00.png; sourceTree = "<group>"; };
+		F4AF73AD2124407D003AEEA9 /* Aqua.Inactive.01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.01.png; sourceTree = "<group>"; };
+		F4AF73AE2124407D003AEEA9 /* Aqua.Inactive.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.02.png; sourceTree = "<group>"; };
+		F4AF73AF2124407D003AEEA9 /* Aqua.Inactive.03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.03.png; sourceTree = "<group>"; };
+		F4AF73B02124407D003AEEA9 /* Aqua.Inactive.04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.04.png; sourceTree = "<group>"; };
+		F4AF73B12124407D003AEEA9 /* Aqua.Inactive.05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.05.png; sourceTree = "<group>"; };
+		F4AF73B22124407D003AEEA9 /* Aqua.Inactive.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.06.png; sourceTree = "<group>"; };
+		F4AF73B32124407D003AEEA9 /* Aqua.Inactive.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.07.png; sourceTree = "<group>"; };
+		F4AF73B42124407D003AEEA9 /* Aqua.Inactive.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.08.png; sourceTree = "<group>"; };
+		F4AF73B52124407D003AEEA9 /* Aqua.Active.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.00.png; sourceTree = "<group>"; };
+		F4AF73B62124407D003AEEA9 /* Aqua.Active.01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.01.png; sourceTree = "<group>"; };
+		F4AF73B72124407D003AEEA9 /* Aqua.Active.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.02.png; sourceTree = "<group>"; };
+		F4AF73B82124407D003AEEA9 /* Aqua.Active.03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.03.png; sourceTree = "<group>"; };
+		F4AF73B92124407D003AEEA9 /* Aqua.Active.04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.04.png; sourceTree = "<group>"; };
+		F4AF73BA2124407D003AEEA9 /* Aqua.Active.05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.05.png; sourceTree = "<group>"; };
+		F4AF73BB2124407D003AEEA9 /* Aqua.Active.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.06.png; sourceTree = "<group>"; };
+		F4AF73BC2124407D003AEEA9 /* Aqua.Active.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.07.png; sourceTree = "<group>"; };
+		F4AF73BD2124407D003AEEA9 /* Aqua.Active.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.08.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F43C669021217AD800FD8D80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F43C668A21217AD800FD8D80 = {
+			isa = PBXGroup;
+			children = (
+				F43C669521217AD800FD8D80 /* Mojave */,
+				F43C669421217AD800FD8D80 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F43C669421217AD800FD8D80 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F43C669321217AD800FD8D80 /* Mojave.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F43C669521217AD800FD8D80 /* Mojave */ = {
+			isa = PBXGroup;
+			children = (
+				F43C669621217AD800FD8D80 /* Resources */,
+			);
+			path = Mojave;
+			sourceTree = "<group>";
+		};
+		F43C669621217AD800FD8D80 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F43C669721217AD800FD8D80 /* Info.plist */,
+				F43C66A921217B3200FD8D80 /* Images */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		F43C66A921217B3200FD8D80 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F4AF73B52124407D003AEEA9 /* Aqua.Active.00.png */,
+				F4AF73B62124407D003AEEA9 /* Aqua.Active.01.png */,
+				F4AF73B72124407D003AEEA9 /* Aqua.Active.02.png */,
+				F4AF73B82124407D003AEEA9 /* Aqua.Active.03.png */,
+				F4AF73B92124407D003AEEA9 /* Aqua.Active.04.png */,
+				F4AF73BA2124407D003AEEA9 /* Aqua.Active.05.png */,
+				F4AF73BB2124407D003AEEA9 /* Aqua.Active.06.png */,
+				F4AF73BC2124407D003AEEA9 /* Aqua.Active.07.png */,
+				F4AF73BD2124407D003AEEA9 /* Aqua.Active.08.png */,
+				F43C66AA21217B3D00FD8D80 /* Aqua.Active.00@2x.png */,
+				F43C66AB21217B3D00FD8D80 /* Aqua.Active.01@2x.png */,
+				F43C66AC21217B3D00FD8D80 /* Aqua.Active.02@2x.png */,
+				F43C66AD21217B3D00FD8D80 /* Aqua.Active.03@2x.png */,
+				F43C66AE21217B3D00FD8D80 /* Aqua.Active.04@2x.png */,
+				F43C66AF21217B3D00FD8D80 /* Aqua.Active.05@2x.png */,
+				F43C66B021217B3D00FD8D80 /* Aqua.Active.06@2x.png */,
+				F43C66B121217B3D00FD8D80 /* Aqua.Active.07@2x.png */,
+				F43C66B221217B3D00FD8D80 /* Aqua.Active.08@2x.png */,
+				F4AF73AC2124407D003AEEA9 /* Aqua.Inactive.00.png */,
+				F4AF73AD2124407D003AEEA9 /* Aqua.Inactive.01.png */,
+				F4AF73AE2124407D003AEEA9 /* Aqua.Inactive.02.png */,
+				F4AF73AF2124407D003AEEA9 /* Aqua.Inactive.03.png */,
+				F4AF73B02124407D003AEEA9 /* Aqua.Inactive.04.png */,
+				F4AF73B12124407D003AEEA9 /* Aqua.Inactive.05.png */,
+				F4AF73B22124407D003AEEA9 /* Aqua.Inactive.06.png */,
+				F4AF73B32124407D003AEEA9 /* Aqua.Inactive.07.png */,
+				F4AF73B42124407D003AEEA9 /* Aqua.Inactive.08.png */,
+				F43C66B321217B3D00FD8D80 /* Aqua.Inactive.00@2x.png */,
+				F43C66B421217B3D00FD8D80 /* Aqua.Inactive.01@2x.png */,
+				F43C66B521217B3D00FD8D80 /* Aqua.Inactive.02@2x.png */,
+				F43C66B621217B3D00FD8D80 /* Aqua.Inactive.03@2x.png */,
+				F43C66B721217B3D00FD8D80 /* Aqua.Inactive.04@2x.png */,
+				F43C66B821217B3D00FD8D80 /* Aqua.Inactive.05@2x.png */,
+				F43C66B921217B3D00FD8D80 /* Aqua.Inactive.06@2x.png */,
+				F43C66BA21217B3D00FD8D80 /* Aqua.Inactive.07@2x.png */,
+				F43C66BB21217B3D00FD8D80 /* Aqua.Inactive.08@2x.png */,
+				F4AF73A32124407D003AEEA9 /* DarkAqua.Active.00.png */,
+				F4AF73A42124407D003AEEA9 /* DarkAqua.Active.01.png */,
+				F4AF73A52124407D003AEEA9 /* DarkAqua.Active.02.png */,
+				F4AF73A62124407D003AEEA9 /* DarkAqua.Active.03.png */,
+				F4AF73A72124407D003AEEA9 /* DarkAqua.Active.04.png */,
+				F4AF73A82124407D003AEEA9 /* DarkAqua.Active.05.png */,
+				F4AF73A92124407D003AEEA9 /* DarkAqua.Active.06.png */,
+				F4AF73AA2124407D003AEEA9 /* DarkAqua.Active.07.png */,
+				F4AF73AB2124407D003AEEA9 /* DarkAqua.Active.08.png */,
+				F43C66BC21217B3D00FD8D80 /* DarkAqua.Active.00@2x.png */,
+				F43C66BD21217B3D00FD8D80 /* DarkAqua.Active.01@2x.png */,
+				F43C66BE21217B3D00FD8D80 /* DarkAqua.Active.02@2x.png */,
+				F43C66BF21217B3D00FD8D80 /* DarkAqua.Active.03@2x.png */,
+				F43C66C021217B3D00FD8D80 /* DarkAqua.Active.04@2x.png */,
+				F43C66C121217B3D00FD8D80 /* DarkAqua.Active.05@2x.png */,
+				F43C66C221217B3D00FD8D80 /* DarkAqua.Active.06@2x.png */,
+				F43C66C321217B3D00FD8D80 /* DarkAqua.Active.07@2x.png */,
+				F43C66C421217B3D00FD8D80 /* DarkAqua.Active.08@2x.png */,
+				F4AF739A2124407D003AEEA9 /* DarkAqua.Inactive.00.png */,
+				F4AF739B2124407D003AEEA9 /* DarkAqua.Inactive.01.png */,
+				F4AF739C2124407D003AEEA9 /* DarkAqua.Inactive.02.png */,
+				F4AF739D2124407D003AEEA9 /* DarkAqua.Inactive.03.png */,
+				F4AF739E2124407D003AEEA9 /* DarkAqua.Inactive.04.png */,
+				F4AF739F2124407D003AEEA9 /* DarkAqua.Inactive.05.png */,
+				F4AF73A02124407D003AEEA9 /* DarkAqua.Inactive.06.png */,
+				F4AF73A12124407D003AEEA9 /* DarkAqua.Inactive.07.png */,
+				F4AF73A22124407D003AEEA9 /* DarkAqua.Inactive.08.png */,
+				F43C66C521217B3D00FD8D80 /* DarkAqua.Inactive.00@2x.png */,
+				F43C66C621217B3D00FD8D80 /* DarkAqua.Inactive.01@2x.png */,
+				F43C66C721217B3D00FD8D80 /* DarkAqua.Inactive.02@2x.png */,
+				F43C66C821217B3D00FD8D80 /* DarkAqua.Inactive.03@2x.png */,
+				F43C66C921217B3D00FD8D80 /* DarkAqua.Inactive.04@2x.png */,
+				F43C66CA21217B3D00FD8D80 /* DarkAqua.Inactive.05@2x.png */,
+				F43C66CB21217B3D00FD8D80 /* DarkAqua.Inactive.06@2x.png */,
+				F43C66CC21217B3D00FD8D80 /* DarkAqua.Inactive.07@2x.png */,
+				F43C66CD21217B3D00FD8D80 /* DarkAqua.Inactive.08@2x.png */,
+				F4A649092126E4A400A2CCE8 /* Aqua.LockButton.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F43C669221217AD800FD8D80 /* Mojave */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F43C669A21217AD800FD8D80 /* Build configuration list for PBXNativeTarget "Mojave" */;
+			buildPhases = (
+				F43C668F21217AD800FD8D80 /* Sources */,
+				F43C669021217AD800FD8D80 /* Frameworks */,
+				F43C669121217AD800FD8D80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mojave;
+			productName = Mojave;
+			productReference = F43C669321217AD800FD8D80 /* Mojave.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F43C668B21217AD800FD8D80 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = WhiteBox;
+				TargetAttributes = {
+					F43C669221217AD800FD8D80 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = F43C668E21217AD800FD8D80 /* Build configuration list for PBXProject "Mojave" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F43C668A21217AD800FD8D80;
+			productRefGroup = F43C669421217AD800FD8D80 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F43C669221217AD800FD8D80 /* Mojave */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F43C669121217AD800FD8D80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4AF73D72124407D003AEEA9 /* Aqua.Inactive.06.png in Resources */,
+				F4AF73CD2124407D003AEEA9 /* DarkAqua.Active.05.png in Resources */,
+				F4AF73DB2124407D003AEEA9 /* Aqua.Active.01.png in Resources */,
+				F4AF73C22124407D003AEEA9 /* DarkAqua.Inactive.03.png in Resources */,
+				F4AF73DD2124407D003AEEA9 /* Aqua.Active.03.png in Resources */,
+				F43C66EC21217B3D00FD8D80 /* DarkAqua.Inactive.03@2x.png in Resources */,
+				F4AF73DA2124407D003AEEA9 /* Aqua.Active.00.png in Resources */,
+				F4AF73CC2124407D003AEEA9 /* DarkAqua.Active.04.png in Resources */,
+				F4AF73C82124407D003AEEA9 /* DarkAqua.Active.00.png in Resources */,
+				F4AF73D92124407D003AEEA9 /* Aqua.Inactive.08.png in Resources */,
+				F43C66D021217B3D00FD8D80 /* Aqua.Active.02@2x.png in Resources */,
+				F4AF73D82124407D003AEEA9 /* Aqua.Inactive.07.png in Resources */,
+				F43C66DD21217B3D00FD8D80 /* Aqua.Inactive.06@2x.png in Resources */,
+				F43C66E421217B3D00FD8D80 /* DarkAqua.Active.04@2x.png in Resources */,
+				F4AF73DC2124407D003AEEA9 /* Aqua.Active.02.png in Resources */,
+				F43C66E721217B3D00FD8D80 /* DarkAqua.Active.07@2x.png in Resources */,
+				F43C66F121217B3D00FD8D80 /* DarkAqua.Inactive.08@2x.png in Resources */,
+				F43C66D521217B3D00FD8D80 /* Aqua.Active.07@2x.png in Resources */,
+				F43C66E921217B3D00FD8D80 /* DarkAqua.Inactive.00@2x.png in Resources */,
+				F4AF73CB2124407D003AEEA9 /* DarkAqua.Active.03.png in Resources */,
+				F4AF73D22124407D003AEEA9 /* Aqua.Inactive.01.png in Resources */,
+				F43C66D421217B3D00FD8D80 /* Aqua.Active.06@2x.png in Resources */,
+				F4AF73D12124407D003AEEA9 /* Aqua.Inactive.00.png in Resources */,
+				F43C66E521217B3D00FD8D80 /* DarkAqua.Active.05@2x.png in Resources */,
+				F4AF73BF2124407D003AEEA9 /* DarkAqua.Inactive.00.png in Resources */,
+				F4AF73DE2124407D003AEEA9 /* Aqua.Active.04.png in Resources */,
+				F43C66DE21217B3D00FD8D80 /* Aqua.Inactive.07@2x.png in Resources */,
+				F43C66DF21217B3D00FD8D80 /* Aqua.Inactive.08@2x.png in Resources */,
+				F4AF73C12124407D003AEEA9 /* DarkAqua.Inactive.02.png in Resources */,
+				F43C66E021217B3D00FD8D80 /* DarkAqua.Active.00@2x.png in Resources */,
+				F43C66F021217B3D00FD8D80 /* DarkAqua.Inactive.07@2x.png in Resources */,
+				F43C66E821217B3D00FD8D80 /* DarkAqua.Active.08@2x.png in Resources */,
+				F43C66D121217B3D00FD8D80 /* Aqua.Active.03@2x.png in Resources */,
+				F4AF73DF2124407D003AEEA9 /* Aqua.Active.05.png in Resources */,
+				F4AF73D62124407D003AEEA9 /* Aqua.Inactive.05.png in Resources */,
+				F4AF73C32124407D003AEEA9 /* DarkAqua.Inactive.04.png in Resources */,
+				F43C66D621217B3D00FD8D80 /* Aqua.Active.08@2x.png in Resources */,
+				F4AF73C42124407D003AEEA9 /* DarkAqua.Inactive.05.png in Resources */,
+				F43C66D721217B3D00FD8D80 /* Aqua.Inactive.00@2x.png in Resources */,
+				F4AF73D32124407D003AEEA9 /* Aqua.Inactive.02.png in Resources */,
+				F43C66EA21217B3D00FD8D80 /* DarkAqua.Inactive.01@2x.png in Resources */,
+				F43C66CE21217B3D00FD8D80 /* Aqua.Active.00@2x.png in Resources */,
+				F4A6490A2126E4A400A2CCE8 /* Aqua.LockButton.png in Resources */,
+				F43C66EB21217B3D00FD8D80 /* DarkAqua.Inactive.02@2x.png in Resources */,
+				F4AF73D52124407D003AEEA9 /* Aqua.Inactive.04.png in Resources */,
+				F4AF73E22124407D003AEEA9 /* Aqua.Active.08.png in Resources */,
+				F4AF73C02124407D003AEEA9 /* DarkAqua.Inactive.01.png in Resources */,
+				F4AF73CE2124407D003AEEA9 /* DarkAqua.Active.06.png in Resources */,
+				F43C66D821217B3D00FD8D80 /* Aqua.Inactive.01@2x.png in Resources */,
+				F4AF73C62124407D003AEEA9 /* DarkAqua.Inactive.07.png in Resources */,
+				F4AF73CA2124407D003AEEA9 /* DarkAqua.Active.02.png in Resources */,
+				F43C66DA21217B3D00FD8D80 /* Aqua.Inactive.03@2x.png in Resources */,
+				F43C66ED21217B3D00FD8D80 /* DarkAqua.Inactive.04@2x.png in Resources */,
+				F4AF73CF2124407D003AEEA9 /* DarkAqua.Active.07.png in Resources */,
+				F43C66DB21217B3D00FD8D80 /* Aqua.Inactive.04@2x.png in Resources */,
+				F4AF73D42124407D003AEEA9 /* Aqua.Inactive.03.png in Resources */,
+				F4AF73D02124407D003AEEA9 /* DarkAqua.Active.08.png in Resources */,
+				F43C66EE21217B3D00FD8D80 /* DarkAqua.Inactive.05@2x.png in Resources */,
+				F43C66CF21217B3D00FD8D80 /* Aqua.Active.01@2x.png in Resources */,
+				F43C66E221217B3D00FD8D80 /* DarkAqua.Active.02@2x.png in Resources */,
+				F43C66D921217B3D00FD8D80 /* Aqua.Inactive.02@2x.png in Resources */,
+				F43C66D221217B3D00FD8D80 /* Aqua.Active.04@2x.png in Resources */,
+				F4AF73C72124407D003AEEA9 /* DarkAqua.Inactive.08.png in Resources */,
+				F43C66E121217B3D00FD8D80 /* DarkAqua.Active.01@2x.png in Resources */,
+				F4AF73C52124407D003AEEA9 /* DarkAqua.Inactive.06.png in Resources */,
+				F43C66E621217B3D00FD8D80 /* DarkAqua.Active.06@2x.png in Resources */,
+				F43C66E321217B3D00FD8D80 /* DarkAqua.Active.03@2x.png in Resources */,
+				F4AF73C92124407D003AEEA9 /* DarkAqua.Active.01.png in Resources */,
+				F4AF73E02124407D003AEEA9 /* Aqua.Active.06.png in Resources */,
+				F4AF73E12124407D003AEEA9 /* Aqua.Active.07.png in Resources */,
+				F43C66D321217B3D00FD8D80 /* Aqua.Active.05@2x.png in Resources */,
+				F43C66DC21217B3D00FD8D80 /* Aqua.Inactive.05@2x.png in Resources */,
+				F43C66EF21217B3D00FD8D80 /* DarkAqua.Inactive.06@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F43C668F21217AD800FD8D80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F43C669821217AD800FD8D80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F43C669921217AD800FD8D80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F43C669B21217AD800FD8D80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Mojave/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		F43C669C21217AD800FD8D80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Mojave/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F43C668E21217AD800FD8D80 /* Build configuration list for PBXProject "Mojave" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F43C669821217AD800FD8D80 /* Debug */,
+				F43C669921217AD800FD8D80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F43C669A21217AD800FD8D80 /* Build configuration list for PBXNativeTarget "Mojave" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F43C669B21217AD800FD8D80 /* Debug */,
+				F43C669C21217AD800FD8D80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F43C668B21217AD800FD8D80 /* Project object */;
+}

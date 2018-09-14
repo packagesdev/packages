@@ -22,9 +22,41 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGPresentationImageView
 
+- (void)awakeFromNib
+{
+	self.menu=nil;
+}
+
 - (void)drawRect:(NSRect)inRect
 {
+	NSRect tBounds=self.bounds;
+	
+	NSBezierPath * tClipPath=[NSBezierPath bezierPath];
+	
+	CGFloat tCornerRadius=4.0;
+	
+	[tClipPath moveToPoint:NSMakePoint(NSMinX(tBounds),NSMaxY(tBounds))];
+	[tClipPath lineToPoint:NSMakePoint(NSMinX(tBounds),NSMinY(tBounds)+tCornerRadius)];
+	[tClipPath appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(tBounds)+tCornerRadius,NSMinY(tBounds)+tCornerRadius)
+											radius:tCornerRadius
+										startAngle:180
+										  endAngle:270.0];
+	[tClipPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-tCornerRadius,NSMinY(tBounds))];
+	[tClipPath appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(tBounds)-tCornerRadius,NSMinY(tBounds)+tCornerRadius)
+											radius:tCornerRadius
+										startAngle:270.0
+										  endAngle:360.0];
+	
+	[tClipPath lineToPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(tBounds))];
+	[tClipPath closePath];
+	
+	[NSGraphicsContext saveGraphicsState];
+	
+	[tClipPath addClip];
+	
 	[super drawRect:inRect];
+	
+	[NSGraphicsContext restoreGraphicsState];
 	
 	if (_highlighted==YES)
 	{

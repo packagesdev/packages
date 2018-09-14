@@ -1,0 +1,409 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4FF815B21231D5F00B50029 /* Aqua.Active.00.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813521231D5F00B50029 /* Aqua.Active.00.png */; };
+		F4FF815C21231D5F00B50029 /* Aqua.Active.00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813621231D5F00B50029 /* Aqua.Active.00@2x.png */; };
+		F4FF815D21231D5F00B50029 /* Aqua.Active.01.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813721231D5F00B50029 /* Aqua.Active.01.png */; };
+		F4FF815E21231D5F00B50029 /* Aqua.Active.01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813821231D5F00B50029 /* Aqua.Active.01@2x.png */; };
+		F4FF815F21231D5F00B50029 /* Aqua.Active.02.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813921231D5F00B50029 /* Aqua.Active.02.png */; };
+		F4FF816021231D5F00B50029 /* Aqua.Active.02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813A21231D5F00B50029 /* Aqua.Active.02@2x.png */; };
+		F4FF816121231D5F00B50029 /* Aqua.Active.03.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813B21231D5F00B50029 /* Aqua.Active.03.png */; };
+		F4FF816221231D5F00B50029 /* Aqua.Active.03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813C21231D5F00B50029 /* Aqua.Active.03@2x.png */; };
+		F4FF816321231D5F00B50029 /* Aqua.Active.04.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813D21231D5F00B50029 /* Aqua.Active.04.png */; };
+		F4FF816421231D5F00B50029 /* Aqua.Active.04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813E21231D5F00B50029 /* Aqua.Active.04@2x.png */; };
+		F4FF816521231D5F00B50029 /* Aqua.Active.05.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF813F21231D5F00B50029 /* Aqua.Active.05.png */; };
+		F4FF816621231D5F00B50029 /* Aqua.Active.05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814021231D5F00B50029 /* Aqua.Active.05@2x.png */; };
+		F4FF816721231D5F00B50029 /* Aqua.Active.06.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814121231D5F00B50029 /* Aqua.Active.06.png */; };
+		F4FF816821231D5F00B50029 /* Aqua.Active.06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814221231D5F00B50029 /* Aqua.Active.06@2x.png */; };
+		F4FF816921231D5F00B50029 /* Aqua.Active.07.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814321231D5F00B50029 /* Aqua.Active.07.png */; };
+		F4FF816A21231D5F00B50029 /* Aqua.Active.07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814421231D5F00B50029 /* Aqua.Active.07@2x.png */; };
+		F4FF816B21231D5F00B50029 /* Aqua.Active.08.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814521231D5F00B50029 /* Aqua.Active.08.png */; };
+		F4FF816C21231D5F00B50029 /* Aqua.Active.08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814621231D5F00B50029 /* Aqua.Active.08@2x.png */; };
+		F4FF816D21231D5F00B50029 /* Aqua.Inactive.00.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814721231D5F00B50029 /* Aqua.Inactive.00.png */; };
+		F4FF816E21231D5F00B50029 /* Aqua.Inactive.00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814821231D5F00B50029 /* Aqua.Inactive.00@2x.png */; };
+		F4FF816F21231D5F00B50029 /* Aqua.Inactive.01.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814921231D5F00B50029 /* Aqua.Inactive.01.png */; };
+		F4FF817021231D5F00B50029 /* Aqua.Inactive.01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814A21231D5F00B50029 /* Aqua.Inactive.01@2x.png */; };
+		F4FF817121231D5F00B50029 /* Aqua.Inactive.02.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814B21231D5F00B50029 /* Aqua.Inactive.02.png */; };
+		F4FF817221231D5F00B50029 /* Aqua.Inactive.02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814C21231D5F00B50029 /* Aqua.Inactive.02@2x.png */; };
+		F4FF817321231D5F00B50029 /* Aqua.Inactive.03.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814D21231D5F00B50029 /* Aqua.Inactive.03.png */; };
+		F4FF817421231D5F00B50029 /* Aqua.Inactive.03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814E21231D5F00B50029 /* Aqua.Inactive.03@2x.png */; };
+		F4FF817521231D5F00B50029 /* Aqua.Inactive.04.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF814F21231D5F00B50029 /* Aqua.Inactive.04.png */; };
+		F4FF817621231D5F00B50029 /* Aqua.Inactive.04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815021231D5F00B50029 /* Aqua.Inactive.04@2x.png */; };
+		F4FF817721231D5F00B50029 /* Aqua.Inactive.05.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815121231D5F00B50029 /* Aqua.Inactive.05.png */; };
+		F4FF817821231D5F00B50029 /* Aqua.Inactive.05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815221231D5F00B50029 /* Aqua.Inactive.05@2x.png */; };
+		F4FF817921231D5F00B50029 /* Aqua.Inactive.06.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815321231D5F00B50029 /* Aqua.Inactive.06.png */; };
+		F4FF817A21231D5F00B50029 /* Aqua.Inactive.06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815421231D5F00B50029 /* Aqua.Inactive.06@2x.png */; };
+		F4FF817B21231D5F00B50029 /* Aqua.Inactive.07.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815521231D5F00B50029 /* Aqua.Inactive.07.png */; };
+		F4FF817C21231D5F00B50029 /* Aqua.Inactive.07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815621231D5F00B50029 /* Aqua.Inactive.07@2x.png */; };
+		F4FF817D21231D5F00B50029 /* Aqua.Inactive.08.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815721231D5F00B50029 /* Aqua.Inactive.08.png */; };
+		F4FF817E21231D5F00B50029 /* Aqua.Inactive.08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815821231D5F00B50029 /* Aqua.Inactive.08@2x.png */; };
+		F4FF817F21231D5F00B50029 /* Aqua.LockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815921231D5F00B50029 /* Aqua.LockButton.png */; };
+		F4FF818021231D5F00B50029 /* Aqua.LockButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4FF815A21231D5F00B50029 /* Aqua.LockButton@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F4FF812B21231C4500B50029 /* Lion.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lion.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4FF812F21231C4500B50029 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4FF813521231D5F00B50029 /* Aqua.Active.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.00.png; sourceTree = "<group>"; };
+		F4FF813621231D5F00B50029 /* Aqua.Active.00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.00@2x.png"; sourceTree = "<group>"; };
+		F4FF813721231D5F00B50029 /* Aqua.Active.01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.01.png; sourceTree = "<group>"; };
+		F4FF813821231D5F00B50029 /* Aqua.Active.01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.01@2x.png"; sourceTree = "<group>"; };
+		F4FF813921231D5F00B50029 /* Aqua.Active.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.02.png; sourceTree = "<group>"; };
+		F4FF813A21231D5F00B50029 /* Aqua.Active.02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.02@2x.png"; sourceTree = "<group>"; };
+		F4FF813B21231D5F00B50029 /* Aqua.Active.03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.03.png; sourceTree = "<group>"; };
+		F4FF813C21231D5F00B50029 /* Aqua.Active.03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.03@2x.png"; sourceTree = "<group>"; };
+		F4FF813D21231D5F00B50029 /* Aqua.Active.04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.04.png; sourceTree = "<group>"; };
+		F4FF813E21231D5F00B50029 /* Aqua.Active.04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.04@2x.png"; sourceTree = "<group>"; };
+		F4FF813F21231D5F00B50029 /* Aqua.Active.05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.05.png; sourceTree = "<group>"; };
+		F4FF814021231D5F00B50029 /* Aqua.Active.05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.05@2x.png"; sourceTree = "<group>"; };
+		F4FF814121231D5F00B50029 /* Aqua.Active.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.06.png; sourceTree = "<group>"; };
+		F4FF814221231D5F00B50029 /* Aqua.Active.06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.06@2x.png"; sourceTree = "<group>"; };
+		F4FF814321231D5F00B50029 /* Aqua.Active.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.07.png; sourceTree = "<group>"; };
+		F4FF814421231D5F00B50029 /* Aqua.Active.07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.07@2x.png"; sourceTree = "<group>"; };
+		F4FF814521231D5F00B50029 /* Aqua.Active.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.08.png; sourceTree = "<group>"; };
+		F4FF814621231D5F00B50029 /* Aqua.Active.08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Active.08@2x.png"; sourceTree = "<group>"; };
+		F4FF814721231D5F00B50029 /* Aqua.Inactive.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.00.png; sourceTree = "<group>"; };
+		F4FF814821231D5F00B50029 /* Aqua.Inactive.00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.00@2x.png"; sourceTree = "<group>"; };
+		F4FF814921231D5F00B50029 /* Aqua.Inactive.01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.01.png; sourceTree = "<group>"; };
+		F4FF814A21231D5F00B50029 /* Aqua.Inactive.01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.01@2x.png"; sourceTree = "<group>"; };
+		F4FF814B21231D5F00B50029 /* Aqua.Inactive.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.02.png; sourceTree = "<group>"; };
+		F4FF814C21231D5F00B50029 /* Aqua.Inactive.02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.02@2x.png"; sourceTree = "<group>"; };
+		F4FF814D21231D5F00B50029 /* Aqua.Inactive.03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.03.png; sourceTree = "<group>"; };
+		F4FF814E21231D5F00B50029 /* Aqua.Inactive.03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.03@2x.png"; sourceTree = "<group>"; };
+		F4FF814F21231D5F00B50029 /* Aqua.Inactive.04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.04.png; sourceTree = "<group>"; };
+		F4FF815021231D5F00B50029 /* Aqua.Inactive.04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.04@2x.png"; sourceTree = "<group>"; };
+		F4FF815121231D5F00B50029 /* Aqua.Inactive.05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.05.png; sourceTree = "<group>"; };
+		F4FF815221231D5F00B50029 /* Aqua.Inactive.05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.05@2x.png"; sourceTree = "<group>"; };
+		F4FF815321231D5F00B50029 /* Aqua.Inactive.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.06.png; sourceTree = "<group>"; };
+		F4FF815421231D5F00B50029 /* Aqua.Inactive.06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.06@2x.png"; sourceTree = "<group>"; };
+		F4FF815521231D5F00B50029 /* Aqua.Inactive.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.07.png; sourceTree = "<group>"; };
+		F4FF815621231D5F00B50029 /* Aqua.Inactive.07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.07@2x.png"; sourceTree = "<group>"; };
+		F4FF815721231D5F00B50029 /* Aqua.Inactive.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Inactive.08.png; sourceTree = "<group>"; };
+		F4FF815821231D5F00B50029 /* Aqua.Inactive.08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.Inactive.08@2x.png"; sourceTree = "<group>"; };
+		F4FF815921231D5F00B50029 /* Aqua.LockButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.LockButton.png; sourceTree = "<group>"; };
+		F4FF815A21231D5F00B50029 /* Aqua.LockButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.LockButton@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F4FF812821231C4500B50029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F4FF812221231C4500B50029 = {
+			isa = PBXGroup;
+			children = (
+				F4FF812D21231C4500B50029 /* Lion */,
+				F4FF812C21231C4500B50029 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F4FF812C21231C4500B50029 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF812B21231C4500B50029 /* Lion.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4FF812D21231C4500B50029 /* Lion */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF812E21231C4500B50029 /* Resources */,
+			);
+			path = Lion;
+			sourceTree = "<group>";
+		};
+		F4FF812E21231C4500B50029 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF812F21231C4500B50029 /* Info.plist */,
+				F4FF813521231D5F00B50029 /* Aqua.Active.00.png */,
+				F4FF813621231D5F00B50029 /* Aqua.Active.00@2x.png */,
+				F4FF813721231D5F00B50029 /* Aqua.Active.01.png */,
+				F4FF813821231D5F00B50029 /* Aqua.Active.01@2x.png */,
+				F4FF813921231D5F00B50029 /* Aqua.Active.02.png */,
+				F4FF813A21231D5F00B50029 /* Aqua.Active.02@2x.png */,
+				F4FF813B21231D5F00B50029 /* Aqua.Active.03.png */,
+				F4FF813C21231D5F00B50029 /* Aqua.Active.03@2x.png */,
+				F4FF813D21231D5F00B50029 /* Aqua.Active.04.png */,
+				F4FF813E21231D5F00B50029 /* Aqua.Active.04@2x.png */,
+				F4FF813F21231D5F00B50029 /* Aqua.Active.05.png */,
+				F4FF814021231D5F00B50029 /* Aqua.Active.05@2x.png */,
+				F4FF814121231D5F00B50029 /* Aqua.Active.06.png */,
+				F4FF814221231D5F00B50029 /* Aqua.Active.06@2x.png */,
+				F4FF814321231D5F00B50029 /* Aqua.Active.07.png */,
+				F4FF814421231D5F00B50029 /* Aqua.Active.07@2x.png */,
+				F4FF814521231D5F00B50029 /* Aqua.Active.08.png */,
+				F4FF814621231D5F00B50029 /* Aqua.Active.08@2x.png */,
+				F4FF814721231D5F00B50029 /* Aqua.Inactive.00.png */,
+				F4FF814821231D5F00B50029 /* Aqua.Inactive.00@2x.png */,
+				F4FF814921231D5F00B50029 /* Aqua.Inactive.01.png */,
+				F4FF814A21231D5F00B50029 /* Aqua.Inactive.01@2x.png */,
+				F4FF814B21231D5F00B50029 /* Aqua.Inactive.02.png */,
+				F4FF814C21231D5F00B50029 /* Aqua.Inactive.02@2x.png */,
+				F4FF814D21231D5F00B50029 /* Aqua.Inactive.03.png */,
+				F4FF814E21231D5F00B50029 /* Aqua.Inactive.03@2x.png */,
+				F4FF814F21231D5F00B50029 /* Aqua.Inactive.04.png */,
+				F4FF815021231D5F00B50029 /* Aqua.Inactive.04@2x.png */,
+				F4FF815121231D5F00B50029 /* Aqua.Inactive.05.png */,
+				F4FF815221231D5F00B50029 /* Aqua.Inactive.05@2x.png */,
+				F4FF815321231D5F00B50029 /* Aqua.Inactive.06.png */,
+				F4FF815421231D5F00B50029 /* Aqua.Inactive.06@2x.png */,
+				F4FF815521231D5F00B50029 /* Aqua.Inactive.07.png */,
+				F4FF815621231D5F00B50029 /* Aqua.Inactive.07@2x.png */,
+				F4FF815721231D5F00B50029 /* Aqua.Inactive.08.png */,
+				F4FF815821231D5F00B50029 /* Aqua.Inactive.08@2x.png */,
+				F4FF815921231D5F00B50029 /* Aqua.LockButton.png */,
+				F4FF815A21231D5F00B50029 /* Aqua.LockButton@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F4FF812A21231C4500B50029 /* Lion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4FF813221231C4500B50029 /* Build configuration list for PBXNativeTarget "Lion" */;
+			buildPhases = (
+				F4FF812721231C4500B50029 /* Sources */,
+				F4FF812821231C4500B50029 /* Frameworks */,
+				F4FF812921231C4500B50029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lion;
+			productName = Lion;
+			productReference = F4FF812B21231C4500B50029 /* Lion.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F4FF812321231C4500B50029 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = WhiteBox;
+				TargetAttributes = {
+					F4FF812A21231C4500B50029 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = F4FF812621231C4500B50029 /* Build configuration list for PBXProject "Lion" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F4FF812221231C4500B50029;
+			productRefGroup = F4FF812C21231C4500B50029 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F4FF812A21231C4500B50029 /* Lion */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F4FF812921231C4500B50029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4FF817921231D5F00B50029 /* Aqua.Inactive.06.png in Resources */,
+				F4FF816021231D5F00B50029 /* Aqua.Active.02@2x.png in Resources */,
+				F4FF815C21231D5F00B50029 /* Aqua.Active.00@2x.png in Resources */,
+				F4FF815B21231D5F00B50029 /* Aqua.Active.00.png in Resources */,
+				F4FF817D21231D5F00B50029 /* Aqua.Inactive.08.png in Resources */,
+				F4FF817C21231D5F00B50029 /* Aqua.Inactive.07@2x.png in Resources */,
+				F4FF815D21231D5F00B50029 /* Aqua.Active.01.png in Resources */,
+				F4FF816F21231D5F00B50029 /* Aqua.Inactive.01.png in Resources */,
+				F4FF816C21231D5F00B50029 /* Aqua.Active.08@2x.png in Resources */,
+				F4FF816721231D5F00B50029 /* Aqua.Active.06.png in Resources */,
+				F4FF817F21231D5F00B50029 /* Aqua.LockButton.png in Resources */,
+				F4FF817521231D5F00B50029 /* Aqua.Inactive.04.png in Resources */,
+				F4FF816421231D5F00B50029 /* Aqua.Active.04@2x.png in Resources */,
+				F4FF817421231D5F00B50029 /* Aqua.Inactive.03@2x.png in Resources */,
+				F4FF815E21231D5F00B50029 /* Aqua.Active.01@2x.png in Resources */,
+				F4FF816521231D5F00B50029 /* Aqua.Active.05.png in Resources */,
+				F4FF816821231D5F00B50029 /* Aqua.Active.06@2x.png in Resources */,
+				F4FF817121231D5F00B50029 /* Aqua.Inactive.02.png in Resources */,
+				F4FF817821231D5F00B50029 /* Aqua.Inactive.05@2x.png in Resources */,
+				F4FF816A21231D5F00B50029 /* Aqua.Active.07@2x.png in Resources */,
+				F4FF817A21231D5F00B50029 /* Aqua.Inactive.06@2x.png in Resources */,
+				F4FF816221231D5F00B50029 /* Aqua.Active.03@2x.png in Resources */,
+				F4FF816121231D5F00B50029 /* Aqua.Active.03.png in Resources */,
+				F4FF818021231D5F00B50029 /* Aqua.LockButton@2x.png in Resources */,
+				F4FF816D21231D5F00B50029 /* Aqua.Inactive.00.png in Resources */,
+				F4FF817E21231D5F00B50029 /* Aqua.Inactive.08@2x.png in Resources */,
+				F4FF815F21231D5F00B50029 /* Aqua.Active.02.png in Resources */,
+				F4FF816E21231D5F00B50029 /* Aqua.Inactive.00@2x.png in Resources */,
+				F4FF816B21231D5F00B50029 /* Aqua.Active.08.png in Resources */,
+				F4FF817321231D5F00B50029 /* Aqua.Inactive.03.png in Resources */,
+				F4FF817021231D5F00B50029 /* Aqua.Inactive.01@2x.png in Resources */,
+				F4FF817621231D5F00B50029 /* Aqua.Inactive.04@2x.png in Resources */,
+				F4FF816321231D5F00B50029 /* Aqua.Active.04.png in Resources */,
+				F4FF817221231D5F00B50029 /* Aqua.Inactive.02@2x.png in Resources */,
+				F4FF817721231D5F00B50029 /* Aqua.Inactive.05.png in Resources */,
+				F4FF816621231D5F00B50029 /* Aqua.Active.05@2x.png in Resources */,
+				F4FF817B21231D5F00B50029 /* Aqua.Inactive.07.png in Resources */,
+				F4FF816921231D5F00B50029 /* Aqua.Active.07.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F4FF812721231C4500B50029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F4FF813021231C4500B50029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F4FF813121231C4500B50029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F4FF813321231C4500B50029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = NO;
+				INFOPLIST_FILE = Lion/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		F4FF813421231C4500B50029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = NO;
+				INFOPLIST_FILE = Lion/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F4FF812621231C4500B50029 /* Build configuration list for PBXProject "Lion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4FF813021231C4500B50029 /* Debug */,
+				F4FF813121231C4500B50029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4FF813221231C4500B50029 /* Build configuration list for PBXNativeTarget "Lion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4FF813321231C4500B50029 /* Debug */,
+				F4FF813421231C4500B50029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4FF812321231C4500B50029 /* Project object */;
+}
