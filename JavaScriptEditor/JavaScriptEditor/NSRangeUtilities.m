@@ -101,7 +101,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (inRanges==nil)
 		return [NSArray arrayWithObject:[NSValue valueWithRange:inRange]];
 	
-	NSMutableArray * tAvailableRanges=[NSMutableArray array];;
+	NSMutableArray * tAvailableRanges=[NSMutableArray array];
 	
 	NSMutableArray * tSortedRangesArray=[NSMutableArray arrayWithArray:inRanges];
 		
