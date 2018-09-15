@@ -33,37 +33,37 @@
 
 + (void)load
 {
-	Class tClass = self;
+	Class tClass = object_getClass(self);
 	
-	if ([tClass respondsToSelector:@selector(labelColor)]==NO)
+	if ([self respondsToSelector:@selector(labelColor)]==NO)
 	{
 		Method origMethod = class_getClassMethod(tClass, @selector(WB_labelColor));
 		
 		class_addMethod(tClass, @selector(labelColor), method_getImplementation(origMethod),method_getTypeEncoding(origMethod));
 	}
 	
-	if ([tClass respondsToSelector:@selector(secondaryLabelColor)]==NO)
+	if ([self respondsToSelector:@selector(secondaryLabelColor)]==NO)
 	{
 		Method origMethod = class_getClassMethod(tClass, @selector(WB_secondaryLabelColor));
 		
 		class_addMethod(tClass, @selector(secondaryLabelColor), method_getImplementation(origMethod),method_getTypeEncoding(origMethod));
 	}
 	
-	if ([tClass respondsToSelector:@selector(tertiaryLabelColor)]==NO)
+	if ([self respondsToSelector:@selector(tertiaryLabelColor)]==NO)
 	{
 		Method origMethod = class_getClassMethod(tClass, @selector(WB_tertiaryLabelColor));
 		
 		class_addMethod(tClass, @selector(tertiaryLabelColor), method_getImplementation(origMethod),method_getTypeEncoding(origMethod));
 	}
 	
-	if ([tClass respondsToSelector:@selector(quaternaryLabelColor)]==NO)
+	if ([self respondsToSelector:@selector(quaternaryLabelColor)]==NO)
 	{
 		Method origMethod = class_getClassMethod(tClass, @selector(WB_quaternaryLabelColor));
 		
 		class_addMethod(tClass, @selector(quaternaryLabelColor), method_getImplementation(origMethod),method_getTypeEncoding(origMethod));
 	}
 	
-	if ([tClass respondsToSelector:@selector(containerBorderColor)]==NO)
+	if ([self respondsToSelector:@selector(containerBorderColor)]==NO)
 	{
 		Method origMethod = class_getClassMethod(tClass, @selector(WB_containerBorderColor));
 		
