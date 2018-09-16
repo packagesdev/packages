@@ -77,13 +77,6 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	[self refreshHierarchy];
 }
 
-- (void)WB_viewWillDisappear
-{
-	[super WB_viewWillDisappear];
-	
-	// A COMPLETER
-}
-
 - (void)refreshHierarchy
 {
 	[self.outlineView reloadData];
@@ -342,8 +335,16 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 		
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
-		tView.backgroundStyle=NSBackgroundStyleDark;
-		tView.textField.stringValue=NSLocalizedString(tHeader.title,@"");
+		//tView.backgroundStyle=NSBackgroundStyleDark;
+		if ([tTableColumnIdentifier isEqualToString:@"advanced.value"]==YES)
+		{
+			tView.textField.stringValue=@"";
+		}
+		else
+		{
+			tView.textField.stringValue=NSLocalizedString(tHeader.title,@"");
+			tView.textField.textColor=[NSColor whiteColor];
+		}
 		
 		return tView;
 	}
@@ -467,6 +468,8 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView isGroupItem:(PKGDistributionProjectSettingsAdvancedOptionsTreeNode *)inAdvancedOptionsTreeNode
 {
+	return NO;
+	
 	if (inOutlineView!=self.outlineView || inAdvancedOptionsTreeNode==nil)
 		return NO;
 	
