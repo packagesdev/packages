@@ -20,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F41F61D2214EDDC200E10C4C /* NSColor+LabelColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSColor+LabelColor.h"; path = "../../../../AppKit + Extensions/NSColor+LabelColor.h"; sourceTree = "<group>"; };
 		F43A6ACC1FD9EC0700B02509 /* WBVersionPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionPicker.h; path = ../../../../WBKit/WBVersionPicker.h; sourceTree = "<group>"; };
 		F43A6ACD1FD9EC0700B02509 /* WBVersionPickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionPickerCell.h; path = ../../../../WBKit/WBVersionPickerCell.h; sourceTree = "<group>"; };
 		F4451B3C1C7BBC0100516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -144,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				F48DDE2A1CE3D9F2004B9A29 /* Model */,
+				F41F61D2214EDDC200E10C4C /* NSColor+LabelColor.h */,
 				F4DDA9A61E59B5790080EFAD /* NSViewController+WBExtensions.h */,
 				F4F5D0B21CC97AB60075C2EF /* PKGViewController.h */,
 				F4F5D0B31CC97CB00075C2EF /* PKGRequirementViewController.h */,

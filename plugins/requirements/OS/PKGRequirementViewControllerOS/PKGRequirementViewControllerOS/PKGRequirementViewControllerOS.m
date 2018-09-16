@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2017, Stephane Sudre
+Copyright (c) 2008-2018, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -92,7 +92,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 						   @"Yosemite",
 						   @"El Capitan",
 						   @"Sierra",
-						   @"High Sierra"];
+						   @"High Sierra",
+						   @"Mojave"];
 	});
 	
 	WBVersionComponents * tVersionComponents=[[PKGRequirementViewControllerOS macOSVersionsHistory] components:WBMinorVersionUnit fromVersion:inVersion];
@@ -240,7 +241,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 			tInstallationStatusTag=PKGRequirementOSInstallationStatusNotInstalled;
 			
 			_minimumVersionPicker.enabled=NO;
-			_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+			_minimumVersionOSNameLabel.textColor=[NSColor secondaryLabelColor];
 			_maximumVersionCheckBox.enabled=NO;
 		}
 	}
@@ -250,7 +251,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 			tMinimumOSVersion=PKGRequirementOSMinimumVersionLeopard;
 		
 		_minimumVersionPicker.enabled=YES;
-		_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+		_minimumVersionOSNameLabel.textColor=[NSColor labelColor];
 		_maximumVersionCheckBox.enabled=YES;
 	}
 	
@@ -273,11 +274,11 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	{
 		tMaximumOSVersion=tMinimumOSVersion;
 	
-		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+		_maximumVersionOSNameLabel.textColor=[NSColor secondaryLabelColor];
 	}
 	else
 	{
-		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+		_maximumVersionOSNameLabel.textColor=[NSColor labelColor];
 	}
 	
 	_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:tMaximumOSVersion];
@@ -354,7 +355,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 			
 			_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
 			_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
-			_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+			_minimumVersionOSNameLabel.textColor=[NSColor labelColor];
 			
 			[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
 			
@@ -391,7 +392,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		_minimumVersionPicker.enabled=NO;
 		_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
 		_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
-		_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+		_minimumVersionOSNameLabel.textColor=[NSColor secondaryLabelColor];
 		
 		[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
 		
@@ -402,7 +403,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		_maximumVersionPicker.minVersion=_minimumVersionPicker.versionValue;
 		_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
 		_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
-		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+		_maximumVersionOSNameLabel.textColor=[NSColor secondaryLabelColor];
 	}
 	else
 	{
@@ -411,7 +412,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		_settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionLeopard);
 		
 		_minimumVersionPicker.enabled=YES;
-		_minimumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+		_minimumVersionOSNameLabel.textColor=[NSColor labelColor];
 		
 		_maximumVersionCheckBox.enabled=YES;
 	}
@@ -464,12 +465,12 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
 		
 		_maximumVersionPicker.enabled=NO;
-		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.70 alpha:1.0];
+		_maximumVersionOSNameLabel.textColor=[NSColor secondaryLabelColor];
 	}
 	else
 	{
 		_maximumVersionPicker.enabled=YES;
-		_maximumVersionOSNameLabel.textColor=[NSColor colorWithDeviceWhite:0.25 alpha:1.0];
+		_maximumVersionOSNameLabel.textColor=[NSColor labelColor];
 		
 		_settings[PKGRequirementOSMaximumVersionKey]=[_settings[PKGRequirementOSMinimumVersionKey] copy];
 	}
