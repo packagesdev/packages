@@ -3016,194 +3016,6 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		[_installerScriptElement addChild:tBackgroundElement];
 	
 	return YES;
-	
-	/*if (tPresentationBackgroundSettings.showCustomImage==NO)
-		return YES;
-	
-	PKGFilePath * tFilePath=tPresentationBackgroundSettings.imagePath;
-	
-	if ([tFilePath isSet]==NO)
-		return YES;
-	
-	
-	[self postStep:PKGBuildStepDistributionBackgroundImage beginEvent:nil];
-	
-	NSString * tAbsolutePath=[self absolutePathForFilePath:tFilePath];
-	
-	if (tAbsolutePath==nil)
-	{
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileAbsolutePathCanNotBeComputed filePath:tFilePath.string fileKind:PKGFileKindRegularFile]];
-		
-		return NO;
-	}
-
-	if ([_fileManager fileExistsAtPath:tAbsolutePath]==NO)
-	{
-		// File does not exist
-		
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileNotFound filePath:tAbsolutePath fileKind:PKGFileKindRegularFile]];
-		
-		return NO;
-	}
-	
-	// Copy the Image to the appropriate location
-	
-	NSString * tResourcesPath=_buildInformation.resourcesPath;
-	
-	if (tResourcesPath==nil)
-	{
-		// Could not create Resources folder
-		
-		// A COMPLETER
-		
-		[self postCurrentStepFailureEvent:nil];
-		
-		return NO;
-	}
-	
-	NSString * tBaseName=@"background";
-	NSString * tFileName=tBaseName;
-		
-	NSString * tDestinationPath=[tResourcesPath stringByAppendingPathComponent:tFileName];
-	
-	int tIndex=0;
-	
-	while ([_fileManager fileExistsAtPath:tDestinationPath]==YES && tIndex<PKGRenamingAttemptsMax)
-	{
-		tFileName=[NSString stringWithFormat:@"%@_%d",tBaseName,tIndex];
-		
-		tDestinationPath=[tResourcesPath stringByAppendingPathComponent:tFileName];
-	
-		tIndex++;
-	}
-	
-	if (tIndex==PKGRenamingAttemptsMax)
-	{
-		[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileAlreadyExists tag:@"background"]];
-		
-		// A COMPLETER
-		
-		return NO;
-	}
-	
-	if ([_fileManager PKG_copyItemAtPath:tAbsolutePath toPath:tDestinationPath options:PKG_NSDeleteExisting error:NULL]==NO)
-	{
-		PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:tAbsolutePath fileKind:PKGFileKindRegularFile];
-		tErrorEvent.otherFilePath=tDestinationPath;
-		
-		[self postCurrentStepFailureEvent:tErrorEvent];
-		
-		// A COMPLETER
-		
-		return NO;
-	}
-	
-	if ([self setPosixPermissionsOfDocumentAtPath:tDestinationPath]==NO)
-		return NO;
-		
-	NSXMLElement * tBackgroundElement=(NSXMLElement *) [NSXMLNode elementWithName:@"background"];
-
-	// file [Required]
-	
-	id tAttribute=[NSXMLNode attributeWithName:@"file" stringValue:tFileName];
-	[tBackgroundElement addAttribute:tAttribute];
-	
-	// scaling [optional]
-	
-	PKGImageScaling tScaling=tPresentationBackgroundSettings.imageScaling;
-	
-	switch(tScaling)
-	{
-		case PKGImageScalingProportionnaly:
-			
-			tAttribute=[NSXMLNode attributeWithName:@"scaling" stringValue:@"proportional"];
-			break;
-			
-		case PKGImageScalingToFit:
-			
-			tAttribute=[NSXMLNode attributeWithName:@"scaling" stringValue:@"tofit"];
-			break;
-			
-		case PKGImageScalingNone:
-			
-			tAttribute=[NSXMLNode attributeWithName:@"scaling" stringValue:@"none"];
-			break;
-	}
-	
-	[tBackgroundElement addAttribute:tAttribute];
-	
-	// alignment [optional]
-
-	NSString * tAlignmentString=@"";
-	
-	PKGImageAlignment tAlignment=tPresentationBackgroundSettings.imageAlignment;
-	
-	switch(tAlignment)
-	{
-		case PKGImageAlignmentCenter:
-			
-			tAlignmentString=@"center";
-			break;
-			
-		case PKGImageAlignmentTop:
-			
-			tAlignmentString=@"top";
-			break;
-			
-		case PKGImageAlignmentTopLeft:
-			
-			tAlignmentString=@"topleft";
-			break;
-			
-		case PKGImageAlignmentTopRight:
-			
-			tAlignmentString=@"topright";
-			break;
-			
-		case PKGImageAlignmentleft:
-			
-			tAlignmentString=@"left";
-			break;
-			
-		case PKGImageAlignmentBottom:
-			
-			tAlignmentString=@"bottom";
-			break;
-			
-		case PKGImageAlignmentBottomLeft:
-			
-			tAlignmentString=@"bottomleft";
-			break;
-			
-		case PKGImageAlignmentBottomRight:
-			
-			tAlignmentString=@"bottomright";
-			break;
-			
-		case PKGImageAlignmentRight:
-			
-			tAlignmentString=@"right";
-			break;
-	}
-	
-	tAttribute=[NSXMLNode attributeWithName:@"alignment" stringValue:tAlignmentString];
-	[tBackgroundElement addAttribute:tAttribute];
-	
-	// layout-direction [optional]
-	
-	PKGImageLayoutDirection tLayoutDirection=tPresentationBackgroundSettings.imageLayoutDirection;
-	
-	if (tLayoutDirection==PKGImageLayoutDirectionNatural)
-	{
-		tAttribute=[NSXMLNode attributeWithName:@"layout-direction" stringValue:@"natural"];
-		[tBackgroundElement addAttribute:tAttribute];
-	}
-	
-	[_installerScriptElement addChild:tBackgroundElement];
-
-	[self postCurrentStepSuccessEvent:nil];
-	
-	return YES;*/
 }
 
 - (BOOL)setIntroduction
@@ -4972,6 +4784,8 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if ([tMutableString writeToFile:[tLanguagePath stringByAppendingPathComponent:@"Localizable.strings"] atomically:NO encoding:NSUnicodeStringEncoding error:&tError]==NO)
 		{
+			NSLog(@"%@",tError);	// A VIRER (once the errorEvent is set and sent)
+			
 			[self postCurrentStepFailureEvent:nil];
 			
 			// A COMPLETER
@@ -5947,7 +5761,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tImportedPackageSettings==nil)
 		{
-			[self postCurrentStepFailureEvent:nil];	// A COMPLETER	-> PKGBuildErrorCanNotExtractInfoFromImportedPackage
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorCanNotExtractInfoFromImportedPackage]];
 			
 			return NO;
 		}
