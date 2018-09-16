@@ -81,7 +81,7 @@
 										<string key="NSFrameSize">{532, 299}</string>
 										<reference key="NSSuperview" ref="620539246"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="385658575"/>
+										<reference key="NSNextKeyView" ref="172342286"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="765827093">
 											<object class="NSLayoutManager" key="NSLayoutManager">
 												<object class="NSTextStorage" key="NSTextStorage">
@@ -212,7 +212,7 @@
 						<string key="NSFrame">{{37, 167}, {549, 301}}</string>
 						<reference key="NSSuperview" ref="883407822"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="620539246"/>
+						<reference key="NSNextKeyView" ref="385658575"/>
 						<int key="NSsFlags">133138</int>
 						<reference key="NSVScroller" ref="172342286"/>
 						<reference key="NSHScroller" ref="385658575"/>
@@ -372,7 +372,7 @@
 							</object>
 							<reference key="NSControlView" ref="473662431"/>
 							<bool key="NSDrawsBackground">YES</bool>
-							<object class="NSColor" key="NSBackgroundColor">
+							<object class="NSColor" key="NSBackgroundColor" id="511736624">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">textBackgroundColor</string>
@@ -477,8 +477,13 @@
 							<string key="NSContents">Function:</string>
 							<reference key="NSSupport" ref="408370617"/>
 							<reference key="NSControlView" ref="332269589"/>
-							<reference key="NSBackgroundColor" ref="553719963"/>
-							<reference key="NSTextColor" ref="55047601"/>
+							<reference key="NSBackgroundColor" ref="511736624"/>
+							<object class="NSColor" key="NSTextColor" id="989807799">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">textColor</string>
+								<reference key="NSColor" ref="992291040"/>
+							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -530,7 +535,7 @@
 										<string key="NSFrameSize">{449, 65}</string>
 										<reference key="NSSuperview" ref="141933588"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="713406012"/>
+										<reference key="NSNextKeyView" ref="253996469"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -634,7 +639,7 @@
 						<string key="NSFrame">{{100, 48}, {466, 67}}</string>
 						<reference key="NSSuperview" ref="883407822"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="141933588"/>
+						<reference key="NSNextKeyView" ref="713406012"/>
 						<int key="NSsFlags">149522</int>
 						<reference key="NSVScroller" ref="1038740470"/>
 						<reference key="NSHScroller" ref="713406012"/>
@@ -658,8 +663,8 @@
 							<string key="NSContents">Arguments:</string>
 							<reference key="NSSupport" ref="408370617"/>
 							<reference key="NSControlView" ref="755270108"/>
-							<reference key="NSBackgroundColor" ref="553719963"/>
-							<reference key="NSTextColor" ref="55047601"/>
+							<reference key="NSBackgroundColor" ref="511736624"/>
+							<reference key="NSTextColor" ref="989807799"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -699,6 +704,7 @@
 						<string key="NSFrame">{{123, 19}, {24, 22}}</string>
 						<reference key="NSSuperview" ref="883407822"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="573567897">
 							<int key="NSCellFlags">603979776</int>
@@ -735,8 +741,8 @@
 							<string key="NSContents">Suggest locations of installed instances of the bundle using a JavaScript function:</string>
 							<reference key="NSSupport" ref="408370617"/>
 							<reference key="NSControlView" ref="67184860"/>
-							<reference key="NSBackgroundColor" ref="553719963"/>
-							<reference key="NSTextColor" ref="55047601"/>
+							<reference key="NSBackgroundColor" ref="511736624"/>
+							<reference key="NSTextColor" ref="989807799"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -1226,6 +1232,7 @@
 				<string key="152.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="154.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="155.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="156.CustomClassName">PKGLabel</string>
 				<string key="156.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="162.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="163.CustomClassName">PKGTableView</string>
@@ -1236,11 +1243,13 @@
 				<array key="164.prototypeCellViews">
 					<reference ref="253996469"/>
 				</array>
+				<string key="167.CustomClassName">PKGLabel</string>
 				<string key="167.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="168.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="169.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="180.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="184.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="187.CustomClassName">PKGLabel</string>
 				<string key="187.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="190.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="191.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1421,7 +1430,7 @@
 					<string key="superclassName">NSTableCellView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../../app_packages/app_packages/PKGTableCellView.h</string>
+						<string key="minorKey">../../../../../shared/PKGTableCellView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

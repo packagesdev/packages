@@ -510,8 +510,21 @@
 							<string key="NSContents">of the following files</string>
 							<reference key="NSSupport" ref="976398575"/>
 							<reference key="NSControlView" ref="670712427"/>
-							<reference key="NSBackgroundColor" ref="479949166"/>
-							<reference key="NSTextColor" ref="771466031"/>
+							<object class="NSColor" key="NSBackgroundColor" id="103553224">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">textBackgroundColor</string>
+								<object class="NSColor" key="NSColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MQA</bytes>
+								</object>
+							</object>
+							<object class="NSColor" key="NSTextColor" id="605609562">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">textColor</string>
+								<reference key="NSColor" ref="1023469146"/>
+							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -530,8 +543,8 @@
 							<string key="NSContents">on</string>
 							<reference key="NSSupport" ref="976398575"/>
 							<reference key="NSControlView" ref="640156417"/>
-							<reference key="NSBackgroundColor" ref="479949166"/>
-							<reference key="NSTextColor" ref="771466031"/>
+							<reference key="NSBackgroundColor" ref="103553224"/>
+							<reference key="NSTextColor" ref="605609562"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -1004,7 +1017,9 @@
 				<string key="117.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="118.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="120.CustomClassName">PKGLabel</string>
 				<string key="120.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="121.CustomClassName">PKGLabel</string>
 				<string key="121.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="122.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="152.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1044,7 +1059,7 @@
 					<string key="superclassName">PKGViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../PKGRequirementViewController.h</string>
+						<string key="minorKey">../../../PKGRequirementViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1052,7 +1067,7 @@
 					<string key="superclassName">PKGRequirementViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.h</string>
+						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1132,7 +1147,7 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.m</string>
+						<string key="minorKey">../PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.m</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1140,7 +1155,7 @@
 					<string key="superclassName">NSTableCellView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../app_packages/app_packages/PKGTableCellView.h</string>
+						<string key="minorKey">../../../../../shared/PKGTableCellView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1148,7 +1163,7 @@
 					<string key="superclassName">NSTableView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../shared/PKGTableView.h</string>
+						<string key="minorKey">../../../../../shared/PKGTableView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1156,7 +1171,7 @@
 					<string key="superclassName">NSViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../../../shared/PKGViewController.h</string>
+						<string key="minorKey">../../../../../shared/PKGViewController.h</string>
 					</object>
 				</object>
 			</array>
