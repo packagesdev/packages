@@ -84,7 +84,7 @@
             <connections>
                 <outlet property="viewController" destination="-2" id="y7M-AI-ybc"/>
             </connections>
-            <point key="canvasLocation" x="448" y="160.5"/>
+            <point key="canvasLocation" x="658" y="364.5"/>
         </customView>
     </objects>
 </document>

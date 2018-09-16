@@ -68,7 +68,7 @@ DQ
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView id="1DG-l7-ZOt">
-                                    <rect key="frame" x="71" y="-1" width="374" height="173"/>
+                                    <rect key="frame" x="49" y="-1" width="418" height="173"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 </customView>
                             </subviews>
