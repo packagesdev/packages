@@ -285,6 +285,13 @@
 				{
 					// Check for special files
 					
+					if ([tLastPathComponent isEqualToString:@"Bom"]==YES)
+					{
+						// A COMPLETER
+						
+						return YES;
+					}
+					else
 					if ([tLastPathComponent isEqualToString:@"PackageInfo"]==YES)
 					{
 						// A COMPLETER
@@ -293,6 +300,8 @@
 					{
 						// A COMPLETER
 					}
+					
+					
 					
 					// A COMPLETER
 				}

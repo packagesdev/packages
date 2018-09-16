@@ -26,8 +26,6 @@
 	{
 		NSButton * tButton=(NSButton *)tView;
 		
-		//[tButton.cell setBackgroundStyle:NSBackgroundStyleDark];
-		
 		static NSImage * sCloseImage=nil;
 		static NSImage * sDiscloseImage=nil;
 		static dispatch_once_t onceToken;
