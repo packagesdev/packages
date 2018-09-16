@@ -904,6 +904,8 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	{
 		BOOL tIsDrawnEditable=([self isEnabled]==YES) ? [self isEditable] : NO;
 		
+		// A CORRIGER (Mojave Dark Appearance support)
+		
 		_NSDrawCarbonThemeBezel(tTextAreaFrame,tIsDrawnEditable,[inView isFlipped]);
 	}
 	else
@@ -932,7 +934,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 			
 			tElementFrame=NSOffsetRect(tElementFrame,tOffset,(-1.0+(1.0+WBVersionPickerCell_Padding_Bottom)));
 			
-			[[NSColor selectedTextBackgroundColor] setFill];
+			[[NSColor alternateSelectedControlColor] setFill];
 
 #define WBVersionPickerCellSelectedElementRadius	3.0
 			
