@@ -113,8 +113,6 @@
 	
 	_cachedHierarchyPlaceHolderViewInitialHeight=NSHeight(_hierarchyPlaceHolderView.frame);
 	
-	// A COMPLETER
-	
 	// Requirements
 	
 	_requirementsViewController.view.frame=_requirementsPlaceHolderView.bounds;

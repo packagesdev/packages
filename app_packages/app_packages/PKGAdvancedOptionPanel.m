@@ -61,13 +61,6 @@
 	return @"PKGAdvancedOptionPanel";
 }
 
-- (void)windowDidLoad
-{
-	[super windowDidLoad];
-	
-	// A COMPLETER
-}
-
 #pragma mark -
 
 - (void)setPrompt:(NSString *)inPrompt

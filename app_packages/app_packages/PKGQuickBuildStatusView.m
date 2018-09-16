@@ -213,8 +213,6 @@
 			
 			[tBezierPath fill];
 			
-			// A COMPLETER
-			
 			break;
 		}
 			

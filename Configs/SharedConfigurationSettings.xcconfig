@@ -2,7 +2,7 @@
 
 #include "CodeSigningConfigurationSettings.xcconfig"
 
-// Intel 32-bit and 64-bit
+// Intel 64-bit
 
 ARCHS = $(ARCHS_STANDARD_64_BIT)
 

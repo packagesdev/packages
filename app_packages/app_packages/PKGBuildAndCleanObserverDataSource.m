@@ -664,6 +664,12 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;*/
 					
+				case PKGBuildErrorCanNotExtractInfoFromImportedPackage:
+					
+					// A COMPLETER
+					
+					break;
+					
 				case PKGBuildErrorEmptyString:
 					
 					tTitle=nil;

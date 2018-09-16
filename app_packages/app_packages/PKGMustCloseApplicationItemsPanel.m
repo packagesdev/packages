@@ -104,7 +104,6 @@
 	
 	[self.tableView reloadData];
 	
-	_addButton.enabled=YES;		// A VIRER
 	_removeButton.enabled=NO;
 }
 

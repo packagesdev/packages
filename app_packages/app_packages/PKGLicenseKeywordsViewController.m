@@ -36,13 +36,6 @@
 
 @implementation PKGLicenseKeywordsViewController
 
-- (void)WB_viewDidLoad
-{
-	// A COMPLETER
-}
-
-#pragma mark -
-
 - (void)setLicenseStepSettings:(PKGPresentationLicenseStepSettings *)inLicenseStepSettings
 {
 	_licenseStepSettings=inLicenseStepSettings;
