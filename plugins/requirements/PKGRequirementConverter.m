@@ -74,6 +74,23 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
+- (PKGRequirementDomain)requirementDomain
+{
+	return (PKGRequirementDomainDistribution|PKGRequirementDomainChoice);
+}
+
+- (PKGRequirementOutputFormat)requirementOutputFormat
+{
+	return PKGRequirementOutputFormatJavaScript;
+}
+
+- (WBVersion *)minimumOSVersionRequired
+{
+	return nil;
+}
+
+#pragma mark -
+
 - (NSDictionary *)requiredOptionsValuesWithParameters:(NSDictionary *) inParameters
 {
 	return nil;
@@ -103,7 +120,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSArray * tNames=tDictionary[@"Names"];
 	
-	if ([tNames isKindOfClass:NSArray.class]==NO || [tNames count]==0)
+	if ([tNames isKindOfClass:NSArray.class]==NO || tNames.count==0)
 		return nil;
 	
 	return [NSSet setWithArray:tNames];
@@ -111,7 +128,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)constantsForNames:(NSSet *)inNames
 {
-	if ([inNames count]==0)
+	if (inNames.count==0)
 		return nil;
 	
 	NSString * tPath=[_bundle pathForResource:@"Constants" ofType:@"plist"];
