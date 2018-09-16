@@ -501,7 +501,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 	
 #endif
 	
-	NSDictionary * tAppearanceSettingsDictionary=[self.appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^NSMutableDictionary *(NSString * bApperanceNameKey, PKGPresentationBackgroundAppearanceSettings * bAppearanceSettings) {
+	NSDictionary * tAppearanceSettingsDictionary=[self.appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^NSMutableDictionary *(NSString * bAppearanceNameKey, PKGPresentationBackgroundAppearanceSettings * bAppearanceSettings) {
 		return [bAppearanceSettings representation];
 	}];
 	
