@@ -201,7 +201,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 			case PKGFileItemTypeFolderTemplate:
 			case PKGFileItemTypeNewFolder:
 				
-				_contentsDisclosed=NO;	// A VERIFIER
+				_contentsDisclosed=NO;
 				break;
 				
 			case PKGFileItemTypeFileSystemItem:
