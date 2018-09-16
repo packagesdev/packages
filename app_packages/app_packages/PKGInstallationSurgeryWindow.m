@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2007-2017, Stephane Sudre
+ Copyright (c) 2007-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,13 +13,46 @@
 
 #import "PKGInstallationSurgeryWindow.h"
 
+@interface PKGSurgeryView : NSView
+{
+	NSPoint _fieldOrigin;
+	CGFloat _fieldRightMargin;
+	CGFloat _fieldTopMargin;
+}
+
+- (void)setSurgeryFieldFrame:(NSRect)inFrame;
+
+@end
+
 @implementation PKGSurgeryView
+
+- (void)setSurgeryFieldFrame:(NSRect)inFrame
+{
+	_fieldOrigin=inFrame.origin;
+	
+	_fieldRightMargin=NSWidth(self.bounds)-NSMaxX(inFrame);
+	_fieldTopMargin=NSHeight(self.bounds)-NSMaxY(inFrame);
+}
 
 - (void)drawRect:(NSRect)inRect
 {
+	[[NSColor colorWithDeviceWhite:0.0 alpha:0.5] set];
+	
+	NSRectFillUsingOperation(inRect,NSCompositeSourceOver);
+	
 	[[NSColor clearColor] set];
 	
-	NSRectFillUsingOperation(inRect,NSCompositeClear);
+	NSRect tBounds=self.bounds;
+	
+	CGFloat tWidth=NSWidth(tBounds)-_fieldOrigin.x-_fieldRightMargin;
+	CGFloat tHeight=NSHeight(tBounds)-_fieldOrigin.y-_fieldTopMargin;
+	
+	NSRect tRect={
+		.origin=_fieldOrigin,
+		.size=NSMakeSize(tWidth, tHeight)
+	};
+	
+	NSRectFillUsingOperation(tRect,NSCompositeClear);
 }
 
 @end
@@ -56,9 +89,7 @@
 	
 	if (self!=nil)
 	{
-		//[self setIgnoresMouseEvents:YES];
-		
-		[super setBackgroundColor:[NSColor colorWithDeviceWhite:0.0 alpha:0.5]];
+		[super setBackgroundColor:[NSColor clearColor]];
 		
 		[super setOpaque:NO];
 		
@@ -70,6 +101,9 @@
 		_surgeryView.autoresizingMask=NSViewWidthSizable|NSViewHeightSizable;
 		
 		NSView * tContentView=[super contentView];
+		
+		_surgeryView.frame=tContentView.bounds;
+		
 		[tContentView addSubview:_surgeryView];
 	}
 	
@@ -80,7 +114,7 @@
 
 - (void)setSurgeryViewFrame:(NSRect)inFrame
 {
-	_surgeryView.frame=inFrame;
+	_surgeryView.surgeryFieldFrame=inFrame;
 	
 	[_surgeryView setNeedsDisplay:YES];
 }

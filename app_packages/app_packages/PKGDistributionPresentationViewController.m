@@ -15,8 +15,6 @@
 
 #import "PKGInstallationSurgeryWindow.h"
 
-#import "PKGPresentationWindowView.h"
-
 #import <HumanInterface/HumanInterface.h>
 
 #import "PKGPresentationListView.h"
@@ -241,7 +239,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	_languagePreviewPopUpButton.menu=tLanguagesMenu;
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowViewEffectiveAppearanceDidChange:) name:PKGPresentationWindowViewEffectiveAppearanceDidChangeNotification object:_windowView];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowViewEffectiveAppearanceDidChange:) name:HIWWindowViewEffectiveAppearanceDidChangeNotification object:_windowView];
 }
 
 #pragma mark -

@@ -246,7 +246,9 @@
 		F45C1F701E807384009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F45C1F6F1E807384009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsItem.m */; };
 		F45C1F731E80768E009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F45C1F721E80768E009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsDataSource.m */; };
 		F45C1F761E807843009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsTree.m in Sources */ = {isa = PBXBuildFile; fileRef = F45C1F751E807843009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsTree.m */; };
+		F45C40F621244F260076944B /* HumanInterface.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = F45C40E821244E4F0076944B /* HumanInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F45CB7281DECF1CF0085D05E /* PKGPackagePayloadDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F45CB7271DECF1CF0085D05E /* PKGPackagePayloadDataSource.m */; };
+		F45D7E0F2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F45D7E0E2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m */; };
 		F45E7E541F100F6E005641CD /* InstallerSimulator.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F45E7E511F100F5D005641CD /* InstallerSimulator.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F45E7E571F101F54005641CD /* PKGAboutBoxWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F45E7E591F101F54005641CD /* PKGAboutBoxWindowController.xib */; };
 		F45E7E5B1F1022C9005641CD /* PKGPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F45E7E5D1F1022C9005641CD /* PKGPreferencesWindowController.xib */; };
@@ -342,7 +344,6 @@
 		F48ACCFA1E7A04DB00749142 /* PKGDistributionVolumeRequirementBehaviorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48ACCF91E7A04DB00749142 /* PKGDistributionVolumeRequirementBehaviorViewController.m */; };
 		F48ACCFD1E7A05C100749142 /* PKGInstallationRequirementMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F48ACCFC1E7A05C100749142 /* PKGInstallationRequirementMessageTableView.m */; };
 		F48AF7851F745C7E00610536 /* PKGPresentationChoiceRequirementBehaviorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48AF7871F745C7E00610536 /* PKGPresentationChoiceRequirementBehaviorViewController.xib */; };
-		F48C120C1E395CBA002EEC66 /* PKGPresentationWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = F48C120A1E395CBA002EEC66 /* PKGPresentationWindowView.m */; };
 		F48C61961DD64EAD0051E032 /* PKGAssistantStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48C61951DD64EAD0051E032 /* PKGAssistantStepViewController.m */; };
 		F48EC1521F0EE95F002BB1D6 /* Preferences.strings in Resources */ = {isa = PBXBuildFile; fileRef = F48EC1501F0EE95F002BB1D6 /* Preferences.strings */; };
 		F48FCF601EA81B4E00269BE5 /* PKGInstallationHierarchy+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = F48FCF5F1EA81B4E00269BE5 /* PKGInstallationHierarchy+UI.m */; };
@@ -597,6 +598,7 @@
 		F4D6A5BE1E9E2B060061F342 /* PKGPresentationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42961941E4400DB00B47D9F /* PKGPresentationTextView.m */; };
 		F4D8CBCB1E75733400C90896 /* PKGDistributionInstallationRequirementBehaviorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D8CBCA1E75733400C90896 /* PKGDistributionInstallationRequirementBehaviorViewController.m */; };
 		F4D8CBD61E75734F00C90896 /* PKGDistributionInstallationRequirementBehaviorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D8CBD41E75734F00C90896 /* PKGDistributionInstallationRequirementBehaviorViewController.xib */; };
+		F4D8CC7B2126C2FC006AE46D /* HumanInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45C40E821244E4F0076944B /* HumanInterface.framework */; };
 		F4D9BB2B1EA0225800C11825 /* PKGPresentationSectionInstallerPluginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9BB291EA0225800C11825 /* PKGPresentationSectionInstallerPluginViewController.m */; };
 		F4D9BB2C1EA0225800C11825 /* PKGPresentationSectionInstallerPluginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D9BB2A1EA0225800C11825 /* PKGPresentationSectionInstallerPluginViewController.xib */; };
 		F4D9BB371EA02A1800C11825 /* PKGPresentationSectionTextDocumentViewDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D9BB361EA02A1800C11825 /* PKGPresentationSectionTextDocumentViewDropView.m */; };
@@ -740,6 +742,13 @@
 			remoteGlobalIDString = B41FC0F309F6BE2F00006FAE;
 			remoteInfo = xarStatic;
 		};
+		F45C40E721244E4F0076944B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F45C40DE21244E4E0076944B /* HumanInterface.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F49740BD21204F5E00BC1AD3;
+			remoteInfo = HumanInterface;
+		};
 		F45E7E501F100F5D005641CD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F45E7E4C1F100F5C005641CD /* InstallerSimulator.xcodeproj */;
@@ -782,9 +791,27 @@
 			remoteGlobalIDString = EEEFF3E00EFB6FD500DBC955;
 			remoteInfo = xarsig;
 		};
+		F4D8CC762126C07B006AE46D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F45C40DE21244E4E0076944B /* HumanInterface.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F49740BC21204F5E00BC1AD3;
+			remoteInfo = HumanInterface;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		F45C40F521244F150076944B /* Copy Embedded Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F45C40F621244F260076944B /* HumanInterface.framework in Copy Embedded Frameworks */,
+			);
+			name = "Copy Embedded Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4D135C11E9EE6F70017DCB9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1232,8 +1259,11 @@
 		F45C1F721E80768E009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionProjectSettingsAdvancedOptionsDataSource.m; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionsDataSource.m; sourceTree = "<group>"; };
 		F45C1F741E807843009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionProjectSettingsAdvancedOptionsTree.h; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionsTree.h; sourceTree = "<group>"; };
 		F45C1F751E807843009FCD63 /* PKGDistributionProjectSettingsAdvancedOptionsTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionProjectSettingsAdvancedOptionsTree.m; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionsTree.m; sourceTree = "<group>"; };
+		F45C40DE21244E4E0076944B /* HumanInterface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HumanInterface.xcodeproj; path = ../HumanInterface/HumanInterface.xcodeproj; sourceTree = "<group>"; };
 		F45CB7261DECF1CF0085D05E /* PKGPackagePayloadDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPackagePayloadDataSource.h; path = app_packages/PKGPackagePayloadDataSource.h; sourceTree = "<group>"; };
 		F45CB7271DECF1CF0085D05E /* PKGPackagePayloadDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPackagePayloadDataSource.m; path = app_packages/PKGPackagePayloadDataSource.m; sourceTree = "<group>"; };
+		F45D7E0D2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationSettingsPopUpButtonCell.h; path = app_packages/PKGPresentationSettingsPopUpButtonCell.h; sourceTree = "<group>"; };
+		F45D7E0E2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationSettingsPopUpButtonCell.m; path = app_packages/PKGPresentationSettingsPopUpButtonCell.m; sourceTree = "<group>"; };
 		F45E7E4C1F100F5C005641CD /* InstallerSimulator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InstallerSimulator.xcodeproj; path = InstallerSimulator/InstallerSimulator.xcodeproj; sourceTree = "<group>"; };
 		F45E7E581F101F54005641CD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PKGAboutBoxWindowController.xib; sourceTree = "<group>"; };
 		F45E7E5A1F101F61005641CD /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PKGAboutBoxWindowController.xib; sourceTree = "<group>"; };
@@ -1393,8 +1423,6 @@
 		F48ACCFC1E7A05C100749142 /* PKGInstallationRequirementMessageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGInstallationRequirementMessageTableView.m; path = app_packages/PKGInstallationRequirementMessageTableView.m; sourceTree = "<group>"; };
 		F48AF7861F745C7E00610536 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PKGPresentationChoiceRequirementBehaviorViewController.xib; sourceTree = "<group>"; };
 		F48AF7881F745C8100610536 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PKGPresentationChoiceRequirementBehaviorViewController.xib; sourceTree = "<group>"; };
-		F48C120A1E395CBA002EEC66 /* PKGPresentationWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationWindowView.m; path = app_packages/PKGPresentationWindowView.m; sourceTree = "<group>"; };
-		F48C120B1E395CBA002EEC66 /* PKGPresentationWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationWindowView.h; path = app_packages/PKGPresentationWindowView.h; sourceTree = "<group>"; };
 		F48C61941DD64EAD0051E032 /* PKGAssistantStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGAssistantStepViewController.h; path = app_packages/PKGAssistantStepViewController.h; sourceTree = "<group>"; };
 		F48C61951DD64EAD0051E032 /* PKGAssistantStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGAssistantStepViewController.m; path = app_packages/PKGAssistantStepViewController.m; sourceTree = "<group>"; };
 		F48EC1511F0EE95F002BB1D6 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = app_packages/en.lproj/Preferences.strings; sourceTree = "<group>"; };
@@ -2072,6 +2100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D8CC7B2126C2FC006AE46D /* HumanInterface.framework in Frameworks */,
 				F44308331E63002200AB0087 /* libxar.a in Frameworks */,
 				F485A06E1E3011D00078F79A /* OpenDirectory.framework in Frameworks */,
 				F472167A1C7D1B8E006673ED /* QuartzCore.framework in Frameworks */,
@@ -2111,6 +2140,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* Ivanhoe */ = {
 			isa = PBXGroup;
 			children = (
+				F45C40DE21244E4E0076944B /* HumanInterface.xcodeproj */,
 				F45E7E4C1F100F5C005641CD /* InstallerSimulator.xcodeproj */,
 				F48F50371CFE423B00F34392 /* xar.xcodeproj */,
 				F4A8A4A81C7E6BE800DC77C2 /* SharedConfigurationSettings.xcconfig */,
@@ -2977,6 +3007,14 @@
 			name = formatters;
 			sourceTree = "<group>";
 		};
+		F45C40DF21244E4E0076944B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F45C40E821244E4F0076944B /* HumanInterface.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F45E7E4D1F100F5C005641CD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -3309,8 +3347,6 @@
 				F4A205B51EFDBE8100348077 /* PKGInstallationSurgeryWindow.m */,
 				F4BE51501F33BA2200073294 /* PKGPresentationFileNamePopUpButtonCell.h */,
 				F4BE51511F33BA2200073294 /* PKGPresentationFileNamePopUpButtonCell.m */,
-				F48C120B1E395CBA002EEC66 /* PKGPresentationWindowView.h */,
-				F48C120A1E395CBA002EEC66 /* PKGPresentationWindowView.m */,
 				F4B9E7F721054D6A00A84714 /* PKGPresentationWindowContentView.h */,
 				F4B9E7F821054D6A00A84714 /* PKGPresentationWindowContentView.m */,
 				F4C766651E3A81140045A85F /* PKGPresentationListView.h */,
@@ -3324,6 +3360,8 @@
 				F49068A41E42975B003C5D38 /* PKGPresentationBox.h */,
 				F49068A31E42975B003C5D38 /* PKGPresentationBox.m */,
 				F42961971E4400DB00B47D9F /* PKGPresentationImageView.h */,
+				F45D7E0D2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.h */,
+				F45D7E0E2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m */,
 				F42961961E4400DB00B47D9F /* PKGPresentationImageView.m */,
 				F42961951E4400DB00B47D9F /* PKGPresentationTextView.h */,
 				F42961941E4400DB00B47D9F /* PKGPresentationTextView.m */,
@@ -4336,10 +4374,12 @@
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				F4D135C11E9EE6F70017DCB9 /* CopyFiles */,
+				F45C40F521244F150076944B /* Copy Embedded Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F4D8CC772126C07B006AE46D /* PBXTargetDependency */,
 				F45E7E531F100F65005641CD /* PBXTargetDependency */,
 				F44308321E63001B00AB0087 /* PBXTargetDependency */,
 			);
@@ -4369,6 +4409,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = F45C40DF21244E4E0076944B /* Products */;
+					ProjectRef = F45C40DE21244E4E0076944B /* HumanInterface.xcodeproj */;
+				},
+				{
 					ProductGroup = F45E7E4D1F100F5C005641CD /* Products */;
 					ProjectRef = F45E7E4C1F100F5C005641CD /* InstallerSimulator.xcodeproj */;
 				},
@@ -4385,6 +4429,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		F45C40E821244E4F0076944B /* HumanInterface.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HumanInterface.framework;
+			remoteRef = F45C40E721244E4F0076944B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F45E7E511F100F5D005641CD /* InstallerSimulator.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -5075,6 +5126,7 @@
 				F482A7861EC1248500975B20 /* PKGPresentationTitleInspectorViewController.m in Sources */,
 				F424D3641DCE3E4900F95165 /* PKGProjectSettings.m in Sources */,
 				F47FBF501E225B7F00C7CAE0 /* PKGScriptViewController.m in Sources */,
+				F45D7E0F2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m in Sources */,
 				F42448CA1E17E25B00E5A618 /* _PKGFileItemAuxiliary.m in Sources */,
 				F4DFC63C201DE6FF007B0D2F /* PKGPackageProject+Update.m in Sources */,
 				F4DFC642201DE86B007B0D2F /* PKGPackagePayload+Update.m in Sources */,
@@ -5104,7 +5156,6 @@
 				F40F55CB1F0303530037C8F5 /* PKGFilePathConverter+Edition.m in Sources */,
 				F44249FF2027ACD0005A7DBB /* PKGChooseIdentityPanel.m in Sources */,
 				F424D3531DCE3E4900F95165 /* PKGPackageScriptsAndResources.m in Sources */,
-				F48C120C1E395CBA002EEC66 /* PKGPresentationWindowView.m in Sources */,
 				F4CD44321EF9D1D90087D75B /* PKGPayloadBundleItem+Transformation.m in Sources */,
 				F4BDA9311EFC85A100E443D7 /* PKGFilePathConverter.m in Sources */,
 				F424D34A1DCE3E4900F95165 /* PKGFileFilter.m in Sources */,
@@ -5161,6 +5212,11 @@
 			isa = PBXTargetDependency;
 			name = InstallerSimulator;
 			targetProxy = F45E7E521F100F65005641CD /* PBXContainerItemProxy */;
+		};
+		F4D8CC772126C07B006AE46D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HumanInterface;
+			targetProxy = F4D8CC762126C07B006AE46D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -6100,7 +6156,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 437;
+				CURRENT_PROJECT_VERSION = 474;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6126,7 +6182,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 437;
+				CURRENT_PROJECT_VERSION = 474;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
