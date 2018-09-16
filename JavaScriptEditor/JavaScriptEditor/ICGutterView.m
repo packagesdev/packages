@@ -30,22 +30,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "ICGutterView.h"
 
-@interface ICGutterView ()
-{
-	NSDictionary * _attributes;
-}
-
-@end
+#import "NSView+Appearance.h"
 
 @implementation ICGutterView
-
-- (void)awakeFromNib
-{
-	_attributes=@{NSFontAttributeName:[NSFont systemFontOfSize:9.0],
-				  NSForegroundColorAttributeName:[NSColor darkGrayColor]};
-}
-
-#pragma mark -
 
 - (BOOL)isOpaque
 {
@@ -72,7 +59,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Draw Background
 	
-	[[NSColor colorWithCalibratedWhite:0.933 alpha:1.0] set];
+	BOOL tIsDarkMode=[self WB_isEffectiveAppareanceDarkAqua];
+	
+	if (tIsDarkMode==NO)
+		[[NSColor colorWithCalibratedWhite:0.933 alpha:1.0] set];
+	else
+		[[NSColor textBackgroundColor] set];
 	
 	NSRectFill(inRect);
 	
@@ -80,14 +72,20 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (NSMaxX(inRect)==NSMaxX(tBounds))
 	{
-		[[NSColor colorWithCalibratedWhite:0.5765 alpha:1.0] set];
+		if (tIsDarkMode==NO)
+			[[NSColor colorWithCalibratedWhite:0.5765 alpha:1.0] set];
+		else
+			[[NSColor textBackgroundColor] set];
 		
 		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMinY(inRect)) toPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(inRect))];
 	}
 	
 	if (NSMinY(inRect)==NSMinY(tBounds))
 	{
-		[[NSColor colorWithCalibratedWhite:0.5765 alpha:1.0] set];
+		if (tIsDarkMode==NO)
+			[[NSColor colorWithCalibratedWhite:0.5765 alpha:1.0] set];
+		else
+			[[NSColor colorWithDeviceWhite:0.1 alpha:1.0] set];
 		
 		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMaxY(inRect)-0.5) toPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(inRect)-0.5)];
 	}
@@ -114,9 +112,19 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			NSString * tString = [NSString stringWithFormat:@"%lu",(unsigned long)tIndex+1];
 			
-			tRect.origin.x=tWidth-NSWidth([tString boundingRectWithSize:tMaxSize options:0 attributes:_attributes])-2.0;
+			NSDictionary * tAttributes;
 			
-			[tString drawAtPoint:tRect.origin withAttributes:_attributes];
+			if (tIsDarkMode==NO)
+				tAttributes=@{NSFontAttributeName:[NSFont systemFontOfSize:9.0],
+							  NSForegroundColorAttributeName:[NSColor darkGrayColor]};
+			else
+				tAttributes=@{NSFontAttributeName:[NSFont systemFontOfSize:9.0],
+							  NSForegroundColorAttributeName:[NSColor colorWithCalibratedWhite:0.38 alpha:1.0]};
+			
+			
+			tRect.origin.x=tWidth-NSWidth([tString boundingRectWithSize:tMaxSize options:0 attributes:tAttributes])-2.0;
+			
+			[tString drawAtPoint:tRect.origin withAttributes:tAttributes];
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2017, Stephane Sudre
+Copyright (c) 2009-2018, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,22 +13,33 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "ICSourceTextTopView.h"
 
+#import "NSView+Appearance.h"
+
 @implementation ICSourceTextTopView
 
-- (BOOL) isOpaque
+- (BOOL)isOpaque
 {
 	return YES;
 }
 
 - (void)drawRect:(NSRect)inRect
 {
-	[[NSColor whiteColor] set];
+	BOOL tIsDarkAqua=[self WB_isEffectiveAppareanceDarkAqua];
 	
-	NSRectFill(self.bounds);
+	if (tIsDarkAqua==NO)
+		[[NSColor whiteColor] set];
+	else
+		[[NSColor colorWithDeviceWhite:0.09 alpha:1.0] set];
 	
-	[[NSColor colorWithDeviceWhite:184.0/255.0 alpha:1.0] set];
+	NSRectFill(inRect);
 	
-	NSFrameRect(self.bounds);
+	NSRect tBounds=self.bounds;
+	
+	[[NSColor containerBorderColor] set];
+	
+	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMinY(tBounds)+0.5) toPoint:NSMakePoint(NSMaxX(tBounds), NSMinY(tBounds)+0.5)];
+	
+	//NSFrameRect(self.bounds);
 }
 
 @end

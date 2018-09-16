@@ -19,6 +19,7 @@
 		F44BF03D1C8B933C009321AF /* NSString+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF03C1C8B933C009321AF /* NSString+Ranges.m */; };
 		F44BF0421C8B97C3009321AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF0411C8B97C3009321AF /* main.m */; };
 		F44BF0451C8B9FBC009321AF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44BF0431C8B9FBC009321AF /* MainMenu.xib */; };
+		F47DDA4C211CDA81001AA9A3 /* NSView+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = F47DDA4A211CDA81001AA9A3 /* NSView+Appearance.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,8 @@
 		F44BF03C1C8B933C009321AF /* NSString+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Ranges.m"; path = "JavaScriptEditor/NSString+Ranges.m"; sourceTree = "<group>"; };
 		F44BF0411C8B97C3009321AF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JavaScriptEditor/main.m; sourceTree = "<group>"; };
 		F44BF0441C8B9FBC009321AF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = JavaScriptEditor/en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F47DDA4A211CDA81001AA9A3 /* NSView+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+Appearance.m"; path = "../AppKit + Extensions/NSView+Appearance.m"; sourceTree = "<group>"; };
+		F47DDA4B211CDA81001AA9A3 /* NSView+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+Appearance.h"; path = "../AppKit + Extensions/NSView+Appearance.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F47DDA4A211CDA81001AA9A3 /* NSView+Appearance.m */,
+				F47DDA4B211CDA81001AA9A3 /* NSView+Appearance.h */,
 				F44BF03B1C8B933C009321AF /* NSString+Ranges.h */,
 				F44BF03C1C8B933C009321AF /* NSString+Ranges.m */,
 				F44BF0381C8B9336009321AF /* NSRangeUtilities.h */,
@@ -209,6 +214,7 @@
 				F44BF0371C8B932E009321AF /* ICSourceTextTopView.m in Sources */,
 				F44BF0281C8B9308009321AF /* ICSourceTextViewDelegate.m in Sources */,
 				F44BF0311C8B9320009321AF /* ICGutterView.m in Sources */,
+				F47DDA4C211CDA81001AA9A3 /* NSView+Appearance.m in Sources */,
 				F44BF0421C8B97C3009321AF /* main.m in Sources */,
 				F44BF03D1C8B933C009321AF /* NSString+Ranges.m in Sources */,
 			);
