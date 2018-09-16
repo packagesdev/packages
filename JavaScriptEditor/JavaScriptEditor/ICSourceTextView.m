@@ -732,4 +732,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     [self renderGutter];
 }
 
+- (void)viewDidChangeEffectiveAppearance
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:NSTextDidChangeNotification object:self];
+}
+
 @end

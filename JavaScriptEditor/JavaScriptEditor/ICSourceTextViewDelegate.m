@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2018, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -20,6 +20,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "ICSourceTextView+Constants.h"
 
 #import "ICJavaScriptFunctionPopUpButton.h"
+
+#import "NSView+Appearance.h"
 
 NSString * ICJavaScriptFunctionsListDidChangeNotification=@"ICJavaScriptFunctionsListDidChangeNotification";
 
@@ -52,7 +54,8 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	NSMutableArray * _stringsRangesArray;
 	NSMutableArray * _searchableRangesArray;
 	
-	NSMutableDictionary * _syntaxAttributeDictionary;
+	NSMutableDictionary * _syntaxLightAttributesDictionary;
+	NSMutableDictionary * _syntaxDarkAttributesDictionary;
 	
 	
 	NSMutableArray * _functions;
@@ -175,15 +178,26 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		_stringsRangesArray=[NSMutableArray array];
 		
 		
-		_syntaxAttributeDictionary=[NSMutableDictionary dictionary];
+		_syntaxLightAttributesDictionary=[NSMutableDictionary dictionary];
 		
-		if (_syntaxAttributeDictionary!=nil)
+		if (_syntaxLightAttributesDictionary!=nil)
 		{
-			_syntaxAttributeDictionary[@"COMMENTS"]=[NSDictionary dictionaryWithObject:[NSColor colorWithCalibratedRed:0.0f/255.0f green:116.0f/255.0f blue:0.0f/255.0f alpha:1.0f] forKey:NSForegroundColorAttributeName];
-			_syntaxAttributeDictionary[@"STRINGS"]=[NSDictionary dictionaryWithObject:[NSColor colorWithCalibratedRed:196.0f/255.0f green:26.0f/255.0f blue:22.0f/255.0f alpha:1.0f] forKey:NSForegroundColorAttributeName];
-			_syntaxAttributeDictionary[@"KEYWORDS"]=[NSDictionary dictionaryWithObject:[NSColor colorWithCalibratedRed:170.0f/255.0f green:13.0f/255.0f blue:145.0f/255.0f alpha:1.0f] forKey:NSForegroundColorAttributeName];
-			_syntaxAttributeDictionary[@"DISTRIBUTION"]=[NSDictionary dictionaryWithObject:[NSColor colorWithCalibratedRed:46.0f/255.0f green:13.0f/255.0f blue:110.0f/255.0f alpha:1.0f] forKey:NSForegroundColorAttributeName];
-			_syntaxAttributeDictionary[@"NUMBERS"]=[NSDictionary dictionaryWithObject:[NSColor colorWithCalibratedRed:0.0f/255.0f green:0.0f/255.0f blue:255.0f/255.0f alpha:1.0f] forKey:NSForegroundColorAttributeName];
+			_syntaxLightAttributesDictionary[@"COMMENTS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:0.0f/255.0f green:116.0f/255.0f blue:0.0f/255.0f alpha:1.0f]};
+			_syntaxLightAttributesDictionary[@"STRINGS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:196.0f/255.0f green:26.0f/255.0f blue:22.0f/255.0f alpha:1.0f]};
+			_syntaxLightAttributesDictionary[@"KEYWORDS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:170.0f/255.0f green:13.0f/255.0f blue:145.0f/255.0f alpha:1.0f]};
+			_syntaxLightAttributesDictionary[@"DISTRIBUTION"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:46.0f/255.0f green:13.0f/255.0f blue:110.0f/255.0f alpha:1.0f]};
+			_syntaxLightAttributesDictionary[@"NUMBERS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:0.0f/255.0f green:0.0f/255.0f blue:255.0f/255.0f alpha:1.0f]};
+		}
+		
+		_syntaxDarkAttributesDictionary=[NSMutableDictionary dictionary];
+		
+		if (_syntaxDarkAttributesDictionary!=nil)
+		{
+			_syntaxDarkAttributesDictionary[@"COMMENTS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:108.0f/255.0f green:121.0f/255.0f blue:134.0f/255.0f alpha:1.0f]};
+			_syntaxDarkAttributesDictionary[@"STRINGS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:252.0f/255.0f green:106.0f/255.0f blue:93.0f/255.0f alpha:1.0f]};
+			_syntaxDarkAttributesDictionary[@"KEYWORDS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:252.0/255.0f green:95.0f/255.0f blue:163.0f/255.0f alpha:1.0f]};
+			_syntaxDarkAttributesDictionary[@"DISTRIBUTION"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:174.0f/255.0f green:243.0f/255.0f blue:125.0f/255.0f alpha:1.0f]};
+			_syntaxDarkAttributesDictionary[@"NUMBERS"]=@{NSForegroundColorAttributeName:[NSColor colorWithCalibratedRed:150.0f/255.0f green:134.0f/255.0f blue:245.0f/255.0f alpha:1.0f]};
 		}
 	}
 	
@@ -946,6 +960,8 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	
 	NSLayoutManager * tLayoutManager = [[tTextStorage layoutManagers] objectAtIndex: 0];
 	
+	NSDictionary * tSyntaxAttributesDictionary=([_textView WB_isEffectiveAppareanceDarkAqua]==NO) ? _syntaxLightAttributesDictionary : _syntaxDarkAttributesDictionary;
+	
 	// Remove all attributes
 	
 	[tLayoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0,tLength)];
@@ -954,14 +970,14 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	{
 		// Comments
 		
-		NSDictionary * tAttributeDictionary=_syntaxAttributeDictionary[@"COMMENTS"];
+		NSDictionary * tAttributeDictionary=tSyntaxAttributesDictionary[@"COMMENTS"];
 		
 		for(NSValue * tValue in _commentsRangesArray)
 			[tLayoutManager addTemporaryAttributes: tAttributeDictionary forCharacterRange:[tValue rangeValue]];
 	
 		// Strings
 		
-		tAttributeDictionary=_syntaxAttributeDictionary[@"STRINGS"];
+		tAttributeDictionary=tSyntaxAttributesDictionary[@"STRINGS"];
 		
 		for(NSValue * tValue in _stringsRangesArray)
 			[tLayoutManager addTemporaryAttributes: tAttributeDictionary forCharacterRange:[tValue rangeValue]];
@@ -980,21 +996,21 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 				
 			if (_keywords.count>0)
 			{
-				tAttributeDictionary=_syntaxAttributeDictionary[@"KEYWORDS"];
+				tAttributeDictionary=tSyntaxAttributesDictionary[@"KEYWORDS"];
 				
 				[self highlightKeywords:_keywords inRange:tRange withAttributes:tAttributeDictionary];
 			}
 			
 			if (_distributionKeywords.count>0)
 			{
-				tAttributeDictionary=_syntaxAttributeDictionary[@"DISTRIBUTION"];
+				tAttributeDictionary=tSyntaxAttributesDictionary[@"DISTRIBUTION"];
 				
 				[self highlightKeywords:_distributionKeywords inRange:tRange withAttributes:tAttributeDictionary];
 			}
 			
-			tAttributeDictionary=_syntaxAttributeDictionary[@"NUMBERS"];
+			tAttributeDictionary=tSyntaxAttributesDictionary[@"NUMBERS"];
 			
-			[self  highlightNumbersInRange:tRange withAttributes:tAttributeDictionary];
+			[self highlightNumbersInRange:tRange withAttributes:tAttributeDictionary];
 		}
 	}
 }
