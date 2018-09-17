@@ -13,6 +13,14 @@
 
 #import "HIWWindowView.h"
 
+#ifndef MAC_OS_X_VERSION_10_10
+#define MAC_OS_X_VERSION_10_10      101000
+#endif
+
+#ifndef NSFoundationVersionNumber10_10
+#define NSFoundationVersionNumber10_10 1151.16
+#endif
+
 #ifndef NSAppKitVersionNumber10_14
 #define NSAppKitVersionNumber10_14 1641
 #endif
@@ -202,17 +210,36 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 			sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
 			
 #else
-			SInt32 tMajorVersion,tMinorVersion,tBugFixVersion;
-			
-			Gestalt(gestaltSystemVersionMajor,&tMajorVersion);
-			Gestalt(gestaltSystemVersionMinor,&tMinorVersion);
-			Gestalt(gestaltSystemVersionBugFix,&tBugFixVersion);
-			
-			sSystemVersion.majorVersion=tMajorVersion;
-			sSystemVersion.minorVersion=tMinorVersion;
-			sSystemVersion.patchVersion=tBugFixVersion;
-			
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
+	
+			if (NSFoundationVersionNumber>=NSFoundationVersionNumber10_10)
+			{
+				NSOperatingSystemVersion tOperatingSystemVersion=[NSProcessInfo processInfo].operatingSystemVersion;
+				
+				sSystemVersion.majorVersion=tOperatingSystemVersion.majorVersion;
+				sSystemVersion.minorVersion=tOperatingSystemVersion.minorVersion;
+				sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
+			}
+			else
+			{
 #endif
+#endif
+				SInt32 tMajorVersion,tMinorVersion,tBugFixVersion;
+				
+				Gestalt(gestaltSystemVersionMajor,&tMajorVersion);
+				Gestalt(gestaltSystemVersionMinor,&tMinorVersion);
+				Gestalt(gestaltSystemVersionBugFix,&tBugFixVersion);
+				
+				sSystemVersion.majorVersion=tMajorVersion;
+				sSystemVersion.minorVersion=tMinorVersion;
+				sSystemVersion.patchVersion=tBugFixVersion;
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
+			}
+#endif
+				
+
 			
 		});
 		
