@@ -432,7 +432,12 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		tView.imageView.image=tSourceListItem.icon;
 		tView.textField.stringValue=tSourceListItem.label;
 		
-		NSColor * tTextColor=([self.dataSource.removedPackagesUUIDs containsObject:tComponentItem.packageComponent.UUID]==YES) ? [NSColor secondaryLabelColor] : [NSColor labelColor];
+		NSColor * tTextColor=nil;
+		
+		if (NSAppKitVersionNumber<NSAppKitVersionNumber10_10)
+			tTextColor=([self.dataSource.removedPackagesUUIDs containsObject:tComponentItem.packageComponent.UUID]==YES) ? [NSColor disabledControlTextColor] : [NSColor controlTextColor];
+		else
+			tTextColor=([self.dataSource.removedPackagesUUIDs containsObject:tComponentItem.packageComponent.UUID]==YES) ? [NSColor secondaryLabelColor] : [NSColor labelColor];
 		
 		if (tComponentItem.packageComponent.type==PKGPackageComponentTypeImported)
 		{
