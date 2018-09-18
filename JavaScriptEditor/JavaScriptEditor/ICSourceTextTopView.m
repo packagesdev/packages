@@ -22,6 +22,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return YES;
 }
 
+#pragma mark -
+
+- (void)setDrawsTop:(BOOL)inDrawsTop
+{
+	if (inDrawsTop!=_drawsTop)
+	{
+		_drawsTop=inDrawsTop;
+		
+		[self setNeedsDisplay:YES];
+	}
+}
+
 - (void)drawRect:(NSRect)inRect
 {
 	BOOL tIsDarkAqua=[self WB_isEffectiveAppareanceDarkAqua];
@@ -39,7 +51,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMinY(tBounds)+0.5) toPoint:NSMakePoint(NSMaxX(tBounds), NSMinY(tBounds)+0.5)];
 	
-	//NSFrameRect(self.bounds);
+	if (self.drawsTop==YES)
+	{
+		[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMaxY(tBounds)-0.5) toPoint:NSMakePoint(NSMaxX(tBounds), NSMaxY(tBounds)-0.5)];
+	}
 }
 
 @end

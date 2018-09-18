@@ -15,4 +15,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface ICSourceTextTopView : NSView
 
+	@property (nonatomic) BOOL drawsTop;
+
 @end
