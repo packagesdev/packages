@@ -84,7 +84,7 @@
 										<string key="NSFrameSize">{532, 299}</string>
 										<reference key="NSSuperview" ref="620539246"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="172342286"/>
+										<reference key="NSNextKeyView" ref="385658575"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="765827093">
 											<object class="NSLayoutManager" key="NSLayoutManager">
 												<object class="NSTextStorage" key="NSTextStorage">
@@ -215,7 +215,7 @@
 						<string key="NSFrame">{{37, 167}, {549, 301}}</string>
 						<reference key="NSSuperview" ref="883407822"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="385658575"/>
+						<reference key="NSNextKeyView" ref="620539246"/>
 						<int key="NSsFlags">133138</int>
 						<reference key="NSVScroller" ref="172342286"/>
 						<reference key="NSHScroller" ref="385658575"/>
@@ -347,7 +347,7 @@
 					<object class="NSCustomView" id="889687625">
 						<reference key="NSNextResponder" ref="883407822"/>
 						<int key="NSvFlags">276</int>
-						<string key="NSFrame">{{1, 167}, {37, 301}}</string>
+						<string key="NSFrame">{{0, 167}, {38, 301}}</string>
 						<reference key="NSSuperview" ref="883407822"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="792940235"/>
@@ -538,7 +538,7 @@
 										<string key="NSFrameSize">{445, 65}</string>
 										<reference key="NSSuperview" ref="141933588"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="253996469"/>
+										<reference key="NSNextKeyView" ref="713406012"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -642,7 +642,7 @@
 						<string key="NSFrame">{{104, 48}, {462, 67}}</string>
 						<reference key="NSSuperview" ref="883407822"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="713406012"/>
+						<reference key="NSNextKeyView" ref="141933588"/>
 						<int key="NSsFlags">149522</int>
 						<reference key="NSVScroller" ref="1038740470"/>
 						<reference key="NSHScroller" ref="713406012"/>
@@ -707,7 +707,6 @@
 						<string key="NSFrame">{{127, 19}, {24, 22}}</string>
 						<reference key="NSSuperview" ref="883407822"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="573567897">
 							<int key="NSCellFlags">603979776</int>
@@ -851,6 +850,14 @@
 						<reference key="destination" ref="1022132652"/>
 					</object>
 					<int key="connectionID">218</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_topView</string>
+						<reference key="source" ref="717031229"/>
+						<reference key="destination" ref="829997568"/>
+					</object>
+					<int key="connectionID">220</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1279,7 +1286,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">219</int>
+			<int key="maxID">220</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1397,6 +1404,7 @@
 						<string key="_removeButton">NSButton</string>
 						<string key="_textView">ICSourceTextView</string>
 						<string key="_textViewDelegate">ICSourceTextViewDelegate</string>
+						<string key="_topView">ICSourceTextTopView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="_addButton">
@@ -1422,6 +1430,10 @@
 						<object class="IBToOneOutletInfo" key="_textViewDelegate">
 							<string key="name">_textViewDelegate</string>
 							<string key="candidateClassName">ICSourceTextViewDelegate</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_topView">
+							<string key="name">_topView</string>
+							<string key="candidateClassName">ICSourceTextTopView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
