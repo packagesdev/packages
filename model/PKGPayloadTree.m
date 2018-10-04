@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -141,9 +141,14 @@
 	if (nPayloadtree!=nil)
 	{
 		if (_cachedRepresentation!=nil)
+		{
 			nPayloadtree->_cachedRepresentation=[_cachedRepresentation copyWithZone:inZone];
+			nPayloadtree.rootNode=nil;
+		}
 		else
+		{
 			nPayloadtree.rootNode=(PKGPayloadTreeNode *)[self.rootNode deepCopyWithZone:inZone];
+		}
 	}
 	
 	return nPayloadtree;

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -243,9 +243,9 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 			if (nChild==nil)
 				return nil;
 			
-			nChild.parent=self;
-			
 			[nTreeNode->_children addObject:nChild];
+			
+			nChild.parent=nTreeNode;
 		}
 	}
 	
@@ -762,9 +762,11 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	[inArray enumerateObjectsUsingBlock:^(PKGTreeNode * bObject, NSUInteger bIndex, BOOL *bOutStop) {
 		
-		if ([self->_children containsObject:bObject]==YES)
+		NSUInteger tFoundIndex=[self->_children indexOfObject:bObject];
+		
+		if (tFoundIndex!=NSNotFound)
 		{
-			[tIndexSet addIndex:bIndex];
+			[tIndexSet addIndex:tFoundIndex];
 			
 			[bObject setParent:nil];
 		}
