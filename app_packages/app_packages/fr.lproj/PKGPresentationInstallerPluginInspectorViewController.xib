@@ -140,10 +140,10 @@
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
 							</object>
-							<object class="NSColor" key="NSTextColor" id="727329901">
+							<object class="NSColor" key="NSTextColor" id="720748395">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">textColor</string>
+								<string key="NSColorName">controlTextColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
@@ -156,7 +156,7 @@
 					<object class="NSTextField" id="430264890">
 						<reference key="NSNextResponder" ref="632465284"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{98, 234}, {247, 189}}</string>
+						<string key="NSFrame">{{98, 233}, {247, 189}}</string>
 						<reference key="NSSuperview" ref="632465284"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -168,7 +168,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="430264890"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<reference key="NSTextColor" ref="727329901"/>
+							<reference key="NSTextColor" ref="720748395"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -219,7 +219,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="871891001"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<reference key="NSTextColor" ref="727329901"/>
+							<reference key="NSTextColor" ref="720748395"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -239,7 +239,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="82278083"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<reference key="NSTextColor" ref="727329901"/>
+							<reference key="NSTextColor" ref="720748395"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -259,7 +259,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="137011298"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<reference key="NSTextColor" ref="727329901"/>
+							<reference key="NSTextColor" ref="720748395"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -279,11 +279,13 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="707570065"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<object class="NSColor" key="NSTextColor" id="680040499">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MCAwLjUAA</bytes>
-								<object class="NSColorSpace" key="NSCustomColorSpace">
-									<int key="NSID">2</int>
+							<object class="NSColor" key="NSTextColor" id="403199482">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">disabledControlTextColor</string>
+								<object class="NSColor" key="NSColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
 								</object>
 							</object>
 						</object>
@@ -305,7 +307,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="442389289"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<reference key="NSTextColor" ref="680040499"/>
+							<reference key="NSTextColor" ref="403199482"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -329,7 +331,7 @@
 							</object>
 							<reference key="NSControlView" ref="417272398"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<reference key="NSTextColor" ref="727329901"/>
+							<reference key="NSTextColor" ref="720748395"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -349,7 +351,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="545848615"/>
 							<reference key="NSBackgroundColor" ref="827103626"/>
-							<reference key="NSTextColor" ref="727329901"/>
+							<reference key="NSTextColor" ref="720748395"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -587,7 +589,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="854551733"/>
 							<reference ref="573435090"/>
-							<reference ref="430264890"/>
 							<reference ref="848014519"/>
 							<reference ref="137011298"/>
 							<reference ref="707570065"/>
@@ -597,6 +598,7 @@
 							<reference ref="82278083"/>
 							<reference ref="871891001"/>
 							<reference ref="201809087"/>
+							<reference ref="430264890"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Installer Plugin View</string>
@@ -836,9 +838,7 @@
 				<string key="110.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="111.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="123.CustomClassName">PKGLabel</string>
 				<string key="123.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="124.CustomClassName">PKGLabel</string>
 				<string key="124.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="125.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="126.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -851,20 +851,13 @@
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="77.CustomClassName">PKGLabel</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="79.CustomClassName">PKGLabel</string>
 				<string key="79.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="84.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="86.CustomClassName">PKGLabel</string>
 				<string key="86.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="87.CustomClassName">PKGSecondaryLabel</string>
 				<string key="87.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="88.CustomClassName">PKGSecondaryLabel</string>
 				<string key="88.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="89.CustomClassName">PKGLabel</string>
 				<string key="89.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="90.CustomClassName">PKGLabel</string>
 				<string key="90.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="91.CustomClassName">PKGPopUpButtonSource</string>
 				<string key="91.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -894,14 +887,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGDocumentViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGLabel</string>
-					<string key="superclassName">NSTextField</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGLabel.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1014,14 +999,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGReferencePopupButtonCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGSecondaryLabel</string>
-					<string key="superclassName">NSTextField</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGSecondaryLabel.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

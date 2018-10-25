@@ -42,12 +42,12 @@
                         <action selector="delete:" target="-2" id="7fV-ep-eqx"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="Uhd-dm-pJM" customClass="PKGSecondaryLabel">
+                <textField verticalHuggingPriority="750" id="Uhd-dm-pJM">
                     <rect key="frame" x="151" y="25" width="256" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Click + to add a requirement for this choice" id="M1r-rZ-HHZ">
                         <font key="font" metaFont="miniSystem"/>
-                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

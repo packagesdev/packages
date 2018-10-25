@@ -45,21 +45,21 @@
                                 <action selector="editChoiceState:" target="-2" id="HJi-BG-7cP"/>
                             </connections>
                         </button>
-                        <textField verticalHuggingPriority="750" id="2I1-QG-0HX" customClass="PKGLabel">
+                        <textField verticalHuggingPriority="750" id="2I1-QG-0HX">
                             <rect key="frame" x="181" y="73" width="51" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="to users" id="OBC-Uv-dU9">
                                 <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="ty1-g3-qua" customClass="PKGLabel">
+                        <textField verticalHuggingPriority="750" id="ty1-g3-qua">
                             <rect key="frame" x="19" y="73" width="56" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Choice is " id="a1v-Pj-9pG">
                                 <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
@@ -80,30 +80,30 @@
                                 <action selector="switchPackageVisibility:" target="-2" id="Cyj-iI-CCa"/>
                             </connections>
                         </popUpButton>
-                        <textField verticalHuggingPriority="750" id="ucb-rw-dje" customClass="PKGLabel">
+                        <textField verticalHuggingPriority="750" id="ucb-rw-dje">
                             <rect key="frame" x="18" y="97" width="54" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Visibility" id="dfa-yQ-h87">
                                 <font key="font" metaFont="smallSystemBold"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="IIh-wm-GtS" customClass="PKGLabel">
+                        <textField verticalHuggingPriority="750" id="IIh-wm-GtS">
                             <rect key="frame" x="19" y="21" width="56" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Choice is " id="tRK-ix-RXi">
                                 <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="B4s-Xj-uhj" customClass="PKGLabel">
+                        <textField verticalHuggingPriority="750" id="B4s-Xj-uhj">
                             <rect key="frame" x="18" y="45" width="39" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="State" id="gal-Pq-3qe">
                                 <font key="font" metaFont="smallSystemBold"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>

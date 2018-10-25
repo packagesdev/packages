@@ -34,12 +34,12 @@
                         <action selector="removePath:" target="-2" id="R6E-CB-2aI"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="Jls-c8-yGS" customClass="PKGSecondaryLabel">
+                <textField verticalHuggingPriority="750" id="Jls-c8-yGS">
                     <rect key="frame" x="102" y="50" width="57" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Modifié :" id="VTf-Hd-ELu">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -50,22 +50,22 @@
                         <outlet property="menu" destination="6vK-8T-cho" id="8VA-5W-7aV"/>
                     </connections>
                 </customView>
-                <textField verticalHuggingPriority="750" id="8Yq-Ef-Rgu" userLabel="Modified date Label" customClass="PKGSecondaryLabel">
+                <textField verticalHuggingPriority="750" id="8Yq-Ef-Rgu" userLabel="Modified date Label">
                     <rect key="frame" x="158" y="50" width="157" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="4ez-Ls-ay2">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="5t6-7W-gy9" userLabel="Name Label" customClass="PKGLabel">
+                <textField verticalHuggingPriority="750" id="5t6-7W-gy9" userLabel="Name Label">
                     <rect key="frame" x="102" y="67" width="213" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" id="yY1-uy-aL4">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="hyY-4Y-QYZ">

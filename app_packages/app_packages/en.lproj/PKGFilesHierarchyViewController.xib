@@ -229,12 +229,12 @@
                         <color key="backgroundColor" white="0.70065789469999995" alpha="1" colorSpace="calibratedWhite"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="F9o-fE-km2" customClass="PKGSecondaryLabel">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="F9o-fE-km2">
                     <rect key="frame" x="390" y="10" width="329" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="M00-ic-dzI">
                         <font key="font" metaFont="miniSystem"/>
-                        <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

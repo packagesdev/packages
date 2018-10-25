@@ -249,6 +249,7 @@
 		F45C40F621244F260076944B /* HumanInterface.framework in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = F45C40E821244E4F0076944B /* HumanInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F45CB7281DECF1CF0085D05E /* PKGPackagePayloadDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F45CB7271DECF1CF0085D05E /* PKGPackagePayloadDataSource.m */; };
 		F45D7E0F2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F45D7E0E2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m */; };
+		F45D840621825EED00107240 /* PKGPresentationContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45D840521825EED00107240 /* PKGPresentationContentView.m */; };
 		F45E7E541F100F6E005641CD /* InstallerSimulator.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = F45E7E511F100F5D005641CD /* InstallerSimulator.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F45E7E571F101F54005641CD /* PKGAboutBoxWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F45E7E591F101F54005641CD /* PKGAboutBoxWindowController.xib */; };
 		F45E7E5B1F1022C9005641CD /* PKGPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F45E7E5D1F1022C9005641CD /* PKGPreferencesWindowController.xib */; };
@@ -304,6 +305,7 @@
 		F47AA59E1DD29863005AFC1D /* PKGPreferencePaneFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47AA59D1DD29863005AFC1D /* PKGPreferencePaneFilesViewController.m */; };
 		F47AA5A11DD2992A005AFC1D /* PKGPreferencePaneFilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F47AA59F1DD2992A005AFC1D /* PKGPreferencePaneFilesViewController.xib */; };
 		F47B6EC31DECE486008A40EE /* PKGDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B6EC21DECE486008A40EE /* PKGDocumentViewController.m */; };
+		F47C02D221714422000C9AA3 /* NSTextFieldCell+LabelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C02D121714422000C9AA3 /* NSTextFieldCell+LabelColor.m */; };
 		F47D59B01E2BA83600A8183C /* PKGFilesSelectionInspectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47D59AE1E2BA83600A8183C /* PKGFilesSelectionInspectorViewController.m */; };
 		F47EF9B71DDD1B8F003DC831 /* PKGAssistantPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = F47EF9B61DDD1B8F003DC831 /* PKGAssistantPlugin.m */; };
 		F47FBF361E225A9E00C7CAE0 /* PKGReferenceSmallSquarePopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F47FBF341E225A9E00C7CAE0 /* PKGReferenceSmallSquarePopUpButtonCell.m */; };
@@ -536,8 +538,6 @@
 		F4B835361FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B835351FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m */; };
 		F4B8A4F21F39067600A9A8B8 /* ProjectTemplateAssistant.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4B8A4F01F39067600A9A8B8 /* ProjectTemplateAssistant.strings */; };
 		F4B96CF41EC3BB1D003BD5A8 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B96CF31EC3BB1D003BD5A8 /* NSObject+Conformance.m */; };
-		F4B9E7E821053B7300A84714 /* PKGLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9E7E721053B7300A84714 /* PKGLabel.m */; };
-		F4B9E7F321053DF800A84714 /* PKGSecondaryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9E7F221053DF800A84714 /* PKGSecondaryLabel.m */; };
 		F4B9E7F62105429D00A84714 /* PKGSectionTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9E7F52105429D00A84714 /* PKGSectionTitle.m */; };
 		F4B9E7F921054D6A00A84714 /* PKGPresentationWindowContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9E7F821054D6A00A84714 /* PKGPresentationWindowContentView.m */; };
 		F4BC683D1F731B0700363752 /* PKGPresentationChoiceRequirementPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4BC683F1F731B0700363752 /* PKGPresentationChoiceRequirementPanel.xib */; };
@@ -1264,6 +1264,8 @@
 		F45CB7271DECF1CF0085D05E /* PKGPackagePayloadDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPackagePayloadDataSource.m; path = app_packages/PKGPackagePayloadDataSource.m; sourceTree = "<group>"; };
 		F45D7E0D2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationSettingsPopUpButtonCell.h; path = app_packages/PKGPresentationSettingsPopUpButtonCell.h; sourceTree = "<group>"; };
 		F45D7E0E2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationSettingsPopUpButtonCell.m; path = app_packages/PKGPresentationSettingsPopUpButtonCell.m; sourceTree = "<group>"; };
+		F45D840421825EED00107240 /* PKGPresentationContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationContentView.h; path = app_packages/PKGPresentationContentView.h; sourceTree = "<group>"; };
+		F45D840521825EED00107240 /* PKGPresentationContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationContentView.m; path = app_packages/PKGPresentationContentView.m; sourceTree = "<group>"; };
 		F45E7E4C1F100F5C005641CD /* InstallerSimulator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InstallerSimulator.xcodeproj; path = InstallerSimulator/InstallerSimulator.xcodeproj; sourceTree = "<group>"; };
 		F45E7E581F101F54005641CD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PKGAboutBoxWindowController.xib; sourceTree = "<group>"; };
 		F45E7E5A1F101F61005641CD /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PKGAboutBoxWindowController.xib; sourceTree = "<group>"; };
@@ -1355,6 +1357,8 @@
 		F47AA5A01DD2992A005AFC1D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = app_packages/en.lproj/PKGPreferencePaneFilesViewController.xib; sourceTree = "<group>"; };
 		F47B6EC11DECE486008A40EE /* PKGDocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDocumentViewController.h; path = app_packages/PKGDocumentViewController.h; sourceTree = "<group>"; };
 		F47B6EC21DECE486008A40EE /* PKGDocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDocumentViewController.m; path = app_packages/PKGDocumentViewController.m; sourceTree = "<group>"; };
+		F47C02D021714422000C9AA3 /* NSTextFieldCell+LabelColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextFieldCell+LabelColor.h"; path = "../AppKit + Extensions/NSTextFieldCell+LabelColor.h"; sourceTree = "<group>"; };
+		F47C02D121714422000C9AA3 /* NSTextFieldCell+LabelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTextFieldCell+LabelColor.m"; path = "../AppKit + Extensions/NSTextFieldCell+LabelColor.m"; sourceTree = "<group>"; };
 		F47D59AD1E2BA83600A8183C /* PKGFilesSelectionInspectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGFilesSelectionInspectorViewController.h; path = app_packages/PKGFilesSelectionInspectorViewController.h; sourceTree = "<group>"; };
 		F47D59AE1E2BA83600A8183C /* PKGFilesSelectionInspectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGFilesSelectionInspectorViewController.m; path = app_packages/PKGFilesSelectionInspectorViewController.m; sourceTree = "<group>"; };
 		F47EF9B51DDD1B8F003DC831 /* PKGAssistantPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGAssistantPlugin.h; path = app_packages/PKGAssistantPlugin.h; sourceTree = "<group>"; };
@@ -2330,6 +2334,8 @@
 				F47FF6FA1E11CC7B00E99313 /* NSAlert+Block.m */,
 				F459122E2107DF9100567641 /* NSColor+LabelColor.h */,
 				F459122F2107DF9100567641 /* NSColor+LabelColor.m */,
+				F47C02D021714422000C9AA3 /* NSTextFieldCell+LabelColor.h */,
+				F47C02D121714422000C9AA3 /* NSTextFieldCell+LabelColor.m */,
 				F49AFF591E902A0C0001D7AE /* NSImage+Size.h */,
 				F49AFF5A1E902A0C0001D7AE /* NSImage+Size.m */,
 				F4E13E781DD9203B00E63E24 /* NSViewController+WBExtensions.h */,
@@ -3349,6 +3355,8 @@
 				F4BE51511F33BA2200073294 /* PKGPresentationFileNamePopUpButtonCell.m */,
 				F4B9E7F721054D6A00A84714 /* PKGPresentationWindowContentView.h */,
 				F4B9E7F821054D6A00A84714 /* PKGPresentationWindowContentView.m */,
+				F45D840421825EED00107240 /* PKGPresentationContentView.h */,
+				F45D840521825EED00107240 /* PKGPresentationContentView.m */,
 				F4C766651E3A81140045A85F /* PKGPresentationListView.h */,
 				F4C766661E3A81140045A85F /* PKGPresentationListView.m */,
 				F450BD581E9CF4340048DF4B /* PKGPresentationContentsView.h */,
@@ -4881,6 +4889,7 @@
 				F49D41A31DE3C454003D4DA6 /* PKGProjectMainViewController.m in Sources */,
 				F4CAF09C1E1DC435006954BD /* PKGReferenceFolderPopupButtonCell.m in Sources */,
 				F4DDC41F1DF0E93E0004AFB7 /* PKGFileItem+UI.m in Sources */,
+				F45D840621825EED00107240 /* PKGPresentationContentView.m in Sources */,
 				F45AD8101E51273400CCAEA0 /* PKGPayloadBundleItem+Safe.m in Sources */,
 				F44308301E62FFA800AB0087 /* PKGArchive.m in Sources */,
 				F46B2BF91EA1851B00BCDC7C /* PKGLicenseProvider.m in Sources */,
@@ -4929,6 +4938,7 @@
 				F4FE99A91F293A1700BCB60F /* PKGBuildSubtitledTableCellView.m in Sources */,
 				F493EE871E5640FF00617AEF /* PKGDistributionProjectViewController.m in Sources */,
 				F49A89781FB8AE12002173C0 /* PKGPreferencesTabButton.m in Sources */,
+				F47C02D221714422000C9AA3 /* NSTextFieldCell+LabelColor.m in Sources */,
 				F40F55D61F030D590037C8F5 /* PKGPackageComponent+Transformation.m in Sources */,
 				F45122A61E577E8D00F6DAC3 /* PKGDistributionRequirementsViewController.m in Sources */,
 				F424D3711DCE3E8B00F95165 /* NSDictionary+WBExtensions.m in Sources */,
@@ -5057,7 +5067,6 @@
 				F4E43FF21F20028300444E48 /* PKGBuildAndCleanObserverDataSource.m in Sources */,
 				F4968FA51EF3363500CA6498 /* PKGQuickBuildTextField.m in Sources */,
 				F4CD44351EF9D4540087D75B /* PKGPackagePayload+Transformation.m in Sources */,
-				F4B9E7E821053B7300A84714 /* PKGLabel.m in Sources */,
 				F4EC05B01DE8FAA80071E66C /* PKGDistributionCommentsViewController.m in Sources */,
 				F4AF18BB1E3FC69F005A7CC9 /* PKGPresentationPluginButtonCell.m in Sources */,
 				F47FBF4C1E225AFA00C7CAE0 /* PKGPackageComponentScriptsAndResourcesViewController.m in Sources */,
@@ -5106,7 +5115,6 @@
 				F49F488A1E52579D00CBAB2E /* PKGDistributionProjectSourceListPackageComponentItem.m in Sources */,
 				F48059421EC665670095963B /* PKGReferencedPopUpButtonCell.m in Sources */,
 				F432527C1E9C0B1800F1D65F /* PKGPresentationInspectorItem.m in Sources */,
-				F4B9E7F321053DF800A84714 /* PKGSecondaryLabel.m in Sources */,
 				F4AE32FB1EE60EDE00739C10 /* NSPopUpButton+OptimizedSize.m in Sources */,
 				F42448C11E17E22300E5A618 /* PKGPayloadFilenameTableCellView.m in Sources */,
 				F499F0CE1E50940300CD890A /* PKGPayloadTreeNode+Bundle.m in Sources */,
@@ -6156,7 +6164,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 474;
+				CURRENT_PROJECT_VERSION = 494;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6182,7 +6190,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 474;
+				CURRENT_PROJECT_VERSION = 494;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;

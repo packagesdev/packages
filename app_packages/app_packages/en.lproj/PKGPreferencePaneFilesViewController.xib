@@ -54,13 +54,13 @@
 								<int key="NSfFlags">1044</int>
 							</object>
 							<reference key="NSControlView" ref="752986838"/>
-							<object class="NSColor" key="NSBackgroundColor" id="1019720687">
+							<object class="NSColor" key="NSBackgroundColor" id="255703724">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlColor</string>
+								<string key="NSColorName">textBackgroundColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+									<bytes key="NSWhite">MQA</bytes>
 								</object>
 							</object>
 							<object class="NSColor" key="NSTextColor" id="859789291">
@@ -116,7 +116,7 @@
 							<string key="NSContents">Highlight special files:</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="119742927"/>
-							<reference key="NSBackgroundColor" ref="1019720687"/>
+							<reference key="NSBackgroundColor" ref="255703724"/>
 							<reference key="NSTextColor" ref="859789291"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -164,7 +164,7 @@
 								<int key="NSfFlags">2072</int>
 							</object>
 							<reference key="NSControlView" ref="784174588"/>
-							<reference key="NSBackgroundColor" ref="1019720687"/>
+							<reference key="NSBackgroundColor" ref="255703724"/>
 							<reference key="NSTextColor" ref="859789291"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -184,7 +184,7 @@
 							<string key="NSContents">Adding files:</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="863477063"/>
-							<reference key="NSBackgroundColor" ref="1019720687"/>
+							<reference key="NSBackgroundColor" ref="255703724"/>
 							<reference key="NSTextColor" ref="859789291"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -204,7 +204,7 @@
 							<string key="NSContents">Permissions and Reference Style</string>
 							<reference key="NSSupport" ref="377135436"/>
 							<reference key="NSControlView" ref="430225454"/>
-							<reference key="NSBackgroundColor" ref="1019720687"/>
+							<reference key="NSBackgroundColor" ref="255703724"/>
 							<reference key="NSTextColor" ref="859789291"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -224,7 +224,7 @@
 							<string key="NSContents">Default permissions mode:</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="162153272"/>
-							<reference key="NSBackgroundColor" ref="1019720687"/>
+							<reference key="NSBackgroundColor" ref="255703724"/>
 							<reference key="NSTextColor" ref="859789291"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -554,19 +554,13 @@
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="69.CustomClassName">PKGLabel</string>
 				<string key="69.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="70.CustomClassName">PKGLabel</string>
 				<string key="70.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="71.CustomClassName">PKGLabel</string>
 				<string key="71.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="78.CustomClassName">PKGLabel</string>
 				<string key="78.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="79.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="80.CustomClassName">PKGLabel</string>
 				<string key="80.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="93.CustomClassName">PKGLabel</string>
 				<string key="93.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="97.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="98.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -586,14 +580,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../app_packages/PKGControlledView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PKGLabel</string>
-					<string key="superclassName">NSTextField</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../app_packages/PKGLabel.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

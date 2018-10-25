@@ -57,13 +57,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="585" height="158"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </customView>
-                        <textField verticalHuggingPriority="750" id="Im8-J8-2zR" customClass="PKGLabel">
+                        <textField verticalHuggingPriority="750" id="Im8-J8-2zR">
                             <rect key="frame" x="24" y="165" width="88" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Destination :" id="5RB-BG-mwC">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                     </subviews>

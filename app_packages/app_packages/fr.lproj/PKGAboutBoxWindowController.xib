@@ -31,13 +31,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="580" height="340"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" id="aVg-ln-2qF" customClass="PKGLabel">
+                                <textField verticalHuggingPriority="750" id="aVg-ln-2qF">
                                     <rect key="frame" x="297" y="237" width="137" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Packages" id="5yc-GV-ac0">
                                         <font key="font" metaFont="systemBold" size="27"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <imageView id="38S-b4-K7I">
@@ -45,21 +45,21 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSApplicationIcon" id="Ohd-1J-L8A"/>
                                 </imageView>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="AHH-ig-bqk" customClass="PKGSecondaryLabel">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="AHH-ig-bqk">
                                     <rect key="frame" x="302" y="216" width="163" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="version xxx (xxxx)" id="m1X-Tf-vUZ">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" white="0.40789473679999999" alpha="0.84999999999999998" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="SDo-tY-yW0" customClass="PKGSecondaryLabel">
+                                <textField verticalHuggingPriority="750" id="SDo-tY-yW0">
                                     <rect key="frame" x="297" y="121" width="269" height="13"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="© 2009-2018 Stéphane Sudre. Tous droits réservés." id="cg4-Tx-xMY">
                                         <font key="font" metaFont="system" size="10"/>
-                                        <color key="textColor" white="0.61678833" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>

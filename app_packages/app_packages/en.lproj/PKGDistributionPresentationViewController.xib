@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionPresentationViewController">
             <connections>
                 <outlet property="_accessoryPlaceHolderView" destination="CJS-WC-FsH" id="fYO-JQ-4Mk"/>
+                <outlet property="_appearancePreviewBox" destination="Ry8-nQ-Lv7" id="10g-7z-9Oq"/>
                 <outlet property="_backgroundView" destination="r9y-27-Gl9" id="vul-jt-rrs"/>
                 <outlet property="_continueButton" destination="5XG-tp-MLF" id="P1R-Ug-faa"/>
                 <outlet property="_goBackButton" destination="hj5-nv-vct" id="WZG-6G-0vU"/>
@@ -32,16 +34,16 @@
             <rect key="frame" x="1" y="0.0" width="1028" height="557"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView id="W8C-CG-VnG">
+                <customView id="W8C-CG-VnG" customClass="PKGPresentationContentView">
                     <rect key="frame" x="0.0" y="0.0" width="665" height="557"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <customView id="CJS-WC-FsH">
-                            <rect key="frame" x="128" y="15" width="332" height="64"/>
+                            <rect key="frame" x="213" y="15" width="255" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </customView>
                         <box title="Preview in" id="93a-6P-7jl" customClass="PKGPresentationBox">
-                            <rect key="frame" x="467" y="16" width="169" height="62"/>
+                            <rect key="frame" x="476" y="16" width="169" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <view key="contentView">
                                 <rect key="frame" x="2" y="2" width="165" height="43"/>
@@ -70,7 +72,7 @@
                             <font key="titleFont" metaFont="systemBold" size="12"/>
                         </box>
                         <box title="Plugins" id="XID-uv-CCZ" customClass="PKGPresentationBox">
-                            <rect key="frame" x="30" y="16" width="92" height="62"/>
+                            <rect key="frame" x="21" y="16" width="92" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <view key="contentView">
                                 <rect key="frame" x="2" y="2" width="88" height="42"/>
@@ -180,6 +182,33 @@
                                 </box>
                             </subviews>
                         </customView>
+                        <box title="Mode" id="Ry8-nQ-Lv7" customClass="PKGPresentationBox">
+                            <rect key="frame" x="121" y="16" width="84" height="62"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view key="contentView">
+                                <rect key="frame" x="2" y="2" width="80" height="42"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <segmentedControl verticalHuggingPriority="750" id="7PO-kU-ev7">
+                                        <rect key="frame" x="4" y="11" width="71" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="dCX-QR-npT">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment width="32"/>
+                                                <segment width="32" selected="YES" tag="1"/>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="switchPreviewAppearance:" target="-2" id="K9G-xn-LOR"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </view>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <font key="titleFont" metaFont="systemBold"/>
+                        </box>
                     </subviews>
                 </customView>
                 <customView id="ZOF-Zs-xgm" customClass="PKGRightInspectorView">

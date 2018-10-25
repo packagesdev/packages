@@ -10,8 +10,6 @@
             <connections>
                 <outlet property="_descriptionTextView" destination="AQQ-fG-fO2" id="J3W-Hk-hRR"/>
                 <outlet property="_headerView" destination="ste-hR-GAp" id="fEA-d2-c2f"/>
-                <outlet property="_hierarchyBox" destination="rAY-ZE-6oY" id="Dhw-Jn-y36"/>
-                <outlet property="_hierarchyPopUpButton" destination="jlB-Gz-5Rr" id="kg3-Gp-bQy"/>
                 <outlet property="_indentationColumn" destination="51k-ZI-gcs" id="AoU-OG-HIC"/>
                 <outlet property="_installationTypeModePopUpButton" destination="rMJ-Ms-166" id="srp-IC-Obp"/>
                 <outlet property="_remainingLabel" destination="vXO-Ha-io9" id="jZy-z1-6xy"/>
@@ -36,39 +34,39 @@
                             <rect key="frame" x="0.0" y="0.0" width="525" height="255"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" id="AiQ-pO-MHS" customClass="PKGLabel">
+                                <textField verticalHuggingPriority="750" id="AiQ-pO-MHS">
                                     <rect key="frame" x="145" y="8" width="11" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="-" id="HCv-7y-8Mv">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="RXK-2k-WpT" customClass="PKGLabel">
+                                <textField verticalHuggingPriority="750" id="RXK-2k-WpT">
                                     <rect key="frame" x="402" y="8" width="11" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="-" id="KdK-Cc-ueE">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="vXO-Ha-io9" customClass="PKGLabel">
+                                <textField verticalHuggingPriority="750" id="vXO-Ha-io9">
                                     <rect key="frame" x="292" y="8" width="106" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Remaining:" id="myA-4s-DwN">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="IqL-A7-T7A" customClass="PKGLabel">
+                                <textField verticalHuggingPriority="750" id="IqL-A7-T7A">
                                     <rect key="frame" x="8" y="8" width="133" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Space Required:" id="Oxz-Cd-DfR">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -327,40 +325,11 @@
             <point key="canvasLocation" x="72" y="1020.5"/>
         </menu>
         <customView id="Wg4-R1-hu9" userLabel="Accessory View">
-            <rect key="frame" x="0.0" y="0.0" width="332" height="64"/>
+            <rect key="frame" x="0.0" y="0.0" width="255" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <box title="" id="rAY-ZE-6oY" customClass="PKGPresentationBox">
-                    <rect key="frame" x="3" y="1" width="66" height="62"/>
-                    <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
-                    <view key="contentView">
-                        <rect key="frame" x="2" y="2" width="62" height="43"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <popUpButton id="jlB-Gz-5Rr">
-                                <rect key="frame" x="5" y="8" width="40" height="26"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="gvJ-Vd-c9x">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="systemBold"/>
-                                    <menu key="menu" title="OtherViews" id="IsE-DS-b4K">
-                                        <items>
-                                            <menuItem title="&lt;&lt; DO NOT CHANGE &gt;&gt;" id="lVN-Od-Koi"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <action selector="switchHierarchy:" target="-2" id="s5g-0u-oHW"/>
-                                </connections>
-                            </popUpButton>
-                        </subviews>
-                    </view>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <font key="titleFont" metaFont="systemBold" size="12"/>
-                </box>
                 <box title="Modes d'installations visibles" id="dwV-zy-Ucw" customClass="PKGPresentationBox">
-                    <rect key="frame" x="77" y="1" width="255" height="62"/>
+                    <rect key="frame" x="0.0" y="1" width="255" height="62"/>
                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="2" y="2" width="251" height="43"/>
@@ -391,7 +360,7 @@
                     <font key="titleFont" metaFont="systemBold" size="12"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="494" y="328"/>
+            <point key="canvasLocation" x="531" y="328"/>
         </customView>
     </objects>
 </document>

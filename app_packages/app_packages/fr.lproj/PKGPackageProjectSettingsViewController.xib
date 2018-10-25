@@ -70,13 +70,13 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" id="AcQ-c9-kHL" customClass="PKGLabel">
+                <textField verticalHuggingPriority="750" id="AcQ-c9-kHL">
                     <rect key="frame" x="24" y="275" width="146" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Dossier de référence :" id="Klo-98-VBm">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="oy3-vN-Jik">
@@ -93,22 +93,22 @@
                         <outlet property="nextKeyView" destination="dLO-iy-AiD" id="rq1-DT-MYq"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="xjC-xU-3GV" customClass="PKGLabel">
+                <textField verticalHuggingPriority="750" id="xjC-xU-3GV">
                     <rect key="frame" x="122" y="338" width="48" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Nom :" id="3yq-yF-fo2">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="8QZ-9q-uMG" customClass="PKGLabel">
+                <textField verticalHuggingPriority="750" id="8QZ-9q-uMG">
                     <rect key="frame" x="102" y="306" width="68" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Chemin :" id="HOI-85-3bo">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="Ofq-yE-hYd" customClass="PKGSectionTitle">

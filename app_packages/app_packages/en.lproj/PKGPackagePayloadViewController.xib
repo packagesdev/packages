@@ -60,12 +60,12 @@
                                 <color key="backgroundColor" white="0.75" alpha="1" colorSpace="calibratedWhite"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" id="cEO-ca-Oh6" customClass="PKGLabel">
+                        <textField verticalHuggingPriority="750" id="cEO-ca-Oh6">
                             <rect key="frame" x="37" y="65" width="131" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Default Destination:" id="r1G-ZF-H3K">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
@@ -73,12 +73,12 @@
                             <rect key="frame" x="0.0" y="12" width="663" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" id="fcW-bt-mZS" customClass="PKGLabel">
+                                <textField verticalHuggingPriority="750" id="fcW-bt-mZS">
                                     <rect key="frame" x="69" y="28" width="99" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Build Options:" id="E0a-ML-y5u">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
