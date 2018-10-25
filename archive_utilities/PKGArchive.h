@@ -14,6 +14,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PKGSignature.h"
+
 extern NSString * const PKGArchiveErrorDomain;
 
 enum
@@ -43,7 +45,7 @@ extern NSString * const PKGArchiveErrorFilePath;
 
 - (NSArray *)certificatesDataForArchive:(PKGArchive *)inArchive;
 
-- (NSData *)archive:(PKGArchive *)inArchive signatureForData:(NSData *)inData;
+- (NSData *)archive:(PKGArchive *)inArchive signatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inData;
 
 @end
 

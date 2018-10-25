@@ -51,7 +51,7 @@
 
 #pragma mark - PKGSignatureCreatorInterface
 
-- (void)createSignatureForData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
 {
 	if (inReply==nil)
 		return;
@@ -83,125 +83,221 @@
 	
 	SecKeyRef tPrivateKeyRef=NULL;
 	
-	OSStatus tStatus=SecIdentityCopyPrivateKey(tSecIdentityRef, &tPrivateKeyRef);
-	
-	CFRelease(tSecIdentityRef);
-	
-	if (tStatus!=errSecSuccess)
+	if (inSignatureType==PKGSignatureRSA)
 	{
-		NSString * tErrorString=(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL);
+		OSStatus tStatus=SecIdentityCopyPrivateKey(tSecIdentityRef, &tPrivateKeyRef);
+	
+		if (tStatus!=errSecSuccess)
+		{
+			CFRelease(tSecIdentityRef);
+			
+			NSString * tErrorString=(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL);
+			
+			NSLog(@"SecIdentityCopyPrivateKey: %@",tErrorString);
+			
+			CFRelease(tPrivateKeyRef);
+			
+			inReply(PKGSignatureStatusErrorUnknown,nil);
+			return;
+		}
 		
-		NSLog(@"SecIdentityCopyPrivateKey: %@",tErrorString);
-		
-		CFRelease(tPrivateKeyRef);
-		
-		inReply(PKGSignatureStatusErrorUnknown,nil);
-		return;
+		CFRelease(tSecIdentityRef);
 	}
 	
 	dispatch_async(_signingQueue, ^{
 	
-		CFErrorRef tErrorRef=NULL;
-		
-		SecTransformRef tTransformRef=SecSignTransformCreate(tPrivateKeyRef, &tErrorRef);
-		
-		if (tTransformRef==NULL)
+		if (inSignatureType==PKGSignatureRSA)
 		{
-			CFRelease(tPrivateKeyRef);
+			CFErrorRef tErrorRef=NULL;
 			
-			if (tErrorRef!=NULL)
+			SecTransformRef tTransformRef=SecSignTransformCreate(tPrivateKeyRef, &tErrorRef);
+			
+			if (tTransformRef==NULL)
 			{
-				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+				CFRelease(tPrivateKeyRef);
 				
-				NSLog(@"SecSignTransformCreate: %@",tErrorDescription);
-				
-				CFRelease(tErrorRef);
-			}
-			
-			inReply(PKGSignatureStatusErrorUnknown,nil);
-			return;
-		}
-		
-		if (SecTransformSetAttribute(tTransformRef,kSecInputIsAttributeName,kSecInputIsDigest,&tErrorRef)==FALSE)
-		{
-			CFRelease(tTransformRef);
-			CFRelease(tPrivateKeyRef);
-			
-			if (tErrorRef!=NULL)
-			{
-				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
-				
-				NSLog(@"SecTransformSetAttribute (kSecInputIsAttributeName): %@",tErrorDescription);
-				
-				CFRelease(tErrorRef);
-			}
-			
-			inReply(PKGSignatureStatusErrorUnknown,nil);
-			return;
-		}
-		
-		if (SecTransformSetAttribute(tTransformRef,kSecTransformInputAttributeName, (__bridge CFDataRef)inInputData,&tErrorRef)==FALSE)
-		{
-			CFRelease(tTransformRef);
-			CFRelease(tPrivateKeyRef);
-			
-			if (tErrorRef!=NULL)
-			{
-				NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
-				
-				NSLog(@"SecTransformSetAttribute (kSecTransformInputAttributeName): %@",tErrorDescription);
-				
-				CFRelease(tErrorRef);
-			}
-			
-			inReply(PKGSignatureStatusErrorUnknown,nil);
-			return;
-		}
-		
-		CFTypeRef tTypeRef=SecTransformExecute(tTransformRef, &tErrorRef);
-		
-		if (tTypeRef==NULL)
-		{
-			CFRelease(tTransformRef);
-			CFRelease(tPrivateKeyRef);
-			
-			if (tErrorRef!=NULL)
-			{
-				//NSString * tErrorDomain=(__bridge NSString *) CFErrorGetDomain(tErrorRef);
-				CFIndex tErrorCode=CSSM_ERRCODE(CFErrorGetCode(tErrorRef));
-				
-				switch(tErrorCode)
+				if (tErrorRef!=NULL)
 				{
-					case CSSM_ERRCODE_OPERATION_AUTH_DENIED:
-						
-						inReply(PKGSignatureStatusKeychainAccessDenied,nil);
-						return;
-						
-					// A COMPLETER
-						
-					default:
-					{
-						NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
-						
-						NSLog(@"SecTransformExecute: %@",tErrorDescription);
+					NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
 					
-						break;
-					}
+					NSLog(@"SecSignTransformCreate: %@",tErrorDescription);
+					
+					CFRelease(tErrorRef);
 				}
 				
-				
-				
-				CFRelease(tErrorRef);
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				return;
 			}
 			
-			inReply(PKGSignatureStatusErrorUnknown,nil);
-			return;
+			if (SecTransformSetAttribute(tTransformRef,kSecInputIsAttributeName,kSecInputIsDigest,&tErrorRef)==FALSE)
+			{
+				CFRelease(tTransformRef);
+				CFRelease(tPrivateKeyRef);
+				
+				if (tErrorRef!=NULL)
+				{
+					NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+					
+					NSLog(@"SecTransformSetAttribute (kSecInputIsAttributeName): %@",tErrorDescription);
+					
+					CFRelease(tErrorRef);
+				}
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				return;
+			}
+			
+			if (SecTransformSetAttribute(tTransformRef,kSecTransformInputAttributeName, (__bridge CFDataRef)inInputData,&tErrorRef)==FALSE)
+			{
+				CFRelease(tTransformRef);
+				CFRelease(tPrivateKeyRef);
+				
+				if (tErrorRef!=NULL)
+				{
+					NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+					
+					NSLog(@"SecTransformSetAttribute (kSecTransformInputAttributeName): %@",tErrorDescription);
+					
+					CFRelease(tErrorRef);
+				}
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				return;
+			}
+			
+			CFTypeRef tTypeRef=SecTransformExecute(tTransformRef, &tErrorRef);
+			
+			if (tTypeRef==NULL)
+			{
+				CFRelease(tTransformRef);
+				CFRelease(tPrivateKeyRef);
+				
+				if (tErrorRef!=NULL)
+				{
+					//NSString * tErrorDomain=(__bridge NSString *) CFErrorGetDomain(tErrorRef);
+					CFIndex tErrorCode=CSSM_ERRCODE(CFErrorGetCode(tErrorRef));
+					
+					switch(tErrorCode)
+					{
+						case CSSM_ERRCODE_OPERATION_AUTH_DENIED:
+							
+							inReply(PKGSignatureStatusKeychainAccessDenied,nil);
+							return;
+							
+						// A COMPLETER
+							
+						default:
+						{
+							NSString * tErrorDescription=(__bridge_transfer NSString *)CFErrorCopyDescription(tErrorRef);
+							
+							NSLog(@"SecTransformExecute: %@",tErrorDescription);
+						
+							break;
+						}
+					}
+					
+					
+					
+					CFRelease(tErrorRef);
+				}
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				return;
+			}
+			
+			inReply(PKGSignatureStatusSuccess,(__bridge_transfer NSData *)tTypeRef);
+			
+			CFRelease(tTransformRef);
+			CFRelease(tPrivateKeyRef);
 		}
-		
-		inReply(PKGSignatureStatusSuccess,(__bridge_transfer NSData *)tTypeRef);
-		
-		CFRelease(tTransformRef);
-		CFRelease(tPrivateKeyRef);
+		else if (inSignatureType==PKGSignatureCMS)
+		{
+			CMSEncoderRef tEncoderRef;
+			
+			OSStatus tStatus=CMSEncoderCreate(&tEncoderRef);
+			
+			if (tStatus!=errSecSuccess)
+			{
+				CFRelease(tSecIdentityRef);
+				
+				NSLog(@"CMSEncoderCreate: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				
+				return;
+			}
+			
+			tStatus=CMSEncoderAddSigners(tEncoderRef,tSecIdentityRef);
+			
+			CFRelease(tSecIdentityRef);
+			
+			if (tStatus!=errSecSuccess)
+			{
+				CFRelease(tEncoderRef);
+				
+				NSLog(@"CMSEncoderAddSigners: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				
+				return;
+			}
+
+			tStatus=CMSEncoderSetHasDetachedContent(tEncoderRef,true);
+			
+			if (tStatus!=errSecSuccess)
+			{
+				CFRelease(tEncoderRef);
+				
+				NSLog(@"CMSEncoderSetHasDetachedContent: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				
+				return;
+			}
+			
+			tStatus=CMSEncoderSetCertificateChainMode(tEncoderRef,kCMSCertificateChainWithRoot);
+			
+			if (tStatus!=errSecSuccess)
+			{
+				CFRelease(tEncoderRef);
+				
+				NSLog(@"CMSEncoderSetCertificateChainMode: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				
+				return;
+			}
+			
+			tStatus=CMSEncoderUpdateContent(tEncoderRef, inInputData.bytes, inInputData.length);
+			
+			if (tStatus!=errSecSuccess)
+			{
+				CFRelease(tEncoderRef);
+				
+				NSLog(@"CMSEncoderUpdateContent: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				
+				return;
+			}
+			
+			CFDataRef tEncodedDataRef;
+			
+			tStatus=CMSEncoderCopyEncodedContent(tEncoderRef, &tEncodedDataRef);
+			
+			if (tStatus!=errSecSuccess)
+			{
+				CFRelease(tEncoderRef);
+				
+				NSLog(@"CMSEncoderCopyEncodedContent: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+				
+				inReply(PKGSignatureStatusErrorUnknown,nil);
+				
+				return;
+			}
+			
+			inReply(PKGSignatureStatusSuccess,(__bridge_transfer NSData *)tEncodedDataRef);
+		}
 	});
 }
 

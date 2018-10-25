@@ -10,6 +10,7 @@
 		F40B5D0D1F8D772E0054D746 /* WBVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = F40B5D0C1F8D772E0054D746 /* WBVersion.m */; };
 		F40B5D101F8D77490054D746 /* WBVersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F40B5D0F1F8D77490054D746 /* WBVersionFormatter.m */; };
 		F40B6EE41D247A300031D267 /* PKGBuildInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = F40B6EE31D247A300031D267 /* PKGBuildInformation.m */; };
+		F41F61F8217FC69C00B8F9D4 /* PKGSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = F41F61F7217FC69C00B8F9D4 /* PKGSignature.m */; };
 		F43017011CFE0E9F00829D16 /* PKGBuildLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F43017001CFE0E9F00829D16 /* PKGBuildLogger.m */; };
 		F43017191CFE0EEF00829D16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F43017181CFE0EEF00829D16 /* main.m */; };
 		F430171F1CFE0EFD00829D16 /* PKGProjectBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F430171E1CFE0EFD00829D16 /* PKGProjectBuilder.m */; };
@@ -162,6 +163,8 @@
 		F40B6EE21D247A300031D267 /* PKGBuildInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBuildInformation.h; path = packages_builder/PKGBuildInformation.h; sourceTree = "<group>"; };
 		F40B6EE31D247A300031D267 /* PKGBuildInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBuildInformation.m; path = packages_builder/PKGBuildInformation.m; sourceTree = "<group>"; };
 		F412959E1D68FC3A00B2ABC4 /* PKGProjectBuilderInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGProjectBuilderInterface.h; path = ../shared/PKGProjectBuilderInterface.h; sourceTree = "<group>"; };
+		F41F61F6217FC69C00B8F9D4 /* PKGSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGSignature.h; path = ../archive_utilities/PKGSignature.h; sourceTree = "<group>"; };
+		F41F61F7217FC69C00B8F9D4 /* PKGSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGSignature.m; path = ../archive_utilities/PKGSignature.m; sourceTree = "<group>"; };
 		F422BD8D1D89F94300BFCEC1 /* PKGBuildSignatureCreatorInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGBuildSignatureCreatorInterface.h; path = ../shared/PKGBuildSignatureCreatorInterface.h; sourceTree = "<group>"; };
 		F422BD961D89F94A00BFCEC1 /* PKGBuildOrderExecutionAgentInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGBuildOrderExecutionAgentInterface.h; path = ../shared/PKGBuildOrderExecutionAgentInterface.h; sourceTree = "<group>"; };
 		F4295026214717A200C1A425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = packages_builder/Info.plist; sourceTree = "<group>"; };
@@ -502,6 +505,8 @@
 		F430172A1CFE11CF00829D16 /* xar_wrapper */ = {
 			isa = PBXGroup;
 			children = (
+				F41F61F6217FC69C00B8F9D4 /* PKGSignature.h */,
+				F41F61F7217FC69C00B8F9D4 /* PKGSignature.m */,
 				F430172B1CFE11DD00829D16 /* PKGArchive.h */,
 				F430172C1CFE11DD00829D16 /* PKGArchive.m */,
 			);
@@ -852,6 +857,7 @@
 				F48DD9CA1D686B6900F59638 /* PKGBuildOrder.m in Sources */,
 				F48C21741CFCF05500B5A8CD /* PKGChoiceDependencyTree.m in Sources */,
 				F4813D111FDF38DA0047055E /* WBVersionsHistory.m in Sources */,
+				F41F61F8217FC69C00B8F9D4 /* PKGSignature.m in Sources */,
 				F45BA0C21D06045500765C10 /* PKGPathComponentPatternsRegister.m in Sources */,
 				F4DDC4301DF0EFAC0004AFB7 /* PKGPayloadTreeNode.m in Sources */,
 				F46BFC911FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m in Sources */,
@@ -910,7 +916,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 463;
+				CURRENT_PROJECT_VERSION = 496;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -942,7 +948,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 463;
+				CURRENT_PROJECT_VERSION = 496;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;

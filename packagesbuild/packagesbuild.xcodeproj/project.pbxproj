@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F41F6203217FC8F200B8F9D4 /* PKGSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = F41F6201217FC8F200B8F9D4 /* PKGSignature.m */; };
+		F41F6204217FC8F200B8F9D4 /* PKGSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = F41F6202217FC8F200B8F9D4 /* PKGSignature.h */; };
 		F421756C1C76781F0054A7C9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F421756B1C76781F0054A7C9 /* CoreFoundation.framework */; };
 		F421756E1C7678250054A7C9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F421756D1C7678250054A7C9 /* Foundation.framework */; };
 		F42175701C76782A0054A7C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F421756F1C76782A0054A7C9 /* Security.framework */; };
@@ -56,6 +58,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F41F6201217FC8F200B8F9D4 /* PKGSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGSignature.m; path = ../archive_utilities/PKGSignature.m; sourceTree = "<group>"; };
+		F41F6202217FC8F200B8F9D4 /* PKGSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGSignature.h; path = ../archive_utilities/PKGSignature.h; sourceTree = "<group>"; };
 		F421756B1C76781F0054A7C9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F421756D1C7678250054A7C9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F421756F1C76782A0054A7C9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -153,6 +157,8 @@
 		F4567CFD1D6C341E00FE3712 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				F41F6202217FC8F200B8F9D4 /* PKGSignature.h */,
+				F41F6201217FC8F200B8F9D4 /* PKGSignature.m */,
 				F484A8591D8747E800FCC361 /* PKGCertificatesUtilities.h */,
 				F484A85A1D8747E800FCC361 /* PKGCertificatesUtilities.m */,
 				F484A8511D8740C700FCC361 /* PKGBuildStep+Constants.h */,
@@ -202,6 +208,7 @@
 				F484A8531D8740C700FCC361 /* PKGBuildStep+Constants.h in Headers */,
 				F484A8571D8741F300FCC361 /* PKGBuildSignatureCreatorInterface.h in Headers */,
 				F422BD8A1D89F7CF00BFCEC1 /* PKGBuildDataSigner.h in Headers */,
+				F41F6204217FC8F200B8F9D4 /* PKGSignature.h in Headers */,
 				F4567D091D6C345F00FE3712 /* PKGBuildNotificationCenterInterface.h in Headers */,
 				F48609291DA303C50058B304 /* PKGBuildEvent.h in Headers */,
 				F484A85B1D8747E800FCC361 /* PKGCertificatesUtilities.h in Headers */,
@@ -287,6 +294,7 @@
 				F4346F861D8B44DF0028C162 /* NSArray+WBExtensions.m in Sources */,
 				F484A85C1D8747E800FCC361 /* PKGCertificatesUtilities.m in Sources */,
 				F422BD8B1D89F7CF00BFCEC1 /* PKGBuildDataSigner.m in Sources */,
+				F41F6203217FC8F200B8F9D4 /* PKGSignature.m in Sources */,
 				F486092A1DA303C50058B304 /* PKGBuildEvent.m in Sources */,
 				F4567D1E1D6C34B700FE3712 /* PKGBuildNotificationCenter.m in Sources */,
 				F4567D021D6C343300FE3712 /* PKGBuildDispatcher+Constants.m in Sources */,

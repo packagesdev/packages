@@ -177,10 +177,10 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 
 #pragma mark - PKGSignatureCreatorInterface
 
-- (void)createSignatureForData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
 {
 	dispatch_async(dispatch_get_main_queue(),^ {
-		[[PKGBuildDataSigner sharedSigner] createSignatureForData:inInputData usingIdentity:inIdentityName keychain:inKeychainpath replyHandler:^(PKGSignatureStatus status,NSData *signedData){
+		[[PKGBuildDataSigner sharedSigner] createSignatureOfType:inSignatureType forData:inInputData usingIdentity:inIdentityName keychain:inKeychainpath replyHandler:^(PKGSignatureStatus status,NSData *signedData){
 		
 			inReply(status,signedData);
 		

@@ -24,7 +24,7 @@
 
 - (void)postNotificationStepPath:(NSString *)inStepPathRepresentation state:(PKGBuildStepState)inState userInfo:(NSDictionary *)inUserInfo;
 
-- (void)createSignatureForData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
 
 #endif
 

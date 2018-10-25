@@ -13,6 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PKGSignature.h"
+
 typedef NS_ENUM(NSUInteger, PKGSignatureStatus)
 {
 	PKGSignatureStatusSuccess,
@@ -21,8 +23,10 @@ typedef NS_ENUM(NSUInteger, PKGSignatureStatus)
 	PKGSignatureStatusKeychainAccessDenied
 };
 
+
+
 @protocol PKGBuildSignatureCreatorInterface <NSObject>
 
-- (void)createSignatureForData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
 
 @end

@@ -92,10 +92,29 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 {
 	PKGArchive * tArchive=(__bridge PKGArchive *) context;
 	
-	NSData * tSignedData=[tArchive.delegate archive:tArchive signatureForData:[NSData dataWithBytes:inData length:inLength]];
+	const char * tSignatureTypeName=xar_signature_type(inSignature);
+	
+	PKGSignatureType tSignatureType=PKGSignatureRSA;
+	
+	if (tSignatureTypeName!=NULL && !strcmp(tSignatureTypeName, "CMS"))
+		tSignatureType=PKGSignatureCMS;
+	
+	NSData * tSignedData=[tArchive.delegate archive:tArchive signatureOfType:tSignatureType forData:[NSData dataWithBytes:inData length:inLength]];
 	
 	if (tSignedData==nil)
 		return -1;
+	
+	NSUInteger tDataLength=[tSignedData length];
+	
+	if (tSignatureType==PKGSignatureCMS)
+	{
+		if (tDataLength<0x1800)
+		{
+			NSMutableData * tMutableData=[tSignedData mutableCopy];
+			tMutableData.length=0x1800;
+			tSignedData=[tMutableData copy];
+		}
+	}
 	
 	*signed_len=(uint32_t) [tSignedData length];
 	
@@ -559,6 +578,8 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 	
 	if (self.delegate!=nil && [self.delegate archiveShouldSign:self]==YES)
 	{
+		// RSA
+		
 		int32_t tSignatureSize=[self.delegate signatureSizeForArchive:self];
 		
 		if (tSignatureSize==0)
@@ -573,9 +594,27 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 			return NO;
 		}
 		
-		xar_signature_t tSignature=xar_signature_new(tArchive,"RSA", tSignatureSize,PKGArchiveSignatureCallback,(__bridge void *)self);
+		xar_signature_t tRSASignature=xar_signature_new(tArchive,"RSA", tSignatureSize,PKGArchiveSignatureCallback,(__bridge void *)self);
 		
-		if (tSignature==NULL)
+		if (tRSASignature==NULL)
+		{
+			if (outError!=NULL)
+				*outError=[NSError errorWithDomain:PKGArchiveErrorDomain
+											  code:PKGArchiveErrorMemoryAllocationFailed
+										  userInfo:nil];
+			
+			xar_close(tArchive);
+			
+			return NO;
+		}
+		
+		// CMS
+		
+		tSignatureSize=0x1800;	// Maximum value (no timestamp)
+		
+		xar_signature_t  tCMSSignature=xar_signature_new_extended(tArchive,"CMS", tSignatureSize,PKGArchiveSignatureCallback,(__bridge void *)self);
+		
+		if (tCMSSignature==NULL)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGArchiveErrorDomain
@@ -602,7 +641,10 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 		}
 		
 		for(NSData * tCertificateData in tCertificatesDataArray)
-			xar_signature_add_x509certificate(tSignature,tCertificateData.bytes,(uint32_t)tCertificateData.length);
+		{
+			xar_signature_add_x509certificate(tRSASignature,tCertificateData.bytes,(uint32_t)tCertificateData.length);
+			xar_signature_add_x509certificate(tCMSSignature,tCertificateData.bytes,(uint32_t)tCertificateData.length);
+		}
 	}
 
 	NSDirectoryEnumerator * tDirectoryEnumerator=[tFileManager enumeratorAtPath:inContentsPath];

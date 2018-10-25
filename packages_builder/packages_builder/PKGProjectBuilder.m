@@ -118,7 +118,7 @@ enum
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.4";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.5";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -127,7 +127,7 @@ NSString * const PKGProjectBuilderToolPath_mkbom=@"/usr/bin/mkbom";
 NSString * const PKGProjectBuilderToolPath_goldin=@"/usr/local/bin/goldin";
 
 
-NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
+NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 
 @interface PKGProjectBuilder () <PKGArchiveDelegate>
@@ -7576,7 +7576,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		return YES;
 #endif
 		
-		if (chown([inItemPath fileSystemRepresentation], tUID, tGID)==0)
+		if (lchown([inItemPath fileSystemRepresentation], tUID, tGID)==0)
 			return YES;
 		
 		PKGBuildErrorEvent * tErrorEvent=nil;
@@ -8559,7 +8559,7 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	return [tCertificatesData copy];
 }
 
-- (NSData *)archive:(PKGArchive *)inArchive signatureForData:(NSData *)inData
+- (NSData *)archive:(PKGArchive *)inArchive signatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inData
 {
 	if (inData==nil)
 		return nil;
@@ -8576,10 +8576,11 @@ NSString * PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	dispatch_group_t syncGroup = dispatch_group_create();
 	dispatch_group_enter(syncGroup);
 	
-	[tSignatureCreator createSignatureForData:inData
+	[tSignatureCreator createSignatureOfType:inSignatureType
+									 forData:inData
 								usingIdentity:self.project.settings.certificateName
 									 keychain:self.project.settings.certificateKeychainPath
-								 replyHandler:^(PKGSignatureStatus bStatus,NSData *bSignedData){
+								replyHandler:^(PKGSignatureStatus bStatus,NSData *bSignedData){
 									 
 									 switch(bStatus)
 									 {
