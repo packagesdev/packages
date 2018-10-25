@@ -25,6 +25,7 @@
 
 #import "PKGRightInspectorView.h"
 
+#import "PKGPresentationBox.h"
 #import "PKGPresentationPluginButton.h"
 
 #import "PKGDistributionProjectPresentationSettings+Safe.h"
@@ -109,6 +110,10 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	IBOutlet PKGPresentationPluginButton * _pluginAddButton;
 	IBOutlet PKGPresentationPluginButton * _pluginRemoveButton;
 	
+	IBOutlet PKGPresentationBox * _appearancePreviewBox;
+	
+	IBOutlet NSSegmentedControl * _appearancePreviewSegmentedControl;
+	
 	IBOutlet NSView * _accessoryPlaceHolderView;
 	
 	IBOutlet NSPopUpButton * _languagePreviewPopUpButton;
@@ -155,6 +160,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 - (IBAction)addPlugin:(id)sender;
 - (IBAction)removePlugin:(id)sender;
+
+- (IBAction)switchPreviewAppearance:(id)sender;
 
 - (IBAction)switchPreviewLanguage:(NSPopUpButton *)sender;
 
@@ -221,6 +228,13 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	_pluginAddButton.pluginButtonType=PKGPlusButton;
 	_pluginRemoveButton.pluginButtonType=PKGMinusButton;
+	
+	// Mode
+	
+	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+	{
+		_appearancePreviewBox.hidden=YES;
+	}
 	
 	// Build the Preview In Menu
 	
@@ -858,6 +872,26 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		[self noteDocumentHasChanged];
 	}];
+}
+
+- (IBAction)switchPreviewAppearance:(NSSegmentedControl *)sender
+{
+	switch(sender.selectedSegment)
+	{
+		case 0:
+			
+			[_leftView setAppearance:[NSAppearance appearanceNamed:@"NSAppearanceNameAqua"]];
+			
+			break;
+			
+		case 1:
+			
+			[_leftView setAppearance:[NSAppearance appearanceNamed:@"NSAppearanceNameDarkAqua"]];
+			
+			break;
+	}
+	
+	// A COMPLETER
 }
 
 - (IBAction)switchPreviewLanguage:(NSPopUpButton *)sender

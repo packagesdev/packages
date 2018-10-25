@@ -23,6 +23,19 @@ NSString * const WB_NSAppearanceNameDarkAqua=@"NSAppearanceNameDarkAqua";
 
 @implementation NSView (Appearance_WB)
 
+- (NSString *)WB_effectiveAppareanceName
+{
+	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+		return WB_NSAppearanceNameAqua;
+	
+	if ([self conformsToProtocol:@protocol(NSAppearanceCustomization)]==NO)
+		return WB_NSAppearanceNameAqua;
+	
+	id tAppearance=self.effectiveAppearance;
+	
+	return (NSString *)[tAppearance performSelector:@selector(bestMatchFromAppearancesWithNames:) withObject:@[WB_NSAppearanceNameAqua,WB_NSAppearanceNameDarkAqua]];
+}
+
 - (BOOL)WB_isEffectiveAppareanceDarkAqua
 {
 	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)

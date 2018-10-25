@@ -15,6 +15,8 @@
 
 @interface NSView (Appearance_WB)
 
+- (NSString *)WB_effectiveAppareanceName;
+
 - (BOOL)WB_isEffectiveAppareanceDarkAqua;
 
 @end
