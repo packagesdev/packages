@@ -1413,7 +1413,7 @@
 				<key>installer-script.product:id</key>
 				<string>fr.whitebox.Packages</string>
 				<key>installer-script.product:version</key>
-				<string>1.2.4</string>
+				<string>1.2.5</string>
 			</dict>
 			<key>BUILD_FORMAT</key>
 			<integer>0</integer>
