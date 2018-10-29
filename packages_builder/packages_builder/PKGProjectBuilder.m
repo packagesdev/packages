@@ -1802,6 +1802,12 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			if (tDomainsCurrentUserHomeValue==nil)
 				tAdvancedOptionsMutableDictionary[@"installer-gui-script.domains:enable_currentUserHome"]=@(NO);
 		}
+		else if ([tDomainsAnywhereValue boolValue]==NO && [tDomainsLocalSystemValue boolValue]==NO && [tDomainsCurrentUserHomeValue boolValue]==NO)
+		{
+			[tAdvancedOptionsMutableDictionary removeObjectsForKeys:@[@"installer-gui-script.domains:enable_anywhere",
+																	  @"installer-gui-script.domains:enable_localSystem",
+																	  @"installer-gui-script.domains:enable_currentUserHome"]];
+		}
 		
 		if ([self fillDistributionXMLWithDictionary:[tAdvancedOptionsMutableDictionary copy]]==NO)
 			return NO;
