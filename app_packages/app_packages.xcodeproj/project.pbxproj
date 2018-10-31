@@ -197,7 +197,7 @@
 		F450BD491E9CD7CE0048DF4B /* PKGPresentationSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F450BD481E9CD7CE0048DF4B /* PKGPresentationSectionViewController.m */; };
 		F450BD551E9CE8560048DF4B /* PKGPresentationSectionIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F450BD531E9CE8560048DF4B /* PKGPresentationSectionIntroductionViewController.m */; };
 		F450BD561E9CE8560048DF4B /* PKGPresentationSectionIntroductionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F450BD541E9CE8560048DF4B /* PKGPresentationSectionIntroductionViewController.xib */; };
-		F450BD591E9CF4340048DF4B /* PKGPresentationContentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F450BD571E9CF4340048DF4B /* PKGPresentationContentsView.m */; };
+		F450BD591E9CF4340048DF4B /* PKGPresentationSectionContentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F450BD571E9CF4340048DF4B /* PKGPresentationSectionContentsView.m */; };
 		F45122A61E577E8D00F6DAC3 /* PKGDistributionRequirementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F45122A41E577E8D00F6DAC3 /* PKGDistributionRequirementsViewController.m */; };
 		F4522A07201E05B4005BABED /* PKGDistributionProject+Update.m in Sources */ = {isa = PBXBuildFile; fileRef = F4522A06201E05B4005BABED /* PKGDistributionProject+Update.m */; };
 		F4522A12201E062B005BABED /* PKGPackageComponent+Update.m in Sources */ = {isa = PBXBuildFile; fileRef = F4522A11201E062B005BABED /* PKGPackageComponent+Update.m */; };
@@ -1182,8 +1182,8 @@
 		F450BD521E9CE8560048DF4B /* PKGPresentationSectionIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationSectionIntroductionViewController.h; path = app_packages/PKGPresentationSectionIntroductionViewController.h; sourceTree = "<group>"; };
 		F450BD531E9CE8560048DF4B /* PKGPresentationSectionIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationSectionIntroductionViewController.m; path = app_packages/PKGPresentationSectionIntroductionViewController.m; sourceTree = "<group>"; };
 		F450BD541E9CE8560048DF4B /* PKGPresentationSectionIntroductionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PKGPresentationSectionIntroductionViewController.xib; path = app_packages/PKGPresentationSectionIntroductionViewController.xib; sourceTree = "<group>"; };
-		F450BD571E9CF4340048DF4B /* PKGPresentationContentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationContentsView.m; path = app_packages/PKGPresentationContentsView.m; sourceTree = "<group>"; };
-		F450BD581E9CF4340048DF4B /* PKGPresentationContentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationContentsView.h; path = app_packages/PKGPresentationContentsView.h; sourceTree = "<group>"; };
+		F450BD571E9CF4340048DF4B /* PKGPresentationSectionContentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationSectionContentsView.m; path = app_packages/PKGPresentationSectionContentsView.m; sourceTree = "<group>"; };
+		F450BD581E9CF4340048DF4B /* PKGPresentationSectionContentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationSectionContentsView.h; path = app_packages/PKGPresentationSectionContentsView.h; sourceTree = "<group>"; };
 		F45122A31E577E8D00F6DAC3 /* PKGDistributionRequirementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionRequirementsViewController.h; path = app_packages/PKGDistributionRequirementsViewController.h; sourceTree = "<group>"; };
 		F45122A41E577E8D00F6DAC3 /* PKGDistributionRequirementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionRequirementsViewController.m; path = app_packages/PKGDistributionRequirementsViewController.m; sourceTree = "<group>"; };
 		F4522A05201E05B4005BABED /* PKGDistributionProject+Update.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGDistributionProject+Update.h"; path = "../model+Update/PKGDistributionProject+Update.h"; sourceTree = "<group>"; };
@@ -3359,8 +3359,8 @@
 				F45D840521825EED00107240 /* PKGPresentationContentView.m */,
 				F4C766651E3A81140045A85F /* PKGPresentationListView.h */,
 				F4C766661E3A81140045A85F /* PKGPresentationListView.m */,
-				F450BD581E9CF4340048DF4B /* PKGPresentationContentsView.h */,
-				F450BD571E9CF4340048DF4B /* PKGPresentationContentsView.m */,
+				F450BD581E9CF4340048DF4B /* PKGPresentationSectionContentsView.h */,
+				F450BD571E9CF4340048DF4B /* PKGPresentationSectionContentsView.m */,
 				F4AF18B61E3FC69F005A7CC9 /* PKGPresentationPluginButtonCell.h */,
 				F4AF18B91E3FC69F005A7CC9 /* PKGPresentationPluginButtonCell.m */,
 				F4AF18B81E3FC69F005A7CC9 /* PKGPresentationPluginButton.h */,
@@ -5204,7 +5204,7 @@
 				F4C190681E99933600E93CD3 /* PKGPresentationLocalizableStepSettings+UI.m in Sources */,
 				F4AF7FD420DFA42F0086A06D /* PKGSectionView.m in Sources */,
 				F4DD1FF31E17EAFA0018140D /* PKGPopUpButtonTableCellView.m in Sources */,
-				F450BD591E9CF4340048DF4B /* PKGPresentationContentsView.m in Sources */,
+				F450BD591E9CF4340048DF4B /* PKGPresentationSectionContentsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6164,7 +6164,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 494;
+				CURRENT_PROJECT_VERSION = 496;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6190,7 +6190,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 494;
+				CURRENT_PROJECT_VERSION = 496;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
