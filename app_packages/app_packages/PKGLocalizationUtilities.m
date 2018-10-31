@@ -168,6 +168,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if ([tEnglishLanguageNames containsObject:tLanguageName]==NO)	// Workaround for bug in Cocoa
 		tLanguageName=tEnglishLanguageNames[0];
 	
+	if ([inLanguagesArray containsObject:tLanguageName]==YES)
+		return nil;
+	
 	return tLanguageName;
 }
 
