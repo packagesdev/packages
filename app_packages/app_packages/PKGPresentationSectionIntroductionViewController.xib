@@ -66,6 +66,7 @@
             </view>
             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="722" y="286.5"/>
         </box>
     </objects>
 </document>
