@@ -15,11 +15,11 @@
 	
 	if ([self WB_isEffectiveAppareanceDarkAqua]==YES)
 	{
-		[[NSColor colorWithDeviceWhite:0.0 alpha:1.0] set];
+		[[NSColor colorWithDeviceWhite:1.0 alpha:1.0] set];
 	}
 	else
 	{
-		[[NSColor colorWithDeviceWhite:1.9 alpha:1.0] set];
+		[[NSColor colorWithDeviceWhite:0.133 alpha:1.000] set];
 	}
 	
 	NSRectFillUsingOperation(inRect, NSCompositeSourceOver);
