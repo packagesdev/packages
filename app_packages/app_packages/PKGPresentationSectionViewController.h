@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,8 @@
 
 #import "PKGPresentationStepSettings+UI.h"
 
-typedef NS_ENUM(NSUInteger, PKGPresentationSectionButtonIndexes) {
+typedef NS_ENUM(NSUInteger, PKGPresentationSectionButtonIndexes)
+{
 	PKGPresentationSectionButtonPrint=0,
 	PKGPresentationSectionButtonCustomize=0,
 	PKGPresentationSectionButtonSave=1,
@@ -42,5 +43,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationSectionButtonIndexes) {
 - (void)refreshUIForLocalization:(NSString *)inLocalization;
 
 - (void)updateButtons:(NSArray *)inButtonsArray;
+
+extern NSString * const PKGPresentationSectionSelectedSectionLanguageDidChangeNotification;
 
 @end

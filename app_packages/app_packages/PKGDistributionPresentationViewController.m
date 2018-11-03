@@ -172,6 +172,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 // Notifications
 
+- (void)selectionSectionLanguageDidChange:(NSNotification *)inNotification;
+
 - (void)windowStateDidChange:(NSNotification *)inNotification;
 
 - (void)windowViewEffectiveAppearanceDidChange:(NSNotification *)inNotification;
@@ -669,6 +671,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	// Register for notifications
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionSectionLanguageDidChange:) name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:self.view.window];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
 	
@@ -685,6 +689,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[_currentSectionViewController WB_viewWillDisappear];
 	[_currentInspectorViewController WB_viewWillDisappear];
 	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:nil];
+
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:nil];
 	
@@ -1638,6 +1644,17 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 }
 
 #pragma mark - Notifications
+
+- (void)selectionSectionLanguageDidChange:(NSNotification *)inNotification
+{
+	NSString * tPaneTitle=[_currentSectionViewController sectionPaneTitle];
+	
+	_pageTitleView.stringValue=(tPaneTitle!=nil) ? tPaneTitle : @"";
+	
+	// Refresh Buttons
+	
+	[_currentSectionViewController updateButtons:_navigationButtons];
+}
 
 - (void)windowStateDidChange:(NSNotification *)inNotification
 {
