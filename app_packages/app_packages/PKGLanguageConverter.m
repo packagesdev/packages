@@ -28,8 +28,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSDictionary * _ISOToEnglishDictionary;
 	NSDictionary * _englishToISODictionary;
 
-	NSDictionary * _englishToNativeDictionary;
+	NSDictionary * _ISOFailover;
 	
+	NSDictionary * _englishToNativeDictionary;
 	NSDictionary * _nativeToEnglishDictionary;
 }
 
@@ -69,7 +70,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		_nativeToEnglishDictionary=[tMutableDictionary copy];
 		
 		_allEnglishNames=@[@"Arabic",
-						   @"Brazilian Portuguese",
 						   @"Bulgarian",
 						   @"Canadian French",
 						   @"Catalan",
@@ -100,6 +100,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						   @"Norwegian",
 						   @"Polish",
 						   @"Portuguese",
+						   @"Portuguese (Brazil)",
 						   @"Portuguese (Portugal)",
 						   @"Romanian",
 						   @"Russian",
@@ -120,7 +121,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		
 		_englishToISODictionary=@{@"Arabic":@"ar",
-								  @"Brazilian Portuguese":@"pt_BR",
 								  @"Bulgarian":@"bg",
 								  @"Canadian French":@"fr_CA",
 								  @"Catalan":@"ca",
@@ -152,6 +152,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 								  @"Norwegian":@"no",
 								  @"Polish":@"pl",
 								  @"Portuguese":@"pt",
+								  @"Portuguese (Brazil)":@"pt_BR",
 								  @"Portuguese (Portugal)":@"pt_PT",
 								  @"Romanian":@"ro",
 								  @"Russian":@"ru",
@@ -170,7 +171,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 								  @"Welsh":@"cy"};
 		
 		_ISOToEnglishDictionary=@{@"ar":@"Arabic",
-								  @"pt_BR":@"Brazilian Portuguese",
 								  @"bg":@"Bulgarian",
 								  @"fr_CA":@"Canadian French",
 								  @"ca":@"Catalan",
@@ -202,6 +202,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 								  @"no":@"Norwegian",
 								  @"pl":@"Polish",
 								  @"pt":@"Portuguese",
+								  @"pt_BR":@"Portuguese (Brazil)",
 								  @"pt_PT":@"Portuguese (Portugal)",
 								  @"ro":@"Romanian",
 								  @"ru":@"Russian",
@@ -218,6 +219,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 								  @"uk":@"Ukrainian",
 								  @"vi":@"Vietnamese",
 								  @"cy":@"Welsh"};
+		
+		_ISOFailover=@{@"en_AU":@"en",
+					   @"en_GB":@"en",
+					   @"fr_CA":@"fr",
+					   @"pt_BR":@"pt",
+					   @"zh_HK":@"zh_TW"
+					   };
 	}
     
     return self;
@@ -227,7 +235,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)englishFromISO:(NSString *)inISOName
 {
-    if (_ISOToEnglishDictionary==nil)
+    if (_ISOToEnglishDictionary==nil || inISOName==nil)
 		return inISOName;
 
 	NSString * tEnglishName=_ISOToEnglishDictionary[inISOName];
@@ -240,7 +248,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)ISOFromEnglish:(NSString *)inEnglishName
 {
-	if (_englishToISODictionary==nil)
+	if (_englishToISODictionary==nil || inEnglishName==nil)
 		return inEnglishName;
     
      NSString * tISOName=_englishToISODictionary[inEnglishName];
@@ -251,8 +259,24 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     return tISOName;
 }
 
+- (NSString *)ISOFailOverForISO:(NSString *)inISOName
+{
+	if (_ISOFailover==nil || inISOName==nil)
+		return inISOName;
+	
+	NSString * tISOFailOver=_ISOFailover[inISOName];
+	
+	if (tISOFailOver==nil)
+		tISOFailOver=inISOName;
+	
+	return tISOFailOver;
+}
+
 - (NSString *)nativeForEnglish:(NSString *)inEnglishName
 {
+	if (_englishToNativeDictionary==nil || inEnglishName==nil)
+		return nil;
+	
 	NSString * tNativeName=_englishToNativeDictionary[inEnglishName];
 
 	if (tNativeName==nil)
@@ -263,6 +287,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)englishForNative:(NSString *)inNativeName
 {
+	if (_nativeToEnglishDictionary==nil || inNativeName==nil)
+		return inNativeName;
+	
 	NSString * tEnglishName=_nativeToEnglishDictionary[inNativeName];
 	
 	if (tEnglishName==nil)

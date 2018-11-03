@@ -32,7 +32,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sEnglishLanguageNames=[[NSMutableArray alloc] initWithObjects:@"Arabic",
-							   @"Brazilian Portuguese",
 							   @"Bulgarian",
 							   @"Canadian French",
 							   @"Catalan",
@@ -59,6 +58,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 							   @"Norwegian",
 							   @"Polish",
 							   @"Portuguese",
+							   @"Portuguese (Brazil)",
 							   @"Portuguese (Portugal)",
 							   @"Romanian",
 							   @"Russian",

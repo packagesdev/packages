@@ -58,12 +58,28 @@ NSString * const PKGInstallerSimulatorBundleName=@"InstallerSimulator.bundle";
 	
 	NSMutableDictionary * tLocalizedDictionary=[NSMutableDictionary dictionary];
 	
-	NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLocalization];
-	
 	NSString * tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:inLocalization];
 	
 	if (tPath==nil)
+	{
+		NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLocalization];
+		
 		tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
+		
+		if (tPath==nil)
+		{
+			NSString * tISOFailOverLanguage=[[PKGLanguageConverter sharedConverter] ISOFailOverForISO:tISOLanguage];
+			
+			tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tISOFailOverLanguage];
+			
+			if (tPath==nil)
+			{
+				tISOFailOverLanguage=[[PKGLanguageConverter sharedConverter] englishFromISO:tISOFailOverLanguage];
+				
+				tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tISOFailOverLanguage];
+			}
+		}
+	}
 	
 	if (tPath!=nil)
 	{

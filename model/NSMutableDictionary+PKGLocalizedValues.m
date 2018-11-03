@@ -76,6 +76,11 @@ NSString * const PKGValueKey=@"VALUE";
 			return;
 		}
 		
+		// Fix Language Name if needed
+		
+		if ([tLanguageName isEqualToString:@"Brazilian Portuguese"]==YES)
+			tLanguageName=@"Portuguese (Brazil)";
+		
 		id tValueRepresentation=bLocalizationDictionary[PKGValueKey];
 		
 		if (tValueRepresentation==nil)

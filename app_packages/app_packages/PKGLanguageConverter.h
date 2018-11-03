@@ -23,6 +23,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *)ISOFromEnglish:(NSString *)inEnglishName;
 
+- (NSString *)ISOFailOverForISO:(NSString *)inISOName;
+
 - (NSString *)nativeForEnglish:(NSString *)inEnglishName;
 
 - (NSString *)englishForNative:(NSString *)inNativeName;

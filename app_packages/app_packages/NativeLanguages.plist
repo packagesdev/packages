@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Arabic</key>
-	<string>عربي</string>
+	<string>العربية</string>
 	<key>Bulgarian</key>
-	<string>български език</string>
+	<string>български</string>
 	<key>Canadian French</key>
 	<string>Français (Canada)</string>
 	<key>Catalan</key>
@@ -39,7 +39,7 @@
 	<key>Japanese</key>
 	<string>日本語</string>
 	<key>Korean</key>
-	<string>한글</string>
+	<string>한국어</string>
 	<key>Latvian</key>
 	<string>Latviešu</string>
 	<key>Macedonian</key>
@@ -54,7 +54,7 @@
 	<string>Polski</string>
 	<key>Portuguese</key>
 	<string>Português</string>
-	<key>Brazilian Portuguese</key>
+	<key>Portuguese (Brazil)</key>
 	<string>Português (Brasil)</string>
 	<key>Portuguese (Portugal)</key>
 	<string>Português (Portugal)</string>
