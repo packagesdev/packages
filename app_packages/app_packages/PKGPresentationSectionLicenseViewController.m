@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -84,7 +84,11 @@
 
 - (NSString *)sectionPaneTitle
 {
-	return [[[PKGInstallerApp installerApp] pluginWithSectionName:PKGPresentationSectionLicenseName] pageTitleForLocalization:self.localization];
+	NSString * tSelectedLanguage=[[PKGLanguageConverter sharedConverter] englishForNative:_cachedLicenseLocalization];
+	
+	NSString * tLocalizedTitle=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Software License Agreement" localization:tSelectedLanguage];
+	
+	return (tLocalizedTitle!=nil) ? tLocalizedTitle : [[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Software License Agreement" localization:self.localization];
 }
 
 #pragma mark -
@@ -117,13 +121,17 @@
 	if (self.localization==nil || inButtonsArray.count!=4)
 		return;
 	
+	NSString * tSelectedLanguage=[[PKGLanguageConverter sharedConverter] englishForNative:_cachedLicenseLocalization];
+	
 	// Print / Customize
 	
 	NSButton * tButton=inButtonsArray[PKGPresentationSectionButtonPrint];
 	
 	tButton.hidden=NO;
 	
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Print..." localization:self.localization];
+	NSString * tLocalizedTitle=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Print..." localization:tSelectedLanguage];
+	
+	tButton.title=(tLocalizedTitle!=nil) ? tLocalizedTitle : [[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Print..." localization:self.localization];
 	
 	NSRect tFrame=tButton.frame;
 	
@@ -146,7 +154,9 @@
 	
 	tButton.hidden=NO;
 	
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Save..." localization:self.localization];
+	tLocalizedTitle=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Save..." localization:tSelectedLanguage];
+	
+	tButton.title=(tLocalizedTitle!=nil) ? tLocalizedTitle : [[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Save..." localization:self.localization];
 	
 	tFrame=tButton.frame;
 	
@@ -168,7 +178,10 @@
 	tButton=inButtonsArray[PKGPresentationSectionButtonContinue];
 	
 	tButton.hidden=NO;
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Continue" localization:self.localization];
+	
+	tLocalizedTitle=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Continue" localization:tSelectedLanguage];
+	
+	tButton.title=(tLocalizedTitle!=nil) ? tLocalizedTitle : [[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Continue" localization:self.localization];
 	
 	tFrame=tButton.frame;
 	
@@ -194,7 +207,10 @@
 	tButton=inButtonsArray[PKGPresentationSectionButtonGoBack];
 	
 	tButton.hidden=NO;
-	tButton.title=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Go Back" localization:self.localization];
+	
+	tLocalizedTitle=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Go Back" localization:tSelectedLanguage];
+	
+	tButton.title=(tLocalizedTitle!=nil) ? tLocalizedTitle : [[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Go Back" localization:self.localization];
 	
 	tFrame=[tButton frame];
 	
@@ -331,15 +347,73 @@
 	
 	[_languagePopupButton removeAllItems];
 	
-	NSArray * tNativeLanguages=[tLocalizations.allKeys WB_arrayByMappingObjectsUsingBlock:^NSString *(NSString * bEnglishLanguageName, NSUInteger bIndex) {
-		
-		NSString * tNativeLanguageName=[[PKGLanguageConverter sharedConverter] nativeForEnglish:bEnglishLanguageName];
-		
-		return tNativeLanguageName;
-		
-	}];
+	PKGLanguageConverter * tLanguageConverter=[PKGLanguageConverter sharedConverter];
 	
-	[_languagePopupButton addItemsWithTitles:[tNativeLanguages sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]];
+	NSArray * tSortedNativeLanguages=nil;
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FixAppleBugs"]==NO)
+	{
+		// The resulting sorted array of native language names does not make any sense. (rdar://45713825)
+		
+		NSArray * tISOLanguages=[tLocalizations.allKeys WB_arrayByMappingObjectsUsingBlock:^id(NSString * bEnglishLanguageName, NSUInteger bIndex) {
+			
+			return [tLanguageConverter ISOFromEnglish:bEnglishLanguageName];
+		}];
+		
+		NSArray * tSortedISOLanguages=[tISOLanguages sortedArrayUsingSelector:@selector(compare:)];
+		
+		tSortedNativeLanguages=[tSortedISOLanguages WB_arrayByMappingObjectsUsingBlock:^NSString *(NSString * bISOLanguageCode, NSUInteger bIndex) {
+			
+			NSString * tNativeLanguageName=[tLanguageConverter nativeForEnglish:[tLanguageConverter englishFromISO:bISOLanguageCode]];
+			
+			return tNativeLanguageName;
+			
+		}];
+		
+		// There's a list that defines the preferred order for the first languages. It's located in the Info.plist fule of the private Install.framework.
+		
+		static NSArray * sPreferredOrderArray=nil;
+		static dispatch_once_t onceToken;
+		
+		dispatch_once(&onceToken, ^{
+			
+			NSBundle * tInstallFrameworkBundle=[NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/Install.framework"];
+			
+			sPreferredOrderArray = [[tInstallFrameworkBundle objectForInfoDictionaryKey:@"IFLanguageNamesOrder"] WB_arrayByMappingObjectsUsingBlock:^id(NSString * bLanguageCode, NSUInteger bIndex) {
+				
+				NSString * tEnglishName=[tLanguageConverter englishFromISO:bLanguageCode];
+				
+				return [tLanguageConverter nativeForEnglish:tEnglishName];
+			}];
+		});
+		
+		NSMutableArray * tMutableSortedArray=[tSortedNativeLanguages mutableCopy];
+		
+		[sPreferredOrderArray enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSString * bNativeLanguage, NSUInteger bIndex, BOOL * bOutStop) {
+			
+			NSUInteger tIndex=[tMutableSortedArray indexOfObject:bNativeLanguage];
+			
+			if (tIndex!=NSNotFound)
+			{
+				[tMutableSortedArray removeObjectAtIndex:tIndex];
+				[tMutableSortedArray insertObject:bNativeLanguage atIndex:0];
+			}
+			
+		}];
+		
+		tSortedNativeLanguages=[tMutableSortedArray copy];
+	}
+	else
+	{
+		NSArray * tNativesLanguages=[tLocalizations.allKeys WB_arrayByMappingObjectsUsingBlock:^id(NSString * bEnglishLanguageName, NSUInteger bIndex) {
+			
+			return [tLanguageConverter nativeForEnglish:bEnglishLanguageName];
+		}];
+		
+		tSortedNativeLanguages=[tNativesLanguages sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	}
+	
+	[_languagePopupButton addItemsWithTitles:tSortedNativeLanguages];
 	
 	NSString * tEnglishLanguageName=inLocalization;
 	
@@ -347,7 +421,7 @@
 	{
 		id tObject=nil;
 		
-		tEnglishLanguageName=[[PKGLanguageConverter sharedConverter] englishForNative:_cachedLicenseLocalization];
+		tEnglishLanguageName=[tLanguageConverter englishForNative:_cachedLicenseLocalization];
 		
 		if (tEnglishLanguageName!=nil)
 			tObject=tLocalizations[tEnglishLanguageName];
@@ -363,7 +437,7 @@
 	
 	if (tObject!=nil)
 	{
-		_cachedLicenseLocalization=[[PKGLanguageConverter sharedConverter] nativeForEnglish:tEnglishLanguageName];
+		_cachedLicenseLocalization=[tLanguageConverter nativeForEnglish:tEnglishLanguageName];
 		
 		[_languagePopupButton selectItemWithTitle:_cachedLicenseLocalization];
 		
@@ -374,7 +448,7 @@
 	
 	NSArray * tAvailableLocalizations=(__bridge_transfer NSArray *)CFBundleCopyPreferredLocalizationsFromArray((__bridge CFArrayRef) tLocalizations.allKeys);
 	
-	_cachedLicenseLocalization=[[PKGLanguageConverter sharedConverter] nativeForEnglish:tAvailableLocalizations.firstObject];
+	_cachedLicenseLocalization=[tLanguageConverter nativeForEnglish:tAvailableLocalizations.firstObject];
 	
 	[_languagePopupButton selectItemWithTitle:_cachedLicenseLocalization];
 	
@@ -393,6 +467,10 @@
 	_cachedLicenseLocalization=tSelectedLocalization;
 	
 	[self refreshLicenseUIForNativeLocalization:_cachedLicenseLocalization];
+	
+	// 45684749 radar to take into account
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:self.view.window];
 }
 
 #pragma mark - NSTextViewDelegate
