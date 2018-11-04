@@ -171,6 +171,8 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 - (void)refreshUI
 {
 	[self.tableView reloadData];
+	
+	_addButton.enabled=(_dataSource.localizations.count<[PKGLocalizationUtilities englishLanguages].count);
 }
 
 #pragma mark -
