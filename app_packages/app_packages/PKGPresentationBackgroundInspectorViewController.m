@@ -115,7 +115,7 @@
 	
 	PKGPresentationBackgroundSettings * _backgroundSettings;
 	
-	PKGPresentationAppareanceMode _selectedAppearanceMode;
+	PKGPresentationAppearanceMode _selectedAppearanceMode;
 }
 
 - (IBAction)switchSharedSettingsValue:(id)sender;
@@ -144,7 +144,7 @@
 	{
 		_backgroundSettings=[inPresentationSettings backgroundSettings];
 		
-		_selectedAppearanceMode=PKGPresentationAppareanceModeShared;
+		_selectedAppearanceMode=PKGPresentationAppearanceModeShared;
 	}
 	
 	return self;
@@ -164,7 +164,7 @@
 	
 	[[PKGPresentationBackgroundAppearanceSettings allAppearancesNames] enumerateObjectsUsingBlock:^(NSString * bAppearanceName, NSUInteger bIndex, BOOL *bOutStop) {
 		
-		PKGPresentationAppareanceMode tAppearanceMode=[PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:bAppearanceName];
+		PKGPresentationAppearanceMode tAppearanceMode=[PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:bAppearanceName];
 		NSString * tLocalizationKey=[NSString stringWithFormat:@"title.appearance-mode.%d",(int)tAppearanceMode];
 		
 		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(tLocalizationKey,@"Presentation",@"") action:nil keyEquivalent:@""];
@@ -194,7 +194,7 @@
 	BOOL tShareSettings=_backgroundSettings.sharedSettingsForAllAppearances;
 	
 	if (tShareSettings==YES)
-		_selectedAppearanceMode=PKGPresentationAppareanceModeShared;
+		_selectedAppearanceMode=PKGPresentationAppearanceModeShared;
 	
 	return [_backgroundSettings appearanceSettingsForAppearanceMode:_selectedAppearanceMode];
 }
@@ -211,10 +211,10 @@
 	_sharedSettingsCheckBox.state=(tShareSettings==YES) ? NSOnState : NSOffState;
 	
 	if (tShareSettings==YES)
-		_selectedAppearanceMode=PKGPresentationAppareanceModeShared;
+		_selectedAppearanceMode=PKGPresentationAppearanceModeShared;
 	
-	NSMenuItem * tMenuItem=[_appearanceModePopUpButton  itemAtIndex:[_appearanceModePopUpButton indexOfItemWithTag:PKGPresentationAppareanceModeShared]];
-	NSString * tLocalizationKey=[NSString stringWithFormat:@"title.appearance-mode.%d",(int)PKGPresentationAppareanceModeShared];
+	NSMenuItem * tMenuItem=[_appearanceModePopUpButton  itemAtIndex:[_appearanceModePopUpButton indexOfItemWithTag:PKGPresentationAppearanceModeShared]];
+	NSString * tLocalizationKey=[NSString stringWithFormat:@"title.appearance-mode.%d",(int)PKGPresentationAppearanceModeShared];
 	
 	tMenuItem.title=(tShareSettings==YES) ? @"-" : NSLocalizedStringFromTable(tLocalizationKey,@"Presentation",@"");
 	

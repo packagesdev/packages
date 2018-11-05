@@ -21,7 +21,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "ICJavaScriptFunctionPopUpButton.h"
 
-#import "NSView+Appearance.h"
+#import "NSResponder+Appearance.h"
 
 NSString * ICJavaScriptFunctionsListDidChangeNotification=@"ICJavaScriptFunctionsListDidChangeNotification";
 
@@ -960,7 +960,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	
 	NSLayoutManager * tLayoutManager = [[tTextStorage layoutManagers] objectAtIndex: 0];
 	
-	NSDictionary * tSyntaxAttributesDictionary=([_textView WB_isEffectiveAppareanceDarkAqua]==NO) ? _syntaxLightAttributesDictionary : _syntaxDarkAttributesDictionary;
+	NSDictionary * tSyntaxAttributesDictionary=([_textView WB_isEffectiveAppearanceDarkAqua]==NO) ? _syntaxLightAttributesDictionary : _syntaxDarkAttributesDictionary;
 	
 	// Remove all attributes
 	

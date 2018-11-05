@@ -57,7 +57,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tThemeVersion==PKGPresentationThemeMojaveDynamic)
 	{
-		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+		if ([self WB_isEffectiveAppearanceDarkAqua]==NO)
 			tThemeVersion=PKGPresentationThemeMojaveLight;
 		else
 			tThemeVersion=PKGPresentationThemeMojaveDark;
@@ -156,7 +156,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tThemeVersion==PKGPresentationThemeMojaveDynamic)
 	{
-		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+		if ([self WB_isEffectiveAppearanceDarkAqua]==NO)
 			tThemeVersion=PKGPresentationThemeMojaveLight;
 		else
 			tThemeVersion=PKGPresentationThemeMojaveDark;

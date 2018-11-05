@@ -24,14 +24,16 @@
 
 - (void)drawRect:(NSRect)inRect
 {
-	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+	BOOL tIsDark=[self WB_isEffectiveAppearanceDarkAqua];
+	
+	if (tIsDark==NO)
 		[[NSColor colorWithDeviceWhite:0.94 alpha:1.0] setFill];
 	else
 		[[NSColor colorWithDeviceWhite:0.0 alpha:0.15] set];
 	
 	NSRectFillUsingOperation(inRect,NSCompositeSourceOver);
 	
-	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+	if (tIsDark==NO)
 		[[NSColor colorWithDeviceWhite:0.0 alpha:0.05] set];
 	else
 		[[NSColor colorWithDeviceWhite:1.0 alpha:0.03] set];

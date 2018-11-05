@@ -20,15 +20,15 @@
 
 @implementation PKGPresentationBackgroundSettings (Builder)
 
-+ (NSString *)elementNameForAppearanceMode:(PKGPresentationAppareanceMode)inAppearanceMode
++ (NSString *)elementNameForAppearanceMode:(PKGPresentationAppearanceMode)inAppearanceMode
 {
 	switch(inAppearanceMode)
 	{
-		case PKGPresentationAppareanceModeLight:
+		case PKGPresentationAppearanceModeLight:
 			
 			return @"background";
 			
-		case PKGPresentationAppareanceModeDark:
+		case PKGPresentationAppearanceModeDark:
 			
 			return @"background-darkAqua";
 			
@@ -40,15 +40,15 @@
 	return nil;
 }
 
-+ (NSString *)proposedFileNameForAppearanceMode:(PKGPresentationAppareanceMode)inAppearanceMode
++ (NSString *)proposedFileNameForAppearanceMode:(PKGPresentationAppearanceMode)inAppearanceMode
 {
 	switch(inAppearanceMode)
 	{
-		case PKGPresentationAppareanceModeLight:
+		case PKGPresentationAppearanceModeLight:
 			
 			return @"background";
 			
-		case PKGPresentationAppareanceModeDark:
+		case PKGPresentationAppearanceModeDark:
 			
 			return @"background-darkAqua";
 			
@@ -60,7 +60,7 @@
 	return nil;
 }
 
-- (NSXMLElement *)projectBuilder:(PKGProjectBuilder *)inProjectBuilder elementForAppearanceMode:(PKGPresentationAppareanceMode)inAppearanceMode settings:(PKGPresentationBackgroundAppearanceSettings *)inAppearanceSettings copiedResourcesRegister:(NSMutableDictionary *)inCopiedResourcesRegister
+- (NSXMLElement *)projectBuilder:(PKGProjectBuilder *)inProjectBuilder elementForAppearanceMode:(PKGPresentationAppearanceMode)inAppearanceMode settings:(PKGPresentationBackgroundAppearanceSettings *)inAppearanceSettings copiedResourcesRegister:(NSMutableDictionary *)inCopiedResourcesRegister
 {
 	NSString * tAbsolutePath=[inProjectBuilder absolutePathForFilePath:inAppearanceSettings.imagePath];
 	
@@ -268,7 +268,7 @@
 	
 	if (self.sharedSettingsForAllAppearances==YES)
 	{
-		PKGPresentationBackgroundAppearanceSettings * tAppearanceSettings=[self appearanceSettingsForAppearanceMode:PKGPresentationAppareanceModeShared];
+		PKGPresentationBackgroundAppearanceSettings * tAppearanceSettings=[self appearanceSettingsForAppearanceMode:PKGPresentationAppearanceModeShared];
 		
 		/*if (tAppearanceSettings==nil)
 		{
@@ -292,9 +292,9 @@
 		
 		for(NSString * tAppearanceName in [PKGPresentationBackgroundAppearanceSettings allAppearancesNames])
 		{
-			PKGPresentationAppareanceMode tApperanceMode=[PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:tAppearanceName];
+			PKGPresentationAppearanceMode tApperanceMode=[PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:tAppearanceName];
 			
-			if (tApperanceMode==PKGPresentationAppareanceModeUnknown)
+			if (tApperanceMode==PKGPresentationAppearanceModeUnknown)
 			{
 				// A COMPLETER
 				
@@ -335,9 +335,9 @@
 				tDidPostBeginEvent=YES;
 			}
 			
-			PKGPresentationAppareanceMode tApperanceMode=[PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:tAppearanceName];
+			PKGPresentationAppearanceMode tApperanceMode=[PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:tAppearanceName];
 			
-			if (tApperanceMode==PKGPresentationAppareanceModeUnknown)
+			if (tApperanceMode==PKGPresentationAppearanceModeUnknown)
 			{
 				// A COMPLETER
 				

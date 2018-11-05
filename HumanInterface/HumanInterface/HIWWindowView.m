@@ -302,6 +302,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	{
 		case 7:
 		case 8:
+		case 9:
 			
 			tOSName=@"Lion";
 

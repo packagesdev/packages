@@ -19,7 +19,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	// Draw background
 	
-    BOOL tIsDarkMode=[self WB_isEffectiveAppareanceDarkAqua];
+    BOOL tIsDarkMode=[self WB_isEffectiveAppearanceDarkAqua];
     
 	if (tIsDarkMode==NO)
 		[[NSColor colorWithDeviceWhite:0.898 alpha:1.0] set];

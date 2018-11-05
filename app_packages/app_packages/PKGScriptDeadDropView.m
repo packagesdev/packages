@@ -54,14 +54,16 @@
 		
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(tBounds,2.0,2.0) xRadius:5.0 yRadius:5.0];
 		
-		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+		BOOL tIsDark=[self WB_isEffectiveAppearanceDarkAqua];
+		
+		if (tIsDark==NO)
 			[[NSColor colorWithDeviceWhite:0.85 alpha:0.5] setFill];
 		else
 			[[NSColor colorWithDeviceWhite:0.20 alpha:0.5] setFill];
 		
 		[tBezierPath fill];
 		
-		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+		if (tIsDark==NO)
 			[[NSColor colorWithDeviceWhite:0.7 alpha:0.5] setStroke];
 		else
 			[[NSColor colorWithDeviceWhite:0.7 alpha:0.5] setStroke];

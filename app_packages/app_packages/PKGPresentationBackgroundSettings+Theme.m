@@ -10,11 +10,11 @@
 		case PKGPresentationThemeMountainLion:
 		case PKGPresentationThemeMojaveLight:
 			
-			return [self appearanceSettingsForAppearanceMode:PKGPresentationAppareanceModeLight];
+			return [self appearanceSettingsForAppearanceMode:PKGPresentationAppearanceModeLight];
 			
 		case PKGPresentationThemeMojaveDark:
 			
-			return [self appearanceSettingsForAppearanceMode:PKGPresentationAppareanceModeDark];
+			return [self appearanceSettingsForAppearanceMode:PKGPresentationAppearanceModeDark];
 			
 		default:
 			

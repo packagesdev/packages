@@ -13,7 +13,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "ICSourceTextTopView.h"
 
-#import "NSView+Appearance.h"
+#import "NSResponder+Appearance.h"
 
 @implementation ICSourceTextTopView
 
@@ -36,7 +36,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)drawRect:(NSRect)inRect
 {
-	BOOL tIsDarkAqua=[self WB_isEffectiveAppareanceDarkAqua];
+	BOOL tIsDarkAqua=[self WB_isEffectiveAppearanceDarkAqua];
 	
 	if (tIsDarkAqua==NO)
 		[[NSColor whiteColor] set];

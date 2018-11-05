@@ -63,7 +63,7 @@
 - (void)drawRect:(NSRect)inRect
 {
 	NSMutableAttributedString * tAttributedString=[[self attributedTitle] mutableCopy];
-	BOOL tIsDark=[self WB_isEffectiveAppareanceDarkAqua];
+	BOOL tIsDark=[self WB_isEffectiveAppearanceDarkAqua];
 	NSColor * tColor;
 	
 	if (self.state==NSOnState)

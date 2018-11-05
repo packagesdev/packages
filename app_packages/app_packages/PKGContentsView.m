@@ -17,7 +17,7 @@
 
 - (void)drawRect:(NSRect)inRect
 {
-	if ([self WB_isEffectiveAppareanceDarkAqua]==YES)
+	if ([self WB_isEffectiveAppearanceDarkAqua]==YES)
 		return;
 	
 	[[NSColor whiteColor] set];

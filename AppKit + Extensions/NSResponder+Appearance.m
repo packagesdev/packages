@@ -11,19 +11,25 @@
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "NSView+Appearance.h"
-
-#ifndef NSAppKitVersionNumber10_14
-#define NSAppKitVersionNumber10_14 1641.10
-#endif
+#import "NSResponder+Appearance.h"
 
 NSString * const WB_NSAppearanceNameAqua=@"NSAppearanceNameAqua";
 
 NSString * const WB_NSAppearanceNameDarkAqua=@"NSAppearanceNameDarkAqua";
 
-@implementation NSView (Appearance_WB)
+@implementation NSResponder (Appearance_WB)
 
-- (NSString *)WB_effectiveAppareanceName
++ (WB_AppearanceMode) WB_appearanceModeForAppearanceName:(NSString *)inAppearanceName
+{
+	if ([inAppearanceName isEqualToString:WB_NSAppearanceNameDarkAqua]==YES)
+		return WB_AppearanceDarkAqua;
+	
+	return WB_AppearanceAqua;
+}
+
+#pragma mark -
+
+- (NSString *)WB_effectiveAppearanceName
 {
 	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 		return WB_NSAppearanceNameAqua;
@@ -31,12 +37,12 @@ NSString * const WB_NSAppearanceNameDarkAqua=@"NSAppearanceNameDarkAqua";
 	if ([self conformsToProtocol:@protocol(NSAppearanceCustomization)]==NO)
 		return WB_NSAppearanceNameAqua;
 	
-	id tAppearance=self.effectiveAppearance;
+	id tAppearance=[self performSelector:@selector(effectiveAppearance) withObject:nil];
 	
 	return (NSString *)[tAppearance performSelector:@selector(bestMatchFromAppearancesWithNames:) withObject:@[WB_NSAppearanceNameAqua,WB_NSAppearanceNameDarkAqua]];
 }
 
-- (BOOL)WB_isEffectiveAppareanceDarkAqua
+- (BOOL)WB_isEffectiveAppearanceDarkAqua
 {
 	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 		return NO;
@@ -44,7 +50,7 @@ NSString * const WB_NSAppearanceNameDarkAqua=@"NSAppearanceNameDarkAqua";
 	if ([self conformsToProtocol:@protocol(NSAppearanceCustomization)]==NO)
 		return NO;
 	
-	id tAppearance=self.effectiveAppearance;
+	id tAppearance=[self performSelector:@selector(effectiveAppearance) withObject:nil];
 	
 	NSString * tBestMatch=(NSString *)[tAppearance performSelector:@selector(bestMatchFromAppearancesWithNames:) withObject:@[WB_NSAppearanceNameAqua,WB_NSAppearanceNameDarkAqua]];
 	

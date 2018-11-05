@@ -228,6 +228,9 @@
 	
 	if (tSuccess==YES)
 	{
+		if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_14)
+			[self.textView setTextColor:[NSColor textColor]];
+		
 		[self.textView scrollRangeToVisible:NSMakeRange(0,1)];
 	
 		NSDictionary * tAttributesDictionary=[tFileManager attributesOfItemAtPath:_cachedDocumentPath error:NULL];

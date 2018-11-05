@@ -536,7 +536,7 @@ extended_attributes_bail:
 				break;
 		}
 		
-		if (chmod(tFile->fts_accpath, inPosixPermisions) == -1)
+		if (lchmod(tFile->fts_accpath, inPosixPermisions) == -1)
 		{
 			if (outError!=NULL)
 			{
@@ -610,7 +610,6 @@ extended_attributes_bail:
 		switch (tFile->fts_info)
 		{
 			case FTS_D:
-			case FTS_SL:
 			case FTS_SLNONE:
 				continue;
 			case FTS_DNR:
@@ -624,43 +623,50 @@ extended_attributes_bail:
 				}
 				
 				return NO;
+				
+			case FTS_SL:
+				
+				lchown(tFile->fts_accpath, inOwnerAccountID, inGroupAccountID);
+				
+				continue;
+				
 			default:
+				
 				break;
 		}
 		
 		if (inOwnerAccountID == tFile->fts_statp->st_uid && inGroupAccountID == tFile->fts_statp->st_gid)
 			continue;
 		
-		if (chown(tFile->fts_accpath, inOwnerAccountID, inGroupAccountID) == -1)
+		if (chown(tFile->fts_accpath, inOwnerAccountID, inGroupAccountID) == 0)
+			continue;
+		
+		switch(errno)
 		{
-			switch(errno)
-			{
-				case EPERM:
+			case EPERM:
+				
+				if ((tFile->fts_statp->st_flags & UF_IMMUTABLE)==UF_IMMUTABLE)
+				{
+					u_int tFlags=(tFile->fts_statp->st_flags & ~UF_IMMUTABLE);
 					
-					if ((tFile->fts_statp->st_flags & UF_IMMUTABLE)==UF_IMMUTABLE)
-					{
-						u_int tFlags=(tFile->fts_statp->st_flags & ~UF_IMMUTABLE);
+					if (chflags(tFile->fts_accpath, tFlags)==0 &&								// Remove lock flag
 						
-						
-						
-						if (chflags(tFile->fts_accpath, tFlags)==0 &&								// Remove lock flag
-							chown(tFile->fts_accpath, inOwnerAccountID, inGroupAccountID) == 0 &&	// Try to set again the owner and group
-							chflags(tFile->fts_accpath, tFile->fts_statp->st_flags)==0)				// Put back the lock flag
-						
-							break;
-					}
+						chown(tFile->fts_accpath, inOwnerAccountID, inGroupAccountID) == 0 &&	// Try to set again the owner and group
+						chflags(tFile->fts_accpath, tFile->fts_statp->st_flags)==0)				// Put back the lock flag
 					
-				default:
-					
-					fts_close(ftsp);
-					
-					if (outError!=NULL)
-					{
-						// A COMPLETER
-					}
-					
-					return NO;
-			}
+						break;
+				}
+				
+			default:
+				
+				fts_close(ftsp);
+				
+				if (outError!=NULL)
+				{
+					// A COMPLETER
+				}
+				
+				return NO;
 		}
 	}
 	

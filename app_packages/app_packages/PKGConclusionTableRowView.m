@@ -37,7 +37,9 @@ NSString * const PKGConclusionTableRowViewIdentifier=@"PKGConclusionTableRowView
 	
 	NSRect tBounds=self.bounds;
 	
-	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+	BOOL tIsDark=[self WB_isEffectiveAppearanceDarkAqua];
+	
+	if (tIsDark==NO)
 	{
 		if (self.state==PKGBuildEventItemStateSuccess)
 			[[NSColor colorWithCalibratedRed:0.8471f green:0.9647f blue:0.8510f alpha:1.0] set];
@@ -54,7 +56,7 @@ NSString * const PKGConclusionTableRowViewIdentifier=@"PKGConclusionTableRowView
 	
 	NSRectFill(tBounds);
 	
-	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+	if (tIsDark==NO)
 	{
 		if (self.state==PKGBuildEventItemStateSuccess)
 			[[NSColor colorWithCalibratedRed:0.1647f green:0.7882f blue:0.0902f alpha:1.0] set];

@@ -59,7 +59,7 @@
 	
 	NSBezierPath* tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tRect xRadius:tRadius yRadius:tRadius];
 	
-	BOOL tIsDarkAqua=[inControlView WB_isEffectiveAppareanceDarkAqua];
+	BOOL tIsDarkAqua=[inControlView WB_isEffectiveAppearanceDarkAqua];
 	
 	if (tIsDarkAqua==NO)
 	{

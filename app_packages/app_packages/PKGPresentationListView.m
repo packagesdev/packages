@@ -408,7 +408,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 								 
 								 if (tPresentationTheme==PKGPresentationThemeMojaveDynamic)
 								 {
-									 if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+									 if ([self WB_isEffectiveAppearanceDarkAqua]==NO)
 										 tPresentationTheme=PKGPresentationThemeMojaveLight;
 									 else
 										 tPresentationTheme=PKGPresentationThemeMojaveDark;
@@ -564,7 +564,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	
 	if (tPresentationTheme==PKGPresentationThemeMojaveDynamic)
 	{
-		if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+		if ([self WB_isEffectiveAppearanceDarkAqua]==NO)
 			tPresentationTheme=PKGPresentationThemeMojaveLight;
 		else
 			tPresentationTheme=PKGPresentationThemeMojaveDark;

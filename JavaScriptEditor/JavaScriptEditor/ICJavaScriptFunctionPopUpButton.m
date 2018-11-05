@@ -13,7 +13,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "ICJavaScriptFunctionPopUpButton.h"
 
-#import "NSView+Appearance.h"
+#import "NSResponder+Appearance.h"
 
 @interface ICJavaScriptFunctionPopUpButtonCell : NSPopUpButtonCell
 
@@ -24,7 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)drawBorderAndBackgroundWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-	if ([controlView WB_isEffectiveAppareanceDarkAqua]==NO)
+	if ([controlView WB_isEffectiveAppearanceDarkAqua]==NO)
 		[[NSColor colorWithDeviceWhite:0.0 alpha:0.80] set];
 	else
 		[[NSColor colorWithDeviceWhite:1.0 alpha:0.80] set];

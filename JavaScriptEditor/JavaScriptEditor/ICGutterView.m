@@ -16,7 +16,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 Moving Todd source code back to Obj-C 1.0
 Fixing some bugs
 
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2018, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -30,7 +30,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "ICGutterView.h"
 
-#import "NSView+Appearance.h"
+#import "NSResponder+Appearance.h"
 
 @implementation ICGutterView
 
@@ -59,7 +59,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Draw Background
 	
-	BOOL tIsDarkMode=[self WB_isEffectiveAppareanceDarkAqua];
+	BOOL tIsDarkMode=[self WB_isEffectiveAppearanceDarkAqua];
 	
 	if (tIsDarkMode==NO)
 		[[NSColor colorWithCalibratedWhite:0.933 alpha:1.0] set];

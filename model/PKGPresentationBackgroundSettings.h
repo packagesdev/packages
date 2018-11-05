@@ -41,13 +41,13 @@ typedef NS_ENUM(NSUInteger, PKGImageLayoutDirection)
 	PKGImageLayoutDirectionNatural=1
 };
 
-typedef NS_ENUM(NSUInteger, PKGPresentationAppareanceMode)
+typedef NS_ENUM(NSUInteger, PKGPresentationAppearanceMode)
 {
-	PKGPresentationAppareanceModeUnknown=-1,
-	PKGPresentationAppareanceModeLight=0,
-	PKGPresentationAppareanceModeDark=1,
+	PKGPresentationAppearanceModeUnknown=-1,
+	PKGPresentationAppearanceModeLight=0,
+	PKGPresentationAppearanceModeDark=1,
 	
-	PKGPresentationAppareanceModeShared=PKGPresentationAppareanceModeLight
+	PKGPresentationAppearanceModeShared=PKGPresentationAppearanceModeLight
 };
 
 @interface PKGPresentationBackgroundAppearanceSettings : NSObject <PKGObjectProtocol,NSCopying>
@@ -64,9 +64,9 @@ typedef NS_ENUM(NSUInteger, PKGPresentationAppareanceMode)
 
 + (NSArray *)allAppearancesNames;
 
-+ (NSString *)appearanceNameForAppearanceMode:(PKGPresentationAppareanceMode)inMode;
++ (NSString *)appearanceNameForAppearanceMode:(PKGPresentationAppearanceMode)inMode;
 
-+ (PKGPresentationAppareanceMode)appearanceModeForAppearanceName:(NSString *)inApperanceName;
++ (PKGPresentationAppearanceMode)appearanceModeForAppearanceName:(NSString *)inApperanceName;
 
 @end
 
@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, PKGPresentationAppareanceMode)
 
 	@property (readonly,nonatomic) NSDictionary * appearancesSettings;
 
-- (PKGPresentationBackgroundAppearanceSettings *)appearanceSettingsForAppearanceMode:(PKGPresentationAppareanceMode)inAppareanceMode;
+- (PKGPresentationBackgroundAppearanceSettings *)appearanceSettingsForAppearanceMode:(PKGPresentationAppearanceMode)inAppearanceMode;
 
 
 @end

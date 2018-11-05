@@ -38,8 +38,7 @@
 
 	// AppKit Extensions
 
-	#import "NSView+Appearance.h"
-	#import "NSWindow+Appearance.h"
+	#import "NSResponder+Appearance.h"
 
 	#import "NSViewController+WBExtensions.h"
 

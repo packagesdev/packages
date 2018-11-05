@@ -21,7 +21,7 @@
 
 NSString * const PKGPresentationBackgroundShowCustomImageKey=@"CUSTOM";
 
-NSString * const PKGPresentationBackgroundSharedSettingsForAllAppearancesKey=@"SHARED_SETTINGS_FOR_ALL_APPAREANCES";
+NSString * const PKGPresentationBackgroundSharedSettingsForAllAppearancesKey=@"SHARED_SETTINGS_FOR_ALL_APPAREANCES";	// Yes, there's a typo but too late to fix it
 
 NSString * const PKGPresentationBackgroundAppearancesSettingsKey=@"APPAREANCES";
 
@@ -42,48 +42,48 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 
 + (NSArray *)allAppearancesNames
 {
-	static NSArray * sAllAppareancesNames=nil;
+	static NSArray * sAllAppearancesNames=nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		
-		sAllAppareancesNames=@[PKGPresentationBackgroundImageAppearanceLightAquaNameKey,
+		sAllAppearancesNames=@[PKGPresentationBackgroundImageAppearanceLightAquaNameKey,
 							   PKGPresentationBackgroundImageAppearanceDarkAquaNameKey];
 	});
 	
-	return sAllAppareancesNames;
+	return sAllAppearancesNames;
 }
 
-+ (NSString *)appearanceNameForAppearanceMode:(PKGPresentationAppareanceMode)inMode
++ (NSString *)appearanceNameForAppearanceMode:(PKGPresentationAppearanceMode)inMode
 {
-	static NSDictionary * sAllAppareanceModesToNamesDictionary=nil;
+	static NSDictionary * sAllAppearanceModesToNamesDictionary=nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		
-		sAllAppareanceModesToNamesDictionary=@{@(PKGPresentationAppareanceModeLight):PKGPresentationBackgroundImageAppearanceLightAquaNameKey,
-											   @(PKGPresentationAppareanceModeDark):PKGPresentationBackgroundImageAppearanceDarkAquaNameKey
+		sAllAppearanceModesToNamesDictionary=@{@(PKGPresentationAppearanceModeLight):PKGPresentationBackgroundImageAppearanceLightAquaNameKey,
+											   @(PKGPresentationAppearanceModeDark):PKGPresentationBackgroundImageAppearanceDarkAquaNameKey
 											   };
 	});
 	
-	return sAllAppareanceModesToNamesDictionary[@(inMode)];
+	return sAllAppearanceModesToNamesDictionary[@(inMode)];
 }
 
-+ (PKGPresentationAppareanceMode)appearanceModeForAppearanceName:(NSString *)inName
++ (PKGPresentationAppearanceMode)appearanceModeForAppearanceName:(NSString *)inName
 {
 	if (inName==nil)
-		return PKGPresentationAppareanceModeUnknown;
+		return PKGPresentationAppearanceModeUnknown;
 	
-	static NSDictionary * sAllAppareanceNameKeysToModesDictionary=nil;
+	static NSDictionary * sAllAppearanceNameKeysToModesDictionary=nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		
-		sAllAppareanceNameKeysToModesDictionary=@{PKGPresentationBackgroundImageAppearanceLightAquaNameKey:@(PKGPresentationAppareanceModeLight),
-												  PKGPresentationBackgroundImageAppearanceDarkAquaNameKey:@(PKGPresentationAppareanceModeDark)
+		sAllAppearanceNameKeysToModesDictionary=@{PKGPresentationBackgroundImageAppearanceLightAquaNameKey:@(PKGPresentationAppearanceModeLight),
+												  PKGPresentationBackgroundImageAppearanceDarkAquaNameKey:@(PKGPresentationAppearanceModeDark)
 											   };
 	});
 	
-	NSNumber * tNumber=sAllAppareanceNameKeysToModesDictionary[inName];
+	NSNumber * tNumber=sAllAppearanceNameKeysToModesDictionary[inName];
 	
-	return (tNumber==nil) ? PKGPresentationAppareanceModeUnknown : [tNumber unsignedIntegerValue];
+	return (tNumber==nil) ? PKGPresentationAppearanceModeUnknown : [tNumber unsignedIntegerValue];
 }
 
 
@@ -446,7 +446,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 					return nil;
 				}
 				
-				if ([PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:bAppearanceNameKey]==PKGPresentationAppareanceModeUnknown)
+				if ([PKGPresentationBackgroundAppearanceSettings appearanceModeForAppearanceName:bAppearanceNameKey]==PKGPresentationAppearanceModeUnknown)
 					return nil;
 				
 				return [[PKGPresentationBackgroundAppearanceSettings alloc] initWithRepresentation:bRepresentation error:&bError];
@@ -486,7 +486,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 
 #if (PKGPRESENTATION_BACKGROUND_SETTINGS_1_2_3_OR_EARLIER_BACKWARDCOMPATIBILITY == 1)
 
-	NSMutableDictionary * tLightAquaAppearanceSettingsRepresentation=[[self appearanceSettingsForAppearanceMode:PKGPresentationAppareanceModeLight] representation];
+	NSMutableDictionary * tLightAquaAppearanceSettingsRepresentation=[[self appearanceSettingsForAppearanceMode:PKGPresentationAppearanceModeLight] representation];
 	
 	if (tLightAquaAppearanceSettingsRepresentation==nil)
 	{
@@ -546,9 +546,9 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 
 #pragma mark -
 
-- (PKGPresentationBackgroundAppearanceSettings *)appearanceSettingsForAppearanceMode:(PKGPresentationAppareanceMode)inAppareanceMode
+- (PKGPresentationBackgroundAppearanceSettings *)appearanceSettingsForAppearanceMode:(PKGPresentationAppearanceMode)inAppearanceMode
 {
-	return self.appearancesSettings[[PKGPresentationBackgroundAppearanceSettings appearanceNameForAppearanceMode:inAppareanceMode]];
+	return self.appearancesSettings[[PKGPresentationBackgroundAppearanceSettings appearanceNameForAppearanceMode:inAppearanceMode]];
 }
 
 @end

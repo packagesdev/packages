@@ -26,7 +26,7 @@ NSString * const PKGBuildSubtitledTableRowViewIdentifier=@"PKGBuildSubtitledTabl
 		return;
 	}
 	
-	if ([self WB_isEffectiveAppareanceDarkAqua]==NO)
+	if ([self WB_isEffectiveAppearanceDarkAqua]==NO)
 		[[NSColor colorWithCalibratedWhite:0.92 alpha:1.0] set];
 	else
 		[[NSColor colorWithCalibratedWhite:0.17 alpha:1.0] set];

@@ -13,6 +13,8 @@
 
 #import "PKGDistributionPresentationViewController.h"
 
+#import "PKGPresentationControlledView.h"
+
 #import "PKGInstallationSurgeryWindow.h"
 
 #import <HumanInterface/HumanInterface.h>
@@ -82,7 +84,6 @@ NSString * const PKGDistributionPresentationInspectedItem=@"ui.project.presentat
 NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whitebox.packages.internal.distribution.presentation.sections";
 
 #define PKGDistributionPresentationInspectorEnlargementWidth 170.0
-
 
 @interface PKGDistributionPresentationViewController () <PKGPresentationImageViewDelegate,PKGPresentationListViewDataSource,PKGPresentationListViewDelegate>
 {
@@ -171,6 +172,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 - (void)showViewForInspectorItem:(PKGPresentationInspectorItem *)inInspectorItem;
 
 // Notifications
+
+- (void)controlledViewEffectiveAppearanceDidChange:(NSNotification *)inNotification;
 
 - (void)selectionSectionLanguageDidChange:(NSNotification *)inNotification;
 
@@ -348,7 +351,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	if (tBackgroundSettings.sharedSettingsForAllAppearances==YES)
 	{
-		tBackgroundAppearanceSettings=[tBackgroundSettings appearanceSettingsForAppearanceMode:PKGPresentationAppareanceModeShared];
+		tBackgroundAppearanceSettings=[tBackgroundSettings appearanceSettingsForAppearanceMode:PKGPresentationAppearanceModeShared];
 	}
 	else
 	{
@@ -356,7 +359,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		if (tTheme==PKGPresentationThemeMojaveDynamic)
 		{
-			if ([_windowView WB_isEffectiveAppareanceDarkAqua]==NO)
+			if ([_windowView WB_isEffectiveAppearanceDarkAqua]==NO)
 				tTheme=PKGPresentationThemeMojaveLight;
 			else
 				tTheme=PKGPresentationThemeMojaveDark;
@@ -469,7 +472,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	{
 		NSWindowController * tWindowController=((PKGDocument *)self.document).windowControllers.firstObject;	// A VOIR
 		
-		if ([tWindowController.window WB_isEffectiveAppareanceDarkAqua]==NO)
+		if ([tWindowController.window WB_isEffectiveAppearanceDarkAqua]==NO)
 			tTheme=PKGPresentationThemeMojaveLight;
 		else
 			tTheme=PKGPresentationThemeMojaveDark;
@@ -666,20 +669,26 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	[super WB_viewDidAppear];
 	
+	[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:[_leftView WB_effectiveAppearanceName]]];
+	
 	[_currentSectionViewController WB_viewDidAppear];
 	[_currentInspectorViewController WB_viewDidAppear];
 	
 	// Register for notifications
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionSectionLanguageDidChange:) name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:self.view.window];
+	NSNotificationCenter * tDefaultCenter=[NSNotificationCenter defaultCenter];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
+	[tDefaultCenter addObserver:self selector:@selector(selectionSectionLanguageDidChange:) name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:self.view.window];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	[tDefaultCenter addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
+	[tDefaultCenter addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:self.view.window];
+	[tDefaultCenter addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[tDefaultCenter addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	
+	[tDefaultCenter addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:self.view.window];
+	
+	[tDefaultCenter addObserver:self selector:@selector(controlledViewEffectiveAppearanceDidChange:) name:PKGPresentationControlledViewEffectiveAppearanceDidChangeNotification object:self.view];
 }
 
 - (void)WB_viewWillDisappear
@@ -689,19 +698,21 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	[_currentSectionViewController WB_viewWillDisappear];
 	[_currentInspectorViewController WB_viewWillDisappear];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:nil];
+	NSNotificationCenter * tDefaultCenter=[NSNotificationCenter defaultCenter];
+	
+	[tDefaultCenter removeObserver:self name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:nil];
 
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:nil];
+	[tDefaultCenter removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
+	[tDefaultCenter removeObserver:self name:NSWindowDidResignMainNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationThemeDidChangeNotification object:nil];
+	[tDefaultCenter removeObserver:self name:PKGPresentationThemeDidChangeNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:nil];
+	[tDefaultCenter removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:nil];
+	[tDefaultCenter removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:nil];
+	[tDefaultCenter removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationSectionPluginPathDidChangeNotification object:nil];
+	[tDefaultCenter removeObserver:self name:PKGPresentationSectionPluginPathDidChangeNotification object:nil];
 }
 
 - (void)WB_viewDidDisappear
@@ -884,13 +895,13 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	switch(sender.selectedSegment)
 	{
-		case 0:
+		case WB_AppearanceAqua:
 			
 			[_leftView setAppearance:[NSAppearance appearanceNamed:@"NSAppearanceNameAqua"]];
 			
 			break;
 			
-		case 1:
+		case WB_AppearanceDarkAqua:
 			
 			[_leftView setAppearance:[NSAppearance appearanceNamed:@"NSAppearanceNameDarkAqua"]];
 			
@@ -1595,7 +1606,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 			
 			if (tTheme==PKGPresentationThemeMojaveDynamic)
 			{
-				if ([_windowView WB_isEffectiveAppareanceDarkAqua]==NO)
+				if ([_windowView WB_isEffectiveAppearanceDarkAqua]==NO)
 					tTheme=PKGPresentationThemeMojaveLight;
 				else
 					tTheme=PKGPresentationThemeMojaveDark;
@@ -1644,6 +1655,13 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 }
 
 #pragma mark - Notifications
+
+- (void)controlledViewEffectiveAppearanceDidChange:(NSNotification *)inNotification
+{
+	[_leftView setAppearance:nil];
+	
+	[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:[_leftView WB_effectiveAppearanceName]]];
+}
 
 - (void)selectionSectionLanguageDidChange:(NSNotification *)inNotification
 {
