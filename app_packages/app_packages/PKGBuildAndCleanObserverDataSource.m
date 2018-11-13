@@ -1061,6 +1061,8 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 						default:
 							break;
 					}
+                    
+                    break;
 					
 				default:
 					

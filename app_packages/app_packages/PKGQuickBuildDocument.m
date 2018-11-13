@@ -260,6 +260,9 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 					}
 					
 					tSigningIdentity=tChooseIdentityPanel.identity;
+                    
+                    tProjectSettings.certificateName=tSigningIdentity;
+                    tProjectSettings.certificateKeychainPath=nil;
 					
 					break;
 			}
