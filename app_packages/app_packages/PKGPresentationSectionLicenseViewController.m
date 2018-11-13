@@ -335,6 +335,7 @@
 		_defaultContentsView.hidden=NO;
 		_licenseView.hidden=YES;
 		
+        _stepNotDisplayedLabel.textColor=[NSColor secondaryLabelColor];
 		_stepNotDisplayedLabel.stringValue=NSLocalizedStringFromTable(@"This step will not be displayed.", @"Presentation",@"");
 		
 		return;

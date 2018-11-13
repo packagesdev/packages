@@ -58,6 +58,7 @@
 	
 	_defaultContentsView.delegate=self;
 	
+    _stepNotDisplayedLabel.textColor=[NSColor secondaryLabelColor];
 	_stepNotDisplayedLabel.stringValue=NSLocalizedStringFromTable(@"This step will not be displayed.", @"Presentation",@"");
 }
 
