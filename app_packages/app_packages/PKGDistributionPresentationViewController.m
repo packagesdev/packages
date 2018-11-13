@@ -13,7 +13,7 @@
 
 #import "PKGDistributionPresentationViewController.h"
 
-#import "PKGPresentationControlledView.h"
+#import "PKGDistributionMainControlledView.h"
 
 #import "PKGInstallationSurgeryWindow.h"
 
@@ -173,7 +173,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 // Notifications
 
-- (void)controlledViewEffectiveAppearanceDidChange:(NSNotification *)inNotification;
+- (void)distributionViewEffectiveAppearanceDidChange:(NSNotification *)inNotification;
 
 - (void)selectionSectionLanguageDidChange:(NSNotification *)inNotification;
 
@@ -669,7 +669,28 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	[super WB_viewDidAppear];
 	
-	[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:[_leftView WB_effectiveAppearanceName]]];
+	if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_14)
+	{
+		NSString * tSelectedAppearance=self.documentRegistry[PKGDistributionPresentationSelectedAppearance];
+		NSString * tCurentAppearance=[_leftView WB_effectiveAppearanceName];
+		
+		// Update the left view appearance if needed
+		
+		if (tSelectedAppearance==nil)
+		{
+			if (tCurentAppearance!=nil)
+				[_leftView setAppearance:nil];
+		}
+		else
+		{
+			if (tCurentAppearance==nil)
+			{
+				[_leftView setAppearance:[NSAppearance appearanceNamed:tSelectedAppearance]];
+			}
+		}
+		
+		[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:[_leftView WB_effectiveAppearanceName]]];
+	}
 	
 	[_currentSectionViewController WB_viewDidAppear];
 	[_currentInspectorViewController WB_viewDidAppear];
@@ -677,18 +698,19 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	// Register for notifications
 	
 	NSNotificationCenter * tDefaultCenter=[NSNotificationCenter defaultCenter];
+	NSWindow * tWindow=self.view.window;
 	
-	[tDefaultCenter addObserver:self selector:@selector(selectionSectionLanguageDidChange:) name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:self.view.window];
+	[tDefaultCenter addObserver:self selector:@selector(selectionSectionLanguageDidChange:) name:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:tWindow];
 	
-	[tDefaultCenter addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:self.view.window];
-	[tDefaultCenter addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:self.view.window];
+	[tDefaultCenter addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidBecomeMainNotification object:tWindow];
+	[tDefaultCenter addObserver:self selector:@selector(windowStateDidChange:) name:NSWindowDidResignMainNotification object:tWindow];
 	
 	[tDefaultCenter addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
 	[tDefaultCenter addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 	
-	[tDefaultCenter addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:self.view.window];
+	[tDefaultCenter addObserver:self selector:@selector(presentationThemeDidChange:) name:PKGPresentationThemeDidChangeNotification object:tWindow];
 	
-	[tDefaultCenter addObserver:self selector:@selector(controlledViewEffectiveAppearanceDidChange:) name:PKGPresentationControlledViewEffectiveAppearanceDidChangeNotification object:self.view];
+	[tDefaultCenter addObserver:self selector:@selector(distributionViewEffectiveAppearanceDidChange:) name:PKGDistributionViewEffectiveAppearanceDidChangeNotification object:tWindow];
 }
 
 - (void)WB_viewWillDisappear
@@ -893,22 +915,12 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 - (IBAction)switchPreviewAppearance:(NSSegmentedControl *)sender
 {
-	switch(sender.selectedSegment)
-	{
-		case WB_AppearanceAqua:
-			
-			[_leftView setAppearance:[NSAppearance appearanceNamed:@"NSAppearanceNameAqua"]];
-			
-			break;
-			
-		case WB_AppearanceDarkAqua:
-			
-			[_leftView setAppearance:[NSAppearance appearanceNamed:@"NSAppearanceNameDarkAqua"]];
-			
-			break;
-	}
+	NSString * tAppearanceName=[NSResponder WB_appearanceNameForAppearanceMode:sender.selectedSegment];
 	
-	// A COMPLETER
+	self.documentRegistry[PKGDistributionPresentationSelectedAppearance]=tAppearanceName;
+	
+	if (NSAppKitVersionNumber>NSAppKitVersionNumber10_14)
+		[_leftView setAppearance:[NSAppearance appearanceNamed:tAppearanceName]];
 }
 
 - (IBAction)switchPreviewLanguage:(NSPopUpButton *)sender
@@ -1656,11 +1668,11 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 #pragma mark - Notifications
 
-- (void)controlledViewEffectiveAppearanceDidChange:(NSNotification *)inNotification
+- (void)distributionViewEffectiveAppearanceDidChange:(NSNotification *)inNotification
 {
 	[_leftView setAppearance:nil];
 	
-	[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:[_leftView WB_effectiveAppearanceName]]];
+	[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:inNotification.userInfo[@"EffectiveAppearance"]]];
 }
 
 - (void)selectionSectionLanguageDidChange:(NSNotification *)inNotification

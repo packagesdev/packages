@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="_accessoryPlaceHolderView" destination="CJS-WC-FsH" id="fYO-JQ-4Mk"/>
                 <outlet property="_appearancePreviewBox" destination="lcJ-Pg-fsE" id="gC0-wV-kT7"/>
+                <outlet property="_appearancePreviewSegmentedControl" destination="fmM-lA-h76" id="x5G-Ue-Pqj"/>
                 <outlet property="_backgroundView" destination="r9y-27-Gl9" id="vul-jt-rrs"/>
                 <outlet property="_continueButton" destination="5XG-tp-MLF" id="P1R-Ug-faa"/>
                 <outlet property="_goBackButton" destination="hj5-nv-vct" id="WZG-6G-0vU"/>
@@ -30,7 +31,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="ubu-JD-nBY" userLabel="View" customClass="PKGPresentationControlledView">
+        <customView id="ubu-JD-nBY" userLabel="View" customClass="PKGControlledView">
             <rect key="frame" x="1" y="0.0" width="1028" height="557"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -171,9 +172,6 @@
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
-                                                <connections>
-                                                    <outlet property="menu" destination="kly-rb-DGG" id="Esf-5B-fMn"/>
-                                                </connections>
                                             </customView>
                                         </subviews>
                                     </view>
@@ -273,28 +271,5 @@
             </subviews>
             <point key="canvasLocation" x="703" y="385.5"/>
         </customView>
-        <menu id="kly-rb-DGG">
-            <items>
-                <menuItem title="Light Appearance" tag="1" id="Qbt-u2-ULq">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="switchPresentationTheme:" target="-2" id="Kbh-yw-MmK"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Dark Appearance" tag="3" id="m3N-Eh-dQa">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="switchPresentationTheme:" target="-2" id="Xsd-zC-Zbo"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Dynamic Appearance" tag="255" id="t4G-od-K5w">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="switchPresentationTheme:" target="-2" id="pRQ-3x-pUb"/>
-                    </connections>
-                </menuItem>
-            </items>
-            <point key="canvasLocation" x="593.5" y="-47.5"/>
-        </menu>
     </objects>
 </document>

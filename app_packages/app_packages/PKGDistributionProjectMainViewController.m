@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -37,6 +37,8 @@
 
 #import "PKGPresentationInstallationTypeStepSettings+Edition.h"
 
+#import "PKGDistributionMainControlledView.h"
+
 @interface PKGDistributionProjectMainViewController () <NSSplitViewDelegate>
 {
 	IBOutlet NSSplitView * _splitView;
@@ -67,6 +69,8 @@
 
 - (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification;
 - (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
+
+- (void)distributionViewEffectiveAppearanceDidChange:(NSNotification *)inNotification;
 
 @end
 
@@ -120,12 +124,16 @@
 	
 	[self.view.window makeFirstResponder:_sourceListController.outlineView];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceListSelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_sourceListController.outlineView];
+	NSNotificationCenter * tDefaultCenter=[NSNotificationCenter defaultCenter];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(packageComponentsDidRemove:) name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
+	[tDefaultCenter addObserver:self selector:@selector(sourceListSelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_sourceListController.outlineView];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	[tDefaultCenter addObserver:self selector:@selector(packageComponentsDidRemove:) name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
+	
+	[tDefaultCenter addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[tDefaultCenter addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	
+    [tDefaultCenter addObserver:self selector:@selector(distributionViewEffectiveAppearanceDidChange:) name:PKGDistributionViewEffectiveAppearanceDidChangeNotification object:self.view.window];
 	
 	[_sourceListController WB_viewDidAppear];
 }
@@ -134,12 +142,16 @@
 {
 	[super WB_viewWillDisappear];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
+	NSNotificationCenter * tDefaultCenter=[NSNotificationCenter defaultCenter];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
+	[tDefaultCenter removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	[tDefaultCenter removeObserver:self name:PKGDistributionProjectDidRemovePackageComponentsNotification object:self.document];
+	
+	[tDefaultCenter removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
+	[tDefaultCenter removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
+	
+	[tDefaultCenter removeObserver:self name:PKGDistributionViewEffectiveAppearanceDidChangeNotification object:nil];
 	
 	[_sourceListController WB_viewWillDisappear];
 }
@@ -575,6 +587,11 @@
 	//[_splitView display];
 	
 	_editingInstallationTypeChoice=NO;
+}
+
+- (void)distributionViewEffectiveAppearanceDidChange:(NSNotification *)inNotification
+{
+	[self.documentRegistry removeObjectForKey:PKGDistributionPresentationSelectedAppearance];
 }
 
 @end
