@@ -1250,8 +1250,10 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				
 				[tFilePathConverter switchPathsOfPayloadTreeNode:tPayloadTreeNode toType:inPathType recursively:YES];
 
-				
-				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+				if (inProposedTreeNode!=nil)
+					[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+				else
+					[tPayloadTreeNode insertAsSiblingOfChildren:self.rootNodes ofNode:nil sortedUsingSelector:@selector(compareName:)];
 				
 				[tNewSelectionArray addObject:tPayloadTreeNode];
 			}
