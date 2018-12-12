@@ -188,9 +188,11 @@
 		
 		tTableCellView.applicationNameLabel.stringValue=@"";
 		
+		__weak NSTableView * tWeakTableView=self.tableView;
+		
 		NSString * tDisplayName=[[PKGBundleIdentifierResolver sharedResolver] resolveBundleIdentifier:tMustCloseApplicationItem.applicationID completionHandler:^(NSString *bDisplayName){
 		
-			[inTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:inRow] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, inTableView.numberOfColumns)]];
+			[tWeakTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:inRow] columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, tWeakTableView.numberOfColumns)]];
 		
 		}];
 		
