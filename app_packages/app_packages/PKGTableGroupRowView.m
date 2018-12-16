@@ -19,9 +19,14 @@ NSString * const PKGTableGroupRowViewIdentifier=@"PKGTableGroupRowViewIdentifier
 
 - (void)drawRect:(NSRect)inDirtyRect
 {
-	// Background
+    BOOL tIsDarkAppearance=[self WB_isEffectiveAppearanceDarkAqua];
+    
+    // Background
 	
-	[[NSColor colorWithDeviceRed:155.0/255.0 green:178.0/255.0 blue:232.0/255.0 alpha:1.0] set];
+	if (tIsDarkAppearance==YES)
+        [[NSColor colorWithDeviceWhite:1.0 alpha:0.05] set];
+    else
+        [[NSColor colorWithDeviceRed:155.0/255.0 green:178.0/255.0 blue:232.0/255.0 alpha:1.0] set];
 
 	NSRectFill(inDirtyRect);
 	
@@ -29,9 +34,12 @@ NSString * const PKGTableGroupRowViewIdentifier=@"PKGTableGroupRowViewIdentifier
 	
 	NSRect tBounds=self.bounds;
 	
-	[[NSColor whiteColor] setStroke];
+	if (tIsDarkAppearance==YES)
+        [[NSColor colorWithDeviceWhite:1.0 alpha:0.10] set];
+    else
+        [[NSColor whiteColor] setStroke];
 	
-	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMinY(tBounds)) toPoint:NSMakePoint(NSMaxX(tBounds),NSMinY(tBounds))];
+	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMinX(tBounds),NSMaxY(tBounds)-0.5) toPoint:NSMakePoint(NSMaxX(tBounds),NSMaxY(tBounds)-0.5)];
 }
 
 @end
