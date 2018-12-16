@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2018, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -359,12 +359,7 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 
 - (BOOL)tableView:(NSTableView *)inTableView isGroupRow:(NSInteger)inRow
 {
-	if (self.tableView!=inTableView)
-		return NO;
-	
-	PKGDistributionRequirementSourceListNode * tSourceListNode=[self.dataSource itemAtIndex:inRow];
-	
-	return ([tSourceListNode.representedObject isKindOfClass:PKGDistributionRequirementSourceListGroupItem.class]==YES);
+    return NO;
 }
 
 
