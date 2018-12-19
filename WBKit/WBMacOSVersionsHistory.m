@@ -43,6 +43,7 @@
 #define WBMacOSElCapitanMinorVersion		11
 #define WBMacOSSierraMinorVersion			12
 #define WBMacOSHighSierraMinorVersion		13
+#define WBMacOSMojaveMinorVersion			14
 
 #define WBMacOSReasonableMaxUnitValue          100
 
@@ -195,6 +196,16 @@
 	return tNewVersion;
 }
 
++ (WBVersion *)macOSMojaveVersion
+{
+	WBVersion * tNewVersion=[WBVersion new];
+	
+	tNewVersion.majorVersion=WBMacOSXMajorVersion;
+	tNewVersion.minorVersion=WBMacOSMojaveMinorVersion;
+	
+	return tNewVersion;
+}
+
 #pragma mark -
 
 + (WBVersion *)systemVersion
@@ -260,7 +271,7 @@
 			
 		case WBMinorVersionUnit:
 			
-			return NSMakeRange(0, 13);
+			return NSMakeRange(0, 14);
 			
 		case WBPatchVersionUnit:
 			
@@ -364,6 +375,10 @@
 					return NSMakeRange(0, 7);
 					
 				case WBMacOSHighSierraMinorVersion:
+					
+					return NSMakeRange(0, 6);
+					
+				case WBMacOSMojaveMinorVersion:
 					
 					return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 			}
