@@ -5,6 +5,11 @@
 #define MAC_OS_X_VERSION_10_10 101000
 #endif
 
+#ifndef NSAppKitVersionNumber10_14
+#define NSAppKitVersionNumber10_14 1641
+#endif
+
+
 // --------- Private APIs ------------
 
 @interface NSView (AppKit_Non_Public_APIs)
@@ -902,11 +907,18 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	
 	if ([self isBezeled]==YES)
 	{
-		BOOL tIsDrawnEditable=([self isEnabled]==YES) ? [self isEditable] : NO;
+        if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_14)
+        {
+            [[NSColor containerBorderColor] set];
+            
+            NSFrameRectWithWidthUsingOperation(tTextAreaFrame,1.0, NSCompositeSourceOver);
+        }
+        else
+        {
+            BOOL tIsDrawnEditable=([self isEnabled]==YES) ? [self isEditable] : NO;
 		
-		// A CORRIGER (Mojave Dark Appearance support)
-		
-		_NSDrawCarbonThemeBezel(tTextAreaFrame,tIsDrawnEditable,[inView isFlipped]);
+            _NSDrawCarbonThemeBezel(tTextAreaFrame,tIsDrawnEditable,[inView isFlipped]);
+        }
 	}
 	else
 	{
@@ -924,11 +936,13 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	
 	CGFloat tOffset=[self horizontalOffsetForElementsOfTextAreaFrame:tTextAreaFrame];
 	
+    WBVersionPickerCellElement * tSelectedElement=nil;
+    
 	if ([self showsFirstResponder]==YES && [inView.window hasKeyAppearance]==YES && [inView.window firstResponder]==inView)
 	{
 		if (_selectedElementIndex>=0 && _selectedElementIndex<_elements.count)
 		{
-			WBVersionPickerCellElement * tSelectedElement=_elements[_selectedElementIndex];
+			tSelectedElement=_elements[_selectedElementIndex];
 			
 			NSRect tElementFrame=NSInsetRect(tSelectedElement.frame,-1.0, 0.0);
 			
@@ -977,7 +991,18 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 		
 			[tElement.stringValue drawInRect:tElementFrame withAttributes:tDisabledAttributesDictionary];
 		else
-			[tElement.stringValue drawInRect:tElementFrame withAttributes:tAttributesDictionary];
+        {
+			if (tSelectedElement==tElement)
+            {
+                NSDictionary * tSelectedAttributesDictionary=@{NSFontAttributeName:self.font,
+                                                       NSForegroundColorAttributeName:[NSColor alternateSelectedControlTextColor],
+                                                       NSParagraphStyleAttributeName:tMutableParagraphStyle};
+                
+                [tElement.stringValue drawInRect:tElementFrame withAttributes:tSelectedAttributesDictionary];
+            }
+            else
+                [tElement.stringValue drawInRect:tElementFrame withAttributes:tAttributesDictionary];
+        }
 	}
 	
 	[NSGraphicsContext restoreGraphicsState];
@@ -1148,6 +1173,9 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 			break;
 			
 		default:
+            
+            tAllowedRange=NSMakeRange(NSNotFound,0);
+            
 			break;
 	}
 	
