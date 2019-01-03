@@ -101,34 +101,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F4FF812221231C4500B50029 = {
+		F4A2852521DEC0BE00DCA36F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				F4FF812D21231C4500B50029 /* Lion */,
-				F4FF812C21231C4500B50029 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		F4FF812C21231C4500B50029 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F4FF812B21231C4500B50029 /* Lion.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F4FF812D21231C4500B50029 /* Lion */ = {
-			isa = PBXGroup;
-			children = (
-				F4FF812E21231C4500B50029 /* Resources */,
-			);
-			path = Lion;
-			sourceTree = "<group>";
-		};
-		F4FF812E21231C4500B50029 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F4FF812F21231C4500B50029 /* Info.plist */,
 				F4FF813521231D5F00B50029 /* Aqua.Active.00.png */,
 				F4FF813621231D5F00B50029 /* Aqua.Active.00@2x.png */,
 				F4FF813721231D5F00B50029 /* Aqua.Active.01.png */,
@@ -167,6 +142,39 @@
 				F4FF815821231D5F00B50029 /* Aqua.Inactive.08@2x.png */,
 				F4FF815921231D5F00B50029 /* Aqua.LockButton.png */,
 				F4FF815A21231D5F00B50029 /* Aqua.LockButton@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		F4FF812221231C4500B50029 = {
+			isa = PBXGroup;
+			children = (
+				F4FF812D21231C4500B50029 /* Lion */,
+				F4FF812C21231C4500B50029 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F4FF812C21231C4500B50029 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF812B21231C4500B50029 /* Lion.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4FF812D21231C4500B50029 /* Lion */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF812E21231C4500B50029 /* Resources */,
+			);
+			path = Lion;
+			sourceTree = "<group>";
+		};
+		F4FF812E21231C4500B50029 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF812F21231C4500B50029 /* Info.plist */,
+				F4A2852521DEC0BE00DCA36F /* Images */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
