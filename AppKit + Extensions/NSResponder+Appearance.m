@@ -19,12 +19,28 @@ NSString * const WB_NSAppearanceNameDarkAqua=@"NSAppearanceNameDarkAqua";
 
 @implementation NSResponder (Appearance_WB)
 
-+ (WB_AppearanceMode) WB_appearanceModeForAppearanceName:(NSString *)inAppearanceName
++ (WB_AppearanceMode)WB_appearanceModeForAppearanceName:(NSString *)inAppearanceName
 {
 	if ([inAppearanceName isEqualToString:WB_NSAppearanceNameDarkAqua]==YES)
 		return WB_AppearanceDarkAqua;
 	
 	return WB_AppearanceAqua;
+}
+
++ (NSString *)WB_appearanceNameForAppearanceMode:(WB_AppearanceMode)inAppearanceMode
+{
+	switch(inAppearanceMode)
+	{
+		case WB_AppearanceAqua:
+			
+			return WB_NSAppearanceNameAqua;
+			
+		case WB_AppearanceDarkAqua:
+			
+			return WB_NSAppearanceNameDarkAqua;
+	}
+	
+	return WB_NSAppearanceNameAqua;
 }
 
 #pragma mark -

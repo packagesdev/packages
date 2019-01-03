@@ -27,6 +27,9 @@
 
 + (NSColor *)WB_containerBorderColor;
 
+
++ (NSColor *)WB_systemBlueColor;
+
 @end
 
 @implementation NSColor (LabelColor_WB)
@@ -69,6 +72,13 @@
 		
 		class_addMethod(tClass, @selector(containerBorderColor), method_getImplementation(origMethod),method_getTypeEncoding(origMethod));
 	}
+	
+	if ([self respondsToSelector:@selector(systemBlueColor)]==NO)
+	{
+		Method origMethod = class_getClassMethod(tClass, @selector(WB_systemBlueColor));
+		
+		class_addMethod(tClass, @selector(systemBlueColor), method_getImplementation(origMethod),method_getTypeEncoding(origMethod));
+	}
 }
 
 #pragma mark -
@@ -99,6 +109,11 @@
 		return [[NSColor class] performSelector:@selector(tertiaryLabelColor) withObject:nil];
 	
 	return [NSColor colorWithDeviceWhite:0.0 alpha:0.25];
+}
+
++ (NSColor *)WB_systemBlueColor
+{
+	return [NSColor colorWithDeviceRed:0.4 green:0.69 blue:0.94 alpha:1.0];
 }
 
 @end

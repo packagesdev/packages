@@ -37,13 +37,13 @@
 	}
 }
 
-+ (void)load
+/*+ (void)load
 {
 	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_10)
 		return;
 	
 	[self LABELCOLOR_Swizzle:@selector(textColor) with:@selector(LABELCOLOR_textColor)];
-}
+}*/
 
 - (NSColor *)LABELCOLOR_textColor
 {

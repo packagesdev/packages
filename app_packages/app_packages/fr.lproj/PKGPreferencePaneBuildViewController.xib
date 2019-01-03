@@ -389,7 +389,7 @@
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">labelColor</string>
-								<object class="NSColor" key="NSColor" id="545968161">
+								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
@@ -404,7 +404,7 @@
 							<int key="NSColorSpace">6</int>
 							<string key="NSCatalogName">System</string>
 							<string key="NSColorName">controlBackgroundColor</string>
-							<object class="NSColor" key="NSColor" id="629594149">
+							<object class="NSColor" key="NSColor">
 								<int key="NSColorSpace">3</int>
 								<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 							</object>
@@ -463,12 +463,7 @@
 													<string key="NSContents"/>
 													<reference key="NSSupport" ref="26"/>
 													<reference key="NSControlView" ref="945184359"/>
-													<object class="NSColor" key="NSBackgroundColor" id="976742268">
-														<int key="NSColorSpace">6</int>
-														<string key="NSCatalogName">System</string>
-														<string key="NSColorName">controlColor</string>
-														<reference key="NSColor" ref="629594149"/>
-													</object>
+													<reference key="NSBackgroundColor" ref="556357405"/>
 													<object class="NSColor" key="NSTextColor">
 														<int key="NSColorSpace">3</int>
 														<bytes key="NSWhite">MC4zOTc4MTAyMgA</bytes>
@@ -638,13 +633,8 @@
 							<string key="NSContents">Signer avec le certificat :</string>
 							<reference key="NSSupport" ref="932644203"/>
 							<reference key="NSControlView" ref="581754388"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<object class="NSColor" key="NSTextColor" id="29050744">
-								<int key="NSColorSpace">6</int>
-								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlTextColor</string>
-								<reference key="NSColor" ref="545968161"/>
-							</object>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -742,8 +732,8 @@
 							<string key="NSContents">Afficher pendant la construction :</string>
 							<reference key="NSSupport" ref="932644203"/>
 							<reference key="NSControlView" ref="959491610"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -762,8 +752,8 @@
 							<string key="NSContents">Masquer après la construction :</string>
 							<reference key="NSSupport" ref="932644203"/>
 							<reference key="NSControlView" ref="304093396"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -857,8 +847,8 @@
 							<string key="NSContents">Projets non enregistrés :</string>
 							<reference key="NSSupport" ref="932644203"/>
 							<reference key="NSControlView" ref="169973269"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -955,8 +945,8 @@
 								<int key="NSfFlags">2072</int>
 							</object>
 							<reference key="NSControlView" ref="640264329"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -975,8 +965,8 @@
 							<string key="NSContents">Emplacement temporaire pour les constructions</string>
 							<reference key="NSSupport" ref="942548491"/>
 							<reference key="NSControlView" ref="954238481"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -987,7 +977,6 @@
 						<string key="NSFrame">{{400, 13}, {106, 32}}</string>
 						<reference key="NSSuperview" ref="43725521"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="1017579885">
 							<int key="NSCellFlags">67108864</int>
@@ -1021,8 +1010,8 @@
 							<string key="NSContents">Version du paquet :</string>
 							<reference key="NSSupport" ref="932644203"/>
 							<reference key="NSControlView" ref="55870755"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -1041,8 +1030,8 @@
 							<string key="NSContents">Dossier de secours :</string>
 							<reference key="NSSupport" ref="932644203"/>
 							<reference key="NSControlView" ref="292229401"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -1135,8 +1124,8 @@
 							<string key="NSContents">Comportements suivant le résultat de la construction</string>
 							<reference key="NSSupport" ref="942548491"/>
 							<reference key="NSControlView" ref="294467622"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -1155,8 +1144,8 @@
 							<string key="NSContents">Construction rapide</string>
 							<reference key="NSSupport" ref="942548491"/>
 							<reference key="NSControlView" ref="979778385"/>
-							<reference key="NSBackgroundColor" ref="976742268"/>
-							<reference key="NSTextColor" ref="29050744"/>
+							<reference key="NSBackgroundColor" ref="556357405"/>
+							<reference key="NSTextColor" ref="652283931"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>

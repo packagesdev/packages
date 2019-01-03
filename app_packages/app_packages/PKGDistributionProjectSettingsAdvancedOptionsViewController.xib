@@ -150,13 +150,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <textField verticalHuggingPriority="750" id="Vs9-XW-hPP" customClass="PKGSectionTitle">
+                <textField verticalHuggingPriority="750" id="Vs9-XW-hPP">
                     <rect key="frame" x="18" y="171" width="204" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="kTB-x3-J8d">
                         <font key="font" metaFont="systemBold" size="14"/>
-                        <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" white="0.70065789469999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>

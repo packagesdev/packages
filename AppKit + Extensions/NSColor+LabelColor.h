@@ -21,4 +21,6 @@
 + (NSColor *)quaternaryLabelColor;
 + (NSColor *)containerBorderColor;
 
++ (NSColor *)systemBlueColor;
+
 @end

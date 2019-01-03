@@ -19,7 +19,7 @@
 
 typedef NS_ENUM(NSUInteger, WB_AppearanceMode)
 {
-	WB_AppearanceAqua,
+	WB_AppearanceAqua=0,
 	WB_AppearanceDarkAqua
 };
 
@@ -30,6 +30,8 @@ extern NSString * const WB_NSAppearanceNameDarkAqua;
 @interface NSResponder (WB_Appearance)
 
 + (WB_AppearanceMode) WB_appearanceModeForAppearanceName:(NSString *)inAppearanceName;
+
++ (NSString *)WB_appearanceNameForAppearanceMode:(WB_AppearanceMode)inAppearanceMode;
 
 - (NSString *)WB_effectiveAppearanceName;
 

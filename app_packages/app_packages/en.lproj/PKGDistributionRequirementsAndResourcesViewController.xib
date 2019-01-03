@@ -44,13 +44,13 @@
                                 <action selector="switchRootVolumeOnlyRequirement:" target="-2" id="gEs-pe-tvu"/>
                             </connections>
                         </button>
-                        <textField verticalHuggingPriority="750" id="5Pa-j8-h1n" customClass="PKGSectionTitle">
+                        <textField verticalHuggingPriority="750" id="5Pa-j8-h1n">
                             <rect key="frame" x="18" y="201" width="110" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Requirements" id="Ku3-St-F9c">
                                 <font key="font" metaFont="systemBold" size="14"/>
-                                <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" white="0.70065789469999995" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <customView id="KPX-sC-r8A">
@@ -62,8 +62,8 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Destination:" id="5RB-BG-mwC">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                     </subviews>

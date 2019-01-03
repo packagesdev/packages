@@ -31,7 +31,7 @@
 		F408B1EA1F4062BA00331CFA /* MissingPlugin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F408B1E61F4062BA00331CFA /* MissingPlugin@2x.png */; };
 		F408B1EB1F4062BA00331CFA /* Plugin.png in Resources */ = {isa = PBXBuildFile; fileRef = F408B1E71F4062BA00331CFA /* Plugin.png */; };
 		F408B1EC1F4062BA00331CFA /* Plugin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F408B1E81F4062BA00331CFA /* Plugin@2x.png */; };
-		F4097078219065BD0083CA49 /* PKGPresentationControlledView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4097077219065BD0083CA49 /* PKGPresentationControlledView.m */; };
+		F4097078219065BD0083CA49 /* PKGDistributionMainControlledView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4097077219065BD0083CA49 /* PKGDistributionMainControlledView.m */; };
 		F409707B21906EF00083CA49 /* NSResponder+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = F409707A21906EF00083CA49 /* NSResponder+Appearance.m */; };
 		F40A8AAD1E92EF5B000BE811 /* PKGInstallerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = F40A8AAC1E92EF5B000BE811 /* PKGInstallerPlugin.m */; };
 		F40A8AB01E92FBF2000BE811 /* Strip32Composite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F40A8AAE1E92FBF2000BE811 /* Strip32Composite@2x.png */; };
@@ -151,6 +151,10 @@
 		F43631101DFF6ACB001EADF5 /* DefaultFileHierarchy.plist in Resources */ = {isa = PBXBuildFile; fileRef = F436310F1DFF6ACB001EADF5 /* DefaultFileHierarchy.plist */; };
 		F4379E341EE89BC9005C2C66 /* softwareUpdate16.png in Resources */ = {isa = PBXBuildFile; fileRef = F4379E321EE89BC9005C2C66 /* softwareUpdate16.png */; };
 		F4379E351EE89BC9005C2C66 /* softwareUpdate16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4379E331EE89BC9005C2C66 /* softwareUpdate16@2x.png */; };
+		F439CADE21D7AF010040672F /* AppearanceDarkTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F439CADA21D7AF010040672F /* AppearanceDarkTemplate@2x.png */; };
+		F439CADF21D7AF010040672F /* AppearanceLightTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F439CADB21D7AF010040672F /* AppearanceLightTemplate@2x.png */; };
+		F439CAE021D7AF010040672F /* AppearanceDarkTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = F439CADC21D7AF010040672F /* AppearanceDarkTemplate.png */; };
+		F439CAE121D7AF010040672F /* AppearanceLightTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = F439CADD21D7AF010040672F /* AppearanceLightTemplate.png */; };
 		F43A84681E2B85C800873FE4 /* PKGFilesEmptySelectionInspectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43A84661E2B85C800873FE4 /* PKGFilesEmptySelectionInspectorViewController.m */; };
 		F43A84691E2B85C800873FE4 /* PKGFilesEmptySelectionInspectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43A84671E2B85C800873FE4 /* PKGFilesEmptySelectionInspectorViewController.xib */; };
 		F43A84751E2B90EB00873FE4 /* PKGRightInspectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F43A84741E2B90EB00873FE4 /* PKGRightInspectorView.m */; };
@@ -539,7 +543,6 @@
 		F4B835361FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B835351FAB36C7003A6D94 /* PKGMustCloseApplicationItemsPanel.m */; };
 		F4B8A4F21F39067600A9A8B8 /* ProjectTemplateAssistant.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4B8A4F01F39067600A9A8B8 /* ProjectTemplateAssistant.strings */; };
 		F4B96CF41EC3BB1D003BD5A8 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B96CF31EC3BB1D003BD5A8 /* NSObject+Conformance.m */; };
-		F4B9E7F62105429D00A84714 /* PKGSectionTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9E7F52105429D00A84714 /* PKGSectionTitle.m */; };
 		F4B9E7F921054D6A00A84714 /* PKGPresentationWindowContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9E7F821054D6A00A84714 /* PKGPresentationWindowContentView.m */; };
 		F4BC683D1F731B0700363752 /* PKGPresentationChoiceRequirementPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4BC683F1F731B0700363752 /* PKGPresentationChoiceRequirementPanel.xib */; };
 		F4BD166C1DDFBDC600A86562 /* PKGFileDeadDropTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BD166B1DDFBDC600A86562 /* PKGFileDeadDropTextField.m */; };
@@ -576,6 +579,7 @@
 		F4CAF0901E1DC428006954BD /* PKGReferencePopupButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CAF08E1E1DC428006954BD /* PKGReferencePopupButtonCell.m */; };
 		F4CAF09C1E1DC435006954BD /* PKGReferenceFolderPopupButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CAF09A1E1DC435006954BD /* PKGReferenceFolderPopupButtonCell.m */; };
 		F4CAF09F1E1DC43F006954BD /* PKGProjectNameFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CAF09D1E1DC43F006954BD /* PKGProjectNameFormatter.m */; };
+		F4CBEBF121D79464000BD256 /* PKGPresentationAppearanceRadioButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CBEBF021D79464000BD256 /* PKGPresentationAppearanceRadioButtonCell.m */; };
 		F4CD44221EF9CD3F0087D75B /* PKGPackageScriptsAndResources+Transformation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CD44211EF9CD3F0087D75B /* PKGPackageScriptsAndResources+Transformation.m */; };
 		F4CD44251EF9CDFB0087D75B /* PKGResourcesForest+Transformation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CD44241EF9CDFB0087D75B /* PKGResourcesForest+Transformation.m */; };
 		F4CD44281EF9CED40087D75B /* PKGPayloadTreeNode+Transformation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CD44271EF9CED40087D75B /* PKGPayloadTreeNode+Transformation.m */; };
@@ -874,8 +878,8 @@
 		F408B1E61F4062BA00331CFA /* MissingPlugin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MissingPlugin@2x.png"; path = "app_packages/Images/MissingPlugin@2x.png"; sourceTree = "<group>"; };
 		F408B1E71F4062BA00331CFA /* Plugin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Plugin.png; path = app_packages/Images/Plugin.png; sourceTree = "<group>"; };
 		F408B1E81F4062BA00331CFA /* Plugin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Plugin@2x.png"; path = "app_packages/Images/Plugin@2x.png"; sourceTree = "<group>"; };
-		F4097076219065BD0083CA49 /* PKGPresentationControlledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationControlledView.h; path = app_packages/PKGPresentationControlledView.h; sourceTree = "<group>"; };
-		F4097077219065BD0083CA49 /* PKGPresentationControlledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationControlledView.m; path = app_packages/PKGPresentationControlledView.m; sourceTree = "<group>"; };
+		F4097076219065BD0083CA49 /* PKGDistributionMainControlledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionMainControlledView.h; path = app_packages/PKGDistributionMainControlledView.h; sourceTree = "<group>"; };
+		F4097077219065BD0083CA49 /* PKGDistributionMainControlledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionMainControlledView.m; path = app_packages/PKGDistributionMainControlledView.m; sourceTree = "<group>"; };
 		F409707921906EF00083CA49 /* NSResponder+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSResponder+Appearance.h"; path = "../AppKit + Extensions/NSResponder+Appearance.h"; sourceTree = "<group>"; };
 		F409707A21906EF00083CA49 /* NSResponder+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSResponder+Appearance.m"; path = "../AppKit + Extensions/NSResponder+Appearance.m"; sourceTree = "<group>"; };
 		F40A8AAB1E92EF5B000BE811 /* PKGInstallerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGInstallerPlugin.h; path = app_packages/PKGInstallerPlugin.h; sourceTree = "<group>"; };
@@ -1113,6 +1117,10 @@
 		F436310F1DFF6ACB001EADF5 /* DefaultFileHierarchy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = DefaultFileHierarchy.plist; path = app_packages/DefaultFileHierarchy.plist; sourceTree = "<group>"; };
 		F4379E321EE89BC9005C2C66 /* softwareUpdate16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = softwareUpdate16.png; path = app_packages/Images/softwareUpdate16.png; sourceTree = "<group>"; };
 		F4379E331EE89BC9005C2C66 /* softwareUpdate16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "softwareUpdate16@2x.png"; path = "app_packages/Images/softwareUpdate16@2x.png"; sourceTree = "<group>"; };
+		F439CADA21D7AF010040672F /* AppearanceDarkTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppearanceDarkTemplate@2x.png"; path = "app_packages/Images/AppearanceDarkTemplate@2x.png"; sourceTree = "<group>"; };
+		F439CADB21D7AF010040672F /* AppearanceLightTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppearanceLightTemplate@2x.png"; path = "app_packages/Images/AppearanceLightTemplate@2x.png"; sourceTree = "<group>"; };
+		F439CADC21D7AF010040672F /* AppearanceDarkTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppearanceDarkTemplate.png; path = app_packages/Images/AppearanceDarkTemplate.png; sourceTree = "<group>"; };
+		F439CADD21D7AF010040672F /* AppearanceLightTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppearanceLightTemplate.png; path = app_packages/Images/AppearanceLightTemplate.png; sourceTree = "<group>"; };
 		F43A84651E2B85C800873FE4 /* PKGFilesEmptySelectionInspectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGFilesEmptySelectionInspectorViewController.h; path = app_packages/PKGFilesEmptySelectionInspectorViewController.h; sourceTree = "<group>"; };
 		F43A84661E2B85C800873FE4 /* PKGFilesEmptySelectionInspectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGFilesEmptySelectionInspectorViewController.m; path = app_packages/PKGFilesEmptySelectionInspectorViewController.m; sourceTree = "<group>"; };
 		F43A84671E2B85C800873FE4 /* PKGFilesEmptySelectionInspectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PKGFilesEmptySelectionInspectorViewController.xib; path = app_packages/PKGFilesEmptySelectionInspectorViewController.xib; sourceTree = "<group>"; };
@@ -1752,12 +1760,6 @@
 		F4B8A4F31F3907A700A9A8B8 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = app_packages/fr.lproj/ProjectTemplateAssistant.strings; sourceTree = "<group>"; };
 		F4B96CF21EC3BB1D003BD5A8 /* NSObject+Conformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Conformance.h"; path = "../Foundation + Extensions/NSObject+Conformance.h"; sourceTree = "<group>"; };
 		F4B96CF31EC3BB1D003BD5A8 /* NSObject+Conformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Conformance.m"; path = "../Foundation + Extensions/NSObject+Conformance.m"; sourceTree = "<group>"; };
-		F4B9E7E621053B7300A84714 /* PKGLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLabel.h; path = app_packages/PKGLabel.h; sourceTree = "<group>"; };
-		F4B9E7E721053B7300A84714 /* PKGLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLabel.m; path = app_packages/PKGLabel.m; sourceTree = "<group>"; };
-		F4B9E7F121053DF800A84714 /* PKGSecondaryLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGSecondaryLabel.h; path = app_packages/PKGSecondaryLabel.h; sourceTree = "<group>"; };
-		F4B9E7F221053DF800A84714 /* PKGSecondaryLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGSecondaryLabel.m; path = app_packages/PKGSecondaryLabel.m; sourceTree = "<group>"; };
-		F4B9E7F42105429D00A84714 /* PKGSectionTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGSectionTitle.h; path = app_packages/PKGSectionTitle.h; sourceTree = "<group>"; };
-		F4B9E7F52105429D00A84714 /* PKGSectionTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGSectionTitle.m; path = app_packages/PKGSectionTitle.m; sourceTree = "<group>"; };
 		F4B9E7F721054D6A00A84714 /* PKGPresentationWindowContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationWindowContentView.h; path = app_packages/PKGPresentationWindowContentView.h; sourceTree = "<group>"; };
 		F4B9E7F821054D6A00A84714 /* PKGPresentationWindowContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationWindowContentView.m; path = app_packages/PKGPresentationWindowContentView.m; sourceTree = "<group>"; };
 		F4BA33131F472D570065DF35 /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = app_packages/fr.lproj/ReferenceFolderRegularUbuntu.png; sourceTree = "<group>"; };
@@ -1842,6 +1844,8 @@
 		F4CAF09B1E1DC435006954BD /* PKGReferenceFolderPopupButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGReferenceFolderPopupButtonCell.h; path = app_packages/PKGReferenceFolderPopupButtonCell.h; sourceTree = "<group>"; };
 		F4CAF09D1E1DC43F006954BD /* PKGProjectNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGProjectNameFormatter.m; path = app_packages/PKGProjectNameFormatter.m; sourceTree = "<group>"; };
 		F4CAF09E1E1DC43F006954BD /* PKGProjectNameFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGProjectNameFormatter.h; path = app_packages/PKGProjectNameFormatter.h; sourceTree = "<group>"; };
+		F4CBEBEF21D79464000BD256 /* PKGPresentationAppearanceRadioButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationAppearanceRadioButtonCell.h; path = app_packages/PKGPresentationAppearanceRadioButtonCell.h; sourceTree = "<group>"; };
+		F4CBEBF021D79464000BD256 /* PKGPresentationAppearanceRadioButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationAppearanceRadioButtonCell.m; path = app_packages/PKGPresentationAppearanceRadioButtonCell.m; sourceTree = "<group>"; };
 		F4CD44201EF9CD3F0087D75B /* PKGPackageScriptsAndResources+Transformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGPackageScriptsAndResources+Transformation.h"; path = "../model+Transformation/PKGPackageScriptsAndResources+Transformation.h"; sourceTree = "<group>"; };
 		F4CD44211EF9CD3F0087D75B /* PKGPackageScriptsAndResources+Transformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGPackageScriptsAndResources+Transformation.m"; path = "../model+Transformation/PKGPackageScriptsAndResources+Transformation.m"; sourceTree = "<group>"; };
 		F4CD44231EF9CDFB0087D75B /* PKGResourcesForest+Transformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGResourcesForest+Transformation.h"; path = "../model+Transformation/PKGResourcesForest+Transformation.h"; sourceTree = "<group>"; };
@@ -2068,6 +2072,7 @@
 		F4F676401EE20FE400B4E160 /* PKGPresentationChoiceRequirementBehaviorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationChoiceRequirementBehaviorViewController.h; path = app_packages/PKGPresentationChoiceRequirementBehaviorViewController.h; sourceTree = "<group>"; };
 		F4F676411EE20FE400B4E160 /* PKGPresentationChoiceRequirementBehaviorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationChoiceRequirementBehaviorViewController.m; path = app_packages/PKGPresentationChoiceRequirementBehaviorViewController.m; sourceTree = "<group>"; };
 		F4F9994B1F4102C700242BAB /* PKGRootNodesProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRootNodesProtocol.m; path = ../model/PKGRootNodesProtocol.m; sourceTree = "<group>"; };
+		F4FC21A62197A312008BC2A7 /* PKGSignature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGSignature.h; path = ../archive_utilities/PKGSignature.h; sourceTree = "<group>"; };
 		F4FC4B731ED75DD800AE3042 /* PKGPresentationInstallationTypeInspectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationInstallationTypeInspectorViewController.h; path = app_packages/PKGPresentationInstallationTypeInspectorViewController.h; sourceTree = "<group>"; };
 		F4FC4B741ED75DD800AE3042 /* PKGPresentationInstallationTypeInspectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationInstallationTypeInspectorViewController.m; path = app_packages/PKGPresentationInstallationTypeInspectorViewController.m; sourceTree = "<group>"; };
 		F4FC4B751ED75DD800AE3042 /* PKGPresentationInstallationTypeInspectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PKGPresentationInstallationTypeInspectorViewController.xib; path = app_packages/PKGPresentationInstallationTypeInspectorViewController.xib; sourceTree = "<group>"; };
@@ -2305,6 +2310,10 @@
 		F409706D219065680083CA49 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				F439CADA21D7AF010040672F /* AppearanceDarkTemplate@2x.png */,
+				F439CADC21D7AF010040672F /* AppearanceDarkTemplate.png */,
+				F439CADB21D7AF010040672F /* AppearanceLightTemplate@2x.png */,
+				F439CADD21D7AF010040672F /* AppearanceLightTemplate.png */,
 				F4AFD31B1EC4F88200F9E18D /* iconTopLeft_nib.png */,
 				F4AFD3181EC4F88200F9E18D /* iconTopLeft_nib@2x.png */,
 				F4AFD3131EC4F88200F9E18D /* iconTopRight_nib.png */,
@@ -2911,6 +2920,7 @@
 		F443082D1E62FF8D00AB0087 /* archive utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F4FC21A62197A312008BC2A7 /* PKGSignature.h */,
 				F443082F1E62FFA800AB0087 /* PKGArchive.h */,
 				F443082E1E62FFA800AB0087 /* PKGArchive.m */,
 			);
@@ -3285,12 +3295,6 @@
 				F4AF7FD320DFA42F0086A06D /* PKGSectionView.m */,
 				F4DBE09020DEFEC800466FBC /* PKGAlternateSectionView.h */,
 				F4DBE09120DEFEC800466FBC /* PKGAlternateSectionView.m */,
-				F4B9E7E621053B7300A84714 /* PKGLabel.h */,
-				F4B9E7E721053B7300A84714 /* PKGLabel.m */,
-				F4B9E7F121053DF800A84714 /* PKGSecondaryLabel.h */,
-				F4B9E7F221053DF800A84714 /* PKGSecondaryLabel.m */,
-				F4B9E7F42105429D00A84714 /* PKGSectionTitle.h */,
-				F4B9E7F52105429D00A84714 /* PKGSectionTitle.m */,
 				F407A8C41E624618006F71E1 /* PKGRetainedCycleControlledView.h */,
 				F407A8C51E624618006F71E1 /* PKGRetainedCycleControlledView.m */,
 				F4CA26F51E5A3EAE00E196EB /* PKGCheckboxTableCellView.h */,
@@ -3339,6 +3343,8 @@
 				F47FBF341E225A9E00C7CAE0 /* PKGReferenceSmallSquarePopUpButtonCell.m */,
 				F43A84731E2B90EB00873FE4 /* PKGRightInspectorView.h */,
 				F43A84741E2B90EB00873FE4 /* PKGRightInspectorView.m */,
+				F4097076219065BD0083CA49 /* PKGDistributionMainControlledView.h */,
+				F4097077219065BD0083CA49 /* PKGDistributionMainControlledView.m */,
 				F4E77B2B1E1B131800120C29 /* Resources */,
 			);
 			name = views;
@@ -3402,8 +3408,6 @@
 		F48C12091E395CAC002EEC66 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				F4097076219065BD0083CA49 /* PKGPresentationControlledView.h */,
-				F4097077219065BD0083CA49 /* PKGPresentationControlledView.m */,
 				F4C42C281F0C5C5B00E9141A /* PKGChoiceDependencyContainerView.h */,
 				F4C42C271F0C5C5B00E9141A /* PKGChoiceDependencyContainerView.m */,
 				F498E67C1F080948003EB9E2 /* PKGChoiceDependencyPopUpButton.h */,
@@ -3426,10 +3430,12 @@
 				F4AF18B71E3FC69F005A7CC9 /* PKGPresentationPluginButton.m */,
 				F49068A41E42975B003C5D38 /* PKGPresentationBox.h */,
 				F49068A31E42975B003C5D38 /* PKGPresentationBox.m */,
+				F4CBEBEF21D79464000BD256 /* PKGPresentationAppearanceRadioButtonCell.h */,
+				F4CBEBF021D79464000BD256 /* PKGPresentationAppearanceRadioButtonCell.m */,
 				F42961971E4400DB00B47D9F /* PKGPresentationImageView.h */,
+				F42961961E4400DB00B47D9F /* PKGPresentationImageView.m */,
 				F45D7E0D2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.h */,
 				F45D7E0E2137474C00C58B0F /* PKGPresentationSettingsPopUpButtonCell.m */,
-				F42961961E4400DB00B47D9F /* PKGPresentationImageView.m */,
 				F42961951E4400DB00B47D9F /* PKGPresentationTextView.h */,
 				F42961941E4400DB00B47D9F /* PKGPresentationTextView.m */,
 				F45069C61E8AFFF4005B5A8D /* PKGPresentationPaneTitleView.h */,
@@ -4631,6 +4637,7 @@
 				F4E4B0231F4C2AB10086427E /* flag_id.png in Resources */,
 				F499DA9A1F71D4960003E31A /* PKGPresentationInstallationTypeChoiceRequirementsViewController.xib in Resources */,
 				F4E4B0271F4C2AB10086427E /* flag_ko.png in Resources */,
+				F439CAE021D7AF010040672F /* AppearanceDarkTemplate.png in Resources */,
 				F4AB91E61F46F7B900BEB1E5 /* ReferenceFolderSquareSmallUbuntu.png in Resources */,
 				F4AFD3331EC4F88200F9E18D /* iconBottom_nib.png in Resources */,
 				F417B38120E57DF1005BAC33 /* flag_en_AU.png in Resources */,
@@ -4693,6 +4700,7 @@
 				F4FE99BF1F293D1800BCB60F /* Success_12.png in Resources */,
 				F44F60391F79A47900723D49 /* Icon_Large.icns in Resources */,
 				F405AA501DCFB4DF006A9B11 /* PKGPreferencePaneTemplatesViewController.xib in Resources */,
+				F439CADE21D7AF010040672F /* AppearanceDarkTemplate@2x.png in Resources */,
 				F499A3B51EE9F00F00AB5AE9 /* Presentation.strings in Resources */,
 				F4ED06961E36A7CE00BFD993 /* ExtensionLocations.plist in Resources */,
 				F4968FB21EF3385B00CA6498 /* buildPackage@2x.png in Resources */,
@@ -4712,6 +4720,7 @@
 				F45298251F46F67F0020CAF0 /* MixedRegularUbuntu.png in Resources */,
 				F4D325E920509A01009FCF3E /* flag_lv.png in Resources */,
 				F424D3911DCE437100F95165 /* Packages_License.pdf in Resources */,
+				F439CADF21D7AF010040672F /* AppearanceLightTemplate@2x.png in Resources */,
 				F4AB91F81F46F7D900BEB1E5 /* AbsoluteMenuItemSmallUbuntu.png in Resources */,
 				F42B4E801E512C240048D47D /* PKGPayloadFilesSelectionInspectorAttributesViewController.xib in Resources */,
 				F49D41A01DE3C3CB003D4DA6 /* PKGDistributionProjectMainViewController.xib in Resources */,
@@ -4725,6 +4734,7 @@
 				F46288E91ED237FB005F7298 /* Warning_12.png in Resources */,
 				F4AB91B61F46F76100BEB1E5 /* RelativeSmallPullDownUbuntu.png in Resources */,
 				F4E4B01A1F4C2AB10086427E /* flag_es.png in Resources */,
+				F439CAE121D7AF010040672F /* AppearanceLightTemplate.png in Resources */,
 				F4E4B0291F4C2AB10086427E /* flag_ms.png in Resources */,
 				F452C97A1DCFAAE1002B7CBC /* PKGPreferencePaneAdvancedViewController.xib in Resources */,
 				F440C2391EAD605C0069BA05 /* FilesPreferences.png in Resources */,
@@ -4923,6 +4933,7 @@
 				F43439CA1E5BB17D00178A2F /* PKGRequirementWindowController.m in Sources */,
 				F46BFC851FACCC410022ABD4 /* PKGMustCloseApplicationItem.m in Sources */,
 				F435CED11ED0EE3A005F7E35 /* PKGPresentationSummaryInspectorViewController.m in Sources */,
+				F4CBEBF121D79464000BD256 /* PKGPresentationAppearanceRadioButtonCell.m in Sources */,
 				F4F1EE581EFB1CE30027A244 /* PKGDistributionProjectSettings+Edition.m in Sources */,
 				F46B2BF81EA1851B00BCDC7C /* PKGLicenseTemplate.m in Sources */,
 				F44F5BA61E21A5170024CEA1 /* PKGTellerView.m in Sources */,
@@ -5109,7 +5120,7 @@
 				F415FEEE1E8C791900FF6173 /* PKGBuildDispatcher+Constants.m in Sources */,
 				F415FEE11E8C789700FF6173 /* PKGBuildNotificationCenter.m in Sources */,
 				F479F3FE1DE9871200A8EE33 /* PKGPackageComponentPayloadViewController.m in Sources */,
-				F4097078219065BD0083CA49 /* PKGPresentationControlledView.m in Sources */,
+				F4097078219065BD0083CA49 /* PKGDistributionMainControlledView.m in Sources */,
 				F49DCBA31DD9312E0064C738 /* PKGProjectTemplateAssistantController.m in Sources */,
 				F452C9651DCFA011002B7CBC /* NSToolbar+Packages.m in Sources */,
 				F493EE941E564C8400617AEF /* PKGDistributionProjectSettingsViewController.m in Sources */,
@@ -5202,7 +5213,6 @@
 				F435CEDE1ED0EF57005F7E35 /* PKGPresentationCustomLocalizationsInspectorViewController.m in Sources */,
 				F424D35D1DCE3E4900F95165 /* PKGPresentationSection.m in Sources */,
 				F49C7FA61E6426B800BC577A /* PKGPackageComponent+Safe.m in Sources */,
-				F4B9E7F62105429D00A84714 /* PKGSectionTitle.m in Sources */,
 				F46A82221F19619C000D296C /* NSTableView+Geometry.m in Sources */,
 				F481F6331E18393C00DBD566 /* PKGFilePathTextField.m in Sources */,
 				F4F12DBC1F2153C800FEFC8F /* PKGBuildEventItem+UI.m in Sources */,
@@ -6172,7 +6182,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 500;
+				CURRENT_PROJECT_VERSION = 514;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6198,7 +6208,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 500;
+				CURRENT_PROJECT_VERSION = 514;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;

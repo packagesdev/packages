@@ -49,13 +49,13 @@
                                 <action selector="switchConclusionAction:" target="-2" id="le8-Jd-qFR"/>
                             </connections>
                         </popUpButton>
-                        <textField verticalHuggingPriority="750" id="49A-9z-XwI" customClass="PKGSectionTitle">
+                        <textField verticalHuggingPriority="750" id="49A-9z-XwI">
                             <rect key="frame" x="18" y="67" width="283" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Comportement à la fin de l'installation" id="aHB-97-qhw">
                                 <font key="font" metaFont="systemBold" size="14"/>
-                                <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="Z6Z-UV-oUV">
@@ -63,7 +63,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="En cas de succès :" id="lXA-ON-4dw">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
@@ -117,13 +117,13 @@
                                 <action selector="switchAuthenticationMode:" target="-2" id="I4k-Uu-pKW"/>
                             </connections>
                         </button>
-                        <textField verticalHuggingPriority="750" id="YfK-rA-PVO" customClass="PKGSectionTitle">
-                            <rect key="frame" x="20" y="139" width="62" height="18"/>
+                        <textField verticalHuggingPriority="750" id="YfK-rA-PVO">
+                            <rect key="frame" x="20" y="139" width="69" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Options" id="PGB-gf-uvd">
                                 <font key="font" metaFont="systemBold" size="14"/>
-                                <color key="textColor" white="0.34671532999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <button id="yvq-q7-yje">
@@ -142,7 +142,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="(Mac OS X 10.6 ou ultérieur)" id="CBD-eQ-hMF">
                                 <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
@@ -152,13 +152,13 @@
                     <rect key="frame" x="0.0" y="282" width="761" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" id="nyJ-So-Ae0" customClass="PKGSectionTitle">
+                        <textField verticalHuggingPriority="750" id="nyJ-So-Ae0">
                             <rect key="frame" x="18" y="90" width="122" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Immatriculation" id="Vv3-eI-chC">
                                 <font key="font" metaFont="systemBold" size="14"/>
-                                <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="quT-Qj-Kr0">
@@ -179,7 +179,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Version :" id="XVi-Xc-8h9">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
@@ -202,7 +202,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Identifiant :" id="mLN-kE-CsF">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>

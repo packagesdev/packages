@@ -22,8 +22,8 @@
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="&lt;&lt; DO NOT LOCALIZE&gt;&gt;" id="QHs-z1-ljJ">
                         <font key="font" size="18" name="Helvetica"/>
-                        <color key="textColor" white="0.35401458000000002" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>

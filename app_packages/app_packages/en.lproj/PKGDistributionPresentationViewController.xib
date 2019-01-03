@@ -8,8 +8,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDistributionPresentationViewController">
             <connections>
                 <outlet property="_accessoryPlaceHolderView" destination="CJS-WC-FsH" id="fYO-JQ-4Mk"/>
+                <outlet property="_appearanceDarkRadioButton" destination="fAj-B1-Bq3" id="IEA-h3-7FW"/>
+                <outlet property="_appearanceLightRadioButton" destination="Ocd-fi-3hx" id="T9V-fk-SUY"/>
                 <outlet property="_appearancePreviewBox" destination="Ry8-nQ-Lv7" id="10g-7z-9Oq"/>
-                <outlet property="_appearancePreviewSegmentedControl" destination="7PO-kU-ev7" id="beR-Pp-v3R"/>
                 <outlet property="_backgroundView" destination="r9y-27-Gl9" id="vul-jt-rrs"/>
                 <outlet property="_continueButton" destination="5XG-tp-MLF" id="P1R-Ug-faa"/>
                 <outlet property="_goBackButton" destination="hj5-nv-vct" id="WZG-6G-0vU"/>
@@ -167,8 +168,8 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="&lt;&lt; DO NOT LOCALIZE &gt;&gt;" id="ZpR-gg-CYN">
                                                             <font key="font" metaFont="systemBold" size="14"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
@@ -187,20 +188,28 @@
                                 <rect key="frame" x="2" y="2" width="80" height="42"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <segmentedControl verticalHuggingPriority="750" id="7PO-kU-ev7">
-                                        <rect key="frame" x="4" y="11" width="71" height="24"/>
+                                    <button toolTip="Light Appearance" id="Ocd-fi-3hx">
+                                        <rect key="frame" x="11" y="9" width="26" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="dCX-QR-npT">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="AppearanceLightTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Jeh-Et-Za2" customClass="PKGPresentationAppearanceRadioButtonCell">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
-                                            <segments>
-                                                <segment width="32"/>
-                                                <segment width="32" selected="YES" tag="1"/>
-                                            </segments>
-                                        </segmentedCell>
+                                        </buttonCell>
                                         <connections>
-                                            <action selector="switchPreviewAppearance:" target="-2" id="K9G-xn-LOR"/>
+                                            <action selector="switchPreviewAppearance:" target="-2" id="L0T-V2-bEW"/>
                                         </connections>
-                                    </segmentedControl>
+                                    </button>
+                                    <button toolTip="Dark Appearance" tag="1" id="fAj-B1-Bq3">
+                                        <rect key="frame" x="43" y="9" width="26" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="AppearanceDarkTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Mag-n0-d2H" customClass="PKGPresentationAppearanceRadioButtonCell">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="switchPreviewAppearance:" target="-2" id="Zba-F0-Dd8"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </view>
                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -272,4 +281,8 @@
             <point key="canvasLocation" x="703" y="385.5"/>
         </customView>
     </objects>
+    <resources>
+        <image name="AppearanceDarkTemplate" width="24" height="24"/>
+        <image name="AppearanceLightTemplate" width="24" height="24"/>
+    </resources>
 </document>

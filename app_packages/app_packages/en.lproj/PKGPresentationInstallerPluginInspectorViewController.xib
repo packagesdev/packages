@@ -131,19 +131,19 @@
 							<string key="NSContents">Reference:</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="573435090"/>
-							<object class="NSColor" key="NSBackgroundColor">
+							<object class="NSColor" key="NSBackgroundColor" id="746237372">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlColor</string>
+								<string key="NSColorName">textBackgroundColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+									<bytes key="NSWhite">MQA</bytes>
 								</object>
 							</object>
-							<object class="NSColor" key="NSTextColor" id="466612002">
+							<object class="NSColor" key="NSTextColor" id="850577397">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlTextColor</string>
+								<string key="NSColorName">labelColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
@@ -159,7 +159,6 @@
 						<string key="NSFrame">{{98, 244}, {247, 178}}</string>
 						<reference key="NSSuperview" ref="632465284"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="480924702">
 							<int key="NSCellFlags">67108864</int>
@@ -167,16 +166,8 @@
 							<string key="NSContents">&lt;&lt; DO NOT CHANGE &gt;&gt;</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="430264890"/>
-							<object class="NSColor" key="NSBackgroundColor" id="746237372">
-								<int key="NSColorSpace">6</int>
-								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">textBackgroundColor</string>
-								<object class="NSColor" key="NSColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-								</object>
-							</object>
-							<reference key="NSTextColor" ref="466612002"/>
+							<reference key="NSBackgroundColor" ref="746237372"/>
+							<reference key="NSTextColor" ref="850577397"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -227,7 +218,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="871891001"/>
 							<reference key="NSBackgroundColor" ref="746237372"/>
-							<reference key="NSTextColor" ref="466612002"/>
+							<reference key="NSTextColor" ref="850577397"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -247,7 +238,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="82278083"/>
 							<reference key="NSBackgroundColor" ref="746237372"/>
-							<reference key="NSTextColor" ref="466612002"/>
+							<reference key="NSTextColor" ref="850577397"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -267,7 +258,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="137011298"/>
 							<reference key="NSBackgroundColor" ref="746237372"/>
-							<reference key="NSTextColor" ref="466612002"/>
+							<reference key="NSTextColor" ref="850577397"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -287,10 +278,10 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="707570065"/>
 							<reference key="NSBackgroundColor" ref="746237372"/>
-							<object class="NSColor" key="NSTextColor" id="929296514">
+							<object class="NSColor" key="NSTextColor" id="963720191">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">disabledControlTextColor</string>
+								<string key="NSColorName">secondaryLabelColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
@@ -315,7 +306,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="442389289"/>
 							<reference key="NSBackgroundColor" ref="746237372"/>
-							<reference key="NSTextColor" ref="929296514"/>
+							<reference key="NSTextColor" ref="963720191"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -339,7 +330,7 @@
 							</object>
 							<reference key="NSControlView" ref="417272398"/>
 							<reference key="NSBackgroundColor" ref="746237372"/>
-							<reference key="NSTextColor" ref="466612002"/>
+							<reference key="NSTextColor" ref="850577397"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -359,7 +350,7 @@
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="545848615"/>
 							<reference key="NSBackgroundColor" ref="746237372"/>
-							<reference key="NSTextColor" ref="466612002"/>
+							<reference key="NSTextColor" ref="850577397"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>

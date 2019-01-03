@@ -220,13 +220,13 @@
                         <action selector="delete:" target="-2" id="p5M-S8-9R6"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" id="zuz-Lg-yvq" customClass="PKGSectionTitle">
+                <textField verticalHuggingPriority="750" id="zuz-Lg-yvq">
                     <rect key="frame" x="18" y="514" width="356" height="18"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Contents" id="SnW-DJ-6WQ">
                         <font key="font" metaFont="systemBold" size="14"/>
-                        <color key="textColor" white="0.39781021999999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" white="0.70065789469999995" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="F9o-fE-km2">
@@ -234,7 +234,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="M00-ic-dzI">
                         <font key="font" metaFont="miniSystem"/>
-                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

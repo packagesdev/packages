@@ -67,10 +67,10 @@
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
 							</object>
-							<object class="NSColor" key="NSTextColor" id="990410272">
+							<object class="NSColor" key="NSTextColor">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlTextColor</string>
+								<string key="NSColorName">labelColor</string>
 								<object class="NSColor" key="NSColor" id="4404858">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
@@ -124,7 +124,12 @@
 																	<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 																</object>
 															</object>
-															<reference key="NSTextColor" ref="990410272"/>
+															<object class="NSColor" key="NSTextColor" id="990410272">
+																<int key="NSColorSpace">6</int>
+																<string key="NSCatalogName">System</string>
+																<string key="NSColorName">controlTextColor</string>
+																<reference key="NSColor" ref="4404858"/>
+															</object>
 														</object>
 														<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 														<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -145,7 +150,6 @@
 														<string key="NSFrameSize">{197, 15}</string>
 														<reference key="NSSuperview" ref="390543703"/>
 														<reference key="NSWindow"/>
-														<reference key="NSNextKeyView"/>
 														<string key="NSAntiCompressionPriority">{250, 750}</string>
 														<bool key="NSEnabled">YES</bool>
 														<object class="NSTextFieldCell" key="NSCell" id="757649710">
@@ -174,7 +178,7 @@
 										<string key="NSFrameSize">{409, 112}</string>
 										<reference key="NSSuperview" ref="1049199690"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="654169008"/>
+										<reference key="NSNextKeyView" ref="680088344"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -347,7 +351,7 @@
 						<string key="NSFrame">{{29, 20}, {411, 130}}</string>
 						<reference key="NSSuperview" ref="441468351"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="680088344"/>
+						<reference key="NSNextKeyView" ref="1049199690"/>
 						<int key="NSsFlags">1067538</int>
 						<reference key="NSVScroller" ref="333635317"/>
 						<reference key="NSHScroller" ref="680088344"/>
@@ -361,7 +365,7 @@
 						<string key="NSContentInsets">{0, 0, 0, 0}</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{460, 195}</string>
+				<string key="NSFrameSize">{465, 195}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="680989584"/>

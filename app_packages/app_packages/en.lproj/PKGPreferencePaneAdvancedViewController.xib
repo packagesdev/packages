@@ -79,7 +79,6 @@
 						<string key="NSFrame">{{30, 18}, {288, 18}}</string>
 						<reference key="NSSuperview" ref="759121198"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="763609696">
 							<int key="NSCellFlags">67108864</int>
@@ -116,19 +115,19 @@
 								<int key="NSfFlags">3100</int>
 							</object>
 							<reference key="NSControlView" ref="514821350"/>
-							<object class="NSColor" key="NSBackgroundColor" id="95632192">
+							<object class="NSColor" key="NSBackgroundColor" id="714064956">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlColor</string>
+								<string key="NSColorName">textBackgroundColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+									<bytes key="NSWhite">MQA</bytes>
 								</object>
 							</object>
 							<object class="NSColor" key="NSTextColor">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">disabledControlTextColor</string>
+								<string key="NSColorName">secondaryLabelColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
@@ -156,11 +155,11 @@
 								<int key="NSfFlags">2072</int>
 							</object>
 							<reference key="NSControlView" ref="534661635"/>
-							<reference key="NSBackgroundColor" ref="95632192"/>
-							<object class="NSColor" key="NSTextColor" id="285365534">
+							<reference key="NSBackgroundColor" ref="714064956"/>
+							<object class="NSColor" key="NSTextColor" id="126325663">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlTextColor</string>
+								<string key="NSColorName">labelColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
@@ -184,14 +183,14 @@
 							<string key="NSContents">Updates</string>
 							<reference key="NSSupport" ref="694738141"/>
 							<reference key="NSControlView" ref="879883361"/>
-							<reference key="NSBackgroundColor" ref="95632192"/>
-							<reference key="NSTextColor" ref="285365534"/>
+							<reference key="NSBackgroundColor" ref="714064956"/>
+							<reference key="NSTextColor" ref="126325663"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 					</object>
 				</array>
-				<string key="NSFrameSize">{460, 185}</string>
+				<string key="NSFrameSize">{465, 185}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="534661635"/>

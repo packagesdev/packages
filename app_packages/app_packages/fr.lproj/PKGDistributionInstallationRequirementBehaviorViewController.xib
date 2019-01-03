@@ -272,7 +272,7 @@
 										<string key="NSFrameSize">{567, 138}</string>
 										<reference key="NSSuperview" ref="445274087"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="519573169"/>
+										<reference key="NSNextKeyView" ref="41611730"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -414,7 +414,7 @@
 						<string key="NSFrame">{{37, 50}, {569, 140}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="41611730"/>
+						<reference key="NSNextKeyView" ref="445274087"/>
 						<int key="NSsFlags">150034</int>
 						<reference key="NSVScroller" ref="804484922"/>
 						<reference key="NSHScroller" ref="41611730"/>
@@ -505,7 +505,12 @@
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
 							</object>
-							<reference key="NSTextColor" ref="878404145"/>
+							<object class="NSColor" key="NSTextColor">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">labelColor</string>
+								<reference key="NSColor" ref="617931282"/>
+							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -516,7 +521,6 @@
 						<string key="NSFrame">{{425, 26}, {180, 12}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="178974330">
 							<int key="NSCellFlags">67108864</int>
@@ -532,7 +536,7 @@
 							<object class="NSColor" key="NSTextColor">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">disabledControlTextColor</string>
+								<string key="NSColorName">secondaryLabelColor</string>
 								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>

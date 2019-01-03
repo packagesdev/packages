@@ -113,7 +113,8 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	IBOutlet PKGPresentationBox * _appearancePreviewBox;
 	
-	IBOutlet NSSegmentedControl * _appearancePreviewSegmentedControl;
+	IBOutlet NSButton * _appearanceLightRadioButton;
+	IBOutlet NSButton * _appearanceDarkRadioButton;
 	
 	IBOutlet NSView * _accessoryPlaceHolderView;
 	
@@ -236,7 +237,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	// Mode
 	
-	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+	//if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 	{
 		_appearancePreviewBox.hidden=YES;
 	}
@@ -672,24 +673,38 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_14)
 	{
 		NSString * tSelectedAppearance=self.documentRegistry[PKGDistributionPresentationSelectedAppearance];
-		NSString * tCurentAppearance=[_leftView WB_effectiveAppearanceName];
+		NSString * tCurrentAppearance=[_leftView WB_effectiveAppearanceName];
 		
 		// Update the left view appearance if needed
 		
 		if (tSelectedAppearance==nil)
 		{
-			if (tCurentAppearance!=nil)
+			if (tCurrentAppearance!=nil)
 				[_leftView setAppearance:nil];
 		}
 		else
 		{
-			if (tCurentAppearance==nil)
-			{
+			if (tCurrentAppearance==nil || [tCurrentAppearance isEqualToString:tSelectedAppearance]==NO)
 				[_leftView setAppearance:[NSAppearance appearanceNamed:tSelectedAppearance]];
-			}
 		}
 		
-		[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:[_leftView WB_effectiveAppearanceName]]];
+		WB_AppearanceMode tAppearanceMode=[NSResponder WB_appearanceModeForAppearanceName:[_leftView WB_effectiveAppearanceName]];
+		
+		switch (tAppearanceMode)
+		{
+			case WB_AppearanceAqua:
+				
+				_appearanceLightRadioButton.state=NSOnState;
+				
+				break;
+				
+			case WB_AppearanceDarkAqua:
+				
+				_appearanceDarkRadioButton.state=NSOnState;
+				
+				break;
+				
+		}
 	}
 	
 	[_currentSectionViewController WB_viewDidAppear];
@@ -913,9 +928,9 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	}];
 }
 
-- (IBAction)switchPreviewAppearance:(NSSegmentedControl *)sender
+- (IBAction)switchPreviewAppearance:(NSButton *)sender
 {
-	NSString * tAppearanceName=[NSResponder WB_appearanceNameForAppearanceMode:sender.selectedSegment];
+	NSString * tAppearanceName=[NSResponder WB_appearanceNameForAppearanceMode:sender.tag];
 	
 	self.documentRegistry[PKGDistributionPresentationSelectedAppearance]=tAppearanceName;
 	
@@ -1672,7 +1687,23 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 {
 	[_leftView setAppearance:nil];
 	
-	[_appearancePreviewSegmentedControl setSelectedSegment:[NSResponder WB_appearanceModeForAppearanceName:inNotification.userInfo[@"EffectiveAppearance"]]];
+	WB_AppearanceMode tAppearanceMode=[NSResponder WB_appearanceModeForAppearanceName:inNotification.userInfo[@"EffectiveAppearance"]];
+	
+	switch (tAppearanceMode)
+	{
+		case WB_AppearanceAqua:
+			
+			_appearanceLightRadioButton.state=NSOnState;
+			
+			break;
+			
+		case WB_AppearanceDarkAqua:
+			
+			_appearanceDarkRadioButton.state=NSOnState;
+			
+			break;
+			
+	}
 }
 
 - (void)selectionSectionLanguageDidChange:(NSNotification *)inNotification
