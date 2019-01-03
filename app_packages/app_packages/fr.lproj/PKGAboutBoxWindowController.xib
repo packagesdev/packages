@@ -36,7 +36,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Packages" id="5yc-GV-ac0">
                                         <font key="font" metaFont="systemBold" size="27"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -50,17 +50,8 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="version xxx (xxxx)" id="m1X-Tf-vUZ">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <textField verticalHuggingPriority="750" id="SDo-tY-yW0">
-                                    <rect key="frame" x="297" y="121" width="269" height="13"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="© 2009-2018 Stéphane Sudre. Tous droits réservés." id="cg4-Tx-xMY">
-                                        <font key="font" metaFont="system" size="10"/>
-                                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <customView id="p5r-fU-kw0" customClass="PKGAboutBoxFooterView">
@@ -91,6 +82,15 @@
                                         </button>
                                     </subviews>
                                 </customView>
+                                <textField verticalHuggingPriority="750" id="SDo-tY-yW0">
+                                    <rect key="frame" x="297" y="121" width="269" height="13"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="© 2009-2019 Stéphane Sudre. Tous droits réservés." id="cg4-Tx-xMY">
+                                        <font key="font" metaFont="system" size="10"/>
+                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>

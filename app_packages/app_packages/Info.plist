@@ -60,7 +60,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>494</string>
+	<string>514</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>NSRequiresAquaSystemAppearance</key>
@@ -85,7 +85,7 @@
 		</dict>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2009–2018 Stéphane Sudre</string>
+	<string>© 2009–2019 Stéphane Sudre</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
