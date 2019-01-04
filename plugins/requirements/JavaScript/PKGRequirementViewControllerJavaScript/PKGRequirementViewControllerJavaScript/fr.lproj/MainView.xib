@@ -84,7 +84,7 @@
 										<string key="NSFrameSize">{590, 299}</string>
 										<reference key="NSSuperview" ref="76365167"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="696631609"/>
+										<reference key="NSNextKeyView" ref="218235558"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="574521955">
 											<object class="NSLayoutManager" key="NSLayoutManager">
 												<object class="NSTextStorage" key="NSTextStorage">
@@ -215,7 +215,7 @@
 						<string key="NSFrame">{{37, 200}, {607, 301}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="218235558"/>
+						<reference key="NSNextKeyView" ref="76365167"/>
 						<int key="NSsFlags">133138</int>
 						<reference key="NSVScroller" ref="696631609"/>
 						<reference key="NSHScroller" ref="218235558"/>
@@ -324,13 +324,18 @@
 									<string key="NSContents">Code JavaScript partagé</string>
 									<reference key="NSSupport" ref="26"/>
 									<reference key="NSControlView" ref="40110838"/>
-									<object class="NSColor" key="NSBackgroundColor" id="1016633560">
+									<object class="NSColor" key="NSBackgroundColor" id="209616890">
 										<int key="NSColorSpace">6</int>
 										<string key="NSCatalogName">System</string>
-										<string key="NSColorName">controlColor</string>
-										<reference key="NSColor" ref="674340036"/>
+										<string key="NSColorName">textBackgroundColor</string>
+										<reference key="NSColor" ref="205195554"/>
 									</object>
-									<reference key="NSTextColor" ref="11111152"/>
+									<object class="NSColor" key="NSTextColor" id="672815150">
+										<int key="NSColorSpace">6</int>
+										<string key="NSCatalogName">System</string>
+										<string key="NSColorName">labelColor</string>
+										<reference key="NSColor" ref="459979532"/>
+									</object>
 								</object>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -388,7 +393,12 @@
 																<int key="NSfFlags">1044</int>
 															</object>
 															<reference key="NSControlView" ref="979774447"/>
-															<reference key="NSBackgroundColor" ref="1016633560"/>
+															<object class="NSColor" key="NSBackgroundColor">
+																<int key="NSColorSpace">6</int>
+																<string key="NSCatalogName">System</string>
+																<string key="NSColorName">controlColor</string>
+																<reference key="NSColor" ref="674340036"/>
+															</object>
 															<reference key="NSTextColor" ref="11111152"/>
 														</object>
 														<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -404,7 +414,7 @@
 										<string key="NSFrameSize">{482, 65}</string>
 										<reference key="NSSuperview" ref="825367745"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="1028832704"/>
+										<reference key="NSNextKeyView" ref="968019404"/>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -521,7 +531,7 @@
 						<string key="NSFrame">{{140, 81}, {484, 67}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="968019404"/>
+						<reference key="NSNextKeyView" ref="825367745"/>
 						<int key="NSsFlags">150034</int>
 						<reference key="NSVScroller" ref="607617159"/>
 						<reference key="NSHScroller" ref="968019404"/>
@@ -548,12 +558,7 @@
 							<reference key="NSSupport" ref="939143749"/>
 							<reference key="NSControlView" ref="269887282"/>
 							<bool key="NSDrawsBackground">YES</bool>
-							<object class="NSColor" key="NSBackgroundColor" id="209616890">
-								<int key="NSColorSpace">6</int>
-								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">textBackgroundColor</string>
-								<reference key="NSColor" ref="205195554"/>
-							</object>
+							<reference key="NSBackgroundColor" ref="209616890"/>
 							<reference key="NSTextColor" ref="11111152"/>
 							<int key="NSVisibleItemCount">5</int>
 							<bool key="NSHasVerticalScroller">YES</bool>
@@ -641,12 +646,7 @@
 							<reference key="NSSupport" ref="939143749"/>
 							<reference key="NSControlView" ref="478821054"/>
 							<reference key="NSBackgroundColor" ref="209616890"/>
-							<object class="NSColor" key="NSTextColor" id="516790273">
-								<int key="NSColorSpace">6</int>
-								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">textColor</string>
-								<reference key="NSColor" ref="459979532"/>
-							</object>
+							<reference key="NSTextColor" ref="672815150"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -666,7 +666,7 @@
 							<reference key="NSSupport" ref="939143749"/>
 							<reference key="NSControlView" ref="107130934"/>
 							<reference key="NSBackgroundColor" ref="209616890"/>
-							<reference key="NSTextColor" ref="516790273"/>
+							<reference key="NSTextColor" ref="672815150"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -744,7 +744,7 @@
 							<reference key="NSSupport" ref="939143749"/>
 							<reference key="NSControlView" ref="325363494"/>
 							<reference key="NSBackgroundColor" ref="209616890"/>
-							<reference key="NSTextColor" ref="516790273"/>
+							<reference key="NSTextColor" ref="672815150"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -755,7 +755,6 @@
 						<string key="NSFrame">{{138, 16}, {91, 26}}</string>
 						<reference key="NSSuperview" ref="519150601"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="343192089">
 							<int key="NSCellFlags">-2076180416</int>
@@ -1388,13 +1387,10 @@
 					<reference ref="1028832704"/>
 				</array>
 				<string key="125.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="126.CustomClassName">PKGLabel</string>
 				<string key="126.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="127.CustomClassName">PKGLabel</string>
 				<string key="127.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="128.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="136.CustomClassName">PKGLabel</string>
 				<string key="136.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="137.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="138.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

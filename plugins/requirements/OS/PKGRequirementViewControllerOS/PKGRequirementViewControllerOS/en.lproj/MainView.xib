@@ -194,7 +194,6 @@
 						<string key="NSFrame">{{401, 22}, {94, 14}}</string>
 						<reference key="NSSuperview" ref="162944365"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="613427454">
 							<int key="NSCellFlags">67108864</int>
@@ -206,20 +205,22 @@
 								<int key="NSfFlags">3100</int>
 							</object>
 							<reference key="NSControlView" ref="151718561"/>
-							<object class="NSColor" key="NSBackgroundColor" id="857129700">
+							<object class="NSColor" key="NSBackgroundColor" id="617237310">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">controlColor</string>
-								<object class="NSColor" key="NSColor" id="971385364">
+								<string key="NSColorName">textBackgroundColor</string>
+								<object class="NSColor" key="NSColor">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+									<bytes key="NSWhite">MQA</bytes>
 								</object>
 							</object>
-							<object class="NSColor" key="NSTextColor">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MC4yNQA</bytes>
-								<object class="NSColorSpace" key="NSCustomColorSpace" id="1023996327">
-									<int key="NSID">2</int>
+							<object class="NSColor" key="NSTextColor" id="969197431">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">secondaryLabelColor</string>
+								<object class="NSColor" key="NSColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
 								</object>
 							</object>
 						</object>
@@ -240,12 +241,8 @@
 							<string key="NSContents">label</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="1062401279"/>
-							<reference key="NSBackgroundColor" ref="857129700"/>
-							<object class="NSColor" key="NSTextColor">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MC4yNQA</bytes>
-								<reference key="NSCustomColorSpace" ref="1023996327"/>
-							</object>
+							<reference key="NSBackgroundColor" ref="617237310"/>
+							<reference key="NSTextColor" ref="969197431"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -347,20 +344,12 @@
 							<string key="NSContents">Operating System on</string>
 							<reference key="NSSupport" ref="1063642947"/>
 							<reference key="NSControlView" ref="222295855"/>
-							<object class="NSColor" key="NSBackgroundColor" id="617237310">
+							<reference key="NSBackgroundColor" ref="617237310"/>
+							<object class="NSColor" key="NSTextColor" id="939221047">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">textBackgroundColor</string>
-								<object class="NSColor" key="NSColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-								</object>
-							</object>
-							<object class="NSColor" key="NSTextColor" id="589839681">
-								<int key="NSColorSpace">6</int>
-								<string key="NSCatalogName">System</string>
-								<string key="NSColorName">textColor</string>
-								<object class="NSColor" key="NSColor" id="337012832">
+								<string key="NSColorName">labelColor</string>
+								<object class="NSColor" key="NSColor" id="102061843">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
@@ -384,7 +373,7 @@
 							<reference key="NSSupport" ref="1063642947"/>
 							<reference key="NSControlView" ref="997470113"/>
 							<reference key="NSBackgroundColor" ref="617237310"/>
-							<reference key="NSTextColor" ref="589839681"/>
+							<reference key="NSTextColor" ref="939221047"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -404,7 +393,7 @@
 							<reference key="NSSupport" ref="1063642947"/>
 							<reference key="NSControlView" ref="731647182"/>
 							<reference key="NSBackgroundColor" ref="617237310"/>
-							<reference key="NSTextColor" ref="589839681"/>
+							<reference key="NSTextColor" ref="939221047"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -424,7 +413,7 @@
 							<reference key="NSSupport" ref="1063642947"/>
 							<reference key="NSControlView" ref="144045906"/>
 							<reference key="NSBackgroundColor" ref="617237310"/>
-							<reference key="NSTextColor" ref="589839681"/>
+							<reference key="NSTextColor" ref="939221047"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -510,12 +499,20 @@
 							<string key="NSContents">:</string>
 							<reference key="NSSupport" ref="1063642947"/>
 							<reference key="NSControlView" ref="729312616"/>
-							<reference key="NSBackgroundColor" ref="857129700"/>
+							<object class="NSColor" key="NSBackgroundColor">
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">controlColor</string>
+								<object class="NSColor" key="NSColor" id="971385364">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+								</object>
+							</object>
 							<object class="NSColor" key="NSTextColor" id="777105392">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">controlTextColor</string>
-								<reference key="NSColor" ref="337012832"/>
+								<reference key="NSColor" ref="102061843"/>
 							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -1029,9 +1026,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="341.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="343.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="344.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="345.CustomClassName">PKGLabel</string>
 				<string key="345.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="346.CustomClassName">PKGLabel</string>
 				<string key="346.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="349.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="350.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1040,7 +1035,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="353.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="354.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="355.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="428.CustomClassName">PKGLabel</string>
 				<string key="428.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="429.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="447.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1051,7 +1045,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="860.IBPersistedLastKnownCanvasPosition">{860, 745.5}</string>
 				<string key="860.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="861.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="871.CustomClassName">PKGLabel</string>
 				<string key="871.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="872.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="876.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
