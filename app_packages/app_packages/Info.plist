@@ -60,11 +60,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>514</string>
+	<string>520</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
-	<key>NSRequiresAquaSystemAppearance</key>
-	<true/>
 	<key>LSExecutableArchitectures</key>
 	<array>
 		<string>x86_64</string>
@@ -90,6 +88,8 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSRequiresAquaSystemAppearance</key>
+	<false/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

@@ -430,14 +430,11 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 									 
 									 if (inStep==self.selectedStep)
 									 {
-										 if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
-											 [[NSColor colorWithDeviceRed:0.4 green:0.7 blue:0.94 alpha:1.0] setFill];
-										 else
-											 [[NSColor colorWithDeviceRed:0.063 green:0.42 blue:0.996 alpha:1.0] setFill];
+										 [[NSColor systemBlueColor] setFill];
 									 }
 									 else
 									 {
-										 if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+										 if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 										 {
 											 if (inStep < self.selectedStep)
 												 [[NSColor colorWithDeviceWhite:0.65 alpha:1.0] setFill];
@@ -448,9 +445,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 										 else
 										 {
 											 if (inStep < self.selectedStep)
-												 [[NSColor colorWithDeviceWhite:0.32 alpha:1.0] setFill];
+												 [[NSColor quaternaryLabelColor] setFill];
 											 else
-												[[NSColor colorWithDeviceWhite:0.21 alpha:1.0] setFill];
+												[[NSColor tertiaryLabelColor] setFill];
 										 }
 									 }
 									 
@@ -471,15 +468,15 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
                                      else
                                          tFont=[NSFont systemFontOfSize:13.0];
                                      
-									 NSColor * tColor;
+									 NSColor * tColor=nil;
 									 
-									 if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+									 if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 									 {
-										 tColor= (inStep >self.selectedStep) ? [NSColor colorWithDeviceWhite:0.0 alpha: 0.5] : [NSColor controlTextColor];
+										 tColor= (inStep >self.selectedStep) ? [NSColor grayColor] : [NSColor blackColor];
 									 }
 									 else
 									 {
-										 tColor= (inStep >self.selectedStep) ? [NSColor colorWithDeviceWhite:0.32 alpha: 1.0] : [NSColor whiteColor];
+										 tColor= (inStep >self.selectedStep) ? [NSColor tertiaryLabelColor] : [NSColor labelColor];
 									 }
 									 
 									 
@@ -560,7 +557,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	if (tNumberOfSteps==0)
 		return;
 	
-	PKGPresentationThemeVersion tPresentationTheme=_themeVersion;
+    BOOL tIsDarkMode=[self WB_isEffectiveAppearanceDarkAqua];
+    
+    /*PKGPresentationThemeVersion tPresentationTheme=_themeVersion;
 	
 	if (tPresentationTheme==PKGPresentationThemeMojaveDynamic)
 	{
@@ -568,7 +567,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			tPresentationTheme=PKGPresentationThemeMojaveLight;
 		else
 			tPresentationTheme=PKGPresentationThemeMojaveDark;
-	}
+	}*/
 	
 	// Compute the number of steps that can be displayed
 	
@@ -795,10 +794,10 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
         
         CGFloat tY=round(NSMidY(bRect)-PKGPresentationListViewEllipsisDotDiameter*0.5);
         
-        if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+        if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 			[[NSColor grayColor] setFill];
         else
-			[[NSColor lightGrayColor] setFill];
+			[[NSColor tertiaryLabelColor] setFill];
 		
         NSRect tEllipsisFrame=NSMakeRect(tX,tY,PKGPresentationListViewEllipsisDotDiameter,PKGPresentationListViewEllipsisDotDiameter);
         
@@ -858,7 +857,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			CGFloat tMiddleX=round(NSMidX(tFrame));
             CGFloat tMiddleY=round(NSMidY(tFrame));
             
-            if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+			if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 			{
 				if (_topPushed==YES)
 					[[NSColor darkGrayColor] setFill];
@@ -868,9 +867,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			else
 			{
 				if (_topPushed==YES)
-					[[NSColor whiteColor] setFill];
+					[[NSColor labelColor] setFill];
 				else
-					[[NSColor lightGrayColor] setFill];
+					[[NSColor tertiaryLabelColor] setFill];
 			}
 			
 			tBezierPath=[NSBezierPath bezierPath];
@@ -913,17 +912,17 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			
 			tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tBackgroundFrame xRadius:5.0 yRadius:5.0];
 			
-			if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+			if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 				[[NSColor colorWithDeviceWhite:0.0 alpha:0.75] setFill];
 			else
-				[[NSColor colorWithDeviceWhite:1.0 alpha:0.85] setFill];
+				[[NSColor labelColor] setFill];
 			
 			[tBezierPath fill];
 
-			if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+			if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 				[[NSColor colorWithDeviceWhite:0.0 alpha:0.85] set];
 			else
-				[[NSColor colorWithDeviceWhite:1.0 alpha:0.9] set];
+				[[NSColor colorWithDeviceWhite:1.0 alpha:0.9] set];		// A VOIR
 			
 			tBezierPath.lineWidth=2.0;
 			
@@ -937,18 +936,18 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			
 			tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tBackgroundFrame xRadius:5.0 yRadius:5.0];
 
-			if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+			if (tIsDarkMode==NO)
+            {
 				[[NSColor colorWithDeviceWhite:0.0 alpha:0.025] setFill];
-			else
-				[[NSColor colorWithDeviceWhite:1.0 alpha:0.035] setFill];
-			
+                [[NSColor colorWithDeviceWhite:0.0 alpha:0.05] setStroke];
+            }
+            else
+            {
+                [[NSColor colorWithDeviceWhite:1.0 alpha:0.035] setFill];
+                [[NSColor colorWithDeviceWhite:1.0 alpha:0.045] setStroke];
+            }
+            
 			[tBezierPath fill];
-			
-			if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
-				[[NSColor colorWithDeviceWhite:0.0 alpha:0.05] setStroke];
-			else
-				[[NSColor colorWithDeviceWhite:1.0 alpha:0.045] setStroke];
-			
 			[tBezierPath stroke];
 		}
 		
@@ -961,7 +960,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		
 		if (tIndex!=_mouseSelectedStep || _mouseSelectedStepPushed==NO)
 		{
-			if (tPresentationTheme==PKGPresentationThemeMountainLion)
+			if (NSAppKitVersionNumber<NSAppKitVersionNumber10_10)
 			{
 				NSImage * tBulletProcessedImage=((tIndex==self.selectedStep) ? _selectedPaneImage : ((tIndex < self.selectedStep) ? _unselectedPaneImage : _unProcessedPaneImage));
 			
@@ -997,14 +996,11 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 				
 				if (tIndex==self.selectedStep)
 				{
-					if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
-						[[NSColor colorWithDeviceRed:0.4 green:0.7 blue:0.94 alpha:1.0] setFill];
-					else
-						[[NSColor colorWithDeviceRed:0.063 green:0.420 blue:0.996 alpha:1.000] setFill];
+					[[NSColor systemBlueColor] setFill];
 				}
 				else
 				{
-					if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+					if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 					{
 						if (tIndex < self.selectedStep)
 							[[NSColor colorWithDeviceWhite:0.65 alpha:1.0] setFill];
@@ -1014,9 +1010,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 					else
 					{
 						if (tIndex < self.selectedStep)
-							[[NSColor colorWithDeviceWhite:0.32 alpha:1.0] setFill];
+							[[NSColor quaternaryLabelColor] setFill];
 						else
-							[[NSColor colorWithDeviceWhite:0.21 alpha:1.0] setFill];
+							[[NSColor tertiaryLabelColor] setFill];
 					}
 				}
 				
@@ -1026,7 +1022,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 				{
 					NSImage * tImage;
 					
-					if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+					if (tIsDarkMode==NO)
 						tImage=[NSImage imageNamed:@"Strip32Composite"];
 					else
 						tImage=[NSImage imageNamed:@"Strip32CompositeDark"];
@@ -1045,7 +1041,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			{
 				NSImage * tImage;
 				
-				if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+				if (tIsDarkMode==NO)
 					tImage=[NSImage imageNamed:@"Strip32"];
 				else
 					tImage=[NSImage imageNamed:@"Strip32Dark"];
@@ -1062,10 +1058,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			}
 			else
 			{
-				if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
-					[[NSColor whiteColor] setFill];
-				else
-					[[NSColor blackColor] setFill];
+				[[NSColor textBackgroundColor] setFill];
 			}
 			
 			[tBezierPath fill];
@@ -1078,44 +1071,52 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		{
 			NSColor * tColor;
 			
-			if (tIndex >self.selectedStep)
-			{
-				if (tWillBeVisible==YES)
-				{
-					tColor=(tPresentationTheme!=PKGPresentationThemeMojaveDark) ? [NSColor colorWithDeviceWhite:0.0 alpha: 0.5] : [NSColor colorWithDeviceWhite:0.32 alpha: 1.0];
-				}
-				else
-				{
-					if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
-						tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32Disabled"]];
-					else
-						tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32DisabledDark"]];
-				}
-				
-				if (tIndex==_mouseSelectedStep && _mouseSelectedStepPushed==YES)
-					tColor=(tPresentationTheme!=PKGPresentationThemeMojaveDark) ? [NSColor colorWithDeviceWhite:1.0 alpha: 0.75] : [NSColor colorWithDeviceWhite:0.0 alpha: 1.0];
-			}
-			else
-			{
-				if (tWillBeVisible==YES)
-				{
-					if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
-						tColor=[NSColor controlTextColor];
-					else
-						tColor=[NSColor whiteColor];
-				}
-				else
-				{
-					if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
-						tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32"]];
-					else
-						tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32Dark"]];
-				}
-				
-				if (tIndex==_mouseSelectedStep && _mouseSelectedStepPushed==YES)
-					tColor=(tPresentationTheme!=PKGPresentationThemeMojaveDark) ? [NSColor whiteColor] : [NSColor colorWithDeviceWhite:0.1 alpha:1.0];
-			}
-			
+            if (tIndex==_mouseSelectedStep && _mouseSelectedStepPushed==YES)
+            {
+                tColor=[NSColor textBackgroundColor];
+            }
+            else
+            {
+                if (tIndex >self.selectedStep)
+                {
+                    if (tWillBeVisible==YES)
+                    {
+                        if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+                        {
+                            tColor=[NSColor grayColor];
+                        }
+                        else
+                        {
+                            tColor=[NSColor tertiaryLabelColor];
+                        }
+                    }
+                    else
+                    {
+                        if (tIsDarkMode==NO)
+                            tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32Disabled"]];
+                        else
+                            tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32DisabledDark"]];
+                    }
+                }
+                else
+                {
+                    if (tWillBeVisible==YES)
+                    {
+                        if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+                            tColor=[NSColor blackColor];
+                        else
+                            tColor=[NSColor labelColor];
+                    }
+                    else
+                    {
+                        if (tIsDarkMode==NO)
+                            tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32"]];
+                        else
+                            tColor=[NSColor colorWithPatternImage:[NSImage imageNamed:@"Strip32Dark"]];
+                    }
+                }
+            }
+            
 			NSDictionary * tFontAttributes=@{NSFontAttributeName:tFont,
 											 NSForegroundColorAttributeName:tColor};
 			
@@ -1167,19 +1168,19 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			CGFloat tMiddleX=round(NSMidX(tFrame));
             CGFloat tMiddleY=round(NSMidY(tFrame));
             
-			if (tPresentationTheme!=PKGPresentationThemeMojaveDark)
+			if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 			{
-				if (_bottomPushed==YES)
+				if (_topPushed==YES)
 					[[NSColor darkGrayColor] setFill];
 				else
 					[[NSColor grayColor] setFill];
 			}
 			else
 			{
-				if (_bottomPushed==YES)
-					[[NSColor whiteColor] setFill];
+				if (_topPushed==YES)
+					[[NSColor labelColor] setFill];
 				else
-					[[NSColor lightGrayColor] setFill];
+					[[NSColor tertiaryLabelColor] setFill];
 			}
 			
 			tBezierPath=[NSBezierPath bezierPath];
