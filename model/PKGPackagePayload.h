@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, PKGPayloadType)
 
 	@property BOOL splitForksIfNeeded;
 
+	@property BOOL preserveExtendedAttributes;
+
 	@property BOOL hiddenFolderTemplatesIncluded;
 
 	@property (nonatomic) PKGPayloadTree * filesTree;

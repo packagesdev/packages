@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2019, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -20,6 +20,8 @@ NSString * const PKGPackagePayloadTypeKey=@"PAYLOAD_TYPE";
 NSString * const PKGPackagePayloadDefaultInstallLocationKey=@"DEFAULT_INSTALL_LOCATION";
 
 NSString * const PKGPackagePayloadSplitForkIfNeededKey=@"SPLIT_FORKS";
+
+NSString * const PKGPackagePayloadPreserveExtendedAttributesKey=@"PRESERVE_EXTENDED_ATTRIBUTES";
 
 NSString * const PKGPackagePayloadHierarchyBaseVersion=@"VERSION";
 
@@ -106,6 +108,8 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		
 		_splitForksIfNeeded=YES;
 		
+		_preserveExtendedAttributes=NO;
+		
 		_hiddenFolderTemplatesIncluded=NO;
 		
 		_filesTree=[[PKGPayloadTree alloc] init];
@@ -143,6 +147,8 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		_defaultInstallLocation=@"/";
 		
 		_splitForksIfNeeded=YES;
+		
+		_preserveExtendedAttributes=NO;
 		
 		_hiddenFolderTemplatesIncluded=NO;
 		
@@ -246,6 +252,11 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 			_splitForksIfNeeded=[inRepresentation[PKGPackagePayloadSplitForkIfNeededKey] boolValue];
 		
 		
+		if (inRepresentation[PKGPackagePayloadPreserveExtendedAttributesKey]==nil)
+			_preserveExtendedAttributes=YES;
+		else
+			_preserveExtendedAttributes=[inRepresentation[PKGPackagePayloadPreserveExtendedAttributesKey] boolValue];
+		
 		tNumber=inRepresentation[PKGPackagePayloadHierarchyBaseVersion];
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGPackagePayloadHierarchyBaseVersion);
@@ -302,6 +313,8 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 	
 	tRepresentation[PKGPackagePayloadSplitForkIfNeededKey]=@(self.splitForksIfNeeded);
 	
+	tRepresentation[PKGPackagePayloadPreserveExtendedAttributesKey]=@(self.preserveExtendedAttributes);
+	
 	tRepresentation[PKGPackagePayloadHierarchyBaseVersion]=@(self.templateVersion);
 	
 	tRepresentation[PKGPackagePayloadHierarchyShowInvisibleFilesKey]=@(self.hiddenFolderTemplatesIncluded);
@@ -330,6 +343,8 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 	
 	[tDescription appendFormat:@"  Split Forks if Needed: %@\n",(self.splitForksIfNeeded==YES) ? @"Yes" : @"No"];
 	
+	[tDescription appendFormat:@"  Preserve Extended Attributes: %@\n",(self.preserveExtendedAttributes==YES) ? @"Yes" : @"No"];
+	
 	[tDescription appendFormat:@"  Template Version: %lu\n",(unsigned long)self.templateVersion];
 	
 	[tDescription appendFormat:@"  Hidden Folder Templates Included: %@\n",(self.hiddenFolderTemplatesIncluded==YES) ? @"Yes" : @"No"];
@@ -354,6 +369,8 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		nPackagePayload.templateVersion=self.templateVersion;
 		
 		nPackagePayload.splitForksIfNeeded=self.splitForksIfNeeded;
+		
+		nPackagePayload.preserveExtendedAttributes=self.preserveExtendedAttributes;
 		
 		nPackagePayload.hiddenFolderTemplatesIncluded=self.hiddenFolderTemplatesIncluded;
 		
