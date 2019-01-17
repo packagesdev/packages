@@ -6,7 +6,7 @@
 
 - (PKGRequirementType)requirementTypeWithParameters:(NSDictionary *) inParameters
 {
-	return PKGRequirementTypeInstallation;
+	return PKGRequirementTypeUndefined;
 }
 
 - (NSDictionary *)sharedFunctionsImplementation
