@@ -27,7 +27,7 @@
 	
 	IBOutlet NSTextField * _actionDescriptionLabel;
 	
-	NSString * _projectName;
+	NSString * _projectName;	// Used to know which project name was used previously for the automatic project directory name
 	
 	BOOL _projectDirectoryWasChangedByUser;
 }
@@ -141,7 +141,7 @@
 		return NO;
 	}
 	
-	[self.assistantController.assistantSettings setObject:_projectName forKey:PKGProjectTemplateAssistantSettingsProjectNameKey];
+	[self.assistantController.assistantSettings setObject:tProjectName forKey:PKGProjectTemplateAssistantSettingsProjectNameKey];
 	
 	[self.assistantController.assistantSettings setObject:_projectDirectoryTextField.stringValue forKey:PKGProjectTemplateAssistantSettingsProjectDirectoryKey];
 	
