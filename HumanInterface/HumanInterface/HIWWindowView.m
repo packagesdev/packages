@@ -64,6 +64,12 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	HIWPartTopRightCorner=8,
 };
 
+@interface NSImage (Private)
+
+- (void)_drawMappingAlignmentRectToRect:(NSRect)arg1 withState:(NSUInteger)inState backgroundStyle:(NSBackgroundStyle)inBackgroundStyle operation:(NSCompositingOperation)arg4 fraction:(CGFloat)inFraction flip:(BOOL)inFlipped hints:(NSDictionary *)inHints;
+
+@end
+
 @interface HIWWindowView ()
 {
 	NSDictionary * _cachedAttributes;
@@ -451,7 +457,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	
 	// Lock Button
 	
-	_cachedLockButtonIcon=[tOSBundle imageForResource:[NSString stringWithFormat:@"%@.LockButton",tDisplayedAppearanceName]];
+	_cachedLockButtonIcon=[tOSBundle imageForResource:[NSString stringWithFormat:@"%@.LockButton",@"Aqua"]];
 }
 
 #pragma mark -
@@ -481,6 +487,8 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 {
 	NSRect tWindowFrame=[self bounds];
 	
+	HIWAppearance tDisplayedAppearance=[self _resolvedDisplayedAppearance];
+	
 	// Draw Shadow
 	
 	if (self.drawsShadow==YES)
@@ -507,7 +515,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		
 		NSRect tBezelFrame=NSInsetRect(tWindowFrame, -1.0, -1.0);
 		
-		HIWAppearance tDisplayedAppearance=[self _resolvedDisplayedAppearance];
+		
 		
 		// Title Bar frame
 		
@@ -731,8 +739,25 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		tIconFrame.origin.y=round(NSMaxY(tWindowFrame)-(HIWWindowViewTitleBarHeight+tSize.height)*0.5);
 		tIconFrame.size=tSize;
 		
-		//if (tDisplayedAppearance==HIWAppearanceDarkAqua)	// A COMPLETER
-		[_cachedLockButtonIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3];
+		if (tDisplayedAppearance==HIWAppearanceDarkAqua && [_cachedLockButtonIcon respondsToSelector:@selector(_drawMappingAlignmentRectToRect:withState:backgroundStyle:operation:fraction:flip:hints:)]==YES)
+		{
+			BOOL isTemplate=[_cachedLockButtonIcon isTemplate];
+			
+			[_cachedLockButtonIcon setTemplate:YES];
+			
+			[_cachedLockButtonIcon _drawMappingAlignmentRectToRect:tIconFrame
+														 withState:1
+												   backgroundStyle:7
+														 operation:NSCompositeSourceOver
+														  fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3
+															  flip:NO hints:nil];
+			
+			[_cachedLockButtonIcon setTemplate:isTemplate];
+		}
+		else
+		{
+			[_cachedLockButtonIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3];
+		}
 	}
 }
 
