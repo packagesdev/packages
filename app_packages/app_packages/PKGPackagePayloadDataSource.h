@@ -23,4 +23,8 @@
 
 - (void)outlineView:(NSOutlineView *)inOutlineView showHiddenFolderTemplates:(BOOL)inShowsHiddenFolders;
 
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView editDestinationNameForItem:(id)inItem;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView resetDestinationNameForItem:(id)inItem;
+
 @end

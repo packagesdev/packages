@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2019, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,9 +17,17 @@
 
 #import "PKGPayloadTreeNode+UI.h"
 
+#import "NSTableView+Selection.h"
+
+#import "PKGApplicationPreferences.h"
+
+NSString * const PKGFileNameColumnIdentifier=@"file.name";
+
 @interface PKGPayloadFilesHierarchyViewController ()
 
-- (IBAction)setInstallationLocation:(id)sender;
+- (IBAction)editDestinationName:(id)sender;
+
+- (IBAction)resetDestinationName:(id)sender;
 
 @end
 
@@ -41,6 +49,17 @@
 	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Set as Default Location", @"") action:NSSelectorFromString(@"setDefaultDestination:") keyEquivalent:@""];
 	
 	[self.outlineView.menu addItem:tMenuItem];
+	
+	
+	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Set Destination Name", @"") action:@selector(editDestinationName:) keyEquivalent:@""];
+	
+	[self.outlineView.menu addItem:tMenuItem];
+	
+	tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reset Destination Name", @"") action:@selector(resetDestinationName:) keyEquivalent:@""];
+	
+	[self.outlineView.menu addItem:tMenuItem];
+	
+	
 }
 
 #pragma mark -
@@ -86,21 +105,157 @@
 
 #pragma mark -
 
-- (IBAction)setInstallationLocation:(id)sender
+- (IBAction)editDestinationName:(id)sender
 {
-	// A COMPLETER
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	NSInteger tSelectedCount=tSelectionIndexSet.count;
+	
+	if (tSelectedCount!=1)
+		return;
+	
+	PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:tSelectionIndexSet.firstIndex];
+	
+	if ([tPayloadTreeNode isFileSystemItemNode]==NO)
+		return;
+	
+	NSInteger tClickedRow=self.outlineView.clickedRow;
+	
+	// Selection is not empty and no row was clicked
+	
+	if (tSelectionIndexSet.count>0 && tClickedRow==-1)
+		tClickedRow=tSelectionIndexSet.firstIndex;
+	
+	if ([((PKGPackagePayloadDataSource *) self.hierarchyDataSource) outlineView:self.outlineView editDestinationNameForItem:tPayloadTreeNode]==NO)
+		return;
+	
+	NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:tClickedRow];
+	NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:PKGFileNameColumnIdentifier]];
+	
+	[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+	
+	// Enter edition mode
+	
+	NSIndexSet * tSelectedRowIndexes=[self.outlineView selectedRowIndexes];
+	
+	if ([tSelectedRowIndexes containsIndex:tClickedRow]==YES)	// In order to refresh the Inspector (and make the Name: text field editable)
+		[self.outlineView deselectAll:self];
+	
+	[self.outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tClickedRow] byExtendingSelection:NO];
+		
+	[self.outlineView editColumn:[self.outlineView columnWithIdentifier:PKGFileNameColumnIdentifier] row:tClickedRow withEvent:nil select:YES];
+}
+
+- (IBAction)resetDestinationName:(id)sender
+{
+	NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+	
+	NSInteger tSelectedCount=tSelectionIndexSet.count;
+	
+	if (tSelectedCount!=1)
+		return;
+	
+	PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:tSelectionIndexSet.firstIndex];
+	
+	if ([tPayloadTreeNode isFileSystemItemNode]==NO)
+		return;
+	
+	NSInteger tClickedRow=self.outlineView.clickedRow;
+	
+	// Selection is not empty and no row was clicked
+	
+	if (tSelectionIndexSet.count>0 && tClickedRow==-1)
+		tClickedRow=tSelectionIndexSet.firstIndex;
+	
+	PKGFileItem * tFileItem=[tPayloadTreeNode representedObject];
+	
+	
+	NSString * tOriginalFileName=tFileItem.filePath.string.lastPathComponent;
+	
+	if ([tPayloadTreeNode.fileName compare:tOriginalFileName]!=NSOrderedSame)
+	{
+		// We rename it to its original name first
+		// This prevents reverting to the original name if it's not possible (another item now is named like this)
+		// This ensures the item will be moved to the appropriate location in the hierarchy
+		
+		if ([self.hierarchyDataSource outlineView:self.outlineView shouldRenameNewFolder:tPayloadTreeNode as:tOriginalFileName]==NO)
+		{
+			NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:tClickedRow];
+			NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:PKGFileNameColumnIdentifier]];
+			
+			[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+			
+			return;
+		}
+		
+		if ([self.hierarchyDataSource outlineView:self.outlineView renameItem:tPayloadTreeNode as:tOriginalFileName]==YES)
+			[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameItemNotification object:self.outlineView userInfo:@{@"NSObject":tPayloadTreeNode}];
+		
+		tClickedRow=[self.outlineView rowForItem:tPayloadTreeNode];
+	}
+	
+	if ([((PKGPackagePayloadDataSource *) self.hierarchyDataSource) outlineView:self.outlineView resetDestinationNameForItem:tPayloadTreeNode]==NO)
+		return;
+	
+	NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tPayloadTreeNode]];
+	NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:PKGFileNameColumnIdentifier]];
+	
+	[self.outlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+	
+	NSIndexSet * tSelectedRowIndexes=[self.outlineView selectedRowIndexes];
+	
+	if ([tSelectedRowIndexes containsIndex:tClickedRow]==YES)	// In order to refresh the Inspector (and make the Name: text field editable)
+	{
+		[self.outlineView deselectAll:self];
+	
+		[self.outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tClickedRow] byExtendingSelection:NO];
+	}
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
-	//SEL tAction=inMenuItem.action;
+	SEL tSelector=inMenuItem.action;
 	
-	// A COMPLETER
+	if (tSelector==@selector(editDestinationName:) || tSelector==@selector(resetDestinationName:))
+	{
+		inMenuItem.hidden=YES;
+		
+		if (tSelector==@selector(editDestinationName:) && [PKGApplicationPreferences sharedPreferences].advancedMode==NO)
+			return NO;
+		
+		NSIndexSet * tSelectionIndexSet=self.outlineView.WB_selectedOrClickedRowIndexes;
+		
+		NSInteger tSelectedCount=tSelectionIndexSet.count;
+		
+		if (tSelectedCount!=1)
+			return NO;
+		
+		PKGPayloadTreeNode * tPayloadTreeNode=[self.outlineView itemAtRow:tSelectionIndexSet.firstIndex];
+		
+		if ([tPayloadTreeNode isFileSystemItemNode]==NO)
+			return NO;
+		
+		PKGFileItem * tFileItem=tPayloadTreeNode.representedObject;
+		
+		if (tSelector==@selector(editDestinationName:))
+		{
+			if (tFileItem.payloadFileName!=nil)
+				return NO;
+			
+			inMenuItem.hidden=NO;
+		}
+		else if (tSelector==@selector(resetDestinationName:))
+		{
+			if (tFileItem.payloadFileName==nil)
+				return NO;
+			
+			inMenuItem.hidden=NO;
+		}
+		
+		return YES;
+	}
 	
-	if ([super validateMenuItem:inMenuItem]==NO)
-		return NO;
-	
-	return YES;
+	return [super validateMenuItem:inMenuItem];
 }
 
 #pragma mark -

@@ -83,6 +83,40 @@
 	return (self.installLocationNode==inItem);
 }
 
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView editDestinationNameForItem:(PKGPayloadTreeNode *)inTreeNode
+{
+	PKGFileItem * tRepresentedObject=inTreeNode.representedObject;
+	
+	if (tRepresentedObject.type!=PKGFileItemTypeFileSystemItem)
+		return NO;
+	
+	if (tRepresentedObject.payloadFileName!=nil)
+		return NO;
+	
+	tRepresentedObject.payloadFileName=[tRepresentedObject.fileName copy];
+	
+	[self.delegate payloadDataDidChange:self];
+	
+	return YES;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView resetDestinationNameForItem:(PKGPayloadTreeNode *)inTreeNode
+{
+	PKGFileItem * tRepresentedObject=inTreeNode.representedObject;
+	
+	if (tRepresentedObject.type!=PKGFileItemTypeFileSystemItem)
+		return NO;
+	
+	if (tRepresentedObject.payloadFileName==nil)
+		return NO;
+	
+	tRepresentedObject.payloadFileName=nil;
+	
+	[self.delegate payloadDataDidChange:self];
+	
+	return YES;
+}
+
 #pragma mark -
 
 - (void)outlineView:(NSOutlineView *)inOutlineView transformItemIfNeeded:(PKGPayloadTreeNode *)inTreeNode

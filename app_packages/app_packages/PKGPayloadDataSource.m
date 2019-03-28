@@ -504,18 +504,18 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return YES;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameNewFolder:(PKGPayloadTreeNode *)inNewFolderTreeNode as:(NSString *)inNewName
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameNewFolder:(PKGPayloadTreeNode *)inTreeNode as:(NSString *)inNewName
 {
-	if (inOutlineView==nil || inNewFolderTreeNode==nil || inNewName==nil)
+	if (inOutlineView==nil || inTreeNode==nil || inNewName==nil)
 		return NO;
 	
-	if ([inNewFolderTreeNode.fileName compare:inNewName]==NSOrderedSame)
+	if ([inTreeNode.fileName compare:inNewName]==NSOrderedSame)
 		return NO;
 	
-	if ([inNewFolderTreeNode.fileName caseInsensitiveCompare:inNewName]!=NSOrderedSame)
+	if ([inTreeNode.fileName caseInsensitiveCompare:inNewName]!=NSOrderedSame)
 	{
 		NSUInteger tLength=inNewName.length;
-		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inNewFolderTreeNode]];
+		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inTreeNode]];
 		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView columnWithIdentifier:@"file.name"]];
 		
 		if (tLength==0)
@@ -550,7 +550,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return NO;
 		}
 		
-		if ([[self siblingsOfItem:inNewFolderTreeNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+		if ([[self siblingsOfItem:inTreeNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 			
 			return ([bTreeNode.fileName caseInsensitiveCompare:inNewName]==NSOrderedSame);
 			
@@ -565,12 +565,12 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return YES;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(PKGPayloadTreeNode *)inNewFolderTreeNode as:(NSString *)inNewName
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameItem:(PKGPayloadTreeNode *)inTreeNode as:(NSString *)inNewName
 {
 	NSMutableDictionary * tDisclosedDictionary=[self.delegate disclosedDictionary];
 	NSArray * tAllKeys=tDisclosedDictionary.allKeys;
 	
-	NSString * tOldFilePath=inNewFolderTreeNode.filePath;
+	NSString * tOldFilePath=inTreeNode.filePath;
 	NSUInteger tLength=tOldFilePath.length;
 	NSString * tNewFilePath=[[tOldFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:inNewName];
 	NSNumber * tSharedNumber=@(YES);
@@ -589,20 +589,20 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		}
 	}
 	
-	[inNewFolderTreeNode setNewFolderName:inNewName];
+	[inTreeNode rename:inNewName];
 	
-	[self outlineView:inOutlineView transformItemIfNeeded:inNewFolderTreeNode];	// We may have to tranform the item (if the extension is removed/added)
+	[self outlineView:inOutlineView transformItemIfNeeded:inTreeNode];	// We may have to tranform the item (if the extension is removed/added)
 	
 	// Sort and update selection
 	
-	PKGTreeNode * tParentNode=inNewFolderTreeNode.parent;
+	PKGTreeNode * tParentNode=inTreeNode.parent;
 	
 	if (tParentNode!=nil)
-		[inNewFolderTreeNode removeFromParent];
+		[inTreeNode removeFromParent];
 	else
-		[self.rootNodes removeObject:inNewFolderTreeNode];
+		[self.rootNodes removeObject:inTreeNode];
 	
-	return [self outlineView:inOutlineView addItem:inNewFolderTreeNode toParent:tParentNode];
+	return [self outlineView:inOutlineView addItem:inTreeNode toParent:tParentNode];
 }
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems

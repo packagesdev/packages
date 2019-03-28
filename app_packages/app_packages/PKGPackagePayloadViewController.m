@@ -171,7 +171,7 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchySelectionDidChange:) name:NSOutlineViewSelectionDidChangeNotification object:_payloadHierarchyViewController.outlineView];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchyDidRenameFolder:) name:PKGFilesHierarchyDidRenameFolderNotification object:_payloadHierarchyViewController.outlineView];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileHierarchyDidRenameFolder:) name:PKGFilesHierarchyDidRenameItemNotification object:_payloadHierarchyViewController.outlineView];
 	
 	[_payloadHierarchyViewController WB_viewDidAppear];
 	
@@ -186,7 +186,7 @@
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSOutlineViewSelectionDidChangeNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGFilesHierarchyDidRenameFolderNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGFilesHierarchyDidRenameItemNotification object:nil];
 	
 	[_payloadHierarchyViewController WB_viewWillDisappear];
 }

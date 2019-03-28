@@ -79,7 +79,7 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameNewFolder:(id)inNewFolderItem as:(NSString *)inNewName;
 
-- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameNewFolder:(id)inNewFolderItem as:(NSString *)inNewName;
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView renameItem:(id)inNewFolderItem as:(NSString *)inNewName;
 
 - (void)outlineView:(NSOutlineView *)inOutlineView removeItems:(NSArray *)inItems;
 

@@ -23,7 +23,7 @@
 	IBOutlet NSTextField * _fileNameTextField;
 }
 
-- (IBAction)setNewFolderName:(id)sender;
+- (IBAction)rename:(id)sender;
 
 @end
 
@@ -48,7 +48,7 @@
 	
 	_fileNameTextField.textColor=[NSColor controlTextColor];
 	
-	if (tFileItem.type==PKGFileItemTypeNewFolder)
+	if (tFileItem.type==PKGFileItemTypeNewFolder || tFileItem.payloadFileName!=nil)
 	{
 		if (_fileNameTextField.isBezeled==NO)
 		{
@@ -107,7 +107,7 @@
 
 #pragma mark -
 
-- (IBAction)setNewFolderName:(id)sender
+- (IBAction)rename:(id)sender
 {
 	NSString * tNewName=_fileNameTextField.stringValue;
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
@@ -120,7 +120,7 @@
 			return;
 		}
 		
-		[tTreeNode setNewFolderName:tNewName];
+		[tTreeNode rename:tNewName];
 		
 		_fileNameTextField.stringValue=tNewName;
 		

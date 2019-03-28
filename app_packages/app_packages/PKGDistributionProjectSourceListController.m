@@ -290,7 +290,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	}
 	
 	if ([self.dataSource outlineView:self.outlineView renamePackageComponent:tEditedNode as:tNeName]==YES)
-		;//[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
+		;//[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameItemNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
 - (IBAction)showProject:(id)sender

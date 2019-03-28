@@ -25,7 +25,7 @@
 
 - (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode;
 
-- (void)setNewFolderName:(NSString *)inFolderName;
+- (void)rename:(NSString *)inFolderName;
 
 - (BOOL)isHiddenTemplateNode;
 - (BOOL)isTemplateNode;

@@ -26,7 +26,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <action selector="setNewFolderName:" target="-2" id="6Nj-bQ-JsH"/>
+                        <action selector="rename:" target="-2" id="rAy-oy-C0C"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" id="aLW-xe-KFS">

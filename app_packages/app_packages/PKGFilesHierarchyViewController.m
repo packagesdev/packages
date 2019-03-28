@@ -61,7 +61,7 @@
 @end
 
 
-NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarchyDidRenameFolderNotification";
+NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyDidRenameItemNotification";
 
 
 @interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate,NSControlTextEditingDelegate,NSTextFieldDelegate>
@@ -868,8 +868,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 
 - (void)viewController:(NSViewController *)inViewController didRenameItem:(id)inItem to:(NSString *)inName
 {
-	if ([self.hierarchyDataSource outlineView:self.outlineView renameNewFolder:inItem as:inName]==YES)
-		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":inItem}];
+	if ([self.hierarchyDataSource outlineView:self.outlineView renameItem:inItem as:inName]==YES)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameItemNotification object:self.outlineView userInfo:@{@"NSObject":inItem}];
 	
 	[self noteDocumentHasChanged];
 }
@@ -932,8 +932,8 @@ NSString * const PKGFilesHierarchyDidRenameFolderNotification=@"PKGFilesHierarch
 		return;
 	}
 	
-	if ([self.hierarchyDataSource outlineView:self.outlineView renameNewFolder:tEditedNode as:tTextField.stringValue]==YES)
-		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameFolderNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
+	if ([self.hierarchyDataSource outlineView:self.outlineView renameItem:tEditedNode as:tTextField.stringValue]==YES)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameItemNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
 #pragma mark - Notifications

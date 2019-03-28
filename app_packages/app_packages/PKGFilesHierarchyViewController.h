@@ -17,7 +17,7 @@
 #import "PKGFilesSelectionInspectorViewController.h"
 
 
-extern NSString * const PKGFilesHierarchyDidRenameFolderNotification;
+extern NSString * const PKGFilesHierarchyDidRenameItemNotification;
 
 
 @interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate,PKGFilesSelectionInspectorDelegate>
