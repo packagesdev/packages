@@ -17,22 +17,31 @@
 
 @interface PKGPreferencePaneGeneralViewController ()
 {
+	IBOutlet NSPopUpButton * _defaultNewProjectLocationPopUpButton;
+	
+	IBOutlet NSPopUpButton * _defaultReferenceStylePopUpButton;
+	
 	IBOutlet NSPopUpButton * _visibleDistributionProjectPanePopUpButton;
 	
 	IBOutlet NSPopUpButton * _visibleDistributionPackagePanePopUpButton;
 	
 	IBOutlet NSPopUpButton * _visiblePackageProjectPanePopUpButton;
 	
-	IBOutlet NSPopUpButton * _defaultReferenceStylePopUpButton;
+	
 }
+
+- (void)setDefaultNewProjectLocation:(NSString *)inDefaultNewProjectLocation;
+
+
+- (IBAction)switchDefaultNewProjectLocation:(id)sender;
+
+- (IBAction)switchDefaultReferenceStyle:(id) sender;
 
 - (IBAction)switchDefaultVisibleDistributionProjectPane:(id) sender;
 
 - (IBAction)switchDefaultVisibleDistributionPackagePane:(id) sender;
 
 - (IBAction)switchDefaultVisiblePackageProjectPane:(id) sender;
-
-- (IBAction)switchDefaultReferenceStyle:(id) sender;
 
 @end
 
@@ -49,6 +58,9 @@
 
 - (void)WB_viewWillAppear
 {
+	[self setDefaultNewProjectLocation:[PKGApplicationPreferences sharedPreferences].defaultLocationOfNewProjects];
+	
+	
 	// Default Visibles Panes
 	
 	// Project
@@ -70,6 +82,101 @@
 
 #pragma mark -
 
+- (void)setDefaultNewProjectLocation:(NSString *)inDefaultNewProjectLocation
+{
+	NSFileManager * tFileManager=[NSFileManager defaultManager];
+	
+	if (inDefaultNewProjectLocation!=nil)
+	{
+		inDefaultNewProjectLocation=[inDefaultNewProjectLocation stringByExpandingTildeInPath];
+		
+		BOOL isDirectory=YES;
+		
+		if ([tFileManager fileExistsAtPath:inDefaultNewProjectLocation isDirectory:&isDirectory]==NO)
+		{
+			inDefaultNewProjectLocation=nil;
+			
+			NSLog(@"Default New Project Location path does not exist");
+		}
+		else
+		{
+			if (isDirectory==NO)
+			{
+				inDefaultNewProjectLocation=nil;
+				
+				NSLog(@"Default New Project Location path is not a directory");
+			}
+		}
+	}
+	
+	if (inDefaultNewProjectLocation==nil)
+		inDefaultNewProjectLocation=NSHomeDirectory();
+	
+	if (inDefaultNewProjectLocation!=nil)
+	{
+		NSMenuItem * tMenuItem=[[_defaultNewProjectLocationPopUpButton menu] itemAtIndex:0];
+		
+		if (tMenuItem!=nil)
+		{
+			// Image
+			
+			NSImage * tImage=[[NSWorkspace sharedWorkspace] iconForFile:inDefaultNewProjectLocation];
+			
+			if (tImage!=nil)
+				tImage.size=NSMakeSize(16.0,16.0);
+			
+			tMenuItem.image=tImage;
+			
+			// Title
+			
+			tMenuItem.title=[tFileManager displayNameAtPath:inDefaultNewProjectLocation];
+		}
+	}
+	
+	[_defaultNewProjectLocationPopUpButton selectItemWithTag:0];
+}
+
+#pragma mark -
+
+- (IBAction)switchDefaultNewProjectLocation:(id)sender
+{
+	// Use dispatch_async to fluidify the animation (because of NSPopUpButton stupidity)
+	
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
+		
+		tOpenPanel.canChooseFiles=NO;
+		tOpenPanel.canChooseDirectories=YES;
+		tOpenPanel.canCreateDirectories=YES;
+		tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
+		
+		NSString * tPath=[[PKGApplicationPreferences sharedPreferences].defaultLocationOfNewProjects stringByExpandingTildeInPath];
+		
+		tOpenPanel.directoryURL=[NSURL fileURLWithPath:(tPath==nil) ? NSHomeDirectory() : tPath];
+		
+		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
+			
+			if (bResult==NSFileHandlingPanelOKButton)
+			{
+				NSString * tPath=tOpenPanel.URL.path;
+				
+				[PKGApplicationPreferences sharedPreferences].defaultLocationOfNewProjects=[tPath stringByAbbreviatingWithTildeInPath];
+				
+				[self setDefaultNewProjectLocation:tPath];
+			}
+			else
+			{
+				[_defaultNewProjectLocationPopUpButton selectItemWithTag:0];
+			}
+		}];
+	});
+}
+
+- (IBAction) switchDefaultReferenceStyle:(id) sender
+{
+	[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle=_defaultReferenceStylePopUpButton.selectedItem.tag;
+}
+
 - (IBAction)switchDefaultVisibleDistributionProjectPane:(id) sender
 {
 	[PKGApplicationPreferences sharedPreferences].defaultVisibleDistributionProjectPane=_visibleDistributionProjectPanePopUpButton.selectedItem.tag;
@@ -85,9 +192,6 @@
 	[PKGApplicationPreferences sharedPreferences].defaultVisiblePackageProjectPane=_visiblePackageProjectPanePopUpButton.selectedItem.tag;
 }
 
-- (IBAction) switchDefaultReferenceStyle:(id) sender
-{
-	[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle=_defaultReferenceStylePopUpButton.selectedItem.tag;
-}
+
 
 @end

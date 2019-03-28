@@ -352,11 +352,13 @@
 
 - (void)setFailoverFolder:(NSString *)inFolderPath
 {
+	NSFileManager * tFileManager=[NSFileManager defaultManager];
+	
 	if (inFolderPath!=nil)
 	{
 		BOOL isDirectory=YES;
 		
-		if ([[NSFileManager defaultManager] fileExistsAtPath:inFolderPath isDirectory:&isDirectory]==NO)
+		if ([tFileManager fileExistsAtPath:inFolderPath isDirectory:&isDirectory]==NO)
 		{
 			inFolderPath=nil;
 			
@@ -393,7 +395,7 @@
 			
 			// Title
 			
-			tMenuItem.title=inFolderPath.lastPathComponent;
+			tMenuItem.title=[tFileManager displayNameAtPath:inFolderPath];
 		}
 	}
 	

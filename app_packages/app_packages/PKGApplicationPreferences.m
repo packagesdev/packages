@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2018, Stephane Sudre
+ Copyright (c) 2016-2019, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -88,6 +88,9 @@ NSString * const PKGPreferencesAdvancedAppleModeStateKey=@"advanced.apple.mode";
 
 NSString * const  PKGPreferencesProjectAssistantDontShowOnLaunchKey=@"projectassistant.ui.dontShowOnLaunch";
 
+NSString * const  PKGPreferencesProjectAssistantDefaultNewProjectLocationKey=@"projectassistant.project.default.location";
+
+NSString * const  PKGPreferencesProjectAssistantDefaultNewProjectLocation=@"~/";
 
 // Notifications
 
@@ -353,7 +356,8 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 									  PKGPreferencesAdvancedAdvancedModeStateKey:@(NO),
 									  PKGPreferencesAdvancedAppleModeStateKey:@(NO),
 									  
-									  PKGPreferencesProjectAssistantDontShowOnLaunchKey:@(NO)
+									  PKGPreferencesProjectAssistantDontShowOnLaunchKey:@(NO),
+									  PKGPreferencesProjectAssistantDefaultNewProjectLocationKey:PKGPreferencesProjectAssistantDefaultNewProjectLocation
 									  
 									  }];
 		
@@ -408,6 +412,8 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		// Project Assistant
 		
 		_dontShowProjectAssistantOnLaunch=[_defaults boolForKey:PKGPreferencesProjectAssistantDontShowOnLaunchKey];
+		
+		_defaultLocationOfNewProjects=[_defaults stringForKey:PKGPreferencesProjectAssistantDefaultNewProjectLocationKey];
 	}
 	
 	return self;
@@ -559,6 +565,13 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 	_dontShowProjectAssistantOnLaunch=inBool;
 	
 	[_defaults setBool:inBool forKey:PKGPreferencesProjectAssistantDontShowOnLaunchKey];
+}
+
+- (void)setDefaultLocationOfNewProjects:(NSString *)inPath
+{
+	_defaultLocationOfNewProjects=[inPath copy];
+	
+	[_defaults setObject:[inPath copy] forKey:PKGPreferencesProjectAssistantDefaultNewProjectLocationKey];
 }
 
 @end

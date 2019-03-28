@@ -173,7 +173,6 @@
 					<string key="NSFrameSize">{460, 107}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1577}}</string>
 				<string key="NSMinSize">{213, 129}</string>
@@ -347,6 +346,7 @@
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="20.designableToolbarItemIdentifier">preferencepane.advanced</string>
 				<boolean value="YES" key="20.toolbarItem.selectable"/>
+				<string key="5.IBPersistedLastKnownCanvasPosition">{371, 344.5}</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
