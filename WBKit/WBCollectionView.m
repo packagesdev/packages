@@ -44,9 +44,11 @@ NSString * const WBCollectionViewSelectionDidChangeNotification=@"WBCollectionVi
 		
 		if ([[self delegate] respondsToSelector:@selector(WB_collectionView:shouldSelectItemAtIndex:)]==YES)
 		{
-			if ([(id<WBCollectionViewDelegate>) [self delegate] WB_collectionView:self shouldSelectItemAtIndex:bIndex]==YES)
-				[tMutableIndexSet addIndex:bIndex];
+			if ([(id<WBCollectionViewDelegate>) [self delegate] WB_collectionView:self shouldSelectItemAtIndex:bIndex]==NO)
+				return;
 		}
+		
+		[tMutableIndexSet addIndex:bIndex];
 	}];
 	
 	inIndexSet=[tMutableIndexSet copy];
