@@ -84,17 +84,31 @@
 	return [((PKGFileItem *)self.representedObject).fileName compare:((PKGFileItem *)inPayloadTreeNode.representedObject).fileName options:NSCaseInsensitiveSearch|NSNumericSearch|NSForcedOrderingSearch];
 }
 
-- (void)setNewFolderName:(NSString *)inFolderName
+- (void)rename:(NSString *)inNewName
 {
-	if (inFolderName==nil)
+	if (inNewName==nil)
 		return;
 	
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	if (tFileItem.type!=PKGFileItemTypeNewFolder)
-		return;
-	
-	tFileItem.filePath.string=inFolderName;
+	switch(tFileItem.type)
+	{
+		case PKGFileItemTypeNewFolder:
+			
+			tFileItem.filePath.string=inNewName;
+			
+			break;
+			
+		case PKGFileItemTypeFileSystemItem:
+			
+			tFileItem.payloadFileName=inNewName;
+			
+			break;
+			
+		default:
+			
+			break;
+	}
 }
 
 #pragma mark -
@@ -275,7 +289,7 @@
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	return (tFileItem.type==PKGFileItemTypeNewFolder);
+	return (tFileItem.type==PKGFileItemTypeNewFolder || tFileItem.payloadFileName!=nil);
 }
 
 - (NSString *)ownerTitle
