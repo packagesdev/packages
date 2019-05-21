@@ -80,14 +80,28 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	if (inPath==nil)
 		return nil;
 	
-	NSMutableArray * tComponents=[[inPath componentsSeparatedByString:@"/"] mutableCopy];
-	NSUInteger tCount=tComponents.count;
+	NSMutableArray * tComponents=nil;
+	NSUInteger tCount=0;
 	
-	if (tCount==0)
-		return nil;
-	
-	if ([inPath hasPrefix:@"/"]==YES)
-		[tComponents replaceObjectAtIndex:0 withObject:@"/"];
+	if ([inPath isEqualToString:@"/"]==YES)
+	{
+		tComponents=[@[@"/"] mutableCopy];
+		tCount=1;
+	}
+	else
+	{
+		tComponents=[[inPath componentsSeparatedByString:@"/"] mutableCopy];
+		
+		tCount=tComponents.count;
+		
+		if (tCount==0)
+			return nil;
+		
+		if ([inPath hasPrefix:@"/"]==YES)
+		{
+			[tComponents replaceObjectAtIndex:0 withObject:@"/"];
+		}
+	}
 	
 	NSString * tComponent=tComponents.firstObject;
 	
