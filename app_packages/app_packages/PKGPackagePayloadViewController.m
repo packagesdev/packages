@@ -35,6 +35,7 @@
 	
 	IBOutlet NSView * _advancedBuildOptionsView;
 	IBOutlet NSButton * _splitForksCheckbox;
+	IBOutlet NSButton * _preserveExtendedAttributesCheckbox;
 	IBOutlet NSButton * _treatMissingFilesAsWarningsCheckbox;
 	
 	IBOutlet NSView * _payloadTypeView;
@@ -57,6 +58,7 @@
 - (void)_updateLayout;
 
 - (IBAction)switchSplitForks:(id)sender;
+- (IBAction)switchPreserveExtendedAttributes:(id)sender;
 - (IBAction)switchTreatMissingFilesAsWarnings:(id)sender;
 
 - (IBAction)switchPayloadType:(id)sender;
@@ -143,6 +145,10 @@
 	[_payloadTypePopUpButton selectItemWithTag:self.payload.type];
 	
 	_splitForksCheckbox.state=(self.payload.splitForksIfNeeded==YES) ? NSOnState : NSOffState;
+	
+	_preserveExtendedAttributesCheckbox.enabled=self.payload.splitForksIfNeeded;
+	
+	_preserveExtendedAttributesCheckbox.state=(self.payload.preserveExtendedAttributes==YES) ? NSOnState : NSOffState;
 	
 	_treatMissingFilesAsWarningsCheckbox.state=(self.payload.treatMissingPayloadFilesAsWarnings==YES) ? NSOnState : NSOffState;
 	
@@ -280,6 +286,20 @@
 		return;
 	
 	self.payload.splitForksIfNeeded=tState;
+	
+	_preserveExtendedAttributesCheckbox.enabled=tState;
+	
+	[self noteDocumentHasChanged];
+}
+
+- (IBAction)switchPreserveExtendedAttributes:(id)sender
+{
+	BOOL tState=(_preserveExtendedAttributesCheckbox.state==NSOnState);
+	
+	if (tState==self.payload.preserveExtendedAttributes)
+		return;
+	
+	self.payload.preserveExtendedAttributes=tState;
 	
 	[self noteDocumentHasChanged];
 }
