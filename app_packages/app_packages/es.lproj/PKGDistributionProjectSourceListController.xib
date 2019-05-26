@@ -143,6 +143,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="745.5" y="709.5"/>
         </menu>
         <customView id="mns-d4-rpm">
             <rect key="frame" x="0.0" y="0.0" width="173" height="33"/>

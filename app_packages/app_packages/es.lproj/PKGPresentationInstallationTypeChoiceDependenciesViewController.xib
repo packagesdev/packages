@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationInstallationTypeChoiceDependenciesViewController">
+            <connections>
+                <outlet property="_accessoryView" destination="qaS-bY-yAu" id="7dG-Oq-BFf"/>
+                <outlet property="_choiceEnabledDependencyColonLabel" destination="bd2-We-8KF" id="UyM-J7-QwV"/>
+                <outlet property="_choiceEnabledDependencyPopupButton" destination="Y1l-rQ-EC6" id="fal-cv-UOU"/>
+                <outlet property="_choiceEnabledDependencyScrollView" destination="h5X-fO-2dc" id="KXL-ff-MHD"/>
+                <outlet property="_choiceEnabledDependencyTextLabel" destination="icj-K5-ohy" id="sO9-Mt-KyS"/>
+                <outlet property="_choiceEnabledDependencyView" destination="eXe-JC-8cR" id="Uy2-xr-HfC"/>
+                <outlet property="_choiceSelectedDependencyScrollView" destination="6ru-hD-xOB" id="2mO-G8-WCm"/>
+                <outlet property="_choiceSelectedDependencyTextLabel" destination="4Ny-HX-oVT" id="NdY-Yr-6Xz"/>
+                <outlet property="_choiceSelectedDependencyView" destination="Byh-Ed-SJL" id="UDh-Yq-qen"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY" customClass="PKGControlledView">
+            <rect key="frame" x="0.0" y="0.0" width="544" height="251"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="6ru-hD-xOB">
+                    <rect key="frame" x="21" y="20" width="503" height="59"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" autoresizesSubviews="NO" id="b1y-ea-GDj">
+                        <rect key="frame" x="1" y="1" width="501" height="57"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView id="Byh-Ed-SJL">
+                                <rect key="frame" x="0.0" y="0.0" width="501" height="57"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </customView>
+                        </subviews>
+                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="me6-v4-dLN">
+                        <rect key="frame" x="1" y="43" width="486" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="psg-rn-Ba1">
+                        <rect key="frame" x="487" y="1" width="15" height="42"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <textField verticalHuggingPriority="750" id="4Ny-HX-oVT">
+                    <rect key="frame" x="18" y="101" width="159" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Choice is selected when:" id="LAo-61-jXA">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="bd2-We-8KF">
+                    <rect key="frame" x="247" y="213" width="9" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title=":" id="TlE-sf-0sO">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="Y1l-rQ-EC6">
+                    <rect key="frame" x="86" y="207" width="159" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Always Enabled" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="d16-za-rDo" id="i1m-mI-tEp">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="1B6-lX-RMO">
+                            <items>
+                                <menuItem title="Always Enabled" state="on" id="d16-za-rDo"/>
+                                <menuItem title="Always Disabled" tag="1" id="krz-ye-oeq"/>
+                                <menuItem title="Enabled When" tag="2" id="pGj-E0-Cbc"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchEnabledStateMode:" target="-2" id="oPR-V6-f7j"/>
+                    </connections>
+                </popUpButton>
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="h5X-fO-2dc">
+                    <rect key="frame" x="21" y="138" width="503" height="59"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" autoresizesSubviews="NO" id="wVs-IW-oOr">
+                        <rect key="frame" x="1" y="1" width="501" height="57"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView id="eXe-JC-8cR">
+                                <rect key="frame" x="0.0" y="0.0" width="501" height="57"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </customView>
+                        </subviews>
+                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="7Xy-YS-Ere">
+                        <rect key="frame" x="1" y="43" width="486" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Lx7-6b-RM7">
+                        <rect key="frame" x="487" y="1" width="15" height="42"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <textField verticalHuggingPriority="750" id="icj-K5-ohy">
+                    <rect key="frame" x="18" y="213" width="66" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Choice is " id="PBd-qa-bEw">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="447" y="40.5"/>
+        </customView>
+        <customView id="qaS-bY-yAu">
+            <rect key="frame" x="-6" y="0.0" width="178" height="33"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" id="f7d-5w-Uob">
+                    <rect key="frame" x="20" y="3" width="138" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <buttonCell key="cell" type="smallSquare" title="Return to Inspector" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="3JL-EL-Vmb">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="returnToInspector:" target="-2" id="rqY-uc-N2J"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="892" y="340.5"/>
+        </customView>
+    </objects>
+</document>
