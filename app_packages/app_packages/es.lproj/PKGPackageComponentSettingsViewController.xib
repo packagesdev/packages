@@ -198,7 +198,7 @@
 							<object class="NSTextField" id="351702214">
 								<reference key="NSNextResponder" ref="585508910"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{20, 90}, {38, 18}}</string>
+								<string key="NSFrame">{{20, 90}, {71, 18}}</string>
 								<reference key="NSSuperview" ref="585508910"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="246568885"/>
@@ -206,7 +206,7 @@
 								<object class="NSTextFieldCell" key="NSCell" id="237574119">
 									<int key="NSCellFlags">67108864</int>
 									<int key="NSCellFlags2">272629760</int>
-									<string key="NSContents">Tag</string>
+									<string key="NSContents">Registro</string>
 									<object class="NSFont" key="NSSupport">
 										<bool key="IBIsSystemFont">YES</bool>
 										<double key="NSSize">14</double>
@@ -345,7 +345,7 @@
 							<object class="NSButton" id="854914523">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{120, 62}, {223, 18}}</string>
+								<string key="NSFrame">{{120, 62}, {263, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="155255017"/>
@@ -353,7 +353,7 @@
 								<object class="NSButtonCell" key="NSCell" id="915133982">
 									<int key="NSCellFlags">67108864</int>
 									<int key="NSCellFlags2">0</int>
-									<string key="NSContents">Overwrite directory permissions</string>
+									<string key="NSContents">Sobrescribir permisos de las carpetas</string>
 									<reference key="NSSupport" ref="213473266"/>
 									<reference key="NSControlView" ref="854914523"/>
 									<int key="NSButtonFlags">1211912448</int>
@@ -499,7 +499,7 @@
 							<object class="NSTextField" id="66380770">
 								<reference key="NSNextResponder" ref="989116738"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{20, 67}, {196, 18}}</string>
+								<string key="NSFrame">{{20, 67}, {310, 18}}</string>
 								<reference key="NSSuperview" ref="989116738"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="60838356"/>
@@ -507,7 +507,7 @@
 								<object class="NSTextFieldCell" key="NSCell" id="24393022">
 									<int key="NSCellFlags">67108864</int>
 									<int key="NSCellFlags2">272629760</int>
-									<string key="NSContents">Post-installation Behavior</string>
+									<string key="NSContents">Comportamiento después de la instalación</string>
 									<object class="NSFont" key="NSSupport">
 										<bool key="IBIsSystemFont">YES</bool>
 										<double key="NSSize">14</double>

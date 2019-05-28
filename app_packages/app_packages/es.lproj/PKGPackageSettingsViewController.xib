@@ -50,9 +50,9 @@
                             </connections>
                         </popUpButton>
                         <textField verticalHuggingPriority="750" id="49A-9z-XwI">
-                            <rect key="frame" x="18" y="67" width="193" height="18"/>
+                            <rect key="frame" x="18" y="67" width="311" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Post-installation Behavior" id="aHB-97-qhw">
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Comportamiento después de la instalación" id="aHB-97-qhw">
                                 <font key="font" metaFont="systemBold" size="14"/>
                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -96,9 +96,9 @@
                             </connections>
                         </button>
                         <button id="fTo-zI-kIQ">
-                            <rect key="frame" x="117" y="62" width="224" height="18"/>
+                            <rect key="frame" x="117" y="62" width="262" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="check" title="Overwrite directory permissions" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="IlT-lw-S3U">
+                            <buttonCell key="cell" type="check" title="Sobrescribir permisos de las carpetas" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="IlT-lw-S3U">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -153,9 +153,9 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <textField verticalHuggingPriority="750" id="nyJ-So-Ae0">
-                            <rect key="frame" x="18" y="90" width="32" height="18"/>
+                            <rect key="frame" x="18" y="90" width="70" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Tag" id="Vv3-eI-chC">
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Registro" id="Vv3-eI-chC">
                                 <font key="font" metaFont="systemBold" size="14"/>
                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
