@@ -81,9 +81,9 @@
                             </connections>
                         </popUpButton>
                         <textField verticalHuggingPriority="750" id="ucb-rw-dje">
-                            <rect key="frame" x="18" y="97" width="54" height="14"/>
+                            <rect key="frame" x="18" y="97" width="67" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Visibility" id="dfa-yQ-h87">
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Visibilidad" id="dfa-yQ-h87">
                                 <font key="font" metaFont="smallSystemBold"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

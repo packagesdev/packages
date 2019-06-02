@@ -328,7 +328,7 @@
             <rect key="frame" x="0.0" y="0.0" width="255" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <box title="User sees" id="dwV-zy-Ucw" customClass="PKGPresentationBox">
+                <box title="El usuario ve" id="dwV-zy-Ucw" customClass="PKGPresentationBox">
                     <rect key="frame" x="0.0" y="1" width="255" height="62"/>
                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                     <view key="contentView">

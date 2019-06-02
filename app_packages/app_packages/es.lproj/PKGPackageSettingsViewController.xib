@@ -109,7 +109,7 @@
                         <button id="oDB-P6-rld">
                             <rect key="frame" x="117" y="106" width="382" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="check" title="Requiere contraseña de administrador para la instalación" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rA1-Qm-12D">
+                            <buttonCell key="cell" type="check" title="Requerir contraseña de administrador para la instalación" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rA1-Qm-12D">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -129,7 +129,7 @@
                         <button id="yvq-q7-yje">
                             <rect key="frame" x="117" y="18" width="171" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="check" title="Use HFS+ compression" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1fj-zj-5S0">
+                            <buttonCell key="cell" type="check" title="Usar compresión HFS+" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="1fj-zj-5S0">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>

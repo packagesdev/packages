@@ -49,16 +49,16 @@
                     </scroller>
                 </scrollView>
                 <textField verticalHuggingPriority="750" id="4Ny-HX-oVT">
-                    <rect key="frame" x="18" y="101" width="159" height="17"/>
+                    <rect key="frame" x="18" y="101" width="214" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Choice is selected when:" id="LAo-61-jXA">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="La opción se selecciona cuando:" id="LAo-61-jXA">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="bd2-We-8KF">
-                    <rect key="frame" x="247" y="213" width="9" height="17"/>
+                    <rect key="frame" x="275" y="213" width="9" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title=":" id="TlE-sf-0sO">
                         <font key="font" metaFont="system"/>
@@ -67,16 +67,16 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="Y1l-rQ-EC6">
-                    <rect key="frame" x="86" y="207" width="159" height="26"/>
+                    <rect key="frame" x="114" y="207" width="158" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Always Enabled" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="d16-za-rDo" id="i1m-mI-tEp">
+                    <popUpButtonCell key="cell" type="push" title="siempre activada" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="d16-za-rDo" id="i1m-mI-tEp">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="1B6-lX-RMO">
                             <items>
-                                <menuItem title="Always Enabled" state="on" id="d16-za-rDo"/>
-                                <menuItem title="Always Disabled" tag="1" id="krz-ye-oeq"/>
-                                <menuItem title="Enabled When" tag="2" id="pGj-E0-Cbc"/>
+                                <menuItem title="siempre activada" state="on" id="d16-za-rDo"/>
+                                <menuItem title="siempre disactivada" tag="1" id="krz-ye-oeq"/>
+                                <menuItem title="activada cuando" tag="2" id="pGj-E0-Cbc"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
@@ -108,9 +108,9 @@
                     </scroller>
                 </scrollView>
                 <textField verticalHuggingPriority="750" id="icj-K5-ohy">
-                    <rect key="frame" x="18" y="213" width="66" height="17"/>
+                    <rect key="frame" x="18" y="213" width="92" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Choice is " id="PBd-qa-bEw">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="La opción es" id="PBd-qa-bEw">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -126,7 +126,7 @@
                 <button verticalHuggingPriority="750" id="f7d-5w-Uob">
                     <rect key="frame" x="20" y="3" width="138" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="smallSquare" title="Return to Inspector" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="3JL-EL-Vmb">
+                    <buttonCell key="cell" type="smallSquare" title="Volver al inspector" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="3JL-EL-Vmb">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent" base64-UTF8="YES">

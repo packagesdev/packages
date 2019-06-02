@@ -37,9 +37,9 @@
                     </connections>
                 </popUpButton>
                 <button id="Rfo-YJ-JBR">
-                    <rect key="frame" x="92" y="316" width="225" height="20"/>
+                    <rect key="frame" x="92" y="316" width="253" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Use same settings for all appearances" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="BOe-Hc-A6b">
+                    <buttonCell key="cell" type="check" title="Mismos ajustes para todos los aspectos" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="BOe-Hc-A6b">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
@@ -99,15 +99,15 @@
                             <popUpButton verticalHuggingPriority="750" id="162">
                                 <rect key="frame" x="97" y="274" width="249" height="22"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Default Background" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="166" id="191">
+                                <popUpButtonCell key="cell" type="push" title="Fondo por omisión" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="166" id="191">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <menu key="menu" title="OtherViews" id="163">
                                         <items>
-                                            <menuItem title="Default Background" state="on" id="166">
+                                            <menuItem title="Fondo por omisión" state="on" id="166">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="Custom Background" tag="1" id="167">
+                                            <menuItem title="Fondo personalizado" tag="1" id="167">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
                                         </items>
@@ -203,9 +203,9 @@
                                 </textFieldCell>
                             </textField>
                             <button id="ZET-ZD-c7W">
-                                <rect key="frame" x="97" y="111" width="152" height="20"/>
+                                <rect key="frame" x="97" y="111" width="173" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Natural layout direction" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="T4s-ur-JRH">
+                                <buttonCell key="cell" type="check" title="Dirección de diseño natural" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="T4s-ur-JRH">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
@@ -216,18 +216,18 @@
                             <popUpButton verticalHuggingPriority="750" id="syQ-NY-Sqp">
                                 <rect key="frame" x="97" y="77" width="249" height="22"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Proportionally" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="xlW-hE-nMX" id="Vds-pk-oke">
+                                <popUpButtonCell key="cell" type="push" title="Proporcionalmente" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="xlW-hE-nMX" id="Vds-pk-oke">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <menu key="menu" title="OtherViews" id="PkL-pq-TM6">
                                         <items>
-                                            <menuItem title="Proportionally" state="on" id="xlW-hE-nMX">
+                                            <menuItem title="Proporcionalmente" state="on" id="xlW-hE-nMX">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="To Fit" tag="1" id="bt4-14-ic1">
+                                            <menuItem title="Caber" tag="1" id="bt4-14-ic1">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="None" tag="2" id="as3-Bf-tZq">
+                                            <menuItem title="Ninguno" tag="2" id="as3-Bf-tZq">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
                                         </items>
@@ -240,7 +240,7 @@
                             <textField verticalHuggingPriority="750" id="65">
                                 <rect key="frame" x="43" y="279" width="52" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Show:" id="190">
+                                <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Mostrar:" id="190">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

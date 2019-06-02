@@ -39,7 +39,7 @@
 					<object class="NSTextField" id="752986838">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{78, 149}, {121, 17}}</string>
+						<string key="NSFrame">{{75, 149}, {124, 17}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="192602427"/>
@@ -47,7 +47,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="857277651">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">When adding files:</string>
+							<string key="NSContents">Al añadir archivos:</string>
 							<object class="NSFont" key="NSSupport" id="640778486">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>
@@ -79,7 +79,7 @@
 					<object class="NSButton" id="192602427">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{202, 148}, {164, 18}}</string>
+						<string key="NSFrame">{{202, 148}, {269, 18}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="119742927"/>
@@ -87,7 +87,7 @@
 						<object class="NSButtonCell" key="NSCell" id="528242271">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Show all files in dialog</string>
+							<string key="NSContents">Mostrar todos los archivos en el diálogo</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="192602427"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -105,7 +105,7 @@
 					<object class="NSTextField" id="119742927">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{55, 120}, {144, 17}}</string>
+						<string key="NSFrame">{{11, 120}, {188, 17}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="442225771"/>
@@ -113,7 +113,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="749696043">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Highlight special files:</string>
+							<string key="NSContents">Resaltar archivos especiales:</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="119742927"/>
 							<reference key="NSBackgroundColor" ref="255703724"/>
@@ -125,7 +125,7 @@
 					<object class="NSButton" id="442225771">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{202, 119}, {80, 18}}</string>
+						<string key="NSFrame">{{202, 119}, {88, 18}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="430225454"/>
@@ -133,7 +133,7 @@
 						<object class="NSButtonCell" key="NSCell" id="770916821">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Excluded</string>
+							<string key="NSContents">Excluidos</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="442225771"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -173,7 +173,7 @@
 					<object class="NSTextField" id="863477063">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{115, 20}, {84, 17}}</string>
+						<string key="NSFrame">{{75, 20}, {124, 17}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="597642818"/>
@@ -181,7 +181,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="251856483">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Adding files:</string>
+							<string key="NSContents">Al añadir archivos:</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="863477063"/>
 							<reference key="NSBackgroundColor" ref="255703724"/>
@@ -193,7 +193,7 @@
 					<object class="NSTextField" id="430225454">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{18, 81}, {232, 17}}</string>
+						<string key="NSFrame">{{18, 81}, {217, 17}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="162153272"/>
@@ -201,7 +201,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="601439333">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">4194304</int>
-							<string key="NSContents">Permissions and Reference Style</string>
+							<string key="NSContents">Permisos y estilo de referencia</string>
 							<reference key="NSSupport" ref="377135436"/>
 							<reference key="NSControlView" ref="430225454"/>
 							<reference key="NSBackgroundColor" ref="255703724"/>
@@ -233,14 +233,14 @@
 					<object class="NSButton" id="597642818">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{202, 19}, {192, 18}}</string>
+						<string key="NSFrame">{{202, 19}, {253, 18}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="892455871">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Show customization dialog</string>
+							<string key="NSContents">Mostrar el diálogo de personalización</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="597642818"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -256,7 +256,7 @@
 					<object class="NSButton" id="497617507">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{202, 44}, {166, 18}}</string>
+						<string key="NSFrame">{{202, 44}, {208, 18}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="863477063"/>
@@ -264,7 +264,7 @@
 						<object class="NSButtonCell" key="NSCell" id="617865877">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Keep owner and group</string>
+							<string key="NSContents">Mantener proprietator y grupo</string>
 							<reference key="NSSupport" ref="640778486"/>
 							<reference key="NSControlView" ref="497617507"/>
 							<int key="NSButtonFlags">1211912448</int>

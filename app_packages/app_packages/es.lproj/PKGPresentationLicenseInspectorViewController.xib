@@ -19,18 +19,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <popUpButton id="IdN-tw-klh">
-                    <rect key="frame" x="11" y="394" width="191" height="19"/>
+                    <rect key="frame" x="11" y="394" width="252" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="bevel" title="Custom License Localizations" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Z5H-XI-vm9" id="6kT-JT-cq4">
+                    <popUpButtonCell key="cell" type="bevel" title="Localizaciones de licencia personalizada" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Z5H-XI-vm9" id="6kT-JT-cq4">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystemBold"/>
                         <menu key="menu" title="OtherViews" id="xw6-cM-ERW">
                             <items>
-                                <menuItem title="Custom License Localizations" state="on" id="Z5H-XI-vm9"/>
+                                <menuItem title="Localizaciones de licencia personalizada" state="on" id="Z5H-XI-vm9"/>
                                 <menuItem isSeparatorItem="YES" tag="-1" id="1rM-QH-aWm">
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </menuItem>
-                                <menuItem title="License Templates" tag="-1" id="6Tg-2P-LWe"/>
+                                <menuItem title="Plantillas de licencia" tag="-1" id="6Tg-2P-LWe"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

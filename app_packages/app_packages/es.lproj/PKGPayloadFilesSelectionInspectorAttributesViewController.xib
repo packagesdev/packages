@@ -246,12 +246,12 @@
                 <popUpButton verticalHuggingPriority="750" id="JG9-x3-q3F" customClass="PKGPopUpButtonSource">
                     <rect key="frame" x="5" y="92" width="62" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Permisos:" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="TCa-sd-ddc" id="iMA-Ql-klv">
+                    <popUpButtonCell key="cell" type="push" title="Permisos:" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="TCa-sd-ddc" id="iMA-Ql-klv">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="gxX-7D-i8w">
                             <items>
-                                <menuItem title="Permisos:" hidden="YES" id="TCa-sd-ddc"/>
+                                <menuItem title="Permisos:" state="on" hidden="YES" id="TCa-sd-ddc"/>
                                 <menuItem tag="509" id="W4P-5d-Dat">
                                     <string key="title">rwxrwxr-x	(775)</string>
                                 </menuItem>

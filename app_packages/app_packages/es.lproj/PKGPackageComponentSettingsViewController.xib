@@ -242,7 +242,7 @@
 							<object class="NSButton" id="465073126">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{509, 97}, {90, 32}}</string>
+								<string key="NSFrame">{{563, 97}, {90, 32}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="626841729"/>
@@ -267,7 +267,7 @@
 							<object class="NSButton" id="629109396">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{120, 106}, {390, 18}}</string>
+								<string key="NSFrame">{{120, 106}, {440, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="465073126"/>
@@ -275,7 +275,7 @@
 								<object class="NSButtonCell" key="NSCell" id="212377470">
 									<int key="NSCellFlags">67108864</int>
 									<int key="NSCellFlags2">0</int>
-									<string key="NSContents">Require some applications to be closed before installation</string>
+									<string key="NSContents">Requerir que algunas aplicaciones se cierren antes de la instalación</string>
 									<reference key="NSSupport" ref="213473266"/>
 									<reference key="NSControlView" ref="629109396"/>
 									<int key="NSButtonFlags">1211912448</int>
@@ -305,7 +305,7 @@
 								<object class="NSButtonCell" key="NSCell" id="325677409">
 									<int key="NSCellFlags">67108864</int>
 									<int key="NSCellFlags2">0</int>
-									<string key="NSContents">Requiere contraseña de administrador para la instalación</string>
+									<string key="NSContents">Requerir contraseña de administrador para la instalación</string>
 									<reference key="NSSupport" ref="213473266"/>
 									<reference key="NSControlView" ref="403522152"/>
 									<int key="NSButtonFlags">1211912448</int>
@@ -378,7 +378,7 @@
 								<object class="NSButtonCell" key="NSCell" id="689187726">
 									<int key="NSCellFlags">67108864</int>
 									<int key="NSCellFlags2">0</int>
-									<string key="NSContents">Use HFS+ compression</string>
+									<string key="NSContents">Usar compresión HFS+</string>
 									<reference key="NSSupport" ref="213473266"/>
 									<reference key="NSControlView" ref="236050385"/>
 									<int key="NSButtonFlags">1211912448</int>
@@ -395,7 +395,7 @@
 							<object class="NSTextField" id="626841729">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{598, 107}, {156, 14}}</string>
+								<string key="NSFrame">{{652, 107}, {156, 14}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1003306919"/>

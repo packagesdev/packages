@@ -164,7 +164,7 @@
 									<object class="NSButton" id="102621033">
 										<reference key="NSNextResponder" ref="196127606"/>
 										<int key="NSvFlags">268</int>
-										<string key="NSFrame">{{18, 18}, {356, 18}}</string>
+										<string key="NSFrame">{{18, 18}, {461, 18}}</string>
 										<reference key="NSSuperview" ref="196127606"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="979778385"/>
@@ -173,7 +173,7 @@
 										<object class="NSButtonCell" key="NSCell" id="142050427">
 											<int key="NSCellFlags">-2080374784</int>
 											<int key="NSCellFlags2">268435456</int>
-											<string key="NSContents">Bounce Packages icon in Dock if application inactive</string>
+											<string key="NSContents">Rebotar el icono de Packages en el Dock si la aplicación está inactiva</string>
 											<object class="NSFont" key="NSSupport" id="932644203">
 												<bool key="IBIsSystemFont">YES</bool>
 												<double key="NSSize">13</double>
@@ -200,7 +200,7 @@
 									<object class="NSButton" id="834735254">
 										<reference key="NSNextResponder" ref="196127606"/>
 										<int key="NSvFlags">268</int>
-										<string key="NSFrame">{{18, 56}, {228, 18}}</string>
+										<string key="NSFrame">{{18, 56}, {319, 18}}</string>
 										<reference key="NSSuperview" ref="196127606"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="102621033"/>
@@ -209,7 +209,7 @@
 										<object class="NSButtonCell" key="NSCell" id="46245414">
 											<int key="NSCellFlags">-2080374784</int>
 											<int key="NSCellFlags2">268435456</int>
-											<string key="NSContents">Notify using system notification</string>
+											<string key="NSContents">Notificar utilizando las notificacións del sistema.</string>
 											<reference key="NSSupport" ref="932644203"/>
 											<string key="NSCellIdentifier">_NS:9</string>
 											<reference key="NSControlView" ref="834735254"/>
@@ -700,7 +700,7 @@
 					<object class="NSTextField" id="959491610">
 						<reference key="NSNextResponder" ref="43725521"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{148, 596}, {130, 17}}</string>
+						<string key="NSFrame">{{42, 596}, {236, 17}}</string>
 						<reference key="NSSuperview" ref="43725521"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="158786"/>
@@ -708,7 +708,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="993467867">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Show during builds:</string>
+							<string key="NSContents">Mostrar durante las construcciones:</string>
 							<reference key="NSSupport" ref="932644203"/>
 							<reference key="NSControlView" ref="959491610"/>
 							<reference key="NSBackgroundColor" ref="944034573"/>
@@ -1111,7 +1111,7 @@
 					<object class="NSTextField" id="294467622">
 						<reference key="NSNextResponder" ref="43725521"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{18, 525}, {167, 17}}</string>
+						<string key="NSFrame">{{18, 525}, {416, 17}}</string>
 						<reference key="NSSuperview" ref="43725521"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="247788624"/>
@@ -1119,7 +1119,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="568753111">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">4194304</int>
-							<string key="NSContents">Build Result Behaviors</string>
+							<string key="NSContents">Comportamientos en función del resultado de la construcción</string>
 							<reference key="NSSupport" ref="942548491"/>
 							<reference key="NSControlView" ref="294467622"/>
 							<reference key="NSBackgroundColor" ref="944034573"/>
