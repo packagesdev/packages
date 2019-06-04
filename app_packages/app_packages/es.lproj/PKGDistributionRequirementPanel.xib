@@ -77,9 +77,9 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <subviews>
                             <button id="4yR-uc-VNH">
-                                <rect key="frame" x="18" y="11" width="303" height="18"/>
+                                <rect key="frame" x="18" y="11" width="301" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="check" title="Check this requirement against each volume" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="GbO-Yc-Ua2">
+                                <buttonCell key="cell" type="check" title="Comprobar este requisito para cada volumen" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="GbO-Yc-Ua2">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>

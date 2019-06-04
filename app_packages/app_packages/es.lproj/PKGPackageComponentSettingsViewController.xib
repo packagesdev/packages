@@ -370,7 +370,7 @@
 							<object class="NSButton" id="236050385">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{120, 18}, {173, 18}}</string>
+								<string key="NSFrame">{{120, 18}, {180, 18}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="153195638"/>
@@ -378,7 +378,7 @@
 								<object class="NSButtonCell" key="NSCell" id="689187726">
 									<int key="NSCellFlags">67108864</int>
 									<int key="NSCellFlags2">0</int>
-									<string key="NSContents">Usar compresión HFS+</string>
+									<string key="NSContents">Utilizar compresión HFS+</string>
 									<reference key="NSSupport" ref="213473266"/>
 									<reference key="NSControlView" ref="236050385"/>
 									<int key="NSButtonFlags">1211912448</int>
@@ -419,7 +419,7 @@
 							<object class="NSTextField" id="153195638">
 								<reference key="NSNextResponder" ref="81029474"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{297, 19}, {156, 14}}</string>
+								<string key="NSFrame">{{302, 19}, {156, 14}}</string>
 								<reference key="NSSuperview" ref="81029474"/>
 								<reference key="NSWindow"/>
 								<bool key="NSEnabled">YES</bool>

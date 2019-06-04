@@ -48,7 +48,7 @@
 					<object class="NSButton" id="824603802">
 						<reference key="NSNextResponder" ref="560430375"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{30, 162}, {460, 23}}</string>
+						<string key="NSFrame">{{30, 162}, {557, 23}}</string>
 						<reference key="NSSuperview" ref="560430375"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="406771536"/>
@@ -58,7 +58,7 @@
 						<object class="NSButtonCell" key="NSCell" id="395125861">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Make this volume unselectable and provide the following explanation:</string>
+							<string key="NSContents">Hacer que este volumen no sea seleccionable y proporcionar la siguiente explicación:</string>
 							<object class="NSFont" key="NSSupport" id="979876415">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>
@@ -455,7 +455,7 @@
 					<object class="NSTextField" id="663324487">
 						<reference key="NSNextResponder" ref="560430375"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 192}, {308, 17}}</string>
+						<string key="NSFrame">{{17, 192}, {320, 17}}</string>
 						<reference key="NSSuperview" ref="560430375"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="824603802"/>
@@ -463,7 +463,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="305570062">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">When a volume does not meet this requirement:</string>
+							<string key="NSContents">Cuando un volumen no cumple con este requisito:</string>
 							<reference key="NSSupport" ref="979876415"/>
 							<reference key="NSControlView" ref="663324487"/>
 							<object class="NSColor" key="NSBackgroundColor" id="952633284">
@@ -488,14 +488,14 @@
 					<object class="NSTextField" id="686049324">
 						<reference key="NSNextResponder" ref="560430375"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{496, 26}, {109, 12}}</string>
+						<string key="NSFrame">{{451, 27}, {154, 11}}</string>
 						<reference key="NSSuperview" ref="560430375"/>
 						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="416384977">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Use ⌥↩ for line breaks</string>
+							<string key="NSContents">Utilizar ⌥↩ para saltos de línea</string>
 							<object class="NSFont" key="NSSupport">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">9</double>

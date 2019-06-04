@@ -41,7 +41,7 @@
 					<object class="NSTextField" id="682526319">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{120, 22}, {178, 17}}</string>
+						<string key="NSFrame">{{114, 22}, {184, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1010972800"/>
@@ -178,7 +178,7 @@
 					<object class="NSTextField" id="142565371">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{43, 147}, {255, 17}}</string>
+						<string key="NSFrame">{{37, 147}, {261, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="801397940"/>
@@ -242,7 +242,7 @@
 					<object class="NSTextField" id="528061858">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{123, 108}, {175, 17}}</string>
+						<string key="NSFrame">{{37, 108}, {261, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="224683039"/>
@@ -250,7 +250,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="852566332">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Default visible package tab:</string>
+							<string key="NSContents">Pestaña de paquete visible por omisión:</string>
 							<reference key="NSSupport" ref="755551002"/>
 							<reference key="NSControlView" ref="528061858"/>
 							<reference key="NSBackgroundColor" ref="659558081"/>

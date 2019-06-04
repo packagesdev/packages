@@ -338,14 +338,14 @@
                             <popUpButton id="rMJ-Ms-166">
                                 <rect key="frame" x="13" y="8" width="225" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="bevel" title="Standard and Custom Install" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="W4M-is-XJA" id="k0J-g4-cKK" customClass="PKGPresentationSettingsPopUpButtonCell">
+                                <popUpButtonCell key="cell" type="bevel" title="Instalación estándar y pers." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="W4M-is-XJA" id="k0J-g4-cKK" customClass="PKGPresentationSettingsPopUpButtonCell">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemBold"/>
                                     <menu key="menu" title="OtherViews" id="ZMs-R9-6gA">
                                         <items>
-                                            <menuItem title="Standard and Custom Install" state="on" id="W4M-is-XJA"/>
-                                            <menuItem title="Standard Install Only" tag="1" id="V2K-zr-HKH"/>
-                                            <menuItem title="Custom Install Only" tag="2" id="tjD-n6-Uh5"/>
+                                            <menuItem title="Instalación estándar y pers." state="on" id="W4M-is-XJA"/>
+                                            <menuItem title="Sólo instalación estándar" tag="1" id="V2K-zr-HKH"/>
+                                            <menuItem title="Solo instalación personalizada" tag="2" id="tjD-n6-Uh5"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>

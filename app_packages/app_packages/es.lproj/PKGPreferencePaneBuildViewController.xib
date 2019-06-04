@@ -1131,7 +1131,7 @@
 					<object class="NSTextField" id="979778385">
 						<reference key="NSNextResponder" ref="43725521"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{18, 275}, {81, 17}}</string>
+						<string key="NSFrame">{{18, 275}, {142, 17}}</string>
 						<reference key="NSSuperview" ref="43725521"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="485666094"/>
@@ -1139,7 +1139,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="622093343">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">4194304</int>
-							<string key="NSContents">Quick Build</string>
+							<string key="NSContents">Construcción rápida</string>
 							<reference key="NSSupport" ref="942548491"/>
 							<reference key="NSControlView" ref="979778385"/>
 							<reference key="NSBackgroundColor" ref="944034573"/>

@@ -36,7 +36,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{94, 379}, {540, 107}}</string>
 				<int key="NSWTFlags">813171712</int>
-				<string key="NSWindowTitle">Preferences</string>
+				<string key="NSWindowTitle">Preferencias</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="187003218">
 					<string key="NSToolbarIdentifier">2B7F7C8F-CD2E-4C52-89EA-726129613D12</string>
@@ -110,8 +110,8 @@
 						</object>
 						<object class="NSToolbarItem" key="DCF3BC51-E58B-4463-AF25-7F36519AC850" id="248382084">
 							<string key="NSToolbarItemIdentifier">DCF3BC51-E58B-4463-AF25-7F36519AC850</string>
-							<string key="NSToolbarItemLabel">Building</string>
-							<string key="NSToolbarItemPaletteLabel">Building</string>
+							<string key="NSToolbarItemLabel">Construcción</string>
+							<string key="NSToolbarItemPaletteLabel">Construcción</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">

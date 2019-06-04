@@ -46,9 +46,9 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" id="2I1-QG-0HX">
-                            <rect key="frame" x="181" y="73" width="51" height="14"/>
+                            <rect key="frame" x="181" y="73" width="101" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="to users" id="OBC-Uv-dU9">
+                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="para los usuarios" id="OBC-Uv-dU9">
                                 <font key="font" metaFont="smallSystem"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -110,18 +110,18 @@
                         <popUpButton verticalHuggingPriority="750" id="bGD-UQ-Q0D">
                             <rect key="frame" x="74" y="16" width="216" height="22"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="push" title="Required" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="yPq-pR-FfI" id="OZU-kV-pBj">
+                            <popUpButtonCell key="cell" type="push" title="necesario" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="yPq-pR-FfI" id="OZU-kV-pBj">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="smallSystem"/>
                                 <menu key="menu" title="OtherViews" id="JjI-wD-xJE">
                                     <items>
-                                        <menuItem title="Required" state="on" id="yPq-pR-FfI"/>
-                                        <menuItem title="Selected" tag="1" id="xx8-pQ-cpT"/>
-                                        <menuItem title="Unselected" tag="2" id="fUC-oo-vqY"/>
+                                        <menuItem title="necesario" state="on" id="yPq-pR-FfI"/>
+                                        <menuItem title="seleccionado" tag="1" id="xx8-pQ-cpT"/>
+                                        <menuItem title="deseleccionado" tag="2" id="fUC-oo-vqY"/>
                                         <menuItem isSeparatorItem="YES" id="08p-IU-Umh">
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
-                                        <menuItem title="Dependent on Other Choices" tag="3" id="2ao-Mp-5kh"/>
+                                        <menuItem title="dependiente de otras opciones" tag="3" id="2ao-Mp-5kh"/>
                                     </items>
                                 </menu>
                             </popUpButtonCell>

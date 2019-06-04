@@ -150,16 +150,16 @@
                         <popUpButton verticalHuggingPriority="750" id="jRX-Xb-nf0">
                             <rect key="frame" x="174" y="265" width="270" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="w2G-Au-51E" id="Oqt-Ux-xOc" customClass="PKGReferenceFolderPopupButtonCell">
+                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="mixed" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="w2G-Au-51E" id="Oqt-Ux-xOc" customClass="PKGReferenceFolderPopupButtonCell">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" title="OtherViews" id="dmI-5C-Q7C">
                                     <items>
-                                        <menuItem title="-" state="on" id="w2G-Au-51E"/>
+                                        <menuItem title="-" state="mixed" id="w2G-Au-51E"/>
                                         <menuItem isSeparatorItem="YES" id="v1c-PB-eus">
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
-                                        <menuItem title="Otros…" tag="-1" id="lex-gB-9FI">
+                                        <menuItem title="Otra…" tag="-1" id="lex-gB-9FI">
                                             <connections>
                                                 <action selector="setReferenceFolder:" target="-2" id="Cw1-yP-zjj"/>
                                             </connections>

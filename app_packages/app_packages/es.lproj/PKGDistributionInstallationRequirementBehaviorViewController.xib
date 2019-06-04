@@ -48,7 +48,7 @@
 					<object class="NSButton" id="168041780">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{30, 202}, {316, 18}}</string>
+						<string key="NSFrame">{{30, 202}, {353, 18}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="494006790"/>
@@ -58,7 +58,7 @@
 						<object class="NSButtonCell" key="NSCell" id="357782431">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Stop installation and display an alert message:</string>
+							<string key="NSContents">Detener la instalación y mostrar un mensaje de alerta:</string>
 							<object class="NSFont" key="NSSupport" id="819553117">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>
@@ -86,7 +86,7 @@
 					<object class="NSButton" id="83898426">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{30, 224}, {202, 18}}</string>
+						<string key="NSFrame">{{30, 224}, {243, 18}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="168041780"/>
@@ -96,7 +96,7 @@
 						<object class="NSButtonCell" key="NSCell" id="587592050">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Display a warning message:</string>
+							<string key="NSContents">Mostrar un mensaje de advertencia:</string>
 							<reference key="NSSupport" ref="819553117"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="83898426"/>
@@ -485,7 +485,7 @@
 					<object class="NSTextField" id="486209048">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 249}, {221, 17}}</string>
+						<string key="NSFrame">{{17, 249}, {230, 17}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="83898426"/>
@@ -493,7 +493,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="784905666">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">When this requirement is not met:</string>
+							<string key="NSContents">Cuando este requisito no se cumple:</string>
 							<reference key="NSSupport" ref="819553117"/>
 							<reference key="NSControlView" ref="486209048"/>
 							<object class="NSColor" key="NSBackgroundColor" id="513665827">
@@ -518,14 +518,14 @@
 					<object class="NSTextField" id="2689326">
 						<reference key="NSNextResponder" ref="410441858"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{480, 27}, {125, 11}}</string>
+						<string key="NSFrame">{{450, 27}, {155, 11}}</string>
 						<reference key="NSSuperview" ref="410441858"/>
 						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="178974330">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">71303168</int>
-							<string key="NSContents">Use ⌥↩ for line breaks</string>
+							<string key="NSContents">Utilizar ⌥↩ para saltos de línea</string>
 							<object class="NSFont" key="NSSupport">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">9</double>

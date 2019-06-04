@@ -61,7 +61,7 @@
                                 <menuItem isSeparatorItem="YES" id="Tnx-rz-QEV">
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </menuItem>
-                                <menuItem title="Otros…" tag="-1" id="6gP-WS-3An">
+                                <menuItem title="Otra…" tag="-1" id="6gP-WS-3An">
                                     <connections>
                                         <action selector="setReferenceFolder:" target="-2" id="NqG-Li-SVW"/>
                                     </connections>

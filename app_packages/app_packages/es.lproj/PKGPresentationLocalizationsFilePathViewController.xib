@@ -21,9 +21,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="70">
-                    <rect key="frame" x="73" y="24" width="257" height="12"/>
+                    <rect key="frame" x="76" y="25" width="254" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Click + or drag a file to add a localization." id="88">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Haga clic en + o arrastre un archivo para añadir una loc." id="88">
                         <font key="font" metaFont="miniSystem"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -208,20 +208,20 @@
                     </scroller>
                 </scrollView>
                 <customView id="SrR-b4-h0a">
-                    <rect key="frame" x="141" y="6" width="187" height="14"/>
+                    <rect key="frame" x="121" y="6" width="207" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField verticalHuggingPriority="750" id="81">
-                            <rect key="frame" x="15" y="2" width="173" height="12"/>
+                            <rect key="frame" x="18" y="-10" width="190" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Documents are not of the same type." id="89">
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Los documentos no son del mismo tipo." id="89">
                                 <font key="font" metaFont="miniSystem"/>
                                 <color key="textColor" red="1" green="0.50196081000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="TF3-n2-96D">
-                            <rect key="frame" x="4" y="1" width="12" height="12"/>
+                            <rect key="frame" x="7" y="1" width="12" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Warning_12" id="fHq-WK-UDj"/>
                         </imageView>
