@@ -14,6 +14,7 @@
                 <outlet property="_inspectorPlaceHolderView" destination="ook-iR-vWX" id="aip-NK-oVe"/>
                 <outlet property="_payloadTypePopUpButton" destination="4Aa-hM-lec" id="mNU-dF-5Ze"/>
                 <outlet property="_payloadTypeView" destination="If4-Mu-rNO" id="VK7-so-Q1K"/>
+                <outlet property="_preserveExtendedAttributesCheckbox" destination="fRr-sc-O50" id="Y55-pF-Vkd"/>
                 <outlet property="_settingsView" destination="tg5-pB-XkD" id="q3Y-lh-iqW"/>
                 <outlet property="_splitForksCheckbox" destination="zhk-5N-WbZ" id="Gl4-1i-tho"/>
                 <outlet property="_treatMissingFilesAsWarningsCheckbox" destination="Vup-V0-aZ5" id="ZgY-sk-DdE"/>
@@ -27,11 +28,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <customView id="tg5-pB-XkD" customClass="PKGSectionView">
-                    <rect key="frame" x="0.0" y="420" width="663" height="137"/>
+                    <rect key="frame" x="0.0" y="400" width="663" height="157"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" id="LMp-WX-7rj">
-                            <rect key="frame" x="583" y="62" width="60" height="24"/>
+                            <rect key="frame" x="583" y="82" width="60" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="smallSquare" title="Choisir" bezelStyle="smallSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="L5N-BC-SAh">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -42,7 +43,7 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" id="s7D-3l-TUe">
-                            <rect key="frame" x="200" y="65" width="377" height="17"/>
+                            <rect key="frame" x="200" y="85" width="377" height="17"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" id="ZKV-Jd-gwm">
                                 <font key="font" metaFont="system"/>
@@ -51,7 +52,7 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="cEO-ca-Oh6">
-                            <rect key="frame" x="40" y="65" width="156" height="17"/>
+                            <rect key="frame" x="40" y="85" width="156" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Destination par défaut :" id="r1G-ZF-H3K">
                                 <font key="font" metaFont="system"/>
@@ -60,7 +61,7 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="Sqs-Wy-nM8">
-                            <rect key="frame" x="20" y="99" width="96" height="18"/>
+                            <rect key="frame" x="20" y="119" width="96" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Paramètres" id="hnT-ZL-Ic5">
                                 <font key="font" metaFont="systemBold" size="14"/>
@@ -69,11 +70,11 @@
                             </textFieldCell>
                         </textField>
                         <customView id="2Re-vG-8qb">
-                            <rect key="frame" x="0.0" y="12" width="663" height="45"/>
+                            <rect key="frame" x="0.0" y="12" width="663" height="65"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="Ggy-Dq-O6b">
-                                    <rect key="frame" x="26" y="28" width="170" height="17"/>
+                                    <rect key="frame" x="26" y="48" width="170" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Options de construction :" id="EXq-mt-3lK">
                                         <font key="font" metaFont="system"/>
@@ -82,7 +83,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button id="zhk-5N-WbZ">
-                                    <rect key="frame" x="200" y="26" width="210" height="18"/>
+                                    <rect key="frame" x="200" y="46" width="210" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Séparer les forks si nécessaire" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="g7i-rF-LbH">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -101,6 +102,17 @@
                                     </buttonCell>
                                     <connections>
                                         <action selector="switchTreatMissingFilesAsWarnings:" target="-2" id="S1i-YW-3m7"/>
+                                    </connections>
+                                </button>
+                                <button id="fRr-sc-O50">
+                                    <rect key="frame" x="213" y="26" width="218" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="check" title="Préserver les attributs étendus" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="BFU-ue-RUi">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="switchPreserveExtendedAttributes:" target="-2" id="AdD-rA-8dF"/>
                                     </connections>
                                 </button>
                             </subviews>
