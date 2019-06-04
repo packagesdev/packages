@@ -237,7 +237,7 @@
                 <popUpButton verticalHuggingPriority="750" id="JG9-x3-q3F" customClass="PKGPopUpButtonSource">
                     <rect key="frame" x="17" y="92" width="50" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Droits :" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="TCa-sd-ddc" id="iMA-Ql-klv">
+                    <popUpButtonCell key="cell" type="push" title="Droits :" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="iMA-Ql-klv">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="gxX-7D-i8w">
