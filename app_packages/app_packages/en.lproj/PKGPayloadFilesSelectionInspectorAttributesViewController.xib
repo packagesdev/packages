@@ -26,7 +26,7 @@
                 <textField verticalHuggingPriority="750" id="JoH-I6-sDS">
                     <rect key="frame" x="25" y="149" width="42" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Owner:" id="5nS-0H-sQK">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Owner:" id="5nS-0H-sQK">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -35,7 +35,7 @@
                 <textField verticalHuggingPriority="750" id="Ikj-7z-gDc">
                     <rect key="frame" x="26" y="124" width="41" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Group:" id="mxU-Ed-kbG">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Group:" id="mxU-Ed-kbG">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -246,7 +246,7 @@
                 <popUpButton verticalHuggingPriority="750" id="JG9-x3-q3F" customClass="PKGPopUpButtonSource">
                     <rect key="frame" x="17" y="92" width="50" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Access:" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="TCa-sd-ddc" id="iMA-Ql-klv">
+                    <popUpButtonCell key="cell" type="push" title="Access:" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="iMA-Ql-klv">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="gxX-7D-i8w">
@@ -382,7 +382,7 @@
                 <textField verticalHuggingPriority="750" id="aLW-xe-KFS">
                     <rect key="frame" x="29" y="176" width="39" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Name:" id="9FR-Js-uou">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="9FR-Js-uou">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

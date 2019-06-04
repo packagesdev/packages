@@ -134,9 +134,9 @@
                     </connections>
                 </textField>
                 <button id="RRt-5T-TqC">
-                    <rect key="frame" x="153" y="19" width="235" height="18"/>
+                    <rect key="frame" x="153" y="19" width="253" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="check" title="Exclude items only from payloads" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="xEh-k6-Nfn">
+                    <buttonCell key="cell" type="check" title="Exclude items only from the payload" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="xEh-k6-Nfn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
