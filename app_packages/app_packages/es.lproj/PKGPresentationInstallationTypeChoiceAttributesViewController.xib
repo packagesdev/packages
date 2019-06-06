@@ -35,7 +35,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button hidden="YES" verticalHuggingPriority="750" id="TAs-0m-xhj">
-                            <rect key="frame" x="288" y="13" width="69" height="28"/>
+                            <rect key="frame" x="284" y="13" width="69" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" title="Editar…" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="hhu-Kd-faE">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -46,7 +46,7 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" id="2I1-QG-0HX">
-                            <rect key="frame" x="181" y="73" width="101" height="14"/>
+                            <rect key="frame" x="200" y="73" width="101" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="para los usuarios" id="OBC-Uv-dU9">
                                 <font key="font" metaFont="smallSystem"/>
@@ -55,24 +55,24 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="ty1-g3-qua">
-                            <rect key="frame" x="19" y="73" width="56" height="14"/>
+                            <rect key="frame" x="18" y="73" width="72" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Choice is " id="a1v-Pj-9pG">
+                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="La opción es" id="a1v-Pj-9pG">
                                 <font key="font" metaFont="smallSystem"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" id="ZmQ-04-kyK">
-                            <rect key="frame" x="74" y="68" width="105" height="22"/>
+                            <rect key="frame" x="93" y="68" width="105" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="push" title="Visible" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="vwj-o9-CDN" id="s1k-W4-gZj">
+                            <popUpButtonCell key="cell" type="push" title="invisible" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="GVg-K7-7D0" id="s1k-W4-gZj">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="smallSystem"/>
                                 <menu key="menu" title="OtherViews" id="APo-P9-1uV">
                                     <items>
-                                        <menuItem title="Visible" state="on" id="vwj-o9-CDN"/>
-                                        <menuItem title="Invisible" tag="1" id="GVg-K7-7D0"/>
+                                        <menuItem title="visible" id="vwj-o9-CDN"/>
+                                        <menuItem title="invisible" state="on" tag="1" id="GVg-K7-7D0"/>
                                     </items>
                                 </menu>
                             </popUpButtonCell>
@@ -90,25 +90,25 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="IIh-wm-GtS">
-                            <rect key="frame" x="19" y="21" width="56" height="14"/>
+                            <rect key="frame" x="18" y="21" width="72" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Choice is " id="tRK-ix-RXi">
+                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="La opción es" id="tRK-ix-RXi">
                                 <font key="font" metaFont="smallSystem"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" id="B4s-Xj-uhj">
-                            <rect key="frame" x="18" y="45" width="39" height="14"/>
+                            <rect key="frame" x="18" y="45" width="50" height="14"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="State" id="gal-Pq-3qe">
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Estado" id="gal-Pq-3qe">
                                 <font key="font" metaFont="smallSystemBold"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" id="bGD-UQ-Q0D">
-                            <rect key="frame" x="74" y="16" width="216" height="22"/>
+                            <rect key="frame" x="93" y="16" width="191" height="22"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <popUpButtonCell key="cell" type="push" title="necesario" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="yPq-pR-FfI" id="OZU-kV-pBj">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

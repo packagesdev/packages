@@ -74,9 +74,9 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <button id="UmS-vr-5Z1">
-                            <rect key="frame" x="117" y="84" width="105" height="18"/>
+                            <rect key="frame" x="117" y="84" width="99" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="check" title="Relocatable" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Izm-Ay-S8g">
+                            <buttonCell key="cell" type="check" title="Reubicable" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Izm-Ay-S8g">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
