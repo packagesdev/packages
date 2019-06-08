@@ -22,6 +22,8 @@
 		F4451B321C7BBAF300516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B341C7BBAF800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4451B361C7BBB0100516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F446AE6B229FCDB10018A844 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = PKGRequirementViewControllerRAM/es.lproj/MainView.xib; sourceTree = "<group>"; };
+		F446AE6C229FCDB10018A844 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = PKGRequirementViewControllerRAM/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F486D5C81F58B59C00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerRAM/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F486D5CA1F58B5A000495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerRAM/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F48DDE271CE3D988004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			knownRegions = (
 				en,
 				fr,
+				es,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerRAM */;
 			projectDirPath = "";
@@ -228,6 +231,7 @@
 			children = (
 				F486D5C81F58B59C00495D33 /* en */,
 				F486D5CA1F58B5A000495D33 /* fr */,
+				F446AE6C229FCDB10018A844 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -237,6 +241,7 @@
 			children = (
 				F4ABD0A11CC8251100C69CA2 /* en */,
 				F4C80FAF1F16B81A00049F53 /* fr */,
+				F446AE6B229FCDB10018A844 /* es */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";
