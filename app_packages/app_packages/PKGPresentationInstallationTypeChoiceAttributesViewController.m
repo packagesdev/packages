@@ -253,11 +253,11 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	_choicePackageStatePopUpButton.menu=tMenu;
 	
-	NSRect tFrame=_choicePackageStatePopUpButton.frame;
+	/*NSRect tFrame=_choicePackageStatePopUpButton.frame;
 	
 	tFrame.size.width=[_choicePackageStatePopUpButton optimizedSize].width;
 	
-	_choicePackageStatePopUpButton.frame=tFrame;
+	_choicePackageStatePopUpButton.frame=tFrame;*/
 	
 	[_choicePackageStatePopUpButton selectItemWithTag:tOptions.state];
 	
