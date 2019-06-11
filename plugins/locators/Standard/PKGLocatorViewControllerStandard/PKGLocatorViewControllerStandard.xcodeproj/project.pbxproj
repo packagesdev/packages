@@ -25,6 +25,7 @@
 		F49ED5C81CC2CC03009B86E7 /* PKGLocator_Standard+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGLocator_Standard+Constants.h"; path = "../PKGLocator_Standard+Constants.h"; sourceTree = "<group>"; };
 		F49ED5C91CC2CC03009B86E7 /* PKGLocator_Standard+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGLocator_Standard+Constants.m"; path = "../PKGLocator_Standard+Constants.m"; sourceTree = "<group>"; };
 		F49ED5CB1CC2CC18009B86E7 /* PKGLocatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewController.h; path = ../../PKGLocatorViewController.h; sourceTree = "<group>"; };
+		F4D578582291D17D005DAF63 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = PKGLocatorViewControllerStandard/es.lproj/MainView.xib; sourceTree = "<group>"; };
 		F4F449BD1CC2CD2D000D053A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGLocatorViewControllerStandard/Info.plist; sourceTree = "<group>"; };
 		F4F449C01CC2CD48000D053A /* PKGLocatorViewControllerStandard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocatorViewControllerStandard.h; path = PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.h; sourceTree = "<group>"; };
 		F4F449C11CC2CD48000D053A /* PKGLocatorViewControllerStandard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLocatorViewControllerStandard.m; path = PKGLocatorViewControllerStandard/PKGLocatorViewControllerStandard.m; sourceTree = "<group>"; };
@@ -184,6 +185,7 @@
 			knownRegions = (
 				en,
 				fr,
+				es,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* ICRequirementCPU */;
 			projectDirPath = "";
@@ -225,6 +227,7 @@
 			children = (
 				F4F449C41CC2CD57000D053A /* en */,
 				F47599F51F18280600607CC9 /* fr */,
+				F4D578582291D17D005DAF63 /* es */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";

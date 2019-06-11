@@ -22,6 +22,7 @@
 		F4451B5D1C7BBD3400516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B5F1C7BBD3800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4451B611C7BBD3D00516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F445855F22A4FB06009BE0D5 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = PKGRequirementViewControllerJavaScript/es.lproj/MainView.xib; sourceTree = "<group>"; };
 		F46DCE971E5CF9CC00794DF9 /* PKGTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableView.h; path = ../../../../shared/PKGTableView.h; sourceTree = "<group>"; };
 		F46DCE9C1E5D132B00794DF9 /* ICSourceTextTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextTopView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h; sourceTree = "<group>"; };
 		F47599F81F18298B00607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerJavaScript/fr.lproj/MainView.xib; sourceTree = "<group>"; };
@@ -209,6 +210,7 @@
 			knownRegions = (
 				en,
 				fr,
+				es,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerJavaScript */;
 			projectDirPath = "";
@@ -251,6 +253,7 @@
 			children = (
 				F4F5D0A21CC977900075C2EF /* en */,
 				F47599F81F18298B00607CC9 /* fr */,
+				F445855F22A4FB06009BE0D5 /* es */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";

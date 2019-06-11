@@ -39,6 +39,8 @@
 		F4C781941C7BC49E0019D5ED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4C781961C7BC4A50019D5ED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4C781981C7BC4A90019D5ED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F4DB0C42229DEB1A00643988 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = PKGRequirementViewControllerFiles/es.lproj/MainView.xib; sourceTree = "<group>"; };
+		F4DB0C43229DEB1A00643988 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = PKGRequirementViewControllerFiles/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F4F30DFF1C879F4800C8DB5B /* PKGRequirementViewControllerFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerFiles.h; path = PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.h; sourceTree = "<group>"; };
 		F4F30E001C879F4800C8DB5B /* PKGRequirementViewControllerFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerFiles.m; path = PKGRequirementViewControllerFiles/PKGRequirementViewControllerFiles.m; sourceTree = "<group>"; };
 		F4F30E021C879F5100C8DB5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerFiles/Info.plist; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			knownRegions = (
 				en,
 				fr,
+				es,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerFiles */;
 			projectDirPath = "";
@@ -242,6 +245,7 @@
 			children = (
 				F486D5CC1F58B5DB00495D33 /* en */,
 				F486D5CE1F58B5E300495D33 /* fr */,
+				F4DB0C43229DEB1A00643988 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -251,6 +255,7 @@
 			children = (
 				F4F5D0461CC96F790075C2EF /* en */,
 				F47599F61F1828A300607CC9 /* fr */,
+				F4DB0C42229DEB1A00643988 /* es */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";

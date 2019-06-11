@@ -21,6 +21,8 @@
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4035DAE1CC6D5A300184576 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGRequirementViewControllerCPU/en.lproj/MainView.xib; sourceTree = "<group>"; };
 		F4035DB81CC6D64D00184576 /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
+		F4385E26229E6332005E37A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = PKGRequirementViewControllerCPU/es.lproj/MainView.xib; sourceTree = "<group>"; };
+		F4385E27229E6332005E37A8 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = PKGRequirementViewControllerCPU/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F4451B441C7BBC8000516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F4451B461C7BBC8400516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B481C7BBC8900516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -186,6 +188,7 @@
 			knownRegions = (
 				en,
 				fr,
+				es,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerCPU */;
 			projectDirPath = "";
@@ -228,6 +231,7 @@
 			children = (
 				F4035DAE1CC6D5A300184576 /* en */,
 				F4C80FB31F16B94900049F53 /* fr */,
+				F4385E26229E6332005E37A8 /* es */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";
@@ -237,6 +241,7 @@
 			children = (
 				F486D5C41F58B52D00495D33 /* en */,
 				F486D5C61F58B53100495D33 /* fr */,
+				F4385E27229E6332005E37A8 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

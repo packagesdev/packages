@@ -21,6 +21,8 @@
 /* Begin PBXFileReference section */
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4451B781C7BC12D00516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F446AE69229FCD450018A844 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = PKGRequirementViewControllerDiskSpace/es.lproj/MainView.xib; sourceTree = "<group>"; };
+		F446AE6A229FCD450018A844 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = PKGRequirementViewControllerDiskSpace/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F474AFC21E59147F00483129 /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F486D5BC1F58B49D00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerDiskSpace/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F486D5BE1F58B4B500495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerDiskSpace/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			knownRegions = (
 				en,
 				fr,
+				es,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerDiskSpace */;
 			projectDirPath = "";
@@ -234,6 +237,7 @@
 			children = (
 				F486D5BC1F58B49D00495D33 /* en */,
 				F486D5BE1F58B4B500495D33 /* fr */,
+				F446AE6A229FCD450018A844 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -243,6 +247,7 @@
 			children = (
 				F4E8BB9D1DCBF75C00204CDF /* en */,
 				F4C80FB21F16B8B500049F53 /* fr */,
+				F446AE69229FCD450018A844 /* es */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";
