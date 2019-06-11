@@ -395,6 +395,7 @@
 		F4983D171EDB73D20002F625 /* PackagesCombination@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4983D131EDB73D20002F625 /* PackagesCombination@2x.png */; };
 		F498E67D1F080948003EB9E2 /* PKGChoiceDependencyPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F498E67B1F080948003EB9E2 /* PKGChoiceDependencyPopUpButton.m */; };
 		F498FEC61E2D469200825B8A /* PKGArchitectureUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F498FEC41E2D469200825B8A /* PKGArchitectureUtilities.m */; };
+		F499222D229B3307001E24D3 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F499222F229B3307001E24D3 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib */; };
 		F499A3B51EE9F00F00AB5AE9 /* Presentation.strings in Resources */ = {isa = PBXBuildFile; fileRef = F499A3B31EE9F00F00AB5AE9 /* Presentation.strings */; };
 		F499B3A71E81B6DB0016B78E /* PKGTableGroupRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = F499B3A61E81B6DB0016B78E /* PKGTableGroupRowView.m */; };
 		F499DA8A1F71D38D0003E31A /* PKGPresentationInstallationTypeSingleSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F499DA8C1F71D38D0003E31A /* PKGPresentationInstallationTypeSingleSelectionViewController.xib */; };
@@ -453,7 +454,6 @@
 		F4A205B61EFDBE8100348077 /* PKGInstallationSurgeryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A205B51EFDBE8100348077 /* PKGInstallationSurgeryWindow.m */; };
 		F4A556361DD9253E00C28BB5 /* PKGAssistantSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A556351DD9253E00C28BB5 /* PKGAssistantSettings.m */; };
 		F4A6F6821E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A6F6801E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.m */; };
-		F4A6F6831E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4A6F6811E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib */; };
 		F4A80E1F1F14183A00E8DEF2 /* PKGDistributionProjectSettingsAdvancedOptionString.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A80E1D1F14183A00E8DEF2 /* PKGDistributionProjectSettingsAdvancedOptionString.m */; };
 		F4AA58831FADFA86004872FD /* NSCollection+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA58821FADFA86004872FD /* NSCollection+DeepCopy.m */; };
 		F4AB91A21F46F74B00BEB1E5 /* AbsoluteSmallPullDownUbuntu.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AB919E1F46F74B00BEB1E5 /* AbsoluteSmallPullDownUbuntu.png */; };
@@ -858,7 +858,6 @@
 		F402BAB01F54D02C0028B43D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PKGDistributionRequirementsViewController.xib; sourceTree = "<group>"; };
 		F402BAB21F54D02E0028B43D /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PKGDistributionRequirementsViewController.xib; sourceTree = "<group>"; };
 		F40399311F0EF93600BEBE06 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = app_packages/Info.plist; sourceTree = "<group>"; };
-		F40449DF0EEC1BFC00C2E966 /* ICDocument+BuildingNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ICDocument+BuildingNotification.m"; sourceTree = "<group>"; };
 		F404C9F01DCEB5AF00017CC8 /* PKGPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPreferencesWindowController.h; path = app_packages/PKGPreferencesWindowController.h; sourceTree = "<group>"; };
 		F404C9F11DCEB5AF00017CC8 /* PKGPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPreferencesWindowController.m; path = app_packages/PKGPreferencesWindowController.m; sourceTree = "<group>"; };
 		F40556051EDD96560022394B /* PKGPresentationChoiceRequirementPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationChoiceRequirementPanel.h; path = app_packages/PKGPresentationChoiceRequirementPanel.h; sourceTree = "<group>"; };
@@ -1070,8 +1069,6 @@
 		F424D3931DCE43B100F95165 /* PKGAboutBoxWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGAboutBoxWindowController.m; path = app_packages/PKGAboutBoxWindowController.m; sourceTree = "<group>"; };
 		F424D3941DCE43B100F95165 /* PKGAboutBoxFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGAboutBoxFooterView.h; path = app_packages/PKGAboutBoxFooterView.h; sourceTree = "<group>"; };
 		F424D3951DCE43B100F95165 /* PKGAboutBoxFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGAboutBoxFooterView.m; path = app_packages/PKGAboutBoxFooterView.m; sourceTree = "<group>"; };
-		F427CB580FCF3D4D00BEEB0A /* ICBuildWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICBuildWindowController.h; sourceTree = "<group>"; };
-		F427CB590FCF3D4D00BEEB0A /* ICBuildWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICBuildWindowController.m; sourceTree = "<group>"; };
 		F42961941E4400DB00B47D9F /* PKGPresentationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationTextView.m; path = app_packages/PKGPresentationTextView.m; sourceTree = "<group>"; };
 		F42961951E4400DB00B47D9F /* PKGPresentationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationTextView.h; path = app_packages/PKGPresentationTextView.h; sourceTree = "<group>"; };
 		F42961961E4400DB00B47D9F /* PKGPresentationImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationImageView.m; path = app_packages/PKGPresentationImageView.m; sourceTree = "<group>"; };
@@ -1235,6 +1232,105 @@
 		F45787021EC911A500661ED8 /* PKGDistributionPresentationInstallerPluginOpenPanelDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionPresentationInstallerPluginOpenPanelDelegate.m; path = app_packages/PKGDistributionPresentationInstallerPluginOpenPanelDelegate.m; sourceTree = "<group>"; };
 		F457C8B21DDE81AA0009E3D1 /* NSImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+Tint.h"; path = "../AppKit + Extensions/NSImage+Tint.h"; sourceTree = "<group>"; };
 		F457C8B31DDE81AA0009E3D1 /* NSImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+Tint.m"; path = "../AppKit + Extensions/NSImage+Tint.m"; sourceTree = "<group>"; };
+		F4584CEB227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/AbsoluteMenuItemSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CEC227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/RelativeMenuItemUbuntu.png; sourceTree = "<group>"; };
+		F4584CED227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/RelativeMenuItemUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CEE227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/RelativeMenuItemSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584CEF227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/RelativeMenuItemSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CF0227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/ReferenceFolderMenuItemUbuntu.png; sourceTree = "<group>"; };
+		F4584CF1227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/ReferenceFolderMenuItemUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CF2227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/ReferenceFolderMenuItemSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584CF3227DC17E0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/ReferenceFolderMenuItemSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CF4227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/AbsoluteRegularTextFieldPulldownUbuntu.png; sourceTree = "<group>"; };
+		F4584CF5227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/AbsoluteRegularTextFieldPulldownUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CF6227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/RelativeRegularTextFieldPulldownUbuntu.png; sourceTree = "<group>"; };
+		F4584CF7227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/RelativeRegularTextFieldPulldownUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CF8227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/ReferenceFolderRegularTextFieldPulldownUbuntu.png; sourceTree = "<group>"; };
+		F4584CF9227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/ReferenceFolderRegularTextFieldPulldownUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CFA227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/AbsoluteRegularUbuntu.png; sourceTree = "<group>"; };
+		F4584CFB227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/AbsoluteRegularUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CFC227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/AbsoluteSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584CFD227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/AbsoluteSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584CFE227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/AbsoluteSquareSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584CFF227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/AbsoluteSquareSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D00227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/RelativeRegularUbuntu.png; sourceTree = "<group>"; };
+		F4584D01227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/RelativeRegularUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D02227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/RelativeSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584D03227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/RelativeSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D04227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/RelativeSquareSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584D05227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/RelativeSquareSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D06227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/ReferenceFolderRegularUbuntu.png; sourceTree = "<group>"; };
+		F4584D07227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/ReferenceFolderRegularUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D08227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/ReferenceFolderSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584D09227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/ReferenceFolderSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D0A227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/ReferenceFolderSquareSmallUbuntu.png; sourceTree = "<group>"; };
+		F4584D0B227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/ReferenceFolderSquareSmallUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D0C227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGScriptViewController.xib; sourceTree = "<group>"; };
+		F4584D0D227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGFilesSelectionInspectorAttributesViewController.xib; sourceTree = "<group>"; };
+		F4584D0E227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGFilesSelectionInspectorViewController.xib; sourceTree = "<group>"; };
+		F4584D0F227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGFilesHierarchyViewController.xib; sourceTree = "<group>"; };
+		F4584D10227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGOwnershipAndReferenceStyleViewController.xib; sourceTree = "<group>"; };
+		F4584D11227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/FileExtensions.strings; sourceTree = "<group>"; };
+		F4584D12227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Build.strings; sourceTree = "<group>"; };
+		F4584D13227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGAboutBoxWindowController.xib; sourceTree = "<group>"; };
+		F4584D14227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPreferencesWindowController.xib; sourceTree = "<group>"; };
+		F4584D15227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneGeneralViewController.xib; sourceTree = "<group>"; };
+		F4584D16227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneFilesViewController.xib; sourceTree = "<group>"; };
+		F4584D17227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneBuildViewController.xib; sourceTree = "<group>"; };
+		F4584D18227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneTemplatesViewController.xib; sourceTree = "<group>"; };
+		F4584D19227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneAdvancedViewController.xib; sourceTree = "<group>"; };
+		F4584D1A227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Preferences.strings; sourceTree = "<group>"; };
+		F4584D1B227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGProjectTemplateAssistantController.xib; sourceTree = "<group>"; };
+		F4584D1C227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGProjectAssistantFinishViewController.xib; sourceTree = "<group>"; };
+		F4584D1D227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/ProjectTemplateAssistant.strings; sourceTree = "<group>"; };
+		F4584D1E227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGCertificateSealWindowController.xib; sourceTree = "<group>"; };
+		F4584D1F227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPayloadExclusionsViewController.xib; sourceTree = "<group>"; };
+		F4584D20227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPackageProjectSettingsViewController.xib; sourceTree = "<group>"; };
+		F4584D21227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGDistributionProjectSourceListController.xib; sourceTree = "<group>"; };
+		F4584D22227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGAdvancedOptionPanel.xib; sourceTree = "<group>"; };
+		F4584D23227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGDistributionProjectSettingsViewController.xib; sourceTree = "<group>"; };
+		F4584D24227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationChoiceRequirementBehaviorViewController.xib; sourceTree = "<group>"; };
+		F4584D25227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationChoiceRequirementPanel.xib; sourceTree = "<group>"; };
+		F4584D26227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/AbsoluteSmallPullDownUbuntu.png; sourceTree = "<group>"; };
+		F4584D27227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/AbsoluteSmallPullDownUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D28227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/ReferenceFolderSmallPullDownUbuntu.png; sourceTree = "<group>"; };
+		F4584D29227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/ReferenceFolderSmallPullDownUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D2A227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/RelativeSmallPullDownUbuntu.png; sourceTree = "<group>"; };
+		F4584D2B227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/RelativeSmallPullDownUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D2C227DC1800052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Languages.strings; sourceTree = "<group>"; };
+		F4584D2D227DC1800052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Presentation.strings; sourceTree = "<group>"; };
+		F4584D2E227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGDistributionPresentationViewController.xib; sourceTree = "<group>"; };
+		F4584D2F227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGLicenseKeywordsViewController.xib; sourceTree = "<group>"; };
+		F4584D30227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationSectionInstallationTypeViewController.xib; sourceTree = "<group>"; };
+		F4584D31227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationLocalizationsFilePathViewController.xib; sourceTree = "<group>"; };
+		F4584D32227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationInstallationTypeSingleSelectionViewController.xib; sourceTree = "<group>"; };
+		F4584D33227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationInstallationTypeChoiceAttributesViewController.xib; sourceTree = "<group>"; };
+		F4584D34227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationInstallationTypeChoiceDependenciesViewController.xib; sourceTree = "<group>"; };
+		F4584D35227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationInstallationTypeChoiceRequirementsViewController.xib; sourceTree = "<group>"; };
+		F4584D36227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationBackgroundInspectorViewController.xib; sourceTree = "<group>"; };
+		F4584D37227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationLicenseInspectorViewController.xib; sourceTree = "<group>"; };
+		F4584D38227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPresentationInstallerPluginInspectorViewController.xib; sourceTree = "<group>"; };
+		F4584D39227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGDistributionRequirementPanel.xib; sourceTree = "<group>"; };
+		F4584D3A227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGDistributionRequirementsViewController.xib; sourceTree = "<group>"; };
+		F4584D3B227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGDistributionRequirementsAndResourcesViewController.xib; sourceTree = "<group>"; };
+		F4584D3C227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGDistributionInstallationRequirementBehaviorViewController.xib; sourceTree = "<group>"; };
+		F4584D3D227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGDistributionVolumeRequirementBehaviorViewController.xib; sourceTree = "<group>"; };
+		F4584D3E227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPackageSettingsViewController.xib; sourceTree = "<group>"; };
+		F4584D3F227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGMustCloseApplicationItemsPanel.xib; sourceTree = "<group>"; };
+		F4584D40227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPackageComponentSettingsViewController.xib; sourceTree = "<group>"; };
+		F4584D41227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPackagePayloadViewController.xib; sourceTree = "<group>"; };
+		F4584D42227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPayloadFilesSelectionInspectorViewController.xib; sourceTree = "<group>"; };
+		F4584D43227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPayloadFilesSelectionInspectorAttributesViewController.xib; sourceTree = "<group>"; };
+		F4584D44227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPayloadFilesSelectionInspectorRulesViewController.xib; sourceTree = "<group>"; };
+		F4584D45227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGBundleScriptViewController.xib; sourceTree = "<group>"; };
+		F4584D46227DC1810052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F4584D47227DC1810052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4584D48227DC1810052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F4584D49227DC1820052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGOwnershipAndReferenceStylePanel.xib; sourceTree = "<group>"; };
+		F4584D4A227DC1820052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGLocatorPanel.xib; sourceTree = "<group>"; };
+		F4584D4B227DC1820052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/AbsoluteMenuItemUbuntu.png; sourceTree = "<group>"; };
+		F4584D4C227DC1820052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "app_packages/es.lproj/AbsoluteMenuItemUbuntu@2x.png"; sourceTree = "<group>"; };
+		F4584D4D227DC1820052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = app_packages/es.lproj/AbsoluteMenuItemSmallUbuntu.png; sourceTree = "<group>"; };
 		F45851812033733700298216 /* PKGPackageNameFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPackageNameFormatter.h; path = app_packages/PKGPackageNameFormatter.h; sourceTree = "<group>"; };
 		F45851822033733700298216 /* PKGPackageNameFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPackageNameFormatter.m; path = app_packages/PKGPackageNameFormatter.m; sourceTree = "<group>"; };
 		F458C00E20E435D3005CEFD8 /* Strip32CompositeDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Strip32CompositeDark.png; path = app_packages/Images/Strip32CompositeDark.png; sourceTree = "<group>"; };
@@ -1507,6 +1603,9 @@
 		F498E67C1F080948003EB9E2 /* PKGChoiceDependencyPopUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGChoiceDependencyPopUpButton.h; path = app_packages/PKGChoiceDependencyPopUpButton.h; sourceTree = "<group>"; };
 		F498FEC41E2D469200825B8A /* PKGArchitectureUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGArchitectureUtilities.m; path = app_packages/PKGArchitectureUtilities.m; sourceTree = "<group>"; };
 		F498FEC51E2D469200825B8A /* PKGArchitectureUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGArchitectureUtilities.h; path = app_packages/PKGArchitectureUtilities.h; sourceTree = "<group>"; };
+		F499222E229B3307001E24D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PKGDistributionProjectSettingsAdvancedOptionsViewController.xib; sourceTree = "<group>"; };
+		F4992238229B330C001E24D3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/PKGDistributionProjectSettingsAdvancedOptionsViewController.xib; sourceTree = "<group>"; };
+		F4992239229B330D001E24D3 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGDistributionProjectSettingsAdvancedOptionsViewController.xib; sourceTree = "<group>"; };
 		F499A3B41EE9F00F00AB5AE9 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = app_packages/en.lproj/Presentation.strings; sourceTree = "<group>"; };
 		F499A3BE1EE9F62100AB5AE9 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = app_packages/fr.lproj/Presentation.strings; sourceTree = "<group>"; };
 		F499B3A51E81B6DB0016B78E /* PKGTableGroupRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGTableGroupRowView.h; path = app_packages/PKGTableGroupRowView.h; sourceTree = "<group>"; };
@@ -1614,7 +1713,6 @@
 		F4A556351DD9253E00C28BB5 /* PKGAssistantSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGAssistantSettings.m; path = app_packages/PKGAssistantSettings.m; sourceTree = "<group>"; };
 		F4A6F67F1E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionProjectSettingsAdvancedOptionsViewController.h; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionsViewController.h; sourceTree = "<group>"; };
 		F4A6F6801E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionProjectSettingsAdvancedOptionsViewController.m; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionsViewController.m; sourceTree = "<group>"; };
-		F4A6F6811E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PKGDistributionProjectSettingsAdvancedOptionsViewController.xib; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionsViewController.xib; sourceTree = "<group>"; };
 		F4A80E1D1F14183A00E8DEF2 /* PKGDistributionProjectSettingsAdvancedOptionString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionProjectSettingsAdvancedOptionString.m; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionString.m; sourceTree = "<group>"; };
 		F4A80E1E1F14183A00E8DEF2 /* PKGDistributionProjectSettingsAdvancedOptionString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGDistributionProjectSettingsAdvancedOptionString.h; path = app_packages/PKGDistributionProjectSettingsAdvancedOptionString.h; sourceTree = "<group>"; };
 		F4A8A4A81C7E6BE800DC77C2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
@@ -2179,7 +2277,6 @@
 				F47477851DD523BF00FFA81F /* PKGApplicationPreferences.m */,
 				F415FEC51E8C710800FF6173 /* build */,
 				F424D37C1DCE3FB100F95165 /* controllers */,
-				2A37F4ABFDCFA73011CA2CEA /* Old Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* External Frameworks and Libraries */,
@@ -2187,14 +2284,6 @@
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 			);
 			name = Ivanhoe;
-			sourceTree = "<group>";
-		};
-		2A37F4ABFDCFA73011CA2CEA /* Old Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F4CF6D0E0CA5460F00685F49 /* Controllers */,
-			);
-			name = "Old Classes";
 			sourceTree = "<group>";
 		};
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
@@ -2884,15 +2973,6 @@
 				F46288E81ED237FB005F7298 /* Warning_12@2x.png */,
 			);
 			name = images;
-			sourceTree = "<group>";
-		};
-		F427CB550FCF3D3300BEEB0A /* Build Window */ = {
-			isa = PBXGroup;
-			children = (
-				F427CB580FCF3D4D00BEEB0A /* ICBuildWindowController.h */,
-				F427CB590FCF3D4D00BEEB0A /* ICBuildWindowController.m */,
-			);
-			name = "Build Window";
 			sourceTree = "<group>";
 		};
 		F4327F761F53380000432643 /* views */ = {
@@ -3775,7 +3855,7 @@
 				F496FF0A1E81E4B100A528A4 /* olv_disclose.png */,
 				F496FF0B1E81E4B100A528A4 /* olv_disclose@2x.png */,
 				F402BAA01F54CD730028B43D /* PKGDistributionProjectSettingsViewController.xib */,
-				F4A6F6811E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib */,
+				F499222F229B3307001E24D3 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3974,15 +4054,6 @@
 				F47FBF461E225AFA00C7CAE0 /* PKGPackageScriptsAndResourcesViewController.xib */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		F4CF6D0E0CA5460F00685F49 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				F40449DF0EEC1BFC00C2E966 /* ICDocument+BuildingNotification.m */,
-				F427CB550FCF3D3300BEEB0A /* Build Window */,
-			);
-			name = Controllers;
 			sourceTree = "<group>";
 		};
 		F4DCA73F0CE7BA3900EBC833 /* contributed */ = {
@@ -4426,6 +4497,7 @@
 			knownRegions = (
 				en,
 				fr,
+				es,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Ivanhoe */;
 			projectDirPath = "";
@@ -4616,7 +4688,7 @@
 				F4AFD3321EC4F88200F9E18D /* iconBottom_nib@2x.png in Resources */,
 				F4FC4B771ED75DD800AE3042 /* PKGPresentationInstallationTypeInspectorViewController.xib in Resources */,
 				F4E4B0131F4C2AB10086427E /* flag_cy.png in Resources */,
-				F4A6F6831E7B4E9100FB8DD0 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib in Resources */,
+				F499222D229B3307001E24D3 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib in Resources */,
 				F45C1F6A1E8071C1009FCD63 /* AdvancedOptions.plist in Resources */,
 				F4FE99C21F293D1800BCB60F /* XML_File_32@2x.png in Resources */,
 				F47602AF1E2C370E0029ADFA /* FileExtensions.strings in Resources */,
@@ -5252,6 +5324,7 @@
 			children = (
 				F402BA951F54CC500028B43D /* en */,
 				F402BA971F54CC520028B43D /* fr */,
+				F4584D42227DC1810052F959 /* es */,
 			);
 			name = PKGPayloadFilesSelectionInspectorViewController.xib;
 			path = app_packages;
@@ -5262,6 +5335,7 @@
 			children = (
 				F402BA991F54CCB80028B43D /* en */,
 				F402BA9B1F54CCBA0028B43D /* fr */,
+				F4584D39227DC1810052F959 /* es */,
 			);
 			name = PKGDistributionRequirementPanel.xib;
 			path = app_packages;
@@ -5272,6 +5346,7 @@
 			children = (
 				F402BA9F1F54CD730028B43D /* en */,
 				F402BAA11F54CD770028B43D /* fr */,
+				F4584D23227DC1800052F959 /* es */,
 			);
 			name = PKGDistributionProjectSettingsViewController.xib;
 			path = app_packages;
@@ -5282,6 +5357,7 @@
 			children = (
 				F402BAA41F54CE150028B43D /* en */,
 				F402BAA61F54CE170028B43D /* fr */,
+				F4584D49227DC1820052F959 /* es */,
 			);
 			name = PKGOwnershipAndReferenceStylePanel.xib;
 			path = app_packages;
@@ -5292,6 +5368,7 @@
 			children = (
 				F402BAA81F54CE2E0028B43D /* en */,
 				F402BAAA1F54CE300028B43D /* fr */,
+				F4584D4A227DC1820052F959 /* es */,
 			);
 			name = PKGLocatorPanel.xib;
 			path = app_packages;
@@ -5302,6 +5379,7 @@
 			children = (
 				F402BAAC1F54CFF40028B43D /* en */,
 				F402BAAE1F54CFF70028B43D /* fr */,
+				F4584D3B227DC1810052F959 /* es */,
 			);
 			name = PKGDistributionRequirementsAndResourcesViewController.xib;
 			path = app_packages;
@@ -5312,6 +5390,7 @@
 			children = (
 				F402BAB01F54D02C0028B43D /* en */,
 				F402BAB21F54D02E0028B43D /* fr */,
+				F4584D3A227DC1810052F959 /* es */,
 			);
 			name = PKGDistributionRequirementsViewController.xib;
 			path = app_packages;
@@ -5322,6 +5401,7 @@
 			children = (
 				F405AA4F1DCFB4DF006A9B11 /* en */,
 				F499C6831F3D0925006B5ABD /* fr */,
+				F4584D18227DC1800052F959 /* es */,
 			);
 			name = PKGPreferencePaneTemplatesViewController.xib;
 			sourceTree = "<group>";
@@ -5331,6 +5411,7 @@
 			children = (
 				F41791D21F1545DF00AC5AEA /* en */,
 				F41791DC1F1545E500AC5AEA /* fr */,
+				F4584D1F227DC1800052F959 /* es */,
 			);
 			name = PKGPayloadExclusionsViewController.xib;
 			path = app_packages;
@@ -5341,6 +5422,7 @@
 			children = (
 				F424D3381DCE3DD000F95165 /* en */,
 				F4B1ECED1F4F5F0800D8027D /* fr */,
+				F4584D47227DC1810052F959 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -5350,6 +5432,7 @@
 			children = (
 				F424D33B1DCE3DDF00F95165 /* en */,
 				F499C6771F3D0861006B5ABD /* fr */,
+				F4584D46227DC1810052F959 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -5359,6 +5442,7 @@
 			children = (
 				F424D3811DCE406C00F95165 /* en */,
 				F4B8A4E71F39046F00A9A8B8 /* fr */,
+				F4584D48227DC1810052F959 /* es */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -5368,6 +5452,7 @@
 			children = (
 				F42B4E6F1E512C010048D47D /* en */,
 				F402BA861F54C2E80028B43D /* fr */,
+				F4584D0C227DC17F0052F959 /* es */,
 			);
 			name = PKGScriptViewController.xib;
 			path = app_packages;
@@ -5378,6 +5463,7 @@
 			children = (
 				F42B4E7B1E512C0B0048D47D /* en */,
 				F402BA8F1F54C3560028B43D /* fr */,
+				F4584D0E227DC17F0052F959 /* es */,
 			);
 			name = PKGFilesSelectionInspectorViewController.xib;
 			path = app_packages;
@@ -5388,6 +5474,7 @@
 			children = (
 				F42B4E7E1E512C180048D47D /* en */,
 				F4591BB71F538C0D0030E423 /* fr */,
+				F4584D10227DC17F0052F959 /* es */,
 			);
 			name = PKGOwnershipAndReferenceStyleViewController.xib;
 			path = app_packages;
@@ -5398,6 +5485,7 @@
 			children = (
 				F42B4E811E512C240048D47D /* en */,
 				F402BA931F54CC470028B43D /* fr */,
+				F4584D43227DC1810052F959 /* es */,
 			);
 			name = PKGPayloadFilesSelectionInspectorAttributesViewController.xib;
 			path = app_packages;
@@ -5408,6 +5496,7 @@
 			children = (
 				F42B4E841E512C290048D47D /* en */,
 				F402BA921F54CC180028B43D /* fr */,
+				F4584D44227DC1810052F959 /* es */,
 			);
 			name = PKGPayloadFilesSelectionInspectorRulesViewController.xib;
 			path = app_packages;
@@ -5418,6 +5507,7 @@
 			children = (
 				F42B4E871E512C310048D47D /* en */,
 				F402BA911F54CBF90028B43D /* fr */,
+				F4584D45227DC1810052F959 /* es */,
 			);
 			name = PKGBundleScriptViewController.xib;
 			path = app_packages;
@@ -5428,6 +5518,7 @@
 			children = (
 				F42B4E8A1E512C370048D47D /* en */,
 				F49F18911F473558006FA5C1 /* fr */,
+				F4584D41227DC1810052F959 /* es */,
 			);
 			name = PKGPackagePayloadViewController.xib;
 			path = app_packages;
@@ -5438,6 +5529,7 @@
 			children = (
 				F452C9791DCFAAE1002B7CBC /* en */,
 				F4E232E31F11839C00CCEF40 /* fr */,
+				F4584D19227DC1800052F959 /* es */,
 			);
 			name = PKGPreferencePaneAdvancedViewController.xib;
 			sourceTree = "<group>";
@@ -5447,6 +5539,7 @@
 			children = (
 				F452C97C1DCFAE53002B7CBC /* en */,
 				F499C6811F3D0916006B5ABD /* fr */,
+				F4584D15227DC17F0052F959 /* es */,
 			);
 			name = PKGPreferencePaneGeneralViewController.xib;
 			sourceTree = "<group>";
@@ -5456,6 +5549,7 @@
 			children = (
 				F45727931DD13BA3005883C2 /* en */,
 				F499C6821F3D091F006B5ABD /* fr */,
+				F4584D17227DC1800052F959 /* es */,
 			);
 			name = PKGPreferencePaneBuildViewController.xib;
 			sourceTree = "<group>";
@@ -5465,6 +5559,7 @@
 			children = (
 				F4591BC11F538CAA0030E423 /* en */,
 				F4591BC31F538CAD0030E423 /* fr */,
+				F4584D0D227DC17F0052F959 /* es */,
 			);
 			name = PKGFilesSelectionInspectorAttributesViewController.xib;
 			path = app_packages;
@@ -5475,6 +5570,7 @@
 			children = (
 				F4591BC51F538D1A0030E423 /* en */,
 				F4591BC71F538D1D0030E423 /* fr */,
+				F4584D20227DC1800052F959 /* es */,
 			);
 			name = PKGPackageProjectSettingsViewController.xib;
 			path = app_packages;
@@ -5485,6 +5581,7 @@
 			children = (
 				F4591BC91F538E080030E423 /* en */,
 				F4591BCB1F538E0D0030E423 /* fr */,
+				F4584D3E227DC1810052F959 /* es */,
 			);
 			name = PKGPackageSettingsViewController.xib;
 			path = app_packages;
@@ -5495,6 +5592,7 @@
 			children = (
 				F4591BCD1F538EB10030E423 /* en */,
 				F4591BCF1F538EB30030E423 /* fr */,
+				F4584D0F227DC17F0052F959 /* es */,
 			);
 			name = PKGFilesHierarchyViewController.xib;
 			path = app_packages;
@@ -5505,6 +5603,7 @@
 			children = (
 				F45E7E581F101F54005641CD /* en */,
 				F45E7E5A1F101F61005641CD /* fr */,
+				F4584D13227DC17F0052F959 /* es */,
 			);
 			name = PKGAboutBoxWindowController.xib;
 			path = app_packages;
@@ -5515,6 +5614,7 @@
 			children = (
 				F45E7E5C1F1022C9005641CD /* en */,
 				F45E7E5E1F1022CB005641CD /* fr */,
+				F4584D14227DC17F0052F959 /* es */,
 			);
 			name = PKGPreferencesWindowController.xib;
 			path = app_packages;
@@ -5525,6 +5625,7 @@
 			children = (
 				F46B5C461F2A80E700FE0A1A /* en */,
 				F4D4E5151F75AE88004411E3 /* fr */,
+				F4584D12227DC17F0052F959 /* es */,
 			);
 			name = Build.strings;
 			sourceTree = "<group>";
@@ -5534,6 +5635,7 @@
 			children = (
 				F47602AE1E2C370E0029ADFA /* en */,
 				F4D4E5261F75B239004411E3 /* fr */,
+				F4584D11227DC17F0052F959 /* es */,
 			);
 			name = FileExtensions.strings;
 			sourceTree = "<group>";
@@ -5543,6 +5645,7 @@
 			children = (
 				F47AA5A01DD2992A005AFC1D /* en */,
 				F499C6801F3D08FF006B5ABD /* fr */,
+				F4584D16227DC1800052F959 /* es */,
 			);
 			name = PKGPreferencePaneFilesViewController.xib;
 			sourceTree = "<group>";
@@ -5552,6 +5655,7 @@
 			children = (
 				F484FC2B1F1577D9008ABF71 /* en */,
 				F484FC351F1577DD008ABF71 /* fr */,
+				F4584D1E227DC1800052F959 /* es */,
 			);
 			name = PKGCertificateSealWindowController.xib;
 			path = app_packages;
@@ -5562,6 +5666,7 @@
 			children = (
 				F48ACCF61E7A04B300749142 /* en */,
 				F402BA9C1F54CCFA0028B43D /* fr */,
+				F4584D3D227DC1810052F959 /* es */,
 			);
 			name = PKGDistributionVolumeRequirementBehaviorViewController.xib;
 			sourceTree = "<group>";
@@ -5571,6 +5676,7 @@
 			children = (
 				F48AF7861F745C7E00610536 /* en */,
 				F48AF7881F745C8100610536 /* fr */,
+				F4584D24227DC1800052F959 /* es */,
 			);
 			name = PKGPresentationChoiceRequirementBehaviorViewController.xib;
 			path = app_packages;
@@ -5581,8 +5687,20 @@
 			children = (
 				F48EC1511F0EE95F002BB1D6 /* en */,
 				F48EC15B1F0EE964002BB1D6 /* fr */,
+				F4584D1A227DC1800052F959 /* es */,
 			);
 			name = Preferences.strings;
+			sourceTree = "<group>";
+		};
+		F499222F229B3307001E24D3 /* PKGDistributionProjectSettingsAdvancedOptionsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F499222E229B3307001E24D3 /* en */,
+				F4992238229B330C001E24D3 /* fr */,
+				F4992239229B330D001E24D3 /* es */,
+			);
+			name = PKGDistributionProjectSettingsAdvancedOptionsViewController.xib;
+			path = app_packages;
 			sourceTree = "<group>";
 		};
 		F499A3B31EE9F00F00AB5AE9 /* Presentation.strings */ = {
@@ -5590,6 +5708,7 @@
 			children = (
 				F499A3B41EE9F00F00AB5AE9 /* en */,
 				F499A3BE1EE9F62100AB5AE9 /* fr */,
+				F4584D2D227DC1800052F959 /* es */,
 			);
 			name = Presentation.strings;
 			sourceTree = "<group>";
@@ -5599,6 +5718,7 @@
 			children = (
 				F499DA8B1F71D38D0003E31A /* en */,
 				F499DA951F71D3900003E31A /* fr */,
+				F4584D32227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationInstallationTypeSingleSelectionViewController.xib;
 			path = app_packages;
@@ -5609,6 +5729,7 @@
 			children = (
 				F499DA971F71D3E00003E31A /* en */,
 				F499DA991F71D3E20003E31A /* fr */,
+				F4584D33227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationInstallationTypeChoiceAttributesViewController.xib;
 			path = app_packages;
@@ -5619,6 +5740,7 @@
 			children = (
 				F499DA9B1F71D4960003E31A /* en */,
 				F499DA9D1F71D4970003E31A /* fr */,
+				F4584D35227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationInstallationTypeChoiceRequirementsViewController.xib;
 			path = app_packages;
@@ -5629,6 +5751,7 @@
 			children = (
 				F499DA9F1F71D4D50003E31A /* en */,
 				F499DAA11F71D4D80003E31A /* fr */,
+				F4584D34227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationInstallationTypeChoiceDependenciesViewController.xib;
 			path = app_packages;
@@ -5639,6 +5762,7 @@
 			children = (
 				F49A89671FB8A125002173C0 /* en */,
 				F49A89711FB8A128002173C0 /* fr */,
+				F4584D3F227DC1810052F959 /* es */,
 			);
 			name = PKGMustCloseApplicationItemsPanel.xib;
 			path = app_packages;
@@ -5649,6 +5773,7 @@
 			children = (
 				F49D02581E68D14D00F1BB55 /* en */,
 				F402BA901F54C8280028B43D /* fr */,
+				F4584D40227DC1810052F959 /* es */,
 			);
 			name = PKGPackageComponentSettingsViewController.xib;
 			sourceTree = "<group>";
@@ -5658,6 +5783,7 @@
 			children = (
 				F49DCBAE1DD9317E0064C738 /* en */,
 				F4C4E0801F17EB7900E95E3D /* fr */,
+				F4584D1B227DC1800052F959 /* es */,
 			);
 			name = PKGProjectTemplateAssistantController.xib;
 			sourceTree = "<group>";
@@ -5667,6 +5793,7 @@
 			children = (
 				F4AB919F1F46F74B00BEB1E5 /* en */,
 				F4AB923C1F46F89A00BEB1E5 /* fr */,
+				F4584D26227DC1800052F959 /* es */,
 			);
 			name = AbsoluteSmallPullDownUbuntu.png;
 			sourceTree = "<group>";
@@ -5676,6 +5803,7 @@
 			children = (
 				F4AB91A11F46F74B00BEB1E5 /* en */,
 				F4AB923D1F46F89D00BEB1E5 /* fr */,
+				F4584D27227DC1800052F959 /* es */,
 			);
 			name = "AbsoluteSmallPullDownUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5685,6 +5813,7 @@
 			children = (
 				F4AB91AD1F46F75800BEB1E5 /* en */,
 				F4BA33281F472E7B0065DF35 /* fr */,
+				F4584D28227DC1800052F959 /* es */,
 			);
 			name = ReferenceFolderSmallPullDownUbuntu.png;
 			sourceTree = "<group>";
@@ -5694,6 +5823,7 @@
 			children = (
 				F4AB91AF1F46F75800BEB1E5 /* en */,
 				F4BA33271F472E790065DF35 /* fr */,
+				F4584D29227DC1800052F959 /* es */,
 			);
 			name = "ReferenceFolderSmallPullDownUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5703,6 +5833,7 @@
 			children = (
 				F4AB91B31F46F76100BEB1E5 /* en */,
 				F4AB923E1F46F8A100BEB1E5 /* fr */,
+				F4584D2A227DC1800052F959 /* es */,
 			);
 			name = RelativeSmallPullDownUbuntu.png;
 			sourceTree = "<group>";
@@ -5712,6 +5843,7 @@
 			children = (
 				F4AB91B51F46F76100BEB1E5 /* en */,
 				F4AB923F1F46F8A400BEB1E5 /* fr */,
+				F4584D2B227DC1800052F959 /* es */,
 			);
 			name = "RelativeSmallPullDownUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5721,6 +5853,7 @@
 			children = (
 				F4AB91B91F46F77200BEB1E5 /* en */,
 				F4AB92301F46F86A00BEB1E5 /* fr */,
+				F4584CFA227DC17F0052F959 /* es */,
 			);
 			name = AbsoluteRegularUbuntu.png;
 			sourceTree = "<group>";
@@ -5730,6 +5863,7 @@
 			children = (
 				F4AB91BB1F46F77200BEB1E5 /* en */,
 				F4AB92311F46F86E00BEB1E5 /* fr */,
+				F4584CFB227DC17F0052F959 /* es */,
 			);
 			name = "AbsoluteRegularUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5739,6 +5873,7 @@
 			children = (
 				F4AB91BF1F46F77A00BEB1E5 /* en */,
 				F4AB92321F46F87100BEB1E5 /* fr */,
+				F4584CFC227DC17F0052F959 /* es */,
 			);
 			name = AbsoluteSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5748,6 +5883,7 @@
 			children = (
 				F4AB91C11F46F77A00BEB1E5 /* en */,
 				F4AB92331F46F87400BEB1E5 /* fr */,
+				F4584CFD227DC17F0052F959 /* es */,
 			);
 			name = "AbsoluteSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5757,6 +5893,7 @@
 			children = (
 				F4AB91C51F46F78000BEB1E5 /* en */,
 				F4AB92341F46F87700BEB1E5 /* fr */,
+				F4584CFE227DC17F0052F959 /* es */,
 			);
 			name = AbsoluteSquareSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5766,6 +5903,7 @@
 			children = (
 				F4AB91C71F46F78000BEB1E5 /* en */,
 				F4AB92351F46F87A00BEB1E5 /* fr */,
+				F4584CFF227DC17F0052F959 /* es */,
 			);
 			name = "AbsoluteSquareSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5775,6 +5913,7 @@
 			children = (
 				F4AB91CB1F46F78C00BEB1E5 /* en */,
 				F4AB92361F46F87E00BEB1E5 /* fr */,
+				F4584D00227DC17F0052F959 /* es */,
 			);
 			name = RelativeRegularUbuntu.png;
 			sourceTree = "<group>";
@@ -5784,6 +5923,7 @@
 			children = (
 				F4AB91CD1F46F78C00BEB1E5 /* en */,
 				F4AB92371F46F88100BEB1E5 /* fr */,
+				F4584D01227DC17F0052F959 /* es */,
 			);
 			name = "RelativeRegularUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5793,6 +5933,7 @@
 			children = (
 				F4AB91D11F46F79500BEB1E5 /* en */,
 				F4AB92381F46F88400BEB1E5 /* fr */,
+				F4584D02227DC17F0052F959 /* es */,
 			);
 			name = RelativeSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5802,6 +5943,7 @@
 			children = (
 				F4AB91D31F46F79500BEB1E5 /* en */,
 				F4AB92391F46F88700BEB1E5 /* fr */,
+				F4584D03227DC17F0052F959 /* es */,
 			);
 			name = "RelativeSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5811,6 +5953,7 @@
 			children = (
 				F4AB91D71F46F7A200BEB1E5 /* en */,
 				F4AB923A1F46F88900BEB1E5 /* fr */,
+				F4584D04227DC17F0052F959 /* es */,
 			);
 			name = RelativeSquareSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5820,6 +5963,7 @@
 			children = (
 				F4AB91D91F46F7A200BEB1E5 /* en */,
 				F4AB923B1F46F88D00BEB1E5 /* fr */,
+				F4584D05227DC17F0052F959 /* es */,
 			);
 			name = "RelativeSquareSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5829,6 +5973,7 @@
 			children = (
 				F4AB91DD1F46F7B000BEB1E5 /* en */,
 				F4BA33131F472D570065DF35 /* fr */,
+				F4584D06227DC17F0052F959 /* es */,
 			);
 			name = ReferenceFolderRegularUbuntu.png;
 			sourceTree = "<group>";
@@ -5838,6 +5983,7 @@
 			children = (
 				F4AB91DF1F46F7B000BEB1E5 /* en */,
 				F4BA331C1F472D5A0065DF35 /* fr */,
+				F4584D07227DC17F0052F959 /* es */,
 			);
 			name = "ReferenceFolderRegularUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5847,6 +5993,7 @@
 			children = (
 				F4AB91E31F46F7B900BEB1E5 /* en */,
 				F4BA331F1F472D630065DF35 /* fr */,
+				F4584D0A227DC17F0052F959 /* es */,
 			);
 			name = ReferenceFolderSquareSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5856,6 +6003,7 @@
 			children = (
 				F4AB91E51F46F7B900BEB1E5 /* en */,
 				F4BA33201F472D650065DF35 /* fr */,
+				F4584D0B227DC17F0052F959 /* es */,
 			);
 			name = "ReferenceFolderSquareSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5865,6 +6013,7 @@
 			children = (
 				F4AB91E91F46F7C100BEB1E5 /* en */,
 				F4BA331D1F472D5D0065DF35 /* fr */,
+				F4584D08227DC17F0052F959 /* es */,
 			);
 			name = ReferenceFolderSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5874,6 +6023,7 @@
 			children = (
 				F4AB91EB1F46F7C100BEB1E5 /* en */,
 				F4BA331E1F472D600065DF35 /* fr */,
+				F4584D09227DC17F0052F959 /* es */,
 			);
 			name = "ReferenceFolderSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5883,6 +6033,7 @@
 			children = (
 				F4AB91EF1F46F7D200BEB1E5 /* en */,
 				F4AB92241F46F83700BEB1E5 /* fr */,
+				F4584D4B227DC1820052F959 /* es */,
 			);
 			name = AbsoluteMenuItemUbuntu.png;
 			sourceTree = "<group>";
@@ -5892,6 +6043,7 @@
 			children = (
 				F4AB91F11F46F7D200BEB1E5 /* en */,
 				F4AB92251F46F83B00BEB1E5 /* fr */,
+				F4584D4C227DC1820052F959 /* es */,
 			);
 			name = "AbsoluteMenuItemUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5901,6 +6053,7 @@
 			children = (
 				F4AB91F51F46F7D900BEB1E5 /* en */,
 				F4AB92261F46F83F00BEB1E5 /* fr */,
+				F4584D4D227DC1820052F959 /* es */,
 			);
 			name = AbsoluteMenuItemSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5910,6 +6063,7 @@
 			children = (
 				F4AB91F71F46F7D900BEB1E5 /* en */,
 				F4AB92271F46F84100BEB1E5 /* fr */,
+				F4584CEB227DC17E0052F959 /* es */,
 			);
 			name = "AbsoluteMenuItemSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5919,6 +6073,7 @@
 			children = (
 				F4AB91FB1F46F7E100BEB1E5 /* en */,
 				F4AB922A1F46F85100BEB1E5 /* fr */,
+				F4584CEE227DC17E0052F959 /* es */,
 			);
 			name = RelativeMenuItemSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -5928,6 +6083,7 @@
 			children = (
 				F4AB91FD1F46F7E100BEB1E5 /* en */,
 				F4AB922B1F46F85400BEB1E5 /* fr */,
+				F4584CEF227DC17E0052F959 /* es */,
 			);
 			name = "RelativeMenuItemSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5937,6 +6093,7 @@
 			children = (
 				F4AB92011F46F7E800BEB1E5 /* en */,
 				F4AB92281F46F84B00BEB1E5 /* fr */,
+				F4584CEC227DC17E0052F959 /* es */,
 			);
 			name = RelativeMenuItemUbuntu.png;
 			sourceTree = "<group>";
@@ -5946,6 +6103,7 @@
 			children = (
 				F4AB92031F46F7E800BEB1E5 /* en */,
 				F4AB92291F46F84E00BEB1E5 /* fr */,
+				F4584CED227DC17E0052F959 /* es */,
 			);
 			name = "RelativeMenuItemUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5955,6 +6113,7 @@
 			children = (
 				F4AB92071F46F7F900BEB1E5 /* en */,
 				F4AB922C1F46F85800BEB1E5 /* fr */,
+				F4584CF4227DC17F0052F959 /* es */,
 			);
 			name = AbsoluteRegularTextFieldPulldownUbuntu.png;
 			sourceTree = "<group>";
@@ -5964,6 +6123,7 @@
 			children = (
 				F4AB92091F46F7F900BEB1E5 /* en */,
 				F4AB922D1F46F85C00BEB1E5 /* fr */,
+				F4584CF5227DC17F0052F959 /* es */,
 			);
 			name = "AbsoluteRegularTextFieldPulldownUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5973,6 +6133,7 @@
 			children = (
 				F4AB920D1F46F80200BEB1E5 /* en */,
 				F4BA33241F472D800065DF35 /* fr */,
+				F4584CF8227DC17F0052F959 /* es */,
 			);
 			name = ReferenceFolderRegularTextFieldPulldownUbuntu.png;
 			sourceTree = "<group>";
@@ -5982,6 +6143,7 @@
 			children = (
 				F4AB920F1F46F80200BEB1E5 /* en */,
 				F4BA33231F472D7D0065DF35 /* fr */,
+				F4584CF9227DC17F0052F959 /* es */,
 			);
 			name = "ReferenceFolderRegularTextFieldPulldownUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -5991,6 +6153,7 @@
 			children = (
 				F4AB92131F46F80E00BEB1E5 /* en */,
 				F4AB922F1F46F86200BEB1E5 /* fr */,
+				F4584CF6227DC17F0052F959 /* es */,
 			);
 			name = RelativeRegularTextFieldPulldownUbuntu.png;
 			sourceTree = "<group>";
@@ -6000,6 +6163,7 @@
 			children = (
 				F4AB92151F46F80E00BEB1E5 /* en */,
 				F4AB922E1F46F85F00BEB1E5 /* fr */,
+				F4584CF7227DC17F0052F959 /* es */,
 			);
 			name = "RelativeRegularTextFieldPulldownUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -6009,6 +6173,7 @@
 			children = (
 				F4AB92191F46F81A00BEB1E5 /* en */,
 				F4BA33211F472D740065DF35 /* fr */,
+				F4584CF0227DC17E0052F959 /* es */,
 			);
 			name = ReferenceFolderMenuItemUbuntu.png;
 			sourceTree = "<group>";
@@ -6018,6 +6183,7 @@
 			children = (
 				F4AB921B1F46F81A00BEB1E5 /* en */,
 				F4BA33221F472D790065DF35 /* fr */,
+				F4584CF1227DC17E0052F959 /* es */,
 			);
 			name = "ReferenceFolderMenuItemUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -6027,6 +6193,7 @@
 			children = (
 				F4AB921F1F46F82100BEB1E5 /* en */,
 				F4BA33261F472D860065DF35 /* fr */,
+				F4584CF2227DC17E0052F959 /* es */,
 			);
 			name = ReferenceFolderMenuItemSmallUbuntu.png;
 			sourceTree = "<group>";
@@ -6036,6 +6203,7 @@
 			children = (
 				F4AB92211F46F82100BEB1E5 /* en */,
 				F4BA33251F472D830065DF35 /* fr */,
+				F4584CF3227DC17E0052F959 /* es */,
 			);
 			name = "ReferenceFolderMenuItemSmallUbuntu@2x.png";
 			sourceTree = "<group>";
@@ -6045,6 +6213,7 @@
 			children = (
 				F4B1ECEF1F4F617E00D8027D /* en */,
 				F4B1ECF11F4F618100D8027D /* fr */,
+				F4584D21227DC1800052F959 /* es */,
 			);
 			name = PKGDistributionProjectSourceListController.xib;
 			path = app_packages;
@@ -6055,6 +6224,7 @@
 			children = (
 				F4B2C6311F6F24EA004B3BD5 /* en */,
 				F4B2C63B1F6F24F0004B3BD5 /* fr */,
+				F4584D30227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationSectionInstallationTypeViewController.xib;
 			path = app_packages;
@@ -6065,6 +6235,7 @@
 			children = (
 				F4B2C63D1F6F262D004B3BD5 /* en */,
 				F4B2C63F1F6F2630004B3BD5 /* fr */,
+				F4584D38227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationInstallerPluginInspectorViewController.xib;
 			path = app_packages;
@@ -6075,6 +6246,7 @@
 			children = (
 				F4B4D4741F5768640075DF25 /* en */,
 				F4B4D47E1F5768660075DF25 /* fr */,
+				F4584D31227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationLocalizationsFilePathViewController.xib;
 			path = app_packages;
@@ -6085,6 +6257,7 @@
 			children = (
 				F4B4D4801F5769810075DF25 /* en */,
 				F4B4D4821F5769830075DF25 /* fr */,
+				F4584D2E227DC1800052F959 /* es */,
 			);
 			name = PKGDistributionPresentationViewController.xib;
 			path = app_packages;
@@ -6095,6 +6268,7 @@
 			children = (
 				F4B8A4F11F39067600A9A8B8 /* en */,
 				F4B8A4F31F3907A700A9A8B8 /* fr */,
+				F4584D1D227DC1800052F959 /* es */,
 			);
 			name = ProjectTemplateAssistant.strings;
 			sourceTree = "<group>";
@@ -6104,6 +6278,7 @@
 			children = (
 				F4BC683E1F731B0700363752 /* en */,
 				F4BC68401F731B0B00363752 /* fr */,
+				F4584D25227DC1800052F959 /* es */,
 			);
 			name = PKGPresentationChoiceRequirementPanel.xib;
 			path = app_packages;
@@ -6114,6 +6289,7 @@
 			children = (
 				F4BE13A51F182D41006DD7B6 /* en */,
 				F4BE13A71F182D4A006DD7B6 /* fr */,
+				F4584D2F227DC1800052F959 /* es */,
 			);
 			name = PKGLicenseKeywordsViewController.xib;
 			sourceTree = "<group>";
@@ -6123,6 +6299,7 @@
 			children = (
 				F4C4E08D1F17EB9E00E95E3D /* en */,
 				F4C4E08F1F17EBA600E95E3D /* fr */,
+				F4584D1C227DC1800052F959 /* es */,
 			);
 			name = PKGProjectAssistantFinishViewController.xib;
 			path = app_packages;
@@ -6133,6 +6310,7 @@
 			children = (
 				F4CEE8081E9831B400A0E9A7 /* en */,
 				F4FCAE781F4996B4006BDD17 /* fr */,
+				F4584D2C227DC1800052F959 /* es */,
 			);
 			name = Languages.strings;
 			sourceTree = "<group>";
@@ -6142,6 +6320,7 @@
 			children = (
 				F4D4E5201F75AFA8004411E3 /* en */,
 				F4D4E5221F75AFA9004411E3 /* fr */,
+				F4584D37227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationLicenseInspectorViewController.xib;
 			path = app_packages;
@@ -6152,6 +6331,7 @@
 			children = (
 				F4D8CBD51E75734F00C90896 /* en */,
 				F402BA9D1F54CCFF0028B43D /* fr */,
+				F4584D3C227DC1810052F959 /* es */,
 			);
 			name = PKGDistributionInstallationRequirementBehaviorViewController.xib;
 			sourceTree = "<group>";
@@ -6161,6 +6341,7 @@
 			children = (
 				F4E232F41F118F9800CCEF40 /* en */,
 				F402BAA21F54CDEC0028B43D /* fr */,
+				F4584D22227DC1800052F959 /* es */,
 			);
 			name = PKGAdvancedOptionPanel.xib;
 			sourceTree = "<group>";
@@ -6170,6 +6351,7 @@
 			children = (
 				F4FCAE6D1F4995B6006BDD17 /* en */,
 				F4FCAE771F4995BB006BDD17 /* fr */,
+				F4584D36227DC1810052F959 /* es */,
 			);
 			name = PKGPresentationBackgroundInspectorViewController.xib;
 			path = app_packages;
@@ -6182,7 +6364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 514;
+				CURRENT_PROJECT_VERSION = 531;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6208,7 +6390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 514;
+				CURRENT_PROJECT_VERSION = 531;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
