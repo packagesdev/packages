@@ -254,6 +254,9 @@
 			break;
 	}
 	
+	if (tLocalizations.count==0)
+		return;
+	
 	PKGFilePath * tFilePath=tLocalizations[[[PKGLanguageConverter sharedConverter] englishForNative:inNativeLocalization]];
 	
 	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:tFilePath];
@@ -332,6 +335,8 @@
 	
 	if (tLocalizations.count==0)
 	{
+		_cachedLicenseLocalization=nil;
+		
 		_defaultContentsView.hidden=NO;
 		_licenseView.hidden=YES;
 		
@@ -546,6 +551,8 @@
 - (void)settingsDidChange:(NSNotification *)inNotification
 {
 	[self refreshUIForLocalization:self.localization];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationSectionSelectedSectionLanguageDidChangeNotification object:self.view.window];
 }
 
 @end
