@@ -8,8 +8,8 @@ ReferenceFolderSquareSmallUbuntu@2x              -> Helvetica Neue Regular 22px 
 ReferenceFolderSmallUbuntu                       -> Helvetica Neue Regular 11px strong white
 ReferenceFolderSmallUbuntu@2x                    -> Helvetica Neue Regular 22px strong white
 
-ReferenceFolderSmallUbuntu                       -> Helvetica Neue Regular 11px strong white
-ReferenceFolderSmallUbuntu@2x                    -> Helvetica Neue Regular 22px strong white
+ReferenceFolderSmallPullDownUbuntu                -> Helvetica Neue Regular 11px strong white
+ReferenceFolderSmallPullDownUbuntu@2x             -> Helvetica Neue Regular 22px strong white
 
 ReferenceFolderMenuItemSmallUbuntu               -> Helvetica Neue Regular 11px strong white
 ReferenceFolderMenuItemSmallUbuntu@2x            -> Helvetica Neue Regular 22px strong white
