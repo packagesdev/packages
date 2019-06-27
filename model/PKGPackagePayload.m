@@ -253,7 +253,7 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		
 		
 		if (inRepresentation[PKGPackagePayloadPreserveExtendedAttributesKey]==nil)
-			_preserveExtendedAttributes=YES;
+			_preserveExtendedAttributes=NO;
 		else
 			_preserveExtendedAttributes=[inRepresentation[PKGPackagePayloadPreserveExtendedAttributesKey] boolValue];
 		

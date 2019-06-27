@@ -106,6 +106,8 @@ extern NSString * const PKGBuildDefaultLanguageKey;
 
 	@property NSUInteger temporaryPayloadFolderPathLength;
 
+	@property BOOL preserveExtendedAttributes;
+
 @end
 
 @interface PKGBuildInformation : NSObject

@@ -118,7 +118,7 @@ enum
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.5";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.6";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -210,6 +210,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)buildPackageProjectAtPath:(NSString *) inPath;
 
+- (BOOL)splitForksContentsOfDirectoryAtPath:(NSString *)inDirectoryPath preserveExtendedAttributes:(BOOL)inPreserveExtendedAttributes;
 
 - (BOOL)splitForksContentsOfDirectoryAtPath:(NSString *)inDirectoryPath;
 
@@ -5020,7 +5021,14 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 #pragma mark - Archiving Tasks
 
+
+
 - (BOOL)splitForksContentsOfDirectoryAtPath:(NSString *)inDirectoryPath
+{
+	return [self splitForksContentsOfDirectoryAtPath:inDirectoryPath preserveExtendedAttributes:NO];
+}
+
+- (BOOL)splitForksContentsOfDirectoryAtPath:(NSString *)inDirectoryPath preserveExtendedAttributes:(BOOL)inPreserveExtendedAttributes;
 {
 	if (inDirectoryPath==nil)
 		return NO;
@@ -5032,8 +5040,12 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	NSTask * tTask=[NSTask new];
 	
 	tTask.launchPath=PKGProjectBuilderToolPath_goldin;
-	tTask.arguments=@[inDirectoryPath];
 	
+	if (inPreserveExtendedAttributes==NO)
+		tTask.arguments=@[inDirectoryPath];
+	else
+		tTask.arguments=@[@"-e",inDirectoryPath];
+		
 	NSPipe * tOutputPipe = [NSPipe pipe];
 	
 	tTask.standardOutput=tOutputPipe;
@@ -5265,6 +5277,14 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		}
 		
 		tAttribute=[NSXMLNode attributeWithName:@"postinstall-action" stringValue:tActionString];
+		[tPackageInfoElement addAttribute:tAttribute];
+	}
+	
+	// preserve-xattr
+	
+	if (tPackagePayload.preserveExtendedAttributes==YES)
+	{
+		tAttribute=[NSXMLNode attributeWithName:@"preserve-xattr" stringValue:@"true"];
 		[tPackageInfoElement addAttribute:tAttribute];
 	}
 	
@@ -7309,6 +7329,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 	tBuildPackageAttributes.temporaryPayloadFolderPathLength=[tTemporaryDirectoryPath length];
 	tBuildPackageAttributes.treatMissingPayloadFilesAsWarnings=inPayload.treatMissingPayloadFilesAsWarnings;
+	tBuildPackageAttributes.preserveExtendedAttributes=(inPayload.splitForksIfNeeded==YES && inPayload.preserveExtendedAttributes==YES);
 	
 	// Copy the file hierarchy
 
@@ -7422,7 +7443,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	if (inPayload.splitForksIfNeeded==YES)
 	{
-		if ([self splitForksContentsOfDirectoryAtPath:tTemporaryDirectoryPath]==NO)
+		if ([self splitForksContentsOfDirectoryAtPath:tTemporaryDirectoryPath preserveExtendedAttributes:inPayload.preserveExtendedAttributes]==NO)
 		{
 			// Clean up
 			
@@ -7771,11 +7792,16 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				
 				// Only keep the FinderInfo and ResourceFork extended attributes
 				
-				NSDictionary * tFilteredDictionary=[tExtendedAttributes WB_filteredDictionaryUsingBlock:^BOOL(NSString * bAttributeName,id bObject) {
+				NSDictionary * tFilteredDictionary=tExtendedAttributes;
 				
-					return ([bAttributeName isEqualToString:PKGFileFinderInfoKey]==YES || [bAttributeName isEqualToString:PKGFileResourceForkKey]);
-				
-				}];
+				if (inBuildPackageAttributes.preserveExtendedAttributes==NO)
+				{
+					tFilteredDictionary=[tExtendedAttributes WB_filteredDictionaryUsingBlock:^BOOL(NSString * bAttributeName,id bObject) {
+						
+						return ([bAttributeName isEqualToString:PKGFileFinderInfoKey]==YES || [bAttributeName isEqualToString:PKGFileResourceForkKey]);
+						
+					}];
+				}
 				
 				if ([_fileManager PKG_setExtendedAttributes:tFilteredDictionary ofItemAtPath:tDestinationPath error:&tError]==NO)
 				{
