@@ -19,6 +19,7 @@
 		F450CE94212F5BC700170902 /* NSCollection+DeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F450CE93212F5BC700170902 /* NSCollection+DeepCopy.m */; };
 		F4567B401DA6C570001AB3BB /* PKGLicenseTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4567B3F1DA6C570001AB3BB /* PKGLicenseTemplate.m */; };
 		F45BA0C21D06045500765C10 /* PKGPathComponentPatternsRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */; };
+		F465BD6422DD367300B74E54 /* NSDictionary+MutableDeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F465BD6322DD367300B74E54 /* NSDictionary+MutableDeepCopy.m */; };
 		F46BFC911FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F46BFC901FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m */; };
 		F477CD991F0CCDC60091EFB0 /* PKGForest.m in Sources */ = {isa = PBXBuildFile; fileRef = F477CD981F0CCDC60091EFB0 /* PKGForest.m */; };
 		F4813D111FDF38DA0047055E /* WBVersionsHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = F4813D101FDF38DA0047055E /* WBVersionsHistory.m */; };
@@ -184,6 +185,8 @@
 		F4567B3F1DA6C570001AB3BB /* PKGLicenseTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLicenseTemplate.m; path = ../shared/PKGLicenseTemplate.m; sourceTree = "<group>"; };
 		F45BA0C01D06045500765C10 /* PKGPathComponentPatternsRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPathComponentPatternsRegister.h; path = packages_builder/PKGPathComponentPatternsRegister.h; sourceTree = "<group>"; };
 		F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPathComponentPatternsRegister.m; path = packages_builder/PKGPathComponentPatternsRegister.m; sourceTree = "<group>"; };
+		F465BD5A22DD367300B74E54 /* NSDictionary+MutableDeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+MutableDeepCopy.h"; path = "../Foundation + Extensions/NSDictionary+MutableDeepCopy.h"; sourceTree = "<group>"; };
+		F465BD6322DD367300B74E54 /* NSDictionary+MutableDeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+MutableDeepCopy.m"; path = "../Foundation + Extensions/NSDictionary+MutableDeepCopy.m"; sourceTree = "<group>"; };
 		F46BFC8F1FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGMustCloseApplicationItem.h; path = ../model/PKGMustCloseApplicationItem.h; sourceTree = "<group>"; };
 		F46BFC901FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMustCloseApplicationItem.m; path = ../model/PKGMustCloseApplicationItem.m; sourceTree = "<group>"; };
 		F477CD971F0CCDC60091EFB0 /* PKGForest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGForest.h; path = ../model/PKGForest.h; sourceTree = "<group>"; };
@@ -471,6 +474,8 @@
 			children = (
 				F48C219C1CFCF0A800B5A8CD /* NSArray+WBExtensions.h */,
 				F48C219D1CFCF0A800B5A8CD /* NSArray+WBExtensions.m */,
+				F465BD5A22DD367300B74E54 /* NSDictionary+MutableDeepCopy.h */,
+				F465BD6322DD367300B74E54 /* NSDictionary+MutableDeepCopy.m */,
 				F450CE92212F5BC700170902 /* NSCollection+DeepCopy.h */,
 				F450CE93212F5BC700170902 /* NSCollection+DeepCopy.m */,
 				F48C219E1CFCF0A800B5A8CD /* NSDictionary+WBExtensions.h */,
@@ -825,6 +830,7 @@
 				F48C21911CFCF05500B5A8CD /* PKGPresentationSection.m in Sources */,
 				F48C21AA1CFCF47000B5A8CD /* PKGRequirementConverter.m in Sources */,
 				F48C21841CFCF05500B5A8CD /* PKGPackagePayload.m in Sources */,
+				F465BD6422DD367300B74E54 /* NSDictionary+MutableDeepCopy.m in Sources */,
 				F48C217D1CFCF05500B5A8CD /* PKGDistributionProjectSettings.m in Sources */,
 				F4D112B91D6CFE9C0028F627 /* NSIndexPath+Packages.m in Sources */,
 				F48C218A1CFCF05500B5A8CD /* PKGPayloadBundleItem.m in Sources */,
@@ -916,7 +922,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 536;
+				CURRENT_PROJECT_VERSION = 537;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -948,7 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 536;
+				CURRENT_PROJECT_VERSION = 537;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;

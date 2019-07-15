@@ -83,6 +83,8 @@ NSString * const PKGDistributionPresentationInspectedItem=@"ui.project.presentat
 
 NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whitebox.packages.internal.distribution.presentation.sections";
 
+NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project.presentation.appearance-switch.show";
+
 #define PKGDistributionPresentationInspectorEnlargementWidth 170.0
 
 @interface PKGDistributionPresentationViewController () <PKGPresentationImageViewDelegate,PKGPresentationListViewDataSource,PKGPresentationListViewDelegate>
@@ -197,6 +199,13 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 
 @implementation PKGDistributionPresentationViewController
 
++ (void)initialize
+{
+	NSUserDefaults * tUserDefaults=[NSUserDefaults standardUserDefaults];
+	
+	[tUserDefaults registerDefaults:@{PKGDistributionPresentationShowAppearanceSwitchKey:@(NO)}];
+}
+
 - (instancetype)initWithNibName:(NSString *)inNibName bundle:(NSBundle *)inBundle
 {
 	self=[super initWithNibName:inNibName bundle:inBundle];
@@ -237,7 +246,7 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 	
 	// Mode
 	
-	//if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+	if (NSAppKitVersionNumber<NSAppKitVersionNumber10_14 || [[NSUserDefaults standardUserDefaults] boolForKey:PKGDistributionPresentationShowAppearanceSwitchKey]==NO)
 	{
 		_appearancePreviewBox.hidden=YES;
 	}
@@ -579,17 +588,20 @@ NSString * const PKGDistributionPresentationSectionsInternalPboardType=@"fr.whit
 		
 		tNumber=self.documentRegistry[PKGDistributionPresentationInspectedItem];
 		
-		PKGPresentationInspectorItemTag * tItemTag=(tNumber!=nil) ? [tNumber integerValue] : PKGPresentationInspectorItemIntroduction;
+		if (tNumber!=nil)
+		{
+			PKGPresentationInspectorItemTag * tItemTag=[tNumber integerValue];
 		
-		[_inspectorPopUpButton selectItemWithTag:tItemTag];
+			[_inspectorPopUpButton selectItemWithTag:tItemTag];
 		
-		// Show Inspected View
+			// Show Inspected View
 		
-		[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tItemTag]];
+			[self showViewForInspectorItem:[PKGPresentationInspectorItem inspectorItemForTag:tItemTag]];
+		}
 		
 		// Show the Section view
 		
-		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:@{}]];
+		[self presentationListViewSelectionDidChange:[NSNotification notificationWithName:PKGPresentationListViewSelectionDidChangeNotification object:_listView userInfo:(tNumber==nil) ? nil : @{}]];
 		
 		// Language PopUpButton
 		
