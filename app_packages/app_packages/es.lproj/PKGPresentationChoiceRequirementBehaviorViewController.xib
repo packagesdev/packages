@@ -33,18 +33,18 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="oQi-Lm-uMz">
-                    <rect key="frame" x="17" y="212" width="220" height="17"/>
+                    <rect key="frame" x="17" y="212" width="235" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="When this requirement is not met:" id="EYe-7O-TIC">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Cuando este requisito no se cumple:" id="EYe-7O-TIC">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="Hqe-ni-SXB">
-                    <rect key="frame" x="471" y="27" width="134" height="11"/>
+                    <rect key="frame" x="452" y="27" width="153" height="11"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Use ⌥↩ for line breaks" id="p7p-c7-rlS">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Utilizar ⌥↩ para saltos de línea" id="p7p-c7-rlS">
                         <font key="font" metaFont="miniSystem"/>
                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -172,7 +172,7 @@
                 <button id="mMS-tp-LdW">
                     <rect key="frame" x="30" y="183" width="152" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Hide this choice" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="xXi-6F-hO0">
+                    <buttonCell key="cell" type="radio" title="Ocultar esta opción" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="xXi-6F-hO0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -181,9 +181,9 @@
                     </connections>
                 </button>
                 <button tag="1" id="5C9-bD-kks">
-                    <rect key="frame" x="30" y="161" width="500" height="18"/>
+                    <rect key="frame" x="30" y="161" width="544" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Make this choice unselectable and show the following message in its tooltip:" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="81y-Nh-zHx">
+                    <buttonCell key="cell" type="radio" title="Desactivar esta opción y mostrar el siguiente mensaje en la descripción emergente:" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="81y-Nh-zHx">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

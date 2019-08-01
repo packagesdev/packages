@@ -75,7 +75,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="fcW-bt-mZS">
-                                    <rect key="frame" x="28" y="48" width="170" height="17"/>
+                                    <rect key="frame" x="23" y="48" width="175" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Opciones de construcción:" id="E0a-ML-y5u">
                                         <font key="font" metaFont="system"/>
@@ -84,7 +84,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button id="DoL-Mn-EmK">
-                                    <rect key="frame" x="202" y="46" width="196" height="18"/>
+                                    <rect key="frame" x="202" y="46" width="203" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Dividar forks si es necesario" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="v66-oN-RtA">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -95,7 +95,7 @@
                                     </connections>
                                 </button>
                                 <button id="6WN-V6-BPF">
-                                    <rect key="frame" x="215" y="26" width="211" height="18"/>
+                                    <rect key="frame" x="215" y="26" width="219" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Preservar atributos extendidos" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="o1f-wO-WJH">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -106,9 +106,9 @@
                                     </connections>
                                 </button>
                                 <button id="v5T-LP-idW">
-                                    <rect key="frame" x="202" y="6" width="385" height="18"/>
+                                    <rect key="frame" x="202" y="6" width="388" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Trate los archivos ausentados como simples advertencias" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3dq-7m-cDI">
+                                    <buttonCell key="cell" type="check" title="Tratar los archivos ausentados como simples advertencias" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="3dq-7m-cDI">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>

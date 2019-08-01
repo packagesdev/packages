@@ -83,7 +83,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button id="zhk-5N-WbZ">
-                                    <rect key="frame" x="200" y="46" width="210" height="18"/>
+                                    <rect key="frame" x="200" y="46" width="217" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Séparer les forks si nécessaire" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="g7i-rF-LbH">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

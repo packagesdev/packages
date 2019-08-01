@@ -84,7 +84,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button id="DoL-Mn-EmK">
-                                    <rect key="frame" x="172" y="46" width="153" height="18"/>
+                                    <rect key="frame" x="172" y="46" width="159" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Split Forks if needed" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="v66-oN-RtA">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -95,7 +95,7 @@
                                     </connections>
                                 </button>
                                 <button id="6WN-V6-BPF">
-                                    <rect key="frame" x="185" y="26" width="200" height="18"/>
+                                    <rect key="frame" x="185" y="26" width="208" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="check" title="Preserve extended attributes" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="o1f-wO-WJH">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

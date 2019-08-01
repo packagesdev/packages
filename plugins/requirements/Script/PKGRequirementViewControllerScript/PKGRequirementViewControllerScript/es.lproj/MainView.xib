@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
@@ -61,7 +60,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="86">
-                    <rect key="frame" x="41" y="22" width="107" height="17"/>
+                    <rect key="frame" x="30" y="22" width="118" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Valor de retorno:" id="144">
                         <font key="font" metaFont="system"/>
@@ -92,7 +91,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="79">
-                    <rect key="frame" x="61" y="174" width="87" height="17"/>
+                    <rect key="frame" x="58" y="174" width="90" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Argumentos:" id="141">
                         <font key="font" metaFont="system"/>
@@ -136,7 +135,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="63">
-                    <rect key="frame" x="18" y="227" width="130" height="17"/>
+                    <rect key="frame" x="7" y="227" width="141" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Script para ejecutar:" id="138">
                         <font key="font" metaFont="system"/>
@@ -145,7 +144,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="59">
-                    <rect key="frame" x="151" y="204" width="190" height="18"/>
+                    <rect key="frame" x="151" y="204" width="195" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Insertar script en la distribución" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="137">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -176,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="15" viewBased="YES" floatsGroupRows="NO" id="83B-wE-E64" customClass="PKGTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="468" height="102"/>
+                                <rect key="frame" x="0.0" y="0.0" width="468" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

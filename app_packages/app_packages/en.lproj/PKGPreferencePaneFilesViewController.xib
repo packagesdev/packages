@@ -125,7 +125,7 @@
 					<object class="NSButton" id="442225771">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{202, 119}, {80, 18}}</string>
+						<string key="NSFrame">{{202, 119}, {85, 18}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="430225454"/>
@@ -173,7 +173,7 @@
 					<object class="NSTextField" id="863477063">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{115, 20}, {84, 17}}</string>
+						<string key="NSFrame">{{109, 20}, {90, 17}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="597642818"/>
@@ -549,7 +549,7 @@
 				<string key="108.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="109.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="20.IBNSViewMetadataGestureRecognizers" ref="0"/>
-				<string key="20.IBPersistedLastKnownCanvasPosition">{595, 530.5}</string>
+				<string key="20.IBPersistedLastKnownCanvasPosition">{594.5, 530.5}</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="67.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="68.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

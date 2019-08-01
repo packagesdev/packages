@@ -100,7 +100,7 @@
 					<object class="NSTextField" id="514821350">
 						<reference key="NSNextResponder" ref="759121198"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{47, 93}, {354, 14}}</string>
+						<string key="NSFrame">{{47, 93}, {357, 14}}</string>
 						<reference key="NSSuperview" ref="759121198"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="879883361"/>
@@ -140,7 +140,7 @@
 					<object class="NSTextField" id="534661635">
 						<reference key="NSNextResponder" ref="759121198"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{17, 148}, {191, 17}}</string>
+						<string key="NSFrame">{{17, 148}, {198, 17}}</string>
 						<reference key="NSSuperview" ref="759121198"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="2122590"/>

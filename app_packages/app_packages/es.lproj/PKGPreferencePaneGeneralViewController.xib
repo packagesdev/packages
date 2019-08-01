@@ -434,7 +434,7 @@
 					<object class="NSTextField" id="48067390">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{90, 249}, {208, 17}}</string>
+						<string key="NSFrame">{{86, 249}, {212, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="218781817"/>

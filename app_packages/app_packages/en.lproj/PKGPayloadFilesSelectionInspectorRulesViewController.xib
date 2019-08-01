@@ -53,7 +53,7 @@
                     </textFieldCell>
                 </textField>
                 <button id="ufl-Qi-HWd">
-                    <rect key="frame" x="36" y="211" width="116" height="18"/>
+                    <rect key="frame" x="36" y="211" width="117" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Allow downgrade" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Nq6-1H-MuJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

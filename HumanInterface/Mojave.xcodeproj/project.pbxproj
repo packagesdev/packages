@@ -80,6 +80,7 @@
 		F4AF73E02124407D003AEEA9 /* Aqua.Active.06.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73BB2124407D003AEEA9 /* Aqua.Active.06.png */; };
 		F4AF73E12124407D003AEEA9 /* Aqua.Active.07.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73BC2124407D003AEEA9 /* Aqua.Active.07.png */; };
 		F4AF73E22124407D003AEEA9 /* Aqua.Active.08.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AF73BD2124407D003AEEA9 /* Aqua.Active.08.png */; };
+		F4BE361C21E7FF9300949C76 /* Aqua.LockButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BE361B21E7FF9300949C76 /* Aqua.LockButton@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +159,7 @@
 		F4AF73BB2124407D003AEEA9 /* Aqua.Active.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.06.png; sourceTree = "<group>"; };
 		F4AF73BC2124407D003AEEA9 /* Aqua.Active.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.07.png; sourceTree = "<group>"; };
 		F4AF73BD2124407D003AEEA9 /* Aqua.Active.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.08.png; sourceTree = "<group>"; };
+		F4BE361B21E7FF9300949C76 /* Aqua.LockButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.LockButton@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +282,7 @@
 				F43C66CC21217B3D00FD8D80 /* DarkAqua.Inactive.07@2x.png */,
 				F43C66CD21217B3D00FD8D80 /* DarkAqua.Inactive.08@2x.png */,
 				F4A649092126E4A400A2CCE8 /* Aqua.LockButton.png */,
+				F4BE361B21E7FF9300949C76 /* Aqua.LockButton@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				F43C66E721217B3D00FD8D80 /* DarkAqua.Active.07@2x.png in Resources */,
 				F43C66F121217B3D00FD8D80 /* DarkAqua.Inactive.08@2x.png in Resources */,
 				F43C66D521217B3D00FD8D80 /* Aqua.Active.07@2x.png in Resources */,
+				F4BE361C21E7FF9300949C76 /* Aqua.LockButton@2x.png in Resources */,
 				F43C66E921217B3D00FD8D80 /* DarkAqua.Inactive.00@2x.png in Resources */,
 				F4AF73CB2124407D003AEEA9 /* DarkAqua.Active.03.png in Resources */,
 				F4AF73D22124407D003AEEA9 /* Aqua.Inactive.01.png in Resources */,

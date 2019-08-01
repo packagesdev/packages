@@ -648,7 +648,7 @@
                                     <action selector="sendFeedback:" target="212" id="484"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Packages on the web" id="444">
+                            <menuItem title="Packages en la red" id="444">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showPackagesWebSite:" target="212" id="447"/>

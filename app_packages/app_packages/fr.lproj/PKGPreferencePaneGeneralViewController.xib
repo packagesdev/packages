@@ -41,10 +41,9 @@
 					<object class="NSTextField" id="911881661">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{77, 220}, {195, 17}}</string>
+						<string key="NSFrame">{{73, 220}, {199, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="218069372">
 							<int key="NSCellFlags">67108864</int>
@@ -84,7 +83,6 @@
 						<string key="NSFrame">{{276, 17}, {228, 26}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="1014862884">
 							<int key="NSCellFlags">-2076180416</int>
@@ -192,7 +190,6 @@
 						<string key="NSFrame">{{276, 98}, {228, 26}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="1026646670">
 							<int key="NSCellFlags">-2076180416</int>
@@ -285,7 +282,6 @@
 						<string key="NSFrame">{{43, 135}, {229, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="540998354">
 							<int key="NSCellFlags">67108864</int>
@@ -302,7 +298,7 @@
 					<object class="NSTextField" id="947073289">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{18, 172}, {213, 17}}</string>
+						<string key="NSFrame">{{18, 172}, {221, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="89230599"/>
@@ -326,10 +322,9 @@
 					<object class="NSTextField" id="570160174">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{18, 60}, {206, 17}}</string>
+						<string key="NSFrame">{{18, 60}, {213, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="922753423">
 							<int key="NSCellFlags">67108864</int>
@@ -349,7 +344,6 @@
 						<string key="NSFrame">{{24, 104}, {248, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="686280391">
 							<int key="NSCellFlags">67108864</int>
@@ -439,7 +433,7 @@
 					<object class="NSTextField" id="672487188">
 						<reference key="NSNextResponder" ref="656020473"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{38, 262}, {234, 17}}</string>
+						<string key="NSFrame">{{30, 262}, {242, 17}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
@@ -461,7 +455,6 @@
 						<string key="NSFrame">{{276, 129}, {228, 26}}</string>
 						<reference key="NSSuperview" ref="656020473"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="944905018">
 							<int key="NSCellFlags">-2076180416</int>
@@ -582,7 +575,6 @@
 				<string key="NSFrameSize">{520, 300}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSClassName">PKGControlledView</string>
 				<string key="NSExtension">NSResponder</string>
 			</object>

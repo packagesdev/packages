@@ -55,7 +55,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="mCC-aH-ANP">
-                    <rect key="frame" x="99" y="495" width="54" height="14"/>
+                    <rect key="frame" x="99" y="495" width="56" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Modified:" id="UT6-86-v8w">
                         <font key="font" metaFont="smallSystem"/>
@@ -140,7 +140,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="dyr-Qt-ter">
-                    <rect key="frame" x="64" y="445" width="32" height="14"/>
+                    <rect key="frame" x="60" y="445" width="36" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Kind:" id="kDG-7q-nOY">
                         <font key="font" metaFont="smallSystem"/>
@@ -158,7 +158,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="mr6-YI-gj6">
-                    <rect key="frame" x="34" y="421" width="61" height="14"/>
+                    <rect key="frame" x="28" y="421" width="67" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Reference:" id="Syy-tL-YX6">
                         <font key="font" metaFont="smallSystem"/>
