@@ -118,7 +118,7 @@ enum
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.6";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.7";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -775,11 +775,15 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		return;
 	}
 	
-	// Read the document and launch the building
+	// Read the document (as the user who requested the build) and launch the building
+	
+	PKGStackedEffectiveUserAndGroup * tStackedEffectiveUserAndGroup=[[PKGStackedEffectiveUserAndGroup alloc] initWithUserID:self.userID andGroupID:self.groupID];
 	
 	NSError * tError;
 	
 	self.project=[PKGProject projectWithContentsOfFile:_buildOrder.projectPath error:&tError];
+	
+	tStackedEffectiveUserAndGroup=nil;
 	
 	if (self.project==nil)
 	{
