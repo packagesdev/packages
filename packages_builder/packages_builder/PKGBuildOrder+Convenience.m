@@ -18,6 +18,13 @@
 	return self.externalSettings[PKGBuildOrderExternalSettingsScratchFolderKey];
 }
 
+- (BOOL)embedTimestamp
+{
+	NSNumber * tNumber=self.externalSettings[PKGBuildOrderExternalSettingsEmbedTimestamp];
+	
+	return ([tNumber isKindOfClass:[NSNumber class]]==YES) ? tNumber.boolValue : YES;
+}
+
 - (NSDictionary *)userDefinedSettings
 {
 	return self.externalSettings[PKGBuildOrderExternalSettingsUserDefinedSettingsKey];

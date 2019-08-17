@@ -15,6 +15,19 @@
 
 #import "PKGCertificatesUtilities.h"
 
+/* From
+ 
+   SecCmsBase.h: https://opensource.apple.com/source/libsecurity_smime/libsecurity_smime-24739/lib/SecCmsBase.h.auto.html
+   CMSPrivate.h: https://opensource.apple.com/source/Security/Security-55179.13/libsecurity_cms/lib/CMSPrivate.h.auto.html
+ 
+ */
+
+typedef struct SecCmsMessageStr *SecCmsMessageRef;
+
+extern OSStatus CMSEncoderGetCmsMessage(CMSEncoderRef cmsEncoder,SecCmsMessageRef *cmsMessage);
+extern CFMutableDictionaryRef SecCmsTSAGetDefaultContext(CFErrorRef *error);
+extern void CmsMessageSetTSAContext(CMSEncoderRef cmsEncoder, CFTypeRef tsaContext);
+
 @interface PKGBuildDataSigner ()
 {
 	dispatch_queue_t _signingQueue;
@@ -51,7 +64,14 @@
 
 #pragma mark - PKGSignatureCreatorInterface
 
+
+
 - (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
+{
+	[self createSignatureOfType:inSignatureType forData:inInputData usingIdentity:inIdentityName keychain:inKeychainPath useTSA:NO replyHandler:inReply];
+}
+
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath useTSA:(BOOL)inUseTSA replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
 {
 	if (inReply==nil)
 		return;
@@ -268,6 +288,18 @@
 				return;
 			}
 			
+			if (inUseTSA==YES)
+			{
+				CFMutableDictionaryRef tTSAContextDictionaryRef=SecCmsTSAGetDefaultContext(NULL);
+				
+				SecCmsMessageRef tMessageRef=NULL;
+
+				tStatus=CMSEncoderGetCmsMessage(tEncoderRef, &tMessageRef);
+				
+				if (tMessageRef != NULL)
+					CmsMessageSetTSAContext(tEncoderRef,tTSAContextDictionaryRef);
+			}
+			
 			tStatus=CMSEncoderUpdateContent(tEncoderRef, inInputData.bytes, inInputData.length);
 			
 			if (tStatus!=errSecSuccess)
@@ -289,9 +321,24 @@
 			{
 				CFRelease(tEncoderRef);
 				
-				NSLog(@"CMSEncoderCopyEncodedContent: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+				PKGSignatureStatus tSignatureStatus=PKGSignatureStatusErrorUnknown;
 				
-				inReply(PKGSignatureStatusErrorUnknown,nil);
+				switch(tStatus)
+				{
+					case errSecTimestampServiceNotAvailable:
+						
+						tSignatureStatus=PKGSignatureStatusTimestampServiceNotAvailable;
+						
+						break;
+						
+					default:
+						
+						NSLog(@"CMSEncoderCopyEncodedContent: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+						
+						break;
+				}
+				
+				inReply(tSignatureStatus,nil);
 				
 				return;
 			}

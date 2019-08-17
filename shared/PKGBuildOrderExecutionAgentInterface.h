@@ -24,7 +24,9 @@
 
 - (void)postNotificationStepPath:(NSString *)inStepPathRepresentation state:(PKGBuildStepState)inState userInfo:(NSDictionary *)inUserInfo;
 
-- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
+
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath useTSA:(BOOL)inUseTSA replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
 
 #endif
 

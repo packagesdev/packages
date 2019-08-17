@@ -1270,8 +1270,8 @@
 		F4584D0E227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGFilesSelectionInspectorViewController.xib; sourceTree = "<group>"; };
 		F4584D0F227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGFilesHierarchyViewController.xib; sourceTree = "<group>"; };
 		F4584D10227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGOwnershipAndReferenceStyleViewController.xib; sourceTree = "<group>"; };
-		F4584D11227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/FileExtensions.strings; sourceTree = "<group>"; };
-		F4584D12227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Build.strings; sourceTree = "<group>"; };
+		F4584D11227DC17F0052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/FileExtensions.strings; sourceTree = "<group>"; };
+		F4584D12227DC17F0052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Build.strings; sourceTree = "<group>"; };
 		F4584D13227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGAboutBoxWindowController.xib; sourceTree = "<group>"; };
 		F4584D14227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPreferencesWindowController.xib; sourceTree = "<group>"; };
 		F4584D15227DC17F0052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneGeneralViewController.xib; sourceTree = "<group>"; };
@@ -1279,10 +1279,10 @@
 		F4584D17227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneBuildViewController.xib; sourceTree = "<group>"; };
 		F4584D18227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneTemplatesViewController.xib; sourceTree = "<group>"; };
 		F4584D19227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGPreferencePaneAdvancedViewController.xib; sourceTree = "<group>"; };
-		F4584D1A227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Preferences.strings; sourceTree = "<group>"; };
+		F4584D1A227DC1800052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/Preferences.strings; sourceTree = "<group>"; };
 		F4584D1B227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = app_packages/es.lproj/PKGProjectTemplateAssistantController.xib; sourceTree = "<group>"; };
 		F4584D1C227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGProjectAssistantFinishViewController.xib; sourceTree = "<group>"; };
-		F4584D1D227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/ProjectTemplateAssistant.strings; sourceTree = "<group>"; };
+		F4584D1D227DC1800052F959 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = app_packages/es.lproj/ProjectTemplateAssistant.strings; sourceTree = "<group>"; };
 		F4584D1E227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGCertificateSealWindowController.xib; sourceTree = "<group>"; };
 		F4584D1F227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPayloadExclusionsViewController.xib; sourceTree = "<group>"; };
 		F4584D20227DC1800052F959 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/PKGPackageProjectSettingsViewController.xib; sourceTree = "<group>"; };
@@ -6364,7 +6364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 532;
+				CURRENT_PROJECT_VERSION = 572;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6390,7 +6390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 532;
+				CURRENT_PROJECT_VERSION = 572;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;

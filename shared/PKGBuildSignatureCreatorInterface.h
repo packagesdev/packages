@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2019, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -20,13 +20,17 @@ typedef NS_ENUM(NSUInteger, PKGSignatureStatus)
 	PKGSignatureStatusSuccess,
 	PKGSignatureStatusErrorUnknown,
 	PKGSignatureStatusIdentityNotFound,
-	PKGSignatureStatusKeychainAccessDenied
+	PKGSignatureStatusKeychainAccessDenied,
+	PKGSignatureStatusTimestampServiceNotAvailable
 };
 
 
 
 @protocol PKGBuildSignatureCreatorInterface <NSObject>
 
-- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
+
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath useTSA:(BOOL)inUseTSA replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply;
+
 
 @end

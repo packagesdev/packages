@@ -104,23 +104,28 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 	if (tSignedData==nil)
 		return -1;
 	
-	NSUInteger tDataLength=[tSignedData length];
+	NSUInteger tDataLength=tSignedData.length;
 	
 	if (tSignatureType==PKGSignatureCMS)
 	{
-		if (tDataLength<0x1800)
+		NSUInteger tExpectedLength=0x1800;
+		
+		if ([tArchive.delegate archiveShouldUseTSA:tArchive]==YES)
+			tExpectedLength=0x2400;
+		
+		if (tDataLength<tExpectedLength)
 		{
 			NSMutableData * tMutableData=[tSignedData mutableCopy];
-			tMutableData.length=0x1800;
+			tMutableData.length=tExpectedLength;
 			tSignedData=[tMutableData copy];
 		}
 	}
 	
-	*signed_len=(uint32_t) [tSignedData length];
+	*signed_len=(uint32_t) tSignedData.length;
 	
 	*signed_data = (uint8_t *) malloc(*signed_len);
 	
-	memcpy(*signed_data,[tSignedData bytes], *signed_len);
+	memcpy(*signed_data,tSignedData.bytes, *signed_len);
 	
 	return 0;
 }
@@ -611,6 +616,9 @@ static int32_t PKGArchiveSignatureCallback(xar_signature_t inSignature, void *co
 		// CMS
 		
 		tSignatureSize=0x1800;	// Maximum value (no timestamp)
+		
+		if ([self.delegate archiveShouldUseTSA:self]==YES)
+			tSignatureSize=0x2400;
 		
 		xar_signature_t  tCMSSignature=xar_signature_new_extended(tArchive,"CMS", tSignatureSize,PKGArchiveSignatureCallback,(__bridge void *)self);
 		

@@ -127,6 +127,9 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesQuickBuildSigningAction)
 	@property (readonly) NSArray * buildResultBehaviors;
 
 
+	@property (nonatomic) BOOL embedTimestampInSignature;
+
+
 	@property (nonatomic) PKGPreferencesQuickBuildSigningAction quickBuildSigningAction;
 
 	@property (nonatomic,copy) NSString * quickBuildSigningIdentity;
@@ -136,6 +139,8 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesQuickBuildSigningAction)
 	@property (nonatomic,copy) NSString * failOverFolderForQuickBuild;
 
 	@property (nonatomic,copy) NSString * temporaryBuildLocation;
+
+
 
 	// Templates
 

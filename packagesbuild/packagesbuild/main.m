@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2017, Stephane Sudre
+Copyright (c) 2004-2019, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -37,7 +37,8 @@ void usage(void)
 				  "  --build-folder PATH                    create the build output in this folder\n"
 				  "  --identity NAME                        sign the build output with this identity\n"
 				  "  --keychain PATH                        look for the identity in the keychain at this path\n"
-				  "  --package-version VERSION              set the version of the built raw package project to this value\n\n");
+				  "  --package-version VERSION              set the version of the built raw package project to this value\n"
+				  "  --no-timestamp                         do not include a trusted timestamp in the signature\n\n");
 	
 	exit(1);
 }
@@ -50,6 +51,7 @@ int main(int argc, const char * argv[])
 	{
 		BOOL tVerbose=NO;
 		BOOL tDebug=NO;
+		BOOL tNoTimestamp=NO;
 		char * tCScratchPath=NULL;
 		char * tCReferenceFolder=NULL;
 		
@@ -78,6 +80,8 @@ int main(int argc, const char * argv[])
 				{"keychain",					required_argument,	0,	0},
 				
 				{"package-version",				required_argument,	0,	0},		/* Will only work for Raw Package project */
+				
+				{"no-timestamp",				no_argument,		0,	0},
 
 				{0, 0, 0, 0}
 			};
@@ -93,25 +97,32 @@ int main(int argc, const char * argv[])
 			switch (c)
 			{
 				case 0:
-				
-					if (strncmp(tLongOptions[tOptionIndex].name,"build-folder",strlen("build-folder"))==0)
+				{
+					const char * tOptionName=tLongOptions[tOptionIndex].name;
+					
+					if (strncmp(tOptionName,"build-folder",strlen("build-folder"))==0)
 					{
 						tCBuildFolder=optarg;
 					}
-					else if (strncmp(tLongOptions[tOptionIndex].name,"identity",strlen("identity"))==0)
+					else if (strncmp(tOptionName,"identity",strlen("identity"))==0)
 					{
 						tCIdentity=optarg;
 					}
-					else if (strncmp(tLongOptions[tOptionIndex].name,"keychain",strlen("keychain"))==0)
+					else if (strncmp(tOptionName,"keychain",strlen("keychain"))==0)
 					{
 						tCKeychain=optarg;
 					}
-					else if (strncmp(tLongOptions[tOptionIndex].name,"package-version",strlen("package-version"))==0)
+					else if (strncmp(tOptionName,"package-version",strlen("package-version"))==0)
 					{
 						tCPackageVersion=optarg;
 					}
+					else if (strncmp(tOptionName,"no-timestamp",strlen("no-timestamp"))==0)
+					{
+						tNoTimestamp=YES;
+					}
 					
 					break;
+				}
 					
 				case 'v':
 					
@@ -238,6 +249,8 @@ int main(int argc, const char * argv[])
 		
 		if (tCPackageVersion!=nil)
 			tMutableDictionary[PKGBuildOrderExternalSettingsPackageVersionKey]=[NSString stringWithUTF8String:tCPackageVersion];
+		
+		tMutableDictionary[PKGBuildOrderExternalSettingsEmbedTimestamp]=@(tNoTimestamp==NO);
 		
 		// A COMPLETER (gestion des User Defined Settings)
 		

@@ -399,6 +399,8 @@
 	if (tScratchFolder!=nil)
 		tExternalSettings[PKGBuildOrderExternalSettingsScratchFolderKey]=tScratchFolder;
 	
+	tExternalSettings[PKGBuildOrderExternalSettingsEmbedTimestamp]=@([PKGApplicationPreferences sharedPreferences].embedTimestampInSignature);
+	
 	_currentBuildOrder=[PKGBuildOrder new];
 	
 	_currentBuildOrder.projectPath=tProjectPath;

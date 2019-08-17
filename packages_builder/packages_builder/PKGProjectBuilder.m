@@ -87,6 +87,7 @@ typedef NS_ENUM(NSUInteger, PKGArchiveSignatureResult)
 	PKGArchiveSignatureResultTrustNoAnchor,
 	PKGArchiveSignatureResultTrustExpiredCertificate,
 	PKGArchiveSignatureResultTrustNotTrustedCertificate,
+	PKGArchiveSignatureResultTimestampServiceNotAvailable
 };
 
 typedef NS_ENUM(NSUInteger, PKGArchiveFormat)
@@ -8409,6 +8410,11 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			tErrorEvent.code=PKGBuildErrorSigningNotTrustedCertificate;
 			break;
 			
+		case PKGArchiveSignatureResultTimestampServiceNotAvailable:
+			
+			tErrorEvent.code=PKGBuildErrorSigningTimestampServiceNotAvailable;
+			break;
+			
 		default:
 			break;
 	}
@@ -8419,6 +8425,11 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 - (BOOL)archiveShouldSign:(PKGArchive *)inArchive
 {
 	return (_secIdentityRef!=NULL);
+}
+
+- (BOOL)archiveShouldUseTSA:(PKGArchive *)inArchive
+{
+	return [_buildOrder embedTimestamp];
 }
 
 - (int32_t)signatureSizeForArchive:(PKGArchive *)inArchive
@@ -8614,8 +8625,9 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	[tSignatureCreator createSignatureOfType:inSignatureType
 									 forData:inData
-								usingIdentity:self.project.settings.certificateName
-									 keychain:self.project.settings.certificateKeychainPath
+							   usingIdentity:self.project.settings.certificateName
+									keychain:self.project.settings.certificateKeychainPath
+									  useTSA:[_buildOrder embedTimestamp]
 								replyHandler:^(PKGSignatureStatus bStatus,NSData *bSignedData){
 									 
 									 switch(bStatus)
@@ -8639,6 +8651,14 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 											 _signatureResult=PKGArchiveSignatureResultCertificateNotFound;
 											 
 											 [[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Signature Error: Certificate not found"];
+											 
+											 break;
+											 
+										 case PKGSignatureStatusTimestampServiceNotAvailable:
+											 
+											 _signatureResult=PKGArchiveSignatureResultTimestampServiceNotAvailable;
+											 
+											 [[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Signature Error: Timestamp service not available"];
 											 
 											 break;
 											 

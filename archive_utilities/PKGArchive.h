@@ -41,6 +41,8 @@ extern NSString * const PKGArchiveErrorFilePath;
 
 - (BOOL)archiveShouldSign:(PKGArchive *)inArchive;
 
+- (BOOL)archiveShouldUseTSA:(PKGArchive *)inArchive;
+
 - (int32_t)signatureSizeForArchive:(PKGArchive *)inArchive;
 
 - (NSArray *)certificatesDataForArchive:(PKGArchive *)inArchive;

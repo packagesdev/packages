@@ -25,6 +25,7 @@ NSString * const PKGBuildOrderExternalSettingsBuildFolderKey=@"BuildFolder";
 NSString * const PKGBuildOrderExternalSettingsSigningIdentityKey=@"SigningIdentity";
 NSString * const PKGBuildOrderExternalSettingsKeychainKey=@"Keychain";
 NSString * const PKGBuildOrderExternalSettingsPackageVersionKey=@"PackageVersion";		// Only supported for Raw Package projects
+NSString * const PKGBuildOrderExternalSettingsEmbedTimestamp=@"EmbedTimestamp";
 NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey=@"UserDefinedSettings";
 
 @interface PKGBuildOrder ()

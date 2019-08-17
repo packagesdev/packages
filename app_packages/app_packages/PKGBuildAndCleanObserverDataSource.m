@@ -935,6 +935,12 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;
 					
+				case PKGBuildErrorSigningTimestampServiceNotAvailable:
+					
+					tTitle=NSLocalizedStringFromTable(@"Unable to get a secure timestamp because the Timestamp service is not available.",@"Build",@"");
+					
+					break;
+					
 				default:
 					
 					tTitle=[NSString stringWithFormat:@"Error code (%lu)",(unsigned long) tFailureReason];

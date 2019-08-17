@@ -9,6 +9,8 @@
 
 - (NSString *)scratchFolderPath;
 
+- (BOOL)embedTimestamp;
+
 - (NSDictionary *)userDefinedSettings;
 
 - (id)userDefinedSettingsForKey:(NSString *)inKey;

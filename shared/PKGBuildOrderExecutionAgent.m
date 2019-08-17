@@ -179,11 +179,16 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 
 - (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
 {
+	[self createSignatureOfType:inSignatureType forData:inInputData usingIdentity:inIdentityName keychain:inKeychainpath useTSA:NO replyHandler:inReply];
+}
+
+- (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainpath useTSA:(BOOL)inUseTSA replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
+{
 	dispatch_async(dispatch_get_main_queue(),^ {
-		[[PKGBuildDataSigner sharedSigner] createSignatureOfType:inSignatureType forData:inInputData usingIdentity:inIdentityName keychain:inKeychainpath replyHandler:^(PKGSignatureStatus status,NSData *signedData){
-		
+		[[PKGBuildDataSigner sharedSigner] createSignatureOfType:inSignatureType forData:inInputData usingIdentity:inIdentityName keychain:inKeychainpath useTSA:inUseTSA replyHandler:^(PKGSignatureStatus status,NSData *signedData){
+			
 			inReply(status,signedData);
-		
+			
 		}];
 	});
 }

@@ -64,6 +64,9 @@ NSString * const PKGPreferencesBuildResultBehaviorNotifyUsingSystemNotificationF
 NSString * const PKGPreferencesBuildResultBehaviorBounceIconInDockFormatKey=@"build.result.behavior.%@.bounceIconInDock";
 
 
+NSString * const PKGPreferencesBuildEmbedTrustedTimestampInSignatureKey=@"build.signing.embed-timestamp";
+
+
 NSString * const PKGPreferencesQuickBuildSigningActionKey=@"quickbuild.signing.action";
 
 NSString * const PKGPreferencesQuickBuildSigningIdentityKey=@"quickbuild.signing.identity";
@@ -75,6 +78,9 @@ NSString * const PKGPreferencesQuickBuildFailOverFolderKey=@"quickbuild.failover
 NSString * const PKGPreferencesBuildTemporaryBuildLocationKey=@"build.location.temporary";
 
 NSString * const PKGPreferencesBuildDefautTemporationLocation=@"/private/tmp";
+
+
+
 
 // Templates
 
@@ -346,6 +352,8 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 									  PKGPreferencesBuildShowBuildWindowBehaviorKey:@(PKGPreferencesBuildShowBuildWindowAlways),
 									  PKGPreferencesBuildHideBuildWindowBehaviorKey:@(PKGPreferencesBuildHideBuildWindowNever),
 									  
+									  PKGPreferencesBuildEmbedTrustedTimestampInSignatureKey:@(YES),
+									  
 									  PKGPreferencesQuickBuildSigningActionKey:@(PKGPreferencesQuickBuildSigningDontSign),
 									  PKGPreferencesQuickBuildUseBundleVersionKey:@(NO),
 									  //PKGPreferencesQuickBuildFailOverFolderKey = nil <=> NSHomeDirectory()
@@ -388,6 +396,10 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		_showBuildWindowBehavior=[_defaults integerForKey:PKGPreferencesBuildShowBuildWindowBehaviorKey];
 		
 		_hideBuildWindowBehavior=[_defaults integerForKey:PKGPreferencesBuildHideBuildWindowBehaviorKey];
+		
+		
+		_embedTimestampInSignature=[_defaults boolForKey:PKGPreferencesBuildEmbedTrustedTimestampInSignatureKey];
+		
 		
 		_buildResultBehaviors=[PKGApplicationBuildResultBehavior buildResultBehaviors];
 		
@@ -538,6 +550,13 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 	_temporaryBuildLocation=[inPath copy];
 	
 	[_defaults setObject:[inPath copy] forKey:PKGPreferencesBuildTemporaryBuildLocationKey];
+}
+
+- (void)setIncludeTimestampInSignature:(BOOL)inBool
+{
+	_embedTimestampInSignature=inBool;
+	
+	[_defaults setBool:inBool forKey:PKGPreferencesBuildEmbedTrustedTimestampInSignatureKey];
 }
 
 #pragma mark - Templates

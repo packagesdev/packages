@@ -46,6 +46,10 @@
 	
 	IBOutlet NSButton * _bounceIconInDockCheckBox;
 	
+	
+	IBOutlet NSButton * _embedTrustedTimestampCheckBox;
+	
+	
 	IBOutlet NSPopUpButton * _quickBuildSigningCertificatePopUpButton;
 	
 	IBOutlet NSButton * _quickBuildUseBundleVersionCheckBox;
@@ -100,6 +104,9 @@
 - (IBAction)switchNotifyUsingSystemNotification:(id)sender;
 
 - (IBAction)switchBounceIconInDock:(id)sender;
+
+
+- (IBAction)switchEmbedTrustedTimestamp:(id)sender;
 
 
 - (IBAction)switchQuickBuildSigningCertificate:(id)sender;
@@ -225,6 +232,10 @@
 	// Build Result
 	
 	[self refreshBuildResultBehaviorUI];
+	
+	//Signing
+	
+	_embedTrustedTimestampCheckBox.state=([PKGApplicationPreferences sharedPreferences].embedTimestampInSignature==YES) ? NSOnState : NSOffState;
 	
 	// Quick Build
 	
@@ -482,6 +493,13 @@
 	
 	tResultBehavior.bounceIconInDock=([sender state]==NSOnState);
 }
+
+- (IBAction)switchEmbedTrustedTimestamp:(NSButton *)sender
+{
+	[PKGApplicationPreferences sharedPreferences].embedTimestampInSignature=([sender state]==NSOnState);
+}
+
+
 
 - (IBAction)switchQuickBuildSigningCertificate:(NSPopUpButton *)sender
 {

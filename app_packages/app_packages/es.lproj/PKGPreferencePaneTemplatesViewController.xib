@@ -147,7 +147,7 @@
 													<object class="NSTextField" id="94653478">
 														<reference key="NSNextResponder" ref="390543703"/>
 														<int key="NSvFlags">266</int>
-														<string key="NSFrameSize">{260, 15}</string>
+														<string key="NSFrameSize">{291, 15}</string>
 														<reference key="NSSuperview" ref="390543703"/>
 														<reference key="NSWindow"/>
 														<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -169,13 +169,13 @@
 														<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 													</object>
 												</array>
-												<string key="NSFrame">{{227, 0}, {260, 15}}</string>
+												<string key="NSFrame">{{227, 0}, {291, 15}}</string>
 												<reference key="NSSuperview" ref="765321290"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="94653478"/>
 											</object>
 										</array>
-										<string key="NSFrameSize">{489, 112}</string>
+										<string key="NSFrameSize">{520, 112}</string>
 										<reference key="NSSuperview" ref="1049199690"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="680088344"/>
@@ -185,7 +185,7 @@
 										<object class="NSTableHeaderView" key="NSHeaderView" id="1023253139">
 											<reference key="NSNextResponder" ref="202805974"/>
 											<int key="NSvFlags">256</int>
-											<string key="NSFrameSize">{489, 17}</string>
+											<string key="NSFrameSize">{520, 17}</string>
 											<reference key="NSSuperview" ref="202805974"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="333635317"/>
@@ -239,7 +239,7 @@
 											</object>
 											<object class="NSTableColumn" id="354521752">
 												<string key="NSIdentifier">Value</string>
-												<double key="NSWidth">260</double>
+												<double key="NSWidth">291</double>
 												<double key="NSMinWidth">8</double>
 												<double key="NSMaxWidth">1000</double>
 												<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -293,7 +293,7 @@
 										<int key="NSTableViewGroupRowStyle">0</int>
 									</object>
 								</array>
-								<string key="NSFrame">{{1, 17}, {489, 112}}</string>
+								<string key="NSFrame">{{1, 17}, {520, 112}}</string>
 								<reference key="NSSuperview" ref="915703719"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="765321290"/>
@@ -337,7 +337,7 @@
 								<array class="NSMutableArray" key="NSSubviews">
 									<reference ref="1023253139"/>
 								</array>
-								<string key="NSFrame">{{1, 0}, {489, 17}}</string>
+								<string key="NSFrame">{{1, 0}, {520, 17}}</string>
 								<reference key="NSSuperview" ref="915703719"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1023253139"/>
@@ -348,7 +348,7 @@
 							</object>
 							<reference ref="218798455"/>
 						</array>
-						<string key="NSFrame">{{29, 20}, {491, 130}}</string>
+						<string key="NSFrame">{{29, 20}, {522, 130}}</string>
 						<reference key="NSSuperview" ref="441468351"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1049199690"/>
@@ -365,7 +365,7 @@
 						<string key="NSContentInsets">{0, 0, 0, 0}</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{540, 195}</string>
+				<string key="NSFrameSize">{571, 195}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="680989584"/>
@@ -601,7 +601,7 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="20.IBNSViewMetadataGestureRecognizers" ref="0"/>
-				<string key="20.IBPersistedLastKnownCanvasPosition">{716, 606.5}</string>
+				<string key="20.IBPersistedLastKnownCanvasPosition">{731.5, 606.5}</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="64.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

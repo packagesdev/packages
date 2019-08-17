@@ -34,7 +34,7 @@
 			<object class="NSWindowTemplate" id="977439024">
 				<int key="NSWindowStyleMask">4103</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{94, 379}, {540, 107}}</string>
+				<string key="NSWindowRect">{{94, 379}, {571, 107}}</string>
 				<int key="NSWTFlags">813171712</int>
 				<string key="NSWindowTitle">Preferencias</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -166,11 +166,11 @@
 					<array key="NSToolbarIBSelectableItems" id="0"/>
 				</object>
 				<nil key="NSUserInterfaceItemIdentifier"/>
-				<string key="NSWindowContentMinSize">{540, 107}</string>
+				<string key="NSWindowContentMinSize">{571, 107}</string>
 				<object class="NSView" key="NSWindowView" id="242419109">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
-					<string key="NSFrameSize">{540, 107}</string>
+					<string key="NSFrameSize">{571, 107}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView"/>
@@ -347,7 +347,7 @@
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="20.designableToolbarItemIdentifier">preferencepane.advanced</string>
 				<boolean value="YES" key="20.toolbarItem.selectable"/>
-				<string key="5.IBPersistedLastKnownCanvasPosition">{394, 344.5}</string>
+				<string key="5.IBPersistedLastKnownCanvasPosition">{409.5, 344.5}</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

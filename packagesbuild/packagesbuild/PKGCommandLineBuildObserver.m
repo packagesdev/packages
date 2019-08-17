@@ -676,6 +676,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					(void)fprintf(stdout, "The Developer ID Installer certificate used for this project is not trusted.");
 					break;
 					
+				case PKGBuildErrorSigningTimestampServiceNotAvailable:
+					
+					(void)fprintf(stdout, "Unable to get a trusted timestamp because the Timestamp Authority Server is not available.");
+					break;
+					
 				default:
 					
 					(void)fprintf(stdout, "Error code (%lu)",(unsigned long) tFailureReason);
