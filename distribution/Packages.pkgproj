@@ -1056,6 +1056,8 @@
 				</dict>
 				<key>PAYLOAD_TYPE</key>
 				<integer>0</integer>
+				<key>PRESERVE_EXTENDED_ATTRIBUTES</key>
+				<false/>
 				<key>SHOW_INVISIBLE</key>
 				<true/>
 				<key>SPLIT_FORKS</key>
@@ -1302,6 +1304,17 @@
 						<dict>
 							<key>PATH</key>
 							<string>Documents/en.lproj/Welcome.rtfd</string>
+							<key>PATH_TYPE</key>
+							<integer>1</integer>
+						</dict>
+					</dict>
+					<dict>
+						<key>LANGUAGE</key>
+						<string>Spanish</string>
+						<key>VALUE</key>
+						<dict>
+							<key>PATH</key>
+							<string>Documents/es.lproj/Welcome.rtfd</string>
 							<key>PATH_TYPE</key>
 							<integer>1</integer>
 						</dict>

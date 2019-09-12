@@ -6843,7 +6843,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Create the Temporary directory
 	
-	NSString * tTemporaryDirectoryPath=[_scratchLocation stringByAppendingPathComponent:[NSString stringWithFormat:@"%d/%@",self.userID,[[_buildOrder.projectPath lastPathComponent] stringByDeletingPathExtension]]];
+	NSString * tTemporaryDirectoryPath=[_scratchLocation stringByAppendingPathComponent:[NSString stringWithFormat:@"%d/%@",self.userID,[_buildOrder.projectPath.lastPathComponent stringByDeletingPathExtension]]];
 	
 	if ([_fileManager fileExistsAtPath:tTemporaryDirectoryPath]==YES)
 	{
@@ -6972,7 +6972,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	BOOL (^copyScript)(NSString *,NSString *,NSString *__autoreleasing *)=^BOOL(NSString * bSourcePath,NSString *bDestinationPath,NSString *__autoreleasing *bOutScriptName){
 	
 		NSString * tDestinationFolder=[bDestinationPath stringByDeletingLastPathComponent];
-		NSString * tBaseName=[[bDestinationPath lastPathComponent] stringByDeletingPathExtension];
+		NSString * tBaseName=[bDestinationPath.lastPathComponent stringByDeletingPathExtension];
 		NSString * tSuitableFileName=[self suitableFileNameForProposedFileName:tBaseName inDirectory:tDestinationFolder];
 		
 		if (tSuitableFileName==nil)
@@ -7018,67 +7018,6 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			*bOutScriptName=tSuitableFileName;
 		
 		return YES;
-		
-		
-		/*NSString * tBaseName=[[bDestinationPath lastPathComponent] stringByDeletingPathExtension];
-		
-		NSUInteger tIndex=1;
-		NSString * tFileScriptName=tBaseName;
-		
-		do
-		{
-			NSString * tDestinationPath=[tDestinationFolder stringByAppendingPathComponent:tFileScriptName];
-			
-			if ([_fileManager fileExistsAtPath:tDestinationPath]==NO)
-			{
-				NSError * tError=nil;
-				
-				if ([_fileManager PKG_copyItemAtPath:bSourcePath toPath:tDestinationPath options:0 error:&tError]==NO)
-				{
-					PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeCopied filePath:bSourcePath fileKind:PKGFileKindRegularFile];
-					tErrorEvent.otherFilePath=tDestinationPath;
-					
-					if (tError!=nil && [tError.domain isEqualToString:NSCocoaErrorDomain]==YES)
-					{
-						switch(tError.code)
-						{
-							case NSFileWriteVolumeReadOnlyError:
-								tErrorEvent.subcode=PKGBuildErrorReadOnlyVolume;
-								break;
-								
-							case NSFileWriteNoPermissionError:
-								tErrorEvent.subcode=PKGBuildErrorWriteNoPermission;
-								break;
-								
-							case NSFileWriteOutOfSpaceError:
-								tErrorEvent.subcode=PKGBuildErrorNoMoreSpaceOnVolume;
-								break;
-						}
-					}
-					
-					[self postCurrentStepFailureEvent:tErrorEvent];
-					
-					return NO;
-				}
-				
-				if (bOutScriptName!=NULL)
-					*bOutScriptName=tFileScriptName;
-				
-				return YES;
-			}
-			
-			tFileScriptName=[NSString stringWithFormat:@"%@_%d",tBaseName,(int)tIndex];
-			
-			tIndex++;
-		}
-		while (tIndex<PKGRenamingAttemptsMax);
-		
-		[self postCurrentStepFailureEvent:nil];
-		 
-		 // A COMPLETER
-		
-		return NO;*/
-	
 	};
 	
 	
@@ -7742,19 +7681,10 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					return NO;
 				}
 				
-				if (inBuildPackageAttributes!=nil || _buildFormat==PKGProjectBuildFormatFlat)	// A VOIR
+				if (inBuildPackageAttributes!=nil || _buildFormat==PKGProjectBuildFormatFlat)	// A VOIR (inBuildPackageAttributes==nil is useful for scripts and additional resources step)
 				{
 					NSError * tError=nil;
 					
-					// Set the Privileges of the item
-					
-					if ([_fileManager PKG_setPosixPermissions:tPrivileges ofItemAtPath:tDestinationPath error:&tError]==NO)
-					{
-						[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFilePosixPermissionsCanNotBeSet filePath:tDestinationPath fileKind:PKGFileKindRegularFile]];
-						
-						return NO;
-					}
-				
 					// Set the owner and group recursively
 					
 					if ([_fileManager PKG_setOwnerAccountID:tFileItem.uid groupAccountID:tFileItem.gid ofItemAndDescendantsAtPath:tDestinationPath error:&tError]==NO)
@@ -7763,6 +7693,15 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 						
 						return NO;
 					}
+                    
+                    // Set the Privileges of the item
+                    
+                    if ([_fileManager PKG_setPosixPermissions:tPrivileges ofItemAtPath:tDestinationPath error:&tError]==NO)
+                    {
+                        [self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFilePosixPermissionsCanNotBeSet filePath:tDestinationPath fileKind:PKGFileKindRegularFile]];
+                        
+                        return NO;
+                    }
 				}
 			}
 			else
