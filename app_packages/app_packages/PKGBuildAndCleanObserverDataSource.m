@@ -631,6 +631,18 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;
 				
+				case PKGBuildErrorFileExtendedAttributesCanNotBeRead:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to read extended attributes of item at path '%@'",@"Build",@""),tFilePath];
+					
+					break;
+					
+				case PKGBuildErrorFileExtendedAttributesCanNotBeSet:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to set extended attributes of item at path '%@'",@"Build",@""),tFilePath];
+					
+					break;
+					
 				case PKGBuildErrorBuildFolderNotWritable:
 					
 					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"The existing folder at path '%@' can not be used as a build folder because it's not a writable folder.",@"Build",@""),tFilePath];
@@ -800,6 +812,23 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 						case PKGBuildErrorWriteNoPermission:
 							
 							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because you don't have permission to access it",@"Build",@"")];
+							break;
+							
+						default:
+							break;
+					}
+					
+					break;
+					
+				case PKGBuildErrorFileCanNotBeRead:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to read %@ at path '%@'",@"Build",@""),fileItemTypeName(tFileKind),tFilePath];
+					
+					switch(tErrorEvent.subcode)
+					{
+						case PKGBuildErrorReadNoPermission:
+							
+							tTitle=[tTitle stringByAppendingString:NSLocalizedStringFromTable(@" because packages_builder doesn't have permission to access it",@"Build",@"")];
 							break;
 							
 						default:
