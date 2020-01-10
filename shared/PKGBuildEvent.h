@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	PKGBuildErrorNoMoreSpaceOnVolume=100,
 	PKGBuildErrorReadOnlyVolume=101,
 	PKGBuildErrorWriteNoPermission=102,
-	
+	PKGBuildErrorReadNoPermission=103,
 	
 	PKGBuildErrorUnknownLanguage=150,
 	

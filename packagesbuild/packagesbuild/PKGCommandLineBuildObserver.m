@@ -562,6 +562,26 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					break;
 					
+				case PKGBuildErrorFileCanNotBeRead:
+					
+					(void)fprintf(stdout, "Unable to read %s at path '%s'",fileItemTypeName(tFileKind),[tFilePath fileSystemRepresentation]);
+					
+					switch(tErrorEvent.subcode)
+					{
+							
+						case PKGBuildErrorReadNoPermission:
+							
+							(void)fprintf(stdout, " because packages_builder doesn't have permission to access it");
+							break;
+							
+						default:
+							break;
+					}
+					
+					(void)fprintf(stdout, "\n");
+					
+					break;
+					
 					/* Requirements and Locators errors */
 					
 				case PKGBuildErrorRequirementMissingConverter:

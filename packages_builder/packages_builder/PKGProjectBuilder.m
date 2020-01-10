@@ -119,7 +119,7 @@ enum
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.7";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.8";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -842,6 +842,15 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					case NSFileReadUnknownError:
 						
 						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeRead filePath:_buildOrder.projectPath fileKind:PKGFileKindRegularFile];
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Unable to read file at path '%@'",_buildOrder.projectPath];
+						
+						break;
+						
+					case NSFileReadNoPermissionError:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeRead filePath:_buildOrder.projectPath fileKind:PKGFileKindRegularFile];
+						tErrorEvent.subcode=PKGBuildErrorReadNoPermission;
 						
 						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Unable to read file at path '%@'",_buildOrder.projectPath];
 						
@@ -3234,6 +3243,22 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		if (tMutableString==nil)
 		{
 			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeRead filePath:tFilePath fileKind:PKGFileKindRegularFile];
+			
+			if ([tError.domain isEqualToString:NSCocoaErrorDomain]==YES)
+			{
+				switch(tError.code)
+				{
+					case NSFileReadNoPermissionError:
+						
+						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileCanNotBeRead filePath:tFilePath fileKind:PKGFileKindRegularFile];
+						tErrorEvent.subcode=PKGBuildErrorReadNoPermission;
+						
+						[[PKGBuildLogger defaultLogger] logMessageWithLevel:PKGLogLevelError format:@"Unable to read file at path '%@'",_buildOrder.projectPath];
+						
+						break;
+				}
+			}
+			
 			// A COMPLETER
 			
 			[self postCurrentStepFailureEvent:tErrorEvent];
@@ -7710,6 +7735,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				
 				NSError * tError=nil;
 				NSDictionary * tItemAttributes=[_fileManager attributesOfItemAtPath:tFullPath error:NULL];
+				//NSMutableDictionary * tItemAttributes=[[_fileManager attributesOfItemAtPath:tFullPath error:NULL] mutableCopy];
 				
 				if (tItemAttributes==nil)
 				{
@@ -7717,6 +7743,10 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					
 					return NO;
 				}
+				
+				// A TESTER No need to set these attributes this way since this will also be done via POSIX APIs
+				
+				//[tItemAttributes removeObjectsForKeys:@[NSFileOwnerAccountName,NSFileGroupOwnerAccountName,NSFilePosixPermissions,NSFileOwnerAccountID,NSFileGroupOwnerAccountID]];
 				
 				// Create the folder
 				
@@ -7729,6 +7759,9 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				
 				if (tExtendedAttributes==nil)
 				{
+					if (tError!=nil)
+						NSLog(@"%@",tError.description);
+					
 					[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileExtendedAttributesCanNotBeRead filePath:tFullPath fileKind:PKGFileKindFolder]];
 					
 					return NO;
@@ -7774,10 +7807,15 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 					return NO;
 				}
 				
-				// Set the Owner and Group accounts defined for the payload item
+				// A TESTER (we don't want/need to do this for the additional resources)
 				
-				if (setOwnerAndGroupForItemAtPath(tDestinationPath)==NO)
-					return NO;
+				//if (inBuildPackageAttributes!=nil || _buildFormat==PKGProjectBuildFormatFlat)	// That's the line to uncomment for tests
+				{
+					// Set the Owner and Group accounts defined for the payload item
+				
+					if (setOwnerAndGroupForItemAtPath(tDestinationPath)==NO)
+						return NO;
+				}
 			}
 			
 			// We're not building the payload hierarchy so no need to check for bundle options

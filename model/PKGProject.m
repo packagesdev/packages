@@ -191,7 +191,19 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 			if ([inURL checkResourceIsReachableAndReturnError:outError] == NO)
 				return nil;
 		
-		
+			NSError * tError=nil;
+			
+			// Try to load as a NSData to check whether this is not a corrupted or incorrect type of file
+			
+			NSData * tData=[NSData dataWithContentsOfURL:inURL options:0 error:&tError];
+			
+			if (tData==nil)
+			{
+				*outError=tError;
+				
+				return nil;
+			}
+			
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 										  code:PKGFileInvalidTypeOfFileError
 									  userInfo:nil];
