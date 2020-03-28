@@ -424,7 +424,7 @@
 		return NO;
 	}
 	
-	if ([inArguments count]!=1)
+	if (inArguments.count!=1)
 	{
 		// Too many arguments (usage)
 		
@@ -439,7 +439,7 @@
 	
 	// Check that the identifier is OK
 	
-	if ([tNewIdentifier length]==0)
+	if (tNewIdentifier.length==0)
 	{
 		(void)fprintf(stderr, "%s: Empty identifier not allowed\n",__PACKAGESUTIL_NAME__);
 		return NO;
@@ -447,7 +447,7 @@
 	
 	PKGBundleIdentifierFormatter * tFormatter=[PKGBundleIdentifierFormatter new];
 	
-	if (tFormatter!=nil)
+	if (tFormatter==nil)
 	{
 		(void)fprintf(stderr, "%s: Low memory\n",__PACKAGESUTIL_NAME__);
 		return NO;
@@ -456,7 +456,7 @@
 		
 	if ([tFormatter isPartialStringValid:tNewIdentifier newEditingString:NULL errorDescription:NULL]==NO)
 	{
-		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,[tNewIdentifier UTF8String]);
+		(void)fprintf(stderr, "%s: %s: Invalid argument.\n",__PACKAGESUTIL_NAME__,tNewIdentifier.UTF8String);
 		return NO;
 	}
 	
@@ -483,7 +483,7 @@
 		return NO;
 	}
 	
-	if ([inArguments count]!=1)
+	if (inArguments.count!=1)
 	{
 		// Too many arguments
 		
@@ -498,7 +498,7 @@
 	
 	// Check that the version is OK
 	
-	if ([tNewVersion length]==0)
+	if (tNewVersion.length==0)
 	{
 		(void)fprintf(stderr, "%s: Empty version not allowed\n",__PACKAGESUTIL_NAME__);
 		return NO;
