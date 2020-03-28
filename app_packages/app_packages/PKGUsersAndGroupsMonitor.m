@@ -365,14 +365,12 @@
 
 - (NSString *)posixNameForUserAccountID:(uid_t)inUID
 {
-	NSString * tPosixName=nil;
-	
 	int tError=pthread_rwlock_rdlock(&_userAccountMutex);
 	
 	if (tError!=0)
 		NSLog(@"user read lock error: %d",tError);
 	
-	tPosixName=_userAccountID_PosixNameCache[@(inUID)];
+	NSString * tPosixName=_userAccountID_PosixNameCache[@(inUID)];
 	
 	pthread_rwlock_unlock(&_userAccountMutex);
 	
@@ -381,14 +379,12 @@
 
 - (NSString *)posixNameForGroupAccountID:(gid_t)inGID
 {
-	NSString * tPosixName=nil;
-	
 	int tError=pthread_rwlock_rdlock(&_groupAccountMutex);
 	
 	if (tError!=0)
 		NSLog(@"group read lock error: %d",tError);
 	
-	tPosixName=_groupAccountID_PosixNameCache[@(inGID)];
+	NSString * tPosixName=_groupAccountID_PosixNameCache[@(inGID)];
 	
 	pthread_rwlock_unlock(&_groupAccountMutex);
 	
@@ -397,14 +393,12 @@
 
 - (NSArray *)allLocalUserPosixNames
 {
-	NSArray * tArray=nil;
-	
 	int tError=pthread_rwlock_rdlock(&_userAccountMutex);
 	
 	if (tError!=0)
 		NSLog(@"user read lock error: %d",tError);
 	
-	tArray=[[_posixName_userAccountIDCache allKeys] sortedArrayUsingSelector:@selector(compare:)];
+	NSArray * tArray=[[_posixName_userAccountIDCache allKeys] sortedArrayUsingSelector:@selector(compare:)];
 	
 	pthread_rwlock_unlock(&_userAccountMutex);
 	
@@ -413,14 +407,12 @@
 
 - (NSArray *)allLocalGroupsPosixNames
 {
-	NSArray * tArray=nil;
-	
 	int tError=pthread_rwlock_rdlock(&_groupAccountMutex);
 	
 	if (tError!=0)
 		NSLog(@"group read lock error: %d",tError);
 	
-	tArray=[[_posixName_groupAccountIDCache allKeys] sortedArrayUsingSelector:@selector(compare:)];
+	NSArray * tArray=[[_posixName_groupAccountIDCache allKeys] sortedArrayUsingSelector:@selector(compare:)];
 	
 	pthread_rwlock_unlock(&_groupAccountMutex);
 	
@@ -431,6 +423,11 @@
 
 - (NSMenu *)localUsersMenu
 {
+	return [self localUsersMenuWithServicesUsers:YES];
+}
+
+- (NSMenu *)localUsersMenuWithServicesUsers:(BOOL)inIncludeServicesUsers
+{
 	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
 	
 	int tError=pthread_rwlock_rdlock(&_userAccountMutex);
@@ -438,7 +435,16 @@
 	if (tError!=0)
 		NSLog(@"user read lock error: %d",tError);
 	
-	NSArray * tAllKeys=[[_posixName_userAccountIDCache allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	NSArray * tAllKeys=[_posixName_userAccountIDCache.allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	if (inIncludeServicesUsers==NO)
+	{
+		tAllKeys=[tAllKeys WB_filteredArrayUsingBlock:^BOOL(NSString * bPosixName,NSUInteger bIndex) {
+			
+			return ([bPosixName hasPrefix:@"_"]==NO);
+			
+		}];
+	}
 	
 	[tAllKeys enumerateObjectsUsingBlock:^(NSString * bPosixName,NSUInteger bIndex,BOOL * bOutStop){
 	
@@ -461,6 +467,11 @@
 
 - (NSMenu *)localGroupsMenu
 {
+	return [self localGroupsMenuWithServicesGroups:YES];
+}
+
+- (NSMenu *)localGroupsMenuWithServicesGroups:(BOOL)inIncludeServicesGroups
+{
 	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
 	
 	int tError=pthread_rwlock_rdlock(&_groupAccountMutex);
@@ -468,7 +479,16 @@
 	if (tError!=0)
 		NSLog(@"user read lock error: %d",tError);
 	
-	NSArray * tAllKeys=[[_posixName_groupAccountIDCache allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	NSArray * tAllKeys=[_posixName_groupAccountIDCache.allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	if (inIncludeServicesGroups==NO)
+	{
+		tAllKeys=[tAllKeys WB_filteredArrayUsingBlock:^BOOL(NSString * bPosixName,NSUInteger bIndex) {
+			
+			return ([bPosixName hasPrefix:@"_"]==NO);
+			
+		}];
+	}
 	
 	[tAllKeys enumerateObjectsUsingBlock:^(NSString * bPosixName,NSUInteger bIndex,BOOL * bOutStop){
 		

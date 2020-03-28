@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2019, Stephane Sudre
+ Copyright (c) 2016-2020, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -32,6 +32,8 @@ NSString * const PKGPreferencesFilesHighlightExcludedFilesKey=@"file.list.highli
 NSString * const PKGPreferencesFilesKeepOwnershipKey=@"file.customizationdialog.keepPermission";
 
 NSString * const PKGPreferencesFilesShowOwnershipAndReferenceStyleCustomizationDialogKey=@"file.customizationdialog.ui.showCustomizationDialog";
+
+NSString * const PKGPreferencesFilesShowServicesUsersAndGroupsKey=@"files.usersandgroups.services.show";
 
 // Build
 
@@ -101,6 +103,8 @@ NSString * const  PKGPreferencesProjectAssistantDefaultNewProjectLocation=@"~/";
 // Notifications
 
 NSString * const PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification=@"PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification";
+
+NSString * const PKGPreferencesFilesShowServicesUsersAndGroupsDidChangeNotification=@"PKGPreferencesFilesShowServicesUsersAndGroupsDidChangeNotification";
 
 NSString * const PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification=@"PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification";
 
@@ -347,6 +351,7 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 									  PKGPreferencesFilesHighlightExcludedFilesKey:@(NO),
 									  PKGPreferencesFilesKeepOwnershipKey:@(NO),
 									  PKGPreferencesFilesShowOwnershipAndReferenceStyleCustomizationDialogKey:@(YES),
+									  PKGPreferencesFilesShowServicesUsersAndGroupsKey:@(NO),
 									  
 									  PKGPreferencesBuildUnsavedProjectSaveBehaviorKey:@(PKGPreferencesBuildUnsavedProjectSaveAskBeforeBuild),
 									  PKGPreferencesBuildShowBuildWindowBehaviorKey:@(PKGPreferencesBuildShowBuildWindowAlways),
@@ -360,8 +365,8 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 									  PKGPreferencesBuildTemporaryBuildLocationKey:PKGPreferencesBuildDefautTemporationLocation,
 									  
 									  
-									  
 									  PKGPreferencesAdvancedAdvancedModeStateKey:@(NO),
+									  
 									  PKGPreferencesAdvancedAppleModeStateKey:@(NO),
 									  
 									  PKGPreferencesProjectAssistantDontShowOnLaunchKey:@(NO),
@@ -388,6 +393,8 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 		_keepOwnership=[_defaults boolForKey:PKGPreferencesFilesKeepOwnershipKey];
 		
 		_showOwnershipAndReferenceStyleCustomizationDialog=[_defaults boolForKey:PKGPreferencesFilesShowOwnershipAndReferenceStyleCustomizationDialogKey];
+		
+		_showServicesUsersAndGroups=[_defaults boolForKey:PKGPreferencesFilesShowServicesUsersAndGroupsKey];
 		
 		// Build
 		
@@ -489,6 +496,13 @@ NSString * const PKGPreferencesAdvancedAppleModeStateDidChangeNotification=@"PKG
 	_highlightExcludedFiles=inBool;
 	
 	[_defaults setBool:inBool forKey:PKGPreferencesFilesHighlightExcludedFilesKey];
+}
+
+- (void)setShowServicesUsersAndGroups:(BOOL)inBool
+{
+	_showServicesUsersAndGroups=inBool;
+	
+	[_defaults setBool:inBool forKey:PKGPreferencesFilesShowServicesUsersAndGroupsKey];
 }
 
 #pragma mark - Build

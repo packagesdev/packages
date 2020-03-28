@@ -115,6 +115,8 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesQuickBuildSigningAction)
 
 	@property (nonatomic) BOOL showOwnershipAndReferenceStyleCustomizationDialog;
 
+	@property (nonatomic) BOOL showServicesUsersAndGroups;
+
 	// Build
 
 	@property (nonatomic) PKGPreferencesBuildUnsavedProjectSaveBehavior unsavedProjectSaveBehavior;
@@ -166,6 +168,8 @@ typedef NS_ENUM(NSUInteger, PKGPreferencesQuickBuildSigningAction)
 
 
 extern NSString * const PKGPreferencesFilesHighlightExcludedFilesDidChangeNotification;
+
+extern NSString * const PKGPreferencesFilesShowServicesUsersAndGroupsDidChangeNotification;
 
 extern NSString * const PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification;
 

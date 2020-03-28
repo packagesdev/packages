@@ -24,6 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "WBRemoteVersionChecker.h"
 
 #import "PKGDocument.h"
+#import "PKGQuickBuildDocument.h"
 
 #import "PKGDocumentController.h"
 
@@ -67,13 +68,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 @end
 
 @implementation PKGApplicationController
-
-- (void)awakeFromNib
-{
-	// A COMPLETER
-}
-
-#pragma mark -
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
 {
@@ -240,6 +234,32 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSError *)application:(NSApplication *)inApplication willPresentError:(NSError *)inError
 {
+	if (inError!=nil)
+	{
+		if ([inError.domain isEqualToString:PKGQuickBuildErrorDomain]==YES)
+		{
+			switch(inError.code)
+			{
+				case 0:
+					
+					// A COMPLETER
+					
+					break;
+					
+				default:
+					
+					// A COMPLETER
+					
+					break;
+			}
+		}
+		else
+		{
+			// A COMPLETER
+		}
+	}
+	//NSCocoaErrorDomain	NSFileReadUnknownError	// QuickBuild return NO
+	
 	/*if (inError!=nil)
 	{
 		if ([inError.domain isEqualToString:ICDOCUMENT_ERROR_DOMAIN]==YES)

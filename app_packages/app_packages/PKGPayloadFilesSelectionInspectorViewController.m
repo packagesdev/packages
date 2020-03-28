@@ -117,21 +117,37 @@
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
+	
+	[self.tabViewItemViewControllers.firstObject WB_viewWillAppear];
+	[_rulesViewController WB_viewWillAppear];
+	[_scriptsViewController WB_viewWillAppear];
 }
 
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
+	
+	[self.tabViewItemViewControllers.firstObject WB_viewDidAppear];
+	[_rulesViewController WB_viewDidAppear];
+	[_scriptsViewController WB_viewDidAppear];
 }
 
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+	
+	[self.tabViewItemViewControllers.firstObject WB_viewWillDisappear];
+	[_rulesViewController WB_viewWillDisappear];
+	[_scriptsViewController WB_viewWillDisappear];
 }
 
 - (void)WB_viewDidDisappear
 {
 	[super WB_viewDidDisappear];
+	
+	[self.tabViewItemViewControllers.firstObject WB_viewDidDisappear];
+	[_rulesViewController WB_viewDidDisappear];
+	[_scriptsViewController WB_viewDidDisappear];
 }
 
 #pragma mark -

@@ -22,6 +22,8 @@
 
 #import "NSTableView+Geometry.h"
 
+#import "PKGApplicationPreferences.h"
+
 #include <sys/stat.h>
 
 #define PKGAccountMenuTemporaryUnselectableItemTag	(UINT16_MAX+1)
@@ -64,6 +66,10 @@
 
 - (IBAction)switchPermissionsBit:(id)sender;
 
+// Notification
+
+- (void)showServicesUsersAndGroupsSettingsDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGPayloadFilesSelectionInspectorAttributesViewController
@@ -76,9 +82,9 @@
 	
 	_usersAndGroupsMonitor=[PKGUsersAndGroupsMonitor sharedMonitor];
 
-	_fileOwnerPopUpButton.menu=[_usersAndGroupsMonitor localUsersMenu];
+	_fileOwnerPopUpButton.menu=[_usersAndGroupsMonitor localUsersMenuWithServicesUsers:[PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups];
 	
-	_fileGroupPopUpButton.menu=[_usersAndGroupsMonitor localGroupsMenu];
+	_fileGroupPopUpButton.menu=[_usersAndGroupsMonitor localGroupsMenuWithServicesGroups:[PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups];
 	
 	// Dynamically resize the tableview to take into account the change of height of the headerCell in Siesta and Siesta Grande
 	
@@ -98,6 +104,24 @@
 	tScrollViewFrame.size.height=tTotalHeight;
 	
 	_fileSpecialBitsTableView.enclosingScrollView.frame=tScrollViewFrame;
+	
+	// Register for notifications
+}
+
+- (void)WB_viewDidAppear
+{
+	[super WB_viewDidAppear];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showServicesUsersAndGroupsSettingsDidChange:) name:PKGPreferencesFilesShowServicesUsersAndGroupsDidChangeNotification object:nil];
+}
+
+#pragma mark -
+
+- (void)WB_viewWillDisappear
+{
+	[super WB_viewWillDisappear];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPreferencesFilesShowServicesUsersAndGroupsDidChangeNotification object:nil];
 }
 
 - (void)refreshSingleSelection
@@ -168,9 +192,9 @@
 	
 	NSString * tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:_cachedOwner];
 	
-	if (tPosixName==nil)
+	if (tPosixName==nil || [_fileOwnerPopUpButton indexOfItemWithTag:_cachedOwner]==-1)
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%u",(uint32_t) _cachedOwner]
+		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:(tPosixName!=nil) ? tPosixName : [NSString stringWithFormat:@"%u",(uint32_t) _cachedOwner]
 																					action:nil
 																			 keyEquivalent:@""];
 		
@@ -197,9 +221,10 @@
 	
 	tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:_cachedGroup];
 	
-	if (tPosixName==nil)
+	
+	if (tPosixName==nil || [_fileGroupPopUpButton indexOfItemWithTag:_cachedGroup]==-1)
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%u",(uint32_t) _cachedGroup]
+		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:(tPosixName!=nil) ? tPosixName : [NSString stringWithFormat:@"%u",(uint32_t) _cachedGroup]
 																					action:nil
 																			 keyEquivalent:@""];
 		
@@ -676,6 +701,27 @@
 			inRowView.backgroundColor=[NSColor colorWithDeviceRed:1.0 green:213.0/255.0 blue:202.0/255.0 alpha:1.0];
 		else
 			inRowView.backgroundColor=[NSColor colorWithDeviceRed:210.0/255.0 green:68.0/255.0 blue:72.0/255.0 alpha:0.5];
+	}
+}
+
+#pragma mark -
+
+- (void)showServicesUsersAndGroupsSettingsDidChange:(NSNotification *)inNotification
+{
+	_fileOwnerPopUpButton.menu=[_usersAndGroupsMonitor localUsersMenuWithServicesUsers:[PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups];
+	
+	_fileGroupPopUpButton.menu=[_usersAndGroupsMonitor localGroupsMenuWithServicesGroups:[PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups];
+	
+	if (self.selectedItems==nil)
+		return;
+	
+	if (self.selectedItems.count>1)
+	{
+		[self refreshMultipleSelection];
+	}
+	else
+	{
+		[self refreshSingleSelection];
 	}
 }
 

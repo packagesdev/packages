@@ -31,6 +31,10 @@
 
 - (NSMenu *)localUsersMenu;
 
+- (NSMenu *)localUsersMenuWithServicesUsers:(BOOL)inIncludeServicesUsers;
+
 - (NSMenu *)localGroupsMenu;
+
+- (NSMenu *)localGroupsMenuWithServicesGroups:(BOOL)inIncludeServicesGroups;
 
 @end
