@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-18, Stephane Sudre
+ Copyright (c) 2017-2020, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -44,6 +44,7 @@
 #define WBMacOSSierraMinorVersion			12
 #define WBMacOSHighSierraMinorVersion		13
 #define WBMacOSMojaveMinorVersion			14
+#define WBMacOSCatalinaMinorVersion			15
 
 #define WBMacOSReasonableMaxUnitValue          100
 
@@ -202,6 +203,16 @@
 	
 	tNewVersion.majorVersion=WBMacOSXMajorVersion;
 	tNewVersion.minorVersion=WBMacOSMojaveMinorVersion;
+	
+	return tNewVersion;
+}
+
++ (WBVersion *)macOSCatalinaVersion
+{
+	WBVersion * tNewVersion=[WBVersion new];
+	
+	tNewVersion.majorVersion=WBMacOSXMajorVersion;
+	tNewVersion.minorVersion=WBMacOSCatalinaMinorVersion;
 	
 	return tNewVersion;
 }
@@ -379,6 +390,10 @@
 					return NSMakeRange(0, 6);
 					
 				case WBMacOSMojaveMinorVersion:
+					
+					return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+					
+				case WBMacOSCatalinaMinorVersion:
 					
 					return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 			}
