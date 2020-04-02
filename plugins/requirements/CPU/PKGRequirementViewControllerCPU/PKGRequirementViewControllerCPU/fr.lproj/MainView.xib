@@ -11,13 +11,13 @@
                 <outlet property="_CPUArchitectureSegmentedControl" destination="22" id="103"/>
                 <outlet property="_IntelArchitectureSegmentedControl" destination="32" id="104"/>
                 <outlet property="_PowerPCArchitectureSegmentedControl" destination="12" id="107"/>
-                <outlet property="_minimumCPUCoresCountSegmentedControl" destination="11" id="105"/>
-                <outlet property="_minimumCPUFrequencyPopupButton" destination="15" id="106"/>
+                <outlet property="_minimumCPUCoresCountPopupButton" destination="BBK-zI-TYq" id="Ehb-U5-eCO"/>
+                <outlet property="_minimumCPUFrequencyPopupButton" destination="e4S-DC-h8D" id="SJT-oQ-aRb"/>
                 <outlet property="view" destination="5" id="102"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="View">
             <rect key="frame" x="0.0" y="0.0" width="644" height="200"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -61,41 +61,6 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" id="15">
-                    <rect key="frame" x="255" y="16" width="127" height="26"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <popUpButtonCell key="cell" type="push" title="867 MHz" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="866666" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="18" id="98">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                        <menu key="menu" title="OtherViews" id="16">
-                            <items>
-                                <menuItem title="867 MHz" state="on" tag="866666" id="18"/>
-                                <menuItem title="933 MHz" tag="866666" id="47"/>
-                                <menuItem title="1,0 GHz" tag="1000000" id="17"/>
-                                <menuItem title="1,25 GHz" tag="1250000" id="40"/>
-                                <menuItem title="1,33 GHz" id="48"/>
-                                <menuItem title="1,42 GHz" id="52"/>
-                                <menuItem title="1,5 GHz" tag="1500000" id="49"/>
-                                <menuItem title="1,6 GHz" id="39"/>
-                                <menuItem title="1,66 GHz" id="50"/>
-                                <menuItem title="1,8 GHz" id="43"/>
-                                <menuItem title="1,83 GHz" id="51"/>
-                                <menuItem title="2,0 GHz" tag="2000000" id="45"/>
-                                <menuItem title="2.16 GHz" tag="2500000" id="19"/>
-                                <menuItem title="2.4 GHz" tag="2500000" id="41"/>
-                                <menuItem title="2.5 GHz" tag="2500000" id="42"/>
-                                <menuItem title="2.6 GHz" tag="2500000" id="44"/>
-                                <menuItem title="2.66 GHz" tag="2500000" id="53"/>
-                                <menuItem title="2.8 GHz" tag="2800000" id="33"/>
-                                <menuItem title="3.0 GHz" tag="3000000" id="77"/>
-                                <menuItem title="3.2 GHz" tag="3000000" id="46"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                    <connections>
-                        <action selector="switchMinimumCPUFrequency:" target="-2" id="61"/>
-                    </connections>
-                </popUpButton>
                 <textField verticalHuggingPriority="750" id="9">
                     <rect key="frame" x="204" y="62" width="49" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
@@ -118,24 +83,6 @@
                     </segmentedCell>
                     <connections>
                         <action selector="switchPowerPCArchitecture:" target="-2" id="64"/>
-                    </connections>
-                </segmentedControl>
-                <segmentedControl verticalHuggingPriority="750" id="11">
-                    <rect key="frame" x="256" y="158" width="203" height="25"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="96">
-                        <font key="font" metaFont="system"/>
-                        <segments>
-                            <segment label="1" imageScaling="none" width="31" selected="YES" tag="1"/>
-                            <segment label="2" imageScaling="none" width="31" tag="2"/>
-                            <segment label="4" imageScaling="none" width="31" tag="4"/>
-                            <segment label="6" imageScaling="none" width="31" tag="6"/>
-                            <segment label="8" width="31" tag="8"/>
-                            <segment label="12" width="37" tag="12"/>
-                        </segments>
-                    </segmentedCell>
-                    <connections>
-                        <action selector="switchMinimumCPUCoresCount:" target="-2" id="62"/>
                     </connections>
                 </segmentedControl>
                 <textField verticalHuggingPriority="750" id="10">
@@ -165,6 +112,70 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <popUpButton verticalHuggingPriority="750" id="BBK-zI-TYq">
+                    <rect key="frame" x="254" y="157" width="106" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="qya-Md-xTy" id="tuJ-ln-7b8">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="hAd-aX-i0L">
+                            <items>
+                                <menuItem title="1" state="on" tag="1" id="qya-Md-xTy"/>
+                                <menuItem title="2" tag="2" id="k6f-Cq-rk1"/>
+                                <menuItem title="4" tag="4" id="ghL-cL-i55"/>
+                                <menuItem title="6" tag="6" id="A3I-lU-Kal"/>
+                                <menuItem title="8" tag="8" id="J1q-vt-k8c"/>
+                                <menuItem title="10" tag="10" id="P95-5y-Sb6"/>
+                                <menuItem title="12" tag="12" id="eyi-Fi-Jcl"/>
+                                <menuItem title="14" tag="14" id="86U-v0-03x"/>
+                                <menuItem title="16" tag="16" id="PDj-OI-gWh"/>
+                                <menuItem title="18" tag="18" id="XwZ-0m-zlb"/>
+                                <menuItem title="24" tag="24" id="SnZ-2k-QdA"/>
+                                <menuItem title="28" tag="28" id="0Tl-pe-TVJ"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchMinimumCPUCoresCount:" target="-2" id="BTu-Fd-Fmf"/>
+                    </connections>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" id="e4S-DC-h8D">
+                    <rect key="frame" x="254" y="17" width="127" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="933 MHz" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="933333" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="BPS-2p-zdB" id="hKB-0X-S1I">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="P3V-em-4nt">
+                            <items>
+                                <menuItem title="867 MHz" tag="866666" id="vED-Zf-1MB"/>
+                                <menuItem title="933 MHz" state="on" tag="933333" id="BPS-2p-zdB"/>
+                                <menuItem title="1.00 GHz" tag="1000000" id="LdC-sN-fyC">
+                                    <attributedString key="attributedTitle"/>
+                                </menuItem>
+                                <menuItem title="1.25 GHz" tag="1250000" id="TI9-u2-Ekt"/>
+                                <menuItem title="1.33 GHz" tag="1333333" id="Qjj-xV-6pV"/>
+                                <menuItem title="1.42 GHz" tag="1420000" id="UgB-Lm-2C8"/>
+                                <menuItem title="1.50 GHz" tag="1500000" id="vsQ-qg-n7I"/>
+                                <menuItem title="1.60 GHz" tag="1600000" id="uYB-hq-Fzf"/>
+                                <menuItem title="1.66 GHz" tag="1666666" id="SrT-dL-34V"/>
+                                <menuItem title="1.80 GHz" tag="1800000" id="gFu-RP-VOy"/>
+                                <menuItem title="1.83 GHz" tag="1830000" id="GGD-1U-oZF"/>
+                                <menuItem title="2.00 GHz" tag="2000000" id="aPp-qD-IzW"/>
+                                <menuItem title="2.16 GHz" tag="2166666" id="nCs-wb-MAJ"/>
+                                <menuItem title="2.40 GHz" tag="2400000" id="6SM-yl-SCl"/>
+                                <menuItem title="2.50 GHz" tag="2500000" id="kTh-ZG-oyd"/>
+                                <menuItem title="2.60 GHz" tag="2600000" id="dH4-ak-pIL"/>
+                                <menuItem title="2.66 GHz" tag="2666666" id="gwE-ua-MdF"/>
+                                <menuItem title="2.80 GHz" tag="2800000" id="cl0-5l-d3F"/>
+                                <menuItem title="3.00 GHz" tag="3000000" id="HW6-qo-9PX"/>
+                                <menuItem title="3.20 GHz" tag="3200000" id="7lX-Pj-TTe"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchMinimumCPUFrequency:" target="-2" id="DOB-z7-Egs"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="114" y="-1"/>
         </customView>

@@ -15,10 +15,11 @@
 
 #import "PKGRequirement_RAM+Constants.h"
 
-#define RAM_CONVERSION_COUNT	10
+#define RAM_CONVERSION_COUNT	18
 
 static unsigned long long sRAMConversionTable[RAM_CONVERSION_COUNT]={
 																		536870912ULL,		/* 512 MB */
+	
 																	   1073741824ULL,		/* 1 GB */
 																	   1610612736ULL,		/* 1.5 GB */
 																	   2147483648ULL,		/* 2 GB */
@@ -27,7 +28,16 @@ static unsigned long long sRAMConversionTable[RAM_CONVERSION_COUNT]={
 																	   8589934592ULL,		/* 8 GB */
 																	  17179869184ULL,		/* 16 GB */
 																	  34359738368ULL,		/* 32 GB */
-																	  68719476736ULL		/* 64 GB */
+																	  68719476736ULL,		/* 64 GB */
+																	  51539607552ULL,		/* 48 GB */
+																	 103079215104ULL,		/* 96 GB */
+																	 137438953472ULL,		/* 128 GB */
+																	 206158430208ULL,		/* 192 GB */
+																	 274877906944ULL,		/* 256 GB */
+																	 412316860416ULL,		/* 384 GB */
+																	 824633720832ULL,		/* 768 GB */
+																	
+																	1649267441664ULL,		/* 1.5 TB */
 																	};
 											
 											

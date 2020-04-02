@@ -391,7 +391,7 @@
 					
 				case WBMacOSMojaveMinorVersion:
 					
-					return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+					return NSMakeRange(0, 7);
 					
 				case WBMacOSCatalinaMinorVersion:
 					

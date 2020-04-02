@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2017, Stephane Sudre
+ Copyright (c) 2008-2020, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,12 +17,12 @@
 
 @interface PKGRequirementViewControllerRAM ()
 {
-	IBOutlet NSSlider * _minimumRAMSlider;
+	IBOutlet NSPopUpButton * _minimumRAMPopUpButton;
 	
 	NSMutableDictionary * _settings;
 }
 
-- (IBAction)setMinimumRAM:(id) sender;
+- (IBAction)switchMinimumRAM:(id) sender;
 
 @end
 
@@ -44,14 +44,17 @@
 {
 	// Mimimum Size Index
 	
-	NSInteger tIndex=PKGRequirementRAMMinimumSize512MBIndex;
+	NSInteger tTag=PKGRequirementRAMMinimumSize512MBIndex;
 	
 	NSNumber * tNumber=_settings[PKGRequirementRAMMinimumSizeIndexKey];
 	
 	if (tNumber!=nil)
-		tIndex=[tNumber integerValue];
+		tTag=[tNumber integerValue];
 	
-	[_minimumRAMSlider setIntegerValue:tIndex];
+	if ([_minimumRAMPopUpButton selectItemWithTag:tTag]==NO)
+	{
+		[_minimumRAMPopUpButton selectItemWithTag:PKGRequirementRAMMinimumSize512MBIndex];
+	}
 }
 
 #pragma mark -
@@ -68,11 +71,11 @@
 
 #pragma mark -
 
-- (IBAction)setMinimumRAM:(NSSlider *) sender
+- (IBAction)switchMinimumRAM:(NSPopUpButton *) sender
 {
-	NSInteger tIndex=[sender integerValue];
+	NSInteger tTag=sender.selectedTag;
 	
-	_settings[PKGRequirementRAMMinimumSizeIndexKey]=@(tIndex);
+	_settings[PKGRequirementRAMMinimumSizeIndexKey]=@(tTag);
 }
 
 @end

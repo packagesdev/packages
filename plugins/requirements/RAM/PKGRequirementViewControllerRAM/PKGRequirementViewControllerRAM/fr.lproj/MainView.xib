@@ -8,125 +8,16 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGRequirementViewControllerRAM">
             <connections>
-                <outlet property="_minimumRAMSlider" destination="58" id="90"/>
+                <outlet property="_minimumRAMPopUpButton" destination="Tg7-Nm-yef" id="221-C7-19V"/>
                 <outlet property="view" destination="5" id="88"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="View">
             <rect key="frame" x="0.0" y="0.0" width="644" height="83"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="68">
-                    <rect key="frame" x="416" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="8" id="87">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="67">
-                    <rect key="frame" x="450" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="16" id="86">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="66">
-                    <rect key="frame" x="541" y="45" width="28" height="17"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Go" id="85">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="65">
-                    <rect key="frame" x="483" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="32" id="84">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="64">
-                    <rect key="frame" x="384" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="4" id="83">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="63">
-                    <rect key="frame" x="350" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="3" id="82">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="62">
-                    <rect key="frame" x="316" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="2" id="81">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="61">
-                    <rect key="frame" x="280" y="12" width="28" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="1,5" id="80">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="60">
-                    <rect key="frame" x="249" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="1" id="79">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" id="59">
-                    <rect key="frame" x="517" y="12" width="24" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="64" id="78">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <slider verticalHuggingPriority="750" id="58">
-                    <rect key="frame" x="216" y="33" width="322" height="27"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <sliderCell key="cell" alignment="left" maxValue="9" tickMarkPosition="below" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="77">
-                        <font key="font" size="12" name="Helvetica"/>
-                    </sliderCell>
-                    <connections>
-                        <action selector="setMinimumRAM:" target="-2" id="73"/>
-                    </connections>
-                </slider>
-                <textField verticalHuggingPriority="750" id="57">
-                    <rect key="frame" x="212" y="12" width="29" height="14"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="0,5" id="76">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField verticalHuggingPriority="750" id="39">
                     <rect key="frame" x="18" y="45" width="194" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
@@ -136,6 +27,41 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <popUpButton verticalHuggingPriority="750" id="Tg7-Nm-yef">
+                    <rect key="frame" x="216" y="39" width="95" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="512  Mo" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OGF-rG-efK" id="P4n-my-WjK">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="xbe-vT-PVK">
+                            <items>
+                                <menuItem title="512  Mo" state="on" id="OGF-rG-efK"/>
+                                <menuItem isSeparatorItem="YES" id="lBX-85-ELL"/>
+                                <menuItem title="    1  Go" tag="1" id="nvR-b6-38t"/>
+                                <menuItem title="  1,5 Go" tag="2" id="TyL-dU-BBy"/>
+                                <menuItem title="    2  Go" tag="3" id="2Eu-rd-8Ob"/>
+                                <menuItem title="    3  Go" tag="4" id="tvL-Gn-I3D"/>
+                                <menuItem title="    4  Go" tag="5" id="d88-zh-iqf"/>
+                                <menuItem title="    8  Go" tag="6" id="GAF-hy-TjU"/>
+                                <menuItem title="  16  Go" tag="7" id="RqP-Ux-lF7"/>
+                                <menuItem title="  32  Go" tag="8" id="7b1-2G-aEZ"/>
+                                <menuItem title="  48  Go" tag="10" id="vST-1A-DRb"/>
+                                <menuItem title="  64  Go" tag="9" id="vl7-c8-wOd"/>
+                                <menuItem title="  96  Go" tag="11" id="E6Z-Tk-go8"/>
+                                <menuItem title="128  Go" tag="12" id="cSe-hb-LSl"/>
+                                <menuItem title="192  Go" tag="13" id="cm4-k2-gcC"/>
+                                <menuItem title="256  Go" tag="14" id="maW-f2-bpO"/>
+                                <menuItem title="384  Go" tag="15" id="huh-a5-Qeo"/>
+                                <menuItem title="768  Go" tag="16" id="rRy-0X-EAf"/>
+                                <menuItem isSeparatorItem="YES" id="kWe-qf-XJg"/>
+                                <menuItem title=" 1.5  To" tag="17" id="zsB-gc-eEm"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchMinimumRAM:" target="-2" id="MOk-GD-ST9"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="598" y="447.5"/>
         </customView>

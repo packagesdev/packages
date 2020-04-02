@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2017, Stephane Sudre
+ Copyright (c) 2008-2020, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,7 @@
 
 @interface PKGRequirementViewControllerCPU ()
 {
-	IBOutlet NSSegmentedControl * _minimumCPUCoresCountSegmentedControl;
+	IBOutlet NSPopUpButton * _minimumCPUCoresCountPopupButton;
 	
 	IBOutlet NSSegmentedControl * _CPUArchitectureSegmentedControl;
 	
@@ -78,7 +78,7 @@
 	else
 		tTag=[tNumber integerValue];
 	
-	[_minimumCPUCoresCountSegmentedControl selectSegmentWithTag:tTag];
+	[_minimumCPUCoresCountPopupButton selectItemWithTag:tTag];
 	
 	// CPU Family
 	
@@ -149,9 +149,9 @@
 
 #pragma mark -
 
-- (IBAction)switchMinimumCPUCoresCount:(NSSegmentedControl *)sender
+- (IBAction)switchMinimumCPUCoresCount:(NSPopUpButton *)sender
 {
-	NSInteger tTag=[[sender cell] tagForSegment:sender.selectedSegment];
+	NSInteger tTag=sender.selectedItem.tag;
 	
 	_settings[PKGRequirementCPUMinimumCPUCoresCountKey]=@(tTag);
 }
