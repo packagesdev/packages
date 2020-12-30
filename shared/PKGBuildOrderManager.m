@@ -69,6 +69,8 @@
 		
 		tWeakDispatcherConnection.interruptionHandler=^{
 			
+			NSLog(@"Connection with dispatcher was interrupted");
+			
 			NSXPCConnection *tStrongConnection=tWeakDispatcherConnection;
 			
 			if (tStrongConnection!=nil)
@@ -78,6 +80,8 @@
 		};
 		
 		tWeakDispatcherConnection.invalidationHandler=^{
+			
+			NSLog(@"Connection with dispatcher was invalidated");
 			
 			NSXPCConnection *tStrongConnection=tWeakDispatcherConnection;
 			
