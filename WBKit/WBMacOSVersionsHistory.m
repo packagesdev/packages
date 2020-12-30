@@ -217,6 +217,15 @@
 	return tNewVersion;
 }
 
++ (WBVersion *)macOSBigSurVersion
+{
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion+1;
+    
+    return tNewVersion;
+}
+
 #pragma mark -
 
 + (WBVersion *)systemVersion
@@ -278,7 +287,7 @@
 	{
 		case WBMajorVersionUnit:
 			
-			return NSMakeRange(WBMacOSXMajorVersion, 1);
+			return NSMakeRange(WBMacOSXMajorVersion, 2);
 			
 		case WBMinorVersionUnit:
 			
@@ -298,7 +307,7 @@
 	{
 		case WBMajorVersionUnit:
 			
-			return NSMakeRange(WBMacOSXMajorVersion, 1);
+			return NSMakeRange(WBMacOSXMajorVersion, 2);
 			
 		case WBMinorVersionUnit:
 			
@@ -323,79 +332,103 @@
 	switch (smaller)
 	{
 		case WBMajorVersionUnit:
-			return NSMakeRange(WBMacOSXMajorVersion, 1);
+			return NSMakeRange(WBMacOSXMajorVersion, 2);
 		
 		case WBMinorVersionUnit:
 		
-			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
-		
+            if (inVersion.majorVersion==10)
+            {
+                return NSMakeRange(0, 16);
+            }
+            
+            return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+            
 		case WBPatchVersionUnit:
 		
-			switch(inVersion.minorVersion)
+            if (inVersion.majorVersion==10)
+            {
+                switch(inVersion.minorVersion)
+                {
+                    case WBMacOSCheetahMinorVersion:
+                        
+                        return NSMakeRange(0, 5);
+                        
+                    case WBMacOSPumaMinorVersion:
+                        
+                        return NSMakeRange(0, 6);
+                        
+                    case WBMacOSJaguarMinorVersion:
+                        
+                        return NSMakeRange(0, 9);
+                        
+                    case WBMacOSPantherMinorVersion:
+                        
+                        return NSMakeRange(0, 10);
+                        
+                    case WBMacOSTigerMinorVersion:
+                        
+                        return NSMakeRange(0, 12);
+                        
+                    case WBMacOSLeopardMinorVersion:
+                        
+                        return NSMakeRange(0, 9);
+                        
+                    case WBMacOSSnowLeopardMinorVersion:
+                        
+                        return NSMakeRange(0, 9);
+                        
+                    case WBMacOSLionMinorVersion:
+                        
+                        return NSMakeRange(0, 6);
+                        
+                    case WBMacOSMountainLionMinorVersion:
+                        
+                        return NSMakeRange(0, 6);
+                        
+                    case WBMacOSMavericksMinorVersion:
+                        
+                        return NSMakeRange(0, 6);
+                        
+                    case WBMacOSYosemiteMinorVersion:
+                        
+                        return NSMakeRange(0, 6);
+                        
+                    case WBMacOSElCapitanMinorVersion:
+                        
+                        return NSMakeRange(0, 7);
+                        
+                    case WBMacOSSierraMinorVersion:
+                        
+                        return NSMakeRange(0, 7);
+                        
+                    case WBMacOSHighSierraMinorVersion:
+                        
+                        return NSMakeRange(0, 6);
+                        
+                    case WBMacOSMojaveMinorVersion:
+                        
+                        return NSMakeRange(0, 7);
+                        
+                    case WBMacOSCatalinaMinorVersion:
+                        
+                        return NSMakeRange(0, 8);
+                }
+            }
+			else
 			{
-				case WBMacOSCheetahMinorVersion:
-					
-					return NSMakeRange(0, 5);
-					
-				case WBMacOSPumaMinorVersion:
-					
-					return NSMakeRange(0, 6);
-					
-				case WBMacOSJaguarMinorVersion:
-					
-					return NSMakeRange(0, 9);
-					
-				case WBMacOSPantherMinorVersion:
-					
-					return NSMakeRange(0, 10);
-					
-				case WBMacOSTigerMinorVersion:
-					
-					return NSMakeRange(0, 12);
-					
-				case WBMacOSLeopardMinorVersion:
-					
-					return NSMakeRange(0, 9);
-					
-				case WBMacOSSnowLeopardMinorVersion:
-					
-					return NSMakeRange(0, 9);
-					
-				case WBMacOSLionMinorVersion:
-					
-					return NSMakeRange(0, 6);
-					
-				case WBMacOSMountainLionMinorVersion:
-					
-					return NSMakeRange(0, 6);
-					
-				case WBMacOSMavericksMinorVersion:
-					
-					return NSMakeRange(0, 6);
-					
-				case WBMacOSYosemiteMinorVersion:
-					
-					return NSMakeRange(0, 6);
-					
-				case WBMacOSElCapitanMinorVersion:
-					
-					return NSMakeRange(0, 7);
-					
-				case WBMacOSSierraMinorVersion:
-					
-					return NSMakeRange(0, 7);
-					
-				case WBMacOSHighSierraMinorVersion:
-					
-					return NSMakeRange(0, 6);
-					
-				case WBMacOSMojaveMinorVersion:
-					
-					return NSMakeRange(0, 7);
-					
-				case WBMacOSCatalinaMinorVersion:
-					
-					return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+				if (inVersion.majorVersion==11)
+				{
+					switch(inVersion.minorVersion)
+					{
+						case 0:
+							
+							return NSMakeRange(1, 1);
+							
+						case 1:
+							
+							return NSMakeRange(0, 1);
+					}
+				}
 			}
 			
 			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
