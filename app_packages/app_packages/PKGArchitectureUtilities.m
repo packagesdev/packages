@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2017, Stephane Sudre
+Copyright (c) 2007-2020, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -164,6 +164,18 @@ enum
 
 				switch(tFatArch.cputype)
 				{
+					case CPU_TYPE_ARM:
+					
+						[tMutableArray addObject:@"arm"];
+						
+						break;
+					
+					case CPU_TYPE_ARM64:
+						
+						[tMutableArray addObject:@"arm64"];
+						
+						break;
+					
 					case CPU_TYPE_X86:
 					
 						[tMutableArray addObject:@"i386"];
@@ -227,13 +239,13 @@ enum
 
 		switch(tMachHeader.cputype)
 		{
-			case CPU_TYPE_X86:
-			
-				return @[@"i386"];
-				
 			case CPU_TYPE_ARM:
 				
 				return @[@"arm"];
+			
+			case CPU_TYPE_X86:
+			
+				return @[@"i386"];
 				
 			case CPU_TYPE_POWERPC:
 			
@@ -274,6 +286,10 @@ enum
 		
 		switch(tMachHeader64.cputype)
 		{
+			case CPU_TYPE_ARM64:
+				
+				return @[@"arm64"];
+			
 			case CPU_TYPE_X86_64:
 			
 				return @[@"x86_64"];
