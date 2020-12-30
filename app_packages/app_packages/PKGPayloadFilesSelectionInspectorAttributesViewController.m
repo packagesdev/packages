@@ -448,6 +448,8 @@
 		}
 		
 		[self.delegate viewController:self didUpdateSelectedItems:self.selectedItems];
+		
+		_cachedOwner=tTag;
 	}
 }
 
@@ -465,6 +467,8 @@
 		}
 		
 		[self.delegate viewController:self didUpdateSelectedItems:self.selectedItems];
+		
+		_cachedGroup=tTag;
 	}
 }
 
