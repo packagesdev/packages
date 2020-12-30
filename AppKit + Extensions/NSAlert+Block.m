@@ -13,6 +13,14 @@
 
 - (void)WB_beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSModalResponse returnCode))handler
 {
+	
+	if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_9)
+	{
+		[self performSelector:@selector(beginSheetModalForWindow:completionHandler:) withObject:inWindow withObject:handler];
+		
+		return;
+	}
+	
 	[self beginSheetModalForWindow:inWindow
 					 modalDelegate:self
 					didEndSelector:@selector(WB_alertDidEndSelector:returnCode:contextInfo:)
