@@ -365,7 +365,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 				case PKGBuildErrorFileExtendedAttributesCanNotBeRead:
 					
-					(void)fprintf(stdout, "Unable to read exteneded attributes of item at path \"%s\"",[tFilePath fileSystemRepresentation]);
+					(void)fprintf(stdout, "Unable to read extended attributes of item at path \"%s\"",[tFilePath fileSystemRepresentation]);
 					break;
 				
 				case PKGBuildErrorFileExtendedAttributesCanNotBeSet:
@@ -382,19 +382,26 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					break;
 					
-				case PKGBuildErrorLicenseTemplateNotFound:
-					
-					(void)fprintf(stdout, "License template for \"%s\" can not be found",[tTag fileSystemRepresentation]);
-					break;
-				
 				case PKGBuildErrorBuildFolderNotWritable:
 					
 					(void)fprintf(stdout, "The existing folder at path '%s' can not be used as a build folder because it's not a writable folder.",[tFilePath fileSystemRepresentation]);
 					break;
 					
+				case PKGBuildErrorLicenseTemplateNotFound:
+					
+					(void)fprintf(stdout, "License template for \"%s\" can not be found",[tTag fileSystemRepresentation]);
+					break;
+					
 				case PKGBuildErrorBundleIdentifierNotFound:
 					
-					(void)fprintf(stdout, "No identifier could be found for bundle at path '%s'",[tFilePath fileSystemRepresentation]);
+					(void)fprintf(stdout, "No identifier could be found for the bundle at path \"%s\"",[tFilePath fileSystemRepresentation]);
+					break;
+				
+				case PKGBuildErrorCanNotExtractInfoFromImportedPackage:
+					
+					(void)fprintf(stdout, "Unable to extract information from the imported package at path \"%s\"",[tFilePath fileSystemRepresentation]);
+					break;
+					
 					break;
 					
 				case  PKGBuildErrorUnknownLanguage:

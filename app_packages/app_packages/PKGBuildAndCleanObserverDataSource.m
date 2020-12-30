@@ -669,6 +669,18 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"License template for \"%@\" can not be found",@"Build",@""),tTag];
 					
 					break;
+				
+				case PKGBuildErrorBundleIdentifierNotFound:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"No identifier could be found for the bundle at path '%@'",@"Build",@""),tFilePath];
+					
+					break;
+					
+				case PKGBuildErrorCanNotExtractInfoFromImportedPackage:
+					
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to extract information from the imported package at path '%s'",@"Build",@""),tFilePath];
+					
+					break;
 					
 				/*case IC_BUILDER_FAILURE_REASON_PACKAGE_SAME_NAME:
 					
@@ -676,11 +688,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;*/
 					
-				case PKGBuildErrorCanNotExtractInfoFromImportedPackage:
-					
-					// A COMPLETER
-					
-					break;
+				
 					
 				case PKGBuildErrorEmptyString:
 					
