@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2020, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,7 +14,9 @@
 #import "PKGRequirementConverterCPU.h"
 
 #import "PKGRequirement_CPU+Constants.h"
-											
+
+#include <mach/machine.h>
+
 @implementation PKGRequirementConverterCPU
 
 - (PKGRequirementType)requirementTypeWithParameters:(NSDictionary *) inParameters
@@ -62,7 +64,7 @@
 	
 	PKGRequirementCPUFamilyType tFamily=[tNumber integerValue];
 		
-	if (tFamily<PKGRequirementCPUFamilyAny || tFamily>PKGRequirementCPUFamilyIntel)
+	if (tFamily<PKGRequirementCPUFamilyAny || tFamily>PKGRequirementCPUFamilyAppleSilicon)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGConverterErrorDomain
@@ -74,17 +76,31 @@
 	
 	NSString * tFamilyString;
 		
-	if (tFamily==PKGRequirementCPUFamilyPowerPC)
+	switch(tFamily)
 	{
-		tFamilyString=@"IC_CPU_ARCHITECTURE_POWERPC";
-	}
-	else if (tFamily==PKGRequirementCPUFamilyIntel)
-	{
-		tFamilyString=@"IC_CPU_ARCHITECTURE_INTEL";
-	}
-	else
-	{
-		tFamilyString=@"IC_CPU_ARCHITECTURE_ANY";
+		case PKGRequirementCPUFamilyPowerPC:
+			
+			tFamilyString=@"IC_CPU_ARCHITECTURE_POWERPC";
+			
+			break;
+			
+		case PKGRequirementCPUFamilyIntel:
+			
+			tFamilyString=@"IC_CPU_ARCHITECTURE_INTEL";
+			
+			break;
+			
+		case PKGRequirementCPUFamilyAppleSilicon:
+			
+			tFamilyString=@"IC_CPU_ARCHITECTURE_APPLESILICON";
+			
+			break;
+			
+		default:
+			
+			tFamilyString=@"IC_CPU_ARCHITECTURE_ANY";
+			
+			break;
 	}
 	
 	NSString * tPowerPCTypeString=@"IC_CPU_ARCHITECTURE_TYPE_ANY";

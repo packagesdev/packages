@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <segmentedControl verticalHuggingPriority="750" id="32">
-                    <rect key="frame" x="304" y="57" width="245" height="25"/>
+                    <rect key="frame" x="253" y="57" width="245" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <segmentedCell key="cell" state="on" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="101">
                         <font key="font" metaFont="system"/>
@@ -38,7 +38,7 @@
                     </connections>
                 </segmentedControl>
                 <segmentedControl verticalHuggingPriority="750" id="22">
-                    <rect key="frame" x="304" y="118" width="269" height="25"/>
+                    <rect key="frame" x="253" y="118" width="371" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <segmentedCell key="cell" state="on" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="100">
                         <font key="font" metaFont="system"/>
@@ -46,6 +46,7 @@
                             <segment label="Cualquiera" imageScaling="none" width="87" selected="YES"/>
                             <segment label="PowerPC" imageScaling="none" width="87" tag="1"/>
                             <segment label="Intel" imageScaling="none" width="87" tag="2"/>
+                            <segment label="Apple Silicon" tag="3"/>
                         </segments>
                     </segmentedCell>
                     <connections>
@@ -53,7 +54,7 @@
                     </connections>
                 </segmentedControl>
                 <textField verticalHuggingPriority="750" id="21">
-                    <rect key="frame" x="116" y="123" width="185" height="17"/>
+                    <rect key="frame" x="65" y="123" width="185" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Arquitectura del procesador:" id="99">
                         <font key="font" metaFont="system"/>
@@ -62,7 +63,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="9">
-                    <rect key="frame" x="259" y="62" width="42" height="17"/>
+                    <rect key="frame" x="208" y="62" width="42" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Intel:" id="94">
                         <font key="font" metaFont="system"/>
@@ -71,7 +72,7 @@
                     </textFieldCell>
                 </textField>
                 <segmentedControl verticalHuggingPriority="750" id="12">
-                    <rect key="frame" x="304" y="85" width="245" height="25"/>
+                    <rect key="frame" x="253" y="85" width="245" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="97">
                         <font key="font" metaFont="system"/>
@@ -86,7 +87,7 @@
                     </connections>
                 </segmentedControl>
                 <textField verticalHuggingPriority="750" id="10">
-                    <rect key="frame" x="68" y="22" width="233" height="17"/>
+                    <rect key="frame" x="17" y="22" width="233" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Frecuencia mínima del procesador:" id="95">
                         <font key="font" metaFont="system"/>
@@ -95,7 +96,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="8">
-                    <rect key="frame" x="226" y="90" width="75" height="17"/>
+                    <rect key="frame" x="175" y="90" width="75" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="PowerPC:" id="93">
                         <font key="font" metaFont="system"/>
@@ -104,7 +105,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="7">
-                    <rect key="frame" x="116" y="163" width="185" height="17"/>
+                    <rect key="frame" x="65" y="163" width="185" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Número mínimo de núcleos:" id="92">
                         <font key="font" metaFont="system"/>
@@ -113,7 +114,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="yA5-3u-mqq">
-                    <rect key="frame" x="302" y="157" width="103" height="26"/>
+                    <rect key="frame" x="251" y="157" width="103" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="sr3-FQ-uSv" id="65v-qf-e1a">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -140,7 +141,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" id="P6w-Ik-l4T">
-                    <rect key="frame" x="302" y="17" width="127" height="26"/>
+                    <rect key="frame" x="251" y="17" width="127" height="26"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <popUpButtonCell key="cell" type="push" title="933 MHz" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="933333" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="Bej-7b-6GS" id="wa6-ce-5QM">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

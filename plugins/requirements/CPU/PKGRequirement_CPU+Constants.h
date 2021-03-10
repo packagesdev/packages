@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2020, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementCPUFamilyType)
 	PKGRequirementCPUFamilyAny=0,
 	PKGRequirementCPUFamilyPowerPC,
 	PKGRequirementCPUFamilyIntel,
+	PKGRequirementCPUFamilyAppleSilicon
 };
 
 typedef NS_ENUM(NSUInteger, PKGRequirementCPUGenerationType)

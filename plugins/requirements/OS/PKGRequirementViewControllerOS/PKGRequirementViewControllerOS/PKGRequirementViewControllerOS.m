@@ -76,35 +76,52 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 + (NSString *)operatingSystemNameOfVersion:(WBVersion *)inVersion
 {
-	static NSArray * sKnownMacOSNames=nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		sKnownMacOSNames=@[@"Cheetah",
-						   @"Puma",
-						   @"Jaguar",
-						   @"Panther",
-						   @"Tiger",
-						   @"Leopard",
-						   @"Snow Leopard",
-						   @"Lion",
-						   @"Mountain Lion",
-						   @"Mavericks",
-						   @"Yosemite",
-						   @"El Capitan",
-						   @"Sierra",
-						   @"High Sierra",
-						   @"Mojave",
-						   @"Catalina"];
-	});
+	NSArray * tNames=nil;
 	
-	WBVersionComponents * tVersionComponents=[[PKGRequirementViewControllerOS macOSVersionsHistory] components:WBMinorVersionUnit fromVersion:inVersion];
+	WBVersionComponents * tVersionComponents=[[PKGRequirementViewControllerOS macOSVersionsHistory] components:WBMajorVersionUnit|WBMinorVersionUnit fromVersion:inVersion];
+	
+	if (tVersionComponents.majorVersion==10)
+	{
+		static NSArray * sKnownMacOS10Names=nil;
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			sKnownMacOS10Names=@[@"Cheetah",
+							   @"Puma",
+							   @"Jaguar",
+							   @"Panther",
+							   @"Tiger",
+							   @"Leopard",
+							   @"Snow Leopard",
+							   @"Lion",
+							   @"Mountain Lion",
+							   @"Mavericks",
+							   @"Yosemite",
+							   @"El Capitan",
+							   @"Sierra",
+							   @"High Sierra",
+							   @"Mojave",
+							   @"Catalina"];
+		});
+		
+		tNames=sKnownMacOS10Names;
+	}
+	else if (tVersionComponents.majorVersion==11)
+	{
+		static NSArray * sKnownMacOS11Names=nil;
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			sKnownMacOS11Names=@[@"Big Sur"];
+		});
+		
+		tNames=sKnownMacOS11Names;
+	}
 	
 	NSInteger tMinorComponent=tVersionComponents.minorVersion;
 	
-	if (tMinorComponent<0 || tMinorComponent>=sKnownMacOSNames.count)
+	if (tMinorComponent<0 || tMinorComponent>=tNames.count)
 		return @"-";
 	
-	return sKnownMacOSNames[tMinorComponent];
+	return tNames[tMinorComponent];
 }
 
 + (WBMacOSVersionsHistory *)macOSVersionsHistory
@@ -509,7 +526,9 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 - (BOOL)versionPickerCell:(WBVersionPickerCell *)inVersionPickerCell shouldSelectElementType:(WBVersionPickerCellElementType)inElementType
 {	
-	return (inElementType!=WBVersionPickerCellElementMajorVersion);
+	return YES;
+	
+	//return (inElementType!=WBVersionPickerCellElementMajorVersion);
 }
 
 @end

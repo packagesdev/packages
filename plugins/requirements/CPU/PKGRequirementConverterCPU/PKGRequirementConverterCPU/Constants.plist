@@ -19,6 +19,8 @@
         <string>18</string>
         <key>IC_CPU_ARCHITECTURE_INTEL</key>
         <string>7</string>
+        <key>IC_CPU_ARCHITECTURE_APPLESILICON</key>
+        <string>12</string>
         <key>IC_CPU_ARCHITECTURE_TYPE_ANY</key>
         <string>0</string>
         <key>IC_CPU_ARCHITECTURE_TYPE_32</key>

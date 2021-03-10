@@ -122,6 +122,11 @@
 		[_IntelArchitectureSegmentedControl selectSegmentWithTag:tSubTag];
 	}
 	
+	// Apple Silicon
+	
+	// There are only 64-bit Apple M1 CPU right now
+	
+	
 	// Minimum CPU Frequency
 	
 	tNumber=_settings[PKGRequirementCPUMinimumFrequencyKey];

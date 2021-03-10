@@ -38,7 +38,7 @@
                     </connections>
                 </segmentedControl>
                 <segmentedControl verticalHuggingPriority="750" id="22">
-                    <rect key="frame" x="256" y="118" width="233" height="25"/>
+                    <rect key="frame" x="256" y="118" width="335" height="25"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <segmentedCell key="cell" state="on" borderStyle="border" alignment="left" style="automatic" trackingMode="selectOne" id="100">
                         <font key="font" metaFont="system"/>
@@ -46,6 +46,7 @@
                             <segment label="Indifférente" imageScaling="none" selected="YES"/>
                             <segment label="PowerPC" imageScaling="none" width="78" tag="1"/>
                             <segment label="Intel" imageScaling="none" width="58" tag="2"/>
+                            <segment label="Apple Silicon" tag="3"/>
                         </segments>
                     </segmentedCell>
                     <connections>
