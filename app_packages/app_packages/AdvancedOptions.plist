@@ -163,6 +163,12 @@
 						<key>VALUE</key>
 						<string>i386</string>
 					</dict>
+					<dict>
+						<key>LABEL</key>
+						<string>Apple Silicon</string>
+						<key>VALUE</key>
+						<string>arm64</string>
+					</dict>
 				</array>
 			</dict>
         </dict>
@@ -220,6 +226,12 @@
 						<key>VALUE</key>
 						<string>i386</string>
 					</dict>
+					<dict>
+						<key>LABEL</key>
+						<string>Apple Silicon</string>
+						<key>VALUE</key>
+						<string>arm64</string>
+					</dict>
 				</array>
 			</dict>
         </dict>
@@ -248,6 +260,12 @@
 						<string>Intel</string>
 						<key>VALUE</key>
 						<string>i386</string>
+					</dict>
+					<dict>
+						<key>LABEL</key>
+						<string>Apple Silicon</string>
+						<key>VALUE</key>
+						<string>arm64</string>
 					</dict>
 				</array>
 			</dict>
