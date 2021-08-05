@@ -2,9 +2,13 @@
 
 #include "CodeSigningConfigurationSettings.xcconfig"
 
-// Intel 64-bit
+// Intel 64-bit + ARM (when supported by Xcode)
 
 ARCHS = $(ARCHS_STANDARD_64_BIT)
+
+// Hardened Runtime
+
+ENABLE_HARDENED_RUNTIME = YES
 
 // Use Latest OS X SDK
 
@@ -12,7 +16,8 @@ SDKROOT = macosx
 
 // Deployment Target
 
-MACOSX_DEPLOYMENT_TARGET = 10.8
+MACOSX_DEPLOYMENT_TARGET = 10.9
+MACOSX_DEPLOYMENT_TARGET[arch=arm64] = 11.0
 
 //
 
