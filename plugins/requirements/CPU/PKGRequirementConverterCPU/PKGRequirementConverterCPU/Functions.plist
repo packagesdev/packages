@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>IC_CheckCPU</key>
@@ -7,12 +7,23 @@
 	{
 		/* Check Minimum Core Count */
 		
-		if (system.sysctl('hw.ncpu')&gt;=inMinimumCoresCount)
+		if (system.sysctl(&apos;hw.ncpu&apos;)&gt;=inMinimumCoresCount)
 		{
 			var tArchitecture;
 			var t64BitSupport;
-			
-			tArchitecture=system.sysctl('hw.cputype');
+			var tTranslated;
+
+			tArchitecture=system.sysctl(&apos;hw.cputype&apos;);
+
+			tTranslated=system.sysctl(&apos;sysctl.proc_translated&apos;);
+
+			if (tTranslated!=null)
+			{
+				if (tTranslated==1)
+				{
+					tArchitecture=IC_CPU_ARCHITECTURE_APPLESILICON;
+				}
+			}
 			
 			/* Check Architecture */
 			
@@ -26,7 +37,7 @@
 			
 			/* Check Architecture Type */
 			
-			t64BitSupport=system.sysctl('hw.cpu64bit_capable');
+			t64BitSupport=system.sysctl(&apos;hw.cpu64bit_capable&apos;);
 			
 			if (tArchitecture==IC_CPU_ARCHITECTURE_POWERPC)
 			{
@@ -47,7 +58,7 @@
 			
 			/* Check Minimum CPU Frequency */
 			
-			if (system.sysctl('hw.cpufrequency_max')&gt;=inMinimumFrequency)
+			if (system.sysctl(&apos;hw.cpufrequency_max&apos;)&gt;=inMinimumFrequency)
 			{
 				return true;
 			}

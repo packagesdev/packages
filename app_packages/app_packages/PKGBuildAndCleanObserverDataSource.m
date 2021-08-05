@@ -678,7 +678,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 				case PKGBuildErrorCanNotExtractInfoFromImportedPackage:
 					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to extract information from the imported package at path '%s'",@"Build",@""),tFilePath];
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to extract information from the imported package at path '%@'",@"Build",@""),tFilePath];
 					
 					break;
 					
@@ -926,7 +926,7 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 				case PKGBuildErrorSigningUnknown:
 					
-					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to sign the data (%d)",@"Build",@""),tErrorEvent.subcode];
+					tTitle=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to sign the data (%d)",@"Build",@""),(int)tErrorEvent.subcode];
 					
 					break;
 					
@@ -960,6 +960,12 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					
 					break;
 				
+                case PKGBuildErrorSigningTrustEvaluationFailure:
+                    
+                    tTitle=NSLocalizedStringFromTable(@"The chain for the Developer ID Installer certificate can not be trusted.",@"Build",@"");
+                    
+                    break;
+                    
 				case PKGBuildErrorSigningCertificateExpired:
 					
 					tTitle=NSLocalizedStringFromTable(@"The Developer ID Installer certificate is expired.",@"Build",@"");
@@ -1106,7 +1112,13 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 					}
                     
                     break;
-					
+                    
+                case PKGBuildErrorNoCommonHostArchitectures:
+                    
+                    tTitle=NSLocalizedStringFromTable(@"Unable to automatically determine the value for hostArchitectures",@"Build",@"");
+                    
+                    break;
+                    
 				default:
 					
 					tTitle=[NSString stringWithFormat:@"Warning code (%lu)",(unsigned long) tFailureReason];
@@ -1224,6 +1236,30 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 			
 			switch(tErrroType)
 			{
+				case PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFoundInvalidPermissions:
+					
+					nBuildEventItem.title=NSLocalizedStringFromTable(@"Unable to communicate with packages_dispatcher. The permissions of the fr.whitebox.packages.build.dispatcher.plist launchd configuration file in /Library/LaunchDaemons are incorrect.",@"Build",@"No comment");
+					
+					break;
+					
+				case PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFound:
+					
+					nBuildEventItem.title=NSLocalizedStringFromTable(@"Unable to communicate with packages_dispatcher. The fr.whitebox.packages.build.dispatcher.plist launchd configuration file is missing in /Library/LaunchDaemons.",@"Build",@"No comment");
+					
+					break;
+					
+				case PKGPackagesDispatcherErrorPackagesDispatcherNotFound:
+					
+					nBuildEventItem.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find tool '%@'",@"Build",@"No comment"),@"packages_dispatcher"];
+					
+					break;
+					
+				case PKGPackagesDispatcherErrorPackagesDispatcherNotResponding:
+					
+					nBuildEventItem.title=NSLocalizedStringFromTable(@"packages_dispatcher is not responding. Have you disabled or unloaded the fr.whitebox.packages.build.dispatcher.plist launchd configuration file?",@"Build",@"No comment");
+					
+					break;
+					
 				case PKGPackagesDispatcherErrorPackageBuilderNotFound:
 					
 					nBuildEventItem.title=[NSString stringWithFormat:NSLocalizedStringFromTable(@"Unable to find tool '%@'",@"Build",@"No comment"),@"packages_builder"];

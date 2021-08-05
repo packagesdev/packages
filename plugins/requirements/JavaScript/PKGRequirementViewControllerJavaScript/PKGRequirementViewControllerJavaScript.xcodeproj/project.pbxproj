@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F4451B5E1C7BBD3400516075 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B5D1C7BBD3400516075 /* AppKit.framework */; };
 		F4451B601C7BBD3800516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B5F1C7BBD3800516075 /* Foundation.framework */; };
+		F49723A826B015F00064C2A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F49723A626B015F00064C2A4 /* InfoPlist.strings */; };
 		F4F30DF31C879DA700C8DB5B /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F30DF11C879DA700C8DB5B /* Icon_32.png */; };
 		F4F30DF41C879DA700C8DB5B /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F30DF21C879DA700C8DB5B /* Icon_32@2x.png */; };
 		F4F30DF61C879DAE00C8DB5B /* JavaScript_Help_DispatchList.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4F30DF51C879DAE00C8DB5B /* JavaScript_Help_DispatchList.plist */; };
@@ -27,6 +28,9 @@
 		F46DCE9C1E5D132B00794DF9 /* ICSourceTextTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSourceTextTopView.h; path = ../../../../JavaScriptEditor/JavaScriptEditor/ICSourceTextTopView.h; sourceTree = "<group>"; };
 		F47599F81F18298B00607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerJavaScript/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F48DDE3B1CE3DD30004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F49723A726B015F00064C2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerJavaScript/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F49723A926B015F50064C2A4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerJavaScript/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F49723AA26B015FD0064C2A4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = PKGRequirementViewControllerJavaScript/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F4B01EE21FAF27BF0027A553 /* PKGTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableCellView.h; path = ../../../../shared/PKGTableCellView.h; sourceTree = "<group>"; };
 		F4CA27001E5A48CC00E196EB /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F4F30DF11C879DA700C8DB5B /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerJavaScript/Icon_32.png; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 				F4F30DF11C879DA700C8DB5B /* Icon_32.png */,
 				F4F30DF21C879DA700C8DB5B /* Icon_32@2x.png */,
 				F4F30DF51C879DAE00C8DB5B /* JavaScript_Help_DispatchList.plist */,
+				F49723A626B015F00064C2A4 /* InfoPlist.strings */,
 				F4F5D0A11CC977900075C2EF /* MainView.xib */,
 				F4F30DFA1C879DC000C8DB5B /* Info.plist */,
 			);
@@ -230,6 +235,7 @@
 				F4F5D0A31CC977900075C2EF /* MainView.xib in Resources */,
 				F4F30DF41C879DA700C8DB5B /* Icon_32@2x.png in Resources */,
 				F4F30DF31C879DA700C8DB5B /* Icon_32.png in Resources */,
+				F49723A826B015F00064C2A4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +254,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		F49723A626B015F00064C2A4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F49723A726B015F00064C2A4 /* en */,
+				F49723A926B015F50064C2A4 /* fr */,
+				F49723AA26B015FD0064C2A4 /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		F4F5D0A11CC977900075C2EF /* MainView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -287,6 +303,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4F5D09F1CC976210075C2EF /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -301,6 +318,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4F5D09F1CC976210075C2EF /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
