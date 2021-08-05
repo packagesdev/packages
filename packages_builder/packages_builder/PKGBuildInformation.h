@@ -121,7 +121,9 @@ extern NSString * const PKGBuildDefaultLanguageKey;
 	@property (readonly) NSMutableDictionary * languagesPath;
 
 
-	// Additional distribution options set by requirements
+    @property (nonatomic,readonly) NSArray * hostArchitectures;
+
+// Additional distribution options set by requirements
 
 	@property (readonly) NSMutableDictionary * requirementsOptions;
 
@@ -138,5 +140,7 @@ extern NSString * const PKGBuildDefaultLanguageKey;
 
 
 	@property (readonly) NSMutableArray * resourcesExtras;
+
+- (void)updateHostArchitecturesSetWithSet:(NSSet *)inSet;
 
 @end

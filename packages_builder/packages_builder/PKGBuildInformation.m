@@ -176,6 +176,9 @@ NSString * const PKGBuildDefaultLanguageKey=@"PKGBuildDefaultLanguageKey";
 
 
 @interface PKGBuildInformation ()
+{
+    NSMutableSet * _hostArchitecturesSet;
+}
 
 	@property (nonatomic,copy,readwrite) NSString * resourcesPath;
 
@@ -207,8 +210,9 @@ NSString * const PKGBuildDefaultLanguageKey=@"PKGBuildDefaultLanguageKey";
 	{
 		_languagesPath=[NSMutableDictionary dictionary];
 		
-
+        _hostArchitecturesSet=nil;
 		
+        
 		_requirementsOptions=[NSMutableDictionary dictionary];
 		
 		_packagesAttributes=[NSMutableDictionary dictionary];
@@ -256,6 +260,24 @@ NSString * const PKGBuildDefaultLanguageKey=@"PKGBuildDefaultLanguageKey";
 	}
 	
 	return tResourcesPath;
+}
+
+- (NSArray *)hostArchitectures
+{
+    if (_hostArchitecturesSet==nil)
+        return nil;
+    
+    return _hostArchitecturesSet.allObjects;
+}
+
+#pragma mark -
+
+- (void)updateHostArchitecturesSetWithSet:(NSSet *)inSet
+{
+    if (_hostArchitecturesSet==nil)
+        _hostArchitecturesSet=[inSet mutableCopy];
+    else
+        [_hostArchitecturesSet intersectSet:inSet];
 }
 
 @end
