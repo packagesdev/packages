@@ -230,7 +230,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 			else
 			{
 #endif
-#endif
+
 				SInt32 tMajorVersion,tMinorVersion,tBugFixVersion;
 				
 				Gestalt(gestaltSystemVersionMajor,&tMajorVersion);
@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
 			}
 #endif
-				
+#endif
 
 			
 		});

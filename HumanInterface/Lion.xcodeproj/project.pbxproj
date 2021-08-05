@@ -48,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F4B913E126AF2A370003FAE8 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4FF812B21231C4500B50029 /* Lion.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lion.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FF812F21231C4500B50029 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4FF813521231D5F00B50029 /* Aqua.Active.00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.00.png; sourceTree = "<group>"; };
@@ -149,6 +150,7 @@
 		F4FF812221231C4500B50029 = {
 			isa = PBXGroup;
 			children = (
+				F4B913E126AF2A370003FAE8 /* SharedConfigurationSettings.xcconfig */,
 				F4FF812D21231C4500B50029 /* Lion */,
 				F4FF812C21231C4500B50029 /* Products */,
 			);
@@ -218,6 +220,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F4FF812221231C4500B50029;
@@ -324,10 +327,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 			};
 			name = Debug;
 		};
@@ -360,19 +360,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 			};
 			name = Release;
 		};
 		F4FF813321231C4500B50029 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4B913E126AF2A370003FAE8 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = NO;
 				INFOPLIST_FILE = Lion/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.whitebox.human-interface.resources.lion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -381,11 +380,12 @@
 		};
 		F4FF813421231C4500B50029 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4B913E126AF2A370003FAE8 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = NO;
 				INFOPLIST_FILE = Lion/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.whitebox.human-interface.resources.lion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;

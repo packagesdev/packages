@@ -159,6 +159,7 @@
 		F4AF73BB2124407D003AEEA9 /* Aqua.Active.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.06.png; sourceTree = "<group>"; };
 		F4AF73BC2124407D003AEEA9 /* Aqua.Active.07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.07.png; sourceTree = "<group>"; };
 		F4AF73BD2124407D003AEEA9 /* Aqua.Active.08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.Active.08.png; sourceTree = "<group>"; };
+		F4B913E226AF2A4A0003FAE8 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4BE361B21E7FF9300949C76 /* Aqua.LockButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Aqua.LockButton@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +177,7 @@
 		F43C668A21217AD800FD8D80 = {
 			isa = PBXGroup;
 			children = (
+				F4B913E226AF2A4A0003FAE8 /* SharedConfigurationSettings.xcconfig */,
 				F43C669521217AD800FD8D80 /* Mojave */,
 				F43C669421217AD800FD8D80 /* Products */,
 			);
@@ -326,6 +328,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F43C668A21217AD800FD8D80;
@@ -468,10 +471,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -504,18 +503,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		F43C669B21217AD800FD8D80 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4B913E226AF2A4A0003FAE8 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Mojave/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.whitebox.human-interface.resources.yosemite.mojave";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -524,10 +521,11 @@
 		};
 		F43C669C21217AD800FD8D80 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4B913E226AF2A4A0003FAE8 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Mojave/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.whitebox.human-interface.resources.yosemite.mojave";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
