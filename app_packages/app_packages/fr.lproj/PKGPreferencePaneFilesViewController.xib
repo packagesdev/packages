@@ -103,7 +103,7 @@
 					<object class="NSButton" id="285270819">
 						<reference key="NSNextResponder" ref="825853080"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{234, 21}, {195, 18}}</string>
+						<string key="NSFrame">{{234, 19}, {195, 18}}</string>
 						<reference key="NSSuperview" ref="825853080"/>
 						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
@@ -475,9 +475,9 @@
 							<reference ref="119742927"/>
 							<reference ref="192602427"/>
 							<reference ref="752986838"/>
-							<reference ref="285270819"/>
 							<reference ref="64303407"/>
 							<reference ref="163297149"/>
+							<reference ref="285270819"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">View</string>

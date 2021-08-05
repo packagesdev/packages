@@ -34,7 +34,7 @@
                             </textFieldCell>
                         </textField>
                         <button id="PaN-tX-ahd">
-                            <rect key="frame" x="147" y="0.0" width="208" height="18"/>
+                            <rect key="frame" x="147" y="0.0" width="214" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="check" title="Mantener proprietator y grupo" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GHQ-Tg-H3d">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
