@@ -91,7 +91,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tString!=nil)
 	{
-		asl_log(NULL, NULL, inLevel,"%s", [tString UTF8String]);
+		asl_log(NULL, NULL, (int)inLevel,"%s", [tString UTF8String]);
 	}
 	/*asl_log(g_asl, log_msg, ASL_LEVEL_ERR, 
 "launch_data_new_string(\"" LAUNCH_KEY_CHECKIN "\") Unable to create 
