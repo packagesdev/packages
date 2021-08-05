@@ -383,6 +383,8 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 {
 	[self.window invalidateCursorRectsForView:self];
 	
+	[self _refreshVisibleSteps];
+	
 	[self setNeedsDisplay:YES];
 }
 
@@ -532,42 +534,17 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	return tHeight;
 }
 
-- (void)drawRect:(NSRect)inRect
+- (void)_refreshVisibleSteps
 {
 	NSRect tBounds=self.bounds;
 	
-	if (_dragInProgress==NO)
-	{
-		if (NSEqualRects(tBounds,_trackingRect)==NO)
-		{
-			if (_trackingTag!=0)
-				[self removeTrackingRect:_trackingTag];
-			
-			_trackingRect=tBounds;
-			
-			_trackingTag=[self addTrackingRect:tBounds owner:self userData:NULL assumeInside:NO];
-		}
-	}
-	
 	if (self.dataSource==nil)
 		return;
-
+	
 	NSInteger tNumberOfSteps=[self.dataSource numberOfStepsInPresentationListView:self];
 	
 	if (tNumberOfSteps==0)
 		return;
-	
-    BOOL tIsDarkMode=[self WB_isEffectiveAppearanceDarkAqua];
-    
-    /*PKGPresentationThemeVersion tPresentationTheme=_themeVersion;
-	
-	if (tPresentationTheme==PKGPresentationThemeMojaveDynamic)
-	{
-		if ([self WB_isEffectiveAppearanceDarkAqua]==NO)
-			tPresentationTheme=PKGPresentationThemeMojaveLight;
-		else
-			tPresentationTheme=PKGPresentationThemeMojaveDark;
-	}*/
 	
 	// Compute the number of steps that can be displayed
 	
@@ -576,36 +553,11 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	CGFloat tHeight;
 	NSString * tStepTitle;
 	NSInteger tIndex;
-	NSRect tFrame;
 #ifdef LIST_DEBUG_VIEW
 	NSRect tSavedFrame;
 #endif
-	NSBezierPath * tBezierPath;
 	
-	NSSize tBulletSize;
-	NSImage * tBulletImage;
-		
 	CGFloat tTextOriginX=[PKGPresentationListView labelFrameOriginX];
-	
-	NSGraphicsContext * tGraphicContext = [NSGraphicsContext currentContext];
-		
-	[NSGraphicsContext saveGraphicsState];
-	
-	if (_themeVersion==PKGPresentationThemeMountainLion)
-	{
-		tBulletImage=_selectedPaneImage;
-		
-		tBulletSize=tBulletImage.size;
-	}
-	else
-	{
-		tBulletImage=nil;
-		tBulletSize=NSMakeSize(2.0*PKGPresentationListViewBulletRadius,2.0*PKGPresentationListViewBulletRadius);
-	}
-	
-	[tGraphicContext setPatternPhase:NSMakePoint(0.0,NSMaxY(self.frame))];
-	
-	
 	
 	CGFloat tTextMaxWidth=NSMaxX(tBounds)-tTextOriginX;
 	
@@ -619,9 +571,9 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		NSFont * tFont=[NSFont boldSystemFontOfSize:13.0];
 		
 		tMinStepIndex=tMaxStepIndex=self.selectedStep;
-	
+		
 		tStepTitle=[self.dataSource presentationListView:self objectForStep:self.selectedStep];
-	
+		
 		tHeight=[self heightOfString:tStepTitle forFont:tFont andMaxWidth:tTextMaxWidth];
 		
 		if (tHeight==PKGPresentationListViewDefaultRowHeight)
@@ -640,7 +592,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			while (tIndex<tNumberOfSteps && tHeight<tMaxHeight)
 			{
 				tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
-		
+				
 				CGFloat tStepHeight=[self heightOfString:tStepTitle forFont:tFont andMaxWidth:tTextMaxWidth];
 				
 				if (tStepHeight==PKGPresentationListViewDefaultRowHeight)
@@ -661,11 +613,11 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		else
 		{
 			tIndex=self.selectedStep-1;
-		
+			
 			while (tIndex>=_firstVisibleStep && tHeight<tMaxHeight)
 			{
 				tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
-			
+				
 				CGFloat tStepHeight=[self heightOfString:tStepTitle forFont:tFont andMaxWidth:tTextMaxWidth];
 				
 				if (tStepHeight==PKGPresentationListViewDefaultRowHeight)
@@ -692,7 +644,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 				while (tIndex<tNumberOfSteps && tHeight<tMaxHeight)
 				{
 					tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
-			
+					
 					CGFloat tStepHeight=[self heightOfString:tStepTitle forFont:tFont andMaxWidth:tTextMaxWidth];
 					
 					if (tStepHeight==PKGPresentationListViewDefaultRowHeight)
@@ -710,7 +662,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 					tIndex++;
 				}
 			}
-
+			
 		}
 		
 		_firstVisibleStep=tMinStepIndex;
@@ -730,7 +682,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		while (tIndex<tNumberOfSteps && tHeight<tMaxHeight)
 		{
 			tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
-	
+			
 			if ((tIndex<self.selectedStep && _themeVersion==PKGPresentationThemeMountainLion) ||
 				tIndex==self.selectedStep)
 				tFont=[NSFont boldSystemFontOfSize:13.0];
@@ -761,7 +713,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			while (tIndex>=0 && tHeight<tMaxHeight)
 			{
 				tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
-			
+				
 				CGFloat tStepHeight=[self heightOfString:tStepTitle forFont:tFont andMaxWidth:tTextMaxWidth];
 				
 				if (tStepHeight==PKGPresentationListViewDefaultRowHeight)
@@ -784,6 +736,81 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		
 		_lastVisibleStep=tMaxStepIndex;
 	}
+}
+
+- (void)drawRect:(NSRect)inRect
+{
+	NSRect tBounds=self.bounds;
+	
+	if (_dragInProgress==NO)
+	{
+		if (NSEqualRects(tBounds,_trackingRect)==NO)
+		{
+			if (_trackingTag!=0)
+				[self removeTrackingRect:_trackingTag];
+			
+			_trackingRect=tBounds;
+			
+			_trackingTag=[self addTrackingRect:tBounds owner:self userData:NULL assumeInside:NO];
+		}
+	}
+	
+	if (self.dataSource==nil)
+		return;
+
+	NSInteger tNumberOfSteps=[self.dataSource numberOfStepsInPresentationListView:self];
+	
+	if (tNumberOfSteps==0)
+		return;
+	
+    BOOL tIsDarkMode=[self WB_isEffectiveAppearanceDarkAqua];
+	
+    /*PKGPresentationThemeVersion tPresentationTheme=_themeVersion;
+	
+	if (tPresentationTheme==PKGPresentationThemeMojaveDynamic)
+	{
+		if ([self WB_isEffectiveAppearanceDarkAqua]==NO)
+			tPresentationTheme=PKGPresentationThemeMojaveLight;
+		else
+			tPresentationTheme=PKGPresentationThemeMojaveDark;
+	}*/
+	
+	// Compute the number of steps that can be displayed
+	
+	
+#ifdef LIST_DEBUG_VIEW
+	NSRect tSavedFrame;
+#endif
+	
+	
+	NSSize tBulletSize;
+	NSImage * tBulletImage;
+	
+	CGFloat tTextOriginX=[PKGPresentationListView labelFrameOriginX];
+	
+	NSGraphicsContext * tGraphicContext = [NSGraphicsContext currentContext];
+	
+	[NSGraphicsContext saveGraphicsState];
+	
+	if (_themeVersion==PKGPresentationThemeMountainLion)
+	{
+		tBulletImage=_selectedPaneImage;
+		
+		tBulletSize=tBulletImage.size;
+	}
+	else
+	{
+		tBulletImage=nil;
+		tBulletSize=NSMakeSize(2.0*PKGPresentationListViewBulletRadius,2.0*PKGPresentationListViewBulletRadius);
+	}
+	
+	[tGraphicContext setPatternPhase:NSMakePoint(0.0,NSMaxY(self.frame))];
+	
+	
+	
+	CGFloat tTextMaxWidth=NSMaxX(tBounds)-tTextOriginX;
+	
+	[self _refreshVisibleSteps];
 
 #define PKGPresentationListViewEllipsisDotDiameter	4.0
 #define PKGPresentationListViewEllipsisDotOffset	10.0
@@ -838,13 +865,15 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
     
 	
 	
-	tFrame=tBounds;
+	NSRect tFrame=tBounds;
 	
 	tFrame.origin.x+=ICPRESENTATIONLISTVIEW_ROW_X_OFFSET;
 	tFrame.origin.y=NSMaxY(tBounds)-PKGPresentationListViewMoreRowHeight;
 	tFrame.size.height=PKGPresentationListViewMoreRowHeight;
 	
-    // Draw the top more (Debug)
+	NSBezierPath * tBezierPath;
+	
+	// Draw the top more (Debug)
     
 	if (_firstVisibleStep>0)
 	{
@@ -887,6 +916,8 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 	tSavedFrame=tFrame;
 #endif
 
+	NSInteger tIndex;
+	
 	for(tIndex=_firstVisibleStep;tIndex<=_lastVisibleStep;tIndex++)
 	{
 		if (_currentDropStep!=-1 && _currentDropStep==tIndex)
@@ -900,7 +931,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 		else
 			tFont=[NSFont systemFontOfSize:13.0];
 		
-		tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
+		NSString * tStepTitle=[self.dataSource presentationListView:self objectForStep:tIndex];
 	
 		CGFloat tStepHeight=[self heightOfString:tStepTitle forFont:tFont andMaxWidth:tTextMaxWidth];
 			
