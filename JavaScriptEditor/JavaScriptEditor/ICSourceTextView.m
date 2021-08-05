@@ -30,6 +30,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "ICSourceTextView.h"
 #import "ICGutterView.h"
 
+#import "ICLineJumperWindowController.h"
+
 #import "NSRangeUtilities.h"
 
 /*
@@ -459,6 +461,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			[self shiftLeft:nil];
 				
 			return YES;
+		}
+		
+		if (tChar=='l')
+		{
+			if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_10)
+			{
+				[[ICLineJumperWindowController sharedLineJumperWindowController] popUpForTextView:self];
+			
+				return YES;
+			}
 		}
 	}
 	

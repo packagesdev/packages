@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2018, Stephane Sudre
+Copyright (c) 2009-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -14,6 +14,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "ICSourceTextTopView.h"
 
 #import "NSResponder+Appearance.h"
+#import "NSColor+LabelColor.h"
 
 @implementation ICSourceTextTopView
 
