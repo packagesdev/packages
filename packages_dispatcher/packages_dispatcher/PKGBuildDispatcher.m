@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -18,6 +18,8 @@
 #import "PKGBuildDispatcherInterface.h"
 
 #include <stdio.h>
+
+#import "NSXPCConnection+RequirementCheck.h"
 
 NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.whitebox.packages/packages_builder";
 
@@ -64,6 +66,15 @@ NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.
 	if (inListener!=_listener)
 		return NO;
 	
+    NSString * tRequirementString=@"anchor apple generic and certificate leaf [subject.OU] = \"NL5M9E394P\"";
+    
+    if ([inNewConnection checkValidityWithRequirement:tRequirementString]==NO)
+    {
+        fprintf(stderr, "Denied connection attempt from pid \"%d\"\n",inNewConnection.processIdentifier);
+        
+        return NO;
+    }
+    
 	inNewConnection.exportedInterface=[NSXPCInterface interfaceWithProtocol:@protocol(PKGBuildDispatcherInterface)];
 	inNewConnection.exportedObject=self;
 	
@@ -81,14 +92,14 @@ NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.
 	
 	dispatch_async(dispatch_get_main_queue(),^{
 		
-		NSXPCListenerEndpoint * tEndpoint=_endPointsRegistry[inUUID];
+		NSXPCListenerEndpoint * tEndpoint=self->_endPointsRegistry[inUUID];
 		
 		if (tEndpoint==nil)
-			fprintf(stderr, "Could not find record for build worker \"%s\"\n",[inUUID UTF8String]);
+			fprintf(stderr, "Could not find record for build worker \"%s\"\n",inUUID.UTF8String);
 	
 		inReply(tEndpoint);
 	
-		[_endPointsRegistry removeObjectForKey:inUUID];
+		[self->_endPointsRegistry removeObjectForKey:inUUID];
 	});
 }
 
@@ -115,7 +126,7 @@ NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.
 			return;
 		}
 		
-		_endPointsRegistry[inUUID]=inHandshakeEndpoint;
+		self->_endPointsRegistry[inUUID]=inHandshakeEndpoint;
 		
 		// Launch the command line tool
 	
@@ -128,9 +139,9 @@ NSString * const PKGPackagesBuilderToolPath=@"/Library/PrivilegedHelperTools/fr.
 			dispatch_async(dispatch_get_main_queue(),^{
 			
 				if (bTask.terminationStatus!=0)
-					fprintf(stderr, "Build \"%s\" failed\n",[inUUID UTF8String]);
+					fprintf(stderr, "Build \"%s\" failed\n",inUUID.UTF8String);
 				
-				[_endPointsRegistry removeObjectForKey:inUUID];
+				[self->_endPointsRegistry removeObjectForKey:inUUID];
 			});
 			
 		};
