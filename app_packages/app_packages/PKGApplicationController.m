@@ -144,8 +144,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction)showPackageFormatDocumentation:(id)sender
 {
-    // Try local first
-    
     NSURL * tURL=[NSURL URLWithString:NSLocalizedString(@"https://developer.apple.com/library/content/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html",@"No comment")];
     
     if (tURL!=nil)
