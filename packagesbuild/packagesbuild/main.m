@@ -22,6 +22,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGBuildOrderManager.h"
 
+#import "PKGBuildOrderErrorAuditor.h"
 
 void usage(void);
 
@@ -254,10 +255,10 @@ int main(int argc, const char * argv[])
 		
 		// A COMPLETER (gestion des User Defined Settings)
 		
-		PKGCommandLineBuildObserver * tBuildObserver=[[PKGCommandLineBuildObserver alloc] init];
+		PKGCommandLineBuildObserver * tBuildObserver=[PKGCommandLineBuildObserver new];
 		tBuildObserver.verbose=tVerbose;
 		
-		PKGBuildOrder * tBuildOrder=[[PKGBuildOrder alloc] init];
+		PKGBuildOrder * tBuildOrder=[PKGBuildOrder new];
 		
 		tBuildOrder.projectPath=tProjectPath;
 		tBuildOrder.buildOptions=(tDebug==YES) ? PKGBuildOptionDebugBuild : 0;
@@ -286,7 +287,53 @@ int main(int argc, const char * argv[])
 											   }
 									   communicationErrorHandler:^(NSError * bCommunicationError){
 										   
-										   // A COMPLETER
+                                           if ([bCommunicationError.domain isEqualToString:PKGBuildOrderErrorDomain]==YES)
+                                           {
+                                               switch(bCommunicationError.code)
+                                               {
+                                                   case PKGBuildOrderErrorDispatcherNotResponding:
+                                                   {
+                                                       PKGBuildOrderErrorAuditor * tAuditor=[PKGBuildOrderErrorAuditor new];
+                                                       
+                                                       PKGPackagesDispatcherErrorType tErrorType=tAuditor.dispatcherErrorType;
+                                                       
+                                                       switch(tErrorType)
+                                                       {
+                                                           case PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFoundInvalidPermissions:
+                                                               
+                                                               (void)fprintf(stderr, "Unable to communicate with packages_dispatcher. The permissions of the fr.whitebox.packages.build.dispatcher.plist launchd configuration file in /Library/LaunchDaemons are incorrect.");
+                                                               
+                                                               break;
+                                                               
+                                                           case PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFound:
+                                                               
+                                                               (void)fprintf(stderr, "Unable to communicate with packages_dispatcher. The fr.whitebox.packages.build.dispatcher.plist launchd configuration file is missing in /Library/LaunchDaemons.");
+                                                               
+                                                               break;
+                                                               
+                                                           case PKGPackagesDispatcherErrorPackagesDispatcherNotFound:
+                                                               
+                                                               (void)fprintf(stderr, "Unable to find tool '%s'","packages_dispatcher");
+                                                               
+                                                               break;
+                                                               
+                                                           case PKGPackagesDispatcherErrorPackagesDispatcherNotResponding:
+                                                               
+                                                               (void)fprintf(stderr, "packages_dispatcher is not responding. Have you disabled or unloaded the fr.whitebox.packages.build.dispatcher.plist launchd configuration file?");
+                                                               
+                                                               break;
+                                                               
+                                                           case PKGPackagesDispatcherErrorPackageBuilderNotFound:
+                                                               
+                                                               (void)fprintf(stderr, "Unable to find tool '%s'","packages_builder");
+                                                               
+                                                               break;
+                                                       }
+                                                       
+                                                       break;
+                                                   }
+                                               }
+                                           }
 									   }];
 		
 		[[NSRunLoop mainRunLoop] run];

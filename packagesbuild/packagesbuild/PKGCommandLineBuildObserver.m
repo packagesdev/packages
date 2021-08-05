@@ -692,7 +692,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					(void)fprintf(stdout, "Unable to find the private key for the Developer ID Installer certificate");
 					break;
-					
+                
+                case PKGBuildErrorSigningTrustEvaluationFailure:
+                    
+                    (void)fprintf(stdout, "The chain for the Developer ID Installer certificate can not be trusted.");
+                    break;
+                    
 				case PKGBuildErrorSigningCertificateExpired:
 					
 					(void)fprintf(stdout, "The Developer ID Installer certificate used for this project is expired.");
@@ -815,6 +820,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					break;
 					
+                case PKGBuildErrorNoCommonHostArchitectures:
+                    
+                    (void)fprintf(stdout, "Unable to automatically determine the value for hostArchitectures");
+                    
+                    break;
+                    
 				default:
 					
 					(void)fprintf(stdout, "Warning code (%lu)",(unsigned long) tFailureReason);
@@ -1228,6 +1239,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					(void)fprintf(stdout, "Unable to find tool 'packages_builder'\n");
 					
 					break;
+                    
+                default:
+                    
+                    break;
 			}
 		}
 	}
