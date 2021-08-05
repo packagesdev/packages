@@ -20,6 +20,8 @@
 
 #import "PKGBuildDataSigner.h"
 
+#import "NSXPCConnection+RequirementCheck.h"
+
 typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 {
 	PKGAgentExecutionStateWaitingForHandshake,
@@ -106,17 +108,24 @@ typedef NS_ENUM(NSUInteger, PKGAgentExecutionState)
 
 - (BOOL)listener:(NSXPCListener *)inListener shouldAcceptNewConnection:(NSXPCConnection *)inNewConnection
 {
-	if (inListener==self.handshakelistener)
-	{
-		inNewConnection.exportedInterface=[NSXPCInterface interfaceWithProtocol:@protocol(PKGBuildHandshakeInterface)];
-		inNewConnection.exportedObject=self;
-		
-		[inNewConnection resume];
-		
-		return YES;
-	}
-	
-	return NO;
+	if (inListener!=self.handshakelistener)
+        return NO;
+    
+    NSString * tRequirementString=@"anchor apple generic and certificate leaf [subject.OU] = \"NL5M9E394P\"";
+    
+    if ([inNewConnection checkValidityWithRequirement:tRequirementString]==NO)
+    {
+        NSLog(@"Denied connection attempt from pid \"%d\"\n",inNewConnection.processIdentifier);
+        
+        return NO;
+    }
+    
+    inNewConnection.exportedInterface=[NSXPCInterface interfaceWithProtocol:@protocol(PKGBuildHandshakeInterface)];
+    inNewConnection.exportedObject=self;
+    
+    [inNewConnection resume];
+    
+    return YES;
 }
 
 #pragma mark - PKGBuildHandshakeInterface

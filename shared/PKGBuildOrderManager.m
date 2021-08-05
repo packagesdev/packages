@@ -18,6 +18,9 @@
 
 #import "PKGBuildOrderExecutionAgent.h"
 
+NSString * const PKGBuildOrderErrorDomain=@"PKGBuildOrderErrorDomain";
+
+
 @interface PKGBuildOrderManager () <NSXPCListenerDelegate>
 {
 	NSXPCConnection * _dispatcherConnection;
@@ -25,7 +28,7 @@
 	NSMutableDictionary * _executionAgentsRegistry;
 }
 
-- (void)connectToDispatcher;
+- (void)connectToDispatcherWithErrorHandler:(void(^)(NSError *))inCommunicationErrorHandler;
 
 @end
 
@@ -58,7 +61,7 @@
 
 #pragma mark -
 
-- (void)connectToDispatcher
+- (void)connectToDispatcherWithErrorHandler:(void(^)(NSError *))inCommunicationErrorHandler
 {
 	if (_dispatcherConnection==nil)
 	{
@@ -81,6 +84,15 @@
 		
 		tWeakDispatcherConnection.invalidationHandler=^{
 			
+			if (inCommunicationErrorHandler!=nil)
+			{
+				dispatch_async(dispatch_get_main_queue(), ^{
+					
+					inCommunicationErrorHandler([NSError errorWithDomain:PKGBuildOrderErrorDomain code:PKGBuildOrderErrorDispatcherNotResponding userInfo:@{}]);
+					
+				});
+			}
+			
 			NSLog(@"Connection with dispatcher was invalidated");
 			
 			NSXPCConnection *tStrongConnection=tWeakDispatcherConnection;
@@ -102,7 +114,7 @@
 	if (inBuildOrder==nil)
 		return NO;
 	
-	[self connectToDispatcher];
+	[self connectToDispatcherWithErrorHandler:inCommunicationErrorHandler];
 	
 	id<PKGBuildDispatcherInterface> tDispatcherProxy=[_dispatcherConnection remoteObjectProxyWithErrorHandler:^(NSError * bError) {
 		

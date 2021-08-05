@@ -138,6 +138,10 @@
 		return nil;
 	}
 	
+	// Find the UTI type of the image file
+	
+	// A COMPLETER
+	
 	// Copy the Image to the appropriate location
 	
 	NSString * tResourcesPath=[inProjectBuilder distributionResources];

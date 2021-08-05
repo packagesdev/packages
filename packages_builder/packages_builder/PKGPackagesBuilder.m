@@ -96,6 +96,8 @@
 			
 			if (bHandshakeEndpoint==nil)
 			{
+				NSLog(@"Error");
+				
 				// A COMPLETER
 				
 				return;

@@ -27,6 +27,7 @@
 
 #import "PKGBuildEvent.h"
 
+#import "PKGBuildOrderErrorAuditor.h"
 
 #import "NSAlert+block.h"
 
@@ -469,6 +470,26 @@
 												   }
 											   }
 									   communicationErrorHandler:^(NSError * bCommunicationError){
+										   
+										   if ([bCommunicationError.domain isEqualToString:PKGBuildOrderErrorDomain]==YES)
+										   {
+											   switch(bCommunicationError.code)
+											   {
+												   case PKGBuildOrderErrorDispatcherNotResponding:
+												   {
+													   PKGBuildOrderErrorAuditor * tAuditor=[PKGBuildOrderErrorAuditor new];
+													   
+													   
+													   
+													   [[NSDistributedNotificationCenter defaultCenter] postNotificationName:PKGPackagesDispatcherErrorDidOccurNotification
+																													  object:_currentBuildOrder.UUID
+																													userInfo:@{PKGPackagesDispatcherErrorTypeKey:@([tAuditor dispatcherErrorType])}
+																										  deliverImmediately:YES];
+													   
+													   break;
+													}
+											   }
+										   }
 										   
 										   _currentBuildOrder=nil;
 										   

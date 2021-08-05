@@ -92,7 +92,9 @@
 		F4B9436C1C75361000D505BD /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B9436B1C75361000D505BD /* CoreServices.framework */; };
 		F4B9FA4A1D6E34A500CEADC9 /* PKGBuildOrder+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9FA491D6E34A500CEADC9 /* PKGBuildOrder+Convenience.m */; };
 		F4BB5AA11DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BB5AA01DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.m */; };
+		F4BD64FD26B86849005A659F /* PKGArchitectureUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BD64FB26B86849005A659F /* PKGArchitectureUtilities.m */; };
 		F4CB25CB212F60DC0048ABE0 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CB25CA212F60DC0048ABE0 /* NSObject+Conformance.m */; };
+		F4CE393326B891D100550C34 /* PKGBuildInformation+Accumulate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE393226B891D100550C34 /* PKGBuildInformation+Accumulate.m */; };
 		F4D08D7D1DA6F1820035145A /* PKGLicenseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D08D7B1DA6F1820035145A /* PKGLicenseProvider.m */; };
 		F4D112B91D6CFE9C0028F627 /* NSIndexPath+Packages.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D112B81D6CFE9C0028F627 /* NSIndexPath+Packages.m */; };
 		F4D1F93E1D2B0E8700890A21 /* PKGRequirementFailureMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D1F93D1D2B0E8700890A21 /* PKGRequirementFailureMessage.m */; };
@@ -142,18 +144,6 @@
 			remoteInfo = xarStatic;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		8DD76F9E0486AA7600D96B5E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8DD76FA10486AA7600D96B5E /* packages_builder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = packages_builder; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -332,10 +322,14 @@
 		F4B9FA491D6E34A500CEADC9 /* PKGBuildOrder+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGBuildOrder+Convenience.m"; path = "packages_builder/PKGBuildOrder+Convenience.m"; sourceTree = "<group>"; };
 		F4BB5A9F1DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGStackedEffectiveUserAndGroup.h; path = packages_builder/PKGStackedEffectiveUserAndGroup.h; sourceTree = "<group>"; };
 		F4BB5AA01DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGStackedEffectiveUserAndGroup.m; path = packages_builder/PKGStackedEffectiveUserAndGroup.m; sourceTree = "<group>"; };
+		F4BD64FB26B86849005A659F /* PKGArchitectureUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGArchitectureUtilities.m; path = ../app_packages/app_packages/PKGArchitectureUtilities.m; sourceTree = "<group>"; };
+		F4BD64FC26B86849005A659F /* PKGArchitectureUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGArchitectureUtilities.h; path = ../app_packages/app_packages/PKGArchitectureUtilities.h; sourceTree = "<group>"; };
 		F4BF30C21204B4AF00CD1F86 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = "../RegexKitLite-1.2/RegexKitLite.m"; sourceTree = SOURCE_ROOT; };
 		F4BF30C31204B4AF00CD1F86 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = "../RegexKitLite-1.2/RegexKitLite.h"; sourceTree = SOURCE_ROOT; };
 		F4CB25C9212F60DC0048ABE0 /* NSObject+Conformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Conformance.h"; path = "../Foundation + Extensions/NSObject+Conformance.h"; sourceTree = "<group>"; };
 		F4CB25CA212F60DC0048ABE0 /* NSObject+Conformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Conformance.m"; path = "../Foundation + Extensions/NSObject+Conformance.m"; sourceTree = "<group>"; };
+		F4CE393126B891D100550C34 /* PKGBuildInformation+Accumulate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PKGBuildInformation+Accumulate.h"; path = "packages_builder/PKGBuildInformation+Accumulate.h"; sourceTree = "<group>"; };
+		F4CE393226B891D100550C34 /* PKGBuildInformation+Accumulate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PKGBuildInformation+Accumulate.m"; path = "packages_builder/PKGBuildInformation+Accumulate.m"; sourceTree = "<group>"; };
 		F4D08D7B1DA6F1820035145A /* PKGLicenseProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLicenseProvider.m; path = ../shared/PKGLicenseProvider.m; sourceTree = "<group>"; };
 		F4D08D7C1DA6F1820035145A /* PKGLicenseProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLicenseProvider.h; path = ../shared/PKGLicenseProvider.h; sourceTree = "<group>"; };
 		F4D112B71D6CFE9C0028F627 /* NSIndexPath+Packages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSIndexPath+Packages.h"; path = "../Foundation + Extensions/NSIndexPath+Packages.h"; sourceTree = "<group>"; };
@@ -413,6 +407,8 @@
 				F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */,
 				F40B6EE21D247A300031D267 /* PKGBuildInformation.h */,
 				F40B6EE31D247A300031D267 /* PKGBuildInformation.m */,
+				F4CE393126B891D100550C34 /* PKGBuildInformation+Accumulate.h */,
+				F4CE393226B891D100550C34 /* PKGBuildInformation+Accumulate.m */,
 				F43016FF1CFE0E9F00829D16 /* PKGBuildLogger.h */,
 				F43017001CFE0E9F00829D16 /* PKGBuildLogger.m */,
 				F4567B3E1DA6C570001AB3BB /* PKGLicenseTemplate.h */,
@@ -710,6 +706,8 @@
 				F4A6BB881D9F0CD300564B8F /* PKGBuildEvent.m */,
 				F484A85E1D87487600FCC361 /* PKGCertificatesUtilities.h */,
 				F484A85F1D87487600FCC361 /* PKGCertificatesUtilities.m */,
+				F4BD64FC26B86849005A659F /* PKGArchitectureUtilities.h */,
+				F4BD64FB26B86849005A659F /* PKGArchitectureUtilities.m */,
 				F437015E1D60B8ED00E49D2A /* Dispatcher Connection */,
 				F43701671D60B90900E49D2A /* ExecutionAgent Connection */,
 			);
@@ -734,7 +732,6 @@
 			buildPhases = (
 				8DD76F990486AA7600D96B5E /* Sources */,
 				8DD76F9B0486AA7600D96B5E /* Frameworks */,
-				8DD76F9E0486AA7600D96B5E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -761,9 +758,6 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
-				Japanese,
-				French,
-				German,
 			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* IvanhoeBuilder */;
 			projectDirPath = "";
@@ -889,6 +883,7 @@
 				F48C21901CFCF05500B5A8CD /* PKGPresentationReadMeStepSettings.m in Sources */,
 				F48DD9C51D686B2C00F59638 /* PKGBuildDispatcher+Constants.m in Sources */,
 				F48C219B1CFCF05500B5A8CD /* PKGTreeNode.m in Sources */,
+				F4CE393326B891D100550C34 /* PKGBuildInformation+Accumulate.m in Sources */,
 				F48C21831CFCF05500B5A8CD /* PKGPackageComponent.m in Sources */,
 				F48C21961CFCF05500B5A8CD /* PKGProject.m in Sources */,
 				F48C21801CFCF05500B5A8CD /* PKGFilePath.m in Sources */,
@@ -900,6 +895,7 @@
 				F450CE94212F5BC700170902 /* NSCollection+DeepCopy.m in Sources */,
 				F48C217A1CFCF05500B5A8CD /* PKGDistributionProject.m in Sources */,
 				F4E482C51DA5AA4900854527 /* PKGPluginsManager.m in Sources */,
+				F4BD64FD26B86849005A659F /* PKGArchitectureUtilities.m in Sources */,
 				F48C21971CFCF05500B5A8CD /* PKGProjectComments.m in Sources */,
 				F48C217C1CFCF05500B5A8CD /* PKGDistributionProjectRequirementsAndResources.m in Sources */,
 				F48C21751CFCF05500B5A8CD /* PKGChoiceDependencyTreeNode.m in Sources */,
@@ -922,7 +918,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 604;
+				CURRENT_PROJECT_VERSION = 646;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -954,7 +950,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 604;
+				CURRENT_PROJECT_VERSION = 646;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;
@@ -978,9 +974,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4A8A4A51C7E6A9300DC77C2 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 			};
 			name = Debug;
@@ -989,9 +987,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4A8A4A51C7E6A9300DC77C2 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 			};
 			name = Release;

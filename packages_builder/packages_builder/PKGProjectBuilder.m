@@ -72,6 +72,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGPresentationBackgroundSettings+Builder.h"
 
+#import "PKGBuildInformation+Accumulate.h"
 
 #define SIGNATURE_REQUEST_TIME_OUT		10*60.0f // 10 minutes
 
@@ -119,7 +120,7 @@ enum
 
 NSString * const PKGProjectBuilderAuthoringToolName=@"Packages";
 
-NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.9";
+NSString * const PKGProjectBuilderAuthoringToolVersion=@"1.2.10";
 
 NSString * const PKGProjectBuilderToolPath_ditto=@"/usr/bin/ditto";
 
@@ -217,22 +218,20 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)archiveContentsOfDirectoryAtPath:(NSString *)inDirectoryPath toFileAtPath:(NSString *)inFilePath format:(PKGArchiveFormat)inFormat compressionFormat:(PKGArchiveCompressionFormat)inCompressionFormat;
 
-- (BOOL)buildPackageObject:(NSObject<PKGPackageObjectProtocol> *)inPackageObject atPath:(NSString *) inPath flat:(BOOL)inFlat;
+- (BOOL)buildPackageObject:(NSObject<PKGPackageObjectProtocol> *)inPackageObject atPath:(NSString *)inPath flat:(BOOL)inFlat;
 
 - (BOOL)buildPackageInfoForComponent:(PKGPackageComponent *)inPackageComponent atPath:(NSString *)inPath contextInfo:(PKGBuildPackageAttributes *)inBuildPackageAttributes;
 
 
-- (BOOL)addRelocators:(NSArray *) inLocatorsArray forBundle:(NSString *) inBundleIdentifier packageInfoElement:(NSXMLElement *) inPackageInfoElement;
+- (BOOL)addRelocators:(NSArray *)inLocatorsArray forBundle:(NSString *)inBundleIdentifier packageInfoElement:(NSXMLElement *)inPackageInfoElement;
 
 
-- (BOOL)addLocalizedErrorMessages:(NSDictionary *) inLocalizations withName:(NSString *)inName errorMessage:(NSString **)outErrorMessage errorDescription:(NSString **)outErrorDescription;
+- (BOOL)addLocalizedErrorMessages:(NSDictionary *)inLocalizations withName:(NSString *)inName errorMessage:(NSString **)outErrorMessage errorDescription:(NSString **)outErrorDescription;
 
-- (BOOL)buildBundleVersionsDictionaryWithFileHierarchyAtPath:(NSString *)inFileHierarchyPath ofPackageUUID:(NSString *)inPackageUUID;
-
-- (BOOL) addBundleFromArray:(NSArray *) inArray toElement:(NSXMLElement *) inElement withPath:(NSString *) inPath packageInfoElement:(NSXMLElement *) inPackageInfoElement downgradableBundles:(NSMutableArray *) inDowngradableArray;
+- (BOOL)addBundleFromArray:(NSArray *)inArray toElement:(NSXMLElement *)inElement withPath:(NSString *)inPath packageInfoElement:(NSXMLElement *)inPackageInfoElement downgradableBundles:(NSMutableArray *)inDowngradableArray;
 
 
-- (BOOL)buildPayload:(PKGPackagePayload *)inPayload ofPackageUUID:(NSString *) inPackageUUID atPath:(NSString *) inPath;
+- (BOOL)buildPayload:(PKGPackagePayload *)inPayload ofPackageUUID:(NSString *)inPackageUUID atPath:(NSString *)inPath;
 
 - (BOOL)buildFileHierarchyComponent:(PKGTreeNode *)inFileTreeNode atPath:(NSString *)inPath contextInfo:(PKGBuildPackageAttributes *)inPackageBuildInformation;
 
@@ -278,7 +277,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL) createEnabledDependencyFunctionNamed:(NSString *) inFunctionName withDependencyTree:(PKGChoiceDependencyTree *)inDependencyTree;
 
-- (BOOL) createSelectedDependencyFunctionNamed:(NSString *) inFunctionName withEnabledState:(int) inEnabledState  withEnabledFunctionName:(NSString *) inEnabledFunctionName withDependencyTree:(PKGChoiceDependencyTree *)inDependencyTree;
+- (BOOL) createSelectedDependencyFunctionNamed:(NSString *) inFunctionName withEnabledState:(PKGEnabledStateDependencyType)inEnabledState  withEnabledFunctionName:(NSString *) inEnabledFunctionName withDependencyTree:(PKGChoiceDependencyTree *)inDependencyTree;
 
 - (BOOL) addChoicesElementsToElement:(NSXMLElement *) inElement withChoicesArray:(NSArray *) inChoicesArray isInstaller:(BOOL) inIsInstaller;
 
@@ -1824,6 +1823,57 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 																	  @"installer-gui-script.domains:enable_currentUserHome"]];
 		}
 		
+        // hostArchitecture element
+        
+        NSArray * tHostArchitectures=tAdvancedOptionsMutableDictionary[@"installer-gui-script.options:hostArchitectures"];
+        
+        BOOL tUseAutomaticResult=NO;
+        
+        if (tHostArchitectures.count==0)
+        {
+            tUseAutomaticResult=YES;
+        }
+        else
+        {
+            NSString * tString=[[tHostArchitectures componentsJoinedByString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];  // Remove leading and ending whitespace
+            
+            if (tString.length==0)
+                tUseAutomaticResult=YES;
+        }
+        
+        if (tUseAutomaticResult==YES)
+        {
+            [tAdvancedOptionsMutableDictionary removeObjectForKey:@"installer-gui-script.options:hostArchitectures"];
+            
+            NSArray * tCommonArchitectures=_buildInformation.hostArchitectures;
+            
+            if (tCommonArchitectures==nil)
+            {
+                // No binaries in distribution so we can support PowerPC, Intel and Apple Silicon
+                
+                tAdvancedOptionsMutableDictionary[@"installer-gui-script.options:hostArchitectures"]=@[
+                                                                                                       @"ppc",
+                                                                                                       @"i386", // i386 = i386 + x86_64
+                                                                                                       @"arm64"
+                                                                                                       ];
+            }
+            else
+            {
+                if (tCommonArchitectures.count==0)
+                {
+                    // No common architecture for binaries in the distribution so we can not determine the hostArchitectures
+                    
+                    // Do nothing
+                    
+                    [self postCurrentStepWarningEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorNoCommonHostArchitectures]];
+                }
+                else
+                {
+                    tAdvancedOptionsMutableDictionary[@"installer-gui-script.options:hostArchitectures"]=tCommonArchitectures;
+                }
+            }
+        }
+        
 		if ([self fillDistributionXMLWithDictionary:[tAdvancedOptionsMutableDictionary copy]]==NO)
 			return NO;
 	}
@@ -3822,7 +3872,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	return YES;
 }
 
-- (BOOL) createSelectedDependencyFunctionNamed:(NSString *) inFunctionName withEnabledState:(int) inEnabledState withEnabledFunctionName:(NSString *) inEnabledFunctionName withDependencyTree:(PKGChoiceDependencyTree *)inDependencyTree
+- (BOOL) createSelectedDependencyFunctionNamed:(NSString *) inFunctionName withEnabledState:(PKGEnabledStateDependencyType)inEnabledState withEnabledFunctionName:(NSString *) inEnabledFunctionName withDependencyTree:(PKGChoiceDependencyTree *)inDependencyTree
 {
 	if (inFunctionName==nil || inDependencyTree==nil || inEnabledFunctionName==nil)
 		return NO;
@@ -4965,6 +5015,12 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		return YES;
 	}
 	
+    // Find out which architectures are available for the plugins
+    
+    NSString * tDestinationPluginsDirectoryPath=[tContentsPath stringByAppendingPathComponent:@"Plugins"];
+    
+    [self->_buildInformation accumulateHostArchitecturesInFileHierarchyAtPath:tDestinationPluginsDirectoryPath];
+    
 	NSDictionary * tDictionary=@{@"SectionOrder":tSectionOrdersMutableArray};
 	
 	NSString * tPlistPath=[tContentsPath stringByAppendingPathComponent:@"Plugins/InstallerSections.plist"];
@@ -5817,7 +5873,10 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tImportedPackageSettings==nil)
 		{
-			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorCanNotExtractInfoFromImportedPackage]];
+			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorCanNotExtractInfoFromImportedPackage];
+			tErrorEvent.filePath=tImportedPackagePath;
+			
+			[self postCurrentStepFailureEvent:tErrorEvent];
 			
 			return NO;
 		}
@@ -6732,16 +6791,16 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	return YES;
 }
 
-- (BOOL) addBundleFromArray:(NSArray *) inArray toElement:(NSXMLElement *) inElement withPath:(NSString *) inPath packageInfoElement:(NSXMLElement *) inPackageInfoElement downgradableBundles:(NSMutableArray *) inDowngradableArray
+- (BOOL)addBundleFromArray:(NSArray *)inArray toElement:(NSXMLElement *)inElement withPath:(NSString *)inPath packageInfoElement:(NSXMLElement *)inPackageInfoElement downgradableBundles:(NSMutableArray *)inDowngradableArray
 {
 	if (inArray==nil || inElement==nil || inPath==nil)
 		return NO;
 	
-	NSUInteger tLength=[inPath length];
+	NSUInteger tLength=inPath.length;
 					
 	for (NSDictionary * tBundleInformationDictionary in inArray)
 	{
-		NSArray * tChildren=[tBundleInformationDictionary objectForKey:@"Children"];
+		NSArray * tChildren=tBundleInformationDictionary[@"Children"];
 		
 		if (tBundleInformationDictionary[@"id"]==nil)
 		{
@@ -7182,7 +7241,9 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	[self postCurrentStepSuccessEvent:nil];
 	
-	
+    // Find out which architectures are used in the resources
+    
+    [self->_buildInformation accumulateHostArchitecturesInFileHierarchyAtPath:tTemporaryDirectoryPath];
 	
 	// Set the privileges (root:wheel 0755 ) for the tTemporaryDirectoryPath path and its children
 	
@@ -7361,7 +7422,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	
 	// Look for bundles to populate the <bundle-version> section
 
-	if ([self buildBundleVersionsDictionaryWithFileHierarchyAtPath:tTemporaryDirectoryPath ofPackageUUID:inPackageUUID]==NO)
+	if ([self->_buildInformation accumulateBundleVersionsAndHostArchitecturesInFileHierarchyAtPath:tTemporaryDirectoryPath forPackageUUID:inPackageUUID]==NO)
 	{
 		// Clean up
 		
@@ -7923,206 +7984,6 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	}
 
 	return YES;
-}
-
-#pragma mark -
-
-- (BOOL)buildBundleVersionsDictionaryWithFileHierarchyAtPath:(NSString *)inFileHierarchyPath ofPackageUUID:(NSString *)inPackageUUID
-{
-	if (inFileHierarchyPath==nil || inPackageUUID==nil)
-		return NO;
-	
-	char * tPath[2]={(char *) [inFileHierarchyPath fileSystemRepresentation],NULL};
-	
-	FTS * ftsp = fts_open(tPath, FTS_PHYSICAL, 0);
-	
-    if (ftsp == NULL)
-		return YES;
-    
-	NSMutableArray * tLevelsArray=[NSMutableArray array];
-	
-	NSMutableArray * tParentsChildrenArray=[NSMutableArray array];
-    NSMutableArray * tMutableArray=[NSMutableArray array];
-	
-	short tCurrentBundleLevel=-100;
-	
-	NSUInteger tLength=[inFileHierarchyPath length];
-	
-    FTSENT * tFile;
-	
-	while ((tFile = fts_read(ftsp)) != NULL)
-    {
-        switch (tFile->fts_info)
-        {
-            case FTS_DC:
-			case FTS_DNR:
-            case FTS_ERR:
-            case FTS_NS:
-                    fts_close(ftsp);
-                    
-                    return NO;
-            case FTS_D:
-			{
-				NSString * tBundlePath=nil;
-				NSString * tAbsolutePath=nil;
-				
-				if (!strncmp(tFile->fts_name,"Contents",8))
-				{
-					tAbsolutePath=[NSString stringWithUTF8String:tFile->fts_path];
-					
-					tBundlePath=[tAbsolutePath stringByDeletingLastPathComponent];
-				}
-				else if (strstr(tFile->fts_name,".framework")!=NULL)
-				{
-					tBundlePath=[NSString stringWithUTF8String:tFile->fts_path];
-					
-					tAbsolutePath=[tBundlePath stringByAppendingPathComponent:@"Resources"];
-				}
-				
-				if (tBundlePath!=nil && tAbsolutePath!=nil)
-				{
-					NSBundle * tBundle=[NSBundle bundleWithPath:tBundlePath];
-				
-					if (tBundle==nil)
-						continue;
-					
-					NSDictionary * tInfoDictionary=[tBundle infoDictionary];
-					
-					if (tInfoDictionary!=nil)
-					{
-						tCurrentBundleLevel=tFile->fts_level;
-						
-						NSString * tStringPath=[tBundlePath substringFromIndex:tLength];
-						
-						NSMutableDictionary * tMutableBundleVersionDictionary=[NSMutableDictionary dictionary];
-						
-						tMutableBundleVersionDictionary[@"path"]=tStringPath;
-						
-						// Get Information from the Info.plist file
-						
-						// CFBundleShortVersionString
-						
-						id tObject=tInfoDictionary[@"CFBundleShortVersionString"];
-						
-						if (tObject!=nil)
-							tMutableBundleVersionDictionary[@"CFBundleShortVersionString"]=tObject;
-						
-						// CFBundleVersion
-						
-						tObject=tInfoDictionary[@"CFBundleVersion"];
-						
-						if (tObject!=nil)
-							tMutableBundleVersionDictionary[@"CFBundleVersion"]=tObject;
-						
-						// CFBundleIdentifier
-						
-						tObject=tInfoDictionary[@"CFBundleIdentifier"];
-						
-						if (tObject!=nil)
-						{
-							tMutableBundleVersionDictionary[@"CFBundleIdentifier"]=tObject;
-							
-							tMutableBundleVersionDictionary[@"id"]=tObject;
-						}
-						
-						
-						// Look for a version.plist file
-						
-						NSString * tVersionFilePath=[tAbsolutePath stringByAppendingPathComponent:@"version.plist"];
-						
-						NSDictionary * tVersionDictionary=[NSDictionary dictionaryWithContentsOfFile:tVersionFilePath];
-						
-						if (tVersionDictionary!=nil)
-						{
-							// BuildVersion
-						
-							tObject=tVersionDictionary[@"BuildVersion"];
-							
-							if (tObject!=nil)
-								tMutableBundleVersionDictionary[@"BuildVersion"]=tObject;
-							
-							// ProjectName
-						
-							tObject=tVersionDictionary[@"ProjectName"];
-							
-							if (tObject!=nil)
-								tMutableBundleVersionDictionary[@"ProjectName"]=tObject;
-							
-							// SourceVersion
-							
-							tObject=tVersionDictionary[@"SourceVersion"];
-							
-							if (tObject!=nil)
-								tMutableBundleVersionDictionary[@"SourceVersion"]=tObject;
-
-							// CFBundleShortVersionString
-						
-							tObject=tVersionDictionary[@"CFBundleShortVersionString"];
-							
-							if (tObject!=nil && tMutableBundleVersionDictionary[@"CFBundleShortVersionString"]==nil)
-								tMutableBundleVersionDictionary[@"CFBundleShortVersionString"]=tObject;
-							
-							// CFBundleVersion
-							
-							tObject=tVersionDictionary[@"CFBundleVersion"];
-							
-							if (tObject!=nil && tMutableBundleVersionDictionary[@"CFBundleShortVersionString"]==nil)
-								tMutableBundleVersionDictionary[@"CFBundleVersion"]=tObject;
-						}
-						
-						NSMutableArray * tChildrenArray=[tParentsChildrenArray lastObject];
-					
-						if (tChildrenArray!=nil)
-							[tChildrenArray addObject:tMutableBundleVersionDictionary];
-						else
-							[tMutableArray addObject:tMutableBundleVersionDictionary];
-						
-						[tLevelsArray addObject:@(tFile->fts_level)];
-						
-						tChildrenArray=[NSMutableArray array];
-						
-						tMutableBundleVersionDictionary[@"Children"]=tChildrenArray;
-						
-						[tParentsChildrenArray addObject:tChildrenArray];
-					}
-				}
-			
-				break;
-			}
-				
-			case FTS_DP:
-			
-				if (tCurrentBundleLevel==tFile->fts_level)
-				{
-					[tParentsChildrenArray removeLastObject];
-					
-					[tLevelsArray removeLastObject];
-					
-					NSNumber * tNumber=[tLevelsArray lastObject];
-					
-					tCurrentBundleLevel=(tNumber!=nil) ? [tNumber shortValue] : -100;
-				}
-				
-				break;
-            case FTS_SL:
-            case FTS_SLNONE:
-			case FTS_F:
-                    continue;
-            default:
-                    break;
-        }
-    }
-	
-	if (tMutableArray.count>0)
-	{
-		PKGBuildPackageAttributes * tBuildPackageAttributes=_buildInformation.packagesAttributes[inPackageUUID];
-		
-		[tBuildPackageAttributes.bundlesVersions addObjectsFromArray:tMutableArray];
-	}
-    
-    fts_close(ftsp);
-    
-    return YES;
 }
 
 #pragma mark - Build Notifications Wrappers

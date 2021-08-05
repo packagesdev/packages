@@ -2,29 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
 	<string>fr.whitebox.Packages.builder</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.4</string>
+	<string>1.2.10</string>
 	<key>CFBundleVersion</key>
-	<string>604</string>
+	<string>646</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
-	<key>LSExecutableArchitectures</key>
-	<array>
-		<string>x86_64</string>
-	</array>
-	<key>LSMinimumSystemVersion</key>
-	<string>10.8</string>
-	<key>LSRequiresNativeExecution</key>
-	<true/>
-	<key>NSHumanReadableCopyright</key>
-	<string>© 2009–2018 Stéphane Sudre</string>
 </dict>
 </plist>

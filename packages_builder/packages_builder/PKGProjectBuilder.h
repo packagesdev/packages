@@ -19,15 +19,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGFilePath.h"
 
-
-
 @interface PKGProjectBuilder : NSObject <PKGFilePathConverter,PKGProjectBuilderInterface>
 
 	@property (weak) NSXPCConnection * executionAgentConnection;
 
 	@property uid_t	userID;
 	@property gid_t groupID;
-
-
 
 @end
