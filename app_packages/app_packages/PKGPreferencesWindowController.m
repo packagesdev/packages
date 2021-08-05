@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2016, Stephane Sudre
+Copyright (c) 2007-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -72,9 +72,32 @@ NSString * const PKGPreferencesWindowSelectedPaneIdentifierKey=@"preferences.ui.
 
 - (void)windowDidLoad
 {
-	[self.window center];
+	NSWindow * tWindow=self.window;
 	
-	[self.window setShowsToolbarButton:NO];
+	// Set the Preferences Toolbar style for macOS BS (and later?)
+	
+	if (NSAppKitVersionNumber>=NSAppKitVersionNumber11)
+	{
+		SEL tSelector=@selector(setToolbarStyle:);
+		
+		if ([tWindow respondsToSelector:tSelector]==YES)
+		{
+			NSInvocation * tInvocation=[NSInvocation invocationWithMethodSignature:[tWindow methodSignatureForSelector:tSelector]];
+			tInvocation.selector=tSelector;
+			
+			tInvocation.target=tWindow;
+			
+			NSInteger tInteger=2;	/* NSWindowToolbarStylePreference */
+			
+			[tInvocation setArgument:&tInteger atIndex:2];
+			[tInvocation invoke];
+		}
+	}
+
+	
+	[tWindow center];
+	
+	[tWindow setShowsToolbarButton:NO];
 	
 	// Show the first pane
 	
