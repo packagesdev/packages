@@ -250,6 +250,7 @@
 			baseConfigurationReference = F4A9B38D1CCAB83D0099AF34 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = (

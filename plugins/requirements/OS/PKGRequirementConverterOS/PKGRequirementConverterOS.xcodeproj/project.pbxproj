@@ -165,6 +165,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementConverterOS */;
@@ -228,6 +229,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4ABD07F1CC8209F00C69CA2 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -242,7 +244,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4ABD07F1CC8209F00C69CA2 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = (

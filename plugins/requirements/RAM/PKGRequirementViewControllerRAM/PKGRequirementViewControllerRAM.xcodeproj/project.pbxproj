@@ -275,6 +275,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4ABD09A1CC823EF00C69CA2 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -289,6 +290,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4ABD09A1CC823EF00C69CA2 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
