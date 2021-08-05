@@ -888,7 +888,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 
 - (IBAction)removePlugin:(id)sender
 {
-	NSAlert * tAlert=[[NSAlert alloc] init];
+	NSAlert * tAlert=[NSAlert new];
 	tAlert.messageText=NSLocalizedStringFromTable(@"Do you really want to remove this Installer plugin?", @"Presentation",@"No comment");
 	tAlert.informativeText=NSLocalizedString(@"This cannot be undone.",@"No comment");
 	
