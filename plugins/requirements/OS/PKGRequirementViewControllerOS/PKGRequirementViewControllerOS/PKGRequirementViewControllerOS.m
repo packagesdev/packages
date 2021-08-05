@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2020, Stephane Sudre
+Copyright (c) 2008-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -107,14 +107,12 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	}
 	else if (tVersionComponents.majorVersion==11)
 	{
-		static NSArray * sKnownMacOS11Names=nil;
-		static dispatch_once_t onceToken;
-		dispatch_once(&onceToken, ^{
-			sKnownMacOS11Names=@[@"Big Sur"];
-		});
-		
-		tNames=sKnownMacOS11Names;
+		return @"Big Sur";
 	}
+    else if (tVersionComponents.majorVersion==12)
+    {
+        return @"Monterey";
+    }
 	
 	NSInteger tMinorComponent=tVersionComponents.minorVersion;
 	
@@ -174,14 +172,14 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	[super WB_viewDidLoad];
 	
 	_minimumVersionPicker.versionsHistory=[PKGRequirementViewControllerOS macOSVersionsHistory];
-	_minimumVersionPicker.minVersion=[WBMacOSVersionsHistory macOSLeopardVersion];
+	_minimumVersionPicker.minVersion=[WBVersion macOSLeopardVersion];
 	
 	[_minimumVersionPicker sizeToFit];
 	
 	_minimumVersionPicker.delegate=self;
 	
 	_maximumVersionPicker.versionsHistory=[PKGRequirementViewControllerOS macOSVersionsHistory];
-	_maximumVersionPicker.minVersion=[WBMacOSVersionsHistory macOSLeopardVersion];
+	_maximumVersionPicker.minVersion=[WBVersion macOSLeopardVersion];
 	
 	[_maximumVersionPicker sizeToFit];
 	

@@ -46,182 +46,189 @@
 #define WBMacOSMojaveMinorVersion			14
 #define WBMacOSCatalinaMinorVersion			15
 
+
+#define WBMacOSBigSurMajorVersion           11
+#define WBMacOSMontereyMajorVersion         12
+
+
 #define WBMacOSReasonableMaxUnitValue          100
 
-@implementation WBMacOSVersionsHistory
-
-+ (id)versionsHistory
-{
-	return [WBMacOSVersionsHistory new];
-}
-
-#pragma mark -
+@implementation WBVersion (MacOSVersion)
 
 + (WBVersion *)macOSCheetahVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSCheetahMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSCheetahMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSPumaVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSPumaMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSPumaMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSJaguarVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSJaguarMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSJaguarMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSPantherVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSPantherMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSPantherMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSTigerVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSTigerMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSTigerMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSLeopardVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSLeopardMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSLeopardMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSSnowLeopardVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSSnowLeopardMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSSnowLeopardMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSLionVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSLionMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSLionMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSMountainLionVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSMountainLionMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSMountainLionMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSMavericksVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSMavericksMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSMavericksMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSYosemiteVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSYosemiteMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSYosemiteMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSElCapitanVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSElCapitanMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSElCapitanMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSSierraVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSSierraMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSSierraMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSHighSierraVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSHighSierraMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSHighSierraMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSMojaveVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSMojaveMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSMojaveMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSCatalinaVersion
 {
-	WBVersion * tNewVersion=[WBVersion new];
-	
-	tNewVersion.majorVersion=WBMacOSXMajorVersion;
-	tNewVersion.minorVersion=WBMacOSCatalinaMinorVersion;
-	
-	return tNewVersion;
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSXMajorVersion;
+    tNewVersion.minorVersion=WBMacOSCatalinaMinorVersion;
+    
+    return tNewVersion;
 }
 
 + (WBVersion *)macOSBigSurVersion
 {
     WBVersion * tNewVersion=[WBVersion new];
     
-    tNewVersion.majorVersion=WBMacOSXMajorVersion+1;
+    tNewVersion.majorVersion=WBMacOSBigSurMajorVersion;
+    
+    return tNewVersion;
+}
+
++ (WBVersion *)macOSMontereyVersion
+{
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSMontereyMajorVersion;
     
     return tNewVersion;
 }
@@ -230,53 +237,62 @@
 
 + (WBVersion *)systemVersion
 {
-	static dispatch_once_t onceToken;
-	static WBVersion * sSystemVersion=nil;
-	dispatch_once(&onceToken, ^{
-		
-		sSystemVersion=[WBVersion new];
-	
+    static dispatch_once_t onceToken;
+    static WBVersion * sSystemVersion=nil;
+    dispatch_once(&onceToken, ^{
+        
+        sSystemVersion=[WBVersion new];
+        
 #if (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_10)
-		NSOperatingSystemVersion tOperatingSystemVersion=[NSProcessInfo processInfo].operatingSystemVersion;
-		
-		sSystemVersion.majorVersion=tOperatingSystemVersion.majorVersion;
-		sSystemVersion.minorVersion=tOperatingSystemVersion.minorVersion;
-		sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
+        NSOperatingSystemVersion tOperatingSystemVersion=[NSProcessInfo processInfo].operatingSystemVersion;
+        
+        sSystemVersion.majorVersion=tOperatingSystemVersion.majorVersion;
+        sSystemVersion.minorVersion=tOperatingSystemVersion.minorVersion;
+        sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
 #else
-		
+        
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
-		
-		if (NSFoundationVersionNumber>=NSFoundationVersionNumber10_10)
-		{
-			NSOperatingSystemVersion tOperatingSystemVersion=[NSProcessInfo processInfo].operatingSystemVersion;
-			
-			sSystemVersion.majorVersion=tOperatingSystemVersion.majorVersion;
-			sSystemVersion.minorVersion=tOperatingSystemVersion.minorVersion;
-			sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
-		}
-		else
-		{
+        
+        if (NSFoundationVersionNumber>=NSFoundationVersionNumber10_10)
+        {
+            NSOperatingSystemVersion tOperatingSystemVersion=[NSProcessInfo processInfo].operatingSystemVersion;
+            
+            sSystemVersion.majorVersion=tOperatingSystemVersion.majorVersion;
+            sSystemVersion.minorVersion=tOperatingSystemVersion.minorVersion;
+            sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
+        }
+        else
+        {
 #endif
 #endif
-			SInt32 tMajorVersion,tMinorVersion,tBugFixVersion;
-			
-			Gestalt(gestaltSystemVersionMajor,&tMajorVersion);
-			Gestalt(gestaltSystemVersionMinor,&tMinorVersion);
-			Gestalt(gestaltSystemVersionBugFix,&tBugFixVersion);
-			
-			sSystemVersion.majorVersion=tMajorVersion;
-			sSystemVersion.minorVersion=tMinorVersion;
-			sSystemVersion.patchVersion=tBugFixVersion;
-			
+            SInt32 tMajorVersion,tMinorVersion,tBugFixVersion;
+            
+            Gestalt(gestaltSystemVersionMajor,&tMajorVersion);
+            Gestalt(gestaltSystemVersionMinor,&tMinorVersion);
+            Gestalt(gestaltSystemVersionBugFix,&tBugFixVersion);
+            
+            sSystemVersion.majorVersion=tMajorVersion;
+            sSystemVersion.minorVersion=tMinorVersion;
+            sSystemVersion.patchVersion=tBugFixVersion;
+            
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
-		}
+        }
 #endif
-		
+        
+        
+        
+    });
+    
+    return sSystemVersion;
+}
 
-		
-	});
-	
-	return sSystemVersion;
+@end
+
+@implementation WBMacOSVersionsHistory
+
++ (id)versionsHistory
+{
+	return [WBMacOSVersionsHistory new];
 }
 
 #pragma mark -
@@ -307,7 +323,7 @@
 	{
 		case WBMajorVersionUnit:
 			
-			return NSMakeRange(WBMacOSXMajorVersion, 2);
+			return NSMakeRange(WBMacOSXMajorVersion, 10);
 			
 		case WBMinorVersionUnit:
 			
@@ -332,20 +348,28 @@
 	switch (smaller)
 	{
 		case WBMajorVersionUnit:
-			return NSMakeRange(WBMacOSXMajorVersion, 2);
+			return NSMakeRange(WBMacOSXMajorVersion, 10);
 		
 		case WBMinorVersionUnit:
 		
-            if (inVersion.majorVersion==10)
+            switch(inVersion.majorVersion)
             {
-                return NSMakeRange(0, 16);
+                case WBMacOSXMajorVersion:
+                    
+                    return NSMakeRange(0, 16);
+                    
+                case WBMacOSBigSurMajorVersion:
+                case WBMacOSMontereyMajorVersion:
+                default:
+                    
+                    break;
             }
             
             return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
             
 		case WBPatchVersionUnit:
 		
-            if (inVersion.majorVersion==10)
+            if (inVersion.majorVersion==WBMacOSXMajorVersion)
             {
                 switch(inVersion.minorVersion)
                 {
@@ -413,26 +437,47 @@
                         
                         return NSMakeRange(0, 8);
                 }
+                
+                return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
             }
-			else
-			{
-				if (inVersion.majorVersion==11)
-				{
-					switch(inVersion.minorVersion)
-					{
-						case 0:
-							
-							return NSMakeRange(1, 1);
-							
-						case 1:
-							
-							return NSMakeRange(0, 1);
-							
-						case 2:
-							
-							return NSMakeRange(0, 4);
-					}
-				}
+			
+            if (inVersion.majorVersion==WBMacOSBigSurMajorVersion)
+            {
+                switch(inVersion.minorVersion)
+                {
+                    case 0:
+                        
+                        return NSMakeRange(0, 2);
+                        
+                    case 1:
+                        
+                        return NSMakeRange(0, 1);
+                        
+                    case 2:
+                        
+                        return NSMakeRange(0, 4);
+                        
+                    case 3:
+                        
+                        return NSMakeRange(0, 2);
+                        
+                    case 4:
+                        
+                        return NSMakeRange(0, 1);
+                        
+                    case 5:
+                        
+                        // To be updated in the future
+                        
+                        break;
+                }
+                
+                return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+            }
+            
+            if (inVersion.majorVersion==WBMacOSMontereyMajorVersion)
+            {
+                // Update as minor releases of Monterey are shipped
 			}
 			
 			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);

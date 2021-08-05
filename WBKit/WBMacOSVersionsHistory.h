@@ -13,7 +13,7 @@
 
 #import "WBVersionsHistory.h"
 
-@interface WBMacOSVersionsHistory : WBVersionsHistory
+@interface WBVersion (MacOSVersion)
 
 + (WBVersion *)macOSCheetahVersion;
 + (WBVersion *)macOSPumaVersion;
@@ -32,7 +32,12 @@
 + (WBVersion *)macOSMojaveVersion;
 + (WBVersion *)macOSCatalinaVersion;
 + (WBVersion *)macOSBigSurVersion;
++ (WBVersion *)macOSMontereyVersion;
 
 + (WBVersion *)systemVersion;
+
+@end
+
+@interface WBMacOSVersionsHistory : WBVersionsHistory
 
 @end
