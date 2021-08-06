@@ -1111,7 +1111,7 @@
 				<key>USE_HFS+_COMPRESSION</key>
 				<true/>
 				<key>VERSION</key>
-				<string>1.3</string>
+				<string>1.4</string>
 			</dict>
 			<key>TYPE</key>
 			<integer>0</integer>
@@ -1383,7 +1383,7 @@
 						<key>IC_REQUIREMENT_OS_DISTRIBUTION_TYPE</key>
 						<integer>0</integer>
 						<key>IC_REQUIREMENT_OS_MINIMUM_VERSION</key>
-						<integer>100800</integer>
+						<integer>100900</integer>
 					</dict>
 					<key>IC_REQUIREMENT_CHECK_TYPE</key>
 					<integer>0</integer>
@@ -1395,21 +1395,32 @@
 							<key>LANGUAGE</key>
 							<string>English</string>
 							<key>SECONDARY_VALUE</key>
-							<string>If you want to run Packages on OS X 10.7 or earlier, use version 1.1.3.</string>
+							<string>If you want to run Packages on OS X 10.8, use version 1.2.9.
+If you want to run Packages on OS X 10.7 or earlier, use version 1.1.3.</string>
 							<key>VALUE</key>
-							<string>Packages requires OS X 10.8 or later.</string>
+							<string>Packages requires OS X 10.9 or later.</string>
+						</dict>
+						<dict>
+							<key>LANGUAGE</key>
+							<string>Spanish</string>
+							<key>SECONDARY_VALUE</key>
+							<string>Si desea ejecutar Packages en OS X 10.8, use la versión 1.2.9.
+Si desea ejecutar Packages en OS X 10.7 o anterior, use la versión 1.1.3.</string>
+							<key>VALUE</key>
+							<string>Packages requiere OS X 10.9 o posterior.</string>
 						</dict>
 						<dict>
 							<key>LANGUAGE</key>
 							<string>French</string>
 							<key>SECONDARY_VALUE</key>
-							<string>Si vous souhaitez utiliser Packages sur OS X 10.7 ou antérieur, utilisez la version 1.1.3.</string>
+							<string>Si vous souhaitez utiliser Packages sur OS X 10.8, utilisez la version 1.2.9.
+Si vous souhaitez utiliser Packages sur OS X 10.7 ou antérieur, utilisez la version 1.1.3.</string>
 							<key>VALUE</key>
-							<string>Packages nécessite OS X 10.8 ou ultérieur.</string>
+							<string>Packages nécessite OS X 10.9 ou ultérieur.</string>
 						</dict>
 					</array>
 					<key>NAME</key>
-					<string>10.8 or later</string>
+					<string>10.9 or later</string>
 					<key>STATE</key>
 					<true/>
 				</dict>
@@ -1426,7 +1437,7 @@
 				<key>installer-script.product:id</key>
 				<string>fr.whitebox.Packages</string>
 				<key>installer-script.product:version</key>
-				<string>1.2.5</string>
+				<string>1.2.10</string>
 			</dict>
 			<key>BUILD_FORMAT</key>
 			<integer>0</integer>
