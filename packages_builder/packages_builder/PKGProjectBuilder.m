@@ -315,7 +315,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 @synthesize referenceProjectPath=_referenceProjectPath,referenceFolderPath=_referenceFolderPath;
 
-- (id) init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -325,7 +325,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		_stepPath=[[NSIndexPath alloc] init];
 		
-		_buildInformation=[[PKGBuildInformation alloc] init];
+		_buildInformation=[PKGBuildInformation new];
 		
 		_folderAttributes=@{NSFilePosixPermissions:@(0755)};
 		
@@ -346,7 +346,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	return self;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
 	if (_secIdentityRef!=NULL)
 	{
@@ -7880,6 +7880,8 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			}
 			
 			// We're not building the payload hierarchy so no need to check for bundle options
+            
+            // A VOIR (this does not support rules and pre-post installation script for bundles made from PKGFileItemTypeNewFolder)
 			
 			if (inBuildPackageAttributes==nil || [tFileItem isMemberOfClass:_PKGPayloadBundleItemClass]==NO)
 				break;
