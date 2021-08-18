@@ -196,7 +196,7 @@
 		}
 	}
 	
-	tInfoPListNode=(PKGPayloadTreeNode *)[self childNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
+	tInfoPListNode=(PKGPayloadTreeNode *)[tContentsNode childNodeMatching:^BOOL(PKGPayloadTreeNode *bChildNode){
 		
 		PKGFileItem * tRepresentedChildObject=bChildNode.representedObject;
 		
