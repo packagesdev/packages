@@ -22,6 +22,7 @@
 #import "PKGProjectBuilder.h"
 #import "PKGProjectBuilderInterface.h"
 
+#import "NSXPCConnection+RequirementCheck.h"
 
 @interface PKGPackagesBuilder () <NSXPCListenerDelegate>
 {
@@ -152,6 +153,15 @@
 	if (inNewConnection==nil)
 		return NO;
 	
+    NSString * tRequirementString=@"anchor apple generic and certificate leaf [subject.OU] = \"NL5M9E394P\"";
+    
+    if ([inNewConnection checkValidityWithRequirement:tRequirementString]==NO)
+    {
+        NSLog(@"Denied connection attempt from pid \"%d\"\n",inNewConnection.processIdentifier);
+        
+        return NO;
+    }
+    
 	_projectBuilder=[[PKGProjectBuilder alloc] init];
 	_projectBuilder.userID=inNewConnection.effectiveUserIdentifier;
 	_projectBuilder.groupID=inNewConnection.effectiveGroupIdentifier;

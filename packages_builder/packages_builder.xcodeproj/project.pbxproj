@@ -10,6 +10,7 @@
 		F40B5D0D1F8D772E0054D746 /* WBVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = F40B5D0C1F8D772E0054D746 /* WBVersion.m */; };
 		F40B5D101F8D77490054D746 /* WBVersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F40B5D0F1F8D77490054D746 /* WBVersionFormatter.m */; };
 		F40B6EE41D247A300031D267 /* PKGBuildInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = F40B6EE31D247A300031D267 /* PKGBuildInformation.m */; };
+		F40F07AB26CDAF0F0080EC01 /* NSXPCConnection+RequirementCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = F40F07AA26CDAF0E0080EC01 /* NSXPCConnection+RequirementCheck.m */; };
 		F41F61F8217FC69C00B8F9D4 /* PKGSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = F41F61F7217FC69C00B8F9D4 /* PKGSignature.m */; };
 		F43017011CFE0E9F00829D16 /* PKGBuildLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F43017001CFE0E9F00829D16 /* PKGBuildLogger.m */; };
 		F43017191CFE0EEF00829D16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F43017181CFE0EEF00829D16 /* main.m */; };
@@ -153,6 +154,8 @@
 		F40B5D0F1F8D77490054D746 /* WBVersionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBVersionFormatter.m; path = ../WBKit/WBVersionFormatter.m; sourceTree = "<group>"; };
 		F40B6EE21D247A300031D267 /* PKGBuildInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBuildInformation.h; path = packages_builder/PKGBuildInformation.h; sourceTree = "<group>"; };
 		F40B6EE31D247A300031D267 /* PKGBuildInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBuildInformation.m; path = packages_builder/PKGBuildInformation.m; sourceTree = "<group>"; };
+		F40F07A126CDAF0E0080EC01 /* NSXPCConnection+RequirementCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSXPCConnection+RequirementCheck.h"; path = "../Foundation + Extensions/NSXPCConnection+RequirementCheck.h"; sourceTree = "<group>"; };
+		F40F07AA26CDAF0E0080EC01 /* NSXPCConnection+RequirementCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSXPCConnection+RequirementCheck.m"; path = "../Foundation + Extensions/NSXPCConnection+RequirementCheck.m"; sourceTree = "<group>"; };
 		F412959E1D68FC3A00B2ABC4 /* PKGProjectBuilderInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGProjectBuilderInterface.h; path = ../shared/PKGProjectBuilderInterface.h; sourceTree = "<group>"; };
 		F41F61F6217FC69C00B8F9D4 /* PKGSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGSignature.h; path = ../archive_utilities/PKGSignature.h; sourceTree = "<group>"; };
 		F41F61F7217FC69C00B8F9D4 /* PKGSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGSignature.m; path = ../archive_utilities/PKGSignature.m; sourceTree = "<group>"; };
@@ -486,6 +489,8 @@
 				F488D76C1FB27E8D003413C2 /* NSSet+WBExtensions.m */,
 				F4A2F3A61CFF9F7100FCED04 /* NSString+Packages.h */,
 				F4A2F3A71CFF9F7100FCED04 /* NSString+Packages.m */,
+				F40F07A126CDAF0E0080EC01 /* NSXPCConnection+RequirementCheck.h */,
+				F40F07AA26CDAF0E0080EC01 /* NSXPCConnection+RequirementCheck.m */,
 			);
 			name = "Foundation Extensions";
 			sourceTree = "<group>";
@@ -812,6 +817,7 @@
 			files = (
 				F48C21921CFCF05500B5A8CD /* PKGPresentationStepSettings.m in Sources */,
 				F4A30DD01D63743000780E69 /* PKGPackagesBuilder.m in Sources */,
+				F40F07AB26CDAF0F0080EC01 /* NSXPCConnection+RequirementCheck.m in Sources */,
 				F48C21A51CFCF3DD00B5A8CD /* PKGConverter.m in Sources */,
 				F4B9FA4A1D6E34A500CEADC9 /* PKGBuildOrder+Convenience.m in Sources */,
 				F4E6EF691D56435400B87D8B /* NSString+Random.m in Sources */,
