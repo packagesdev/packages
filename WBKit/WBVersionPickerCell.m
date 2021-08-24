@@ -774,11 +774,11 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 {
     _elements=[NSMutableArray array];
 	
-	[self addElementOfType:WBVersionPickerCellElementMajorVersion referenceStrings:@[@"99"]];
+	[self addElementOfType:WBVersionPickerCellElementMajorVersion referenceStrings:@[@"88"]];
 	[self addElementOfType:WBVersionPickerCellElementSeparator referenceStrings:@[@"."]];
-	[self addElementOfType:WBVersionPickerCellElementMinorVersion referenceStrings:@[@"99"]];
+	[self addElementOfType:WBVersionPickerCellElementMinorVersion referenceStrings:@[@"44"]];
 	[self addElementOfType:WBVersionPickerCellElementSeparator referenceStrings:@[@"."]];
-	[self addElementOfType:WBVersionPickerCellElementPatchVersion referenceStrings:@[@"99"]];
+	[self addElementOfType:WBVersionPickerCellElementPatchVersion referenceStrings:@[@"44"]];
     
     _selectedElementIndex=[self firstSelectableElement];
     

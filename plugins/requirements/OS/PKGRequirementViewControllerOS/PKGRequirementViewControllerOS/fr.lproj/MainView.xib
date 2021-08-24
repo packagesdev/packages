@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGRequirementViewControllerOS">
@@ -22,7 +22,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="LNg-uq-QuW" userLabel="View">
-            <rect key="frame" x="0.0" y="5" width="644" height="169"/>
+            <rect key="frame" x="0.0" y="0.0" width="644" height="169"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="veq-4u-hvz">
@@ -82,7 +82,7 @@
                     </connections>
                 </button>
                 <customView id="uGx-Sd-k3e" customClass="WBVersionPicker">
-                    <rect key="frame" x="409" y="52" width="80" height="23"/>
+                    <rect key="frame" x="409" y="52" width="85" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <connections>
                         <action selector="setMinimumVersion:" target="-2" id="goH-ee-9iU"/>
@@ -90,7 +90,7 @@
                     </connections>
                 </customView>
                 <customView id="LrA-3L-xqK" customClass="WBVersionPicker">
-                    <rect key="frame" x="409" y="20" width="80" height="23"/>
+                    <rect key="frame" x="409" y="20" width="85" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <connections>
                         <action selector="setMaximumVersion:" target="-2" id="fNg-6O-8WP"/>
@@ -106,7 +106,7 @@
                     </buttonCell>
                 </button>
                 <textField verticalHuggingPriority="750" id="lO3-kg-OWt">
-                    <rect key="frame" x="492" y="56" width="94" height="14"/>
+                    <rect key="frame" x="497" y="56" width="94" height="14"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="0fy-gQ-9yv">
                         <font key="font" metaFont="smallSystem"/>
@@ -115,7 +115,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="Imf-CX-704">
-                    <rect key="frame" x="492" y="24" width="94" height="14"/>
+                    <rect key="frame" x="497" y="24" width="94" height="14"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="c53-0H-6ep">
                         <font key="font" metaFont="smallSystem"/>

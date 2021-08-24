@@ -21,7 +21,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
-		sLocatorPluginsManager=[[PKGLocatorPluginsManager alloc] init];
+		sLocatorPluginsManager=[PKGLocatorPluginsManager new];
 	});
 	
 	return sLocatorPluginsManager;
