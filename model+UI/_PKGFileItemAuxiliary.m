@@ -233,7 +233,7 @@
 	
 	struct stat tStat;
 	
-	if (inType>=PKGFileItemTypeNewFolder)
+	if (inType>=PKGFileItemTypeNewFolder && inType!=PKGFileItemTypeNewElasticFolder)
 	{
 		if (lstat([inPath fileSystemRepresentation], &tStat)!=0)
 		{
@@ -302,13 +302,14 @@
 	
 	// New Folder
 	
-	if (inType==PKGFileItemTypeNewFolder)
+	if (inType==PKGFileItemTypeNewFolder ||
+        inType==PKGFileItemTypeNewElasticFolder)
 	{
 		self.icon=[_PKGFileItemAuxiliary cachedGenericFolderIcon];
 		
 		return;
 	}
-
+    
 	// Icon
 
 	if (self.referencedItemMissing==YES)

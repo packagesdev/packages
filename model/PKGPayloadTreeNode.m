@@ -177,7 +177,8 @@
 	PKGFileItem * tFileItem=self.representedObject;
 	
 	if (tFileItem.type==PKGFileItemTypeFileSystemItem ||
-		tFileItem.type==PKGFileItemTypeNewFolder)
+		tFileItem.type==PKGFileItemTypeNewFolder ||
+        tFileItem.type==PKGFileItemTypeNewElasticFolder)
 		return 1;
 	
 	NSMutableIndexSet * tIndexSet=[NSMutableIndexSet indexSet];
