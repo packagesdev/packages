@@ -13,6 +13,7 @@
 		F40BCAC01C7CDB2800713F23 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCABF1C7CDB2800713F23 /* libz.dylib */; };
 		F40BCAC21C7CDB2D00713F23 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */; };
 		F40F55DB1F0318450037C8F5 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F40F55D91F0318450037C8F5 /* NSObject+Conformance.m */; };
+		F4696DDF2706653F00C00380 /* PKGReplaceableStringFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4696DDE2706653F00C00380 /* PKGReplaceableStringFormatter.m */; };
 		F46BFC9D1FACDD840022ABD4 /* PKGMustCloseApplicationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F46BFC9C1FACDD840022ABD4 /* PKGMustCloseApplicationItem.m */; };
 		F46FA1951DB97407001D3FA8 /* NSDictionary+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */; };
 		F477A1371DF22B4C00CA546B /* PKGPayloadTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */; };
@@ -134,11 +135,13 @@
 		F40BCAC11C7CDB2D00713F23 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		F40F55D91F0318450037C8F5 /* NSObject+Conformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Conformance.m"; path = "../Foundation + Extensions/NSObject+Conformance.m"; sourceTree = "<group>"; };
 		F40F55DA1F0318450037C8F5 /* NSObject+Conformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Conformance.h"; path = "../Foundation + Extensions/NSObject+Conformance.h"; sourceTree = "<group>"; };
+		F4696DD52706653E00C00380 /* PKGReplaceableStringFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGReplaceableStringFormatter.h; path = ../shared/PKGReplaceableStringFormatter.h; sourceTree = "<group>"; };
+		F4696DDE2706653F00C00380 /* PKGReplaceableStringFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGReplaceableStringFormatter.m; path = ../shared/PKGReplaceableStringFormatter.m; sourceTree = "<group>"; };
+		F4696DE02706654A00C00380 /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F46BFC9B1FACDD840022ABD4 /* PKGMustCloseApplicationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGMustCloseApplicationItem.h; path = ../model/PKGMustCloseApplicationItem.h; sourceTree = "<group>"; };
 		F46BFC9C1FACDD840022ABD4 /* PKGMustCloseApplicationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMustCloseApplicationItem.m; path = ../model/PKGMustCloseApplicationItem.m; sourceTree = "<group>"; };
 		F46FA1931DB97407001D3FA8 /* NSDictionary+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WBExtensions.h"; path = "../Foundation + Extensions/NSDictionary+WBExtensions.h"; sourceTree = "<group>"; };
 		F46FA1941DB97407001D3FA8 /* NSDictionary+WBExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WBExtensions.m"; path = "../Foundation + Extensions/NSDictionary+WBExtensions.m"; sourceTree = "<group>"; };
-		F477A1341DF22B4C00CA546B /* PKGRootNodesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRootNodesProtocol.h; path = ../model/PKGRootNodesProtocol.h; sourceTree = "<group>"; };
 		F477A1351DF22B4C00CA546B /* PKGPayloadTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPayloadTreeNode.m; path = ../model/PKGPayloadTreeNode.m; sourceTree = "<group>"; };
 		F477A1361DF22B4C00CA546B /* PKGPayloadTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPayloadTreeNode.h; path = ../model/PKGPayloadTreeNode.h; sourceTree = "<group>"; };
 		F477CDA31F0CCDDC0091EFB0 /* PKGForest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGForest.h; path = ../model/PKGForest.h; sourceTree = "<group>"; };
@@ -336,6 +339,9 @@
 		F481B3711CBD89960063F4CD /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				F4696DE02706654A00C00380 /* PKGStringReplacer.h */,
+				F4696DD52706653E00C00380 /* PKGReplaceableStringFormatter.h */,
+				F4696DDE2706653F00C00380 /* PKGReplaceableStringFormatter.m */,
 				F481B3721CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.h */,
 				F481B3731CBD89AD0063F4CD /* PKGBundleIdentifierFormatter.m */,
 			);
@@ -451,7 +457,6 @@
 				F4F999561F41030500242BAB /* PKGRootNodesProtocol.m */,
 				F4A786261CB4674600FC07B8 /* PKGTreeNode.h */,
 				F4A786271CB4674600FC07B8 /* PKGTreeNode.m */,
-				F477A1341DF22B4C00CA546B /* PKGRootNodesProtocol.h */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -636,6 +641,7 @@
 				F477A1371DF22B4C00CA546B /* PKGPayloadTreeNode.m in Sources */,
 				F4A786351CB4674600FC07B8 /* PKGLocator.m in Sources */,
 				F4A786381CB4674600FC07B8 /* PKGPackageProject.m in Sources */,
+				F4696DDF2706653F00C00380 /* PKGReplaceableStringFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
