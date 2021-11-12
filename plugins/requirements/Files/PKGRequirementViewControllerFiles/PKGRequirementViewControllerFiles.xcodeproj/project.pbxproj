@@ -34,6 +34,8 @@
 		F4AA70B01CC82C74008096D0 /* PKGRequirement_Files+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_Files+Constants.m"; path = "../PKGRequirement_Files+Constants.m"; sourceTree = "<group>"; };
 		F4AA70B21CC82D3B008096D0 /* PKGRequirementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewController.h; path = ../../PKGRequirementViewController.h; sourceTree = "<group>"; };
 		F4AA70B31CC82D88008096D0 /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
+		F4AC692027178A460014FA2D /* PKGReplaceableStringFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGReplaceableStringFormatter.h; path = ../../../../shared/PKGReplaceableStringFormatter.h; sourceTree = "<group>"; };
+		F4AC692F27178FE30014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4B01EDF1FAF274D0027A553 /* PKGTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableView.h; path = ../../../../shared/PKGTableView.h; sourceTree = "<group>"; };
 		F4B01EE61FAF28200027A553 /* PKGTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableCellView.h; path = ../../../../shared/PKGTableCellView.h; sourceTree = "<group>"; };
 		F4C781941C7BC49E0019D5ED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -148,6 +150,8 @@
 				F4393FEC1E89C93A004CC345 /* NSTableView+Selection.h */,
 				F4B01EDF1FAF274D0027A553 /* PKGTableView.h */,
 				F4B01EE61FAF28200027A553 /* PKGTableCellView.h */,
+				F4AC692F27178FE30014FA2D /* PKGStringReplacer.h */,
+				F4AC692027178A460014FA2D /* PKGReplaceableStringFormatter.h */,
 				F44C84201CE550590027B91C /* PKGAbsolutePathFormatter.h */,
 				F44C84211CE5508E0027B91C /* PKGAbsolutePathFormatter.m */,
 				F48DDE2E1CE3DB2D004B9A29 /* Model */,

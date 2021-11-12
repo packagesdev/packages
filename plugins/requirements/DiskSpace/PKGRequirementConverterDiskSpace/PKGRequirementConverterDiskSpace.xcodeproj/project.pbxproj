@@ -24,6 +24,7 @@
 		F48C21BB1CFCF94300B5A8CD /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4ABD06C1CC81F0800C69CA2 /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
 		F4ABD06D1CC81F8B00C69CA2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4AC692C27178ED20014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4C781901C7BC2520019D5ED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4E878BE1C862953000EB552 /* PKGRequirementConverterDiskSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverterDiskSpace.h; path = PKGRequirementConverterDiskSpace/PKGRequirementConverterDiskSpace.h; sourceTree = "<group>"; };
 		F4E878BF1C862953000EB552 /* PKGRequirementConverterDiskSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementConverterDiskSpace.m; path = PKGRequirementConverterDiskSpace/PKGRequirementConverterDiskSpace.m; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 				F48C21BA1CFCF93C00B5A8CD /* Model */,
 				F48C21B91CFCF91A00B5A8CD /* PKGConverter.h */,
 				F4ABD06C1CC81F0800C69CA2 /* PKGRequirementConverter.h */,
+				F4AC692C27178ED20014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

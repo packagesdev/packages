@@ -30,6 +30,7 @@
 		F486D5C41F58B52D00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerCPU/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F486D5C61F58B53100495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerCPU/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F48DDE371CE3DC9E004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4AC69322717901E0014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4C80FB31F16B94900049F53 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerCPU/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F4D24D651CC6D3F6008D41A0 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4D24D661CC6D419008D41A0 /* PKGRequirement_CPU+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_CPU+Constants.h"; path = "../PKGRequirement_CPU+Constants.h"; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 				F474AFC11E5913E200483129 /* NSViewController+WBExtensions.h */,
 				F4035DB81CC6D64D00184576 /* PKGViewController.h */,
 				F4D24D691CC6D425008D41A0 /* PKGRequirementViewController.h */,
+				F4AC69322717901E0014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

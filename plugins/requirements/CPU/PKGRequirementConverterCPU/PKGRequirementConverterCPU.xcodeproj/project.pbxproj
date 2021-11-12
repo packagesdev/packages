@@ -29,6 +29,7 @@
 		F49E06DD1C7FBBEB0044D067 /* Code.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Code.strings; path = PKGRequirementConverterCPU/Code.strings; sourceTree = "<group>"; };
 		F49E06DF1C7FBBF50044D067 /* Constants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Constants.plist; path = PKGRequirementConverterCPU/Constants.plist; sourceTree = "<group>"; };
 		F49E06E11C7FBBF90044D067 /* Functions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Functions.plist; path = PKGRequirementConverterCPU/Functions.plist; sourceTree = "<group>"; };
+		F4AC692627178E700014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4D24D571CC6D298008D41A0 /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
 		F4D24D581CC6D2B2008D41A0 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +119,7 @@
 				F48C21B51CFCF84C00B5A8CD /* Model */,
 				F48C21B41CFCF84A00B5A8CD /* PKGConverter.h */,
 				F4D24D571CC6D298008D41A0 /* PKGRequirementConverter.h */,
+				F4AC692627178E700014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";
