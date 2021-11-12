@@ -204,6 +204,13 @@
 	return [PKGFileItem representationOfPOSIXPermissions:self.permissions fileType:tFileType];
 }
 
+- (BOOL)isNameEditable
+{
+    return (self.type==PKGFileItemTypeNewFolder ||
+            self.type==PKGFileItemTypeNewElasticFolder ||
+            self.payloadFileName!=nil);
+}
+
 #pragma mark -
 
 - (void)refreshAuxiliaryAsMissingFileItem

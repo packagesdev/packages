@@ -33,6 +33,8 @@
 
 	@property (nonatomic,readonly,copy) NSString * posixPermissionsRepresentation;
 
+    @property (nonatomic,getter=isNameEditable,readonly) BOOL nameEditable;
+
 + (NSString *)representationOfPOSIXPermissions:(mode_t)inPermissions fileType:(unsigned char)inFileType;
 
 + (NSString *)representationOfPOSIXPermissions:(mode_t)inPermissions mixedPermissions:(mode_t)inMixedPermissions fileType:(unsigned char)inFileType;
