@@ -23,7 +23,8 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 	PKGFileItemTypeRoot=0,
 	PKGFileItemTypeFolderTemplate,
 	PKGFileItemTypeNewFolder,
-	PKGFileItemTypeFileSystemItem
+	PKGFileItemTypeFileSystemItem,
+    PKGFileItemTypeNewElasticFolder
 };
 
 @class _PKGFileItemAuxiliary;
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 
 	@property (nonatomic,readonly,copy) NSString *fileName;
 
-	@property (readonly) PKGFilePath * filePath;
+    @property (readonly) PKGFilePath * filePath;
 
 	@property uid_t uid;
 
@@ -52,6 +53,8 @@ typedef NS_ENUM(NSInteger, PKGFileItemType)
 + (instancetype)folderTemplateWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
 
 + (instancetype)newFolderWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
+
++ (instancetype)newElasticFolderWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
 
 + (instancetype)fileSystemItemWithFilePath:(PKGFilePath *)inFilePath uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
 

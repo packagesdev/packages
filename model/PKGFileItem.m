@@ -70,6 +70,11 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 	return [PKGFileItem fileItemWithName:inName type:PKGFileItemTypeNewFolder uid:inUid gid:inGid permissions:inPermissions];
 }
 
++ (instancetype)newElasticFolderWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions
+{
+    return [PKGFileItem fileItemWithName:inName type:PKGFileItemTypeNewElasticFolder uid:inUid gid:inGid permissions:inPermissions];
+}
+
 + (instancetype)folderTemplateWithName:(NSString *)inName uid:(uid_t)inUid gid:(gid_t)inGid permissions:(mode_t)inPermissions;
 {
 	return [PKGFileItem fileItemWithName:inName type:PKGFileItemTypeFolderTemplate uid:inUid gid:inGid permissions:inPermissions];
@@ -167,7 +172,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 		
 		_type=[inRepresentation[PKGFileItemTypeKey] integerValue];
 		
-		if (_type>PKGFileItemTypeFileSystemItem)
+		if (_type>PKGFileItemTypeNewElasticFolder)
 		{
 			if (outError!=NULL)
 				*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -200,6 +205,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 			case PKGFileItemTypeRoot:
 			case PKGFileItemTypeFolderTemplate:
 			case PKGFileItemTypeNewFolder:
+            case PKGFileItemTypeNewElasticFolder:
 				
 				_contentsDisclosed=NO;
 				break;
@@ -271,7 +277,7 @@ NSString * const PKGFileItemExpandedKey=@"EXPANDED";	// Let us know when the con
 		case PKGFileItemTypeHiddenFolderTemplate:
 		case PKGFileItemTypeFolderTemplate:
 		case PKGFileItemTypeNewFolder:
-			
+        case PKGFileItemTypeNewElasticFolder:
 			return self.filePath.string;
 			
 		case PKGFileItemTypeFileSystemItem:
