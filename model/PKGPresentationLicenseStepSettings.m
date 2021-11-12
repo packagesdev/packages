@@ -21,6 +21,8 @@ NSString * const PKGPresentationLicenseTypeKey=@"MODE";
 
 NSString * const PKGPresentationLicenseTemplateNameKey=@"TEMPLATE";
 
+NSString * const PKGPresentationLicenseCustomTemplatePathKey=@"CUSTOM_TEMPLATE_PATH";
+
 NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 
 @interface PKGPresentationLicenseStepSettings ()
@@ -73,7 +75,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	
 	_licenseType=[inRepresentation[PKGPresentationLicenseTypeKey] unsignedIntegerValue];
 	
-	if (_licenseType>PKGLicenseTypeTemplate)
+	if (_licenseType>PKGLicenseTypeCustomTemplate)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -85,14 +87,41 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	
 	_templateValues=[NSMutableDictionary dictionary];
 	
-	if (_licenseType==PKGLicenseTypeTemplate)
+	if (_licenseType==PKGLicenseTypeTemplate ||
+        _licenseType==PKGLicenseTypeCustomTemplate)
 	{
-		NSString * tString=inRepresentation[PKGPresentationLicenseTemplateNameKey];
+		if (_licenseType==PKGLicenseTypeTemplate)
+        {
+            NSString * tString=inRepresentation[PKGPresentationLicenseTemplateNameKey];
 		
-		PKGFullCheckStringValueForKey(tString,PKGPresentationLicenseTemplateNameKey);
+            PKGFullCheckStringValueForKey(tString,PKGPresentationLicenseTemplateNameKey);
 		
-		_templateName=[tString copy];
-		
+            _templateName=[tString copy];
+        }
+        else
+        {
+            _customTemplatePath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPresentationLicenseCustomTemplatePathKey] error:&tError];
+            
+            if (_customTemplatePath==nil)
+            {
+                if (tError.code!=PKGRepresentationNilRepresentationError)
+                {
+                    if (outError!=NULL)
+                    {
+                        NSString * tPathError=PKGPresentationLicenseCustomTemplatePathKey;
+                        
+                        if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+                            tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+                        
+                        *outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+                                                      code:PKGRepresentationInvalidValueError
+                                                  userInfo:@{PKGKeyPathErrorKey:tPathError}];
+                    }
+                    
+                    return nil;
+                }
+            }
+        }
 
 		if (inRepresentation[PKGPresentationLicenseTemplateKeywordsKey]!=nil)
 		{
@@ -119,9 +148,18 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	
 	tRepresentation[PKGPresentationLicenseTypeKey]=@(self.licenseType);
 	
-	if (self.licenseType==PKGLicenseTypeTemplate)
+    if (self.licenseType==PKGLicenseTypeTemplate ||
+        self.licenseType==PKGLicenseTypeCustomTemplate)
 	{
-		tRepresentation[PKGPresentationLicenseTemplateNameKey]=self.templateName;
+		if (self.licenseType==PKGLicenseTypeTemplate)
+        {
+            tRepresentation[PKGPresentationLicenseTemplateNameKey]=self.templateName;
+        }
+        else
+        {
+            if (self.customTemplatePath!=nil)
+                tRepresentation[PKGPresentationLicenseCustomTemplatePathKey]=[self.customTemplatePath representation];
+        }
 		
 		if (self.templateValues.count>0)
 			tRepresentation[PKGPresentationLicenseTemplateKeywordsKey]=self.templateValues;
@@ -139,15 +177,30 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	[tDescription appendString:@"  License Settings:\n"];
 	[tDescription appendString:@"  ----------------\n\n"];
 	
-	if (self.licenseType==PKGLicenseTypeCustom)
-	{
-		[tDescription appendFormat:@"%@",[super description]];
-	}
-	else
-	{
-		[tDescription appendFormat:@"  Template: %@\n",self.templateName];
-		
-	}
+	switch(self.licenseType)
+    {
+        case PKGLicenseTypeCustom:
+            
+            [tDescription appendFormat:@"%@",[super description]];
+            
+            break;
+            
+        case PKGLicenseTypeTemplate:
+            
+            [tDescription appendFormat:@"  Template: %@\n",self.templateName];
+            
+            break;
+            
+        case PKGLicenseTypeCustomTemplate:
+            
+            [tDescription appendFormat:@"  Custom Template: %@\n",self.templateName];
+            
+            break;
+            
+        default:
+            
+            break;
+    }
 	
 	return tDescription;
 }

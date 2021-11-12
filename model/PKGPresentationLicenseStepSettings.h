@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,10 +13,13 @@
 
 #import "PKGPresentationLocalizableStepSettings.h"
 
+#import "PKGFilePath.h"
+
 typedef NS_ENUM(NSUInteger, PKGLicenseType)
 {
 	PKGLicenseTypeCustom=0,
-	PKGLicenseTypeTemplate
+	PKGLicenseTypeTemplate=1,       // name of the standard template -> templateName
+    PKGLicenseTypeCustomTemplate=2  // path of the custom template -> customTemplatePath
 };
 
 @interface PKGPresentationLicenseStepSettings : PKGPresentationLocalizableStepSettings
@@ -24,6 +27,8 @@ typedef NS_ENUM(NSUInteger, PKGLicenseType)
 	@property PKGLicenseType licenseType;
 
 	@property (copy) NSString * templateName;	// can be nil
+
+    @property PKGFilePath * customTemplatePath;   // can be nil
 
 	@property (readonly) NSMutableDictionary * templateValues;
 
