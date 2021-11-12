@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2017, Stephane Sudre
+Copyright (c) 2008-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,7 +21,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
-		sRequirementPluginsManager=[[PKGRequirementPluginsManager alloc] init];
+		sRequirementPluginsManager=[PKGRequirementPluginsManager new];
 	});
 	
 	return sRequirementPluginsManager;
