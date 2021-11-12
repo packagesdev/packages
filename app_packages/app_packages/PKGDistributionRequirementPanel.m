@@ -65,6 +65,8 @@
 
 #pragma mark -
 
+#pragma mark -
+
 - (void)showRequirementViewControllerWithIdentifier:(NSString *)inIdentifier
 {
 	if (self.currentRequirementViewController!=nil)
@@ -135,13 +137,15 @@
 	PKGRequirementMessagesDataSource * tDataSource=[PKGRequirementMessagesDataSource new];
 	tDataSource.messages=self.requirement.messages;
 	
+    PKGRequirementPanel * tRequirementPanel=(PKGRequirementPanel *)self.window;
+    
 	if (inRequirementCheckType==PKGRequirementTypeTarget)
 	{
-		_currentBehaviorController=[PKGDistributionVolumeRequirementBehaviorViewController new];
+		_currentBehaviorController=[[PKGDistributionVolumeRequirementBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
 	}
 	else if (inRequirementCheckType==PKGRequirementTypeInstallation)
 	{
-		_currentBehaviorController=[PKGDistributionInstallationRequirementBehaviorViewController new];
+		_currentBehaviorController=[[PKGDistributionInstallationRequirementBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
 	}
 	else
 	{

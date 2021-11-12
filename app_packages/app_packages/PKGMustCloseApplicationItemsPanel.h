@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -12,10 +12,13 @@
  */
 
 #import "PKGPanel.h"
+#import "PKGStringReplacer.h"
 
 @interface PKGMustCloseApplicationItemsPanel : PKGPanel
 
 	@property (nonatomic) NSMutableArray * mustCloseApplicationItems;
+
+    @property (nonatomic) id<PKGStringReplacer> stringReplacer;
 
 + (PKGMustCloseApplicationItemsPanel *)mustCloseApplicationItemsPanel;
 

@@ -21,7 +21,9 @@
 
 #import "PKGDocumentRegistry.h"
 
-@interface PKGDocumentViewController : PKGViewController
+#import "PKGStringReplacer.h"
+
+@interface PKGDocumentViewController : PKGViewController <PKGStringReplacer>
 
 	@property (nonatomic,readonly,weak) PKGDocument * document;
 
@@ -36,5 +38,8 @@
 
 - (void)noteDocumentHasChanged;
 
+// Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification;
 
 @end

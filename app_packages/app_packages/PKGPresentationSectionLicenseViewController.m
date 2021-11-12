@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2018, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -26,6 +26,8 @@
 #import "PKGInstallerSimulatorBundle.h"
 
 #import "PKGPresentationLicenseStepSettings+UI.h"
+
+#import "NSDictionary+WBExtensions.h"
 
 @interface PKGPresentationSectionLicenseViewController () <NSTextViewDelegate>
 {
@@ -252,12 +254,23 @@
 			tLocalizations=[[PKGLicenseProvider defaultProvider] licenseTemplateNamed:_settings.templateName].localizations;
 			
 			break;
+            
+        case PKGLicenseTypeCustomTemplate:
+            
+            tLocalizations=[PKGLicenseProvider licenseTemplateAtPath:[self.filePathConverter absolutePathForFilePath:_settings.customTemplatePath]].localizations;
+            
+            break;
 	}
 	
 	if (tLocalizations.count==0)
 		return;
 	
-	PKGFilePath * tFilePath=tLocalizations[[[PKGLanguageConverter sharedConverter] englishForNative:inNativeLocalization]];
+    NSString * tEnglishLanguage=[[PKGLanguageConverter sharedConverter] englishForNative:inNativeLocalization];
+    
+    if (tEnglishLanguage==nil)
+        return;
+    
+	PKGFilePath * tFilePath=tLocalizations[tEnglishLanguage];
 	
 	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:tFilePath];
 	
@@ -287,9 +300,17 @@
 		if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_14)
 			[self.textView setTextColor:[NSColor textColor]];
 		
-		if (_settings.licenseType==PKGLicenseTypeTemplate)
-			[PKGLicenseProvider UI_replaceKeywords:_settings.templateValues inAttributedString:tTextStorage];
-
+		if (_settings.licenseType==PKGLicenseTypeTemplate ||
+            _settings.licenseType==PKGLicenseTypeCustomTemplate)
+        {
+            NSDictionary * tFinalizedTemplateValues=[_settings.templateValues WB_dictionaryByMappingObjectsUsingBlock:^id(NSString * bKey, NSString * bValue) {
+                
+                return [self stringByReplacingKeysInString:bValue];
+            }];
+            
+            [PKGLicenseProvider UI_replaceKeywords:tFinalizedTemplateValues inAttributedString:tTextStorage];
+        }
+        
 		[tTextStorage endEditing];
 	
 		[self.textView scrollRangeToVisible:NSMakeRange(0,0)];
@@ -331,6 +352,12 @@
 			tLocalizations=[[PKGLicenseProvider defaultProvider] licenseTemplateNamed:_settings.templateName].localizations;
 			
 			break;
+            
+        case PKGLicenseTypeCustomTemplate:
+            
+            tLocalizations=[PKGLicenseProvider licenseTemplateAtPath:[self.filePathConverter absolutePathForFilePath:_settings.customTemplatePath]].localizations;
+            
+            break;
 	}
 	
 	if (tLocalizations.count==0)
@@ -520,7 +547,14 @@
 	return tResult;
 }
 
-#pragma mark -
+#pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [self refreshLicenseUIForNativeLocalization:_cachedLicenseLocalization];
+}
 
 - (void)viewFrameDidChange:(NSNotification *)inNotification
 {

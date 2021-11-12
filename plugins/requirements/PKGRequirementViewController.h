@@ -17,6 +17,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGPackages.h"
 
+#import "PKGStringReplacer.h"
+
 extern NSString * const PKGRequirementTypeDidChangeNotification;
 
 @interface PKGRequirementViewController : PKGViewController
@@ -33,7 +35,7 @@ extern NSString * const PKGRequirementTypeDidChangeNotification;
 
 	@property (readonly) PKGDistributionProject * project;
 
-	@property (readonly) id<PKGFilePathConverter> filePathConverter;
+	@property (readonly) id<PKGFilePathConverter,PKGStringReplacer> objectTransformer;
 
 + (NSDictionary *)pasteboardDictionaryFromDictionary:(NSDictionary *)inDictionary converter:(id<PKGFilePathConverter>)inConverter;
 + (NSDictionary *)dictionaryFromPasteboardDictionary:(NSDictionary *)inPasteboardDictionary converter:(id<PKGFilePathConverter>)inConverter;

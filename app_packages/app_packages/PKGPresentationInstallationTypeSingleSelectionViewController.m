@@ -23,6 +23,8 @@
 
 #import "PKGPresentationInstallationTypeChoiceRequirementsViewController.h"
 
+#import "PKGReplaceableStringFormatter.h"
+
 @interface PKGPresentationInstallationTypeSingleSelectionViewController ()
 {
 	IBOutlet NSImageView * _choiceIconView;
@@ -38,11 +40,26 @@
 	PKGPresentationInstallationTypeChoiceAttributesViewController * _attributesViewController;
 	
 	PKGPresentationInstallationTypeChoiceRequirementsViewController * _requirementsViewController;
+    
+    PKGReplaceableStringFormatter * _cachedFormatter;
 }
 
 @end
 
 @implementation PKGPresentationInstallationTypeSingleSelectionViewController
+
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+    self=[super initWithDocument:inDocument];
+    
+    if (self!=nil)
+    {
+        _cachedFormatter=[PKGReplaceableStringFormatter new];
+        _cachedFormatter.keysReplacer=self;
+    }
+    
+    return self;
+}
 
 - (void)dealloc
 {
@@ -52,8 +69,8 @@
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
-	
-	NSTabViewItem * tAttributesTabViewItem=[_tabView tabViewItemAtIndex:[_tabView indexOfTabViewItemWithIdentifier:@"Attributes"]];
+    
+    NSTabViewItem * tAttributesTabViewItem=[_tabView tabViewItemAtIndex:[_tabView indexOfTabViewItemWithIdentifier:@"Attributes"]];
 	
 	_attributesViewController=[[PKGPresentationInstallationTypeChoiceAttributesViewController alloc] initWithDocument:self.document];
 	
@@ -159,7 +176,19 @@
 			{
 				PKGPackageComponent * tPackageComponent=[((PKGDistributionProject *)self.documentProject) packageComponentWithUUID:tPackageUUID];
 				
-				_choicePackageNameLabel.stringValue=(tPackageComponent==nil) ? @"" : tPackageComponent.packageSettings.name;
+                NSString * tLabelValue=@"";
+                
+                _choicePackageNameLabel.formatter=nil;
+                
+                if (tPackageComponent!=nil)
+                {
+                    tLabelValue=tPackageComponent.packageSettings.name;
+                    
+                    if (tPackageComponent.type!=PKGPackageComponentTypeImported)
+                        _choicePackageNameLabel.formatter=_cachedFormatter;
+                }
+                
+                _choicePackageNameLabel.objectValue=tLabelValue;
 			}
 			
 			_choiceTypeLabel.stringValue=NSLocalizedStringFromTable(@"Package", @"Presentation",@"");
@@ -247,6 +276,13 @@
 		
 		_requirementsViewController.dataSource=tDataSource;
 	}
+}
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [_choicePackageNameLabel setNeedsDisplay:YES];
 }
 
 @end

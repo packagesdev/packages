@@ -28,7 +28,9 @@
 	
 	if (self!=nil)
 	{
-		_forbiddenCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@".-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"] invertedSet];
+        _allowsUserDefinedSettingsCharacters=YES;
+        
+		_forbiddenCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@".-_${}abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"] invertedSet];
 	}
 	
 	return self;
@@ -40,7 +42,9 @@
 	
 	if (self!=nil)
 	{
-		_forbiddenCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@".-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"] invertedSet];
+        _allowsUserDefinedSettingsCharacters=YES;
+        
+		_forbiddenCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@".-_${}abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"] invertedSet];
 	}
 	
 	return self;
@@ -48,22 +52,17 @@
 
 #pragma mark -
 
-- (NSString *)stringForObjectValue:(id) inObject
+- (void)setAllowsUserDefinedSettingsCharacters:(BOOL)inAllowsUserDefinedSettingsCharacters
 {
-	if ([inObject isKindOfClass:NSAttributedString.class]==YES)
-		return ((NSAttributedString *)inObject).string;
-	
-	if ([inObject isKindOfClass:NSString.class]==NO)
-		return inObject;
+    if (_allowsUserDefinedSettingsCharacters==inAllowsUserDefinedSettingsCharacters)
+        return;
     
-    return inObject;
-}
-
-- (BOOL)getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(out NSString **) outError
-{
-    *outObject=[inString copy];
-	
-    return YES;
+    _allowsUserDefinedSettingsCharacters=inAllowsUserDefinedSettingsCharacters;
+    
+    if (_allowsUserDefinedSettingsCharacters==YES)
+        _forbiddenCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@".-_${}abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"] invertedSet];
+    else
+        _forbiddenCharacterSet=[[NSCharacterSet characterSetWithCharactersInString:@".-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"] invertedSet];
 }
 
 #pragma mark -

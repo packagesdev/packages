@@ -188,7 +188,7 @@
 		
 		_cachedCommonValues=[NSMutableDictionary dictionary];
 		
-		_cachedCommonValues[PKGLocatorCommonValuePathKey]=_payloadTreeNode.filePath;
+		_cachedCommonValues[PKGLocatorCommonValuePathKey]=[_payloadTreeNode filePathWithSeparator:@"/"];
 		
 		NSString * tBundleIdentifier;
 		

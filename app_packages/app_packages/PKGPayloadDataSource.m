@@ -36,6 +36,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 @interface PKGPayloadDataSource ()
 {
 	NSArray * _internalDragData;
+    
+    NSComparator _comparator;
 }
 
 - (BOOL)_expandItem:(PKGPayloadTreeNode *)inPayloadTreeNode atPath:(NSString *)inAbsolutePath options:(PKGPayloadExpandOptions)inOptions;
@@ -47,6 +49,54 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 + (NSArray *)supportedDraggedTypes
 {
 	return @[NSFilenamesPboardType,PKGPayloadItemsPboardType,PKGPayloadItemsInternalPboardType];
+}
+
+- (instancetype)init
+{
+    self=[super init];
+    
+    if (self!=nil)
+    {
+        char tCFakeSeparator[2]={0x01,0x00};
+        _fakeFileSeparator=[[NSString alloc] initWithCString:tCFakeSeparator encoding:NSASCIIStringEncoding];
+        
+        _comparator=^NSComparisonResult(PKGPayloadTreeNode * obj1, PKGPayloadTreeNode * obj2) {
+            
+            PKGFileItem * tFileItem=(PKGFileItem *)obj1.representedObject;
+            NSString * tName=nil;
+            
+            if (tFileItem.type==PKGFileItemTypeNewElasticFolder)
+                tName=[tFileItem.fileName componentsSeparatedByString:@"/"].firstObject;
+            else
+                tName=tFileItem.fileName;
+            
+            if (tFileItem.type==PKGFileItemTypeNewElasticFolder ||
+                tFileItem.type==PKGFileItemTypeNewFolder)
+            {
+                if (self.keysReplacer!=nil)
+                    tName=[self.keysReplacer stringByReplacingKeysInString:tName];
+            }
+            
+            PKGFileItem * tOtherFileItem=(PKGFileItem *)obj2.representedObject;
+            NSString * tOtherName=nil;
+            
+            if (tOtherFileItem.type==PKGFileItemTypeNewElasticFolder)
+                tOtherName=[tOtherFileItem.fileName componentsSeparatedByString:@"/"].firstObject;
+            else
+                tOtherName=tOtherFileItem.fileName;
+            
+            if (tOtherFileItem.type==PKGFileItemTypeNewElasticFolder ||
+                tOtherFileItem.type==PKGFileItemTypeNewFolder)
+            {
+                if (self.keysReplacer!=nil)
+                    tName=[self.keysReplacer stringByReplacingKeysInString:tName];
+            }
+            
+            return [tName compare:tOtherName options:NSCaseInsensitiveSearch|NSNumericSearch|NSForcedOrderingSearch];
+        };
+    }
+    
+    return self;
 }
 
 #pragma mark -
@@ -75,9 +125,9 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return 0;
 }
 
-- (id)itemAtPath:(NSString *)inPath
+- (id)itemAtPath:(NSString *)inPath separator:(NSString *)inSeparator
 {
-	if (inPath==nil)
+	if (inPath==nil || inSeparator.length==0)
 		return nil;
 	
 	NSMutableArray * tComponents=nil;
@@ -90,7 +140,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	}
 	else
 	{
-		tComponents=[[inPath componentsSeparatedByString:@"/"] mutableCopy];
+		tComponents=[[inPath componentsSeparatedByString:inSeparator] mutableCopy];
 		
 		tCount=tComponents.count;
 		
@@ -258,7 +308,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		if (nFileSystemItemNode==nil)
 			return;
 		
-		[inPayloadTreeNode insertChild:nFileSystemItemNode sortedUsingSelector:@selector(compareName:)];
+		[inPayloadTreeNode insertChild:nFileSystemItemNode sortedUsingComparator:_comparator];
 		
 		if ((inOptions & PKGPayloadExpandRecursively)!=0 && [tFileAttributes[NSFileType] isEqualToString:NSFileTypeDirectory]==YES)
 		{
@@ -383,9 +433,9 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			return;
 		
 		if (tParentNode==nil)
-			[nFileSystemItemNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:tParentNode sortedUsingSelector:@selector(compareName:)];
+			[nFileSystemItemNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:tParentNode sortedUsingComparator:_comparator];
 		else
-			[tParentNode insertChild:nFileSystemItemNode sortedUsingSelector:@selector(compareName:)];
+			[tParentNode insertChild:nFileSystemItemNode sortedUsingComparator:_comparator];
 		
 		[tNewSelectionArray addObject:nFileSystemItemNode];
 	}];
@@ -441,11 +491,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	if (inParent==nil)
 	{
-		[inTreeNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:inParent sortedUsingSelector:@selector(compareName:)];
+        [inTreeNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:inParent sortedUsingComparator:_comparator];
 	}
 	else
 	{
-		[inParent insertChild:inTreeNode sortedUsingSelector:@selector(compareName:)];
+		[inParent insertChild:inTreeNode sortedUsingComparator:_comparator];
 		
 		if ([inOutlineView isItemExpanded:inParent]==NO)
 			[inOutlineView expandItem:inParent];
@@ -495,11 +545,11 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	if (inParent==nil)
 	{
-		[tNewFolderNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:inParent sortedUsingSelector:@selector(compareName:)];
+		[tNewFolderNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:inParent sortedUsingComparator:_comparator];
 	}
 	else
 	{
-		[inParent insertChild:tNewFolderNode sortedUsingSelector:@selector(compareName:)];
+		[inParent insertChild:tNewFolderNode sortedUsingComparator:_comparator];
 		
 		if ([inOutlineView isItemExpanded:inParent]==NO)
 			[inOutlineView expandItem:inParent];
@@ -518,6 +568,58 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	return YES;
 }
 
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView addNewElasticFolderToParent:(PKGPayloadTreeNode *)inParent
+{
+    if (inOutlineView==nil)
+        return NO;
+    
+    NSArray * tSiblings=self.rootNodes;
+    
+    if (inParent!=nil)
+    {
+        if (inParent.isLeaf==YES)
+        {
+            inParent=(PKGPayloadTreeNode *)inParent.parent;
+            
+            if (inParent!=nil)
+                tSiblings=inParent.children;
+        }
+        else
+        {
+            tSiblings=inParent.children;
+        }
+    }
+    
+    PKGPayloadTreeNode * tNewFolderNode=[PKGPayloadTreeNode newElasticFolderNodeWithParentNode:inParent siblings:tSiblings];
+    
+    if (tNewFolderNode==nil)
+        return NO;
+    
+    if (inParent==nil)
+    {
+        [tNewFolderNode insertAsSiblingOfChildren:(NSMutableArray *)tSiblings ofNode:inParent sortedUsingComparator:_comparator];
+    }
+    else
+    {
+        [inParent insertChild:tNewFolderNode sortedUsingComparator:_comparator];
+        
+        if ([inOutlineView isItemExpanded:inParent]==NO)
+            [inOutlineView expandItem:inParent];
+    }
+    
+    [inOutlineView deselectAll:nil];
+    
+    [self.delegate payloadDataDidChange:self];
+    
+    [inOutlineView reloadData];
+    
+    NSInteger tRow=[inOutlineView rowForItem:tNewFolderNode];
+    
+    [inOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRow] byExtendingSelection:NO];
+    
+    return YES;
+}
+
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameNewFolder:(PKGPayloadTreeNode *)inTreeNode as:(NSString *)inNewName
 {
 	if (inOutlineView==nil || inTreeNode==nil || inNewName==nil)
@@ -528,15 +630,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	
 	if ([inTreeNode.fileName caseInsensitiveCompare:inNewName]!=NSOrderedSame)
 	{
-		NSUInteger tLength=inNewName.length;
 		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView rowForItem:inTreeNode]];
 		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[inOutlineView columnWithIdentifier:@"file.name"]];
-		
-		if (tLength==0)
-		{
-			[inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
-			return NO;
-		}
 		
 		void (^renameAlertBailOut)(NSString *,NSString *) = ^(NSString *bMessageText,NSString *bInformativeText)
 		{
@@ -548,22 +643,57 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			[tAlert runModal];
 		};
 		
-		if (tLength>=256)
-		{
-			renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),inNewName],NSLocalizedString(@"Try using a name with fewer characters.",@""));
-			
-			return NO;
-		}
+        PKGFileItem * tItem=[inTreeNode representedObject];
+        
+        NSArray * tComponents=nil;
+        
+        switch(tItem.type)
+        {
+            case PKGFileItemTypeNewFolder:
+            case PKGFileItemTypeFileSystemItem:
+                
+                tComponents=@[inNewName];
+                break;
+                
+            case PKGFileItemTypeNewElasticFolder:
+                
+                tComponents=[inNewName componentsSeparatedByString:@"/"];
+                break;
+            
+            default:
+                
+                // Should not happen
+                
+                return NO;
+        }
+        
+        for(NSString * tComponent in tComponents)
+        {
+            NSUInteger tLength=tComponent.length;
+            
+            if (tLength==0)
+            {
+                [inOutlineView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
+                return NO;
+            }
+        
+            if (tLength>=256)
+            {
+                renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),tComponent],NSLocalizedString(@"Try using a name with fewer characters.",@""));
+                
+                return NO;
+            }
 		
-		if ([inNewName isEqualToString:@".."]==YES ||
-			[inNewName isEqualToString:@"."]==YES ||
-			[inNewName rangeOfString:@"/"].location!=NSNotFound)
-		{
-			renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),inNewName],NSLocalizedString(@"Try using a name with no punctuation marks.",@""));
-			
-			return NO;
-		}
-		
+            if ([tComponent isEqualToString:@".."]==YES ||
+                [tComponent isEqualToString:@"."]==YES ||
+                [tComponent rangeOfString:@"/"].location!=NSNotFound)
+            {
+                renameAlertBailOut([NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),inNewName],NSLocalizedString(@"Try using a name with no punctuation marks.",@""));
+                
+                return NO;
+            }
+        }
+        
 		if ([[self siblingsOfItem:inTreeNode] indexesOfObjectsPassingTest:^BOOL(PKGPayloadTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 			
 			return ([bTreeNode.fileName caseInsensitiveCompare:inNewName]==NSOrderedSame);
@@ -584,10 +714,15 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	NSMutableDictionary * tDisclosedDictionary=[self.delegate disclosedDictionary];
 	NSArray * tAllKeys=tDisclosedDictionary.allKeys;
 	
-	NSString * tOldFilePath=inTreeNode.filePath;
+	NSString * tOldFilePath=[inTreeNode filePathWithSeparator:self.fakeFileSeparator];
 	NSUInteger tLength=tOldFilePath.length;
-	NSString * tNewFilePath=[[tOldFilePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:inNewName];
-	NSNumber * tSharedNumber=@(YES);
+	
+    NSMutableArray * tMutableComponents=[[tOldFilePath componentsSeparatedByString:self.fakeFileSeparator] mutableCopy];
+    [tMutableComponents removeLastObject];
+    [tMutableComponents addObject:inNewName];
+    NSString * tNewFilePath=[tMutableComponents componentsJoinedByString:self.fakeFileSeparator];
+	
+    NSNumber * tSharedNumber=@(YES);
 	
 	// Update the disclosed state dictionary
 	
@@ -645,7 +780,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		if ([tTreeNode isLeaf]==NO)
 		{
-			NSString * tFilePath=tTreeNode.filePath;
+			NSString * tFilePath=[tTreeNode filePathWithSeparator:_fakeFileSeparator];
 			
 			NSMutableIndexSet * tMutableIndexSet=[NSMutableIndexSet indexSet];
 			
@@ -822,7 +957,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 	[inPayloadTreeNode contract];
 	
 	NSMutableDictionary * tDisclosedStateDictionary=[self.delegate disclosedDictionary];
-	NSString * tFilePath=inPayloadTreeNode.filePath;
+	NSString * tFilePath=[inPayloadTreeNode filePathWithSeparator:_fakeFileSeparator];
 	
 	for(NSString * tKey in [tDisclosedStateDictionary allKeys])
 	{
@@ -1138,7 +1273,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				if ([bPayloadTreeNode isLeaf]==YES)
 					return;
 				
-				NSString * tFilePath=bPayloadTreeNode.filePath;
+				NSString * tFilePath=[bPayloadTreeNode filePathWithSeparator:_fakeFileSeparator];
 				
 				if (tDisclosedStateDictionary[tFilePath]!=nil)
 				{
@@ -1156,14 +1291,14 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				[self.rootNodes removeObject:tPayloadTreeNode];
 			
 			if (inProposedTreeNode!=nil)
-				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+				[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingComparator:_comparator];
 			else
-				[tPayloadTreeNode insertAsSiblingOfChildren:self.rootNodes ofNode:nil sortedUsingSelector:@selector(compareName:)];
+				[tPayloadTreeNode insertAsSiblingOfChildren:self.rootNodes ofNode:nil sortedUsingComparator:_comparator];
 			
 			// Add the disclosed nodes with the new key
 			
 			for(PKGPayloadTreeNode * tDisclosedNode in tDisclosedNodesSet)
-				tDisclosedStateDictionary[tDisclosedNode.filePath]=tSharedNumber;
+				tDisclosedStateDictionary[[tDisclosedNode filePathWithSeparator:self.fakeFileSeparator]]=tSharedNumber;
 		}
 		
 		[inOutlineView deselectAll:nil];
@@ -1265,9 +1400,9 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 				[tFilePathConverter switchPathsOfPayloadTreeNode:tPayloadTreeNode toType:inPathType recursively:YES];
 
 				if (inProposedTreeNode!=nil)
-					[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingSelector:@selector(compareName:)];
+					[inProposedTreeNode insertChild:tPayloadTreeNode sortedUsingComparator:_comparator];
 				else
-					[tPayloadTreeNode insertAsSiblingOfChildren:self.rootNodes ofNode:nil sortedUsingSelector:@selector(compareName:)];
+					[tPayloadTreeNode insertAsSiblingOfChildren:self.rootNodes ofNode:nil sortedUsingComparator:_comparator];
 				
 				[tNewSelectionArray addObject:tPayloadTreeNode];
 			}

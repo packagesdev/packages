@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -55,7 +55,8 @@
 
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
 {
-	self.filePathConverter=((NSWindowController *) inWindow.windowController).document;
+    self.document=((NSWindowController *) inWindow.windowController).document;
+    //self.filePathConverter=((NSWindowController *) inWindow.windowController).document;
 	self.project=(PKGDistributionProject *)((PKGDocumentWindowController *) inWindow.windowController).project;
 	
 	[self.retainedWindowController refreshUI];

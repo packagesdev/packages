@@ -13,6 +13,6 @@
 
 - (NSDictionary *)userDefinedSettings;
 
-- (id)userDefinedSettingsForKey:(NSString *)inKey;
+- (id)externalSettingsForKey:(NSString *)inKey;
 
 @end

@@ -27,6 +27,10 @@ then
 
 fi
 
+# Get the current year
+
+CURRENT_YEAR=`date "+%Y"`
+
 ## Build goldin
 
 pushd goldin
@@ -123,7 +127,7 @@ popd
 
 pushd distribution
 
-/usr/local/bin/packagesbuild -v Packages.pkgproj
+/usr/local/bin/packagesbuild --verbose --project Packages.pkgproj DISTRIBUTION_PRODUCT_VERSION="${VERSION}" COPYRIGHT_END_YEAR="${CURRENT_YEAR}"
 
 ## Create the disk image
 

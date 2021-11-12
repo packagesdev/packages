@@ -534,13 +534,17 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	NSString * tMostAppropriateLocalizedTitle=[tTitleSettings valueForLocalization:_currentPreviewLanguage exactMatch:NO];
 	
 	if (tMostAppropriateLocalizedTitle==nil)
-		tMostAppropriateLocalizedTitle=self.document.fileURL.path.lastPathComponent.stringByDeletingPathExtension;
-	
+    {
+        tMostAppropriateLocalizedTitle=self.distributionProject.settings.name.stringByDeletingPathExtension;
+    }
+    
 	if (tMostAppropriateLocalizedTitle!=nil)
 	{
-		NSString * tTitleFormat=[[PKGInstallerApp installerApp] localizedStringForKey:@"WindowTitle" localization:_currentPreviewLanguage];
+		NSString * tFinalTitle=[self stringByReplacingKeysInString:tMostAppropriateLocalizedTitle];
+        
+        NSString * tTitleFormat=[[PKGInstallerApp installerApp] localizedStringForKey:@"WindowTitle" localization:_currentPreviewLanguage];
 		
-		_windowView.title=(tTitleFormat!=nil) ? [NSString stringWithFormat:tTitleFormat,tMostAppropriateLocalizedTitle] : tMostAppropriateLocalizedTitle;
+		_windowView.title=(tTitleFormat!=nil) ? [NSString stringWithFormat:tTitleFormat,tFinalTitle] : tFinalTitle;
 	}
 	else
 	{

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -26,6 +26,8 @@
 #import "PKGCertificatesUtilities.h"
 
 #import "NSAlert+block.h"
+
+#import "PKGProjectNameFormatter.h"
 
 @interface PKGProjectSettingsViewController () <PKGFilePathTextFieldDelegate>
 {
@@ -67,12 +69,17 @@
 
 @implementation PKGProjectSettingsViewController
 
-#pragma mark -
-
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
 	
+    // Project Build Name
+    
+    PKGProjectNameFormatter * tFormatter=[PKGProjectNameFormatter new];
+    tFormatter.keysReplacer=self;
+    
+    _buildNameTextField.formatter=tFormatter;
+    
     // Exclusions
 	
 	_exclusionsViewController=[PKGPayloadExclusionsViewController new];
@@ -112,7 +119,7 @@
 	
 	// Build Name
 	
-	_buildNameTextField.stringValue=(self.projectSettings.name==nil) ? @"" : self.projectSettings.name;
+	_buildNameTextField.objectValue=(self.projectSettings.name==nil) ? @"" : self.projectSettings.name;
 	
 	// Build Path
 	
@@ -421,7 +428,7 @@
 					
 					if (tMenuItem!=nil)
 					{
-						[tMenuItem setTitle:([tReferenceFolderPath isEqualToString:@"/"]==NO) ? tReferenceFolderPath.lastPathComponent : @"/"];
+						tMenuItem.title=([tReferenceFolderPath isEqualToString:@"/"]==NO) ? tReferenceFolderPath.lastPathComponent : @"/";
 							
 						_buildReferenceFolderPopUpButton.toolTip=tReferenceFolderPath;
 							
@@ -569,6 +576,13 @@
 }
 
 #pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [_buildNameTextField setNeedsDisplay:YES];
+}
 
 - (void)viewFrameDidChange:(NSNotification *)inNotification
 {

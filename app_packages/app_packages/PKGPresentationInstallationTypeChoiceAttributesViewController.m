@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 {
 	[super WB_viewDidLoad];
 	
-	_localizedTitlesViewController=[PKGPresentationLocalizedStringsViewController new];
+	_localizedTitlesViewController=[[PKGPresentationLocalizedStringsViewController alloc] initWithDocument:self.document];
 	_localizedTitlesViewController.label=NSLocalizedStringFromTable(@"Title", @"Presentation",@"");
 	_localizedTitlesViewController.informationLabel=NSLocalizedStringFromTable(@"Click + to add a title localization.", @"Presentation",@"");
 	
@@ -91,7 +91,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	[_titlesSectionView addSubview:_localizedTitlesViewController.view];
 	
-	_localizedDescriptionsViewController=[PKGPresentationLocalizedStringsViewController new];
+	_localizedDescriptionsViewController=[[PKGPresentationLocalizedStringsViewController alloc] initWithDocument:self.document];
 	_localizedDescriptionsViewController.label=NSLocalizedStringFromTable(@"Description", @"Presentation",@"");
 	_localizedDescriptionsViewController.informationLabel=NSLocalizedStringFromTable(@"Click + to add a description localization.\nUse alt+return for line breaks.", @"Presentation",@"");
 	

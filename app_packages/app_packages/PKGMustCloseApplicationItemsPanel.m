@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -31,6 +31,8 @@
 	
 	PKGBundleIdentifierFormatter * _cachedFormatter;
 }
+
+    @property (nonatomic) id<PKGStringReplacer> stringReplacer;
 
 	@property IBOutlet NSTableView * tableView;
 
@@ -85,6 +87,13 @@
 }
 
 #pragma mark -
+
+- (void)setStringReplacer:(id<PKGStringReplacer>)inStringReplacer
+{
+    _stringReplacer=inStringReplacer;
+    
+    _cachedFormatter.keysReplacer=_stringReplacer;
+}
 
 - (void)setDataSource:(id<NSTableViewDataSource>)inDataSource
 {
@@ -144,10 +153,10 @@
 	
 	id tItem=[self.dataSource itemAtRow:tEditedRow];
 	
-	if ([self.dataSource tableView:self.tableView shouldReplaceApplicationIDOfItem:tItem withString:[sender stringValue]]==NO)
+	if ([self.dataSource tableView:self.tableView shouldReplaceApplicationIDOfItem:tItem withString:sender.objectValue]==NO)
 		return;
 	
-	[self.dataSource tableView:self.tableView replaceApplicationIDOfItem:tItem withString:[sender stringValue]];
+	[self.dataSource tableView:self.tableView replaceApplicationIDOfItem:tItem withString:sender.objectValue];
 }
 
 - (IBAction)delete:(id)sender
@@ -184,7 +193,7 @@
 		tTableCellView.checkbox.state=(tMustCloseApplicationItem.isEnabled==YES) ? NSOnState : NSOffState;
 		
 		tTableCellView.textField.formatter=_cachedFormatter;
-		tTableCellView.textField.stringValue=tMustCloseApplicationItem.applicationID;
+		tTableCellView.textField.objectValue=tMustCloseApplicationItem.applicationID;
 		
 		tTableCellView.applicationNameLabel.stringValue=@"";
 		
@@ -262,6 +271,16 @@
 	tDataSource.mustCloseApplicationItems=inApplicationIDs;
 	
 	self.retainedWindowController.dataSource=tDataSource;
+}
+
+- (id<PKGStringReplacer>)stringReplacer
+{
+    return self.retainedWindowController.stringReplacer;
+}
+
+- (void)setStringReplacer:(id<PKGStringReplacer>)inStringReplacer
+{
+    self.retainedWindowController.stringReplacer=inStringReplacer;
 }
 
 #pragma mark -

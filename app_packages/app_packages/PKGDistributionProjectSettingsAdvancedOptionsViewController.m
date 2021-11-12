@@ -28,6 +28,8 @@
 
 #import "PKGAdvancedOptionPanel.h"
 
+#import "PKGReplaceableStringFormatter.h"
+
 NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKey=@"ui.project.settings.options.advanced.disclosed";
 
 @interface PKGDistributionProjectSettingsAdvancedOptionsViewController () <NSOutlineViewDelegate>
@@ -35,6 +37,8 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	IBOutlet NSTextField * _advancedOptionsLabel;
 	
 	BOOL _restoringDiscloseStates;
+    
+    PKGReplaceableStringFormatter * _cachedReplaceableFormatter;
 }
 
 	@property (readwrite) IBOutlet NSOutlineView * outlineView;
@@ -59,6 +63,9 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	
 	self.outlineView.doubleAction=@selector(editWithEditor:);
 	self.outlineView.target=self;
+    
+    _cachedReplaceableFormatter=[PKGReplaceableStringFormatter new];
+    _cachedReplaceableFormatter.keysReplacer=self;
 }
 
 #pragma mark -
@@ -116,7 +123,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
 	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
 	
-	NSString * tNewValue=sender.stringValue;
+	NSString * tNewValue=sender.objectValue;
 	
 	if (tNewValue.length==0)
 		tNewValue=nil;
@@ -393,24 +400,22 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
 			tView.textField.action=@selector(setStringOptionValue:);
 			tView.textField.target=self;
-			
+            tView.textField.formatter=_cachedReplaceableFormatter;
+            
 			NSString * tStringValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
 			
-			if (tStringValue==nil)
-			{
-				tView.textField.stringValue=@"";
-				return tView;
-			}
+			tView.textField.objectValue=@"";    // Hack to make sure the textfield is refreshed when the user defined settings are modified
+            
+            if (tStringValue==nil)
+                return tView;
 			
 			if ([tStringValue isKindOfClass:NSString.class]==NO)
 			{
 				NSLog(@"Invalid type of value (%@) for key \"%@\": NSString expected",NSStringFromClass([tStringValue class]),tRepresentedObject.itemID);
-				
-				tView.textField.stringValue=@"";
 			}
 			else
 			{
-				tView.textField.stringValue=tStringValue;
+				tView.textField.objectValue=tStringValue;
 			}
 			
 			return tView;
@@ -574,6 +579,15 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 - (void)advancedOptionsDataDidChange:(PKGDistributionProjectSettingsAdvancedOptionsDataSource *)inAdvancedOptionsDataSource
 {
 	// A COMPLETER
+}
+
+#pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,self.outlineView.numberOfRows)] columnIndexes:[NSIndexSet indexSetWithIndex:1]];
 }
 
 @end

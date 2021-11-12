@@ -30,7 +30,7 @@
 	return self.externalSettings[PKGBuildOrderExternalSettingsUserDefinedSettingsKey];
 }
 
-- (id)userDefinedSettingsForKey:(NSString *)inKey
+- (id)externalSettingsForKey:(NSString *)inKey
 {
 	if (inKey==nil)
 		return nil;

@@ -194,7 +194,7 @@
 				{
 					// Remove the entry from the disclosed state dictionary if needed
 					
-					[tDisclosedStatesDictionary removeObjectForKey:bPayloadTreeNode.filePath];
+					[tDisclosedStatesDictionary removeObjectForKey:[bPayloadTreeNode filePathWithSeparator:self.fakeFileSeparator]];
 				}
 				
 				return tResult;

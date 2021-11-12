@@ -33,12 +33,18 @@ NSString * const PKGProjectSettingsFilesFiltersKey=@"EXCLUDED_FILES";
 
 NSString * const PKGProjectSettingsFilterPayloadOnlyKey=@"PAYLOAD_ONLY";
 
+NSString * const PKGProjectSettingsUserDefinedSettingsKey=@"USER_DEFINED_SETTINGS";
 
 NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/login.keychain";
+
+
+NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjectSettingsUserSettingsDidChangeNotification";
 
 @interface PKGProjectSettings ()
 
 	@property (readwrite) NSMutableArray * filesFilters;
+
+    @property (readwrite) NSMutableDictionary<NSString *,NSString *> * userDefinedSettings;
 
 @end
 
@@ -56,6 +62,8 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		_filesFilters=[NSMutableArray array];
 		
 		_filterPayloadOnly=NO;
+        
+        _userDefinedSettings=[NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -81,6 +89,8 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		}];
 		
 		_filterPayloadOnly=inProjectSettings.filterPayloadOnly;
+        
+        _userDefinedSettings=[inProjectSettings.userDefinedSettings mutableCopy];
 	}
 	
 	return self;
@@ -228,6 +238,63 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		//PKGFullCheckNumberValueForKey(tNumber,PKGProjectSettingsFilterPayloadOnlyKey);	// A VOIR
 		
 		_filterPayloadOnly=[tNumber boolValue];
+        
+        // User Defined Settings
+        
+        NSDictionary * tDictionary=inRepresentation[PKGProjectSettingsUserDefinedSettingsKey];
+        
+        if (tDictionary!=nil)
+        {
+            if ([tDictionary isKindOfClass:[NSDictionary class]]==NO)
+            {
+                if (outError!=NULL)
+                    *outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+                                                  code:PKGRepresentationInvalidTypeOfValueError
+                                              userInfo:@{PKGKeyPathErrorKey:PKGProjectSettingsUserDefinedSettingsKey}];
+                
+                return nil;
+            }
+            
+            _userDefinedSettings=[tDictionary mutableCopy];
+            
+            [_userDefinedSettings enumerateKeysAndObjectsUsingBlock:^(NSString * bKey, NSString * bObject, BOOL * bOutStop) {
+                
+               if ([bKey isKindOfClass:[NSString class]]==NO ||
+                   [bObject isKindOfClass:[NSString class]]==NO)
+               {
+                   _userDefinedSettings=nil;
+                   *bOutStop=YES;
+                   return;
+               }
+                
+            }];
+            
+            if (_userDefinedSettings==nil)
+            {
+                if (outError!=NULL)
+                {
+                    NSInteger tCode=tError.code;
+                    
+                    if (tCode==PKGRepresentationNilRepresentationError)
+                        tCode=PKGRepresentationInvalidValueError;
+                    
+                    NSString * tPathError=PKGProjectSettingsUserDefinedSettingsKey;
+                    
+                    if (tError.userInfo[PKGKeyPathErrorKey]!=nil)
+                        tPathError=[tPathError stringByAppendingPathComponent:tError.userInfo[PKGKeyPathErrorKey]];
+                    
+                    *outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
+                                                  code:tCode
+                                              userInfo:@{PKGKeyPathErrorKey:tPathError}];
+                }
+                
+                return nil;
+            }
+        }
+        else
+        {
+            _userDefinedSettings=[NSMutableDictionary dictionary];
+        }
 	}
 	
 	return self;
@@ -262,6 +329,9 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	}];
 	
 	tRepresentation[PKGProjectSettingsFilterPayloadOnlyKey]=@(self.filterPayloadOnly);
+    
+    if (self.userDefinedSettings.count>0)
+        tRepresentation[PKGProjectSettingsUserDefinedSettingsKey]=[self.userDefinedSettings copy];
 	
 	return tRepresentation;
 }
@@ -297,6 +367,10 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 	
 	[tDescription appendFormat:@"  Exclude files in payload only: %@\n",(self.filterPayloadOnly==YES)? @"Yes": @"No"];
 	
+    // A COMPLETER (User Defined Settings)
+    
+    
+    
 	return tDescription;
 }
 
@@ -322,6 +396,8 @@ NSString * const PKGProjectSettingsDefaultKeyChainPath=@"~/Library/Keychains/log
 		}];
 		
 		nProjectSettings.filterPayloadOnly=self.filterPayloadOnly;
+        
+        nProjectSettings.userDefinedSettings=[self.userDefinedSettings copyWithZone:inZone];
 	}
 	
 	return nProjectSettings;

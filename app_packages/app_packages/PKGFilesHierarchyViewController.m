@@ -31,7 +31,7 @@
 #import "PKGPackagePayloadDataSource.h"
 
 #import "PKGFileNameFormatter.h"
-
+#import "PKGElasticFolderNameFormatter.h"
 
 @interface PKGFilesHierarchyOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
@@ -64,7 +64,7 @@
 NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyDidRenameItemNotification";
 
 
-@interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate,NSControlTextEditingDelegate,NSTextFieldDelegate>
+@interface PKGFilesHierarchyViewController () <NSOutlineViewDelegate,NSTextFieldDelegate>
 {
 	IBOutlet NSTextField * _viewLabel;
 	
@@ -78,7 +78,8 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	PKGFilesHierarchyOpenPanelDelegate * _openPanelDelegate;
 	
 	PKGFileNameFormatter * _cachedFileNameFormatter;
-	
+    PKGElasticFolderNameFormatter * _cachedElasticFolderNameFormatter;
+    
 	BOOL _highlightExcludedItems;
 	NSArray * _optimizedFilesFilters;
 	
@@ -120,6 +121,10 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 		
 		_cachedFileNameFormatter=[PKGFileNameFormatter new];
 		_cachedFileNameFormatter.fileNameCanStartWithDot=YES;
+        _cachedFileNameFormatter.keysReplacer=self;
+        
+        _cachedElasticFolderNameFormatter=[PKGElasticFolderNameFormatter new];
+        _cachedElasticFolderNameFormatter.keysReplacer=self;
 	}
 	
 	return self;
@@ -320,7 +325,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 		if ([bTreeNode isLeaf]==YES)
 			return;
 		
-		NSString * tFilePath=bTreeNode.filePath;
+		NSString * tFilePath=[bTreeNode filePathWithSeparator:self.hierarchyDataSource.fakeFileSeparator];
 		
 		[self.outlineView expandItem:bTreeNode];
 		
@@ -363,7 +368,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 		if (tTreeNode==nil)
 			return;
 		
-		NSString * tPath=tTreeNode.filePath;
+		NSString * tPath=[tTreeNode filePathWithSeparator:self.hierarchyDataSource.fakeFileSeparator];
 		
 		if (tPath!=nil)
 		{
@@ -385,7 +390,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	
 	[tArray enumerateObjectsUsingBlock:^(NSString * bItemPath, NSUInteger bIndex, BOOL *bOutStop) {
 		
-		PKGPayloadTreeNode * tTreeNode=[self.hierarchyDataSource itemAtPath:bItemPath];
+        PKGPayloadTreeNode * tTreeNode=[self.hierarchyDataSource itemAtPath:bItemPath separator:self.hierarchyDataSource.fakeFileSeparator];
 		
 		if (tTreeNode==nil)
 			return;
@@ -446,10 +451,27 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 		
 		//[tView.imageView unregisterDraggedTypes];	// To prevent the imageView from interfering with drag and drop
 		
-		tView.textField.attributedStringValue=inPayloadTreeNode.nameAttributedTitle;
+        tView.textField.objectValue=@"";        // Hack to make sure the textfield is refreshed when user defined settings are modified
+        tView.textField.objectValue=inPayloadTreeNode.nameAttributedTitle;
 		tView.textField.editable=inPayloadTreeNode.isNameTitleEditable;
 		
-		tView.textField.delegate=self;
+		if (inPayloadTreeNode.isNameTitleEditable==YES)
+        {
+            if (inPayloadTreeNode.isElasticFolder==NO)
+            {
+                tView.textField.formatter=_cachedFileNameFormatter;
+            }
+            else
+            {
+                tView.textField.formatter=_cachedElasticFolderNameFormatter;
+            }
+        }
+        else
+        {
+            tView.textField.formatter=nil;
+        }
+        
+        tView.textField.delegate=self;
 		
 		return tView;
 	}
@@ -888,21 +910,6 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 
 #pragma mark - NSControlTextEditingDelegate
 
-- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
-{
-	
-	control.formatter=_cachedFileNameFormatter;
-	
-	return YES;
-}
-
-- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
-{
-	control.formatter=nil;
-	
-	return YES;
-}
-
 - (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError
 {
 	NSBeep();
@@ -922,7 +929,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	
 	PKGPayloadTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
 	
-	if ([self.hierarchyDataSource outlineView:self.outlineView shouldRenameNewFolder:tEditedNode as:tTextField.stringValue]==NO)
+	if ([self.hierarchyDataSource outlineView:self.outlineView shouldRenameNewFolder:tEditedNode as:tTextField.objectValue]==NO)
 	{
 		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
 		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"file.name"]];
@@ -932,11 +939,20 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 		return;
 	}
 	
-	if ([self.hierarchyDataSource outlineView:self.outlineView renameItem:tEditedNode as:tTextField.stringValue]==YES)
+	if ([self.hierarchyDataSource outlineView:self.outlineView renameItem:tEditedNode as:tTextField.objectValue]==YES)
 		[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameItemNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
 #pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+ 
+    [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfRows)]
+                                columnIndexes:[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"file.name"]]];
+    
+}
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)inNotification
 {
@@ -988,7 +1004,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	if (tTreeNode==nil)
 		return;
 	
-	NSString * tFilePath=tTreeNode.filePath;
+	NSString * tFilePath=[tTreeNode filePathWithSeparator:self.hierarchyDataSource.fakeFileSeparator];
 	
 	NSString * tKey=[self disclosedStateKey];
 	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];
@@ -1019,7 +1035,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	if (tTreeNode==nil)
 		return;
 	
-	NSString * tFilePath=tTreeNode.filePath;
+	NSString * tFilePath=[tTreeNode filePathWithSeparator:self.hierarchyDataSource.fakeFileSeparator];
 	
 	NSString * tKey=[self disclosedStateKey];
 	NSMutableDictionary * tDisclosedDictionary=self.documentRegistry[tKey];

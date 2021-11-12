@@ -73,7 +73,8 @@
 	
 	
 	IBOutlet NSView * _accessoryView;
-	
+    
+	NSView * _savedAccessoryView;
 	
 	BOOL _isGroup;
 	
@@ -289,7 +290,9 @@
 	
 	PKGDocumentWindowController * tDocumentWindowController=self.document.windowControllers.firstObject;
 	
-	[tDocumentWindowController setContentsOfRightAccessoryView:_accessoryView];
+    _savedAccessoryView=[tDocumentWindowController contentViewOfRightAccessoryView];
+    
+	[tDocumentWindowController setContentViewOfRightAccessoryView:_accessoryView];
 	
 	// Register Notifications
 	
@@ -304,7 +307,7 @@
 	
 	PKGDocumentWindowController * tDocumentWindowController=self.document.windowControllers.firstObject;
 	
-	[tDocumentWindowController setContentsOfRightAccessoryView:nil];
+	[tDocumentWindowController setContentViewOfRightAccessoryView:_savedAccessoryView];
 	
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self.view];

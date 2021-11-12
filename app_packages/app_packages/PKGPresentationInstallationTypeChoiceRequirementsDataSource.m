@@ -267,13 +267,16 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 
 - (void)tableView:(NSTableView *)inTableView addNewRequirementWithCompletionHandler:(void(^)(BOOL succeeded))handler
 {
-	PKGRequirement * tNewRequirement=[PKGRequirement new];
+	PKGDocument * tDocument=((NSWindowController *) inTableView.window.windowController).document;
+    
+    PKGRequirement * tNewRequirement=[PKGRequirement new];
 	
 	tNewRequirement.identifier=@"fr.whitebox.Packages.requirement.os";
 	tNewRequirement.failureBehavior=PKGRequirementOnFailureBehaviorDeselectAndHideChoice;
 	
 	PKGPresentationChoiceRequirementPanel * tRequirementPanel=[PKGPresentationChoiceRequirementPanel choiceRequirementPanel];
-	tRequirementPanel.prompt=NSLocalizedString(@"Add", @"");
+    tRequirementPanel.document=tDocument;
+    tRequirementPanel.prompt=NSLocalizedString(@"Add", @"");
 	tRequirementPanel.requirement=tNewRequirement;
 	
 	[tRequirementPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bResult) {
@@ -305,12 +308,14 @@ NSString * const PKGInstallationTypeChoiceRequirementsTransferPboardType=@"fr.wh
 	if (tIndex==NSNotFound)	// Double-click with no requirements in list for example
 		return;
 	
-	PKGRequirement * tOriginalRequirement=_requirements[tIndex];
+	PKGDocument * tDocument=((NSWindowController *) inTableView.window.windowController).document;
+    
+    PKGRequirement * tOriginalRequirement=_requirements[tIndex];
 	PKGRequirement * tEditedRequirement=[tOriginalRequirement copy];
 	
 	PKGPresentationChoiceRequirementPanel * tRequirementPanel=[PKGPresentationChoiceRequirementPanel choiceRequirementPanel];
-	
-	tRequirementPanel.requirement=tEditedRequirement;
+	tRequirementPanel.document=tDocument;
+    tRequirementPanel.requirement=tEditedRequirement;
 	
 	[tRequirementPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bResult) {
 		

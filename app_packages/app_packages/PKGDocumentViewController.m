@@ -63,9 +63,41 @@
 
 #pragma mark -
 
+- (void)WB_viewDidAppear
+{
+    [super viewDidAppear];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userSettingsDidChange:) name:PKGProjectSettingsUserSettingsDidChangeNotification object:self.document];
+}
+
+- (void)WB_viewWillDisappear
+{
+    [super WB_viewWillDisappear];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:PKGProjectSettingsUserSettingsDidChangeNotification object:nil];
+}
+
+#pragma mark -
+
 - (void)noteDocumentHasChanged
 {
 	[self.document updateChangeCount:NSChangeDone];
+}
+
+#pragma mark - PKGStringReplacer
+
+- (NSString *)stringByReplacingKeysInString:(NSString *)inString
+{
+    if (self.document==nil)
+        return inString;
+    
+    return [self.document stringByReplacingKeysInString:inString];
+}
+
+#pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
 }
 
 @end

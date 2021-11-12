@@ -15,47 +15,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGFileNameFormatter
 
-- (NSAttributedString *)attributedStringForObjectValue:(id)inObject withDefaultAttributes:(NSDictionary *)attrs
-{
-	if ([inObject isKindOfClass:NSAttributedString.class]==YES)
-		return inObject;
-	
-	if ([inObject isKindOfClass:NSString.class]==YES)
-		return [[NSAttributedString alloc] initWithString:inObject attributes:attrs];
-			
-	return nil;
-}
-
-- (NSString *)stringForObjectValue:(id)inObject
-{
-	if (inObject==nil)
-		return @"";
-	
-	if ([inObject isKindOfClass:NSString.class])
-		return inObject;
-	
-	if ([inObject isKindOfClass:NSAttributedString.class]==YES)
-		return ((NSAttributedString *)inObject).string;
-	
-	return @"";
-}
-
-- (BOOL)getObjectValue:(out id *)obj forString:(NSString *)string errorDescription:(NSString **)error
-{
-    *obj=[string copy];
-     
-    return YES;
-}
-
 - (BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString **)newString errorDescription:(NSString **)error
 {
    NSUInteger tLength=partialString.length;
     
     if (tLength>=256)
     {
-        *newString=nil;
+        if (newString!=NULL)
+            *newString=nil;
             
-        *error=@"Error";
+        if (error!=NULL)
+            *error=@"Error";
             
         return NO;
     }
@@ -68,9 +38,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             
             if (tUniChar=='.')
             {
-                *newString=nil;
+                if (newString!=NULL)
+                    *newString=nil;
                 
-                *error=@"Error";
+                if (error!=NULL)
+                    *error=@"Error";
                 
                 return NO;
             }
@@ -82,9 +54,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             
             if (tUniChar=='/')
             {
-                *newString=nil;
+                if (newString!=NULL)
+                    *newString=nil;
                 
-                *error=@"Error";
+                if (error!=NULL)
+                    *error=@"Error";
                 
                 return NO;
             }

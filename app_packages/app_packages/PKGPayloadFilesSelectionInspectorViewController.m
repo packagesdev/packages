@@ -109,7 +109,7 @@
 
 - (PKGFilesSelectionInspectorTabViewItemViewController *)attributesViewController
 {
-	return [[PKGPayloadFilesSelectionInspectorAttributesViewController alloc] init];
+	return [[PKGPayloadFilesSelectionInspectorAttributesViewController alloc] initWithDocument:self.document];
 }
 
 #pragma mark -

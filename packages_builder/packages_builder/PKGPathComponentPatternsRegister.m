@@ -32,7 +32,7 @@
 
 @implementation PKGPathComponentPatternsRegister
 
-- (instancetype)initWithFilesFilters:(NSArray *)inFilesFilters
+- (instancetype)initWithFilesFilters:(NSArray *)inFilesFilters userDefinedSettingsConverter:(NSString * (^)(NSString *))converter
 {
     self=[super init];
     
@@ -43,14 +43,17 @@
         _folderNamesSet=[NSMutableSet set];
         _folderNamesRegExSet=[NSMutableSet set];
         
-        void (^dispatchFilePredicate)(PKGFilePredicate *)=^(PKGFilePredicate *bFilePredicate){
+        void (^dispatchFilePredicate)(PKGFilePredicate *,BOOL)=^(PKGFilePredicate *bFilePredicate,BOOL bDefaultPredicate){
             
             if (bFilePredicate==nil)
                 return;
             
             NSString * tPattern=bFilePredicate.pattern;
             
-            if ([tPattern length]<2)
+            if (bDefaultPredicate==NO)
+                tPattern=converter(tPattern);
+            
+            if (tPattern.length<2)
                 return;
             
             NSMutableSet * tMutableSet;
@@ -92,11 +95,11 @@
             if ([tFileFilter isKindOfClass:[PKGDefaultFileFilter class]]==YES)
             {
                 for(PKGFilePredicate * tPredicate in ((PKGDefaultFileFilter *)tFileFilter).predicates)
-                    dispatchFilePredicate(tPredicate);
+                    dispatchFilePredicate(tPredicate,YES);
             }
             else
             {
-                dispatchFilePredicate(tFileFilter.predicate);
+                dispatchFilePredicate(tFileFilter.predicate,NO);
             }
         }
     }

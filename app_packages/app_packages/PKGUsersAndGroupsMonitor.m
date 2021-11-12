@@ -317,6 +317,8 @@
 	}
 }
 
+// A VOIR (It might be necessary to perform this in a secondary thread as Apple's API was observed once to hang waiting for a semaphore on macOS BS)
+
 - (void)refreshCache
 {
 	[self _refreshUsersCache];

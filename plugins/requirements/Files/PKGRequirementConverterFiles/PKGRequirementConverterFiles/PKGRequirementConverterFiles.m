@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2016, Stephane Sudre
+ Copyright (c) 2008-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -53,7 +53,7 @@
 		return nil;
 	}
 	
-	NSUInteger tCount=[tArray count];
+	NSUInteger tCount=tArray.count;
 		
 	if (tCount==0)
 		return @"";
@@ -64,7 +64,9 @@
 	{
 		[tArray enumerateObjectsUsingBlock:^(NSString * bPath,NSUInteger bIndex,BOOL * bOutStop){
 		
-			// Escape the string (" > < &")
+            bPath=[self.keysReplacer stringByReplacingKeysInString:bPath];
+            
+            // Escape the string (" > < &")
 			
 			NSString * tEscapedPath=CFBridgingRelease(CFXMLCreateStringByEscapingEntities(kCFAllocatorDefault,(CFStringRef) bPath,NULL));
 			

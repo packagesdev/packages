@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,17 +15,21 @@
 
 #import "PKGRequirement.h"
 
+#import "PKGDocument.h"
+
 #import "PKGDistributionProject.h"
 
 #import "PKGFilePath.h"
 
 @interface PKGRequirementPanel : PKGPanel
 
-	@property (nonatomic) PKGRequirement * requirement;
+    @property (nonatomic) PKGRequirement * requirement;
 
-	@property (nonatomic,readonly) PKGDistributionProject * project;
+	@property PKGDocument * document;
 
-	@property (nonatomic,readonly,weak) id<PKGFilePathConverter> filePathConverter;
+    @property (nonatomic,readonly) PKGDistributionProject * project;
+
+	//@property (nonatomic,readonly,weak) id<PKGFilePathConverter> filePathConverter;
 
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler;
 

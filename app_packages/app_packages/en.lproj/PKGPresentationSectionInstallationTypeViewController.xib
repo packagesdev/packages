@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationSectionInstallationTypeViewController">
@@ -74,11 +74,11 @@
                                     <rect key="frame" x="0.0" y="30" width="525" height="225"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="ptx-Ve-5YY">
-                                        <rect key="frame" x="1" y="17" width="508" height="207"/>
+                                        <rect key="frame" x="1" y="0.0" width="508" height="224"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" autosaveColumns="NO" rowHeight="16" rowSizeStyle="automatic" headerView="ste-hR-GAp" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="68I-Sv-nrm" id="EwO-QS-Uv7" customClass="PKGInstallationTypeOutlineView">
-                                                <rect key="frame" x="0.0" y="0.0" width="508" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="508" height="207"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -221,18 +221,17 @@
                                                 </connections>
                                             </outlineView>
                                         </subviews>
-                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
                                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PXu-ff-lyJ">
                                         <rect key="frame" x="-100" y="-100" width="468" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="x3i-Sg-pOc">
-                                        <rect key="frame" x="507" y="17" width="16" height="207"/>
+                                        <rect key="frame" x="509" y="17" width="15" height="207"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <tableHeaderView key="headerView" id="ste-hR-GAp" customClass="PKGInstallationTypeTableHeaderView">
-                                        <rect key="frame" x="0.0" y="0.0" width="522" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="508" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
                                 </scrollView>
@@ -241,29 +240,27 @@
                         <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="YnF-uU-SZK" customClass="PKGInstallationTypeScrollView">
                             <rect key="frame" x="0.0" y="264" width="525" height="71"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <clipView key="contentView" id="iaH-pc-Ebm">
+                            <clipView key="contentView" drawsBackground="NO" id="iaH-pc-Ebm">
                                 <rect key="frame" x="1" y="1" width="508" height="69"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textView editable="NO" importsGraphics="NO" richText="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="AQQ-fG-fO2">
+                                    <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="AQQ-fG-fO2">
                                         <rect key="frame" x="0.0" y="0.0" width="508" height="69"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <size key="minSize" width="508" height="69"/>
                                         <size key="maxSize" width="1000000" height="10000000"/>
                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <size key="minSize" width="508" height="69"/>
-                                        <size key="maxSize" width="1000000" height="10000000"/>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </clipView>
                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="JrU-4W-8Zz">
                                 <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="IPq-0T-S1T">
-                                <rect key="frame" x="508" y="1" width="16" height="69"/>
+                                <rect key="frame" x="509" y="1" width="15" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                         </scrollView>
@@ -277,7 +274,7 @@
                     </connections>
                 </splitView>
             </subviews>
-            <point key="canvasLocation" x="466.5" y="649.5"/>
+            <point key="canvasLocation" x="23" y="14"/>
         </customView>
         <menu title="Menu" id="0xN-c9-FI5" userLabel="Item Menu">
             <items>
@@ -331,12 +328,12 @@
                 <box title="User sees" id="dwV-zy-Ucw" customClass="PKGPresentationBox">
                     <rect key="frame" x="0.0" y="1" width="255" height="62"/>
                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
-                    <view key="contentView">
-                        <rect key="frame" x="2" y="2" width="251" height="43"/>
+                    <view key="contentView" id="bTs-mY-PqL">
+                        <rect key="frame" x="3" y="3" width="249" height="42"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <popUpButton id="rMJ-Ms-166">
-                                <rect key="frame" x="13" y="8" width="225" height="26"/>
+                                <rect key="frame" x="13" y="7" width="223" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="bevel" title="Standard and Custom Install" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="W4M-is-XJA" id="k0J-g4-cKK" customClass="PKGPresentationSettingsPopUpButtonCell">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -355,8 +352,6 @@
                             </popUpButton>
                         </subviews>
                     </view>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="systemBold" size="12"/>
                 </box>
             </subviews>

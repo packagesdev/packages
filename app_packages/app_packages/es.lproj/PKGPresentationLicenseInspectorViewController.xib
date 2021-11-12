@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2511" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGPresentationLicenseInspectorViewController">
@@ -31,6 +32,29 @@
                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </menuItem>
                                 <menuItem title="Plantillas de licencia" tag="-1" id="6Tg-2P-LWe"/>
+                                <menuItem isSeparatorItem="YES" tag="-4" id="Q0A-Nz-p0z">
+                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                    <connections>
+                                        <action selector="switchLicenseType:" target="-2" id="Hep-j5-F9b"/>
+                                    </connections>
+                                </menuItem>
+                                <menuItem title="Plantilla de licencia personalizada" tag="-3" id="4hF-gw-PIS">
+                                    <connections>
+                                        <action selector="switchLicenseType:" target="-2" id="4iP-Wy-aeV"/>
+                                    </connections>
+                                </menuItem>
+                                <menuItem title="-" tag="2" id="HGd-7h-1r0">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <connections>
+                                        <action selector="switchLicenseType:" target="-2" id="Nek-lC-iky"/>
+                                    </connections>
+                                </menuItem>
+                                <menuItem isSeparatorItem="YES" tag="-3" id="Bd3-SN-pAb">
+                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                </menuItem>
+                                <menuItem title="Seleccionar…" tag="-2" id="klU-Jd-np2">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
                             </items>
                         </menu>
                     </popUpButtonCell>
@@ -43,7 +67,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </customView>
             </subviews>
-            <point key="canvasLocation" x="448" y="754"/>
+            <point key="canvasLocation" x="-83" y="-160"/>
         </customView>
     </objects>
 </document>

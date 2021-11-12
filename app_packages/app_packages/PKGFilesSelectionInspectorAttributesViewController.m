@@ -13,15 +13,12 @@
 
 #import "PKGFilesSelectionInspectorAttributesViewController.h"
 
-#import "PKGFileNameFormatter.h"
-
 #import "PKGPayloadTreeNode+UI.h"
 #import "PKGFileItem+UI.h"
 
 @interface PKGFilesSelectionInspectorAttributesViewController ()
-{
-	IBOutlet NSTextField * _fileNameTextField;
-}
+
+@property (readwrite) PKGFileNameFormatter * fileNameFormatter;
 
 - (IBAction)rename:(id)sender;
 
@@ -29,103 +26,129 @@
 
 @implementation PKGFilesSelectionInspectorAttributesViewController
 
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+    self=[super initWithDocument:inDocument];
+    
+    if (self!=nil)
+    {
+        _fileNameFormatter=[PKGFileNameFormatter new];
+        _fileNameFormatter.fileNameCanStartWithDot=YES;
+        _fileNameFormatter.keysReplacer=self;
+    }
+    
+    return self;
+}
+
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
 	
-	PKGFileNameFormatter * tFileNameFormatter=[PKGFileNameFormatter new];
-	tFileNameFormatter.fileNameCanStartWithDot=YES;
-	
-	_fileNameTextField.formatter=tFileNameFormatter;
+	self.fileNameTextField.formatter=self.fileNameFormatter;
 }
 
 - (void)refreshSingleSelection
 {
-	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
+    PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	PKGFileItem * tFileItem=[tTreeNode representedObject];
 	
 	// File Name
 	
-	_fileNameTextField.textColor=[NSColor controlTextColor];
+    NSTextField * tTextField=self.fileNameTextField;
+    
+	tTextField.textColor=[NSColor controlTextColor];
 	
-	if (tFileItem.type==PKGFileItemTypeNewFolder || tFileItem.payloadFileName!=nil)
+	if (tFileItem.isNameEditable==YES)
 	{
-		if (_fileNameTextField.isBezeled==NO)
+		if (tTextField.isBezeled==NO)
 		{
-			NSRect tFrame=_fileNameTextField.frame;
+			NSRect tFrame=tTextField.frame;
 			
 			tFrame.origin.y+=3.0;
 			
-			_fileNameTextField.frame=tFrame;
+			tTextField.frame=tFrame;
 		}
 		
-		_fileNameTextField.editable=YES;
-		_fileNameTextField.bezeled=YES;
-		_fileNameTextField.drawsBackground=YES;
+		tTextField.editable=YES;
+		tTextField.bezeled=YES;
+		tTextField.drawsBackground=YES;
 	}
 	else
 	{
-		if (_fileNameTextField.isBezeled==YES)
+		if (tTextField.isBezeled==YES)
 		{
-			NSRect tFrame=_fileNameTextField.frame;
+			NSRect tFrame=tTextField.frame;
 			
 			tFrame.origin.y-=3.0;
 			
-			_fileNameTextField.frame=tFrame;
+			tTextField.frame=tFrame;
 		}
 		
-		_fileNameTextField.editable=NO;
-		_fileNameTextField.selectable=YES;
-		_fileNameTextField.bezeled=NO;
-		_fileNameTextField.drawsBackground=NO;
+		tTextField.editable=NO;
+		tTextField.selectable=YES;
+		tTextField.bezeled=NO;
+		tTextField.drawsBackground=NO;
 	}
 	
-	_fileNameTextField.stringValue=tFileItem.fileName;
+	tTextField.objectValue=tFileItem.fileName;
 }
 
 - (void)refreshMultipleSelection
 {
 	// File Name
 	
-	if (_fileNameTextField.isBezeled==YES)
+	NSTextField * tTextField=self.fileNameTextField;
+    
+    if (tTextField.isBezeled==YES)
 	{
-		NSRect tFrame=_fileNameTextField.frame;
+		NSRect tFrame=tTextField.frame;
 		
 		tFrame.origin.y-=3.0;
 		
-		_fileNameTextField.frame=tFrame;
+		tTextField.frame=tFrame;
 	}
 	
-	_fileNameTextField.editable=NO;
-	_fileNameTextField.selectable=YES;
-	_fileNameTextField.bezeled=NO;
-	_fileNameTextField.drawsBackground=NO;
+	tTextField.editable=NO;
+	tTextField.selectable=YES;
+	tTextField.bezeled=NO;
+	tTextField.drawsBackground=NO;
 	
-	_fileNameTextField.stringValue=NSLocalizedString(@"Multiple Selection", @"");
-	_fileNameTextField.textColor=[NSColor disabledControlTextColor];
+	tTextField.stringValue=NSLocalizedString(@"Multiple Selection", @"");
+	tTextField.textColor=[NSColor disabledControlTextColor];
 }
 
 #pragma mark -
 
-- (IBAction)rename:(id)sender
+- (IBAction)rename:(NSTextField *)sender
 {
-	NSString * tNewName=_fileNameTextField.stringValue;
+    NSTextField * tTextField=self.fileNameTextField;
+    
+    NSString * tNewName=tTextField.objectValue;
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	
 	if ([tNewName isEqualToString:tTreeNode.fileName]==NO)
 	{
 		if (self.delegate!=nil && [self.delegate viewController:self shouldRenameItem:tTreeNode to:tNewName]==NO)
 		{
-			_fileNameTextField.stringValue=tTreeNode.fileName;
+			tTextField.objectValue=tTreeNode.fileName;
 			return;
 		}
 		
 		[tTreeNode rename:tNewName];
 		
-		_fileNameTextField.stringValue=tNewName;
+		tTextField.objectValue=tNewName;
 		
 		[self.delegate viewController:self didRenameItem:tTreeNode to:tNewName];
 	}
+}
+
+#pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [self.fileNameTextField setNeedsDisplay:YES];
 }
 
 @end

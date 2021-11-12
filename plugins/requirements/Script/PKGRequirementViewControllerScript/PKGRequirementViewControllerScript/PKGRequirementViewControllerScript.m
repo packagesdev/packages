@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2017, Stephane Sudre
+Copyright (c) 2008-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -24,6 +24,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "NSArray+WBExtensions.h"
 #import "NSTableView+Selection.h"
+
+#import "PKGReplaceableStringFormatter.h"
 
 @interface PKGScriptArgument : NSObject <PKGObjectProtocol>
 
@@ -99,7 +101,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @end
 
-@interface PKGRequirementViewControllerScript () <PKGFilePathTextFieldDelegate,NSTableViewDelegate>
+@interface PKGRequirementViewControllerScript () <PKGFilePathTextFieldDelegate,NSTableViewDelegate,PKGStringReplacer>
 {
 	IBOutlet PKGFilePathTextField * _scriptPathTextField;
 	
@@ -123,6 +125,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSMutableArray * _arguments;
 	
 	NSMutableDictionary * _settings;
+    
+    PKGReplaceableStringFormatter * _cachedFormatter;
 }
 
 	@property (readwrite) IBOutlet NSTableView * tableView;
@@ -192,6 +196,19 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		tMutableDictionary[PKGRequirementScriptPathKey]=[tFilePath representation];
 	
 	return [tMutableDictionary copy];
+}
+
+- (instancetype)init
+{
+    self=[super init];
+    
+    if (self!=nil)
+    {
+        _cachedFormatter=[PKGReplaceableStringFormatter new];
+        _cachedFormatter.keysReplacer=self;
+    }
+    
+    return self;
 }
 
 - (void)WB_viewDidLoad
@@ -274,7 +291,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Script Path
 	
-	_scriptPathTextField.pathConverter=self.filePathConverter;
+	_scriptPathTextField.pathConverter=self.objectTransformer;
 	
 	NSDictionary * tScriptPathRepresentation=_settings[PKGRequirementScriptPathKey];
 	
@@ -412,7 +429,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     
 	tOpenPanel.prompt=NSLocalizedStringFromTableInBundle(@"Choose", @"Localizable", [NSBundle bundleForClass:[self class]], @"No comment");
 	
-	NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:_scriptPathTextField.filePath];
+	NSString * tAbsolutePath=[self.objectTransformer absolutePathForFilePath:_scriptPathTextField.filePath];
 	
 	tOpenPanel.directoryURL=[NSURL fileURLWithPath:tAbsolutePath];
  
@@ -420,7 +437,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		if (bResult==NSFileHandlingPanelOKButton)
 		{
-			PKGFilePath * tNewFilePath=[self.filePathConverter filePathForAbsolutePath:tOpenPanel.URL.path type:_scriptPathTextField.filePath.type];
+			PKGFilePath * tNewFilePath=[self.objectTransformer filePathForAbsolutePath:tOpenPanel.URL.path type:_scriptPathTextField.filePath.type];
 			
 			_scriptPathTextField.filePath=tNewFilePath;
 			
@@ -432,7 +449,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction)showInFinder:(id) sender
 {
-    [[NSWorkspace sharedWorkspace] selectFile:[self.filePathConverter absolutePathForFilePath:[_scriptPathTextField filePath]] inFileViewerRootedAtPath:@""];
+    [[NSWorkspace sharedWorkspace] selectFile:[self.objectTransformer absolutePathForFilePath:[_scriptPathTextField filePath]] inFileViewerRootedAtPath:@""];
 }
 
 - (IBAction)switchEmbed:(NSButton *) sender
@@ -476,7 +493,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	PKGScriptArgument * tScriptArgument=[_dataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
-	tScriptArgument.value=sender.stringValue;
+	tScriptArgument.value=sender.objectValue;
 }
 
 - (IBAction)addArgument:(id)sender
@@ -560,8 +577,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 		
 	tCheckBoxView.checkbox.state=(tScriptArgument.state==YES) ? NSOnState : NSOffState;
-		
-	tTableCellView.textField.stringValue=tScriptArgument.value;
+    
+    tTableCellView.textField.formatter=_cachedFormatter;
+    tTableCellView.textField.objectValue=@"";
+	tTableCellView.textField.objectValue=tScriptArgument.value;
 	tTableCellView.textField.editable=YES;
 		
 	return tCheckBoxView;
@@ -585,6 +604,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	BOOL isDirectory;
 		
 	return ([[NSFileManager defaultManager] fileExistsAtPath:inPath isDirectory:&isDirectory]==NO && isDirectory==NO);
+}
+
+#pragma mark - PKGStringReplacer
+
+- (NSString *)stringByReplacingKeysInString:(NSString *)inString
+{
+    return [self.objectTransformer stringByReplacingKeysInString:inString];
 }
 
 #pragma mark - Notifications

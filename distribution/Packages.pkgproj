@@ -1334,6 +1334,18 @@
 			</dict>
 			<key>LICENSE</key>
 			<dict>
+				<key>CUSTOM_TEMPLATE_PATH</key>
+				<dict>
+					<key>PATH</key>
+					<string>Documents/Packages License.pkglic</string>
+					<key>PATH_TYPE</key>
+					<integer>1</integer>
+				</dict>
+				<key>KEYWORDS</key>
+				<dict>
+					<key>YEAR</key>
+					<string>2009-${COPYRIGHT_END_YEAR}</string>
+				</dict>
 				<key>LOCALIZATIONS</key>
 				<array>
 					<dict>
@@ -1349,7 +1361,7 @@
 					</dict>
 				</array>
 				<key>MODE</key>
-				<integer>0</integer>
+				<integer>2</integer>
 			</dict>
 			<key>README</key>
 			<dict>
@@ -1437,7 +1449,7 @@ Si vous souhaitez utiliser Packages sur OS X 10.7 ou antérieur, utilisez la ver
 				<key>installer-script.product:id</key>
 				<string>fr.whitebox.Packages</string>
 				<key>installer-script.product:version</key>
-				<string>1.2.10</string>
+				<string>${DISTRIBUTION_PRODUCT_VERSION}</string>
 			</dict>
 			<key>BUILD_FORMAT</key>
 			<integer>0</integer>
@@ -1629,6 +1641,13 @@ Si vous souhaitez utiliser Packages sur OS X 10.7 ou antérieur, utilisez la ver
 			<false/>
 			<key>TREAT_MISSING_PRESENTATION_DOCUMENTS_AS_WARNING</key>
 			<false/>
+			<key>USER_DEFINED_SETTINGS</key>
+			<dict>
+				<key>COPYRIGHT_END_YEAR</key>
+				<string>2021</string>
+				<key>DISTRIBUTION_PRODUCT_VERSION</key>
+				<string>1.2.10</string>
+			</dict>
 		</dict>
 	</dict>
 	<key>TYPE</key>

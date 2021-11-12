@@ -20,7 +20,7 @@
 #import "NSArray+WBExtensions.h"
 #import "NSTableView+Selection.h"
 
-@interface PKGRequirementViewControllerFiles () <NSTableViewDataSource,NSTableViewDelegate,NSTextFieldDelegate>
+@interface PKGRequirementViewControllerFiles () <NSTableViewDataSource,NSTableViewDelegate,NSTextFieldDelegate,PKGStringReplacer>
 {
 	IBOutlet NSPopUpButton * _selectorPopupButton;
 	
@@ -75,6 +75,7 @@
 	if (self!=nil)
 	{
 		_cachedFormatter=[PKGAbsolutePathFormatter new];
+        _cachedFormatter.keysReplacer=self;
 	}
 	
 	return self;
@@ -271,7 +272,7 @@
 	if (tEditedRow==-1)
 		return;
 
-	NSString * tNewFilePath=sender.stringValue;
+	NSString * tNewFilePath=sender.objectValue;
 	
 	NSUInteger tIndex=[_cachedFiles indexOfObject:tNewFilePath];
 	
@@ -336,7 +337,8 @@
 	
 	tTableCellView.textField.editable=YES;
 	tTableCellView.textField.formatter=_cachedFormatter;
-	tTableCellView.textField.stringValue=_cachedFiles[inRow];
+    tTableCellView.textField.objectValue=@"";
+    tTableCellView.textField.objectValue=_cachedFiles[inRow];
 	
 	return tTableCellView;
 }
@@ -460,6 +462,13 @@
 	
 	if ([tAlert runModal]==NSAlertFirstButtonReturn)
 		[self _removeSelectedFiles];
+}
+
+#pragma mark - PKGStringReplacer
+
+- (NSString *)stringByReplacingKeysInString:(NSString *)inString
+{
+    return [self.objectTransformer stringByReplacingKeysInString:inString];
 }
 
 #pragma mark - Notifications

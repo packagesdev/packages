@@ -24,6 +24,8 @@
 
 #import "PKGApplicationPreferences.h"
 
+#import "PKGElasticFolderNameFormatter.h"
+
 #include <sys/stat.h>
 
 #define PKGAccountMenuTemporaryUnselectableItemTag	(UINT16_MAX+1)
@@ -56,6 +58,8 @@
 	NSInteger _cachedOwner;
 	
 	NSInteger _cachedGroup;
+    
+    PKGElasticFolderNameFormatter * _cachedElasticFolderNameFormatter;
 }
 
 - (IBAction)switchOwner:(id)sender;
@@ -78,6 +82,9 @@
 {
 	[super WB_viewDidLoad];
 	
+    _cachedElasticFolderNameFormatter=[PKGElasticFolderNameFormatter new];
+    _cachedElasticFolderNameFormatter.keysReplacer=self;
+    
 	// Build the Owner and Group menus
 	
 	_usersAndGroupsMonitor=[PKGUsersAndGroupsMonitor sharedMonitor];
@@ -142,6 +149,11 @@
 	_cachedOwner=tFileItem.uid;
 	_cachedGroup=tFileItem.gid;
 	
+    if (tFileItem.type==PKGFileItemTypeNewElasticFolder)
+        self.fileNameTextField.formatter=_cachedElasticFolderNameFormatter;
+    else
+        self.fileNameTextField.formatter=self.fileNameFormatter;
+    
 	switch(tFileItem.type)
 	{
 		case PKGFileItemTypeHiddenFolderTemplate:
@@ -152,8 +164,9 @@
 			break;
 			
 		case PKGFileItemTypeNewFolder:
+        case PKGFileItemTypeNewElasticFolder:
 			
-			break;
+            break;
 			
 		case PKGFileItemTypeFileSystemItem:
 			

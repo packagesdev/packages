@@ -15,6 +15,8 @@
 
 #import "PKGFilePath.h"
 
+#import "PKGStringReplacer.h"
+
 extern NSString * const PKGPayloadItemsPboardType;
 
 @class PKGPayloadDataSource;
@@ -53,13 +55,17 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 
 	@property id<PKGFilePathConverter> filePathConverter;
 
+    @property id<PKGStringReplacer> keysReplacer;
+
 	@property (nonatomic,weak) id<PKGPayloadDataSourceDelegate> delegate;
 
-	@property (readonly,nonatomic) PKGFileAttributesOptions managedAttributes;
+	@property (nonatomic,readonly) PKGFileAttributesOptions managedAttributes;
+
+    @property (nonatomic,readonly) NSString * fakeFileSeparator;
 
 + (NSArray *)supportedDraggedTypes;
 
-- (id)itemAtPath:(NSString *)inPath;
+- (id)itemAtPath:(NSString *)inPath separator:(NSString *)inSeparator;
 
 - (id)surrogateItemForItem:(id)inItem;
 
@@ -76,6 +82,8 @@ typedef NS_OPTIONS(NSUInteger, PKGFileAttributesOptions)
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addItem:(id)inItem toParent:(id)inParent;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView addNewFolderToParent:(id)inParent;
+
+- (BOOL)outlineView:(NSOutlineView *)inOutlineView addNewElasticFolderToParent:(id)inParent;
 
 - (BOOL)outlineView:(NSOutlineView *)inOutlineView shouldRenameNewFolder:(id)inNewFolderItem as:(NSString *)inNewName;
 

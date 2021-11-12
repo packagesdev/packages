@@ -21,6 +21,7 @@
 
 #import "PKGPackageProjectMainViewController.h"
 #import "PKGDistributionProjectMainViewController.h"
+#import "PKGUserDefinedSettingsEditorViewController.h"
 
 #import "PKGDocumentWindowStatusViewController.h"
 
@@ -34,7 +35,14 @@
 
 @interface PKGDocumentWindowController ()
 {
+    IBOutlet NSView * _contentsView;
+    
 	PKGProjectMainViewController * _projectMainViewController;
+    
+    PKGUserDefinedSettingsEditorViewController * _userDefinedSettingsEditorViewController;
+    
+    
+    PKGViewController * _currentController;
 }
 
 	@property (readwrite) PKGProject * project;
@@ -79,14 +87,12 @@
 	
 	[self.window setContentBorderThickness:33.0 forEdge:NSMinYEdge];
 	
-	NSView * tContentView=self.window.contentView;
-	
 	NSRect tMiddleFrame=self.middleAccessoryView.frame;
 	NSRect tRightFrame=self.rightAccessoryView.frame;
 	
-	tMiddleFrame.size.width=NSMaxX(tContentView.frame)-NSMinX(tMiddleFrame);
+	tMiddleFrame.size.width=NSMaxX(_contentsView.frame)-NSMinX(tMiddleFrame);
 	
-	tRightFrame.origin.x=NSMaxX(tContentView.frame);
+	tRightFrame.origin.x=NSMaxX(_contentsView.frame);
 	
 	self.middleAccessoryView.frame=tMiddleFrame;
 	self.rightAccessoryView.frame=tRightFrame;
@@ -127,7 +133,14 @@
 
 #pragma mark -
 
-- (void)setContentsOfRightAccessoryView:(NSView *)inView
+- (NSView *)contentViewOfRightAccessoryView
+{
+    NSArray * tSubViews=self.rightAccessoryView.subviews;
+    
+    return tSubViews.firstObject;
+}
+
+- (void)setContentViewOfRightAccessoryView:(NSView *)inView
 {
 	NSArray * tSubViews=self.rightAccessoryView.subviews;
 	
@@ -137,8 +150,6 @@
 	for(NSView * tSubView in tSubViews)
 		[tSubView removeFromSuperview];
 	
-	NSView * tContentView=self.window.contentView;
-	
 	NSRect tMiddleFrame=self.middleAccessoryView.frame;
 	NSRect tRightFrame=self.rightAccessoryView.frame;
 	
@@ -146,9 +157,9 @@
 	{
 		// Hide Right Accessory View
 		
-		tMiddleFrame.size.width=NSMaxX(tContentView.frame)-NSMinX(tMiddleFrame);
+		tMiddleFrame.size.width=NSMaxX(_contentsView.frame)-NSMinX(tMiddleFrame);
 		
-		tRightFrame.origin.x=NSMaxX(tContentView.frame);
+		tRightFrame.origin.x=NSMaxX(_contentsView.frame);
 		
 		self.middleAccessoryView.frame=tMiddleFrame;
 		self.rightAccessoryView.frame=tRightFrame;
@@ -161,9 +172,9 @@
 		
 		[self.rightAccessoryView addSubview:inView];
 		
-		tRightFrame.origin.x=NSMaxX(tContentView.frame)-NSWidth(tRightFrame);
+		tRightFrame.origin.x=NSMaxX(_contentsView.frame)-NSWidth(tRightFrame);
 		
-		tMiddleFrame.size.width=NSMaxX(tContentView.frame)-NSMinX(tMiddleFrame)-NSWidth(tRightFrame);
+		tMiddleFrame.size.width=NSMaxX(_contentsView.frame)-NSMinX(tMiddleFrame)-NSWidth(tRightFrame);
 		
 		self.middleAccessoryView.frame=tMiddleFrame;
 		self.rightAccessoryView.frame=tRightFrame;
@@ -176,8 +187,7 @@
 	NSRect tMiddleFrame=self.middleAccessoryView.frame;
 	NSRect tRightFrame=self.rightAccessoryView.frame;
 	
-	NSView * tContentView=self.window.contentView;
-	NSRect tContentFrame=tContentView.frame;
+	NSRect tContentFrame=_contentsView.frame;
 	
 	switch (_project.type)
 	{
@@ -269,20 +279,42 @@
 	
 	_projectMainViewController.project=self.project;
 	
-	NSView * tContentView=self.window.contentView;
-	
 	NSView * tMainView=_projectMainViewController.view;
 	
-	tMainView.frame=tContentView.bounds;
+	tMainView.frame=_contentsView.bounds;
 	
 	[_projectMainViewController WB_viewWillAppear];
 	
-	[tContentView addSubview:tMainView];
+	[_contentsView addSubview:tMainView];
 	
 	[_projectMainViewController WB_viewDidAppear];
+    
+    _currentController=_projectMainViewController;
 }
 
 #pragma mark - Project Menu
+
+- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+{
+    SEL tAction=inMenuItem.action;
+    
+    if (tAction==@selector(upgradeToDistribution:))
+        return [self.project isKindOfClass:PKGPackageProject.class];
+    
+    if (tAction==@selector(showHideUserDefinedSettings:))
+    {
+        if (_currentController==_projectMainViewController)
+        {
+            inMenuItem.title=NSLocalizedString(@"Show User Defined Settings", @"");
+        }
+        else
+        {
+            inMenuItem.title=NSLocalizedString(@"Hide User Defined Settings", @"");
+        }
+    }
+    
+    return YES;
+}
 
 - (IBAction)upgradeToDistribution:(id)sender
 {
@@ -317,14 +349,95 @@
 	[self.document updateChangeCount:NSChangeDone];
 }
 
-- (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
+- (IBAction)showHideUserDefinedSettings:(id)sender
 {
-	SEL tAction=inMenuItem.action;
-
-	if (tAction==@selector(upgradeToDistribution:))
-		return [self.project isKindOfClass:PKGPackageProject.class];
-	
-	return YES;
+    NSRect tBounds=_contentsView.bounds;
+    
+    if (_userDefinedSettingsEditorViewController==nil)
+    {
+        _userDefinedSettingsEditorViewController=[[PKGUserDefinedSettingsEditorViewController alloc] initWithDocument:self.document];
+        _userDefinedSettingsEditorViewController.userDefinedSettings=self.project.settings.userDefinedSettings;
+    }
+    
+    [_currentController WB_viewWillDisappear];
+    
+    PKGViewController * newCurrentViewController=nil;
+    
+    NSRect tStartEditorFrame=NSZeroRect;
+    NSRect tEndEditorFrame=NSZeroRect;
+    NSView * tEditorView=_userDefinedSettingsEditorViewController.view;
+    
+    NSRect tStartProjectMainFrame=NSZeroRect;
+    NSRect tEndProjectMainFrame=NSZeroRect;
+    NSView * tProjectMainView=_projectMainViewController.view;
+    CGFloat tProjectMainAlphaValue=0.0;
+    
+    if (_currentController!=_userDefinedSettingsEditorViewController)
+    {
+        tStartEditorFrame=NSOffsetRect(tBounds,0,-NSHeight(tBounds));
+        tEndEditorFrame=tBounds;
+        
+        _userDefinedSettingsEditorViewController.view.frame=tStartEditorFrame;
+        [_contentsView addSubview:_userDefinedSettingsEditorViewController.view];
+        
+        newCurrentViewController=_userDefinedSettingsEditorViewController;
+        
+        
+        tStartProjectMainFrame=tBounds;
+        tEndProjectMainFrame=NSOffsetRect(tBounds,0,NSHeight(tBounds));
+        tProjectMainAlphaValue=0.5;
+    }
+    else
+    {
+        tStartEditorFrame=tBounds;
+        tEndEditorFrame=NSOffsetRect(tBounds,0,-NSHeight(tBounds));
+        
+        tStartProjectMainFrame=NSOffsetRect(tBounds,0,NSHeight(tBounds));
+        tEndProjectMainFrame=tBounds;
+        
+        _projectMainViewController.view.frame=tStartProjectMainFrame;
+        [_contentsView addSubview:_projectMainViewController.view];
+        
+        newCurrentViewController=_projectMainViewController;
+        
+        
+        tProjectMainAlphaValue=1.0;
+    }
+    
+    [newCurrentViewController WB_viewWillAppear];
+    
+    NSViewAnimation * tViewAnimation=[[NSViewAnimation alloc] initWithViewAnimations:@[
+                                                                                       @{
+                                                                                           NSViewAnimationTargetKey:tEditorView,
+                                                                                           NSViewAnimationStartFrameKey:[NSValue valueWithRect:tStartEditorFrame],
+                                                                                           NSViewAnimationEndFrameKey:[NSValue valueWithRect:tEndEditorFrame]
+                                                                                           },
+                                                                                       @{
+                                                                                           NSViewAnimationTargetKey:tProjectMainView,
+                                                                                           NSViewAnimationStartFrameKey:[NSValue valueWithRect:tStartProjectMainFrame],
+                                                                                           NSViewAnimationEndFrameKey:[NSValue valueWithRect:tEndProjectMainFrame]
+                                                                                           }
+                                                                                       ]];
+    
+    tViewAnimation.animationBlockingMode=NSAnimationBlocking;
+    tViewAnimation.duration=0.5;
+    [tViewAnimation setAnimationCurve:NSAnimationEaseOut];
+    [tViewAnimation startAnimation];
+    
+    if (_currentController==_userDefinedSettingsEditorViewController)
+    {
+        [_userDefinedSettingsEditorViewController.view removeFromSuperview];
+    }
+    else
+    {
+        [_projectMainViewController.view removeFromSuperview];
+    }
+    
+    [_currentController WB_viewDidDisappear];
+    
+    [newCurrentViewController WB_viewDidAppear];
+    
+    _currentController=newCurrentViewController;
 }
 
 #pragma mark -

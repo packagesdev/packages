@@ -15,6 +15,8 @@
 
 #import "PKGApplicationPreferences.h"
 
+#import "PKGBundleIdentifierFormatter.h"
+#import "PKGReplaceableStringFormatter.h"
 
 @interface PKGPackageSettingsViewController () <NSControlTextEditingDelegate>
 {
@@ -151,9 +153,9 @@
 	
 	// Tag Section
 	
-	_identifierTextField.stringValue=(tPackageSettings==nil) ? @"" : tPackageSettings.identifier;
+	_identifierTextField.objectValue=(tPackageSettings==nil) ? @"" : tPackageSettings.identifier;
 	
-	_versionTextField.stringValue=(tPackageSettings==nil) ? @"" : tPackageSettings.version;
+	_versionTextField.objectValue=(tPackageSettings==nil) ? @"" : tPackageSettings.version;
 	
 	// Post Installation Section
 	
@@ -172,11 +174,23 @@
 	_useHFSPlusCompressionCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.useHFSPlusCompression==YES)? NSOnState : NSOffState;
 }
 
+- (void)WB_viewDidLoad
+{
+    [super WB_viewDidLoad];
+    
+    PKGReplaceableStringFormatter * tFormatter=[PKGReplaceableStringFormatter new];
+    tFormatter.keysReplacer=self;
+    
+    _versionTextField.formatter=tFormatter;
+}
+
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
 	
-	[self _updateAdvancedOptionsVisibility];
+    ((PKGBundleIdentifierFormatter *)_identifierTextField.formatter).keysReplacer=self;
+    
+    [self _updateAdvancedOptionsVisibility];
 	
 	[self refreshUI];
 }
@@ -184,7 +198,7 @@
 - (void)WB_viewDidAppear
 {
 	[super WB_viewDidAppear];
-	
+    
 	//[self.view.window makeFirstResponder:_identifierTextField];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(advancedModeStateDidChange:) name:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification object:nil];
@@ -301,6 +315,15 @@
 }
 
 #pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [_identifierTextField setNeedsDisplay:YES];
+    
+    [_versionTextField setNeedsDisplay:YES];
+}
 
 - (void)advancedModeStateDidChange:(NSNotification *)inNotification
 {

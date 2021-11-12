@@ -19,7 +19,9 @@
 
 #import "PKGProject.h"
 
-@interface PKGDocument : NSDocument <PKGFilePathConverter>
+#import "PKGStringReplacer.h"
+
+@interface PKGDocument : NSDocument <PKGFilePathConverter,PKGStringReplacer>
 
 	@property (readonly) NSURL * folderURL;
 

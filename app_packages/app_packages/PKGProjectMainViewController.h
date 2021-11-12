@@ -25,9 +25,6 @@
 
 // View Menu
 
-/*- (IBAction)showDistributionPresentationTab:(id)sender;
-- (IBAction)showDistributionRequirementsAndResourcesTab:(id)sender;*/
-
 - (IBAction)showProjectSettingsTab:(id)sender;
 - (IBAction)showProjectCommentsTab:(id)sender;
 

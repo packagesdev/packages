@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,6 +21,8 @@
 
 #import "NSAlert+block.h"
 
+#import "PKGReplaceableStringFormatter.h"
+
 @interface PKGPresentationLocalizedStringsViewController () <NSTableViewDelegate>
 {
 	IBOutlet NSTextField * _viewLabel;
@@ -29,6 +31,8 @@
 	IBOutlet NSButton * _removeButton;
 	
 	IBOutlet NSTextField * _viewInformationLabel;
+    
+    PKGReplaceableStringFormatter * _cachedFormatter;
 }
 
 @property (readwrite) IBOutlet NSTableView * tableView;
@@ -43,6 +47,19 @@
 @end
 
 @implementation PKGPresentationLocalizedStringsViewController
+
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+    self=[super initWithDocument:inDocument];
+    
+    if (self!=nil)
+    {
+        _cachedFormatter=[PKGReplaceableStringFormatter new];
+        _cachedFormatter.keysReplacer=self;
+    }
+    
+    return self;
+}
 
 - (void)setLabel:(NSString *)inLabel
 {
@@ -127,7 +144,7 @@
 	if (tEditedRow==-1)
 		return;
 	
-	[_dataSource tableView:self.tableView setValue:sender.stringValue forItemAtRow:tEditedRow];
+	[_dataSource tableView:self.tableView setValue:sender.objectValue forItemAtRow:tEditedRow];
 }
 
 - (IBAction)addLocalization:(id)sender
@@ -214,15 +231,19 @@
 	
 	if ([tTableColumnIdentifier isEqualToString:@"title.value"]==YES)
 	{
-		NSString * tTitle=[_dataSource tableView:self.tableView itemAtRow:inRow];
+       NSString * tTitle=[_dataSource tableView:self.tableView itemAtRow:inRow];
 		
 		if (tTitle==nil)
 			return nil;
 		
 		NSTableCellView * tTableCellView=[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 		
-		tTableCellView.textField.stringValue=(tTitle==nil) ? @"" : tTitle;
-		
+        tTableCellView.textField.objectValue=@"";   // Hack to make the textfield to be refreshed when user defined settings are modified.
+        if (tTitle!=nil)
+           tTableCellView.textField.objectValue=tTitle;
+        
+        tTableCellView.textField.formatter=_cachedFormatter;
+        
 		return tTableCellView;
 	}
 	
@@ -242,5 +263,16 @@
 	
 	_removeButton.enabled=(tSelectionIndexSet.count>0);
 }
+
+#pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [self.tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfRows)]
+                              columnIndexes:[NSIndexSet indexSetWithIndex:[self.tableView columnWithIdentifier:@"title.value"]]];
+}
+
 
 @end

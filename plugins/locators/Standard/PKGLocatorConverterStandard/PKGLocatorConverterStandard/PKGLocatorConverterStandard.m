@@ -65,7 +65,7 @@
 		return nil;
 	}
 	
-	if ([tBundleIdentifier length]==0)
+	if (tBundleIdentifier.length==0)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGConverterErrorDomain

@@ -22,33 +22,29 @@
 	IBOutlet NSView * _behaviorPlaceHolderView;
 	
 	PKGPresentationChoiceRequirementBehaviorViewController * _behaviorController;
+    
+    PKGRequirementMessagesDataSource * _dataSource;
 }
 
 @end
 
 @implementation PKGChoiceRequirementWindowController
 
+- (instancetype)init
+{
+    self=[super init];
+    
+    if (self!=nil)
+    {
+        _dataSource=[PKGRequirementMessagesDataSource new];
+    }
+    
+    return self;
+}
+
 - (NSString *)windowNibName
 {
 	return @"PKGPresentationChoiceRequirementPanel";
-}
-
-- (void)windowDidLoad
-{
-	[super windowDidLoad];
-
-	_behaviorController=[PKGPresentationChoiceRequirementBehaviorViewController new];
-	
-	PKGRequirementMessagesDataSource * tDataSource=[PKGRequirementMessagesDataSource new];
-	_behaviorController.dataSource=tDataSource;
-	
-	_behaviorController.view.frame=_behaviorPlaceHolderView.bounds;
-	
-	[_behaviorController WB_viewWillAppear];
-	
-	[_behaviorPlaceHolderView addSubview:_behaviorController.view];
-	
-	[_behaviorController WB_viewDidAppear];
 }
 
 #pragma mark -
@@ -57,7 +53,7 @@
 {
 	[super setRequirement:inRequirement];
 	
-	_behaviorController.dataSource.messages=inRequirement.messages;
+	_dataSource.messages=inRequirement.messages;
 }
 
 #pragma mark -
@@ -66,6 +62,23 @@
 {
 	[super showRequirementViewControllerWithIdentifier:inIdentifier];
 	
+    if (_behaviorController==nil)
+    {
+        PKGRequirementPanel * tRequirementPanel=(PKGRequirementPanel *)self.window;
+        
+        _behaviorController=[[PKGPresentationChoiceRequirementBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
+        
+        _behaviorController.dataSource=_dataSource;
+        
+        _behaviorController.view.frame=_behaviorPlaceHolderView.bounds;
+        
+        [_behaviorController WB_viewWillAppear];
+        
+        [_behaviorPlaceHolderView addSubview:_behaviorController.view];
+        
+        [_behaviorController WB_viewDidAppear];
+    }
+    
 	_behaviorController.requirementBehavior=self.requirement.failureBehavior;
 	
 	[_behaviorController refreshUI];

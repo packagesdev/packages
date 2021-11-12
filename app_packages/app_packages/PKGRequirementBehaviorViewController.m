@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,11 +23,15 @@
 
 #import "PKGLocalizationUtilities.h"
 
+#import "PKGReplaceableStringFormatter.h"
+
 @interface PKGRequirementBehaviorViewController () <NSTextFieldDelegate>
 {
 	IBOutlet NSButton * _addButton;
 	
 	IBOutlet NSButton * _removeButton;
+    
+    PKGReplaceableStringFormatter * _cachedFormatter;
 }
 
 	@property (readwrite) IBOutlet NSTableView * tableView;
@@ -47,6 +51,19 @@
 @end
 
 @implementation PKGRequirementBehaviorViewController
+
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+    self=[super initWithDocument:inDocument];
+    
+    if (self!=nil)
+    {
+        _cachedFormatter=[PKGReplaceableStringFormatter new];
+        _cachedFormatter.keysReplacer=self;
+    }
+    
+    return self;
+}
 
 - (void)setDataSource:(PKGRequirementMessagesDataSource *)inDataSource
 {
@@ -92,7 +109,7 @@
 	if (tEditedRow==-1)
 		return;
 	
-	[self.dataSource tableView:self.tableView setTitle:sender.stringValue forItemAtRow:tEditedRow];
+	[self.dataSource tableView:self.tableView setTitle:sender.objectValue forItemAtRow:tEditedRow];
 }
 
 - (IBAction)setMessageDescription:(NSTextField *)sender
@@ -102,7 +119,7 @@
 	if (tEditedRow==-1)
 		return;
 	
-	[self.dataSource tableView:self.tableView setDescription:sender.stringValue forItemAtRow:tEditedRow];
+	[self.dataSource tableView:self.tableView setDescription:sender.objectValue forItemAtRow:tEditedRow];
 }
 
 - (IBAction)addRequirementMessage:(id)sender
@@ -196,7 +213,11 @@
 		
 		if ([tTableCellView isKindOfClass:PKGRequirementFailureMessageTableCellView.class]==NO)
 		{
-			tTableCellView.textField.stringValue=(tMessage.messageTitle==nil) ? @"" : tMessage.messageTitle;
+            tTableCellView.textField.objectValue=@"";
+            if (tMessage.messageTitle!=nil)
+                tTableCellView.textField.objectValue=tMessage.messageTitle;
+            
+            tTableCellView.textField.formatter=_cachedFormatter;
 		}
 		else
 		{
@@ -204,10 +225,20 @@
 		
 			tMessageView.gridColor=self.tableView.gridColor;
 			
-			tMessageView.titleTextField.stringValue=(tMessage.messageTitle==nil) ? @"" : tMessage.messageTitle;
+            tMessageView.titleTextField.objectValue=@"";
+            if (tMessage.messageTitle!=nil)
+                tMessageView.titleTextField.objectValue=tMessage.messageTitle;
 			
+            tMessageView.titleTextField.formatter=_cachedFormatter;
+            
 			if (tMessageView.descriptionTextField!=nil)
-				tMessageView.descriptionTextField.stringValue=(tMessage.messageDescription==nil) ? @"" : tMessage.messageDescription;
+            {
+                tMessageView.descriptionTextField.objectValue=@"";
+                if (tMessage.messageDescription!=nil)
+                    tMessageView.descriptionTextField.objectValue=tMessage.messageDescription;
+                
+                tMessageView.descriptionTextField.formatter=_cachedFormatter;
+            }
 		}
 		
 		return tTableCellView;

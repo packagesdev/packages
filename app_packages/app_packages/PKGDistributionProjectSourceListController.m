@@ -37,6 +37,8 @@
 
 #import "PKGPackageNameFormatter.h"
 
+NSString * const PKGDistributionProjectSourceListSelectedRowKey=@"ui.sourcelist.selectedRow";
+
 NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackageComponentNameChangeDidRequestNotitication";
 
 @interface PKGDistributionProjectSourceListController () <NSOutlineViewDelegate,NSTextFieldDelegate>
@@ -90,6 +92,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	if (self!=nil)
 	{
 		_packageNameFormatter=[PKGPackageNameFormatter new];
+        _packageNameFormatter.keysReplacer=self;
 	}
 	
 	return self;
@@ -127,6 +130,12 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	
 	[self.outlineView expandItem:nil expandChildren:YES];
 	
+    // Restore selected row
+    
+    NSInteger tSelectedRow=[self.documentRegistry integerForKey:PKGDistributionProjectSourceListSelectedRowKey];
+    
+    [self.outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:tSelectedRow] byExtendingSelection:NO];
+    
 	// Register for Notifications
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionKeyDidChange:) name:PKGOptionKeyDidChangeStateNotification object:self.view.window];
@@ -139,8 +148,6 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionWillBegin:) name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(choiceDependenciesEditionDidEnd:) name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
-	
-	
 }
 
 - (void)WB_viewWillDisappear
@@ -158,7 +165,10 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionWillBeginNotification object:self.document];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGChoiceItemOptionsDependenciesEditionDidEndNotification object:self.document];
 
-	
+	// Save selected row
+    
+    [self.documentRegistry setInteger:self.outlineView.selectedRow forKey:PKGDistributionProjectSourceListSelectedRowKey];
+    
 	[_sourceListAuxiliaryView removeFromSuperview];
 }
 
@@ -240,7 +250,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	tExportPanel.allowedFileTypes=@[@"fr.whitebox.packages.project"];
 	
 	tExportPanel.nameFieldLabel=NSLocalizedString(@"Export As:", @"");
-	tExportPanel.nameFieldStringValue=tPackageComponent.packageSettings.name;
+	tExportPanel.nameFieldStringValue=[self stringByReplacingKeysInString:tPackageComponent.packageSettings.name];
 	
 	tExportPanel.prompt=NSLocalizedString(@"Export", @"");
 	
@@ -275,11 +285,11 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	if (tEditedRow==-1)
 		return;
 	
-	NSString * tNeName=inTextField.stringValue;
+	NSString * tNewName=inTextField.objectValue;
 	
 	PKGDistributionProjectSourceListTreeNode * tEditedNode=[self.outlineView itemAtRow:tEditedRow];
 	
-	if ([self.dataSource outlineView:self.outlineView shouldRenamePackageComponent:tEditedNode as:tNeName]==NO)
+	if ([self.dataSource outlineView:self.outlineView shouldRenamePackageComponent:tEditedNode as:tNewName]==NO)
 	{
 		NSIndexSet * tReloadRowIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView rowForItem:tEditedNode]];
 		NSIndexSet * tReloadColumnIndexes=[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"sourcelist.name"]];
@@ -289,7 +299,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		return;
 	}
 	
-	if ([self.dataSource outlineView:self.outlineView renamePackageComponent:tEditedNode as:tNeName]==YES)
+	if ([self.dataSource outlineView:self.outlineView renamePackageComponent:tEditedNode as:tNewName]==YES)
 		;//[[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameItemNotification object:self.outlineView userInfo:@{@"NSObject":tEditedNode}];
 }
 
@@ -405,10 +415,8 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
 		
 		tView.imageView.image=tSourceListItem.icon;
-		tView.textField.formatter=nil;
-		tView.textField.stringValue=tSourceListItem.label;
-		tView.textField.textColor=[NSColor controlTextColor];
-		tView.textField.delegate=nil;
+        tView.textField.objectValue=[[NSAttributedString alloc] initWithString:tSourceListItem.label attributes:@{NSForegroundColorAttributeName:[NSColor controlTextColor]}];
+        tView.textField.formatter=nil;
 
 		return tView;
 	}
@@ -417,7 +425,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	{
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
-		tView.textField.stringValue=tSourceListItem.label;
+		tView.textField.objectValue=tSourceListItem.label;
 		((NSTextFieldCell *)tView.textField.cell).controlSize=NSMiniControlSize;
 		
 		return tView;
@@ -429,10 +437,11 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"DataCell" owner:self];
 		
-		tView.imageView.image=tSourceListItem.icon;
-		tView.textField.stringValue=tSourceListItem.label;
+        // Add Formatter
+        
+        tView.imageView.image=tSourceListItem.icon;
 		
-		NSColor * tTextColor=nil;
+        NSColor * tTextColor=nil;
 		
 		if (NSAppKitVersionNumber<NSAppKitVersionNumber10_10)
 			tTextColor=([self.dataSource.removedPackagesUUIDs containsObject:tComponentItem.packageComponent.UUID]==YES) ? [NSColor disabledControlTextColor] : [NSColor controlTextColor];
@@ -458,18 +467,16 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 				// A COMPLETER
 			}
 		}
-		
-		tView.textField.textColor=tTextColor;
+        
+        tView.textField.objectValue=[[NSAttributedString alloc] initWithString:tSourceListItem.label attributes:@{NSForegroundColorAttributeName:tTextColor}];
 		
 		tView.textField.editable=tSourceListItem.editable;
 		
-		// Add Formatter
-		
-		//tView.textField.formatter=(tSourceListItem.editable==YES) ? _packageNameFormatter : nil;
-
-		
-		tView.textField.delegate=self;
-		
+        if (tComponentItem.isEditable==YES)
+            tView.textField.formatter=_packageNameFormatter;
+        else
+            tView.textField.formatter=nil;
+        
 		return tView;
 	}
 	
@@ -518,6 +525,14 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 }
 
 #pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [self userSettingsDidChange:inNotification];
+    
+    [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfRows)]
+                                columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+}
 
 - (void)optionKeyDidChange:(NSNotification *)inNotification
 {

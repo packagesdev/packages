@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -25,6 +25,44 @@
 
 #import "PKGLicenseProvider.h"
 
+#import "PKGOwnershipAndReferenceStyleViewController.h"
+
+#define PKGPresentationLicenseInspectorChooseCustomTemplateTag -2
+
+@interface PKGLicenseOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
+
+@property (copy) NSString * currentPath;
+
+@end
+
+@implementation PKGLicenseOpenPanelDelegate
+
+- (BOOL)panel:(NSOpenPanel *)inPanel shouldEnableURL:(NSURL *)inURL
+{
+    if (inURL.isFileURL==NO)
+        return NO;
+    
+    return YES;
+}
+
+- (BOOL)panel:(id)inPanel validateURL:(NSURL *)inURL error:(NSError **)outError
+{
+    if (inURL.isFileURL==NO)
+        return NO;
+    
+    if ([inURL.pathExtension isEqualToString:@"pkglic"]==NO)
+    {
+        NSBeep();
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+@end
+
+
 @interface PKGPresentationLicenseInspectorViewController () <PKGPresentationLocalizationsDataSourceDelegate>
 {
 	IBOutlet NSPopUpButton * _customLicenseTypePopUpButton;
@@ -38,6 +76,8 @@
 	PKGViewController * _currentViewController;
 	
 	PKGPresentationLicenseStepSettings * _licenseSettings;
+    
+    PKGLicenseOpenPanelDelegate * _openPanelDelegate;
 }
 
 - (IBAction)switchLicenseType:(id)sender;
@@ -62,22 +102,26 @@
 {
 	[super WB_viewDidLoad];
 
-	// Populate the Show popup button
+    NSMenu * tMenu=_customLicenseTypePopUpButton.menu;
+    
+    // Populate the Show popup button with templates
 	
 	NSMutableArray * tTemplateNames=[[[PKGLicenseProvider defaultProvider] allLicensesNames] mutableCopy];
 	
 	[tTemplateNames sortUsingSelector:@selector(caseInsensitiveCompare:)];
 	
-	[_customLicenseTypePopUpButton addItemsWithTitles:tTemplateNames];
-	
-	NSUInteger tCount=_customLicenseTypePopUpButton.numberOfItems;
-	
-	for(NSUInteger tIndex=3;tIndex<tCount;tIndex++)
-	{
-		NSMenuItem * tMenuItem=[_customLicenseTypePopUpButton itemAtIndex:tIndex];
-		
-		tMenuItem.tag=PKGLicenseTypeTemplate;
-	}
+    NSUInteger tIndex=[tMenu indexOfItemWithTag:PKGPresentationLicenseInspectorChooseCustomTemplateTag]-4;
+    
+	for(NSString * tTemplateName in tTemplateNames)
+    {
+        NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:tTemplateName action:nil keyEquivalent:@""];
+        tMenuItem.representedObject=[[PKGLicenseProvider defaultProvider] licenseTemplateNamed:tTemplateName];
+        tMenuItem.tag=PKGLicenseTypeTemplate;
+        
+        [tMenu insertItem:tMenuItem atIndex:tIndex];
+        
+        tIndex++;
+    }
 }
 
 #pragma mark -
@@ -120,41 +164,85 @@
 {
 	PKGViewController * tViewController=nil;
 	
-	if (_licenseSettings.licenseType==PKGLicenseTypeCustom)
-	{
-		[_customLicenseTypePopUpButton selectItemWithTag:PKGLicenseTypeCustom];
-		
-		if (_localizationsViewController==nil)
-		{
-			_localizationsViewController=[[PKGPresentationLocalizationsFilePathViewController alloc] initWithDocument:self.document];
-			
-			PKGPresentationLocalizationsFilePathDataSource * tLocalizationsDataSource=[[PKGPresentationLocalizationsFilePathDataSource alloc] init];
-			tLocalizationsDataSource.localizations=_licenseSettings.localizations;
-			tLocalizationsDataSource.delegate=self;
-			
-			_localizationsViewController.dataSource=tLocalizationsDataSource;
-			
-			[[NSNotificationCenter defaultCenter] addObserver:_localizationsViewController selector:@selector(localizationsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
-		}
-		
-		tViewController=_localizationsViewController;
-	}
-	else
-	{
-		NSUInteger tIndex=[_customLicenseTypePopUpButton indexOfItemWithTitle:_licenseSettings.templateName];
-		
-		[_customLicenseTypePopUpButton selectItemAtIndex:tIndex];
-		
-		if (_licenseKeywordsViewController==nil)
-		{
-			_licenseKeywordsViewController=[[PKGLicenseKeywordsViewController alloc] initWithDocument:self.document];
-			
-			_licenseKeywordsViewController.licenseStepSettings=_licenseSettings;
-		}
-		
-		tViewController=_licenseKeywordsViewController;
-	}
+	switch (_licenseSettings.licenseType)
+    {
+        case PKGLicenseTypeCustom:
 	
+            [_customLicenseTypePopUpButton selectItemWithTag:PKGLicenseTypeCustom];
+            
+            if (_localizationsViewController==nil)
+            {
+                _localizationsViewController=[[PKGPresentationLocalizationsFilePathViewController alloc] initWithDocument:self.document];
+                
+                PKGPresentationLocalizationsFilePathDataSource * tLocalizationsDataSource=[PKGPresentationLocalizationsFilePathDataSource new];
+                tLocalizationsDataSource.localizations=_licenseSettings.localizations;
+                tLocalizationsDataSource.delegate=self;
+                
+                _localizationsViewController.dataSource=tLocalizationsDataSource;
+                
+                [[NSNotificationCenter defaultCenter] addObserver:_localizationsViewController selector:@selector(localizationsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:self.settings];
+            }
+            
+            tViewController=_localizationsViewController;
+            
+            break;
+            
+        case PKGLicenseTypeTemplate:
+        {
+            PKGLicenseTemplate * tTemplate=[[PKGLicenseProvider defaultProvider] licenseTemplateNamed:_licenseSettings.templateName];
+            
+            if (tTemplate==nil)
+            {
+                // Template could not be found
+                
+                // A COMPLETER
+            }
+            
+            [_customLicenseTypePopUpButton selectItemAtIndex:[_customLicenseTypePopUpButton indexOfItemWithRepresentedObject:tTemplate]];
+            
+            if (_licenseKeywordsViewController==nil)
+            {
+                _licenseKeywordsViewController=[[PKGLicenseKeywordsViewController alloc] initWithDocument:self.document];
+            }
+            
+            _licenseKeywordsViewController.licenseStepSettings=_licenseSettings;
+            
+            tViewController=_licenseKeywordsViewController;
+            
+            break;
+        }
+            
+        case PKGLicenseTypeCustomTemplate:
+        {
+            PKGFilePath * tFilePath=_licenseSettings.customTemplatePath;
+            
+            if (tFilePath==nil)
+            {
+                // A COMPLETER
+            }
+            
+            NSInteger tIndex=[_customLicenseTypePopUpButton indexOfItemWithTag:PKGLicenseTypeCustomTemplate];
+            
+            NSMenuItem * tMenuItem=[_customLicenseTypePopUpButton itemAtIndex:tIndex];
+            tMenuItem.action=@selector(switchLicenseType:);
+            
+            [self validateMenuItem:tMenuItem];
+            
+            [_customLicenseTypePopUpButton selectItemAtIndex:tIndex];
+            
+            if (_licenseKeywordsViewController==nil)
+            {
+                _licenseKeywordsViewController=[[PKGLicenseKeywordsViewController alloc] initWithDocument:self.document];
+            }
+            
+            _licenseKeywordsViewController.licenseStepSettings=_licenseSettings;
+            
+            tViewController=_licenseKeywordsViewController;
+            
+            break;
+        }
+    }
+            
 	if (_currentViewController!=tViewController)
 	{
 		if (_currentViewController!=nil)
@@ -199,9 +287,18 @@
 
 #pragma mark -
 
-- (IBAction)switchLicenseType:(NSPopUpButton *)sender
+- (IBAction)switchLicenseType:(id)sender
 {
-	NSInteger tTag=sender.selectedItem.tag;
+    NSInteger tTag=0;
+    
+    if ([sender isKindOfClass:[NSMenuItem class]]==NO)
+    {
+        tTag=[sender selectedItem].tag;
+    }
+    else
+    {
+        tTag=[sender tag];
+    }
 	
 	if (tTag==PKGLicenseTypeCustom)
 	{
@@ -209,7 +306,9 @@
 			return;
 	
 		_licenseSettings.licenseType=PKGLicenseTypeCustom;
-		
+		_licenseSettings.templateName=nil;
+        _licenseSettings.customTemplatePath=nil;
+        
 		dispatch_async(dispatch_get_main_queue(), ^{
 		
 			[self showContentsView];
@@ -226,14 +325,17 @@
 	
 	if (tTag==PKGLicenseTypeTemplate)
 	{
-		NSString * tLicenseTemplateName=sender.selectedItem.title;
+        NSPopUpButton * tPopUpButton=(NSPopUpButton *)sender;
+        
+		NSString * tLicenseTemplateName=tPopUpButton.selectedItem.title;
 		
 		if (tTag!=_licenseSettings.licenseType)
 		{
 			_licenseSettings.licenseType=PKGLicenseTypeTemplate;
 			
 			_licenseSettings.templateName=tLicenseTemplateName;
-			
+			_licenseSettings.customTemplatePath=nil;
+            
 			dispatch_async(dispatch_get_main_queue(), ^{
 				
 				[self showContentsView];
@@ -262,7 +364,114 @@
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.settings userInfo:nil];
 		});
+        
+        return;
 	}
+    
+    if (tTag==PKGLicenseTypeCustomTemplate)
+    {
+        if (tTag!=_licenseSettings.licenseType)
+        {
+            _licenseSettings.licenseType=PKGLicenseTypeCustomTemplate;
+            _licenseSettings.templateName=nil;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self showContentsView];
+                
+                [self noteDocumentHasChanged];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.settings userInfo:nil];
+                
+            });
+            
+            return;
+        }
+        
+        return;
+    }
+    
+    if (tTag==-2)
+    {
+        NSOpenPanel * tOpenPanel=[NSOpenPanel openPanel];
+        
+        tOpenPanel.canChooseFiles=NO;
+        tOpenPanel.canChooseDirectories=YES;
+        tOpenPanel.canCreateDirectories=NO;
+        tOpenPanel.allowedFileTypes=@[@".pkglic"];
+        
+        NSString * tAbsolutePath=[self.filePathConverter absolutePathForFilePath:_licenseSettings.customTemplatePath];
+        
+        if (tAbsolutePath!=nil)
+            tOpenPanel.directoryURL=[NSURL fileURLWithPath:[tAbsolutePath stringByDeletingLastPathComponent]];
+        
+        _openPanelDelegate=[PKGLicenseOpenPanelDelegate new];
+        
+        _openPanelDelegate.currentPath=tAbsolutePath;
+        
+        tOpenPanel.delegate=_openPanelDelegate;
+        
+        tOpenPanel.prompt=NSLocalizedString(@"Choose",@"No comment");
+        
+        __block PKGFilePathType tReferenceStyle=(_licenseSettings.customTemplatePath.isSet==YES) ? _licenseSettings.customTemplatePath.type : [PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
+        
+        PKGOwnershipAndReferenceStyleViewController * tOwnershipAndReferenceStyleViewController=nil;
+        BOOL tShowOwnershipAndReferenceStyleCustomizationDialog=[PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog;
+        
+        
+        if (tShowOwnershipAndReferenceStyleCustomizationDialog==YES)
+        {
+            tOwnershipAndReferenceStyleViewController=[PKGOwnershipAndReferenceStyleViewController new];
+            
+            tOwnershipAndReferenceStyleViewController.canChooseOwnerAndGroupOptions=NO;
+            tOwnershipAndReferenceStyleViewController.referenceStyle=tReferenceStyle;
+            
+            NSView * tAccessoryView=tOwnershipAndReferenceStyleViewController.view;
+            
+            tOpenPanel.accessoryView=tAccessoryView;
+        }
+        
+        [tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
+            
+            if (bResult!=NSFileHandlingPanelOKButton)
+                return;
+            
+            if (tShowOwnershipAndReferenceStyleCustomizationDialog==YES)
+            {
+                tReferenceStyle=tOwnershipAndReferenceStyleViewController.referenceStyle;
+            }
+            
+            NSString * tNewPath=tOpenPanel.URL.path;
+            
+            if (tAbsolutePath!=nil && [tAbsolutePath caseInsensitiveCompare:tNewPath]==NSOrderedSame)
+                return;
+            
+            PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tNewPath type:tReferenceStyle];
+            
+            if (tFilePath==nil)
+            {
+                NSLog(@"<PKGScriptViewController> File Path conversion failed.");
+                return;
+            }
+            
+            _licenseSettings.licenseType=PKGLicenseTypeCustomTemplate;
+            
+            if (_licenseSettings.customTemplatePath==nil)
+                _licenseSettings.customTemplatePath=[PKGFilePath new];
+            
+            _licenseSettings.customTemplatePath.string=tFilePath.string;
+            _licenseSettings.customTemplatePath.type=tFilePath.type;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self noteDocumentHasChanged];
+                
+                [self refreshUI];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:PKGPresentationStepSettingsDidChangeNotification object:self.settings userInfo:nil];
+            });
+        }];
+    }
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
@@ -271,13 +480,61 @@
 	
 	if (tAction==@selector(switchLicenseType:))
 	{
-		if (inMenuItem.tag==-1)
-		{
-			inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:inMenuItem.title attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]}];
+		switch (inMenuItem.tag)
+        {
+            case -4:
+                
+                inMenuItem.hidden=(_licenseSettings.customTemplatePath==nil);
+                break;
+                
+            case -3:
+                
+                inMenuItem.hidden=(_licenseSettings.customTemplatePath==nil);
+                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:inMenuItem.title attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]}];
+                
+                return NO;
+            
+            case PKGPresentationLicenseInspectorChooseCustomTemplateTag:
+            {
+                NSString * tTitle=@"-";
+                
+                if (_licenseSettings.customTemplatePath==nil)
+                {
+                    tTitle=NSLocalizedStringFromTable(@"Choose a Custom License Template...", @"Presentation", @"");
+                    inMenuItem.hidden=([PKGApplicationPreferences sharedPreferences].advancedMode==NO);
+                }
+                else
+                {
+                    tTitle=NSLocalizedStringFromTable(@"Choose Another Custom License Template...", @"Presentation", @"");
+                    inMenuItem.hidden=NO;
+                }
+                    
+                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:tTitle attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]}];
+                
+                break;
+            }
+            case -1:
+
+                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:inMenuItem.title attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]}];
 			
-			return NO;
-		}
-		
+                return NO;
+                
+            case PKGLicenseTypeCustomTemplate:
+                
+                if (_licenseSettings.customTemplatePath==nil)
+                {
+                    inMenuItem.title=@"-";
+                    inMenuItem.hidden=YES;
+                }
+                else
+                {
+                    inMenuItem.title=_licenseSettings.customTemplatePath.string.lastPathComponent.stringByDeletingPathExtension;
+                    inMenuItem.hidden=NO;
+                }
+                
+                break;
+        }
+        
 		return YES;
 	}
 	

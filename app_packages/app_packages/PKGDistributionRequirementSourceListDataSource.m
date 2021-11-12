@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -31,6 +31,8 @@
 #import "NSString+BaseName.h"
 
 #import "NSIndexSet+Analysis.h"
+
+#import "PKGDocument.h"
 
 NSString * const PKGDistributionRequirementInternalPboardType=@"fr.whitebox.packages.internal.distribution.requirements";
 
@@ -339,12 +341,14 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 
 - (void)tableView:(NSTableView *)inTableView addNewRequirementWithCompletionHandler:(void(^)(BOOL))handler
 {
+    PKGDocument * tDocument=((NSWindowController *) inTableView.window.windowController).document;
+    
 	PKGRequirement * tNewRequirement=[PKGRequirement new];
-	
 	tNewRequirement.identifier=@"fr.whitebox.Packages.requirement.os";
 	
 	PKGDistributionRequirementPanel * tRequirementPanel=[PKGDistributionRequirementPanel distributionRequirementPanel];
-	tRequirementPanel.prompt=NSLocalizedString(@"Add", @"");
+    tRequirementPanel.document=tDocument;
+    tRequirementPanel.prompt=NSLocalizedString(@"Add", @"");
 	tRequirementPanel.requirement=tNewRequirement;
 	
 	[tRequirementPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bResult) {
@@ -376,14 +380,17 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 	if (tIndex==NSNotFound)	// Double-click with no requirements in list for example
 		return;
 	
-	PKGDistributionRequirementSourceListNode * tTreeNode=[_flatTree nodeAtIndex:tIndex];
+	PKGDocument * tDocument=((NSWindowController *) inTableView.window.windowController).document;
+    
+    PKGDistributionRequirementSourceListNode * tTreeNode=[_flatTree nodeAtIndex:tIndex];
 	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)tTreeNode.representedObject;
 	PKGRequirement * tOriginalRequirement=tRequirementItem.requirement;
 	PKGRequirement * tEditedRequirement=[tOriginalRequirement copy];
 
 	PKGDistributionRequirementPanel * tRequirementPanel=[PKGDistributionRequirementPanel distributionRequirementPanel];
 
-	tRequirementPanel.requirement=tEditedRequirement;
+	tRequirementPanel.document=tDocument;
+    tRequirementPanel.requirement=tEditedRequirement;
 
 	[tRequirementPanel beginSheetModalForWindow:inTableView.window completionHandler:^(NSInteger bResult) {
 

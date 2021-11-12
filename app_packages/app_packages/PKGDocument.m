@@ -33,6 +33,8 @@
 
 #import "NSString+Packages.h"
 
+#import "PKGProject+UserDefinedSettings.h"
+
 @interface PKGDocument ()
 {
 	NSURL * _temporaryProjectURL;
@@ -44,6 +46,10 @@
 	PKGBuildAndCleanObserverDataSource * _buildObserver;
 	
 	PKGBuildDocumentWindowController * _buildWindowController;
+    
+    // User Defined Settings
+    
+    NSDictionary * _userDefinedSettingsRegistry;
 }
 
 	@property (nonatomic,readonly) BOOL canPrint;
@@ -77,6 +83,8 @@
 
 - (void)processDispatchErrorNotification:(NSNotification *)inNotification;
 
+- (void)userDefinedSettingsRegistryDidChange:(NSNotification *)inNotification;
+
 @end
 
 @implementation PKGDocument
@@ -95,6 +103,10 @@
 	if (self!=nil)
 	{
 		_registry=[PKGDocumentRegistry new];
+        
+        // Register for notifications
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefinedSettingsRegistryDidChange:) name:PKGProjectUserDefinedSettingsRegistryDidChangeNotification object:self];
 	}
 	
 	return self;
@@ -142,6 +154,23 @@
 - (PKGProject *)project
 {
 	return self.documentWindowController.project;
+}
+
+#pragma mark - PKGStringReplacer
+
+- (NSString *)stringByReplacingKeysInString:(NSString *)inString
+{
+    if (inString.length==0)
+        return inString;
+    
+    NSMutableString * tMutableString=[inString mutableCopy];
+    
+    [_userDefinedSettingsRegistry enumerateKeysAndObjectsUsingBlock:^(NSString * bKey, NSString * bValue, BOOL * bOutStop) {
+        
+        [tMutableString replaceOccurrencesOfString:bKey withString:bValue options:0 range:NSMakeRange(0,tMutableString.length)];
+    }];
+    
+    return [tMutableString copy];
 }
 
 #pragma mark -
@@ -224,7 +253,9 @@
 		
 		return NO;
 	}
-	
+
+    _userDefinedSettingsRegistry=[tProject userDefinedSettingsRegistry];
+    
 	self.documentWindowController=[[PKGDocumentWindowController alloc] initWithProject:tProject];
 	
 	return YES;
@@ -989,6 +1020,13 @@
 - (void)processDispatchErrorNotification:(NSNotification *)inNotification
 {
 	[self _processBuildFailure];
+}
+
+- (void)userDefinedSettingsRegistryDidChange:(NSNotification *)inNotification
+{
+    _userDefinedSettingsRegistry=[self.project userDefinedSettingsRegistry];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PKGProjectSettingsUserSettingsDidChangeNotification object:self userInfo:@{}];
 }
 
 @end

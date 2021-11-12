@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,9 +19,13 @@
 
 #import "PKGPresentationLicenseStepSettings+UI.h"
 
+#import "PKGReplaceableStringFormatter.h"
+
 @interface PKGLicenseKeywordsViewController () <NSTableViewDataSource,NSTableViewDelegate>
 {
 	PKGLicenseTemplate * _licenseTemplate;
+    
+    PKGReplaceableStringFormatter * _cachedFormatter;
 }
 
 	@property (readwrite) IBOutlet NSTableView * tableView;
@@ -36,14 +40,52 @@
 
 @implementation PKGLicenseKeywordsViewController
 
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
+{
+    self=[super initWithDocument:inDocument];
+    
+    if (self!=nil)
+    {
+        _cachedFormatter=[PKGReplaceableStringFormatter new];
+        _cachedFormatter.keysReplacer=self;
+    }
+    
+    return self;
+}
+
 - (void)setLicenseStepSettings:(PKGPresentationLicenseStepSettings *)inLicenseStepSettings
 {
 	_licenseStepSettings=inLicenseStepSettings;
 	
 	if (_licenseStepSettings==nil)
-		_licenseTemplate=nil;
-	else
-		_licenseTemplate=[[PKGLicenseProvider defaultProvider] licenseTemplateNamed:_licenseStepSettings.templateName];
+    {
+        _licenseTemplate=nil;
+    }
+    else
+    {
+        switch(_licenseStepSettings.licenseType)
+        {
+            case PKGLicenseTypeTemplate:
+                
+                _licenseTemplate=[[PKGLicenseProvider defaultProvider] licenseTemplateNamed:_licenseStepSettings.templateName];
+                
+                break;
+                
+            case PKGLicenseTypeCustomTemplate:
+            {
+                PKGFilePath * tFilePath=_licenseStepSettings.customTemplatePath;
+                
+                _licenseTemplate=[PKGLicenseProvider licenseTemplateAtPath:[self.filePathConverter absolutePathForFilePath:tFilePath]];
+                
+                break;
+            }
+            default:
+                
+                _licenseTemplate=nil;
+                
+                break;
+        }
+    }
 }
 
 #pragma mark -
@@ -79,7 +121,7 @@
 		return;
 	
 	NSString * tKey=_licenseTemplate.keywords[tRow];
-	NSString * tValue=sender.stringValue;
+	NSString * tValue=sender.objectValue;
 	
 	if ([self.licenseStepSettings.templateValues[tKey] isEqualToString:tValue]==YES)
 		return;
@@ -127,9 +169,13 @@
 		
 		NSString * tValue=self.licenseStepSettings.templateValues[_licenseTemplate.keywords[inRow]];
 		
-		tTableCellView.textField.stringValue=(tValue!=nil) ? tValue : @"";
+        tTableCellView.textField.objectValue=@"";
+        
+        if (tValue!=nil)
+            tTableCellView.textField.objectValue=tValue;
 		tTableCellView.textField.editable=YES;
-		
+        tTableCellView.textField.formatter=_cachedFormatter;
+        
 		return tTableCellView;
 	}
 	

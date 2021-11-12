@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2016, Stephane Sudre
+Copyright (c) 2007-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,26 +15,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGAbsolutePathFormatter
 
-- (NSString *) stringForObjectValue:(id) inObject
-{
-    if ([inObject isKindOfClass:NSString.class]==NO)
-	{
-		return inObject;
-    }
-    
-    return inObject;
-}
-
-- (BOOL) getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(NSString **) outError
-{
-    *outObject=[inString copy];
-     
-    return YES;
-}
-
 #pragma mark -
 
-- (BOOL) isPartialStringValid:(NSString *) inPartialString newEditingString:(NSString **) outNewString errorDescription:(NSString **) outError
+- (BOOL)isPartialStringValid:(NSString *) inPartialString newEditingString:(NSString **) outNewString errorDescription:(NSString **) outError
 {
     if (inPartialString!=nil)
 	{
@@ -42,9 +25,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		if (tLength>0)
 		{
-			unichar tChar=[inPartialString characterAtIndex:0];
+            unichar tChar=[inPartialString characterAtIndex:0];
 			
-			if (tChar!='/')
+			if (tChar!='/' && tChar!='$')
 			{
 				*outNewString=nil;
 				

@@ -17,7 +17,7 @@
 
 #import "PKGPackagePayloadDataSource.h"
 
-
+#import "PKGReplaceableStringFormatter.h"
 
 #import "PKGFilesEmptySelectionInspectorViewController.h"
 #import "PKGPayloadFilesSelectionInspectorViewController.h"
@@ -97,7 +97,8 @@
 	{
 		_dataSource=[PKGPackagePayloadDataSource new];
 		_dataSource.filePathConverter=self.filePathConverter;
-		
+        _dataSource.keysReplacer=self;
+        
 		_payloadHierarchyViewController=[[PKGPayloadFilesHierarchyViewController alloc] initWithDocument:inDocument];
 		
 		_payloadHierarchyViewController.label=NSLocalizedString(@"Contents",@"");
@@ -118,6 +119,11 @@
 {
 	[super WB_viewDidLoad];
 	
+    PKGReplaceableStringFormatter * tFormatter=[PKGReplaceableStringFormatter new];
+    tFormatter.keysReplacer=self;
+    
+    _defaultDestinationLabel.formatter=tFormatter;
+    
 	// Files Hierarchy
 	
 	_payloadHierarchyViewController.view.frame=_hierarchyPlaceHolderView.bounds;
@@ -152,7 +158,7 @@
 	
 	_treatMissingFilesAsWarningsCheckbox.state=(self.payload.treatMissingPayloadFilesAsWarnings==YES) ? NSOnState : NSOffState;
 	
-	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
+	_defaultDestinationLabel.objectValue=self.payload.defaultInstallLocation;
 	
 	_dataSource.rootNodes=self.payload.filesTree.rootNodes.array;
 	
@@ -269,8 +275,8 @@
 	if (tIndex!=-1)
 		[tRowIndexes addIndex:tIndex];
 	
-	self.payload.defaultInstallLocation=[_dataSource.installLocationNode filePath];
-	_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
+	self.payload.defaultInstallLocation=[_dataSource.installLocationNode filePathWithSeparator:@"/"];
+	_defaultDestinationLabel.objectValue=self.payload.defaultInstallLocation;
 	
 	[tOutlineView reloadDataForRowIndexes:tRowIndexes
 							columnIndexes:[NSIndexSet indexSetWithIndex:[tOutlineView columnWithIdentifier:@"file.name"]]];
@@ -409,6 +415,13 @@
 
 #pragma mark - Notifications
 
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [_defaultDestinationLabel setNeedsDisplay:YES];
+}
+
 - (void)fileHierarchySelectionDidChange:(NSNotification *)inNotification
 {
 	NSOutlineView * tOutlineView=_payloadHierarchyViewController.outlineView;
@@ -508,8 +521,8 @@
 	
 	if (tTreeNode==_dataSource.installLocationNode)
 	{
-		self.payload.defaultInstallLocation=[_dataSource.installLocationNode filePath];
-		_defaultDestinationLabel.stringValue=self.payload.defaultInstallLocation;
+		self.payload.defaultInstallLocation=[_dataSource.installLocationNode filePathWithSeparator:@"/"];
+		_defaultDestinationLabel.objectValue=self.payload.defaultInstallLocation;
 	}
 }
 

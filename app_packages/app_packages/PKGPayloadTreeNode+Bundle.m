@@ -72,7 +72,7 @@
 		}
 	}
 	
-	// This will also work for the PKGFileItemTypeNewFolder case
+	// This will also work for the PKGFileItemTypeNewFolder & PKGFileItemTypeNewElasticFolder case
 	
 	// Check whether there is a Info.plist file with a bundle identifier in the children
 	

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,6 +21,8 @@
 #import "PKGFilesSelectionInspectorAttributesViewController.h"
 
 #import "_PKGFileItemAuxiliary.h"
+
+#import "PKGReplaceableStringFormatter.h"
 
 @interface PKGFilesSelectionInspectorViewController ()
 {
@@ -45,6 +47,8 @@
 	IBOutlet NSTextField * _destinationPathTextField;
 	
 	NSUInteger _filePathType;
+    
+    PKGReplaceableStringFormatter * _cachedFormatter;
 }
 
 + (NSImage *)iconForItemAtPath:(NSString *)inPath type:(PKGFileItemType)inType;
@@ -85,6 +89,41 @@
 		return sFolderIcon;
 	}
 	
+    // New Elastic Folder
+    
+     if (inType==PKGFileItemTypeNewElasticFolder)
+     {
+         static NSImage * sElasticFolderIcon=nil;
+         static dispatch_once_t onceElasticFolderToken;
+         
+         dispatch_once(&onceElasticFolderToken, ^{
+             
+             sElasticFolderIcon=[NSImage imageWithSize:NSMakeSize(32.0,32.0) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+                 
+                 NSImage * tFolderIcon=[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
+                 
+                 CGFloat tSideLength=round(NSWidth(dstRect)*0.75);
+                 NSRect tRect;
+                 
+                 tRect.size=NSMakeSize(tSideLength,tSideLength);
+                 tRect.origin.x=0;
+                 tRect.origin.y=NSMaxY(dstRect)-tSideLength;
+                 
+                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                 
+                 tRect.origin.x=tSideLength*0.25;
+                 tRect.origin.y=NSMinY(dstRect);
+                 
+                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                 
+                 return YES;
+             }];
+             
+         });
+         
+         return sElasticFolderIcon;
+     }
+    
 	if (inPath==nil)
 		return nil;
 	
@@ -141,16 +180,19 @@
 	return tFileSystemItemIcon;
 }
 
-- (instancetype)initWithNibName:(NSString *)inNibName bundle:(NSBundle *)inBundle
+- (instancetype)initWithDocument:(PKGDocument *)inDocument
 {
-	self=[super initWithNibName:inNibName bundle:inBundle];
-	
-	if (self!=nil)
-	{
-		_tabViewItemViewControllers=[NSMutableArray array];
-	}
-	
-	return self;
+    self=[super initWithDocument:inDocument];
+    
+    if (self!=nil)
+    {
+        _cachedFormatter=[PKGReplaceableStringFormatter new];
+        _cachedFormatter.keysReplacer=self;
+        
+        _tabViewItemViewControllers=[NSMutableArray array];
+    }
+    
+    return self;
 }
 
 #pragma mark -
@@ -250,6 +292,8 @@
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
+    
+    [self.tabViewItemViewControllers.firstObject WB_viewWillAppear];
 }
 
 - (void)WB_viewDidAppear
@@ -258,6 +302,8 @@
 	
 	[self refreshUI];
 	
+    [self.tabViewItemViewControllers.firstObject WB_viewDidAppear];
+    
 	// Register for notifications (rename folder)
 	
 	// A COMPLETER
@@ -266,11 +312,15 @@
 - (void)WB_viewWillDisappear
 {
 	[super WB_viewWillDisappear];
+    
+    [self.tabViewItemViewControllers.firstObject WB_viewWillDisappear];
 }
 
 - (void)WB_viewDidDisappear
 {
 	[super WB_viewDidDisappear];
+    
+    [self.tabViewItemViewControllers.firstObject WB_viewDidDisappear];
 }
 
 #pragma mark -
@@ -313,7 +363,8 @@
 	
 	// Big Name
 	
-	_bigNameTextField.stringValue=tFileItem.fileName;
+    _bigNameTextField.formatter=(tFileItem.isNameEditable==YES) ? _cachedFormatter : nil;
+	_bigNameTextField.objectValue=tFileItem.fileName;
 	
 	// Last Modification Date
 	
@@ -431,14 +482,16 @@
 	// Source
 	
 	_sourcePathTextField.textColor=[NSColor labelColor];
-	_sourcePathTextField.stringValue=tFileItem.filePath.string;
+	_sourcePathTextField.formatter=(tFileItem.isNameEditable==YES) ? _cachedFormatter : nil;
+    _sourcePathTextField.objectValue=tFileItem.filePath.string;
 	
 	// Destination
 	
 	if (_destinationPathTextField!=nil)
 	{
 		_destinationPathTextField.textColor=[NSColor labelColor];
-		_destinationPathTextField.stringValue=inTreeNode.filePath;
+        _destinationPathTextField.formatter=(tFileItem.isNameEditable==YES) ? _cachedFormatter : nil;
+		_destinationPathTextField.objectValue=[inTreeNode filePathWithSeparator:@"/"];
 	}
 }
 
@@ -456,7 +509,8 @@
 	
 	// Big Name
 	
-	_bigNameTextField.stringValue=tFileItem.fileName;
+	_bigNameTextField.formatter=(tFileItem.isNameEditable==YES) ? _cachedFormatter : nil;
+    _bigNameTextField.objectValue=tFileItem.fileName;
 	
 	// Last Modification Date
 	
@@ -487,7 +541,13 @@
 			tTypeString=NSLocalizedString(@"Custom folder",@"No comment");
 			
 			break;
-			
+        
+        case PKGFileItemTypeNewElasticFolder:
+            
+            tTypeString=NSLocalizedString(@"Custom elastic folder",@"No comment");
+            
+            break;
+            
 		default:
 			
 			break;
@@ -511,7 +571,8 @@
 	if (_destinationPathTextField!=nil)
 	{
 		_destinationPathTextField.textColor=[NSColor labelColor];
-		_destinationPathTextField.stringValue=inPath;
+		_destinationPathTextField.formatter=(tFileItem.isNameEditable==YES) ? _cachedFormatter : nil;
+        _destinationPathTextField.objectValue=inPath;
 	}
 }
 
@@ -531,7 +592,7 @@
 	}
 	else
 	{
-		[self _refreshSelectionForNonFileSystemTreeNode:tSelectedNode atPath:tSelectedNode.filePath];
+		[self _refreshSelectionForNonFileSystemTreeNode:tSelectedNode atPath:[tSelectedNode filePathWithSeparator:@"/"]];
 	}
 }
 
@@ -583,6 +644,7 @@
 			case PKGFileItemTypeHiddenFolderTemplate:
 			case PKGFileItemTypeFolderTemplate:
 			case PKGFileItemTypeNewFolder:
+            case PKGFileItemTypeNewElasticFolder:
 				
 				tCanSwitchPathType=NO;
 				*bOutStop=YES;
@@ -781,6 +843,19 @@
 		
 		[self.delegate viewController:self didUpdateSelectedItems:self.selectedItems];
 	}];
+}
+
+#pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [_bigNameTextField setNeedsDisplay:YES];
+    
+    [_sourcePathTextField setNeedsDisplay:YES];
+    
+    [_destinationPathTextField setNeedsDisplay:YES];
 }
 
 @end

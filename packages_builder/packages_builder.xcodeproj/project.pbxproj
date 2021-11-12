@@ -21,6 +21,7 @@
 		F4567B401DA6C570001AB3BB /* PKGLicenseTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4567B3F1DA6C570001AB3BB /* PKGLicenseTemplate.m */; };
 		F45BA0C21D06045500765C10 /* PKGPathComponentPatternsRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */; };
 		F465BD6422DD367300B74E54 /* NSDictionary+MutableDeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F465BD6322DD367300B74E54 /* NSDictionary+MutableDeepCopy.m */; };
+		F4696DED2706658E00C00380 /* PKGReplaceableStringFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4696DEC2706658E00C00380 /* PKGReplaceableStringFormatter.m */; };
 		F46BFC911FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F46BFC901FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m */; };
 		F477CD991F0CCDC60091EFB0 /* PKGForest.m in Sources */ = {isa = PBXBuildFile; fileRef = F477CD981F0CCDC60091EFB0 /* PKGForest.m */; };
 		F4813D111FDF38DA0047055E /* WBVersionsHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = F4813D101FDF38DA0047055E /* WBVersionsHistory.m */; };
@@ -93,6 +94,7 @@
 		F4B9436C1C75361000D505BD /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B9436B1C75361000D505BD /* CoreServices.framework */; };
 		F4B9FA4A1D6E34A500CEADC9 /* PKGBuildOrder+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9FA491D6E34A500CEADC9 /* PKGBuildOrder+Convenience.m */; };
 		F4BB5AA11DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BB5AA01DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.m */; };
+		F4BD39C526F9341400AFC8A6 /* PKGBundleIdentifierFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BD39C426F9341400AFC8A6 /* PKGBundleIdentifierFormatter.m */; };
 		F4BD64FD26B86849005A659F /* PKGArchitectureUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BD64FB26B86849005A659F /* PKGArchitectureUtilities.m */; };
 		F4CB25CB212F60DC0048ABE0 /* NSObject+Conformance.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CB25CA212F60DC0048ABE0 /* NSObject+Conformance.m */; };
 		F4CE393326B891D100550C34 /* PKGBuildInformation+Accumulate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE393226B891D100550C34 /* PKGBuildInformation+Accumulate.m */; };
@@ -180,6 +182,9 @@
 		F45BA0C11D06045500765C10 /* PKGPathComponentPatternsRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPathComponentPatternsRegister.m; path = packages_builder/PKGPathComponentPatternsRegister.m; sourceTree = "<group>"; };
 		F465BD5A22DD367300B74E54 /* NSDictionary+MutableDeepCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+MutableDeepCopy.h"; path = "../Foundation + Extensions/NSDictionary+MutableDeepCopy.h"; sourceTree = "<group>"; };
 		F465BD6322DD367300B74E54 /* NSDictionary+MutableDeepCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+MutableDeepCopy.m"; path = "../Foundation + Extensions/NSDictionary+MutableDeepCopy.m"; sourceTree = "<group>"; };
+		F4696DE22706658E00C00380 /* PKGStringReplacer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
+		F4696DEB2706658E00C00380 /* PKGReplaceableStringFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGReplaceableStringFormatter.h; path = ../shared/PKGReplaceableStringFormatter.h; sourceTree = "<group>"; };
+		F4696DEC2706658E00C00380 /* PKGReplaceableStringFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGReplaceableStringFormatter.m; path = ../shared/PKGReplaceableStringFormatter.m; sourceTree = "<group>"; };
 		F46BFC8F1FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGMustCloseApplicationItem.h; path = ../model/PKGMustCloseApplicationItem.h; sourceTree = "<group>"; };
 		F46BFC901FACDD5C0022ABD4 /* PKGMustCloseApplicationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMustCloseApplicationItem.m; path = ../model/PKGMustCloseApplicationItem.m; sourceTree = "<group>"; };
 		F477CD971F0CCDC60091EFB0 /* PKGForest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGForest.h; path = ../model/PKGForest.h; sourceTree = "<group>"; };
@@ -325,6 +330,8 @@
 		F4B9FA491D6E34A500CEADC9 /* PKGBuildOrder+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGBuildOrder+Convenience.m"; path = "packages_builder/PKGBuildOrder+Convenience.m"; sourceTree = "<group>"; };
 		F4BB5A9F1DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGStackedEffectiveUserAndGroup.h; path = packages_builder/PKGStackedEffectiveUserAndGroup.h; sourceTree = "<group>"; };
 		F4BB5AA01DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGStackedEffectiveUserAndGroup.m; path = packages_builder/PKGStackedEffectiveUserAndGroup.m; sourceTree = "<group>"; };
+		F4BD39BB26F9341400AFC8A6 /* PKGBundleIdentifierFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGBundleIdentifierFormatter.h; path = ../shared/PKGBundleIdentifierFormatter.h; sourceTree = "<group>"; };
+		F4BD39C426F9341400AFC8A6 /* PKGBundleIdentifierFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGBundleIdentifierFormatter.m; path = ../shared/PKGBundleIdentifierFormatter.m; sourceTree = "<group>"; };
 		F4BD64FB26B86849005A659F /* PKGArchitectureUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGArchitectureUtilities.m; path = ../app_packages/app_packages/PKGArchitectureUtilities.m; sourceTree = "<group>"; };
 		F4BD64FC26B86849005A659F /* PKGArchitectureUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGArchitectureUtilities.h; path = ../app_packages/app_packages/PKGArchitectureUtilities.h; sourceTree = "<group>"; };
 		F4BF30C21204B4AF00CD1F86 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = "../RegexKitLite-1.2/RegexKitLite.m"; sourceTree = SOURCE_ROOT; };
@@ -709,6 +716,11 @@
 				F4A6BB7D1D9F0C3800564B8F /* PKGBuildStep+Constants.h */,
 				F4A6BB871D9F0CD300564B8F /* PKGBuildEvent.h */,
 				F4A6BB881D9F0CD300564B8F /* PKGBuildEvent.m */,
+				F4696DE22706658E00C00380 /* PKGStringReplacer.h */,
+				F4696DEB2706658E00C00380 /* PKGReplaceableStringFormatter.h */,
+				F4696DEC2706658E00C00380 /* PKGReplaceableStringFormatter.m */,
+				F4BD39BB26F9341400AFC8A6 /* PKGBundleIdentifierFormatter.h */,
+				F4BD39C426F9341400AFC8A6 /* PKGBundleIdentifierFormatter.m */,
 				F484A85E1D87487600FCC361 /* PKGCertificatesUtilities.h */,
 				F484A85F1D87487600FCC361 /* PKGCertificatesUtilities.m */,
 				F4BD64FC26B86849005A659F /* PKGArchitectureUtilities.h */,
@@ -856,6 +868,7 @@
 				F484A86E1D8748C700FCC361 /* PKGLocatorPluginsManager.m in Sources */,
 				F4B0C4DB1E74AB5900204FC4 /* RegexKitLite.m in Sources */,
 				F48C21771CFCF05500B5A8CD /* PKGChoiceItemOptions.m in Sources */,
+				F4696DED2706658E00C00380 /* PKGReplaceableStringFormatter.m in Sources */,
 				F488D76E1FB27E8D003413C2 /* NSSet+WBExtensions.m in Sources */,
 				F430171F1CFE0EFD00829D16 /* PKGProjectBuilder.m in Sources */,
 				F4B8A93E20FAB41900297B63 /* PKGProjectBuilder+PKGBuildEvent.m in Sources */,
@@ -875,6 +888,7 @@
 				F4B8A94120FABD1D00297B63 /* PKGProjectBuilder+Documents.m in Sources */,
 				F430172D1CFE11DD00829D16 /* PKGArchive.m in Sources */,
 				F48C21951CFCF05500B5A8CD /* PKGPresentationWelcomeStepSettings.m in Sources */,
+				F4BD39C526F9341400AFC8A6 /* PKGBundleIdentifierFormatter.m in Sources */,
 				F43017011CFE0E9F00829D16 /* PKGBuildLogger.m in Sources */,
 				F4BB5AA11DCAAC3B00E7D6EB /* PKGStackedEffectiveUserAndGroup.m in Sources */,
 				F48C21861CFCF05500B5A8CD /* PKGPackageProjectSettings.m in Sources */,
@@ -924,7 +938,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 646;
+				CURRENT_PROJECT_VERSION = 675;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -956,7 +970,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 646;
+				CURRENT_PROJECT_VERSION = 675;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = packages_builder/packagesbuilder_Prefix.pch;

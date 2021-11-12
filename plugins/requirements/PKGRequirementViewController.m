@@ -82,9 +82,9 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 	return ((PKGRequirementPanel *)self.view.window).project;
 }
 
-- (id<PKGFilePathConverter>)filePathConverter
+- (id<PKGFilePathConverter,PKGStringReplacer>)objectTransformer
 {
-	return ((PKGRequirementPanel *)self.view.window).filePathConverter;
+	return ((PKGRequirementPanel *)self.view.window).document;
 }
 
 - (void)setNextKeyView:(NSView *)inView

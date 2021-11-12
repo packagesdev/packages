@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010-2016, Stephane Sudre
+Copyright (c) 2010-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,51 +13,62 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGProjectNameFormatter.h"
 
+@interface PKGProjectNameFormatter ()
+{
+    NSCharacterSet * _forbiddenCharacterSet;
+}
+
+@end
+
 @implementation PKGProjectNameFormatter
 
-- (NSString *)stringForObjectValue:(id)inObject
+- (instancetype)init
 {
-    return ((inObject && [inObject isKindOfClass:NSString.class]) ? inObject : @"");
+    self=[super init];
+    
+    if (self!=nil)
+    {
+        _forbiddenCharacterSet=[NSCharacterSet characterSetWithCharactersInString:@"/"];
+    }
+    
+    return self;
 }
 
-- (BOOL)getObjectValue:(out id *)outObject forString:(NSString *)inString errorDescription:(out NSString **)outError
+- (instancetype)initWithCoder:(NSCoder *)inCoder
 {
-    *outObject=[inString copy];
-     
-    return YES;
+    self=[super initWithCoder:inCoder];
+    
+    if (self!=nil)
+    {
+        _forbiddenCharacterSet=[NSCharacterSet characterSetWithCharactersInString:@"/"];
+    }
+    
+    return self;
 }
+
+#pragma mark -
 
 - (BOOL)isPartialStringValid:(NSString *)inPartialString newEditingString:(NSString **)outString errorDescription:(NSString **)outError
 {
-    NSUInteger tLength=[inPartialString length];
+    NSUInteger tLength=inPartialString.length;
 	
 	if (tLength==0)
 		return YES;
 	
-    if (tLength>251)
+    if (tLength<=251)
     {
-        *outString=nil;
-            
-        *outError=@"Error";
-            
-        return NO;
+        NSRange tRange=[inPartialString rangeOfCharacterFromSet:_forbiddenCharacterSet];
+        if (tRange.location==NSNotFound)
+            return YES;
     }
     
-	for(NSUInteger tIndex=0;tIndex<tLength;tIndex++)
-	{
-		unichar tUniChar=[inPartialString characterAtIndex:tIndex];
-		
-		if (tUniChar=='/')
-		{
-			*outString=nil;
+    if (outString!=NULL)
+        *outString=nil;
 			
-			*outError=@"Error";
-			
-			return NO;
-		}
-	}
+    if (outError!=NULL)
+        *outError=@"Error";
     
-    return YES;
+    return NO;
 }
 
 @end

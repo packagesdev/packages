@@ -110,7 +110,7 @@
 
 	NSImage * tReferenceIcon=[PKGReferencePopupButtonCell leftCapForReferenceStyle:[tMenuItem tag] controlSize:self.controlSize];
 	NSRect tRect;
-	tRect.origin=NSMakePoint(NSMinX(inFrame)+2.0,NSMinY(inFrame)+((self.controlSize==NSRegularControlSize) ? 2.0 : 1.0));
+	tRect.origin=NSMakePoint(NSMinX(inFrame)+2.0,NSMinY(inFrame)+((self.controlSize==NSRegularControlSize) ? 2.0 : 1.0));   // A VOIR (Big Sur issue)
 	tRect.size=tReferenceIcon.size;
 	
 	[tReferenceIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];

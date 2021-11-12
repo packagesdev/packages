@@ -85,8 +85,9 @@
 		_resourcesDataSource=[PKGPayloadDataSource new];
 		_resourcesDataSource.editableRootNodes=YES;
 		_resourcesDataSource.filePathConverter=self.filePathConverter;
-		
-		_filesHierarchyViewController=[PKGFilesHierarchyViewController new];
+        _resourcesDataSource.keysReplacer=self;
+        
+		_filesHierarchyViewController=[[PKGFilesHierarchyViewController alloc] initWithDocument:inDocument];
 		
 		_filesHierarchyViewController.label=NSLocalizedString(@"Additional Resources", @"");
 		_filesHierarchyViewController.informationLabel=NSLocalizedString(@"These resources can be used by the above requirements and scripts \nor the requirements for the choices of the Installation Type step.", @"");

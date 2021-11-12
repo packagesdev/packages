@@ -1244,7 +1244,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		
 		NSString * tStringValue=nil;
 		BOOL tUsePackageName=NO;
-		
+        BOOL tReplaceKeys=YES;
+        
 		if (tIsMergedPackageChoice==YES || _showRawNames==YES)
 		{
 			tUsePackageName=YES;
@@ -1266,15 +1267,21 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 				PKGPackageComponent * tPackageComponent=[_distributionProject packageComponentWithUUID:tPackageUUID];
 				
 				if (tPackageComponent!=nil)
-					tStringValue=tPackageComponent.packageSettings.name;
+                {
+                    tStringValue=tPackageComponent.packageSettings.name;
+                    
+                    if (tPackageComponent.type==PKGPackageComponentTypeImported)
+                        tReplaceKeys=NO;
+                }
 			}
 		}
 		
+        if (tReplaceKeys==YES)
+            tStringValue=[self stringByReplacingKeysInString:tStringValue];
+        
 		if (tStringValue==nil)
-		{
-			tStringValue=[NSString stringWithFormat:@"Choice %@",[_dataSource indentationStringForItem:inChoiceTreeNode]];
-		}
-			
+            tStringValue=[NSString stringWithFormat:@"Choice %@",[_dataSource indentationStringForItem:inChoiceTreeNode]];
+        
 		tCheckBox.title=tStringValue;
 		
 		return tView;
@@ -1342,7 +1349,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 		return;
 	}
 	
-	NSString * tLocalizedDescription=[tSelectedChoiceTreeNode descriptionForLocalization:self.localization];
+	NSString * tLocalizedDescription=[self stringByReplacingKeysInString:[tSelectedChoiceTreeNode descriptionForLocalization:self.localization]];
 	
 	_descriptionTextView.string=(tLocalizedDescription==nil) ? @"" : [tLocalizedDescription copy];
 	
@@ -1459,6 +1466,28 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 
 #pragma mark - Notifications
 
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfRows)]
+                                columnIndexes:[NSIndexSet indexSetWithIndex:[self.outlineView columnWithIdentifier:@"choice.name"]]];
+    
+    PKGChoiceTreeNode * tSelectedChoiceTreeNode=[self.outlineView itemAtRow:self.outlineView.selectedRow];
+    
+    if (tSelectedChoiceTreeNode.isMergedIntoPackagesChoice==YES)
+    {
+        _descriptionTextView.string=@"";
+    }
+    else
+    {
+        NSString * tLocalizedDescription=[self stringByReplacingKeysInString:[tSelectedChoiceTreeNode descriptionForLocalization:self.localization]];
+        
+        _descriptionTextView.string=(tLocalizedDescription==nil) ? @"" : [tLocalizedDescription copy];
+    }
+}
+
+
 - (void)appleInternalModeDidChange:(NSNotification *)inNotification
 {
 	[self setHierarchyBoxHidden:([PKGApplicationPreferences sharedPreferences].appleMode==NO)];
@@ -1480,7 +1509,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	}
 	else
 	{
-		NSString * tLocalizedDescription=[tSelectedChoiceTreeNode descriptionForLocalization:self.localization];
+		NSString * tLocalizedDescription=[self stringByReplacingKeysInString:[tSelectedChoiceTreeNode descriptionForLocalization:self.localization]];
 	
 		_descriptionTextView.string=(tLocalizedDescription==nil) ? @"" : [tLocalizedDescription copy];
 	}

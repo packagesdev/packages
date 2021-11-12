@@ -20,7 +20,7 @@
 extern NSString * const PKGFilesHierarchyDidRenameItemNotification;
 
 
-@interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate,PKGFilesSelectionInspectorDelegate>
+@interface PKGFilesHierarchyViewController : PKGDocumentViewController <PKGPayloadDataSourceDelegate,PKGFilesSelectionInspectorDelegate,NSControlTextEditingDelegate>
 
 	@property (nonatomic) NSView * accessoryView;
 

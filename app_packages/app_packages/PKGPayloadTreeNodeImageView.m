@@ -68,7 +68,28 @@
 	
 	NSRect tBounds=self.bounds;
 	
-	if (_attributedImage.image!=nil)
+	if (_attributedImage.isElasticFolder==YES)
+    {
+        NSImage * tFolderIcon=_attributedImage.image;
+        
+        CGFloat tSideLength=round(NSWidth(inRect)*0.75);
+        NSRect tRect;
+            
+        tRect.size=NSMakeSize(tSideLength,tSideLength);
+        tRect.origin.x=0;
+        tRect.origin.y=NSMaxY(inRect)-tSideLength;
+            
+        [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+            
+        tRect.origin.x=tSideLength*0.25;
+        tRect.origin.y=NSMinY(inRect);
+            
+        [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        
+        return;
+    }
+    
+    if (_attributedImage.image!=nil)
 		[_attributedImage.image drawInRect:tBounds fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:_attributedImage.alpha];
 	
 	// Draw the Symbolic link arrow

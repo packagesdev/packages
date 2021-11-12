@@ -186,13 +186,13 @@ int main (int argc, const char * argv[])
 		if (tScratchPath!=nil)
 			tMutableDictionary[PKGBuildOrderExternalSettingsScratchFolderKey]=tScratchPath;
 		
-		PKGBuildOrder * tBuildOrder=[[PKGBuildOrder alloc] init];
+		PKGBuildOrder * tBuildOrder=[PKGBuildOrder new];
 		
 		tBuildOrder.projectPath=tProjectPath;
 		tBuildOrder.buildOptions=(tDebug==YES)? PKGBuildOptionDebugBuild : 0;
 		tBuildOrder.externalSettings=[tMutableDictionary copy];
 		
-		PKGProjectBuilder * tProjectBuilder=[[PKGProjectBuilder alloc] init];
+		PKGProjectBuilder * tProjectBuilder=[PKGProjectBuilder new];
 		
 		tProjectBuilder.userID=(uid_t)tUserID;
 		tProjectBuilder.groupID=(gid_t)tGroupID;

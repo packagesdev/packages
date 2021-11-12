@@ -19,6 +19,8 @@
 
 #import "PKGFileFilter.h"
 
+extern NSString * const PKGProjectSettingsUserSettingsDidChangeNotification;
+
 @interface PKGProjectSettings : NSObject <PKGObjectProtocol>
 
 	@property (copy) NSString * name;
@@ -38,6 +40,10 @@
 	@property (nonatomic,readonly) NSArray * optimizedFilesFilters;
 
 	@property BOOL filterPayloadOnly;
+
+
+    @property (readonly) NSMutableDictionary<NSString *,NSString *> * userDefinedSettings;
+
 
 - (instancetype)initWithProjectSettings:(PKGProjectSettings *)inProjectSettings;
 

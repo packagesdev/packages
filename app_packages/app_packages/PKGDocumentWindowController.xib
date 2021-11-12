@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F2315" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKGDocumentWindowController">
             <connections>
+                <outlet property="_contentsView" destination="RsN-DA-AeD" id="FbB-LH-LLc"/>
                 <outlet property="leftAccessoryView" destination="kSv-3k-Imn" id="SP6-WR-73e"/>
                 <outlet property="middleAccessoryView" destination="uAa-JS-ZYX" id="eIv-UV-EzL"/>
                 <outlet property="rightAccessoryView" destination="AEF-Ga-o8v" id="U9k-IQ-meM"/>
@@ -38,12 +40,16 @@
                         <rect key="frame" x="1027" y="0.0" width="173" height="33"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     </customView>
+                    <customView id="RsN-DA-AeD">
+                        <rect key="frame" x="0.0" y="33" width="1200" height="580"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </customView>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="gWl-3e-clv"/>
             </connections>
-            <point key="canvasLocation" x="799" y="256.5"/>
+            <point key="canvasLocation" x="386" y="141.5"/>
         </window>
     </objects>
 </document>

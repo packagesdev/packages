@@ -81,7 +81,8 @@
 		_dataSource=[PKGPayloadDataSource new];
 		_dataSource.editableRootNodes=YES;
 		_dataSource.filePathConverter=self.filePathConverter;
-		
+        _dataSource.keysReplacer=self;
+        
 		_additionalResourcesHierarchyViewController=[[PKGFilesHierarchyViewController alloc] initWithDocument:self.document];
 		
 		_additionalResourcesHierarchyViewController.label=NSLocalizedString(@"Additional Resources", @"");

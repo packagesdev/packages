@@ -29,6 +29,7 @@ void usage(void);
 void usage(void)
 {
 	(void)fprintf(stderr, "%s\n","Usage: packagesbuild [OPTIONS] file\n"
+                                 "       packagesbuild --project file [OPTIONS] [buildsetting=value ...]\n"
 				  "\n"
 				  "Options:\n"
 				  "  --verbose, -v                          provide additional status output\n"
@@ -63,30 +64,34 @@ int main(int argc, const char * argv[])
 		
 		char * tCPackageVersion=NULL;
 		
+        char * tCProjectFilePath=NULL;
+        
 		int c;
 		
+        static struct option tLongOptions[] =
+        {
+            {"verbose",                        no_argument,        0,    'v'},
+            {"debug",                        no_argument,        0,    'd'},
+            
+            {"temporary-build-location",    required_argument,    0,    't'},
+            {"reference-folder",            required_argument,    0,    'F'},
+            
+            {"build-folder",                required_argument,    0,    0},
+            
+            {"identity",                    required_argument,    0,    0},
+            {"keychain",                    required_argument,    0,    0},
+            
+            {"package-version",                required_argument,    0,    0},        /* Will only work for Raw Package project */
+            
+            {"no-timestamp",                no_argument,        0,    0},
+            
+            {"project",                     required_argument,  0,  0},
+            
+            {0, 0, 0, 0}
+        };
+        
 		while (1)
 		{
-			static struct option tLongOptions[] =
-			{
-				{"verbose",						no_argument,		0,	'v'},
-				{"debug",						no_argument,		0,	'd'},
-				
-				{"temporary-build-location",	required_argument,	0,	't'},
-				{"reference-folder",			required_argument,	0,	'F'},
-				
-				{"build-folder",				required_argument,	0,	0},
-				
-				{"identity",					required_argument,	0,	0},
-				{"keychain",					required_argument,	0,	0},
-				
-				{"package-version",				required_argument,	0,	0},		/* Will only work for Raw Package project */
-				
-				{"no-timestamp",				no_argument,		0,	0},
-
-				{0, 0, 0, 0}
-			};
-			
 			int tOptionIndex = 0;
 
 			c = getopt_long (argc, (char **) argv, "vdt:F:",tLongOptions, &tOptionIndex);
@@ -121,6 +126,10 @@ int main(int argc, const char * argv[])
 					{
 						tNoTimestamp=YES;
 					}
+                    else if (strncmp(tOptionName,"project",strlen("project"))==0)
+                    {
+                        tCProjectFilePath=optarg;
+                    }
 					
 					break;
 				}
@@ -165,7 +174,7 @@ int main(int argc, const char * argv[])
 		argv+=optind;
 		argc-=optind;
 		
-		if (argc < 1)
+		if (tCProjectFilePath==NULL && argc < 1)
 		{
 			usage();
 			
@@ -218,8 +227,24 @@ int main(int argc, const char * argv[])
 			}
 		}
 		
-		NSString * tProjectPath=[[NSString stringWithUTF8String:argv[0]] stringByStandardizingPath];
+        NSString * tProjectPath=nil;
+        
+        if (tCProjectFilePath==NULL)
+        {
+            tProjectPath=[NSString stringWithUTF8String:argv[0]];
+            
+            argv++;
+            argc--;
+            
+            argc=0;
+        }
+        else
+        {
+            tProjectPath=[NSString stringWithUTF8String:tCProjectFilePath];
+        }
 		
+        tProjectPath=tProjectPath.stringByStandardizingPath;
+        
 		if ([tProjectPath characterAtIndex:0]!='/')
 			tProjectPath=[tCurrentDirectory stringByAppendingPathComponent:tProjectPath];
 		
@@ -253,7 +278,52 @@ int main(int argc, const char * argv[])
 		
 		tMutableDictionary[PKGBuildOrderExternalSettingsEmbedTimestamp]=@(tNoTimestamp==NO);
 		
-		// A COMPLETER (gestion des User Defined Settings)
+		// User Defined Settings
+        
+        NSMutableDictionary * tUserDefinedSettings=[NSMutableDictionary dictionary];
+        
+        while (argc>0)
+        {
+            NSString * tUserDefinedSetting=[NSString stringWithUTF8String:*argv];
+            
+            NSRange tRange=[tUserDefinedSetting rangeOfString:@"="];
+            
+            if (tRange.location==NSNotFound)
+            {
+                (void)fprintf(stderr, "Missing '=' for build setting definition (%s).\n",*argv);
+                usage();
+                
+                exit(EXIT_FAILURE);
+            }
+            
+            NSString * tKey=[tUserDefinedSetting substringToIndex:tRange.location];
+            NSString * tValue=[tUserDefinedSetting substringFromIndex:tRange.location+1];
+            
+            if (tKey.length==0)
+            {
+                (void)fprintf(stderr, "buildsetting can not be empty.\n");
+                usage();
+                
+                exit(EXIT_FAILURE);
+            }
+            
+            if (tValue==nil)
+            {
+                (void)fprintf(stderr, "An error occurred while parsing %s.\n",*argv);
+                usage();
+                
+                exit(EXIT_FAILURE);
+            }
+            
+            tUserDefinedSettings[tKey]=tValue;
+            
+            argv++;
+            argc--;
+        }
+        
+        tMutableDictionary[PKGBuildOrderExternalSettingsUserDefinedSettingsKey]=tUserDefinedSettings;
+        
+        
 		
 		PKGCommandLineBuildObserver * tBuildObserver=[PKGCommandLineBuildObserver new];
 		tBuildObserver.verbose=tVerbose;

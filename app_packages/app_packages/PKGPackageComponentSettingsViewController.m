@@ -34,6 +34,8 @@
 
 #import "NSObject+Conformance.h"
 
+#import "PKGReplaceableStringFormatter.h"
+
 @interface PKGPackageComponentSettingsViewController () <PKGFileDeadDropViewDelegate,PKGLocationDropViewDelegate>
 {
 	IBOutlet PKGPackageSettingsSourceView * _sourceSectionView;
@@ -91,7 +93,7 @@
 - (void)WB_viewDidLoad
 {
 	[super WB_viewDidLoad];
-	
+    
 	_sourceReferenceStylePopUpButton.menu=[PKGFilePathTypeMenu menuForAction:nil target:self controlSize:NSRegularControlSize];
 	
 	_sourceSectionView.backgroundColor=[NSColor colorWithDeviceRed:0.7529 green:0.7843 blue:0.8392 alpha:1.0];
@@ -102,6 +104,11 @@
 		_locationSectionView.delegate=(id<PKGLocationDropViewDelegate>)self;
 	
 	[_locationSectionView registerForDraggedTypes:@[NSFilenamesPboardType,NSStringPboardType]];
+    
+    PKGReplaceableStringFormatter * tFormatter=[PKGReplaceableStringFormatter new];
+    tFormatter.keysReplacer=self;
+    
+    _locationTextField.formatter=tFormatter;
 }
 
 - (NSUInteger)tag
@@ -321,7 +328,7 @@
 			
 			_locationTipLabel.stringValue=@"";
 			
-			_locationTextField.stringValue=@"";
+			_locationTextField.objectValue=@"";
 			
 			break;
 			
@@ -331,7 +338,7 @@
 			
 			_locationLabel.stringValue=NSLocalizedString(@"Path:",@"");
 			
-			_locationTextField.stringValue=(inPath.length==0) ? @"" : inPath;
+			_locationTextField.objectValue=(inPath.length==0) ? @"" : inPath;
 			
 			break;
 			
@@ -341,7 +348,7 @@
 			
 			_locationLabel.stringValue=NSLocalizedString(@"URL:",@"");
 			
-			_locationTextField.stringValue=(inPath.length==0) ? @"" : inPath;
+			_locationTextField.objectValue=(inPath.length==0) ? @"" : inPath;
 			
 			break;
 			
@@ -351,7 +358,7 @@
 			
 			_locationLabel.stringValue=NSLocalizedString(@"URL:",@"");
 			
-			_locationTextField.stringValue=(inPath.length==0) ? @"" : inPath;
+			_locationTextField.objectValue=(inPath.length==0) ? @"" : inPath;
 			
 			break;
 			
@@ -361,7 +368,7 @@
 			
 			_locationLabel.stringValue=NSLocalizedString(@"Path:",@"");
 			
-			_locationTextField.stringValue=(inPath.length==0) ? PKGLocationURLPrefixRemovableMedia : inPath;
+			_locationTextField.objectValue=(inPath.length==0) ? PKGLocationURLPrefixRemovableMedia : inPath;
 			
 			break;
 	}
@@ -476,8 +483,8 @@
 - (void)WB_viewWillAppear
 {
 	[super WB_viewWillAppear];
-	
-	[self _updateSectionsLayout];
+    
+    [self _updateSectionsLayout];
 }
 
 - (void)WB_viewDidAppear
@@ -663,7 +670,7 @@
 			break;
 	}
 	
-	_locationTextField.stringValue=tLocationPath;
+	_locationTextField.objectValue=tLocationPath;
 	
 	// Notify Document Change
 	
@@ -689,7 +696,8 @@
 	PKGMustCloseApplicationItemsPanel * tPanel=[PKGMustCloseApplicationItemsPanel mustCloseApplicationItemsPanel];
 	
 	tPanel.mustCloseApplicationItems=[self.packageComponent.mustCloseApplicationItems deepCopy];
-	
+    tPanel.stringReplacer=self.document;
+    
 	[tPanel beginSheetModalForWindow:self.view.window
 				   completionHandler:^(NSInteger bResult) {
 					   
@@ -1026,7 +1034,7 @@
 	}
 	else
 	{
-		_locationTextField.stringValue=tString;
+		_locationTextField.objectValue=tString;
 	}
 	
 	if (tName!=nil && self.packageComponent.type==PKGPackageComponentTypeReference)
@@ -1048,6 +1056,13 @@
 }
 
 #pragma mark - Notifications
+
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [_locationTextField setNeedsDisplay:YES];
+}
 
 - (void)windowDidBecomeMain:(NSNotification *)inNotification
 {

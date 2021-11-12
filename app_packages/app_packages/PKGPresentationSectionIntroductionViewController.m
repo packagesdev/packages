@@ -69,12 +69,14 @@
 	NSString * tTitle=[_titleSettings valueForLocalization:self.localization exactMatch:NO];
 	
 	if (tTitle==nil)
-		tTitle=self.document.fileURL.path.lastPathComponent.stringByDeletingPathExtension;
+		tTitle=self.document.project.settings.name.stringByDeletingPathExtension;
 	
 	if (tTitle==nil)
 		return nil;
 	
-	return [NSString stringWithFormat:tStringFormat,tTitle];
+    NSString * tFinalTitle=[self stringByReplacingKeysInString:tTitle];
+    
+	return [NSString stringWithFormat:tStringFormat,tFinalTitle];
 }
 
 #pragma mark -

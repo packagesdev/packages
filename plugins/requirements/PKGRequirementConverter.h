@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2017, Stephane Sudre
+Copyright (c) 2008-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -18,6 +18,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "WBVersion.h"
 
 #include <sys/stat.h>
+
+#import "PKGStringReplacer.h"
 
 @interface PKGAdditionalResource : NSObject
 
@@ -38,7 +40,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 	@property (readonly) WBVersion * minimumOSVersionRequired;	// nil == requirement type supported by all macOS version.
 
-	//@property (weak)id<PKGFilePathConverter> filePathConverter;
+	@property (weak) id<PKGStringReplacer>keysReplacer;
 
 - (NSDictionary *)requiredOptionsValuesWithParameters:(NSDictionary *) inParameters;
 
