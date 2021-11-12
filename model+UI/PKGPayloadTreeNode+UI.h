@@ -17,11 +17,14 @@
 
 	@property (nonatomic,readonly,copy) NSString *fileName;
 
-	@property (nonatomic,readonly,copy) NSString *filePath;
-
 + (PKGPayloadTreeNode *)newFolderNodeWithParentNode:(PKGPayloadTreeNode *)inParentNode siblings:(NSArray *)inSiblings;
 
++ (PKGPayloadTreeNode *)newElasticFolderNodeWithParentNode:(PKGPayloadTreeNode *)inParentNode siblings:(NSArray *)inSiblings;
+
 + (BOOL)validateFolderName:(NSString *)inFolderName;
++ (BOOL)validateElasticFolderName:(NSString *)inElasticFolderName;
+
+- (NSString *)filePathWithSeparator:(NSString *)inSeparator;
 
 - (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode;
 
@@ -30,6 +33,7 @@
 - (BOOL)isHiddenTemplateNode;
 - (BOOL)isTemplateNode;
 - (BOOL)isFileSystemItemNode;
+- (BOOL)isElasticFolder;
 - (BOOL)isExcluded;
 
 - (BOOL)isContentsDisclosed;
@@ -48,6 +52,8 @@
 	@property BOOL drawsTargetCross;
 
 	@property BOOL drawsSymbolicLinkArrow;
+
+    @property (getter=isElasticFolder) BOOL elasticFolder;
 
 @end
 

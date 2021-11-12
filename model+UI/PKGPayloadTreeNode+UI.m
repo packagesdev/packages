@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -56,6 +56,40 @@
 	return [PKGPayloadTreeNode treeNodeWithRepresentedObject:nFileItem children:nil];
 }
 
++ (PKGPayloadTreeNode *)newElasticFolderNodeWithParentNode:(PKGPayloadTreeNode *)inParentNode siblings:(NSArray *)inSiblings
+{
+    if (inSiblings==nil)
+        return nil;
+    
+    uid_t tUid=0;
+    uid_t tGid=0;
+    
+    if (inParentNode!=nil)
+    {
+        PKGFileItem * tParentFileItem=inParentNode.representedObject;
+        
+        if (tParentFileItem==nil)
+            return nil;
+        
+        tUid=tParentFileItem.uid;
+        tGid=tParentFileItem.gid;
+    }
+    
+    NSString * tFolderName=[inSiblings uniqueNameWithBaseName:NSLocalizedString(@"untitled folder",@"No comment") options:NSCaseInsensitiveSearch usingNameExtractor:^NSString *(PKGPayloadTreeNode * bPayloadTreeNode,NSUInteger bIndex){
+        
+        PKGFileItem * tFileItem=bPayloadTreeNode.representedObject;
+        
+        return tFileItem.fileName;
+    }];
+    
+    PKGFileItem * nFileItem=[PKGFileItem newElasticFolderWithName:tFolderName uid:tUid gid:tGid permissions:0775];
+    
+    if (nFileItem==nil)
+        return nil;
+    
+    return [PKGPayloadTreeNode treeNodeWithRepresentedObject:nFileItem children:nil];
+}
+
 #pragma mark -
 
 + (BOOL)validateFolderName:(NSString *)inFolderName
@@ -76,12 +110,45 @@
 	return YES;
 }
 
++ (BOOL)validateElasticFolderName:(NSString *)inElasticFolderName
+{
+    if (inElasticFolderName==nil)
+        return NO;
+    
+    NSUInteger tLength=inElasticFolderName.length;
+    
+    if (tLength==0 || tLength>256)
+        return NO;
+    
+    if ([inElasticFolderName isEqualToString:@".."]==YES ||
+        [inElasticFolderName isEqualToString:@"."]==YES)
+        return NO;
+    
+    return YES;
+}
+
 - (NSComparisonResult)compareName:(PKGPayloadTreeNode *)inPayloadTreeNode
 {
 	if (inPayloadTreeNode==nil)
 		return NSOrderedDescending;
 	
-	return [((PKGFileItem *)self.representedObject).fileName compare:((PKGFileItem *)inPayloadTreeNode.representedObject).fileName options:NSCaseInsensitiveSearch|NSNumericSearch|NSForcedOrderingSearch];
+    PKGFileItem * tFileItem=(PKGFileItem *)self.representedObject;
+    NSString * tName=nil;
+    
+    if (tFileItem.type==PKGFileItemTypeNewElasticFolder)
+        tName=[tFileItem.fileName componentsSeparatedByString:@"/"].firstObject;
+    else
+        tName=tFileItem.fileName;
+    
+    PKGFileItem * tOtherFileItem=(PKGFileItem *)inPayloadTreeNode.representedObject;
+    NSString * tOtherName=nil;
+    
+    if (tOtherFileItem.type==PKGFileItemTypeNewElasticFolder)
+        tOtherName=[tOtherFileItem.fileName componentsSeparatedByString:@"/"].firstObject;
+    else
+        tOtherName=tOtherFileItem.fileName;
+    
+	return [tName compare:tOtherName options:NSCaseInsensitiveSearch|NSNumericSearch|NSForcedOrderingSearch];
 }
 
 - (void)rename:(NSString *)inNewName
@@ -94,7 +161,7 @@
 	switch(tFileItem.type)
 	{
 		case PKGFileItemTypeNewFolder:
-			
+        case PKGFileItemTypeNewElasticFolder:
 			tFileItem.filePath.string=inNewName;
 			
 			break;
@@ -118,7 +185,7 @@
 	return ((PKGFileItem *)self.representedObject).fileName;
 }
 
-- (NSString *)filePath
+- (NSString *)filePathWithSeparator:(NSString *)inSeparator
 {
 	if (self.parent==nil)
 	{
@@ -140,10 +207,17 @@
 			break;
 		
 		if ([tFileName isEqualToString:@"/"]==YES)
+        {
+            if ([inSeparator isEqualToString:@"/"]==NO)
+            {
+                [tMutableString insertString:@"/" atIndex:0];
+            }
+            
 			break;
-		
+        }
+        
 		[tMutableString insertString:tFileName atIndex:0];
-		[tMutableString insertString:@"/" atIndex:0];
+		[tMutableString insertString:inSeparator atIndex:0];
 		
 		tPayloadTreeNode=(PKGPayloadTreeNode *) tPayloadTreeNode.parent;
 	}
@@ -171,6 +245,13 @@
 	PKGFileItem * tFileItem=self.representedObject;
 	
 	return (tFileItem.type==PKGFileItemTypeFileSystemItem);
+}
+
+- (BOOL)isElasticFolder
+{
+    PKGFileItem * tFileItem=self.representedObject;
+    
+    return (tFileItem.type==PKGFileItemTypeNewElasticFolder);
 }
 
 - (BOOL)isExcluded
@@ -219,9 +300,10 @@
 		case PKGFileItemTypeHiddenFolderTemplate:
 		case PKGFileItemTypeFolderTemplate:
 		case PKGFileItemTypeNewFolder:
-			
+        case PKGFileItemTypeNewElasticFolder:
+            
 			return YES;
-			
+        
 		case PKGFileItemTypeFileSystemItem:
 			
 			break;	// It's a bit more complicated
@@ -246,6 +328,7 @@
 	tAttributedImage.alpha=self.alpha;
 	tAttributedImage.drawsTargetCross=self.drawsTargetCross;
 	tAttributedImage.drawsSymbolicLinkArrow=self.drawsSymbolicLinkArrow;
+    tAttributedImage.elasticFolder=self.isElasticFolder;
 	
 	return tAttributedImage;
 }
@@ -267,6 +350,7 @@
 	tAttributedImage.image=tFileItem.icon;
 	tAttributedImage.alpha=(tFileItem.type<PKGFileItemTypeNewFolder && [self containsNoTemplateDescendantNodes]==NO) ? 0.5 : 1.0;
 	tAttributedImage.drawsSymbolicLinkArrow=tFileItem.isSymbolicLink;
+    tAttributedImage.elasticFolder=(tFileItem.type==PKGFileItemTypeNewElasticFolder);
 	
 	return tAttributedImage;
 }
@@ -289,7 +373,7 @@
 {
 	PKGFileItem * tFileItem=self.representedObject;
 	
-	return (tFileItem.type==PKGFileItemTypeNewFolder || tFileItem.payloadFileName!=nil);
+    return tFileItem.isNameEditable;
 }
 
 - (NSString *)ownerTitle
@@ -329,8 +413,9 @@
 		case PKGFileItemTypeRoot:
 		case PKGFileItemTypeFolderTemplate:
 		case PKGFileItemTypeNewFolder:
+        case PKGFileItemTypeNewElasticFolder:
 			
-			return [self filePath];
+			return [self filePathWithSeparator:@"/"];
 			
 		case PKGFileItemTypeFileSystemItem:
 			
