@@ -45,7 +45,7 @@
 
 @implementation PKGPayloadTree
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -91,7 +91,6 @@
 		return [_cachedRepresentation mutableCopy];
 	
 	return [self.rootNode representation];
-		
 }
 
 #pragma mark -
