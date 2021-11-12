@@ -467,6 +467,10 @@
                         
                     case 5:
                         
+                        return NSMakeRange(0, 3);
+                        
+                    case 6:
+                        
                         // To be updated in the future
                         
                         break;
