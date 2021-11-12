@@ -471,9 +471,7 @@
                         
                     case 6:
                         
-                        // To be updated in the future
-                        
-                        break;
+                        return NSMakeRange(0, 2);
                 }
                 
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
@@ -481,7 +479,14 @@
             
             if (inVersion.majorVersion==WBMacOSMontereyMajorVersion)
             {
-                // Update as minor releases of Monterey are shipped
+                switch(inVersion.minorVersion)
+                {
+                    case 0:
+                        
+                        return NSMakeRange(0, 2);
+                }
+                        
+                return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 			}
 			
 			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
