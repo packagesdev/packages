@@ -31,6 +31,7 @@
 		F48C21BE1CFCF9A000B5A8CD /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4ABD07E1CC8208400C69CA2 /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
 		F4ABD07F1CC8209F00C69CA2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4AC692927178E9D0014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +119,7 @@
 				F48C21BD1CFCF99A00B5A8CD /* Model */,
 				F48C21BC1CFCF96800B5A8CD /* PKGConverter.h */,
 				F4ABD07E1CC8208400C69CA2 /* PKGRequirementConverter.h */,
+				F4AC692927178E9D0014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

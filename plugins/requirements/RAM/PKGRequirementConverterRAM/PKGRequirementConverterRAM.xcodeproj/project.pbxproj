@@ -29,6 +29,7 @@
 		F49E06D51C7FBB7F0044D067 /* PKGRequirementConverterRAM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementConverterRAM.m; path = PKGRequirementConverterRAM/PKGRequirementConverterRAM.m; sourceTree = "<group>"; };
 		F4ABD08C1CC822D900C69CA2 /* PKGRequirementConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementConverter.h; path = ../../PKGRequirementConverter.h; sourceTree = "<group>"; };
 		F4ABD08D1CC822FC00C69CA2 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+		F4AC692A27178EB40014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4C633010E94225900BE3F53 /* PKGRequirement_RAM+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_RAM+Constants.m"; path = "../PKGRequirement_RAM+Constants.m"; sourceTree = SOURCE_ROOT; };
 		F4C633020E94225900BE3F53 /* PKGRequirement_RAM+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_RAM+Constants.h"; path = "../PKGRequirement_RAM+Constants.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -118,6 +119,7 @@
 				F48C21B01CFCF77A00B5A8CD /* Model */,
 				F48C21AF1CFCF74B00B5A8CD /* PKGConverter.h */,
 				F4ABD08C1CC822D900C69CA2 /* PKGRequirementConverter.h */,
+				F4AC692A27178EB40014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

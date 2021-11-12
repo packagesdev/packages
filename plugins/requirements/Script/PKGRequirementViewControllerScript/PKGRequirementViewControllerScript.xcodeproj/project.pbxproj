@@ -41,6 +41,8 @@
 		F486D5D21F58B6B400495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerScript/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F486D5D31F58B6CA00495D33 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerScript/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F4970BDE1CD01B2B007CF76F /* PKGFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGFilePath.h; path = ../../../../model/PKGFilePath.h; sourceTree = "<group>"; };
+		F4AC691A271787EE0014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
+		F4B702702718C5ED00AA3157 /* PKGReplaceableStringFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGReplaceableStringFormatter.h; path = ../../../../shared/PKGReplaceableStringFormatter.h; sourceTree = "<group>"; };
 		F4BCF2441CE2A0EA005C3501 /* PKGObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGObjectProtocol.h; path = ../../../../model/PKGObjectProtocol.h; sourceTree = "<group>"; };
 		F4C829D61CCECD7A008FB226 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4CA26EA1E5A3E2000E196EB /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
@@ -148,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				F4CA26FE1E5A456B00E196EB /* NSArray+WBExtensions.h */,
+				F4AC691A271787EE0014FA2D /* PKGStringReplacer.h */,
+				F4B702702718C5ED00AA3157 /* PKGReplaceableStringFormatter.h */,
 				F4970BDF1CD01B2F007CF76F /* Model */,
 				F4CA26EA1E5A3E2000E196EB /* NSViewController+WBExtensions.h */,
 				F4E7D27A11EDE4AE00D54D7C /* PKGFilePathTextField.h */,

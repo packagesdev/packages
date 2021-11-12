@@ -34,6 +34,7 @@
 		F486D5C01F58B4EF00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerOS/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F486D5C21F58B4F300495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerOS/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F48DDE2B1CE3D9FB004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F4AC69382717932A0014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4B1AACD1C8A5044006EE235 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerOS/Info.plist; sourceTree = "<group>"; };
 		F4B1AACE1C8A504B006EE235 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerOS/Icon_32.png; sourceTree = "<group>"; };
 		F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerOS/Icon_32@2x.png"; sourceTree = "<group>"; };
@@ -155,6 +156,7 @@
 				F43A6ACD1FD9EC0700B02509 /* WBVersionPickerCell.h */,
 				F463EB971FF3041F0097533F /* WBVersionsHistory.h */,
 				F463EB961FF3041A0097533F /* WBMacOSVersionsHistory.h */,
+				F4AC69382717932A0014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

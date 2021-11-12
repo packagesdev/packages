@@ -31,6 +31,7 @@
 		F49723A726B015F00064C2A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerJavaScript/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F49723A926B015F50064C2A4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerJavaScript/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F49723AA26B015FD0064C2A4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = PKGRequirementViewControllerJavaScript/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F4AC6942271794050014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4B01EE21FAF27BF0027A553 /* PKGTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGTableCellView.h; path = ../../../../shared/PKGTableCellView.h; sourceTree = "<group>"; };
 		F4CA27001E5A48CC00E196EB /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
 		F4F30DF11C879DA700C8DB5B /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerJavaScript/Icon_32.png; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 				F4B01EE21FAF27BF0027A553 /* PKGTableCellView.h */,
 				F4F5D0A01CC976350075C2EF /* PKGViewController.h */,
 				F4F5D0861CC975AE0075C2EF /* PKGRequirementViewController.h */,
+				F4AC6942271794050014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

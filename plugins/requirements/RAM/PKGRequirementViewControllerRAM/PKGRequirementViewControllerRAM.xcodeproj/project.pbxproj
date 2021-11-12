@@ -33,6 +33,7 @@
 		F4ABD09E1CC8241200C69CA2 /* PKGRequirementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewController.h; path = ../../PKGRequirementViewController.h; sourceTree = "<group>"; };
 		F4ABD09F1CC8241F00C69CA2 /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
 		F4ABD0A11CC8251100C69CA2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGRequirementViewControllerRAM/en.lproj/MainView.xib; sourceTree = "<group>"; };
+		F4AC693F271793EA0014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4B1AAC21C8A4F6C006EE235 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerRAM/Info.plist; sourceTree = "<group>"; };
 		F4B1AAC61C8A4F77006EE235 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGRequirementViewControllerRAM/Icon_32.png; sourceTree = "<group>"; };
 		F4B1AAC71C8A4F77006EE235 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGRequirementViewControllerRAM/Icon_32@2x.png"; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 				F4DDA9A71E59B6670080EFAD /* NSViewController+WBExtensions.h */,
 				F4ABD09F1CC8241F00C69CA2 /* PKGViewController.h */,
 				F4ABD09E1CC8241200C69CA2 /* PKGRequirementViewController.h */,
+				F4AC693F271793EA0014FA2D /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";
