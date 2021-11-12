@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2017, Stéphane Sudre
+Copyright (c) 2004-2021, Stéphane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -86,7 +86,7 @@ NSString * const ICLicenseTemplatesRelativeFolderPath=@"Application Support/fr.w
 
 - (NSArray *)allLicensesNames
 {
-    return [_licensesTemplates allKeys];
+    return _licensesTemplates.allKeys;
 }
 
 - (PKGLicenseTemplate *)licenseTemplateNamed:(NSString *) inName
@@ -95,6 +95,14 @@ NSString * const ICLicenseTemplatesRelativeFolderPath=@"Application Support/fr.w
 		return nil;
 	
 	return _licensesTemplates[inName];
+}
+
++ (PKGLicenseTemplate *)licenseTemplateAtPath:(NSString *)inPath
+{
+    if (inPath==nil)
+        return nil;
+    
+    return [[PKGLicenseTemplate alloc] initWithContentsOfDirectory:inPath];
 }
 
 #pragma mark -
