@@ -439,7 +439,7 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 			tLocationPath=[tLocationPath substringFromIndex:1];
 	}
 	
-	if ([tLocationPath length]==0)
+	if (tLocationPath.length==0)
 		return nil;
 	
 	return tLocationPath;

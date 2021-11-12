@@ -112,7 +112,7 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		
 		_hiddenFolderTemplatesIncluded=NO;
 		
-		_filesTree=[[PKGPayloadTree alloc] init];
+		_filesTree=[PKGPayloadTree new];
 		
 		_treatMissingPayloadFilesAsWarnings=NO;
 	}
