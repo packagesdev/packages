@@ -1,0 +1,14 @@
+.DS_Store
+
+# Xcode
+xcuserdata
+
+*.pbxuser
+*.mode1v3
+*.mode2v3
+
+# Build
+
+distribution/build/
+
+distribution/artifacts/
