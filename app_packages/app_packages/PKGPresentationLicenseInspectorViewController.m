@@ -434,12 +434,37 @@
         [tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
             
             if (bResult!=NSFileHandlingPanelOKButton)
+            {
+                switch (_licenseSettings.licenseType)
+                {
+                    case PKGLicenseTypeCustom:
+                        
+                        [_customLicenseTypePopUpButton selectItemWithTag:PKGLicenseTypeCustom];
+                        break;
+                        
+                    case PKGLicenseTypeTemplate:
+                    {
+                        PKGLicenseTemplate * tTemplate=[[PKGLicenseProvider defaultProvider] licenseTemplateNamed:_licenseSettings.templateName];
+                        
+                        if (tTemplate==nil)
+                            break;
+                        
+                        [_customLicenseTypePopUpButton selectItemAtIndex:[_customLicenseTypePopUpButton indexOfItemWithRepresentedObject:tTemplate]];
+                        
+                        break;
+                    }
+                
+                    case PKGLicenseTypeCustomTemplate:
+                        
+                        [_customLicenseTypePopUpButton selectItemAtIndex:[_customLicenseTypePopUpButton indexOfItemWithTag:PKGLicenseTypeCustomTemplate]];
+                        break;
+                }
+                
                 return;
+            }
             
             if (tShowOwnershipAndReferenceStyleCustomizationDialog==YES)
-            {
                 tReferenceStyle=tOwnershipAndReferenceStyleViewController.referenceStyle;
-            }
             
             NSString * tNewPath=tOpenPanel.URL.path;
             
