@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8D1718BF-D559-4E6A-A3E4-6C977805207A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>goldin</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>ED588D0ED81CE3A706274C44FDED2B0016CC0D54</key>
+		<string>https://github.com/packagesdev/goldin.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>goldin.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>ED588D0ED81CE3A706274C44FDED2B0016CC0D54</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/packagesdev/goldin.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>ED588D0ED81CE3A706274C44FDED2B0016CC0D54</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>ED588D0ED81CE3A706274C44FDED2B0016CC0D54</string>
+			<key>IDESourceControlWCCName</key>
+			<string>goldin</string>
+		</dict>
+	</array>
+</dict>
+</plist>

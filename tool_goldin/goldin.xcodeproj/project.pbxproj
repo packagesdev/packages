@@ -1,0 +1,199 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F48B087927446832005FD866 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F48B087827446832005FD866 /* main.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8DD76F8E0486A9BA00D96B5E /* goldin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = goldin; sourceTree = BUILT_PRODUCTS_DIR; };
+		F48B087827446832005FD866 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../goldin/main.c; sourceTree = "<group>"; };
+		F48B087A27446848005FD866 /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F880486A9BA00D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* FourchetteFendue */ = {
+			isa = PBXGroup;
+			children = (
+				F48B087A27446848005FD866 /* SharedConfigurationSettings.xcconfig */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				1A8B4A8EFE9D542A11CA2CBB /* Products */,
+			);
+			name = FourchetteFendue;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F48B087827446832005FD866 /* main.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1A8B4A8EFE9D542A11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F8E0486A9BA00D96B5E /* goldin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DD76F850486A9BA00D96B5E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F840486A9BA00D96B5E /* goldin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F443C2500A2614800098F2F7 /* Build configuration list for PBXNativeTarget "goldin" */;
+			buildPhases = (
+				8DD76F850486A9BA00D96B5E /* Headers */,
+				8DD76F860486A9BA00D96B5E /* Sources */,
+				8DD76F880486A9BA00D96B5E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = goldin;
+			productInstallPath = "$(HOME)/bin";
+			productName = FourchetteFendue;
+			productReference = 8DD76F8E0486A9BA00D96B5E /* goldin */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = F443C2540A2614800098F2F7 /* Build configuration list for PBXProject "goldin" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* FourchetteFendue */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DD76F840486A9BA00D96B5E /* goldin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F860486A9BA00D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F48B087927446832005FD866 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F443C2510A2614800098F2F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				PRODUCT_NAME = goldin;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		F443C2520A2614800098F2F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				PRODUCT_NAME = goldin;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		F443C2550A2614800098F2F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48B087A27446848005FD866 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+			};
+			name = Debug;
+		};
+		F443C2560A2614800098F2F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48B087A27446848005FD866 /* SharedConfigurationSettings.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F443C2500A2614800098F2F7 /* Build configuration list for PBXNativeTarget "goldin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F443C2510A2614800098F2F7 /* Debug */,
+				F443C2520A2614800098F2F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F443C2540A2614800098F2F7 /* Build configuration list for PBXProject "goldin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F443C2550A2614800098F2F7 /* Debug */,
+				F443C2560A2614800098F2F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

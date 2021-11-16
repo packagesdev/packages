@@ -33,7 +33,7 @@ CURRENT_YEAR=`date "+%Y"`
 
 ## Build goldin
 
-pushd goldin
+pushd tool_goldin
 
 /usr/bin/xcodebuild clean build -configuration Release -scheme "goldin" -derivedDataPath "$ABSOLUTE_BUILD_PATH" CONFIGURATION_BUILD_DIR="$ABSOLUTE_BUILD_PATH"
 
