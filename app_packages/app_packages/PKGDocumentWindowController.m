@@ -199,7 +199,7 @@
 		
 		case PKGProjectTypePackage:
 			
-			tLeftFrame.origin.x=NSMinX(tContentFrame)-tLeftFrame.size.width;
+            tLeftFrame.origin.x=NSMinX(tContentFrame)-((_currentController!=_userDefinedSettingsEditorViewController) ? tLeftFrame.size.width : 0);
 			
 			break;
 	}
@@ -438,6 +438,8 @@
     [newCurrentViewController WB_viewDidAppear];
     
     _currentController=newCurrentViewController;
+    
+    [self layoutAccessoryViews];
 }
 
 #pragma mark -
