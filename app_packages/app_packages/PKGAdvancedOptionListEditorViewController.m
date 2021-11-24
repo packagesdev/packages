@@ -107,7 +107,19 @@ NSString * const PKGAdvancedOptionListItemValueKey=@"VALUE";
 
 - (void)WB_viewDidLoad
 {
-	self.tableView.backgroundColor=[NSColor clearColor];
+    NSTableView * tTableView=self.tableView;
+    
+    if (NSAppKitVersionNumber>=2022)    // NSAppKitVersionNumber11_0: deal with stupid metrics probably due to the pot Catalystic pointless API.
+    {
+        NSRect tFrame=tTableView.enclosingScrollView.frame;
+        
+        tFrame.size.height+=20.0;
+        tFrame.origin.y-=20;
+        
+        tTableView.enclosingScrollView.frame=tFrame;
+    }
+
+    tTableView.backgroundColor=[NSColor clearColor];
 }
 
 - (void)WB_viewDidAppear
