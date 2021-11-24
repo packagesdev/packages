@@ -27,7 +27,9 @@ extern NSString * const PPKGTableViewDataSourceInternalPboardType;
 
 	@property (readonly) NSMutableArray * items;
 
-	@property (weak) id<PKGTableViewDataSourceDelegate> delegate;
+    @property BOOL allowsRowReordering;
+
+    @property (weak) id<PKGTableViewDataSourceDelegate> delegate;
 
 - (instancetype)initWithItems:(NSMutableArray *)inArray;
 

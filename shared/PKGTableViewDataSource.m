@@ -59,7 +59,10 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 
 - (BOOL)tableView:(NSTableView *)inTableView writeRowsWithIndexes:(NSIndexSet *)inRowIndexes toPasteboard:(NSPasteboard *)inPasteboard;
 {
-	_internalDragData=inRowIndexes;
+	if (self.allowsRowReordering==NO)
+        return NO;
+    
+    _internalDragData=inRowIndexes;
 	
 	[inPasteboard declareTypes:@[PPKGTableViewDataSourceInternalPboardType] owner:self];
 	
@@ -70,7 +73,10 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 
 - (NSDragOperation)tableView:(NSTableView *)inTableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)inRow proposedDropOperation:(NSTableViewDropOperation)inDropOperation
 {
-	if (inDropOperation==NSTableViewDropOn)
+    if (self.allowsRowReordering==NO)
+        return NSDragOperationNone;
+    
+    if (inDropOperation==NSTableViewDropOn)
 		return NSDragOperationNone;
 	
 	NSPasteboard * tPasteBoard=[info draggingPasteboard];
@@ -101,7 +107,10 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 
 - (BOOL)tableView:(NSTableView *)inTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)inRow dropOperation:(NSTableViewDropOperation)inDropOperation
 {
-	if (inTableView==nil)
+    if (self.allowsRowReordering==NO)
+        return NO;
+    
+    if (inTableView==nil)
 		return NO;
 	
 	// Internal drag and drop
