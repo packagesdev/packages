@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2010, Stephane Sudre
+ Copyright (c) 2008-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,44 +19,35 @@
 {
 	[super drawGridInClipRect:clipRect];
 	
-	CGFloat rowHeight = [self rowHeight] + self.intercellSpacing.height;
+	CGFloat tRowHeight = self.rowHeight + self.intercellSpacing.height;
     NSRect tBounds=self.bounds;
     NSRect highlightRect;
-	NSBezierPath * tBezierPath;
-	const CGFloat tPattern[2]={1.0,1.0};
 	
-	highlightRect.origin = NSMakePoint(NSMinX(tBounds), round(NSMinY(tBounds)/rowHeight)*rowHeight);
-    highlightRect.size = NSMakeSize(NSWidth(tBounds), rowHeight + [self intercellSpacing].height);
+	highlightRect.origin = NSMakePoint(NSMinX(tBounds), round(NSMinY(tBounds)/rowHeight)*tRowHeight);
+    highlightRect.size = NSMakeSize(NSWidth(tBounds), tRowHeight + self.intercellSpacing.height);
     
-	CGFloat tColumWidth=[[self tableColumnWithIdentifier:@"message.language"] width] + [self intercellSpacing].width;
+    CGFloat tHalfHeight=round(NSHeight(highlightRect)*0.5);
+    CGFloat tColumMaxX=NSMaxX([self rectOfColumn:0]);
 	
 	[self.gridColor setStroke];
-	
-	tBezierPath=[NSBezierPath bezierPath];
-	
+    
+    const CGFloat tPattern[2]={1.0,1.0};
+    
     while (NSMinY(highlightRect) < NSMaxY(tBounds))
     {
         NSRect clippedHighlightRect = NSIntersectionRect(highlightRect, tBounds);
+        
+		NSBezierPath * tDashedBezierPath=[NSBezierPath bezierPath];
 		
-		NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
+		[tDashedBezierPath setLineDash:tPattern count:2 phase:0];
 		
-		[tBezierPath setLineDash:tPattern count:2 phase:0];
+		[tDashedBezierPath moveToPoint:NSMakePoint(tColumMaxX,round(NSMinY(clippedHighlightRect)+tHalfHeight)-0.5)];
+		[tDashedBezierPath lineToPoint:NSMakePoint(NSMaxX(clippedHighlightRect),round(NSMinY(clippedHighlightRect)+tHalfHeight)-0.5)];
 		
-		[tBezierPath moveToPoint:NSMakePoint(NSMinX(clippedHighlightRect)+tColumWidth,round(NSMidY(clippedHighlightRect))-0.5)];
-		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(clippedHighlightRect),round(NSMidY(clippedHighlightRect))-0.5)];
+		[tDashedBezierPath stroke];
 		
-		[tBezierPath stroke];
-		
-        highlightRect.origin.y += rowHeight;
+        highlightRect.origin.y += tRowHeight;
     }
-	
-	[tBezierPath setLineDash:tPattern count:0 phase:0];
-			
-	[tBezierPath moveToPoint:NSMakePoint(NSMinX(tBounds)+tColumWidth-0.5,NSMinY(tBounds))];
-	
-	[tBezierPath lineToPoint:NSMakePoint(NSMinX(tBounds)+tColumWidth-0.5,NSMaxY(tBounds))];
-	
-	[tBezierPath stroke];
 }
 
 @end
