@@ -15,7 +15,7 @@
 
 @implementation PKGInstallationRequirementMessageTableView
 
-- (void) drawGridInClipRect:(NSRect)clipRect
+- (void)drawGridInClipRect:(NSRect)clipRect
 {
 	[super drawGridInClipRect:clipRect];
 	
@@ -23,7 +23,7 @@
     NSRect tBounds=self.bounds;
     NSRect highlightRect;
 	
-	highlightRect.origin = NSMakePoint(NSMinX(tBounds), round(NSMinY(tBounds)/rowHeight)*tRowHeight);
+	highlightRect.origin = NSMakePoint(NSMinX(tBounds), round(NSMinY(tBounds)/tRowHeight)*tRowHeight);
     highlightRect.size = NSMakeSize(NSWidth(tBounds), tRowHeight + self.intercellSpacing.height);
     
     CGFloat tHalfHeight=round(NSHeight(highlightRect)*0.5);
