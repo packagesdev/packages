@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,10 @@
 
 - (BOOL)isOpaque
 {
-	return YES;
+	if (NSAppKitVersionNumber>=2022)    // NSAppKitVersionNumber11_0
+        return (self.dashedBorder==YES);
+    
+    return YES;
 }
 
 - (void)setDashedBorder:(BOOL)inDashedBorder
@@ -45,7 +48,6 @@
 	
 	NSBezierPath * tBezierPath=[NSBezierPath bezierPath];
 	
-		
 	[tBezierPath moveToPoint:NSMakePoint(0.5,0.5)];
 	[tBezierPath lineToPoint:NSMakePoint(0.5,NSMaxY(tBounds)-0.5)];
 	[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds)-0.5,NSMaxY(tBounds)-0.5)];
@@ -60,17 +62,6 @@
 	
 	[[NSColor colorWithDeviceWhite:0.530 alpha:1.0] setStroke];
 	[tBezierPath stroke];
-	
-	/*if ([self.documentView isKindOfClass:NSTextView.class]==YES)
-	{
-		tBezierPath=[NSBezierPath bezierPath];
-		
-		[tBezierPath moveToPoint:NSZeroPoint];
-		[tBezierPath lineToPoint:NSMakePoint(NSMaxX(tBounds),0.0)];
-		
-		[[NSColor colorWithDeviceWhite:0.209 alpha:1.0] setStroke];
-		[tBezierPath stroke];
-	}*/
 }
 
 @end
