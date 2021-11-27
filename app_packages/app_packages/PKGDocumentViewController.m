@@ -31,6 +31,8 @@
 	if (self!=nil)
 	{
 		_document=inDocument;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userSettingsDidChange:) name:PKGProjectSettingsUserSettingsDidChangeNotification object:self.document];
 	}
 	
 	return self;
@@ -59,22 +61,6 @@
 - (PKGDocumentRegistry *)documentRegistry
 {
 	return self.document.registry;
-}
-
-#pragma mark -
-
-- (void)WB_viewDidAppear
-{
-    [super viewDidAppear];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userSettingsDidChange:) name:PKGProjectSettingsUserSettingsDidChangeNotification object:self.document];
-}
-
-- (void)WB_viewWillDisappear
-{
-    [super WB_viewWillDisappear];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:PKGProjectSettingsUserSettingsDidChangeNotification object:nil];
 }
 
 #pragma mark -
