@@ -528,7 +528,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 
 - (void)userSettingsDidChange:(NSNotification *)inNotification
 {
-    [self userSettingsDidChange:inNotification];
+    [super userSettingsDidChange:inNotification];
     
     [self.outlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.outlineView.numberOfRows)]
                                 columnIndexes:[NSIndexSet indexSetWithIndex:0]];
