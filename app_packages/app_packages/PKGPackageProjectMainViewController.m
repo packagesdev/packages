@@ -83,16 +83,21 @@
 {
 	[super WB_viewWillAppear];
 	
-	// Show the tab that was saved
-	
-	PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
-	
-	PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisiblePackageProjectPane;
-	
-	[_segmentedControl selectSegmentWithTag:tTag];
-	[self showTabViewWithTag:tTag];
-	
-	[_currentContentsViewController WB_viewWillAppear];
+	if (_segmentedControl.selectedSegment==-1)
+    {
+        // Show the default tab as defined in the preferences
+        
+        PKGApplicationPreferences * tApplicationPreferences=[PKGApplicationPreferences sharedPreferences];
+        
+        PKGPreferencesGeneralPackageProjectPaneTag tTag=tApplicationPreferences.defaultVisiblePackageProjectPane;
+        
+        [_segmentedControl selectSegmentWithTag:tTag];
+        [self showTabViewWithTag:tTag];
+    }
+    else
+    {
+        [_currentContentsViewController WB_viewWillAppear];
+    }
 }
 
 - (void)WB_viewDidAppear
