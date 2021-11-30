@@ -42,6 +42,9 @@
     
     if (self!=nil)
     {
+        // Do not listen to our own notifications
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:PKGProjectSettingsUserSettingsDidChangeNotification object:inDocument];
     }
     
     return self;
