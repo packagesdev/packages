@@ -47,7 +47,6 @@
 #endif
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
 }
 
 #pragma mark -
