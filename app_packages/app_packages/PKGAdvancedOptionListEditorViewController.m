@@ -138,6 +138,10 @@ NSString * const PKGAdvancedOptionListItemValueKey=@"VALUE";
 	
 	NSString * tString=self.editorRepresentation[PKGAdvancedOptionListLabelKey];
 	
+    if (tString.length>0)
+        tString=NSLocalizedString(tString,@"");
+    
+    
 	_label.stringValue=(tString!=nil)? tString : @"";
 	[_label sizeToFit];
 	

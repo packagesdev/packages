@@ -306,7 +306,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)applicationWillFinishLaunching:(NSNotification *)inNotification
 {
-	// Disable automatic window tabbing as it still does not work correctly on macOS High Sierra
+	// Remove the Enter Full Screen menu item
+    
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSFullScreenMenuItemEverywhere"];
+    
+    // Disable automatic window tabbing as it still does not work correctly on macOS High Sierra
 	
 	if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_12)
 	{
