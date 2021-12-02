@@ -1789,7 +1789,10 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		{
 			tString=[bValue componentsJoinedByString:@","];
 			
-			if (tString.length==0)
+			if (tString.length>0)
+                tString=[self stringByReplacingKeysInString:tString];
+            
+            if (tString.length==0)
 			{
 				// If the string is empty, we do not need to create the options
 				

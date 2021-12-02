@@ -426,12 +426,13 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 			NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"advanced.value.text" owner:self];
 			tView.textField.action=@selector(setListOptionValue:);
 			tView.textField.target=self;
-			
+			tView.textField.formatter=_cachedReplaceableFormatter;
+            
 			NSArray * tArrayValue=self.advancedOptionsSettings[tRepresentedObject.itemID];
 			
 			if (tArrayValue==nil)
 			{
-				tView.textField.stringValue=@"";
+				tView.textField.objectValue=@"";
 				return tView;
 			}
 
@@ -439,7 +440,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 			{
 				NSLog(@"Invalid type of value (%@) for key \"%@\": NSArray expected",NSStringFromClass([tArrayValue class]),tRepresentedObject.itemID);
 				
-				tView.textField.stringValue=@"";
+				tView.textField.objectValue=@"";
 			}
 			else
 			{
@@ -449,17 +450,17 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 				{
 					case 0:
 						
-						tView.textField.stringValue=@"";
+						tView.textField.objectValue=@"";
 						break;
 						
 					case 1:
 						
-						tView.textField.stringValue=tArrayValue[0];
+						tView.textField.objectValue=tArrayValue[0];
 						break;
 						
 					default:
 						
-						tView.textField.stringValue=[tArrayValue componentsJoinedByString:@" "];
+						tView.textField.objectValue=[tArrayValue componentsJoinedByString:@" "];
 						break;
 				}
 			}
