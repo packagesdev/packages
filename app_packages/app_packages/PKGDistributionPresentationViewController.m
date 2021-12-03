@@ -1918,4 +1918,11 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	[_listView reloadData];
 }
 
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [self updateTitleViews];
+}
+
 @end
