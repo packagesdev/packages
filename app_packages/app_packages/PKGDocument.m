@@ -223,8 +223,29 @@
 	
 	if (tData==nil)
 	{
-		if (outError!=NULL)
-			*outError=tError;
+		if ([tError.domain isEqualToString:NSCocoaErrorDomain]==YES)
+        {
+            switch(tError.code)
+            {
+                case NSPropertyListWriteStreamError:
+                    
+                    if (NSFoundationVersionNumber>=1778)
+                    {
+                        // Try again with the NSPropertyListBinaryFormat_v1_0 format because the origin of the error might just be that Foundation/CoreFoundation has become dumb in macOS BS.
+                        
+                        tData=[NSPropertyListSerialization dataWithPropertyList:tPropertyList format:NSPropertyListBinaryFormat_v1_0 options:0 error:&tError];
+                     
+                        if (tData!=nil)
+                            return tData;
+                        
+                    }
+                    
+                    break;
+            }
+        }
+        
+        if (outError!=NULL)
+            *outError=tError;
 	}
 	
 	return tData;
