@@ -203,4 +203,11 @@
 	[self.tableView editColumn:[self.tableView columnWithIdentifier:@"value"] row:tIndex withEvent:nil select:YES];
 }
 
+- (void)userSettingsDidChange:(NSNotification *)inNotification
+{
+    [super userSettingsDidChange:inNotification];
+    
+    [self.tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfRows)]
+                              columnIndexes:[NSIndexSet indexSetWithIndex:[self.tableView columnWithIdentifier:@"title.value"]]];
+}
 @end
