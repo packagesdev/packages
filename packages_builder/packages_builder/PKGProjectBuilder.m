@@ -2264,32 +2264,19 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			tLanguageLocalizationsDictionary=tLocalizationsDictionary[bLanguage]=[NSMutableDictionary dictionary];
 		
 		NSString * tLocalization=bMessage.messageTitle;
-        NSString * tFinalLocalization=nil;
-        
-		if (tLocalization.length==0)
-			tFinalLocalization=@" ";
-        else
-            tFinalLocalization=[self stringByReplacingKeysInString:tLocalization];
 		
-		tLanguageLocalizationsDictionary[*outErrorMessage]=tLocalization;
+        tLanguageLocalizationsDictionary[*outErrorMessage]=(tLocalization.length==0) ? @" " : [self stringByReplacingKeysInString:tLocalization];
 		
 		if (outErrorDescription!=NULL)
 		{
-            tFinalLocalization=nil;
-            
-			tLocalization=bMessage.messageDescription;
+            tLocalization=bMessage.messageDescription;
 			
 			if (tLocalization!=nil)
 			{
 				if ((*outErrorDescription)==nil)
 					(*outErrorDescription)=[NSString stringWithFormat:@"REQUIREMENT_FAILED_DESCRIPTION_%@",[inName uppercaseString]];
 				
-                if (tLocalization.length==0)
-                    tFinalLocalization=@" ";
-                else
-                    tFinalLocalization=[self stringByReplacingKeysInString:tLocalization];
-				
-				tLanguageLocalizationsDictionary[*outErrorDescription]=tLocalization;
+                tLanguageLocalizationsDictionary[*outErrorDescription]=(tLocalization.length==0) ? @" " : [self stringByReplacingKeysInString:tLocalization];
 			}
 		}
 	}];
