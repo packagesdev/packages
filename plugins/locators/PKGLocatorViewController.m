@@ -58,9 +58,9 @@
 	return 100.0;
 }
 
-- (id<PKGFilePathConverter>)filePathConverter
+- (id<PKGFilePathConverter,PKGStringReplacer>)objectTransformer
 {
-	return ((PKGLocatorPanel *)self.view.window).filePathConverter;
+    return ((PKGLocatorPanel *)self.view.window).document;
 }
 
 - (void)setNextKeyView:(NSView *)inView

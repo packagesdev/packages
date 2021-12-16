@@ -6680,7 +6680,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	return YES;
 }
 
-- (BOOL) addRelocators:(NSArray *) inLocatorsArray forBundle:(NSString *) inBundleIdentifier packageInfoElement:(NSXMLElement *) inPackageInfoElement
+- (BOOL)addRelocators:(NSArray *) inLocatorsArray forBundle:(NSString *) inBundleIdentifier packageInfoElement:(NSXMLElement *) inPackageInfoElement
 {
 	if (inLocatorsArray==nil || inBundleIdentifier==nil || inPackageInfoElement==nil)
 		return NO;
@@ -6742,6 +6742,8 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			return NO;
 		}
 
+        tLocatorConverter.keysReplacer=self;
+        
 		NSError * tError=nil;
 		
 		NSString * tUniqueSearchID=[NSString stringWithFormat:@"search.%d.%@",(int)tSearchIndex,inBundleIdentifier];

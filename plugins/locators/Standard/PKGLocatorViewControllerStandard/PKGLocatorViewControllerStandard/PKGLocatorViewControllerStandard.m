@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-201, Stephane Sudre
+ Copyright (c) 2016-2021, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,7 @@
 
 #import "PKGBundleIdentifierFormatter.h"
 
-@interface PKGLocatorViewControllerStandard ()
+@interface PKGLocatorViewControllerStandard () <PKGStringReplacer>
 {
 	IBOutlet NSTextField * _bundleIdentifierTextField;
 	
@@ -43,7 +43,7 @@
 	[super WB_viewDidLoad];
 	
 	PKGBundleIdentifierFormatter * tFormatter=[PKGBundleIdentifierFormatter new];
-    tFormatter.allowsUserDefinedSettingsCharacters=NO;
+    tFormatter.keysReplacer=self;
     
 	_bundleIdentifierTextField.formatter=tFormatter;
 }
@@ -66,7 +66,7 @@
 {
 	NSString * tString=_settings[PKGLocatorStandardBundleIdentifierKey];
 	
-	_bundleIdentifierTextField.stringValue=(tString!=nil) ? tString : @"";
+	_bundleIdentifierTextField.objectValue=(tString!=nil) ? tString : @"";
 
 	
 	_defaultPathCheckBox.enabled=NO;
@@ -131,7 +131,7 @@
 
 - (IBAction)setBundleIdentifier:(NSTextField *) sender
 {
-	NSString * tStringValue=sender.stringValue;
+	NSString * tStringValue=sender.objectValue;
 	
 	if (tStringValue!=nil)
 		_settings[PKGLocatorStandardBundleIdentifierKey]=tStringValue;
@@ -173,6 +173,13 @@
 			_settings[PKGLocatorStandardPreferDefaultPathKey]=@(NO);
 		}
 	}
+}
+
+#pragma mark - PKGStringReplacer
+
+- (NSString *)stringByReplacingKeysInString:(NSString *)inString
+{
+    return [self.objectTransformer stringByReplacingKeysInString:inString];
 }
 
 @end

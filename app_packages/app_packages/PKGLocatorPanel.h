@@ -15,6 +15,8 @@
 
 #import "PKGLocator.h"
 
+#import "PKGDocument.h"
+
 #import "PKGPayloadTreeNode.h"
 
 #import "PKGPanel.h"
@@ -25,9 +27,9 @@
 
 	@property (nonatomic) PKGLocator * locator;
 
-	@property (nonatomic) PKGPayloadTreeNode * payloadTreeNode;
+    @property PKGDocument * document;
 
-	@property (nonatomic,readonly,weak) id<PKGFilePathConverter> filePathConverter;
+	@property (nonatomic) PKGPayloadTreeNode * payloadTreeNode;
 
 + (PKGLocatorPanel *)locatorPanel;
 

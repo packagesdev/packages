@@ -21,6 +21,7 @@
 		F4462F7D1D611F45002BCE08 /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
 		F44DB25210DD69DD0059C061 /* PKGLocator_Standard+Constants.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "PKGLocator_Standard+Constants.m"; path = "../PKGLocator_Standard+Constants.m"; sourceTree = SOURCE_ROOT; };
 		F44DB25310DD69DD0059C061 /* PKGLocator_Standard+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGLocator_Standard+Constants.h"; path = "../PKGLocator_Standard+Constants.h"; sourceTree = SOURCE_ROOT; };
+		F457D227276A88BE0080ECB5 /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4AA485C1CC22EA4006CC13E /* PKGLocatorConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGLocatorConverter.h; path = ../../PKGLocatorConverter.h; sourceTree = "<group>"; };
 		F4F1820E1CC196F80050C5CC /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4F449CF1CC2CF55000D053A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -116,6 +117,7 @@
 				F4462F7C1D611F3B002BCE08 /* Model */,
 				F4462F7D1D611F45002BCE08 /* PKGConverter.h */,
 				F4AA485C1CC22EA4006CC13E /* PKGLocatorConverter.h */,
+				F457D227276A88BE0080ECB5 /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

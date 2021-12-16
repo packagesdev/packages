@@ -15,7 +15,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGConverter.h"
 
+#import "PKGStringReplacer.h"
+
 @interface PKGLocatorConverter : PKGConverter
+
+@property (weak) id<PKGStringReplacer>keysReplacer;
 
 - (NSArray *)elementsWithSettings:(NSDictionary *)inSettings withUniqueSearchID:(NSString *)inUniqueUUID error:(out NSError **)outError;
 

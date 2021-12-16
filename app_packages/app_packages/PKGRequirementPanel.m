@@ -23,8 +23,6 @@
 
 	@property (nonatomic,readwrite) PKGDistributionProject * project;
 
-	@property (nonatomic,readwrite,weak) id<PKGFilePathConverter> filePathConverter;
-
 - (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
 
 @end
@@ -56,7 +54,6 @@
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
 {
     self.document=((NSWindowController *) inWindow.windowController).document;
-    //self.filePathConverter=((NSWindowController *) inWindow.windowController).document;
 	self.project=(PKGDistributionProject *)((PKGDocumentWindowController *) inWindow.windowController).project;
 	
 	[self.retainedWindowController refreshUI];

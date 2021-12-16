@@ -53,7 +53,7 @@
 
 	@property (nonatomic) PKGPayloadTreeNode * payloadTreeNode;
 
-	@property (nonatomic,weak) id<PKGFilePathConverter> filePathConverter;
+    @property (nonatomic,weak) id<PKGFilePathConverter> filePathConverter;
 
 - (void)refreshUI;
 
@@ -502,7 +502,9 @@
 
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
 {
-	retainedWindowController.filePathConverter=self.filePathConverter=((NSWindowController *) inWindow.windowController).document;
+    self.document=((NSWindowController *) inWindow.windowController).document;
+    
+    retainedWindowController.filePathConverter=self.document;
 	
 	[retainedWindowController refreshUI];
 	

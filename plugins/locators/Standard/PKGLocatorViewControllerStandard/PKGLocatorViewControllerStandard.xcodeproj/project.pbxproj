@@ -19,6 +19,7 @@
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4035DB41CC6D61A00184576 /* Icon_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon_32.png; path = PKGLocatorViewControllerStandard/Icon_32.png; sourceTree = "<group>"; };
 		F4035DB51CC6D61A00184576 /* Icon_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon_32@2x.png"; path = "PKGLocatorViewControllerStandard/Icon_32@2x.png"; sourceTree = "<group>"; };
+		F4395BBE276A9345006107C8 /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F43D57A81E72305F00B584A2 /* PKGFilePath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGFilePath.h; path = ../../../../model/PKGFilePath.h; sourceTree = "<group>"; };
 		F47599F51F18280600607CC9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGLocatorViewControllerStandard/fr.lproj/MainView.xib; sourceTree = "<group>"; };
 		F494B95C1E4D249B0000EBC4 /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 				F4F449D81CC2E4F0000D053A /* PKGViewController.h */,
 				F4F449DA1CC2EC22000D053A /* PKGLocator+Constants.h */,
 				F49ED5CB1CC2CC18009B86E7 /* PKGLocatorViewController.h */,
+				F4395BBE276A9345006107C8 /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

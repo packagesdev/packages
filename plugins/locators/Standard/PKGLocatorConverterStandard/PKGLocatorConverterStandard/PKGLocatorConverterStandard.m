@@ -65,6 +65,8 @@
 		return nil;
 	}
 	
+    tBundleIdentifier=[self.keysReplacer stringByReplacingKeysInString:tBundleIdentifier];
+    
 	if (tBundleIdentifier.length==0)
 	{
 		if (outError!=NULL)

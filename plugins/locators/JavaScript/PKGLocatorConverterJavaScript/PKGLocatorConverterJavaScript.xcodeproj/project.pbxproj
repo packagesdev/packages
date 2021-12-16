@@ -18,6 +18,7 @@
 		F40A78AE10ED47DD00B78024 /* PKGLocator_JavaScript+Constants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "PKGLocator_JavaScript+Constants.h"; path = "../PKGLocator_JavaScript+Constants.h"; sourceTree = SOURCE_ROOT; };
 		F4462F781D611E07002BCE08 /* PKGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGConverter.h; path = ../../../PKGConverter.h; sourceTree = "<group>"; };
 		F4462F791D611F15002BCE08 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
+		F457D228276A88F00080ECB5 /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F49E06C61C7FBA770044D067 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGLocatorConverterJavaScript/Info.plist; sourceTree = "<group>"; };
 		F49E06C81C7FBA8B0044D067 /* PKGLocatorConverterJavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGLocatorConverterJavaScript.h; path = PKGLocatorConverterJavaScript/PKGLocatorConverterJavaScript.h; sourceTree = "<group>"; };
 		F49E06C91C7FBA8B0044D067 /* PKGLocatorConverterJavaScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGLocatorConverterJavaScript.m; path = PKGLocatorConverterJavaScript/PKGLocatorConverterJavaScript.m; sourceTree = "<group>"; };
@@ -116,6 +117,7 @@
 				F4462F7A1D611F19002BCE08 /* Model */,
 				F4462F781D611E07002BCE08 /* PKGConverter.h */,
 				F4F1820B1CC194DB0050C5CC /* PKGLocatorConverter.h */,
+				F457D228276A88F00080ECB5 /* PKGStringReplacer.h */,
 			);
 			name = "Common Source";
 			sourceTree = "<group>";

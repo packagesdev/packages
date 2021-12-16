@@ -19,6 +19,8 @@
 
 #import "PKGFilePath.h"
 
+#import "PKGStringReplacer.h"
+
 @interface PKGLocatorViewController : PKGViewController
 
 	@property (nonatomic) NSDictionary * settings;
@@ -29,7 +31,7 @@
 
 	@property (nonatomic,readonly) NSView * previousKeyView;
 
-	@property (readonly) id<PKGFilePathConverter> filePathConverter;
+	@property (readonly) id<PKGFilePathConverter,PKGStringReplacer> objectTransformer;
 
 
 - (NSDictionary *)defaultSettingsWithCommonValues:(NSDictionary *)inDictionary;
