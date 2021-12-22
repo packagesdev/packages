@@ -1410,7 +1410,17 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	if ([self setLocalizableStrings]==NO)
 		return NO;
 	
-	// Advanced Options
+	
+    // Add the Resources (do that before setAdvancedDistributionOptions so that the architectures of the binaries in resources are taken into account)
+    
+    if ([self setDistributionResources]==NO)
+    {
+        // A COMPLETER (very unlikely to be NO)
+        
+        return NO;
+    }
+    
+    // Advanced Options
 
 	if ([self setAdvancedDistributionOptions]==NO)
 	{
@@ -1428,14 +1438,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		return NO;
 	}
 	
-	// Add the Resources
-
-	if ([self setDistributionResources]==NO)
-	{
-		// A COMPLETER (very unlikely to be NO)
-		
-		return NO;
-	}
+	
 	
 	// Extra Resources
 
@@ -2098,7 +2101,11 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	tStackedEffectiveUserAndGroup=nil;
 	
 	[self postCurrentStepSuccessEvent:nil];
-									   
+    
+    // Find out which architectures are used in the resources
+    
+    [_buildInformation accumulateHostArchitecturesInFileHierarchyAtPath:tResourcesPath];
+    
 	return YES;
 }
 
