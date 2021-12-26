@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2019, Stephane Sudre
+Copyright (c) 2004-2021, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -164,10 +164,7 @@ int main(int argc, const char * argv[])
 					
 					exit(EXIT_FAILURE);
 					
-				
-				
-				printf ("\n");
-				break;
+                    break;
 			}
 		}
 		
@@ -250,7 +247,7 @@ int main(int argc, const char * argv[])
 		
 		if ([tFileManager fileExistsAtPath:tProjectPath]==NO)
 		{
-			(void)fprintf(stderr, "No such file or directory (%s)\n",argv[0]);
+            (void)fprintf(stderr, "packagesbuild: error: '%s' does not exist.\n",tProjectPath.fileSystemRepresentation);
 			
 			exit(EXIT_FAILURE);
 		}
