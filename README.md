@@ -1,6 +1,8 @@
 ## Synopsis
 
-Description Forthcoming
+## Tests
+
+Check the packages_tests repository if you're looking for tests that are used to validate that some of the product features are working as expected.
 
 ## License
 
