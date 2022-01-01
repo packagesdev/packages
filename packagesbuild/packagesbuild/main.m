@@ -40,7 +40,8 @@ void usage(void)
 				  "  --identity NAME                        sign the build output with this identity\n"
 				  "  --keychain PATH                        look for the identity in the keychain at this path\n"
 				  "  --package-version VERSION              set the version of the built raw package project to this value\n"
-				  "  --no-timestamp                         do not include a trusted timestamp in the signature\n\n");
+				  "  --no-timestamp                         do not include a trusted timestamp in the signature\n\n"
+                  "  --version                              print the Packages version that the packagesbuild program came from\n\n");
 	
 	exit(1);
 }
@@ -87,6 +88,8 @@ int main(int argc, const char * argv[])
             
             {"project",                     required_argument,  0,  0},
             
+            {"version",                no_argument,        0,    0},
+            
             {0, 0, 0, 0}
         };
         
@@ -129,6 +132,11 @@ int main(int argc, const char * argv[])
                     else if (strncmp(tOptionName,"project",strlen("project"))==0)
                     {
                         tCProjectFilePath=optarg;
+                    }
+                    else if (strncmp(tOptionName,"version",strlen("version"))==0)
+                    {
+                        (void)fprintf(stdout, "packagesbuild version %s\n","1.2.10");
+                        exit(EXIT_SUCCESS);
                     }
 					
 					break;
