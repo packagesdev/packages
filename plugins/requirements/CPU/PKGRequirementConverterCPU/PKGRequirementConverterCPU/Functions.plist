@@ -56,9 +56,13 @@
 				}
 			}
 			
-			/* Check Minimum CPU Frequency */
+			/* Check Minimum CPU Frequency (hw.cpufrequency_max does not exist on Apple Silicon) */
 			
-			if (system.sysctl(&apos;hw.cpufrequency_max&apos;)&gt;=inMinimumFrequency)
+			var tFrequencyMax;
+			
+			tFrequencyMax=system.sysctl(&apos;hw.cpufrequency_max&apos;);
+			
+			if (tFrequencyMax==null || system.sysctl(&apos;hw.cpufrequency_max&apos;)&gt;=inMinimumFrequency)
 			{
 				return true;
 			}
