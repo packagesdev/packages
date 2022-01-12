@@ -88,46 +88,58 @@
 	
 	[_CPUArchitectureSegmentedControl selectSegmentWithTag:tTag];
 	
-	// PowerPC
-	
-	if (tTag==PKGRequirementCPUFamilyIntel)
-	{
-		_PowerPCArchitectureSegmentedControl.enabled=NO;
-		
-		[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
-	}
-	else
-	{
-		tNumber=_settings[PKGRequirementCPUPowerPCArchitectureTypeKey];
-		
-		tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
-	
-		[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:tSubTag];
-	}
-	
-	// Intel
-	
-	if (tTag==PKGRequirementCPUFamilyPowerPC)
-	{
-		_IntelArchitectureSegmentedControl.enabled=NO;
-		
-		[_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
-	}
-	else
-	{
-		tNumber=_settings[PKGRequirementCPUIntelArchitectureTypeKey];
-		
-		tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
-	
-		[_IntelArchitectureSegmentedControl selectSegmentWithTag:tSubTag];
-	}
-	
-	// Apple Silicon
-	
-	// There are only 64-bit Apple M1 CPU right now
-	
-	
-	// Minimum CPU Frequency
+    tNumber=_settings[PKGRequirementCPUPowerPCArchitectureTypeKey];
+    
+    tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
+    
+    [_PowerPCArchitectureSegmentedControl selectSegmentWithTag:tSubTag];
+    
+    tNumber=_settings[PKGRequirementCPUIntelArchitectureTypeKey];
+    
+    tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
+    
+    [_IntelArchitectureSegmentedControl selectSegmentWithTag:tSubTag];
+    
+	switch(tTag)
+    {
+        case PKGRequirementCPUFamilyAny:
+            
+            _PowerPCArchitectureSegmentedControl.enabled=YES;
+            
+            _IntelArchitectureSegmentedControl.enabled=YES;
+            
+            break;
+            
+        case PKGRequirementCPUFamilyPowerPC:
+            
+            _IntelArchitectureSegmentedControl.enabled=NO;
+            [_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+            
+            break;
+            
+        case PKGRequirementCPUFamilyIntel:
+            
+            _PowerPCArchitectureSegmentedControl.enabled=NO;
+            [_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+            
+            break;
+            
+        case PKGRequirementCPUFamilyAppleSilicon:
+            
+            // There are only 64-bit Apple M1 (Max|Pro)? CPU right now
+            
+            _PowerPCArchitectureSegmentedControl.enabled=NO;
+            [_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+            
+            _IntelArchitectureSegmentedControl.enabled=NO;
+            [_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+            
+            _minimumCPUFrequencyPopupButton.enabled=NO;
+            
+            break;
+    }
+
+    // Minimum CPU Frequency
 	
 	tNumber=_settings[PKGRequirementCPUMinimumFrequencyKey];
 	
@@ -170,40 +182,55 @@
 	if (tNumber!=nil && [tNumber integerValue]!=tTag)
 	{
 		_settings[PKGRequirementCPUArchitectureFamilyKey]=@(tTag);
-			
-			// PowerPC Type
-			
-		if (tTag==PKGRequirementCPUFamilyIntel)
-		{
-			_PowerPCArchitectureSegmentedControl.enabled=NO;
-			
-			_settings[PKGRequirementCPUPowerPCArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
-			
-			[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
-		}
-		else
-		{
-			_PowerPCArchitectureSegmentedControl.enabled=YES;
-			
-			[_PowerPCArchitectureSegmentedControl selectSegmentWithTag:[_settings[PKGRequirementCPUPowerPCArchitectureTypeKey] integerValue]];
-		}
-		
-		// Intel
-		
-		if (tTag==PKGRequirementCPUFamilyPowerPC)
-		{
-			_IntelArchitectureSegmentedControl.enabled=NO;
-			
-			_settings[PKGRequirementCPUIntelArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
-			
-			[_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
-		}
-		else
-		{
-			_IntelArchitectureSegmentedControl.enabled=YES;
-			
-			[_IntelArchitectureSegmentedControl selectSegmentWithTag:[_settings[PKGRequirementCPUIntelArchitectureTypeKey] integerValue]];
-		}
+
+        _PowerPCArchitectureSegmentedControl.enabled=NO;
+        _IntelArchitectureSegmentedControl.enabled=NO;
+        
+        _minimumCPUFrequencyPopupButton.enabled=YES;
+        
+		switch(tTag)
+        {
+            case PKGRequirementCPUFamilyAny:
+                
+                _PowerPCArchitectureSegmentedControl.enabled=YES;
+                _IntelArchitectureSegmentedControl.enabled=YES;
+                
+                break;
+            
+            case PKGRequirementCPUFamilyPowerPC:
+                
+                _settings[PKGRequirementCPUIntelArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
+                
+                [_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+                
+                _PowerPCArchitectureSegmentedControl.enabled=YES;
+                
+                break;
+                
+            case PKGRequirementCPUFamilyIntel:
+                
+                _settings[PKGRequirementCPUPowerPCArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
+                
+                [_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+                
+                _IntelArchitectureSegmentedControl.enabled=YES;
+                
+                break;
+                
+            case PKGRequirementCPUFamilyAppleSilicon:
+                
+                _settings[PKGRequirementCPUPowerPCArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
+                
+                [_PowerPCArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+                
+                _settings[PKGRequirementCPUIntelArchitectureTypeKey]=@(PKGRequirementCPUGenerationAny);
+                
+                [_IntelArchitectureSegmentedControl selectSegmentWithTag:PKGRequirementCPUGenerationAny];
+                
+                _minimumCPUFrequencyPopupButton.enabled=NO;
+                
+                break;
+        }
 	}
 }
 
