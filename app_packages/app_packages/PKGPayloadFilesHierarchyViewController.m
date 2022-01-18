@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2019, Stephane Sudre
+ Copyright (c) 2017-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -352,6 +352,24 @@ NSString * const PKGFileNameColumnIdentifier=@"file.name";
 	[((PKGPackagePayloadDataSource *) self.hierarchyDataSource) outlineView:self.outlineView transformItemIfNeeded:[inOutlineView itemAtRow:inProposedSelectionIndexes.firstIndex]];
 	
 	return inProposedSelectionIndexes;
+}
+
+#pragma mark - PKGPayloadDataSourceDelegate
+
+- (void)dataSource:(PKGPackagePayloadDataSource *)inPayloadDataSource didDragAndDropNodes:(NSArray *)inNodes
+{
+    for(PKGPayloadTreeNode * tPayloadTreeNode in inNodes)
+    {
+        if (tPayloadTreeNode==inPayloadDataSource.installLocationNode ||
+            [inPayloadDataSource.installLocationNode isDescendantOfNode:tPayloadTreeNode]==YES)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:PKGFilesHierarchyDidRenameItemNotification
+                                                                object:self.outlineView
+                                                              userInfo:@{@"NSObject":inPayloadDataSource.installLocationNode}];
+            
+            break;
+        }
+    }
 }
 
 #pragma mark - NSControlTextEditingDelegate

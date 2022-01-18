@@ -27,6 +27,8 @@ extern NSString * const PKGPayloadItemsPboardType;
 
 - (void)payloadDataDidChange:(PKGPayloadDataSource *)inPayloadDataSource;
 
+- (void)dataSource:(PKGPayloadDataSource *)inPayloadDataSource didDragAndDropNodes:(NSArray *)inNodes;
+
 @end
 
 typedef NS_OPTIONS(NSUInteger, PKGPayloadAddOptions)

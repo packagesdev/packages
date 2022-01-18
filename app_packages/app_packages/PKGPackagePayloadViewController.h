@@ -23,6 +23,4 @@
 
 	@property (readonly) PKGPayloadFilesHierarchyViewController * payloadHierarchyViewController;
 
-
-
 @end

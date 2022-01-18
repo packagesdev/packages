@@ -908,6 +908,11 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	[self noteDocumentHasChanged];
 }
 
+- (void)dataSource:(PKGPayloadDataSource *)inPayloadDataSource didDragAndDropNodes:(NSArray *)inNodes
+{
+    // Do nothing
+}
+
 #pragma mark - NSControlTextEditingDelegate
 
 - (void)control:(NSControl *)inControl didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)inError

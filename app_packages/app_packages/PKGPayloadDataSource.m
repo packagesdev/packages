@@ -1303,6 +1303,8 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		
 		[inOutlineView deselectAll:nil];
 		
+        [self.delegate dataSource:self didDragAndDropNodes:_internalDragData];
+        
 		[self.delegate payloadDataDidChange:self];
 		
 		[inOutlineView reloadData];
@@ -1318,7 +1320,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 			[tMutableIndexSet addIndex:[inOutlineView rowForItem:tItem]];
 		
 		[inOutlineView selectRowIndexes:tMutableIndexSet byExtendingSelection:NO];
-		
+        
 		return YES;
 	}
 	
