@@ -1086,8 +1086,8 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				return;
 		}
 	}
-	
-	NSString * tBuildFolderPath=[self prepareBuildFolderAtPath:[self absolutePathForFilePath:tBuildPath]];
+    
+	NSString * tBuildFolderPath=[self prepareBuildFolderAtPath:[self stringByReplacingKeysInString:[self absolutePathForFilePath:tBuildPath]]];
 	
 	if (tBuildFolderPath==nil)
 	{
@@ -7868,8 +7868,11 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 		case PKGFileItemTypeFileSystemItem:	// Real Node Item
 		{
-			NSString * tFinalFullPath=[self absolutePathForFilePath:tFilePath];
+            NSString * tFinalFullPath=[self absolutePathForFilePath:tFilePath];
 	
+            if ([tFinalFullPath containsString:@"${"]==YES)
+                tFinalFullPath=[self stringByReplacingKeysInString:tFinalFullPath];
+            
 			if (tFinalFullPath==nil)
 			{
 				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorFileAbsolutePathCanNotBeComputed filePath:tFilePath.string fileKind:PKGFileKindRegularFile]];

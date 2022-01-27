@@ -159,10 +159,15 @@
     {
         NSLog(@"Denied connection attempt from pid \"%d\"\n",inNewConnection.processIdentifier);
         
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:PKGPackagesDispatcherErrorDidOccurNotification
+                                                                       object:self.UUID
+                                                                     userInfo:@{PKGPackagesDispatcherErrorTypeKey:@(PKGPackagesDispatcherErrorBuildRequesterStaticCodeChanged)}
+                                                                      options:NSNotificationDeliverImmediately|NSNotificationPostToAllSessions];
+        
         return NO;
     }
     
-	_projectBuilder=[[PKGProjectBuilder alloc] init];
+	_projectBuilder=[PKGProjectBuilder new];
 	_projectBuilder.userID=inNewConnection.effectiveUserIdentifier;
 	_projectBuilder.groupID=inNewConnection.effectiveGroupIdentifier;
 	_projectBuilder.executionAgentConnection=inNewConnection;

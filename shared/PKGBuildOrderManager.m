@@ -72,8 +72,17 @@ NSString * const PKGBuildOrderErrorDomain=@"PKGBuildOrderErrorDomain";
 		
 		tWeakDispatcherConnection.interruptionHandler=^{
 			
-			NSLog(@"Connection with dispatcher was interrupted");
-			
+            if (inCommunicationErrorHandler!=nil)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    inCommunicationErrorHandler([NSError errorWithDomain:PKGBuildOrderErrorDomain code:PKGBuildOrderErrorDispatcherNotResponding userInfo:@{}]);
+                    
+                });
+            }
+            
+            NSLog(@"Connection with dispatcher was interrupted");
+            
 			NSXPCConnection *tStrongConnection=tWeakDispatcherConnection;
 			
 			if (tStrongConnection!=nil)

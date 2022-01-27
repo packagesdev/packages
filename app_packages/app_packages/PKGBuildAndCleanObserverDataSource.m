@@ -1236,6 +1236,12 @@ typedef NS_ENUM(NSUInteger, PKGObserverDataSourceType)
 			
 			switch(tErrroType)
 			{
+                case PKGPackagesDispatcherErrorBuildRequesterStaticCodeChanged:
+                    
+                    nBuildEventItem.title=NSLocalizedStringFromTable(@"Unable to communicate with packages_dispatcher or packages_builder. The code on disk of the application does not match the running code.",@"Build",@"No comment");
+                    
+                    break;
+                    
 				case PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFoundInvalidPermissions:
 					
 					nBuildEventItem.title=NSLocalizedStringFromTable(@"Unable to communicate with packages_dispatcher. The permissions of the fr.whitebox.packages.build.dispatcher.plist launchd configuration file in /Library/LaunchDaemons are incorrect.",@"Build",@"No comment");

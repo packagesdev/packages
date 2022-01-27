@@ -374,6 +374,12 @@ int main(int argc, const char * argv[])
                                                        
                                                        switch(tErrorType)
                                                        {
+                                                           case PKGPackagesDispatcherErrorBuildRequesterStaticCodeChanged:
+                                                               
+                                                               (void)fprintf(stderr, "Unable to communicate with packages_dispatcher or packages_builder. The code on disk of the application does not match the running code.");
+                                                               
+                                                               break;
+                                                           
                                                            case PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFoundInvalidPermissions:
                                                                
                                                                (void)fprintf(stderr, "Unable to communicate with packages_dispatcher. The permissions of the fr.whitebox.packages.build.dispatcher.plist launchd configuration file in /Library/LaunchDaemons are incorrect.");

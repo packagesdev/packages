@@ -34,7 +34,7 @@ NSString * const PKGPackagesDispatcherLaunchdConfigurationFilePath=@"/Library/La
 	if ([tFileManager fileExistsAtPath:PKGPackagesDispatcherLaunchdConfigurationFilePath isDirectory:&tIsDirectory]==NO || tIsDirectory==YES)
 		return PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFound;
 	
-	// Check the permissions of the the fr.whitebox.packages.build.dispatcher.plist file (-rw-r--r--  root:wheel)
+	// Check the permissions of the fr.whitebox.packages.build.dispatcher.plist file (-rw-r--r--  root:wheel)
 	
 	NSDictionary * tAttributes=[tFileManager attributesOfItemAtPath:PKGPackagesDispatcherLaunchdConfigurationFilePath error:NULL];
 	
@@ -52,7 +52,34 @@ NSString * const PKGPackagesDispatcherLaunchdConfigurationFilePath=@"/Library/La
 			return PKGPackagesDispatcherErrorLaunchDaemonConfigurationFileNotFoundInvalidPermissions;
 	}
 	
-	return PKGPackagesDispatcherErrorPackagesDispatcherNotResponding;
+    PKGPackagesDispatcherErrorType tErrorType=PKGPackagesDispatcherErrorPackagesDispatcherNotResponding;
+    
+    // Check that the signature of the running code matches the binary on disk
+    
+    SecCodeRef tCodeRef=NULL;
+    
+    if (SecCodeCopySelf(kSecCSDefaultFlags, &tCodeRef)==errSecSuccess)
+    {
+        NSString * tRequirementString=@"anchor apple generic and certificate leaf [subject.OU] = \"NL5M9E394P\"";
+        
+        SecRequirementRef tRequirement=NULL;
+        
+        if (SecRequirementCreateWithString((__bridge CFStringRef)tRequirementString, kSecCSDefaultFlags, &tRequirement) == errSecSuccess)
+        {
+            if (SecCodeCheckValidityWithErrors(tCodeRef, kSecCSDefaultFlags, tRequirement, NULL)!=errSecSuccess)
+                tErrorType=PKGPackagesDispatcherErrorBuildRequesterStaticCodeChanged;
+            
+            CFRelease(tRequirement);
+        }
+        
+        CFRelease(tCodeRef);
+    }
+    else
+    {
+        tErrorType=PKGPackagesDispatcherErrorBuildRequesterStaticCodeChanged;
+    }
+    
+	return tErrorType;
 }
 
 @end
