@@ -108,7 +108,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSString * tStringValue=self.filePath.string;
 	
-	[self.cell setStringValue:(tStringValue!=nil)? tStringValue :@""];
+	[self.cell setObjectValue:(tStringValue!=nil)? tStringValue :@""];
 	
 	if (self.skipExistenceCheck==YES)
 		return;
@@ -248,7 +248,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)textDidEndEditing:(NSNotification *)notification
 {
-	self.filePath.string=[[self cell] stringValue];
+	self.filePath.string=[[self cell] objectValue];
 	
 	[self _setCellStringValue:self.filePath.string];
 	

@@ -451,8 +451,10 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 		
 		//[tView.imageView unregisterDraggedTypes];	// To prevent the imageView from interfering with drag and drop
 		
+        NSAttributedString * tAttributedString=inPayloadTreeNode.nameAttributedTitle;
+        
         tView.textField.objectValue=@"";        // Hack to make sure the textfield is refreshed when user defined settings are modified
-        tView.textField.objectValue=inPayloadTreeNode.nameAttributedTitle;
+        tView.textField.objectValue=tAttributedString;
 		tView.textField.editable=inPayloadTreeNode.isNameTitleEditable;
 		
 		if (inPayloadTreeNode.isNameTitleEditable==YES)
@@ -468,7 +470,10 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
         }
         else
         {
-            tView.textField.formatter=nil;
+            if ([tAttributedString.string containsString:@"${"]==NO)
+                tView.textField.formatter=nil;
+            else
+                tView.textField.formatter=_cachedFileNameFormatter;
         }
         
         tView.textField.delegate=self;

@@ -62,7 +62,11 @@
     else
     {
         if ([inObject isKindOfClass:NSAttributedString.class]==YES)
+        {
             tEditingString=((NSAttributedString *)inObject).string;
+            
+            inAttributes=[((NSAttributedString *)inObject) attributesAtIndex:0 effectiveRange:NULL];
+        }
     }
     
     if (self.keysReplacer!=nil)

@@ -28,6 +28,7 @@
 #import "NSAlert+block.h"
 
 #import "PKGProjectNameFormatter.h"
+#import "PKGElasticFolderNameFormatter.h"
 
 @interface PKGProjectSettingsViewController () <PKGFilePathTextFieldDelegate>
 {
@@ -79,6 +80,11 @@
     tFormatter.keysReplacer=self;
     
     _buildNameTextField.formatter=tFormatter;
+    
+    PKGElasticFolderNameFormatter * tElasticFolderNameFormatter=[PKGElasticFolderNameFormatter new];
+    tElasticFolderNameFormatter.keysReplacer=self;
+    
+    self.buildPathTextField.formatter=tElasticFolderNameFormatter;
     
     // Exclusions
 	

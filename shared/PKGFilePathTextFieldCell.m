@@ -128,26 +128,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	// Draw the text
 	
+    NSColor * savedColor=self.textColor;
+    
 	if (self.fileNotFound==YES)
 	{
-        NSMutableAttributedString * tMutableAttributedString=[[self attributedStringValue] mutableCopy];
-		
-		[tMutableAttributedString addAttribute:NSForegroundColorAttributeName value:[NSColor redColor] range:NSMakeRange(0, [tMutableAttributedString length])];
-		
-		[super setAttributedStringValue:tMutableAttributedString];
+        self.textColor=[NSColor redColor];
 	}
 	
 	[super drawInteriorWithFrame:tTextFrame inView: inControlView];
 	
 	if (self.fileNotFound==YES)
 	{
-        //[self setTextColor:[NSColor controlTextColor]];
-                            
-        NSMutableAttributedString * tMutableAttributedString=[[self attributedStringValue] mutableCopy];
-		
-		[tMutableAttributedString addAttribute:NSForegroundColorAttributeName value:[NSColor controlTextColor] range:NSMakeRange(0, [tMutableAttributedString length])];
-		
-		[super setAttributedStringValue:tMutableAttributedString];
+        self.textColor=savedColor;
 	}
 	
 	// Draw the popup menu icon
