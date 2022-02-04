@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,6 +21,8 @@
    CMSPrivate.h: https://opensource.apple.com/source/Security/Security-55179.13/libsecurity_cms/lib/CMSPrivate.h.auto.html
  
  */
+
+#define PKGCFCoreFoundationVersionNumber11_0_1   1770.106
 
 typedef struct SecCmsMessageStr *SecCmsMessageRef;
 
@@ -288,6 +290,24 @@ extern void CmsMessageSetTSAContext(CMSEncoderRef cmsEncoder, CFTypeRef tsaConte
 				return;
 			}
 			
+            // Only run this code on macOS BS and later
+            
+            if (kCFCoreFoundationVersionNumber>=PKGCFCoreFoundationVersionNumber11_0_1)
+            {
+                tStatus=CMSEncoderAddSignedAttributes(tEncoderRef, kCMSAttrSigningTime);
+            
+                if (tStatus!=errSecSuccess)
+                {
+                    CFRelease(tEncoderRef);
+                
+                    NSLog(@"CMSEncoderAddSignedAttributes: %@",(__bridge_transfer NSString *)SecCopyErrorMessageString(tStatus,NULL));
+                
+                    inReply(PKGSignatureStatusErrorUnknown,nil);
+                
+                    return;
+                }
+            }
+            
 			if (inUseTSA==YES)
 			{
 				CFMutableDictionaryRef tTSAContextDictionaryRef=SecCmsTSAGetDefaultContext(NULL);
