@@ -359,6 +359,9 @@
                     return NSMakeRange(0, 16);
                     
                 case WBMacOSBigSurMajorVersion:
+                    
+                    return NSMakeRange(0, 7);
+                    
                 case WBMacOSMontereyMajorVersion:
                 default:
                     
@@ -471,7 +474,7 @@
                         
                     case 6:
                         
-                        return NSMakeRange(0, 2);
+                        return NSMakeRange(0, 4);
                 }
                 
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
@@ -484,6 +487,10 @@
                     case 0:
                         
                         return NSMakeRange(0, 2);
+                        
+                    case 1:
+                        
+                        return NSMakeRange(0, 1);
                 }
                         
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
