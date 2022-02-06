@@ -634,6 +634,8 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	tTableColumn=[self.outlineView tableColumnWithIdentifier:@"choice.size"];
 	[[tTableColumn headerCell] setTitle:[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Package Size" localization:inLocalization]];
 	
+    [self.outlineView.headerView setNeedsDisplay:YES];
+    
 	// Space Labels
 	
 	_spaceRequiredLabel.stringValue=[[PKGInstallerSimulatorBundle installerSimulatorBundle] localizedStringForKey:@"Space Required:" localization:inLocalization];
