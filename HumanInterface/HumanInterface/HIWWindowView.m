@@ -273,9 +273,13 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	
 	if (tResolvedDisplayedAppearance==HIWAppearanceEffective)
 	{
-		NSInteger tMacOSVersion=[self _resolvedOperatingSystemVersion].minorVersion;
+        HIWOperatingSystemVersion tOSVersion=[self _resolvedOperatingSystemVersion];
+		NSInteger tMinorVersion=tOSVersion.minorVersion;
+        
+        if (tOSVersion.majorVersion>=11)
+            tMinorVersion=16;
 		
-		if (tMacOSVersion<14 || NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
+		if (tMinorVersion<14 || NSAppKitVersionNumber<NSAppKitVersionNumber10_14)
 		{
 			tResolvedDisplayedAppearance=HIWAppearanceAqua;
 		}
@@ -300,11 +304,15 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 
 - (void)refreshCache
 {
-	NSInteger tMacOSVersion=[self _resolvedOperatingSystemVersion].minorVersion;
+    HIWOperatingSystemVersion tOSVersion=[self _resolvedOperatingSystemVersion];
+    NSInteger tMinorVersion=tOSVersion.minorVersion;
+    
+    if (tOSVersion.majorVersion>=11)
+        tMinorVersion=16;
 	
 	NSString * tOSName=nil;
 	
-	switch(tMacOSVersion)
+	switch(tMinorVersion)
 	{
 		case 7:
 		case 8:
@@ -375,7 +383,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	
 	NSFont * tFont=nil;
 	
-	switch(tMacOSVersion)
+	switch(tMinorVersion)
 	{
 		case 7:
 		case 8:
@@ -413,7 +421,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	
 	NSColor * tTitleColor=nil;
 	
-	switch(tMacOSVersion)
+	switch(tMinorVersion)
 	{
 		case 7:
 		case 8:
