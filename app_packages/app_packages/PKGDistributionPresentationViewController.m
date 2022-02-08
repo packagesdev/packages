@@ -946,12 +946,14 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 
 - (IBAction)switchPreviewAppearance:(NSButton *)sender
 {
-	NSString * tAppearanceName=[NSResponder WB_appearanceNameForAppearanceMode:sender.tag];
+    NSString * tAppearanceName=[NSResponder WB_appearanceNameForAppearanceMode:sender.tag];
 	
-	self.documentRegistry[PKGDistributionPresentationSelectedAppearance]=tAppearanceName;
+    sender.state=NSOnState;
+    
+    self.documentRegistry[PKGDistributionPresentationSelectedAppearance]=tAppearanceName;
 	
-	if (NSAppKitVersionNumber>NSAppKitVersionNumber10_14)
-		[_leftView setAppearance:[NSAppearance appearanceNamed:tAppearanceName]];
+    if (NSAppKitVersionNumber>NSAppKitVersionNumber10_14)
+        [_leftView setAppearance:[NSAppearance appearanceNamed:tAppearanceName]];
 }
 
 - (IBAction)switchPreviewLanguage:(NSPopUpButton *)sender
