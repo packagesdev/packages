@@ -38,6 +38,8 @@ extern NSString * const PKGDistributionProjectSettingsAdvancedOptionsAdvancedEdi
 	{
 		if (outError!=NULL)
 			*outError=tError;
+        
+        return nil;
 	}
 	
 	NSNumber * tNumber=inRepresentation[PKGDistributionProjectSettingsAdvancedOptionsSupportsAdvancedEditorKey];
