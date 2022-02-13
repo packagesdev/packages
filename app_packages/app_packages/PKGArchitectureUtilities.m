@@ -208,6 +208,83 @@ enum
 		return [tMutableArray sortedArrayUsingSelector:@selector(compare:)];
 	}
 	
+    if (tMagicCookie==FAT_MAGIC_64 || tMagicCookie==FAT_CIGAM_64)
+    {
+        // FAT
+        
+        struct fat_header tFatHeader;
+        
+        if (fread(&tFatHeader,sizeof(struct fat_header),1,tFile)!=1)
+        {
+            fclose(tFile);
+            
+            NSLog(@"[PKGArchitectureUtilities architecturesOfFileAtPath:] Read error (%d) \'%@\'",errno,inPath);
+            
+            return nil;
+        }
+        
+        NSMutableArray * tMutableArray=[NSMutableArray array];
+        
+#if BYTE_ORDER==LITTLE_ENDIAN
+        tFatHeader.nfat_arch=CFSwapInt32(tFatHeader.nfat_arch);
+#endif
+        
+        for(uint32_t i=0;i<tFatHeader.nfat_arch;i++)
+        {
+            struct fat_arch_64 tFatArch;
+            
+            if (fread(&tFatArch,sizeof(struct fat_arch_64),1,tFile)==1)
+            {
+#if BYTE_ORDER==LITTLE_ENDIAN
+                tFatArch.cputype=CFSwapInt32(tFatArch.cputype);
+#endif
+                
+                switch(tFatArch.cputype)
+                {
+                    case CPU_TYPE_ARM:
+                        
+                        [tMutableArray addObject:@"arm"];
+                        
+                        break;
+                        
+                    case CPU_TYPE_ARM64:
+                        
+                        [tMutableArray addObject:@"arm64"];
+                        
+                        break;
+                        
+                    case CPU_TYPE_X86:
+                        
+                        [tMutableArray addObject:@"i386"];
+                        
+                        break;
+                        
+                    case CPU_TYPE_X86_64:
+                        
+                        [tMutableArray addObject:@"x86_64"];
+                        
+                        break;
+                        
+                    case CPU_TYPE_POWERPC:
+                        
+                        [tMutableArray addObject:@"ppc"];
+                        
+                        break;
+                        
+                    case CPU_TYPE_POWERPC64:
+                        
+                        [tMutableArray addObject:@"ppc64"];
+                        
+                        break;
+                }
+            }
+        }
+        
+        fclose(tFile);
+        
+        return [tMutableArray sortedArrayUsingSelector:@selector(compare:)];
+    }
+    
 	if (tMagicCookie==MH_MAGIC || tMagicCookie==MH_CIGAM)
 	{
 		// 32-bit
