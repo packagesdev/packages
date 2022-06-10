@@ -246,7 +246,7 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 	{
 		NSArray * tNodes=[_flatTree nodesAtIndexes:_internalDragData];
 		PKGDistributionRequirementSourceListNode * tParent=((PKGDistributionRequirementSourceListNode *)tNodes.lastObject).parent;
-		
+        
 		[_flatTree removeNodesInArray:tNodes];
 		
 		NSUInteger tIndex=[_internalDragData firstIndex];
@@ -266,7 +266,11 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 		
 		[inTableView deselectAll:nil];
 		
-		[self.delegate sourceListDataDidChange:self];
+        [self.requirements removeAllObjects];
+        
+        [self.requirements addObjectsFromArray:_flatTree.requirements];
+        
+        [self.delegate sourceListDataDidChange:self];
 		
 		[inTableView reloadData];
 		

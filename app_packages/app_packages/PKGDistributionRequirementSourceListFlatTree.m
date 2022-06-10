@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -26,7 +26,7 @@
 	PKGDistributionRequirementSourceListNode * _installationGroupNode;
 	PKGDistributionRequirementSourceListNode * _targetGroupNode;
 	
-	NSMutableArray * _array;
+	NSMutableArray<PKGDistributionRequirementSourceListNode *> * _array;
 }
 
 @end
@@ -104,6 +104,20 @@
 - (NSUInteger)count
 {
 	return _array.count;
+}
+
+- (NSArray<PKGRequirement *> *)requirements
+{
+    return [[self->_array WB_arrayByMappingObjectsLenientlyUsingBlock:^id(PKGDistributionRequirementSourceListNode * bNode, NSUInteger bIndex) {
+        
+        PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)bNode.representedObject;
+        
+        if ([tRequirementItem isKindOfClass:[PKGDistributionRequirementSourceListRequirementItem class]]==NO)
+            return nil;
+        
+        return tRequirementItem.requirement;
+        
+    }] copy];
 }
 
 - (NSUInteger)indexOfNode:(PKGDistributionRequirementSourceListNode *)inNode
