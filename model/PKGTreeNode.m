@@ -596,7 +596,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	__block BOOL tInserted=NO;
 	
-	[_children enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
+	[inChildren enumerateObjectsUsingBlock:^(PKGTreeNode * bTreeNode,NSUInteger bIndex,BOOL * bOutStop){
 		
 		if (inComparator(self,bTreeNode)!=NSOrderedDescending)
 		{
@@ -607,7 +607,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		}
 	}];
 	
-	if (tInserted==0)
+	if (tInserted==NO)
 	{
 		[self setParent:inParent];
 		[inChildren addObject:self];
@@ -646,7 +646,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 		}
 	}];
 	
-	if (tInserted==0)
+	if (tInserted==NO)
 	{
 		[self setParent:inParent];
 		[inChildren addObject:self];
