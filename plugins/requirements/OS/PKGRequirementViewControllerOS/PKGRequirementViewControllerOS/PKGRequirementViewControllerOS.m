@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2021, Stephane Sudre
+Copyright (c) 2008-2022, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -112,6 +112,10 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
     else if (tVersionComponents.majorVersion==12)
     {
         return @"Monterey";
+    }
+    else if (tVersionComponents.majorVersion==13)
+    {
+        return @"Ventura";
     }
 	
 	NSInteger tMinorComponent=tVersionComponents.minorVersion;

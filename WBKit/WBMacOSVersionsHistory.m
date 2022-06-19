@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2021, Stephane Sudre
+ Copyright (c) 2017-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -49,6 +49,7 @@
 
 #define WBMacOSBigSurMajorVersion           11
 #define WBMacOSMontereyMajorVersion         12
+#define WBMacOSVenturaMajorVersion          13
 
 
 #define WBMacOSReasonableMaxUnitValue          100
@@ -233,6 +234,15 @@
     return tNewVersion;
 }
 
++ (WBVersion *)macOSVenturaVersion
+{
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSVenturaMajorVersion;
+    
+    return tNewVersion;
+}
+
 #pragma mark -
 
 + (WBVersion *)systemVersion
@@ -363,6 +373,7 @@
                     return NSMakeRange(0, 7);
                     
                 case WBMacOSMontereyMajorVersion:
+                case WBMacOSVenturaMajorVersion:
                 default:
                     
                     break;
@@ -491,10 +502,23 @@
                     case 1:
                         
                         return NSMakeRange(0, 1);
+                        
+                    case 2:
+                        
+                        return NSMakeRange(0, 2);
+                        
+                    case 3:
+                        
+                        return NSMakeRange(0, 2);
                 }
                         
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 			}
+            
+            if (inVersion.majorVersion==WBMacOSVenturaMajorVersion)
+            {
+                return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+            }
 			
 			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 	}
