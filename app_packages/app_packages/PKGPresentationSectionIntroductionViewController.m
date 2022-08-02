@@ -107,6 +107,9 @@
 	
 	NSString * tString=[[[PKGInstallerApp installerApp] pluginWithSectionName:PKGPresentationSectionIntroductionName] stringForKey:@"PageText" localization:self.localization];
 	
+    if (tString==nil)   // Worse case scenario, we could not extract the localized string from Installer.app
+        tString=@"You will be guided through the steps necessary to install this software.";
+    
 	self.textView.font=[NSFont systemFontOfSize:[NSFont systemFontSize]];
 	
 	self.textView.string=tString;
