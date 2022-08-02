@@ -8572,19 +8572,26 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				
 				NSInteger tStatusCode=[tNumber integerValue];
 				
-				switch (tStatusCode)
-				{
-					case errSecCertificateExpired:
-						
-						_signatureResult=PKGArchiveSignatureResultTrustExpiredCertificate;
-						
-						break;
-						
-					default:
-						
-						_signatureResult=PKGArchiveSignatureResultTrustEvaluationFailed;
-						
-						break;
+                switch (tStatusCode)
+                {
+                    case errSecCertificateExpired:  // CSSMERR_CSP_INVALID_KEYATTR_MASK
+                        
+                        _signatureResult=PKGArchiveSignatureResultTrustExpiredCertificate;
+                        
+                        break;
+                        
+                        
+                    case CSSMERR_TP_NOT_TRUSTED:
+                        
+                        break;
+                        
+                    default:
+                        
+                        NSLog(@"Recoverable Trust Failure: %ld",(long)tStatusCode);
+                        
+                        _signatureResult=PKGArchiveSignatureResultTrustEvaluationFailed;
+                        
+                        break;
 				}
 				
 				return nil;
