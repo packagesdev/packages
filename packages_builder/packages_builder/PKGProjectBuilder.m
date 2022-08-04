@@ -8575,11 +8575,11 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
                 switch (tStatusCode)
                 {
                     case errSecCertificateExpired:  // CSSMERR_CSP_INVALID_KEYATTR_MASK
+                    case CSSMERR_TP_CERT_EXPIRED:
                         
                         _signatureResult=PKGArchiveSignatureResultTrustExpiredCertificate;
                         
                         break;
-                        
                         
                     case CSSMERR_TP_NOT_TRUSTED:
                         

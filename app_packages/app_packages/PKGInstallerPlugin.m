@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -24,6 +24,7 @@ NSString * const PKGInstallerPluginPageTitleKey=@"PageTitle";
 	NSMutableDictionary * _localizations;
 }
 
+- (NSDictionary *)localizedStringsForResourceNamed:(NSString *)inResourceName forLocalization:(NSString *)inLocalization;
 - (NSDictionary *)localizedStringsForLocalization:(NSString *)inLocalization;
 
 @end
@@ -63,43 +64,59 @@ NSString * const PKGInstallerPluginPageTitleKey=@"PageTitle";
 
 #pragma mark -
 
+- (NSDictionary *)localizedStringsForResourceNamed:(NSString *)inResourceName forLocalization:(NSString *)inLocalization
+{
+    if (inResourceName== nil || inLocalization==nil)
+        return nil;
+    
+    NSString * tEnglishLanguage=[[PKGLanguageConverter sharedConverter] englishFromISO:inLocalization];
+    NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLocalization];
+    
+    NSString * tPath=[_bundle pathForResource:inResourceName ofType:@"strings" inDirectory:nil forLocalization:tEnglishLanguage];
+    
+    if (tPath==nil)
+        tPath=[_bundle pathForResource:inResourceName ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
+    
+    if (tPath!=nil)
+        return [[NSDictionary alloc] initWithContentsOfFile:tPath];
+    
+    // Starting with macOS l'Aventura, there is a .loctable file (it does not make sense so far).
+    tPath=[_bundle pathForResource:inResourceName ofType:@"loctable"];
+    
+    if (tPath==nil)
+        return nil;
+    
+    NSDictionary * tLocalizableDictionary=[[NSDictionary alloc] initWithContentsOfFile:tPath];
+        
+    if (tLocalizableDictionary==nil)
+        return nil;
+    
+    NSDictionary * tLocalizedStringsDictionary=tLocalizableDictionary[tISOLanguage];
+    
+    if (tLocalizedStringsDictionary==nil)
+        tLocalizedStringsDictionary=tLocalizableDictionary[tEnglishLanguage];
+    
+    return tLocalizedStringsDictionary;
+}
+
 - (NSDictionary *)localizedStringsForLocalization:(NSString *)inLocalization
 {
 	if (inLocalization==nil)
 		return nil;
 	
-	NSMutableDictionary * tLocalizedDictionary=[NSMutableDictionary dictionary];
+	NSMutableDictionary * tLocalizedStringsDictionary=[NSMutableDictionary dictionary];
 	
-	NSString * tEnglishLanguage=[[PKGLanguageConverter sharedConverter] englishFromISO:inLocalization];
-	NSString * tISOLanguage=[[PKGLanguageConverter sharedConverter] ISOFromEnglish:inLocalization];
+    NSDictionary * tLocalizableDictionary=[self localizedStringsForResourceNamed:@"Localizable" forLocalization:inLocalization];
+    
+    if (tLocalizableDictionary!=nil)
+        [tLocalizedStringsDictionary addEntriesFromDictionary:tLocalizableDictionary];
+    
+    NSDictionary * tInfoPlistDictionary=[self localizedStringsForResourceNamed:@"InfoPlist" forLocalization:inLocalization];
+    
+    if (tInfoPlistDictionary!=nil)
+        [tLocalizedStringsDictionary addEntriesFromDictionary:tInfoPlistDictionary];
 	
-	NSString * tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tEnglishLanguage];
-	
-	if (tPath==nil)
-		tPath=[_bundle pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
-	
-	if (tPath!=nil)
-	{
-		NSDictionary * tLocalizableDictionary=[[NSDictionary alloc] initWithContentsOfFile:tPath];
-		
-		if (tLocalizableDictionary!=nil)
-			[tLocalizedDictionary addEntriesFromDictionary:tLocalizableDictionary];
-	}
-	
-	tPath=[_bundle pathForResource:@"InfoPlist" ofType:@"strings" inDirectory:nil forLocalization:tEnglishLanguage];
-	
-	if (tPath==nil)
-		tPath=[_bundle pathForResource:@"InfoPlist" ofType:@"strings" inDirectory:nil forLocalization:tISOLanguage];
-	
-	if (tPath!=nil)
-	{
-		NSDictionary * tLocalizableDictionary=[[NSDictionary alloc] initWithContentsOfFile:tPath];
-		
-		if (tLocalizableDictionary!=nil)
-			[tLocalizedDictionary addEntriesFromDictionary:tLocalizableDictionary];
-	}
-	
-	return [tLocalizedDictionary copy];
+	return [tLocalizedStringsDictionary copy];
 }
 
 #pragma mark -
