@@ -196,7 +196,7 @@
 		
 		});
 		
-		notify_register_dispatch(kNotifyDSCacheInvalidationUser, &_groupsNotificationToken, dispatch_get_main_queue(), ^(int bToken){
+		notify_register_dispatch(kNotifyDSCacheInvalidationGroup, &_groupsNotificationToken, dispatch_get_main_queue(), ^(int bToken){
 			
 			pthread_rwlock_wrlock(&self->_groupAccountMutex);
 			
