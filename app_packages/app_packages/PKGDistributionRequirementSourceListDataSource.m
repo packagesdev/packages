@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2021, Stephane Sudre
+ Copyright (c) 2017-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -387,8 +387,13 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
 	PKGDocument * tDocument=((NSWindowController *) inTableView.window.windowController).document;
     
     PKGDistributionRequirementSourceListNode * tTreeNode=[_flatTree nodeAtIndex:tIndex];
-	PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)tTreeNode.representedObject;
-	PKGRequirement * tOriginalRequirement=tRequirementItem.requirement;
+	PKGDistributionRequirementSourceListItem * tSourceItem=(PKGDistributionRequirementSourceListRequirementItem *)tTreeNode.representedObject;
+	
+    if ([tSourceItem isKindOfClass:[PKGDistributionRequirementSourceListRequirementItem class]]==NO)    // Double-click on a group item should do nothing.
+        return;
+    
+    PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)tSourceItem;
+    PKGRequirement * tOriginalRequirement=tRequirementItem.requirement;
 	PKGRequirement * tEditedRequirement=[tOriginalRequirement copy];
 
 	PKGDistributionRequirementPanel * tRequirementPanel=[PKGDistributionRequirementPanel distributionRequirementPanel];
