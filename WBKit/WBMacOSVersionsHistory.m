@@ -510,6 +510,14 @@
                     case 3:
                         
                         return NSMakeRange(0, 2);
+                        
+                    case 4:
+                        
+                        return NSMakeRange(0, 1);
+                        
+                    case 5:
+                        
+                        return NSMakeRange(0, 2);
                 }
                         
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
