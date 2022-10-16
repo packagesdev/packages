@@ -460,7 +460,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
     
     NSString * tCertificateKeychainPath=inProjectSettings.certificateKeychainPath;
     
-    if (tCertificateKeychainPath.length>0)
+    if (tCertificateKeychainPath.length>0 && [tMutableArray containsObject:tCertificateKeychainPath]==NO)
         [tMutableArray insertObject:tCertificateKeychainPath atIndex:0];
     
     // Retrieve info about the keychain(s)
@@ -512,11 +512,6 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
         if ((tKeychainStatus & kSecUnlockStateStatus) == 0)
         {
             NSLog(@"Keychain %@ is locked.",bKeychainPath);
-            
-            return @{
-                     @"path":bKeychainPath,
-                     @"locked":@(YES)
-                     };
         }
         
         if ((tKeychainStatus & kSecReadPermStatus) == 0)
