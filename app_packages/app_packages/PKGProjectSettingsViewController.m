@@ -250,7 +250,7 @@
 	{
 		if (_certificateSealWindowController==nil)
 		{
-			_certificateSealWindowController=[[PKGCertificateSealWindowController alloc] init];
+			_certificateSealWindowController=[PKGCertificateSealWindowController new];
 			
 			_certificateSealWindowController.nextResponder=self;
 		}
