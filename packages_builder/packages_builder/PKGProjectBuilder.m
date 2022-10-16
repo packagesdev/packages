@@ -207,7 +207,6 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 - (BOOL)isCertificateSetForProjectSettings:(PKGProjectSettings *)inProjectSettings;
 
-- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings error:(OSStatus *)outError;
 - (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings;
 
 - (BOOL)createDirectoryAtPath:(NSString *)inDirectoryPath withIntermediateDirectories:(BOOL)inIntermediateDirectories;
@@ -426,126 +425,201 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	return (tCertificateName!=nil && [tCertificateName length]>0);
 }
 
-- (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings error:(OSStatus *)outError
-{
-	if (inProjectSettings==nil)
-	{
-		if (outError!=NULL)
-			*outError=0;
-		
-		return NULL;
-	}
-		
-	NSString * tCertificateName=inProjectSettings.certificateName;
-
-	if (tCertificateName==nil)
-	{
-		if (outError!=NULL)
-			*outError=0;
-		
-		return NULL;
-	}
-	
-	PKGStackedEffectiveUserAndGroup * tStackedEffectiveUserAndGroup=[[PKGStackedEffectiveUserAndGroup alloc] initWithUserID:self.userID andGroupID:self.groupID];
-			
-	NSString * tKeychainPath=[PKGLoginKeychainPath stringByExpandingTildeInPath];
-	
-	OSStatus tError;
-	
-	SecIdentityRef tSecIdentityRef=[PKGCertificatesUtilities identityWithName:tCertificateName atPath:tKeychainPath error:&tError];
-	
-	if (tSecIdentityRef!=NULL)
-		return tSecIdentityRef;
-	
-	SecCertificateRef tCertificateRef=[PKGCertificatesUtilities certificateWithName:tCertificateName atPath:tKeychainPath error:&tError];
-	
-	if (tCertificateRef!=NULL)
-	{
-		if (outError!=NULL)
-			*outError=PKG_errSecMissingPrivateKey;
-		
-		return NULL;
-	}
-	
-	tStackedEffectiveUserAndGroup=nil;
-	
-	NSString * tCertificateKeychainPath=inProjectSettings.certificateKeychainPath;
-				
-	if (tCertificateKeychainPath==nil)
-	{
-		if (outError!=NULL)
-			*outError=tError;
-		
-		return NULL;
-	}
-	
-	tError=0;
-	
-	tSecIdentityRef=[PKGCertificatesUtilities identityWithName:tCertificateName atPath:tCertificateKeychainPath error:&tError];
-	
-	if (tSecIdentityRef!=NULL)
-		return tSecIdentityRef;
-	
-	tCertificateRef=[PKGCertificatesUtilities certificateWithName:tCertificateName atPath:tCertificateKeychainPath error:&tError];
-	
-	if (tCertificateRef!=NULL)
-	{
-		if (outError!=NULL)
-			*outError=PKG_errSecMissingPrivateKey;
-		
-		return NULL;
-	}
-	
-	if (outError!=NULL)
-		*outError=tError;
-			
-	return NULL;
-}
-
 - (SecIdentityRef)secIdentifyForProjectSettings:(PKGProjectSettings *)inProjectSettings
 {
-	OSStatus tIdentityError=errSecSuccess;
-	
-	SecIdentityRef tSecIdentityRef=[self secIdentifyForProjectSettings:inProjectSettings error:&tIdentityError];
-	
-	if (tSecIdentityRef!=NULL)
-		return tSecIdentityRef;
-	
-	PKGBuildError tBuildError=PKGBuildErrorSigningUnknown;
-	
-	PKGBuildErrorEvent * tBuildErrorEvent=[[PKGBuildErrorEvent alloc] init];
-	
-	switch(tIdentityError)
-	{
-		case PKG_errSecMissingPrivateKey:
-			
-			tBuildError=PKGBuildErrorSigningCertificatePrivateKeyNotFound;
-			break;
-			
-		case errSecNoSuchKeychain:
-			
-			tBuildError=PKGBuildErrorSigningKeychainNotFound;
-			break;
-			
-		case errSecItemNotFound:
-			
-			tBuildError=PKGBuildErrorSigningCertificateNotFound;
-			break;
-			
-		default:
-			
-			tBuildErrorEvent.subcode=tIdentityError;
-			
-			// A COMPLETER
-			
-			break;
-	}
-	
-	tBuildErrorEvent.code=tBuildError;
-	
-	[self postCurrentStepFailureEvent:tBuildErrorEvent];
-	
-	return NULL;
+    if (inProjectSettings==nil)
+    {
+        NSLog(@"Missing project settings");
+        
+        PKGBuildErrorEvent * tBuildErrorEvent=[PKGBuildErrorEvent new];
+        tBuildErrorEvent.code=PKGBuildErrorSigningUnknown;
+        
+        [self postCurrentStepFailureEvent:tBuildErrorEvent];
+        
+        return NULL;
+    }
+    
+    NSString * tCertificateName=inProjectSettings.certificateName;
+    
+    if (tCertificateName.length==0)
+    {
+        NSLog(@"Missing or empty certificate name");
+        
+        PKGBuildErrorEvent * tBuildErrorEvent=[PKGBuildErrorEvent new];
+        tBuildErrorEvent.code=PKGBuildErrorSigningUnknown;
+        
+        [self postCurrentStepFailureEvent:tBuildErrorEvent];
+        
+        return NULL;
+    }
+    
+    PKGStackedEffectiveUserAndGroup * tStackedEffectiveUserAndGroup=[[PKGStackedEffectiveUserAndGroup alloc] initWithUserID:self.userID andGroupID:self.groupID];
+    
+    
+    NSMutableArray * tMutableArray=[NSMutableArray arrayWithObject:[PKGLoginKeychainPath stringByExpandingTildeInPath]];
+    
+    NSString * tCertificateKeychainPath=inProjectSettings.certificateKeychainPath;
+    
+    if (tCertificateKeychainPath.length>0)
+        [tMutableArray insertObject:tCertificateKeychainPath atIndex:0];
+    
+    // Retrieve info about the keychain(s)
+    
+    NSArray<NSDictionary *> * tAvailableKeychainsInfo = [tMutableArray WB_arrayByMappingObjectsUsingBlock:^NSDictionary *(NSString * bKeychainPath, NSUInteger bIndex) {
+        
+        SecKeychainRef tKeyChainRef=NULL;
+        
+        OSStatus tStatus=SecKeychainOpen(bKeychainPath.fileSystemRepresentation,&tKeyChainRef);
+        
+        if (tKeyChainRef==NULL) // According to the source code of SecKeyChain.cpp and StorageManager.cpp, this should not happen if the path is absolute.
+            return @{
+                     @"path":bKeychainPath,
+                     @"missing":@(YES)
+                     };
+        
+        SecKeychainStatus tKeychainStatus=0;
+        
+        tStatus=SecKeychainGetStatus(tKeyChainRef,&tKeychainStatus);
+        
+        CFRelease(tKeyChainRef);
+        
+        if (tStatus!=0)
+        {
+            switch(tStatus)
+            {
+                case errSecNoSuchKeychain:
+                    
+                    NSLog(@"Keychain %@ does not exist.",bKeychainPath);
+                    break;
+                    
+                case errSecInvalidKeychain:
+                    
+                    NSLog(@"%@ is not a .keychain file.",bKeychainPath);
+                    break;
+                    
+                case kPOSIXErrorEISDIR: // The path points to a directory and not a .keychain file
+                    
+                    NSLog(@"%@ is a directory path.",bKeychainPath);
+                    break;
+            }
+            
+            return @{
+                     @"path":bKeychainPath,
+                     @"missing":@(YES)
+                     };
+        }
+        
+        if ((tKeychainStatus & kSecUnlockStateStatus) == 0)
+        {
+            NSLog(@"Keychain %@ is locked.",bKeychainPath);
+            
+            return @{
+                     @"path":bKeychainPath,
+                     @"locked":@(YES)
+                     };
+        }
+        
+        if ((tKeychainStatus & kSecReadPermStatus) == 0)
+        {
+            NSLog(@"Keychain %@ is not readable (not enough permissions).",bKeychainPath);
+            
+            return @{
+                     @"path":bKeychainPath,
+                     @"noreadperm":@(YES)
+                     };
+        }
+        
+        return @{
+                 @"path":bKeychainPath
+                 };
+    }];
+    
+    for(NSDictionary *keychainInfo in tAvailableKeychainsInfo)
+    {
+        if (keychainInfo.count>1)
+            [tMutableArray removeObject:keychainInfo[@"path"]];
+    }
+    
+    if (tMutableArray.count==0)
+    {
+        // No available keychains
+        
+        NSLog(@"No available keychains were found");
+        
+        PKGBuildErrorEvent * tBuildErrorEvent=[PKGBuildErrorEvent new];
+        tBuildErrorEvent.code=PKGBuildErrorSigningKeychainNotFound;
+        
+        [self postCurrentStepFailureEvent:tBuildErrorEvent];
+            
+        return NULL;
+    }
+    
+    // Iterate keychains paths
+    
+    __block PKGCertificateErrorCode tMainKeychainErrorCode=0;
+    __block SecIdentityRef tIdentityRef=NULL;
+    
+    
+    [tMutableArray enumerateObjectsUsingBlock:^(NSString * bKeychainPath, NSUInteger bIndex, BOOL * bOutStop) {
+        
+        PKGCertificateErrorCode tErrorCode=0;
+        
+        tIdentityRef=[PKGCertificatesUtilities identityWithName:tCertificateName atPath:bKeychainPath error:&tErrorCode];
+        
+        if (tIdentityRef!=NULL)
+        {
+            *bOutStop=YES;
+            return;
+        }
+        
+        if (bIndex==0)
+            tMainKeychainErrorCode=tErrorCode;
+    }];
+    
+    tStackedEffectiveUserAndGroup=nil;
+    
+    if (tIdentityRef!=NULL)
+        return tIdentityRef;
+    
+    PKGBuildErrorEvent * tBuildErrorEvent=[PKGBuildErrorEvent new];
+    
+    switch(tMainKeychainErrorCode)
+    {
+        case PKGCertificateErrorMissingCertificate:
+            
+            NSLog(@"No available keychains were found");
+            
+            tBuildErrorEvent.code=PKGBuildErrorSigningCertificateNotFound;
+            
+            break;
+            
+        case PKGCertificateErrorExpiredCertificate:
+            
+            NSLog(@"Expired certificate");
+            
+            tBuildErrorEvent.code=PKGBuildErrorSigningCertificateExpired;
+            
+            break;
+            
+        case PKGCertificateErrorMissingPrivateKey:
+            
+            NSLog(@"Missing Private Key");
+            
+            tBuildErrorEvent.code=PKGBuildErrorSigningCertificatePrivateKeyNotFound;
+            
+            break;
+            
+        default:
+            
+            tBuildErrorEvent.code=PKGBuildErrorSigningUnknown;
+            tBuildErrorEvent.subcode=tMainKeychainErrorCode;
+            
+            break;
+    }
+    
+    [self postCurrentStepFailureEvent:tBuildErrorEvent];
+    
+    return NULL;
 }
 
 #pragma mark -

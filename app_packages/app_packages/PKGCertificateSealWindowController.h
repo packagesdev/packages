@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,6 +17,8 @@
 
 @interface PKGCertificateSealWindowController : NSWindowController
 
-	@property (nonatomic) SecCertificateRef certificate;
+	@property (readonly) SecCertificateRef certificate;
+
+- (void)setCertificate:(SecCertificateRef)inCertificate isExpired:(BOOL)isExpired;
 
 @end

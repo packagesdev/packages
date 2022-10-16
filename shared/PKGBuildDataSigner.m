@@ -66,8 +66,6 @@ extern void CmsMessageSetTSAContext(CMSEncoderRef cmsEncoder, CFTypeRef tsaConte
 
 #pragma mark - PKGSignatureCreatorInterface
 
-
-
 - (void)createSignatureOfType:(PKGSignatureType)inSignatureType forData:(NSData *)inInputData usingIdentity:(NSString *)inIdentityName keychain:(NSString *)inKeychainPath replyHandler:(void(^)(PKGSignatureStatus bStatus,NSData * bSignedData))inReply
 {
 	[self createSignatureOfType:inSignatureType forData:inInputData usingIdentity:inIdentityName keychain:inKeychainPath useTSA:NO replyHandler:inReply];
@@ -86,14 +84,22 @@ extern void CmsMessageSetTSAContext(CMSEncoderRef cmsEncoder, CFTypeRef tsaConte
 	
 	OSStatus tIdentityError=0;
 	
-	SecIdentityRef tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:[PKGLoginKeychainPath stringByExpandingTildeInPath] error:&tIdentityError];
-	
-	if (tSecIdentityRef==NULL && inKeychainPath!=nil)
-	{
-		tIdentityError=0;
-		
-		tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:inKeychainPath error:&tIdentityError];
-	}
+    SecIdentityRef tSecIdentityRef=NULL;
+    
+    if (inKeychainPath!=nil)
+    {
+        tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:inKeychainPath options:0 error:&tIdentityError];
+        
+        if (tSecIdentityRef==NULL)
+            NSLog(@"No identity named %@ found for in keychain at path %@. Will try the login keychain as a fallback.",inIdentityName,inKeychainPath);
+    }
+    
+    if (tSecIdentityRef==NULL)
+    {
+        tIdentityError=0;
+        
+        tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:[PKGLoginKeychainPath stringByExpandingTildeInPath] options:0 error:&tIdentityError];
+    }
 	
 	if (tSecIdentityRef==NULL)
 	{

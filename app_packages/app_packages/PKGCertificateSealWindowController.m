@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2022, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -21,6 +21,10 @@
 {
 	IBOutlet PKGCertificateSealView * _sealView;
 }
+
+@property (readwrite) SecCertificateRef certificate;
+
+@property (readwrite,getter=isExpired) BOOL expired;
 
 - (void)refreshUI;
 
@@ -52,7 +56,7 @@
 
 #pragma mark -
 
-- (void)setCertificate:(SecCertificateRef)inCertificate
+- (void)setCertificate:(SecCertificateRef)inCertificate isExpired:(BOOL)isExpired
 {
 	if (_certificate!=inCertificate)
 	{
@@ -64,7 +68,9 @@
 		else
 			_certificate=NULL;
 		
-		[self refreshUI];
+        _expired=isExpired;
+        
+        [self refreshUI];
 	}
 }
 
@@ -72,7 +78,7 @@
 
 - (void)refreshUI
 {
-	_sealView.missing=(_certificate==NULL);
+	_sealView.missing=(self.certificate==NULL || self.isExpired==YES);
 }
 
 - (IBAction)showCertificate:(id)sender

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2016, Stephane Sudre
+Copyright (c) 2004-2022, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,16 +17,32 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 extern NSString * const PKGLoginKeychainPath;
 
+typedef NS_OPTIONS(NSUInteger, PKGCertificateSearchOptions)
+{
+    PKGCertificateSearchNonExpired = 1 << 0
+};
+
+typedef NS_OPTIONS(NSUInteger, PKGCertificateErrorCode)
+{
+    PKGCertificateErrorMissingCertificate = -1,
+    PKGCertificateErrorExpiredCertificate = -2,
+    PKGCertificateErrorMissingPrivateKey = -3,
+    
+    PKGCertificateErrorInvalidParameters = -10000,
+};
+
 @interface PKGCertificatesUtilities : NSObject
 
 + (NSArray *)availableCertificates;
 
 + (NSArray *)availableIdentities;
 
-+ (SecCertificateRef)copyOfCertificateWithName:(NSString *) inName;
++ (SecCertificateRef)copyOfCertificateWithName:(NSString *)inName isExpired:(BOOL *)outExpired;
 
-+ (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
++ (SecIdentityRef)identityWithName:(NSString *)inName atPath:(NSString *)inPath options:(PKGCertificateSearchOptions)inOptions error:(OSStatus *)outError;
 
-+ (SecCertificateRef)certificateWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
++ (SecCertificateRef)certificateWithName:(NSString *)inName atPath:(NSString *)inPath options:(PKGCertificateSearchOptions)inOptions error:(OSStatus *)outError;
+
++ (SecIdentityRef)identityWithName:(NSString *)inName atPath:(NSString *)inPath error:(PKGCertificateErrorCode *)outErrorCode;
 
 @end

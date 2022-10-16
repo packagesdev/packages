@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2004-2017, Stephane Sudre
+Copyright (c) 2004-2022, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -72,20 +72,40 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	return (__bridge_transfer NSArray *)tResults;
 }
 
-+ (SecCertificateRef)copyOfCertificateWithName:(NSString *)inName
++ (SecCertificateRef)copyOfCertificateWithName:(NSString *)inName isExpired:(BOOL *)outExpired
 {
-	SecIdentityRef tIdentityRef=[PKGCertificatesUtilities identityWithName:inName atPath:nil error:NULL];
+    OSStatus tStatus=0;
+    
+    if (outExpired!=NULL)
+        *outExpired=NO;
+    
+    SecIdentityRef tIdentityRef=[PKGCertificatesUtilities identityWithName:inName atPath:nil options:PKGCertificateSearchNonExpired error:&tStatus];
 	
 	if (tIdentityRef==NULL)
-		return NULL;
-	
+    {
+        switch(tStatus)
+        {
+            case errSecItemNotFound:    // There might an identity with an expired certificate.
+                
+                tIdentityRef=[PKGCertificatesUtilities identityWithName:inName atPath:nil options:0 error:&tStatus];
+                
+                if (tIdentityRef!=NULL && outExpired!=NULL)
+                    *outExpired=YES;
+                
+                break;
+        }
+        
+        if (tIdentityRef==NULL)
+            return NULL;
+    }
+    
 	SecCertificateRef tCertificateRef=NULL;
 	SecIdentityCopyCertificate(tIdentityRef,&tCertificateRef);
 	
 	return tCertificateRef;
 }
 
-+ (SecCertificateRef)certificateWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError
++ (SecCertificateRef)certificateWithName:(NSString *)inName atPath:(NSString *)inPath options:(PKGCertificateSearchOptions)inOptions error:(OSStatus *)outError
 {
 	if (inName.length==0)
 	{
@@ -107,17 +127,10 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 		{
 			NSLog(@"SecKeychainOpen error:%ld",(long)tStatus);
 			
-			switch(tStatus)
-			{
-				case errSecNoSuchKeychain:
-					
-					break;
-			}
-			
 			return nil;
 		}
 		
-		return (__bridge id)tKeyChainRef;
+		return (__bridge id)tKeyChainRef;   // A TESTER: It probably needs a transfer or to release the ref later.
 	}];
 	
 	NSMutableDictionary * tQueryDictionary=[@{(id)kSecClass:(id)kSecClassCertificate,
@@ -126,9 +139,11 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 											  (id)kSecMatchLimit:(id)kSecMatchLimitOne} mutableCopy];
 	
 	if (tSecKeychainArray.count>0)
-		tQueryDictionary[(__bridge NSString *)kSecMatchSearchList]=tSecKeychainArray;
+		tQueryDictionary[(id)kSecMatchSearchList]=tSecKeychainArray;
 	
-	
+	if ((inOptions & PKGCertificateSearchNonExpired)!=0)
+        tQueryDictionary[(id)kSecMatchValidOnDate]=[NSDate date];
+    
 	SecCertificateRef tResult=NULL;
 	
 	OSStatus tStatus=SecItemCopyMatching((__bridge CFDictionaryRef)tQueryDictionary, (CFTypeRef *)&tResult);
@@ -139,7 +154,7 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	return tResult;
 }
 
-+ (SecIdentityRef)identityWithName:(NSString *) inName atPath:(NSString *) inPath error:(OSStatus *)outError;
++ (SecIdentityRef)identityWithName:(NSString *)inName atPath:(NSString *)inPath options:(PKGCertificateSearchOptions)inOptions  error:(OSStatus *)outError;
 {
 	if (inName.length==0)
 	{
@@ -161,17 +176,10 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 		{
 			NSLog(@"SecKeychainOpen error:%ld",(long)tStatus);
 			
-			switch(tStatus)
-			{
-				case errSecNoSuchKeychain:
-					
-					break;
-			}
-			
 			return nil;
 		}
 		
-		return (__bridge id)tKeyChainRef;
+        return (__bridge id)tKeyChainRef;   // A TESTER: It probably needs a transfer or to release the ref later.
 	}];
 	
 	NSMutableDictionary * tQueryDictionary=[@{(id)kSecClass:(id)kSecClassIdentity,
@@ -183,7 +191,9 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 	if (tSecKeychainArray.count>0)
 		tQueryDictionary[(__bridge NSString *)kSecMatchSearchList]=tSecKeychainArray;
 	
-	
+    if ((inOptions & PKGCertificateSearchNonExpired)!=0)
+        tQueryDictionary[(id)kSecMatchValidOnDate]=[NSDate date];
+    
 	SecIdentityRef tResult=NULL;
 	
 	OSStatus tStatus=SecItemCopyMatching((__bridge CFDictionaryRef)tQueryDictionary, (CFTypeRef *)&tResult);
@@ -192,6 +202,80 @@ NSString * const PKGLoginKeychainPath=@"~/Library/Keychains/login.keychain";
 		*outError=tStatus;
 	
 	return tResult;
+}
+
++ (SecIdentityRef)identityWithName:(NSString *)inName atPath:(NSString *)inPath error:(PKGCertificateErrorCode *)outErrorCode
+{
+    if (outErrorCode!=NULL)
+        *outErrorCode=0;
+    
+    if (inName.length==0 || (inPath!=nil && inPath.length==0))
+    {
+        if (outErrorCode!=NULL)
+            *outErrorCode=PKGCertificateErrorInvalidParameters;
+        
+        return NULL;
+    }
+    
+    OSStatus tError=0;
+    
+    // Try to find a valid identity (i.e. not expired and with a private key)
+    
+    SecIdentityRef tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inName atPath:inPath options:PKGCertificateSearchNonExpired error:&tError];
+    
+    if (tSecIdentityRef!=NULL)
+        return tSecIdentityRef;
+    
+    // Do we have a non expired identity without a private key?
+    
+    tError=0;
+    
+    SecCertificateRef tCertificateRef=[PKGCertificatesUtilities certificateWithName:inName atPath:inPath options:PKGCertificateSearchNonExpired error:&tError];
+    
+    if (tCertificateRef!=NULL)
+    {
+        // Missing Private key
+        
+        if (outErrorCode!=NULL)
+            *outErrorCode=PKGCertificateErrorMissingPrivateKey;
+        
+        return NULL;
+    }
+    
+    // Do we have an expired identity?
+    
+    tError=0;
+    
+    tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inName atPath:inPath options:0 error:&tError];
+    
+    if (tSecIdentityRef!=NULL)
+    {
+        // Expired certificate
+        
+        if (outErrorCode!=NULL)
+            *outErrorCode=PKGCertificateErrorExpiredCertificate;
+        
+        return NULL;
+    }
+    
+    tCertificateRef=[PKGCertificatesUtilities certificateWithName:inName atPath:inPath options:0 error:&tError];
+    
+    if (tCertificateRef!=NULL)
+    {
+        // Expired certificate and Missing Private key
+        
+        if (outErrorCode!=NULL)
+            *outErrorCode=PKGCertificateErrorExpiredCertificate;
+        
+        return NULL;
+    }
+    
+    // Missing Identity and certificate
+    
+    if (outErrorCode!=NULL)
+        *outErrorCode=PKGCertificateErrorMissingCertificate;
+    
+    return NULL;
 }
 
 @end

@@ -255,9 +255,11 @@
 			_certificateSealWindowController.nextResponder=self;
 		}
 		
-		SecCertificateRef tCertificateRef=[PKGCertificatesUtilities copyOfCertificateWithName:self.projectSettings.certificateName];
+        BOOL tIsExpired=NO;
+        
+		SecCertificateRef tCertificateRef=[PKGCertificatesUtilities copyOfCertificateWithName:self.projectSettings.certificateName isExpired:&tIsExpired];
 			
-		_certificateSealWindowController.certificate=tCertificateRef;
+        [_certificateSealWindowController setCertificate:tCertificateRef isExpired:tIsExpired];
 			
 		if (tCertificateRef!=NULL)
 			CFRelease(tCertificateRef);
