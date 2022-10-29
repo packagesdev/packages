@@ -370,7 +370,7 @@
                     
                 case WBMacOSBigSurMajorVersion:
                     
-                    return NSMakeRange(0, 7);
+                    return NSMakeRange(0, 8);
                     
                 case WBMacOSMontereyMajorVersion:
                 case WBMacOSVenturaMajorVersion:
@@ -485,7 +485,11 @@
                         
                     case 6:
                         
-                        return NSMakeRange(0, 4);
+                        return NSMakeRange(0, 9);
+                        
+                    case 7:
+                        
+                        return NSMakeRange(0, 2);
                 }
                 
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
