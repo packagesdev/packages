@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>NSPrincipalClass</key>
 	<string>PKGRequirementViewControllerOS</string>
 	<key>NAME</key>

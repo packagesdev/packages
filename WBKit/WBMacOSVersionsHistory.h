@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2022, Stephane Sudre
+ Copyright (c) 2017-2023, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,6 +34,7 @@
 + (WBVersion *)macOSBigSurVersion;
 + (WBVersion *)macOSMontereyVersion;
 + (WBVersion *)macOSVenturaVersion;
++ (WBVersion *)macOSSonomaVersion;
 
 + (WBVersion *)systemVersion;
 
