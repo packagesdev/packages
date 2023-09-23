@@ -87,7 +87,8 @@ fi
 if [ -f build/Packages.pkg ]
 then
 
-	/bin/cp build/Packages.pkg build/diskimage_rw/packages/Packages.pkg
+	/bin/cp build/Packages.pkg build/diskimage_rw/
+	/bin/mv build/diskimage_rw/Packages.pkg build/diskimage_rw/Install\ Packages.pkg
 
 else
 
