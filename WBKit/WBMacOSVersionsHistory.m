@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2023, Stephane Sudre
+ Copyright (c) 2017-2024, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -270,7 +270,7 @@
         sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
 #else
         
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
+    #if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
         
         if (NSFoundationVersionNumber>=NSFoundationVersionNumber10_10)
         {
@@ -281,9 +281,9 @@
             sSystemVersion.patchVersion=tOperatingSystemVersion.patchVersion;
         }
         else
+        
+    #endif
         {
-#endif
-#endif
             SInt32 tMajorVersion,tMinorVersion,tBugFixVersion;
             
             Gestalt(gestaltSystemVersionMajor,&tMajorVersion);
@@ -293,13 +293,8 @@
             sSystemVersion.majorVersion=tMajorVersion;
             sSystemVersion.minorVersion=tMinorVersion;
             sSystemVersion.patchVersion=tBugFixVersion;
-            
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10
         }
 #endif
-        
-        
-        
     });
     
     return sSystemVersion;

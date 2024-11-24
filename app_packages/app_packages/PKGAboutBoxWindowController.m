@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2018, Stéphane Sudre
+Copyright (c) 2008-2024, Stéphane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -69,7 +69,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return;
 	}
 	
-	[[NSWorkspace sharedWorkspace] openFile:tPath];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:tPath]];
 }
 
 - (IBAction)showAcknowledgments:(id) sender
@@ -82,7 +82,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return;
 	}
 	
-	[[NSWorkspace sharedWorkspace] openFile:tPath];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:tPath]];
 }
 
 @end
