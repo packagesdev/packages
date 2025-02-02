@@ -28,7 +28,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     else
         [[NSColor colorWithDeviceWhite:0.0 alpha:0.18] set];
     
-    NSRectFillUsingOperation(tRefreshRect,NSCompositingOperationSourceOver);
+    NSRectFillUsingOperation(tRefreshRect,WBCompositingOperationSourceOver);
     
     // Draw top line
     
@@ -44,7 +44,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     else
         tLineRect=NSMakeRect(NSMinX(tRefreshRect)+1.0,NSMaxY(tRefreshRect)-1.0,NSWidth(tRefreshRect)-3.0,1.0);
         
-    NSRectFillUsingOperation(tLineRect,NSCompositingOperationSourceOver);
+    NSRectFillUsingOperation(tLineRect,WBCompositingOperationSourceOver);
 }
 
 @end

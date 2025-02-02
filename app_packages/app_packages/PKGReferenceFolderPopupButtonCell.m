@@ -27,7 +27,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		.size=tReferenceIcon.size
 	};
 	
-	[tReferenceIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];
+	[tReferenceIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];
 	
 	// Draw the menu item
 	
@@ -44,7 +44,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		NSRect tDestinationRect=NSMakeRect(NSMinX(inFrame)+tOffset,NSMinY(inFrame)+5.0,15.0,15.0);
 		
-		[tIcon drawInRect:tDestinationRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];
+		[tIcon drawInRect:tDestinationRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];
 	}
 	
 	tRect=[self titleRectForBounds:inFrame];

@@ -81,7 +81,7 @@
 		.size=tReferenceIcon.size
 	};
 	
-	[tReferenceIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];
+	[tReferenceIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:nil];
 }
 
 @end

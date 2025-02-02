@@ -63,7 +63,7 @@
 @end
 
 
-@interface PKGPresentationLicenseInspectorViewController () <PKGPresentationLocalizationsDataSourceDelegate>
+@interface PKGPresentationLicenseInspectorViewController () <NSMenuItemValidation, PKGPresentationLocalizationsDataSourceDelegate>
 {
 	IBOutlet NSPopUpButton * _customLicenseTypePopUpButton;
 	

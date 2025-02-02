@@ -13,7 +13,7 @@
 
 #import "PKGProjectMainViewController.h"
 
-@interface PKGProjectMainViewController ()
+@interface PKGProjectMainViewController () <NSMenuItemValidation>
 
 
 @end

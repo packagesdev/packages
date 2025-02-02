@@ -79,23 +79,23 @@
         tRect.origin.x=0;
         tRect.origin.y=NSMaxY(inRect)-tSideLength;
             
-        [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
             
         tRect.origin.x=tSideLength*0.25;
         tRect.origin.y=NSMinY(inRect);
             
-        [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
         
         return;
     }
     
     if (_attributedImage.image!=nil)
-		[_attributedImage.image drawInRect:tBounds fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:_attributedImage.alpha];
+		[_attributedImage.image drawInRect:tBounds fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:_attributedImage.alpha];
 	
 	// Draw the Symbolic link arrow
 	
 	if (_attributedImage.drawsSymbolicLinkArrow==YES)
-		[[PKGPayloadTreeNodeImageView aliasBadgeImage] drawInRect:tBounds fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:_attributedImage.alpha];
+		[[PKGPayloadTreeNodeImageView aliasBadgeImage] drawInRect:tBounds fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:_attributedImage.alpha];
 	
 	// Draw the target cross
 	

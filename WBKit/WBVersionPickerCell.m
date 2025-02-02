@@ -911,7 +911,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
         {
             [[NSColor containerBorderColor] set];
             
-            NSFrameRectWithWidthUsingOperation(tTextAreaFrame,1.0, NSCompositeSourceOver);
+            NSFrameRectWithWidthUsingOperation(tTextAreaFrame,1.0, WBCompositingOperationSourceOver);
         }
         else
         {
@@ -926,7 +926,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 		{
 			[[NSColor blackColor] setFill];
 			
-			NSFrameRectWithWidthUsingOperation(tTextAreaFrame,-1.0, NSCompositeSourceOver);
+			NSFrameRectWithWidthUsingOperation(tTextAreaFrame,-1.0, WBCompositingOperationSourceOver);
 		}
 	}
 	

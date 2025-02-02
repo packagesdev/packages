@@ -34,7 +34,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	else
 		[[NSColor colorWithDeviceWhite:0.0 alpha:0.02] set];
 	
-	NSRectFillUsingOperation(inFrame,NSCompositeSourceOver);
+	NSRectFillUsingOperation(inFrame,WBCompositingOperationSourceOver);
 	
 	// Draw Left Separator line
 	

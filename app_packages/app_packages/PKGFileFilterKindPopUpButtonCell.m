@@ -47,7 +47,7 @@
 	tDestinationRect.origin.x=round(tMinX+7.0);
 	tDestinationRect.origin.y=round(tMiddleY-tImage.size.height*0.5)-1.0;
 	
-	[tImage drawInRect:tDestinationRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:@{}];
+	[tImage drawInRect:tDestinationRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:@{}];
 }
 
 @end

@@ -424,7 +424,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 								  
                                     NSSize tBulletSize=[tBulletImage size];
 								  
-                                    [tBulletImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,tHeight-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                                    [tBulletImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,tHeight-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 								 }
 								 else
 								 {
@@ -1009,7 +1009,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
                         [tBezierPath addClip];
                         
                         NSImage * tImage=[NSImage imageNamed:@"Strip32Composite"];
-                        [tImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                        [tImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
              
                         [[NSGraphicsContext currentContext] restoreGraphicsState];
                         
@@ -1019,7 +1019,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
                     }];
 				}
 				
-				[tBulletProcessedImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,NSMinY(tFrame)-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				[tBulletProcessedImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,NSMinY(tFrame)-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 			}
 			else
 			{

@@ -89,12 +89,12 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 											   
 											   [NSGraphicsContext saveGraphicsState];
 											   [NSBezierPath clipRect:NSMakeRect(8.0,0.0,8.0,16.0)];
-											   [_cachedSmallFileIcon drawAtPoint:NSMakePoint(+2,0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+											   [_cachedSmallFileIcon drawAtPoint:NSMakePoint(+2,0) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 											   [NSGraphicsContext restoreGraphicsState];
 											   
 											   [NSGraphicsContext saveGraphicsState];
 											   [NSBezierPath clipRect:NSMakeRect(0.0,0.0,8.0,16.0)];
-											   [_cachedSmallFolderIcon drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+											   [_cachedSmallFolderIcon drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 											   [NSGraphicsContext restoreGraphicsState];
 											   
 											   [[NSColor blueColor] set];

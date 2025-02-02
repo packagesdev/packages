@@ -154,7 +154,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			tImageFrame.origin.x+=1.;
 			tImageFrame.origin.y=round(NSMidY(tImageFrame)-NSHeight(tImageFrame)*0.5)+1.;
 			
-			[tImage drawInRect:tImageFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1 respectFlipped:YES hints:nil];
+			[tImage drawInRect:tImageFrame fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1 respectFlipped:YES hints:nil];
 			
 			break;
 		

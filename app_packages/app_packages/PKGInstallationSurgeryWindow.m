@@ -38,7 +38,7 @@
 {
 	[[NSColor colorWithDeviceWhite:0.0 alpha:0.5] set];
 	
-	NSRectFillUsingOperation(inRect,NSCompositeSourceOver);
+	NSRectFillUsingOperation(inRect,WBCompositingOperationSourceOver);
 	
 	[[NSColor clearColor] set];
 	
@@ -52,7 +52,7 @@
 		.size=NSMakeSize(tWidth, tHeight)
 	};
 	
-	NSRectFillUsingOperation(tRect,NSCompositeClear);
+	NSRectFillUsingOperation(tRect,WBCompositingOperationSourceOver);
 }
 
 @end

@@ -19,7 +19,7 @@
 {
 	[self.backgroundColor set];
 	
-	NSRectFillUsingOperation(inDirtyRect, NSCompositeSourceOver);
+	NSRectFillUsingOperation(inDirtyRect, WBCompositingOperationSourceOver);
 }
 
 - (BOOL)performKeyEquivalent:(NSEvent *)inEvent

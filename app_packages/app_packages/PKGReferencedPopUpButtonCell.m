@@ -58,7 +58,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSImage * tReferenceIcon=[self pullDownImageForPathType:self.pathType controlSize:self.controlSize];
 	
-	[tReferenceIcon drawInRect:NSMakeRect(NSMinX(inFrame)+2.0,NSMinY(inFrame)+1.0, 26.0, 18.0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:@{}];
+	[tReferenceIcon drawInRect:NSMakeRect(NSMinX(inFrame)+2.0,NSMinY(inFrame)+1.0, 26.0, 18.0) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5 respectFlipped:YES hints:@{}];
 
 	// Draw the menu item
 	
@@ -79,7 +79,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		NSRect tDestinationRect=NSMakeRect(NSMinX(inFrame)+tOffset,NSMinY(inFrame)+3.0,15.0,15.0);
 		
-		[tIcon drawInRect:tDestinationRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5];
+		[tIcon drawInRect:tDestinationRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.isEnabled==YES) ? 1.0 : 0.5];
 		
 		tOffset+=15.0;
 	}
