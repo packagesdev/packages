@@ -348,7 +348,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 	
 	if (tAction==@selector(switchLanguage:))
 	{
-		if (inMenuItem.state==NSOnState)
+		if (inMenuItem.state==WBControlStateValueOn)
 			return YES;
 		
 		return ([[_dataSource availableLanguageTagsSet] containsIndex:inMenuItem.tag]==YES);

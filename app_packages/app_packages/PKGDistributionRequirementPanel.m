@@ -104,7 +104,7 @@
 
 - (IBAction)switchRequirementCheckType:(id)sender
 {
-	PKGRequirementType tRequirementCheckType=([sender state]==NSOnState) ? PKGRequirementTypeTarget : PKGRequirementTypeInstallation;
+	PKGRequirementType tRequirementCheckType=([sender state]==WBControlStateValueOn) ? PKGRequirementTypeTarget : PKGRequirementTypeInstallation;
 	
 	if (_cachedRequirementCheckType!=tRequirementCheckType)
 	{
@@ -232,7 +232,7 @@
 		
 		tRequirementCheckType=((self.requirement.type==PKGRequirementTypeUndefined) ? PKGRequirementTypeInstallation : self.requirement.type);
 		
-		_requirementTypeCheckBox.state=(tRequirementCheckType==PKGRequirementTypeTarget) ? NSOnState : NSOffState;
+		_requirementTypeCheckBox.state=(tRequirementCheckType==PKGRequirementTypeTarget) ? WBControlStateValueOn : WBControlStateValueOff;
 	}
 	else
 	{
@@ -242,11 +242,11 @@
 		
 		if (tRequirementCheckType==PKGRequirementTypeTarget)
 		{
-			_requirementTypeCheckBox.state=NSOnState;
+			_requirementTypeCheckBox.state=WBControlStateValueOn;
 		}
 		else if (tRequirementCheckType==PKGRequirementTypeInstallation)
 		{
-			_requirementTypeCheckBox.state=NSOffState;
+			_requirementTypeCheckBox.state=WBControlStateValueOff;
 		}
 		else
 		{

@@ -103,7 +103,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	PKGDistributionProjectSettingsAdvancedOptionsTreeNode * tAdvancedOptionsTreeNode=[self.outlineView itemAtRow:tEditedRow];
 	PKGDistributionProjectSettingsAdvancedOptionsItem * tRepresentedObject=[tAdvancedOptionsTreeNode representedObject];
 	
-	NSNumber * tNewValue=@(sender.state==NSOnState);
+	NSNumber * tNewValue=@(sender.state==WBControlStateValueOn);
 	
 	if ([self.advancedOptionsSettings[tRepresentedObject.itemID] isEqual:tNewValue]==YES)
 		return;
@@ -377,7 +377,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 			
 			if (tNumberValue==nil)
 			{
-				tView.checkbox.state=NSOffState;
+				tView.checkbox.state=WBControlStateValueOff;
 				return tView;
 			}
 
@@ -385,7 +385,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 			{
 				NSLog(@"Invalid type of value (%@) for key \"%@\": NSNumber expected",NSStringFromClass([tNumberValue class]),tRepresentedObject.itemID);
 				
-				tView.checkbox.state=NSOffState;
+				tView.checkbox.state=WBControlStateValueOff;
 			}
 			else
 			{

@@ -165,7 +165,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
-	BOOL tNewState=(sender.state==NSOnState);
+	BOOL tNewState=(sender.state==WBControlStateValueOn);
 	
 	if (tFilter.isEnabled==tNewState)
 		return;
@@ -222,7 +222,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	
 	PKGFileFilter * tFilter=[self.fileFiltersDataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
-	BOOL tNewState=(sender.state==NSOnState);
+	BOOL tNewState=(sender.state==WBControlStateValueOn);
 	
 	if (tFilter.predicate.isRegularExpression==tNewState)
 		return;
@@ -316,7 +316,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 	{
 		PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 		
-		tCheckBoxView.checkbox.state=(tFilter.isEnabled==YES) ? NSOnState : NSOffState;
+		tCheckBoxView.checkbox.state=(tFilter.isEnabled==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		return tCheckBoxView;
 	}
@@ -383,7 +383,7 @@ NSString * const PKGFileFiltersTableRowViewIdentifier=@"tablerowview.standard";
 		else
 		{
 			tCheckBoxView.hidden=NO;
-			tCheckBoxView.checkbox.state=(tFilter.predicate.isRegularExpression==YES) ? NSOnState : NSOffState;
+			tCheckBoxView.checkbox.state=(tFilter.predicate.isRegularExpression==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 		}
 		
 		return tCheckBoxView;

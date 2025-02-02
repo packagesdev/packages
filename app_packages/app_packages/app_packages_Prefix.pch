@@ -57,3 +57,20 @@
 // Debug
 
 #define DEBUG_DARK_AQUA_PKG 0
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+
+    #define WBControlStateValueOn NSControlStateValueOn
+    #define WBControlStateValueOff NSControlStateValueOff
+
+    #define WBPasteboardTypeString NSPasteboardTypeString
+#else
+
+    #define WBControlStateValueOn NSOnState
+    #define WBControlStateValueOff NSOffState
+
+    #define WBPasteboardTypeString NSStringPboardType
+
+    @protocol NSMenuItemValidation <NSObject>
+    @end
+#endif

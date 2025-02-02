@@ -61,14 +61,14 @@
 {
 	[super WB_viewWillAppear];
 	
-	[_showOnLaunchCheckBox setState:([PKGApplicationPreferences sharedPreferences].dontShowProjectAssistantOnLaunch==NO) ? NSOnState : NSOffState];
+	[_showOnLaunchCheckBox setState:([PKGApplicationPreferences sharedPreferences].dontShowProjectAssistantOnLaunch==NO) ? WBControlStateValueOn : WBControlStateValueOff];
 }
 
 #pragma mark -
 
 - (IBAction)switchShowOnLaunch:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].dontShowProjectAssistantOnLaunch=([sender state]==NSOffState);
+	[PKGApplicationPreferences sharedPreferences].dontShowProjectAssistantOnLaunch=([sender state]==WBControlStateValueOff);
 }
 
 - (IBAction)cancel:(id) sender

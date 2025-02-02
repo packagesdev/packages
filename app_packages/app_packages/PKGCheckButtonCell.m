@@ -17,7 +17,7 @@
 
 - (NSInteger)nextState
 {
-	return (self.state!=NSOnState) ? NSOnState : NSOffState;
+	return (self.state!=WBControlStateValueOn) ? WBControlStateValueOn : WBControlStateValueOff;
 }
 
 @end

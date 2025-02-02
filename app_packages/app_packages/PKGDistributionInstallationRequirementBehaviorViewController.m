@@ -43,13 +43,13 @@
 	{
 		case PKGRequirementOnFailureBehaviorInstallationWarning:
 			
-			_warningRadioButton.state=NSOnState;
+			_warningRadioButton.state=WBControlStateValueOn;
 			
 			break;
 			
 		case PKGRequirementOnFailureBehaviorInstallationStop:
 			
-			_stopRadioButton.state=NSOnState;
+			_stopRadioButton.state=WBControlStateValueOn;
 			
 			break;
 			

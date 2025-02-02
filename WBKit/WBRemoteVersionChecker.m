@@ -93,12 +93,13 @@ NSString * const WBVersionCheckURL=@"WBVersionCheckURL";
 							{
 								// Display dialog
 								
-								NSAlert * tAlert=[NSAlert alertWithMessageText:[NSString stringWithFormat:NSLocalizedStringFromTable(@"A new version of %@ is available.",@"RemoteCheck",@""),_productName]
-																 defaultButton:NSLocalizedStringFromTable(@"Download",@"RemoteCheck",@"")
-															   alternateButton: NSLocalizedStringFromTable(@"Skip This Version",@"RemoteCheck",@"")
-																   otherButton:NSLocalizedStringFromTable(@"Remind Me Later",@"RemoteCheck",@"")
-													 informativeTextWithFormat:@"%@",[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ %@ is now available - you have %@. Would you like to download it now?",@"RemoteCheck",@""),_productName,tRemoteVersion,_productLocalVersion]];
-								
+                                NSAlert * tAlert=[NSAlert new];
+                                
+                                tAlert.messageText=[NSString stringWithFormat:NSLocalizedStringFromTable(@"A new version of %@ is available.",@"RemoteCheck",@""),_productName];
+                                tAlert.informativeText=[NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ %@ is now available - you have %@. Would you like to download it now?",@"RemoteCheck",@""),_productName,tRemoteVersion,_productLocalVersion];
+                                [tAlert addButtonWithTitle:NSLocalizedStringFromTable(@"Download",@"RemoteCheck",@"")];
+                                [tAlert addButtonWithTitle:NSLocalizedStringFromTable(@"Skip This Version",@"RemoteCheck",@"")];
+                                [tAlert addButtonWithTitle:NSLocalizedStringFromTable(@"Remind Me Later",@"RemoteCheck",@"")];
 								
 								NSModalResponse tResponse=[tAlert runModal];
 								

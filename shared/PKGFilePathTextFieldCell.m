@@ -94,7 +94,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 			NSMenuItem * tMenuItem=[tMenu itemWithTag:self.pathType];
 		
-			tMenuItem.state=NSOnState;
+			tMenuItem.state=WBControlStateValueOn;
 		
 			[tMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(0., NSMaxY(inCellFrame)+4.) inView:inControlView];
 			

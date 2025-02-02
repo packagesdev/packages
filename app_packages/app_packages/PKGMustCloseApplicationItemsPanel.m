@@ -141,7 +141,7 @@
 	if (tRow==-1)
 		return;
 	
-	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtRow:tRow] state:(sender.state==NSOnState)];
+	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtRow:tRow] state:(sender.state==WBControlStateValueOn)];
 }
 
 - (IBAction)setApplicationID:(NSTextField *)sender
@@ -190,7 +190,7 @@
 	
 	if ([tTableColumnIdentifier isEqualToString:@"applicationItem"]==YES)
 	{
-		tTableCellView.checkbox.state=(tMustCloseApplicationItem.isEnabled==YES) ? NSOnState : NSOffState;
+		tTableCellView.checkbox.state=(tMustCloseApplicationItem.isEnabled==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		tTableCellView.textField.formatter=_cachedFormatter;
 		tTableCellView.textField.objectValue=tMustCloseApplicationItem.applicationID;

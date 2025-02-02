@@ -170,7 +170,7 @@
 	
 	_exclusionsViewController.fileFiltersDataSource=_fileFiltersDataSource;
 	
-	_filterPayloadOnlyCheckbox.state=(self.projectSettings.filterPayloadOnly==YES) ? NSOnState : NSOffState;
+	_filterPayloadOnlyCheckbox.state=(self.projectSettings.filterPayloadOnly==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 }
 
 - (void)WB_viewWillAppear
@@ -491,7 +491,7 @@
 
 - (IBAction)setFilterPayloadOnly:(NSButton *)sender
 {
-	BOOL tNewValue=(sender.state==NSOnState);
+	BOOL tNewValue=(sender.state==WBControlStateValueOn);
 	
 	if (self.projectSettings.filterPayloadOnly!=tNewValue)
 	{
