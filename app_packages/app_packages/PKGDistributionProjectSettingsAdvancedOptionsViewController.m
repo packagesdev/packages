@@ -548,7 +548,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 	
 	NSEvent * tCurrentEvent=[NSApp currentEvent];
 	
-	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & NSAlternateKeyMask)==0))
+	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & WBEventModifierFlagOption)==0))
 	{
 		if ([tNodePath isEqualToString:@"installer-script"]==NO)
 		{

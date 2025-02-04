@@ -32,7 +32,7 @@
 	{
 		NSUInteger tModifierFlags=[tEvent modifierFlags];
 		
-		BOOL isDown=((tModifierFlags & NSAlternateKeyMask) == NSAlternateKeyMask);
+		BOOL isDown=((tModifierFlags & WBEventModifierFlagOption) == WBEventModifierFlagOption);
 		
 		if (isDown!=_optionKeyDown)
 		{
@@ -70,7 +70,7 @@
 
 	NSUInteger tModifierFlags=[inEvent modifierFlags];
 	
-	BOOL isDown=((tModifierFlags & NSAlternateKeyMask) == NSAlternateKeyMask);
+	BOOL isDown=((tModifierFlags & WBEventModifierFlagOption) == WBEventModifierFlagOption);
 	
 	if (isDown!=_optionKeyDown)
 	{

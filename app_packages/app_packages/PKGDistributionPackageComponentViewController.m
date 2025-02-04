@@ -364,7 +364,7 @@
 		tAction==@selector(showPackagePayloadTab:) ||
 		tAction==@selector(showPackageScriptsAndResourcesTab:))
 	{
-		inMenuItem.keyEquivalentModifierMask=NSCommandKeyMask;
+		inMenuItem.keyEquivalentModifierMask=WBEventModifierFlagCommand;
 		inMenuItem.hidden=NO;
 		
 		if (tAction==@selector(showPackageSettingsTab:))

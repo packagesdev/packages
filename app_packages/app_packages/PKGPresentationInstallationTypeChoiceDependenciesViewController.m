@@ -416,7 +416,7 @@
 
 - (NSMenu *)_enabledAvailableChoicesMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMutableArray * tChoicesList=[self _availableListOfChoicesFromAvailableDependenciesDictionary:_availableEnabledDependenciesDictionary];
 	
@@ -432,7 +432,7 @@
 
 - (NSMenu *)_selectedAvailableChoicesMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMutableArray * tChoicesList=[self _availableListOfChoicesFromAvailableDependenciesDictionary:_availableSelectedDependenciesDictionary];
 	
@@ -448,7 +448,7 @@
 
 - (NSMenu *)_operatorsMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"And",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGLogicOperatorTypeConjunction;
@@ -466,7 +466,7 @@
 
 - (NSMenu *)_comparatorsMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Is",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateOperatorTypeEqualTo;
@@ -484,7 +484,7 @@
 
 - (NSMenu *)_stateObjectsMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Enabled",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateReferenceStateEnabled;

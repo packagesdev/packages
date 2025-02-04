@@ -60,8 +60,22 @@
 
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
 
+    #define WBEventModifierFlagCommand NSEventModifierFlagCommand
+    #define WBEventModifierFlagOption NSEventModifierFlagOption
+
+    #define WBEventTypeKeyDown NSEventTypeKeyDown
+    #define WBEventTypeLeftMouseDown NSEventTypeLeftMouseDown
+    #define WBEventTypeRightMouseDown NSEventTypeRightMouseDown
+
     #define WBCompositingOperationSourceOver NSCompositingOperationSourceOver
 #else
+
+    #define WBEventModifierFlagCommand NSCommandKeyMask
+    #define WBEventModifierFlagOption NSAlternateKeyMask
+
+    #define WBEventTypeKeyDown NSKeyDown
+    #define WBEventTypeLeftMouseDown NSLeftMouseDown
+    #define WBEventTypeRightMouseDown NSRightMouseDown
 
     #define WBCompositingOperationSourceOver NSCompositeSourceOver
 #endif

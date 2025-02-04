@@ -76,7 +76,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (BOOL)trackMouse:(NSEvent *)inEvent inRect:(NSRect)inCellFrame ofView:(NSView *)inControlView untilMouseUp:(BOOL)flag
 {
-	if (inEvent.type==NSLeftMouseDown)
+	if (inEvent.type==WBEventTypeLeftMouseDown)
 	{
 		// Check where the even occur
 	

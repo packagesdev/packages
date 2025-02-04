@@ -425,7 +425,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	// Set new menu
 	
-	NSMenu * tHierarchyMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+	NSMenu * tHierarchyMenu=[[NSMenu alloc] initWithTitle:@""];
 	
 	PKGInstallationHierarchyType tSelectedTag=PKGInstallationHierarchyInstaller;
 	
@@ -513,7 +513,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 												 action:@selector(nothing:)
 										  keyEquivalent:@""];
 			
-			NSMenu * tSubMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+			NSMenu * tSubMenu=[[NSMenu alloc] initWithTitle:@""];
 			
 			NSMutableArray * tArray=[[PKGPresentationInstallationTypeStepSettings allHierarchiesNames] mutableCopy];
 			
@@ -1065,7 +1065,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	if (tAction==@selector(nothing:))
 	{
-		inMenuItem.title=([NSApp currentEvent].modifierFlags & NSAlternateKeyMask) ? NSLocalizedStringFromTable(@"Duplicate As Hierarchy", @"Presentation",@"") : NSLocalizedStringFromTable(@"Add Hierarchy", @"Presentation",@"");
+		inMenuItem.title=([NSApp currentEvent].modifierFlags & WBEventModifierFlagOption) ? NSLocalizedStringFromTable(@"Duplicate As Hierarchy", @"Presentation",@"") : NSLocalizedStringFromTable(@"Add Hierarchy", @"Presentation",@"");
 		
 		return YES;
 	}
@@ -1073,7 +1073,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	if (tAction==@selector(addHierarchy:) ||
 		tAction==@selector(duplicateHierarchy:))
 	{
-		inMenuItem.action=([NSApp currentEvent].modifierFlags & NSAlternateKeyMask) ? @selector(duplicateHierarchy:) : @selector(addHierarchy:);
+		inMenuItem.action=([NSApp currentEvent].modifierFlags & WBEventModifierFlagOption) ? @selector(duplicateHierarchy:) : @selector(addHierarchy:);
 		
 		return YES;
 	}
@@ -1422,7 +1422,7 @@ NSString * const PKGPresentationSectionInstallationTypeHierarchySelectionFormatK
 	
 	NSEvent * tCurrentEvent=[NSApp currentEvent];
 	
-	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & NSAlternateKeyMask)==0))
+	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & WBEventModifierFlagOption)==0))
 	{
 		PKGChoiceTreeNode * tParentNode=tChoiceTreeNode;
 		

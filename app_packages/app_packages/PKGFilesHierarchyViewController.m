@@ -1060,7 +1060,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	
 	NSEvent * tCurrentEvent=[NSApp currentEvent];
 	
-	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & NSAlternateKeyMask)==0))
+	if (tCurrentEvent==nil || ((tCurrentEvent.modifierFlags & WBEventModifierFlagOption)==0))
 	{
 		if ([tFilePath isEqualToString:@"/"]==NO)
 		{

@@ -538,7 +538,7 @@
 	
 	if (tAction==@selector(setReferenceFolder:))
 	{
-		if (self.projectSettings.referenceFolderPath!=nil && ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)==NSAlternateKeyMask)
+		if (self.projectSettings.referenceFolderPath!=nil && ([[NSApp currentEvent] modifierFlags] & WBEventModifierFlagOption)==WBEventModifierFlagOption)
 		{
 			inMenuItem.title=NSLocalizedString(@"Revert to Default",@"");
 			inMenuItem.action=@selector(resetReferenceFolder:);
@@ -549,7 +549,7 @@
 	
 	if (tAction==@selector(resetReferenceFolder:))
 	{
-		if (self.projectSettings.referenceFolderPath==nil || ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=NSAlternateKeyMask)
+		if (self.projectSettings.referenceFolderPath==nil || ([[NSApp currentEvent] modifierFlags] & WBEventModifierFlagOption)!=WBEventModifierFlagOption)
 		{
 			inMenuItem.title=NSLocalizedString(@"Other...",@"");
 			inMenuItem.action=@selector(setReferenceFolder:);

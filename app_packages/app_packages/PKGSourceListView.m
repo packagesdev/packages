@@ -28,7 +28,7 @@
 
 - (NSMenu *)menuForEvent:(NSEvent *)inEvent
 {
-	if (inEvent.type==NSRightMouseDown)
+	if (inEvent.type==WBEventTypeRightMouseDown)
 	{
 		NSPoint tPoint=[self convertPoint:inEvent.locationInWindow fromView:nil];
 		

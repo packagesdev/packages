@@ -371,7 +371,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	[super mouseDown:inEvent];
 	
-	if (([inEvent clickCount] == 2) && (([inEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask) == NSAlternateKeyMask))
+	if (([inEvent clickCount] == 2) && (([inEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask) == WBEventModifierFlagOption))
 	{
 		NSRange tSelectionRange=[self selectedRange];
 		
@@ -447,7 +447,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	unichar tChar=[[inEvent charactersIgnoringModifiers] characterAtIndex:0];
 	
-	if (NSCommandKeyMask & [inEvent modifierFlags])
+	if (WBEventModifierFlagCommand & [inEvent modifierFlags])
 	{
 		if (tChar==']')
 		{

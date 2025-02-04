@@ -1042,7 +1042,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	NSPoint tPoint=[inView convertPoint:inEvent.locationInWindow fromView:nil];
 	NSEventType tType=inEvent.type;
 	
-	if (tType==NSLeftMouseDown)
+	if (tType==WBEventTypeLeftMouseDown)
 		_trackingArea=WBVersionPickerCellTrackingAreaNone;
 	
 	NSRect tTextAreaFrame;
@@ -1062,7 +1062,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	if (tType==NSLeftMouseDragged && _trackingArea!=tTrackingArea)
 		return NO;
 	
-	if (tType==NSLeftMouseDown)
+	if (tType==WBEventTypeLeftMouseDown)
 		_trackingArea=tTrackingArea;
 	
 	if (tTrackingArea==WBVersionPickerCellTrackingAreaStepper)

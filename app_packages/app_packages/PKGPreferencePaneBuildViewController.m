@@ -283,7 +283,7 @@
 			}
 		}
 		
-		_sSoundsMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+		_sSoundsMenu=[[NSMenu alloc] initWithTitle:@""];
 		
 		if (tMutableSet.count>0)
 		{
@@ -336,7 +336,7 @@
 		
 		NSMutableSet * tMutableSet=[NSMutableSet setWithArray:tDisplayVoiceNames];
 		
-		_sVoicesMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+		_sVoicesMenu=[[NSMenu alloc] initWithTitle:@""];
 		
 		if (tMutableSet.count>0)
 		{
