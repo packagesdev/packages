@@ -31,13 +31,13 @@
 	{
 		case PKGRequirementOnFailureBehaviorDeselectAndHideChoice:
 			
-			_removeChoiceRadioButton.state=NSOnState;
+			_removeChoiceRadioButton.state=WBControlStateValueOn;
 			
 			break;
 			
 		case PKGRequirementOnFailureBehaviorDeselectAndDisableChoice:
 			
-			_disableChoiceRadioButton.state=NSOnState;
+			_disableChoiceRadioButton.state=WBControlStateValueOn;
 			
 			break;
 			

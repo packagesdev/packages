@@ -72,7 +72,7 @@
 		
 		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		
-		[tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+		[tSourceImage drawInRect:dstRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 		
 		return YES;
 		

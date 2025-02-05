@@ -201,7 +201,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		tAction==@selector(showDistributionRequirementsAndResourcesTab:) ||
 		tAction==@selector(showProjectCommentsTab:))
 	{
-		inMenuItem.keyEquivalentModifierMask=NSCommandKeyMask;
+		inMenuItem.keyEquivalentModifierMask=WBEventModifierFlagCommand;
 		inMenuItem.hidden=NO;
 		
 		if (tAction==@selector(showProjectSettingsTab:))

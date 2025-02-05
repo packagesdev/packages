@@ -17,7 +17,7 @@
 		[[NSColor colorWithDeviceWhite:0.17 alpha:1.0] set];	// Window Background Color Light: 0.20
 	}
 	
-	NSRectFillUsingOperation(inRect, NSCompositeSourceOver);
+	NSRectFillUsingOperation(inRect, WBCompositingOperationSourceOver);
 }
 
 @end

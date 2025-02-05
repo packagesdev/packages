@@ -69,7 +69,7 @@
 {
 	[super WB_viewWillAppear];
 	
-	_keepOwnerAndGroupButton.state=(_keepOwnerAndGroup==YES) ? NSOnState : NSOffState;
+	_keepOwnerAndGroupButton.state=(_keepOwnerAndGroup==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	[_referenceStylePopUpButton selectItemWithTag:_referenceStyle];
 }
@@ -94,7 +94,7 @@
 	{
 		_keepOwnerAndGroup=inKeepOwnerAndGroup;
 		
-		_keepOwnerAndGroupButton.state=(_keepOwnerAndGroup==YES) ? NSOnState : NSOffState;
+		_keepOwnerAndGroupButton.state=(_keepOwnerAndGroup==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	}
 }
 
@@ -112,7 +112,7 @@
 
 - (IBAction)switchKeepOwnerAndGroup:(id)sender
 {
-	_keepOwnerAndGroup=(_keepOwnerAndGroupButton.state==NSOnState);
+	_keepOwnerAndGroup=(_keepOwnerAndGroupButton.state==WBControlStateValueOn);
 }
 
 - (IBAction)switchReferenceStyle:(id)sender

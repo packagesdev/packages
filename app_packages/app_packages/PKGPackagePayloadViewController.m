@@ -150,13 +150,13 @@
 	
 	[_payloadTypePopUpButton selectItemWithTag:self.payload.type];
 	
-	_splitForksCheckbox.state=(self.payload.splitForksIfNeeded==YES) ? NSOnState : NSOffState;
+	_splitForksCheckbox.state=(self.payload.splitForksIfNeeded==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	_preserveExtendedAttributesCheckbox.enabled=self.payload.splitForksIfNeeded;
 	
-	_preserveExtendedAttributesCheckbox.state=(self.payload.preserveExtendedAttributes==YES) ? NSOnState : NSOffState;
+	_preserveExtendedAttributesCheckbox.state=(self.payload.preserveExtendedAttributes==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
-	_treatMissingFilesAsWarningsCheckbox.state=(self.payload.treatMissingPayloadFilesAsWarnings==YES) ? NSOnState : NSOffState;
+	_treatMissingFilesAsWarningsCheckbox.state=(self.payload.treatMissingPayloadFilesAsWarnings==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	_defaultDestinationLabel.objectValue=self.payload.defaultInstallLocation;
 	
@@ -286,7 +286,7 @@
 
 - (IBAction)switchSplitForks:(NSButton *)sender
 {
-	BOOL tState=(_splitForksCheckbox.state==NSOnState);
+	BOOL tState=(_splitForksCheckbox.state==WBControlStateValueOn);
 	
 	if (tState==self.payload.splitForksIfNeeded)
 		return;
@@ -300,7 +300,7 @@
 
 - (IBAction)switchPreserveExtendedAttributes:(id)sender
 {
-	BOOL tState=(_preserveExtendedAttributesCheckbox.state==NSOnState);
+	BOOL tState=(_preserveExtendedAttributesCheckbox.state==WBControlStateValueOn);
 	
 	if (tState==self.payload.preserveExtendedAttributes)
 		return;
@@ -312,7 +312,7 @@
 
 - (IBAction)switchTreatMissingFilesAsWarnings:(id)sender
 {
-	BOOL tState=(_treatMissingFilesAsWarningsCheckbox.state==NSOnState);
+	BOOL tState=(_treatMissingFilesAsWarningsCheckbox.state==WBControlStateValueOn);
 	
 	if (tState==self.payload.treatMissingPayloadFilesAsWarnings)
 		return;

@@ -217,7 +217,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			break;
 	}
 	
-    NSRectFillUsingOperation(tBounds,NSCompositeSourceOver);
+    NSRectFillUsingOperation(tBounds,WBCompositingOperationSourceOver);
 }*/
 
 #pragma mark - Notifications

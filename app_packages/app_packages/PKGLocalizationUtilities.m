@@ -92,7 +92,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		// Build Menu
 		
-		sMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+		sMenu=[[NSMenu alloc] initWithTitle:@""];
 		
 		NSMutableArray * tLocalizedLanguages=[[[PKGLocalizationUtilities englishLanguages] WB_arrayByMappingObjectsUsingBlock:^NSDictionary *(NSString * bEnglishLanguage, NSUInteger bIndex) {
 			

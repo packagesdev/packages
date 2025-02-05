@@ -158,7 +158,7 @@
 	
 	// Requirements
 	
-	_rootVolumeOnlyCheckbox.state=(self.requirementsAndResources.rootVolumeOnlyRequirement==YES) ? NSOnState : NSOffState;
+	_rootVolumeOnlyCheckbox.state=(self.requirementsAndResources.rootVolumeOnlyRequirement==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	[_requirementsViewController WB_viewDidAppear];
 	
@@ -206,7 +206,7 @@
 
 - (IBAction)switchRootVolumeOnlyRequirement:(NSButton *)sender
 {
-	BOOL tNewValue=(sender.state==NSOnState);
+	BOOL tNewValue=(sender.state==WBControlStateValueOn);
 	
 	if (self.requirementsAndResources.rootVolumeOnlyRequirement!=tNewValue)
 	{

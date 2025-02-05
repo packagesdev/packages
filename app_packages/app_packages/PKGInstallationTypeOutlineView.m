@@ -19,7 +19,7 @@
 {
 	[self.backgroundColor set];
 	
-	NSRectFillUsingOperation(inDirtyRect, NSCompositeSourceOver);
+	NSRectFillUsingOperation(inDirtyRect, WBCompositingOperationSourceOver);
 }
 
 - (BOOL)performKeyEquivalent:(NSEvent *)inEvent
@@ -28,7 +28,7 @@
 	
 	if (tChar=='.')
 	{
-		if ((inEvent.modifierFlags & (NSCommandKeyMask+NSShiftKeyMask))!=0)
+		if ((inEvent.modifierFlags & (WBEventModifierFlagCommand+NSShiftKeyMask))!=0)
 		{
 			id tTarget=[NSApp targetForAction:@selector(switchShowPackagesName:) to:nil from:self];
 			

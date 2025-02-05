@@ -304,7 +304,7 @@
 			return NO;
 		}
 		
-		inMenuItem.keyEquivalentModifierMask=NSCommandKeyMask;
+		inMenuItem.keyEquivalentModifierMask=WBEventModifierFlagCommand;
 		inMenuItem.hidden=NO;
 		
 		if (tAction==@selector(showProjectSettingsTab:))

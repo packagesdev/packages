@@ -198,7 +198,7 @@
 		[self setNeedsDisplay:YES];
 
 	NSEvent * tCurrentEvent=[NSApp currentEvent];
-	if (tCurrentEvent.type!=NSKeyDown)
+	if (tCurrentEvent.type!=WBEventTypeKeyDown)
 		return YES;
     
 	NSString * tCharacters=tCurrentEvent.characters;

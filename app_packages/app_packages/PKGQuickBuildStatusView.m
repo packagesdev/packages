@@ -220,7 +220,7 @@
 		case PKGQuickBuildStateFailed:
 			
 			if (_image!=nil)
-				[_image drawInRect:tBounds fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				[_image drawInRect:tBounds fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 			
 			break;
 	}

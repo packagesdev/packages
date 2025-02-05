@@ -62,35 +62,35 @@
 {
 	// Show All Files
 	
-	_showAllFilesCheckbox.state=([PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog==YES) ? NSOnState: NSOffState;
+	_showAllFilesCheckbox.state=([PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 	
 	// Highlight Excluded Files
 	
-	_highlightExcludedFilesCheckbox.state=([PKGApplicationPreferences sharedPreferences].highlightExcludedFiles==YES) ? NSOnState: NSOffState;
+	_highlightExcludedFilesCheckbox.state=([PKGApplicationPreferences sharedPreferences].highlightExcludedFiles==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 	
 	// Default Permission Mode
 	
-	_keepOwnerAndGroupCheckbox.state=([PKGApplicationPreferences sharedPreferences].keepOwnership==YES) ? NSOnState: NSOffState;
+	_keepOwnerAndGroupCheckbox.state=([PKGApplicationPreferences sharedPreferences].keepOwnership==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 	
 	// Show Customization Dialog
 	
-	_showCustomizationDialogCheckbox.state=([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES) ? NSOnState: NSOffState;
+	_showCustomizationDialogCheckbox.state=([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 	
 	// Show Services Users and Groups
 	
-	_showServicesUsersAndGroupsCheckbox.state=([PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups==YES) ? NSOnState: NSOffState;
+	_showServicesUsersAndGroupsCheckbox.state=([PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 }
 
 #pragma mark -
 
 - (IBAction)switchShowAllFiles:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog=(_showAllFilesCheckbox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].showAllFilesInOpenDialog=(_showAllFilesCheckbox.state==WBControlStateValueOn);
 }
 
 - (IBAction)switchHighlightExcludedFiles:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].highlightExcludedFiles=(_highlightExcludedFilesCheckbox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].highlightExcludedFiles=(_highlightExcludedFilesCheckbox.state==WBControlStateValueOn);
 	
 	// Post Notification
 	
@@ -100,17 +100,17 @@
 
 - (IBAction)switchKeepOwnerAndGroup:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].keepOwnership=(_keepOwnerAndGroupCheckbox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].keepOwnership=(_keepOwnerAndGroupCheckbox.state==WBControlStateValueOn);
 }
 
 - (IBAction)switchShowCustomizationDialog:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog=(_showCustomizationDialogCheckbox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog=(_showCustomizationDialogCheckbox.state==WBControlStateValueOn);
 }
 
 - (IBAction)switchShowServicesUsersAndGroups:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups=(_showServicesUsersAndGroupsCheckbox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].showServicesUsersAndGroups=(_showServicesUsersAndGroupsCheckbox.state==WBControlStateValueOn);
 	
 	// Post Notification
 	

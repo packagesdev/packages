@@ -40,20 +40,20 @@
 {
 	// Advanced Mode
 	
-	_advancedModeCheckbox.state=([PKGApplicationPreferences sharedPreferences].advancedMode==YES) ? NSOnState: NSOffState;
+	_advancedModeCheckbox.state=([PKGApplicationPreferences sharedPreferences].advancedMode==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 	
 	// Apple Mode
 	
-	_appleModeCheckbox.state=([PKGApplicationPreferences sharedPreferences].appleMode==YES) ? NSOnState: NSOffState;
+	_appleModeCheckbox.state=([PKGApplicationPreferences sharedPreferences].appleMode==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 	
 	// Remote Version Check
 	
-	_remoteVersionCheckerCheckbox.state=([[WBRemoteVersionChecker sharedChecker] isCheckEnabled]==YES) ? NSOnState: NSOffState;
+	_remoteVersionCheckerCheckbox.state=([[WBRemoteVersionChecker sharedChecker] isCheckEnabled]==YES) ? WBControlStateValueOn: WBControlStateValueOff;
 }
 
 - (IBAction)switchAdvancedMode:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].advancedMode=(_advancedModeCheckbox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].advancedMode=(_advancedModeCheckbox.state==WBControlStateValueOn);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPreferencesAdvancedAdvancedModeStateDidChangeNotification
 														object:nil];
@@ -61,7 +61,7 @@
 
 - (IBAction)switchAppleMode:(id) sender
 {
-	[PKGApplicationPreferences sharedPreferences].appleMode=(_appleModeCheckbox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].appleMode=(_appleModeCheckbox.state==WBControlStateValueOn);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PKGPreferencesAdvancedAppleModeStateDidChangeNotification
 														object:nil];
@@ -69,7 +69,7 @@
 
 - (IBAction)switchRemoteVersionCheck:(id) sender
 {
-	[[WBRemoteVersionChecker sharedChecker] setCheckEnabled:(_remoteVersionCheckerCheckbox.state==NSOnState)];
+	[[WBRemoteVersionChecker sharedChecker] setCheckEnabled:(_remoteVersionCheckerCheckbox.state==WBControlStateValueOn)];
 }
 
 @end

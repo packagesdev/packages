@@ -151,7 +151,7 @@
     // Hack to select the value cell on tab and back-tab events when the order of rowa has changed
     
     NSEvent * tCurrentEvent=[NSApp currentEvent];
-    if (tCurrentEvent.type!=NSKeyDown)
+    if (tCurrentEvent.type!=WBEventTypeKeyDown)
         return;
     
     NSString * tCharacters=tCurrentEvent.characters;

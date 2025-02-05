@@ -31,7 +31,7 @@
 	else
 		[[NSColor colorWithDeviceWhite:0.0 alpha:0.15] set];
 	
-	NSRectFillUsingOperation(inRect,NSCompositeSourceOver);
+	NSRectFillUsingOperation(inRect,WBCompositingOperationSourceOver);
 	
 	if (tIsDark==NO)
 		[[NSColor colorWithDeviceWhite:0.0 alpha:0.05] set];
@@ -40,7 +40,7 @@
 	
 	NSRect tFrameRect= NSInsetRect([self bounds],-1,1.0);
 	
-	NSFrameRectWithWidthUsingOperation(tFrameRect, 1.0, NSCompositeSourceOver);
+	NSFrameRectWithWidthUsingOperation(tFrameRect, 1.0, WBCompositingOperationSourceOver);
 }
 
 @end

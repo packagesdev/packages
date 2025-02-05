@@ -109,12 +109,12 @@
                  tRect.origin.x=0;
                  tRect.origin.y=NSMaxY(dstRect)-tSideLength;
                  
-                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
                  
                  tRect.origin.x=tSideLength*0.25;
                  tRect.origin.y=NSMinY(dstRect);
                  
-                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
                  
                  return YES;
              }];

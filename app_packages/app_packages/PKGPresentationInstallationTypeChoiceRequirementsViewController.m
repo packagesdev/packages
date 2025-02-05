@@ -86,7 +86,7 @@
 	if (tRow==-1)
 		return;
 	
-	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtIndex:tRow] state:(sender.state==NSOnState)];
+	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtIndex:tRow] state:(sender.state==WBControlStateValueOn)];
 }
 
 - (IBAction)addRequirement:(id)sender
@@ -228,7 +228,7 @@
 		
 		PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 		
-		tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? NSOnState : NSOffState;
+		tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		tCheckBoxView.textField.stringValue=tRequirement.name;
 		tCheckBoxView.textField.delegate=self;

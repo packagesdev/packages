@@ -450,7 +450,7 @@
 	
 	// Options Section
 	
-	_mustCloseApplicationsCheckbox.state=(self.packageComponent.mustCloseApplications==YES)? NSOnState : NSOffState;
+	_mustCloseApplicationsCheckbox.state=(self.packageComponent.mustCloseApplications==YES)? WBControlStateValueOn : WBControlStateValueOff;
 	
 	switch(self.packageComponent.type)
 	{
@@ -679,7 +679,7 @@
 
 - (IBAction)switchMustCloseApplications:(id)sender
 {
-	BOOL tMustCloseApplications=(_mustCloseApplicationsCheckbox.state==NSOnState)? YES : NO;
+	BOOL tMustCloseApplications=(_mustCloseApplicationsCheckbox.state==WBControlStateValueOn)? YES : NO;
 	
 	if (self.packageComponent.mustCloseApplications!=tMustCloseApplications)
 	{

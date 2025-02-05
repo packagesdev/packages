@@ -108,7 +108,7 @@
 			.size={tImageDimension,tImageDimension}
 		};
 		
-		[tImage drawInRect:tDestinationRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+		[tImage drawInRect:tDestinationRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 	}
 	else
 	{

@@ -168,7 +168,7 @@
 	
 	if (tAction==@selector(switchLanguage:))
 	{
-		if (inMenuItem.state==NSOnState)
+		if (inMenuItem.state==WBControlStateValueOn)
 			return YES;
 		
 		return ([[self.dataSource availableLanguageTagsSet] containsIndex:inMenuItem.tag]==YES);

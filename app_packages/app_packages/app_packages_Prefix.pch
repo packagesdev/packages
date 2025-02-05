@@ -57,3 +57,45 @@
 // Debug
 
 #define DEBUG_DARK_AQUA_PKG 0
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
+
+    #define WBEventModifierFlagCommand NSEventModifierFlagCommand
+    #define WBEventModifierFlagOption NSEventModifierFlagOption
+
+    #define WBEventTypeKeyDown NSEventTypeKeyDown
+    #define WBEventTypeLeftMouseDown NSEventTypeLeftMouseDown
+    #define WBEventTypeRightMouseDown NSEventTypeRightMouseDown
+
+    #define WBCompositingOperationSourceOver NSCompositingOperationSourceOver
+#else
+
+    #define WBEventModifierFlagCommand NSCommandKeyMask
+    #define WBEventModifierFlagOption NSAlternateKeyMask
+
+    #define WBEventTypeKeyDown NSKeyDown
+    #define WBEventTypeLeftMouseDown NSLeftMouseDown
+    #define WBEventTypeRightMouseDown NSRightMouseDown
+
+    #define WBCompositingOperationSourceOver NSCompositeSourceOver
+#endif
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+
+    #define WBControlStateValueOn NSControlStateValueOn
+    #define WBControlStateValueOff NSControlStateValueOff
+
+    #define WBPasteboardTypeString NSPasteboardTypeString
+#else
+
+    #define WBControlStateValueOn NSOnState
+    #define WBControlStateValueOff NSOffState
+
+    #define WBPasteboardTypeString NSStringPboardType
+
+    @protocol NSMenuItemValidation <NSObject>
+    @end
+#endif
+
+
+

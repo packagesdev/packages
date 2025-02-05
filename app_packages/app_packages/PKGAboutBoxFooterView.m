@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2018, Stephane Sudre
+Copyright (c) 2007-2024, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,34 +17,34 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)drawRect:(NSRect) inRect
 {
-	// Draw background
-	
+    NSRect tRefreshRect=NSIntersectionRect(self.bounds, inRect);
+    
+    // Draw background
+    
     BOOL tIsDarkMode=[self WB_isEffectiveAppearanceDarkAqua];
     
-	if (tIsDarkMode==NO)
-		[[NSColor colorWithDeviceWhite:0.898 alpha:1.0] set];
-	else
-		[[NSColor colorWithDeviceWhite:0.0 alpha:0.18] set];
-	
-	NSRectFillUsingOperation(inRect,NSCompositeSourceOver);
-	
-	// Draw top line
-	
-	NSRect tBounds=[self bounds];
-	
-	if (tIsDarkMode==NO)
-		[[NSColor colorWithDeviceWhite:0.698 alpha:1.0] set];
-	else
-		[[NSColor colorWithDeviceWhite:0.42 alpha:0.35] set];
-	
-	NSRect tLineRect;
-	
-	if (tIsDarkMode==NO)
-		tLineRect=NSMakeRect(NSMinX(inRect),NSMaxY(tBounds)-1.0,NSWidth(tBounds),1.0);
-	else
-		tLineRect=NSMakeRect(NSMinX(inRect)+1.0,NSMaxY(tBounds)-1.0,NSWidth(tBounds)-3.0,1.0);
-		
-	NSRectFillUsingOperation(tLineRect,NSCompositeSourceOver);
+    if (tIsDarkMode==NO)
+        [[NSColor colorWithDeviceWhite:0.898 alpha:1.0] set];
+    else
+        [[NSColor colorWithDeviceWhite:0.0 alpha:0.18] set];
+    
+    NSRectFillUsingOperation(tRefreshRect,WBCompositingOperationSourceOver);
+    
+    // Draw top line
+    
+    if (tIsDarkMode==NO)
+        [[NSColor colorWithDeviceWhite:0.698 alpha:1.0] set];
+    else
+        [[NSColor colorWithDeviceWhite:0.42 alpha:0.35] set];
+    
+    NSRect tLineRect;
+    
+    if (tIsDarkMode==NO)
+        tLineRect=NSMakeRect(NSMinX(tRefreshRect),NSMaxY(tRefreshRect)-1.0,NSWidth(tRefreshRect),1.0);
+    else
+        tLineRect=NSMakeRect(NSMinX(tRefreshRect)+1.0,NSMaxY(tRefreshRect)-1.0,NSWidth(tRefreshRect)-3.0,1.0);
+        
+    NSRectFillUsingOperation(tLineRect,WBCompositingOperationSourceOver);
 }
 
 @end

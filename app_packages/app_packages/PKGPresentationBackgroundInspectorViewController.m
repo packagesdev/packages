@@ -208,7 +208,7 @@
 	
 	BOOL tShareSettings=_backgroundSettings.sharedSettingsForAllAppearances;
 	
-	_sharedSettingsCheckBox.state=(tShareSettings==YES) ? NSOnState : NSOffState;
+	_sharedSettingsCheckBox.state=(tShareSettings==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	if (tShareSettings==YES)
 		_selectedAppearanceMode=PKGPresentationAppearanceModeShared;
@@ -271,7 +271,7 @@
 	[_alignmentMatrix selectCellWithTag:tAppearanceSettings.imageAlignment];
 	
 	_layoutDirectionCheckBox.enabled=tShowCustomImage;
-	_layoutDirectionCheckBox.state=(tAppearanceSettings.imageLayoutDirection==PKGImageLayoutDirectionNatural) ? NSOnState : NSOffState;
+	_layoutDirectionCheckBox.state=(tAppearanceSettings.imageLayoutDirection==PKGImageLayoutDirectionNatural) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	// Scaling
 	
@@ -283,7 +283,7 @@
 
 - (IBAction)switchSharedSettingsValue:(id)sender
 {
-	BOOL tSharedSettings=([sender state]==NSOnState);
+	BOOL tSharedSettings=([sender state]==WBControlStateValueOn);
 	
 	if (tSharedSettings==_backgroundSettings.sharedSettingsForAllAppearances)
 		return;
@@ -428,7 +428,7 @@
 
 - (IBAction)switchLayoutDirection:(NSButton *)sender
 {
-	PKGImageLayoutDirection tLayoutDirection=([sender state]==NSOnState) ? PKGImageLayoutDirectionNatural : PKGImageLayoutDirectionNone;
+	PKGImageLayoutDirection tLayoutDirection=([sender state]==WBControlStateValueOn) ? PKGImageLayoutDirectionNatural : PKGImageLayoutDirectionNone;
 	
 	PKGPresentationBackgroundAppearanceSettings * tSelectedAppearanceSettings=[self selectedAppearanceSettings];
 	

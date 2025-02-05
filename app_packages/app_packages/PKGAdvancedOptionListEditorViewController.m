@@ -188,7 +188,7 @@ NSString * const PKGAdvancedOptionListItemValueKey=@"VALUE";
 	
 	PKGAdvancedOptionListItem * tItem=[_dataSource tableView:self.tableView itemAtRow:tEditedRow];
 	
-	tItem.selected=(sender.state==NSOnState);
+	tItem.selected=(sender.state==WBControlStateValueOn);
 }
 
 #pragma mark - NSTableViewDelegate
@@ -207,7 +207,7 @@ NSString * const PKGAdvancedOptionListItemValueKey=@"VALUE";
 	{
 		PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 		
-		tCheckBoxView.checkbox.state=(tItem.selected==YES) ? NSOnState : NSOffState;
+		tCheckBoxView.checkbox.state=(tItem.selected==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 		tCheckBoxView.checkbox.title=tItem.label;
 		
 		return tCheckBoxView;

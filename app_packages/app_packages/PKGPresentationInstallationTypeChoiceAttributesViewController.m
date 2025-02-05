@@ -209,7 +209,7 @@ typedef NS_ENUM(NSInteger, PKGVisibilityTag)
 	
 	[_choicePackageStatePopUpButton removeAllItems];
 	
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	if (self.choiceTreeNode.isGenuineGroupChoice==YES)
 	{

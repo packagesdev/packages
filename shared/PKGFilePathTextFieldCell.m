@@ -76,7 +76,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (BOOL)trackMouse:(NSEvent *)inEvent inRect:(NSRect)inCellFrame ofView:(NSView *)inControlView untilMouseUp:(BOOL)flag
 {
-	if (inEvent.type==NSLeftMouseDown)
+	if (inEvent.type==WBEventTypeLeftMouseDown)
 	{
 		// Check where the even occur
 	
@@ -94,7 +94,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 			NSMenuItem * tMenuItem=[tMenu itemWithTag:self.pathType];
 		
-			tMenuItem.state=NSOnState;
+			tMenuItem.state=WBControlStateValueOn;
 		
 			[tMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(0., NSMaxY(inCellFrame)+4.) inView:inControlView];
 			
@@ -154,7 +154,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			tImageFrame.origin.x+=1.;
 			tImageFrame.origin.y=round(NSMidY(tImageFrame)-NSHeight(tImageFrame)*0.5)+1.;
 			
-			[tImage drawInRect:tImageFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1 respectFlipped:YES hints:nil];
+			[tImage drawInRect:tImageFrame fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1 respectFlipped:YES hints:nil];
 			
 			break;
 		

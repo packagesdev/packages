@@ -22,7 +22,7 @@
 	
 	[[NSColor whiteColor] set];
 	
-	NSRectFillUsingOperation(inRect,NSCompositeSourceOver);
+	NSRectFillUsingOperation(inRect,WBCompositingOperationSourceOver);
 }
 
 @end

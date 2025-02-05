@@ -516,15 +516,15 @@
 	NSInteger tState=sender.state;
 	NSInteger tFlag=sender.tag;
 	
-	if (tState!=NSOffState)
+	if (tState!=WBControlStateValueOff)
 	{
 		_POSIXPermissions|=tFlag;
-		sender.state=NSOnState;
+		sender.state=WBControlStateValueOn;
 	}
 	else
 	{
 		_POSIXPermissions&=~tFlag;
-		sender.state=NSOffState;
+		sender.state=WBControlStateValueOff;
 	}
 
 	_mixedPOSIXPermissions&=~tFlag;
@@ -641,7 +641,7 @@
 		if ((_mixedPOSIXPermissions & tFlag)==tFlag)
 			tCheckBox.state=NSMixedState;
 		else
-			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? NSOnState : NSOffState;
+			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		return tCellView;
 	}
@@ -699,7 +699,7 @@
 		if ((_mixedPOSIXPermissions & tFlag)==tFlag)
 			tCheckBox.state=NSMixedState;
 		else
-			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? NSOnState : NSOffState;
+			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		return tCellView;
 	}

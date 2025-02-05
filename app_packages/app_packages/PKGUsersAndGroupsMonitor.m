@@ -430,7 +430,7 @@
 
 - (NSMenu *)localUsersMenuWithServicesUsers:(BOOL)inIncludeServicesUsers
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+	NSMenu * tMenu=[[NSMenu alloc] initWithTitle:@""];
 	
 	int tError=pthread_rwlock_rdlock(&_userAccountMutex);
 	
@@ -474,7 +474,7 @@
 
 - (NSMenu *)localGroupsMenuWithServicesGroups:(BOOL)inIncludeServicesGroups
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+	NSMenu * tMenu=[[NSMenu alloc] initWithTitle:@""];
 	
 	int tError=pthread_rwlock_rdlock(&_groupAccountMutex);
 	

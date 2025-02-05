@@ -51,7 +51,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 			NSImage * tImage=[NSImage imageNamed:@"Strip32Composite"];
 			
-			[tImage drawInRect:NSMakeRect(0.0,0.0,13.0,17.0) fromRect:NSMakeRect(0.0,0.0,13.0,17.0) operation:NSCompositeSourceOver fraction:1.0];
+			[tImage drawInRect:NSMakeRect(0.0,0.0,13.0,17.0) fromRect:NSMakeRect(0.0,0.0,13.0,17.0) operation:WBCompositingOperationSourceOver fraction:1.0];
 			
 			[inImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceIn fraction:1.0];
 			
@@ -61,7 +61,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 				tImage=[NSImage imageNamed:@"NSSmartBadgeTemplate"];
 				
-				[tImage drawInRect:NSMakeRect(1.5,3,10,10) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				[tImage drawInRect:NSMakeRect(1.5,3,10,10) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 			}
 			
 			return YES;
@@ -82,7 +82,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 		NSSize tSize=tImage.size;
 		
-		[tImage drawInRect:NSMakeRect(NSMinX(inFrame)+3.5,round(NSMidY(inFrame)-tSize.height*0.5)+2,10,10) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+		[tImage drawInRect:NSMakeRect(NSMinX(inFrame)+3.5,round(NSMidY(inFrame)-tSize.height*0.5)+2,10,10) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 	}
 }
 

@@ -28,7 +28,7 @@
 	
 	[[NSColor colorWithDeviceWhite:0.0 alpha:0.07] set];
 		
-	NSRectFillUsingOperation(NSInsetRect(tBounds,1,1),NSCompositeSourceOver);
+	NSRectFillUsingOperation(NSInsetRect(tBounds,1,1),WBCompositingOperationSourceOver);
 	
     [[NSColor containerBorderColor] setStroke];
 	

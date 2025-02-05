@@ -163,15 +163,15 @@
 	
 	// Options Section
 	
-	_authenticationModeCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.authenticationMode==PKGPackageAuthenticationRoot)? NSOnState : NSOffState;
+	_authenticationModeCheckbox.state=(tPackageSettings==nil) ? WBControlStateValueOff : (tPackageSettings.authenticationMode==PKGPackageAuthenticationRoot)? WBControlStateValueOn : WBControlStateValueOff;
 	
-	_relocatableCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.relocatable==YES)? NSOnState : NSOffState;
+	_relocatableCheckbox.state=(tPackageSettings==nil) ? WBControlStateValueOff : (tPackageSettings.relocatable==YES)? WBControlStateValueOn : WBControlStateValueOff;
 	
-	_overwriteDirectoryPermissionsCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.overwriteDirectoryPermissions==YES)? NSOnState : NSOffState;
+	_overwriteDirectoryPermissionsCheckbox.state=(tPackageSettings==nil) ? WBControlStateValueOff : (tPackageSettings.overwriteDirectoryPermissions==YES)? WBControlStateValueOn : WBControlStateValueOff;
 	
-	_followSymbolicLinksCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.followSymbolicLinks==YES)? NSOnState : NSOffState;
+	_followSymbolicLinksCheckbox.state=(tPackageSettings==nil) ? WBControlStateValueOff : (tPackageSettings.followSymbolicLinks==YES)? WBControlStateValueOn : WBControlStateValueOff;
 	
-	_useHFSPlusCompressionCheckbox.state=(tPackageSettings==nil) ? NSOffState : (tPackageSettings.useHFSPlusCompression==YES)? NSOnState : NSOffState;
+	_useHFSPlusCompressionCheckbox.state=(tPackageSettings==nil) ? WBControlStateValueOff : (tPackageSettings.useHFSPlusCompression==YES)? WBControlStateValueOn : WBControlStateValueOff;
 }
 
 - (void)WB_viewDidLoad
@@ -238,7 +238,7 @@
 
 - (IBAction)switchAuthenticationMode:(id)sender
 {
-	PKGPackageAuthentication tAuthenticationMode=(_authenticationModeCheckbox.state==NSOnState)? PKGPackageAuthenticationRoot : PKGPackageAuthenticationNone;
+	PKGPackageAuthentication tAuthenticationMode=(_authenticationModeCheckbox.state==WBControlStateValueOn)? PKGPackageAuthenticationRoot : PKGPackageAuthenticationNone;
 	
 	if (self.packageSettings.authenticationMode!=tAuthenticationMode)
 	{
@@ -252,7 +252,7 @@
 
 - (IBAction)switchRelocatable:(id)sender
 {
-	BOOL tRelocatable=(_relocatableCheckbox.state==NSOnState)? YES : NO;
+	BOOL tRelocatable=(_relocatableCheckbox.state==WBControlStateValueOn)? YES : NO;
 	
 	if (self.packageSettings.relocatable!=tRelocatable)
 	{
@@ -266,7 +266,7 @@
 
 - (IBAction)switchOverwriteDirectoryPermissions:(id)sender
 {
-	BOOL tOverwriteDirectoryPermissions=(_overwriteDirectoryPermissionsCheckbox.state==NSOnState)? YES : NO;
+	BOOL tOverwriteDirectoryPermissions=(_overwriteDirectoryPermissionsCheckbox.state==WBControlStateValueOn)? YES : NO;
 	
 	if (self.packageSettings.overwriteDirectoryPermissions!=tOverwriteDirectoryPermissions)
 	{
@@ -280,7 +280,7 @@
 
 - (IBAction)switchFollowSymbolicLinks:(id)sender
 {
-	BOOL tFollowSymbolicLinks=(_followSymbolicLinksCheckbox.state==NSOnState)? YES : NO;
+	BOOL tFollowSymbolicLinks=(_followSymbolicLinksCheckbox.state==WBControlStateValueOn)? YES : NO;
 	
 	if (self.packageSettings.followSymbolicLinks!=tFollowSymbolicLinks)
 	{
@@ -294,7 +294,7 @@
 
 - (IBAction)switchuseHFSPlusCompression:(id)sender
 {
-	BOOL tUseHFSPlusCompression=(_useHFSPlusCompressionCheckbox.state==NSOnState)? YES : NO;
+	BOOL tUseHFSPlusCompression=(_useHFSPlusCompressionCheckbox.state==WBControlStateValueOn)? YES : NO;
 	
 	if (self.packageSettings.useHFSPlusCompression!=tUseHFSPlusCompression)
 	{
