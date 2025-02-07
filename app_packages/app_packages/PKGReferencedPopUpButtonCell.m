@@ -25,7 +25,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSImage *)pullDownImageForPathType:(PKGFilePathType)inPathType controlSize:(NSControlSize)inControlSize
 {
-	if (inControlSize==NSSmallControlSize)
+	if (inControlSize==WBControlSizeSmall)
 	{
 		switch(inPathType)
 		{

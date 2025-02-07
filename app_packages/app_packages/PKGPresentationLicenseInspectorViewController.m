@@ -515,7 +515,7 @@
             case -3:
                 
                 inMenuItem.hidden=(_licenseSettings.customTemplatePath==nil);
-                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:inMenuItem.title attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]}];
+                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:inMenuItem.title attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]]}];
                 
                 return NO;
             
@@ -534,13 +534,13 @@
                     inMenuItem.hidden=NO;
                 }
                     
-                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:tTitle attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]}];
+                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:tTitle attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]]}];
                 
                 break;
             }
             case -1:
 
-                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:inMenuItem.title attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]}];
+                inMenuItem.attributedTitle=[[NSAttributedString alloc] initWithString:inMenuItem.title attributes:@{NSFontAttributeName:[NSFont menuFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]]}];
 			
                 return NO;
                 

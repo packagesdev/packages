@@ -148,7 +148,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	switch(self.controlSize)
 	{
-		case NSRegularControlSize:
+		case WBControlSizeRegular:
 			
 			tImageFrame.size=tImage.size;
 			tImageFrame.origin.x+=1.;
@@ -158,7 +158,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			break;
 		
-		case NSSmallControlSize:
+		case WBControlSizeSmall:
 		case NSMiniControlSize:
 			
 			NSLog(@"Control Size not supported");

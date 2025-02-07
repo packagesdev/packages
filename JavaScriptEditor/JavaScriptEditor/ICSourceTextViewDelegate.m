@@ -1467,7 +1467,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		// Fortunately there's another way.  The mouse-up event that ended the selection is still the current event for the app. 
 		// We'll check that instead.  Perhaps, in an ideal world, after checking the length we'd do this instead: ([textView selectionGranularity] == NSSelectByWord).
 		
-		if ([tCurrentEvent type] == NSLeftMouseUp && [tCurrentEvent clickCount] == 2 && tSelectionRange.length == 1)
+		if (tCurrentEvent.type == WBEventTypeLeftMouseUp && tCurrentEvent.clickCount == 2 && tSelectionRange.length == 1)
 		{
 			NSString * tString=[_textView string];
 			NSUInteger tLength=[tString length];

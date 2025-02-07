@@ -1013,7 +1013,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
              
                         [[NSGraphicsContext currentContext] restoreGraphicsState];
                         
-                        [tBulletProcessedImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceIn fraction:1.0];
+                        [tBulletProcessedImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:WBCompositingOperationSourceIn fraction:1.0];
 						
 						return YES;
                     }];

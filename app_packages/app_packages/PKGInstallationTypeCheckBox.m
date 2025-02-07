@@ -53,7 +53,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			[tImage drawInRect:NSMakeRect(0.0,0.0,13.0,17.0) fromRect:NSMakeRect(0.0,0.0,13.0,17.0) operation:WBCompositingOperationSourceOver fraction:1.0];
 			
-			[inImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceIn fraction:1.0];
+			[inImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:WBCompositingOperationSourceIn fraction:1.0];
 			
 			if (self.isDependent==YES)
 			{

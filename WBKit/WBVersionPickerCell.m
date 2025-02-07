@@ -262,12 +262,12 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 		
 		switch([self controlSize])
 		{
-			case NSRegularControlSize:
+			case WBControlSizeRegular:
 				
 				tStepperCellHeight-=4.0;
 				break;
 				
-			case NSSmallControlSize:
+			case WBControlSizeSmall:
 				
 				tStepperCellHeight-=2.0;
 				break;

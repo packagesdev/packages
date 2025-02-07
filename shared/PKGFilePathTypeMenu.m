@@ -25,7 +25,7 @@
 {
 	switch(inControlSize)
 	{
-		case NSRegularControlSize:
+		case WBControlSizeRegular:
 			
 			switch(inPathType)
 			{
@@ -48,7 +48,7 @@
 		
 			break;
 	
-		case NSSmallControlSize:
+		case WBControlSizeSmall:
 	
 			switch(inPathType)
 			{
@@ -122,7 +122,7 @@
 
 + (NSSize)sizeOfPullDownImageForControlSize:(NSControlSize)inControlSize
 {
-	if (inControlSize==NSRegularControlSize)
+	if (inControlSize==WBControlSizeRegular)
 		return NSMakeSize(27.0,21.0);
 	
 	return NSZeroSize;
@@ -130,7 +130,7 @@
 
 + (NSImage *)pullDownImageForPathType:(PKGFilePathType)inPathType controlSize:(NSControlSize)inControlSize
 {
-	if (inControlSize==NSRegularControlSize)
+	if (inControlSize==WBControlSizeRegular)
 	{
 		switch(inPathType)
 		{
