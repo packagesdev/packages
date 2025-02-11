@@ -121,7 +121,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		}];
 	});
 	
-	return [sMenu copyWithZone:[NSMenu menuZone]];
+	return [sMenu copy];
 }
 
 + (NSString *)nextPreferredLanguageAfterLanguages:(NSArray *)inLanguagesArray

@@ -692,9 +692,9 @@
 			
 			if (tMixedIndex==-1)
 			{
-				NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
-																						action:nil
-																				 keyEquivalent:@""];
+				NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+                                                                  action:nil
+                                                           keyEquivalent:@""];
 			
 				tMenuItem.image=[NSImage imageNamed:@"MixedMenuItemUbuntu"];
 				tMenuItem.target=nil;

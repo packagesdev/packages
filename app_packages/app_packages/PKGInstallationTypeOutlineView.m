@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2018, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -27,8 +27,8 @@
 	unichar tChar=[inEvent.charactersIgnoringModifiers characterAtIndex:0];
 	
 	if (tChar=='.')
-	{
-		if ((inEvent.modifierFlags & (WBEventModifierFlagCommand+NSShiftKeyMask))!=0)
+    {
+		if ((inEvent.modifierFlags & (WBEventModifierFlagCommand|WBEventModifierFlagShift))!=0)
 		{
 			id tTarget=[NSApp targetForAction:@selector(switchShowPackagesName:) to:nil from:self];
 			
