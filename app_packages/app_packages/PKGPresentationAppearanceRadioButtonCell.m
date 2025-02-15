@@ -14,7 +14,7 @@ static BOOL PKGAppearanceRadioButtonCellCheatEnabled=NO;
 - (NSButtonType)_buttonType
 {
 	if (PKGAppearanceRadioButtonCellCheatEnabled==YES)
-		return NSRadioButton;
+		return WBButtonTypeRadio;
 	
 	return [super _buttonType];
 }

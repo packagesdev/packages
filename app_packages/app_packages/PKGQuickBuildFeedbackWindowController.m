@@ -89,7 +89,7 @@ NSString * const PKGQuickBuildStatusViewKey=@"StatusView";
 	_buildingLabelView.bordered=NO;
 	_buildingLabelView.editable=NO;
 	_buildingLabelView.selectable=NO;
-	_buildingLabelView.alignment=NSCenterTextAlignment;
+	_buildingLabelView.alignment=WBTextAlignmentCenter;
 	_buildingLabelView.font=[NSFont systemFontOfSize:20.0];
 	
 	_buildingLabelView.stringValue=NSLocalizedString(@"Building",@"");
@@ -142,7 +142,7 @@ NSString * const PKGQuickBuildStatusViewKey=@"StatusView";
 		tTextField.bordered=NO;
 		tTextField.editable=NO;
 		tTextField.selectable=NO;
-		tTextField.alignment=NSCenterTextAlignment;
+		tTextField.alignment=WBTextAlignmentCenter;
 		tTextField.font=[NSFont systemFontOfSize:14.0];
 		tTextField.stringValue=inFileName;
 	

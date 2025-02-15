@@ -60,6 +60,8 @@
 
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
 
+    #define WBTextAlignmentCenter NSTextAlignmentCenter
+
     #define WBControlSizeRegular NSControlSizeRegular
     #define WBControlSizeSmall NSControlSizeSmall
 
@@ -75,6 +77,8 @@
     #define WBCompositingOperationSourceOver NSCompositingOperationSourceOver
     #define WBCompositingOperationSourceIn NSCompositingOperationSourceIn
 #else
+
+    #define WBTextAlignmentCenter NSCenterTextAlignment
 
     #define WBControlSizeRegular NSRegularControlSize
     #define WBControlSizeSmall NSSmallControlSize
@@ -98,12 +102,20 @@
     #define WBControlStateValueOff NSControlStateValueOff
     #define WBControlStateValueOn NSControlStateValueOn
 
+    #define WBButtonTypeRadio NSButtonTypeRadio
+
+    #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
+
     #define WBPasteboardTypeString NSPasteboardTypeString
 #else
 
     #define WBControlStateValueMixed NSMixedState
     #define WBControlStateValueOff NSOffState
     #define WBControlStateValueOn NSOnState
+
+    #define WBButtonTypeRadio NSRadioButton
+
+    #define WBBezelStyleAccessoryBarAction NSRoundRectBezelStyle
 
     #define WBPasteboardTypeString NSStringPboardType
 

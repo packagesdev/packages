@@ -957,7 +957,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	}
 	
     NSMutableParagraphStyle * tMutableParagraphStyle=[NSMutableParagraphStyle new];
-	tMutableParagraphStyle.alignment=NSCenterTextAlignment;
+	tMutableParagraphStyle.alignment=WBTextAlignmentCenter;
     
 	NSColor * tTextColor;
 	

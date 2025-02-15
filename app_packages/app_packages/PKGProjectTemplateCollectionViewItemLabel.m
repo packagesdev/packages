@@ -49,7 +49,7 @@
 			NSMutableParagraphStyle * tMutableParagraphStyle=[[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 			
 			tMutableParagraphStyle.lineBreakMode=NSLineBreakByTruncatingMiddle;
-			tMutableParagraphStyle.alignment=NSCenterTextAlignment;
+			tMutableParagraphStyle.alignment=WBTextAlignmentCenter;
 			
 			sSelectedAttributesDictionary=@{
 											NSForegroundColorAttributeName : [NSColor alternateSelectedControlTextColor],
@@ -69,7 +69,7 @@
 			NSMutableParagraphStyle * tMutableParagraphStyle=[[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 			
 			tMutableParagraphStyle.lineBreakMode=NSLineBreakByTruncatingMiddle;
-			tMutableParagraphStyle.alignment=NSCenterTextAlignment;
+			tMutableParagraphStyle.alignment=WBTextAlignmentCenter;
 			
 			
 			sUnselectedAttributesDictionary=@{
