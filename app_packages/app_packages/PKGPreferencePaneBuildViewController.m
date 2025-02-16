@@ -516,7 +516,7 @@
 			
 			if ([tChooseIdentityPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode) {
 				
-				if (bReturnCode==NSCancelButton)
+				if (bReturnCode==WBModalResponseCancel)
 				{
 					[_quickBuildSigningCertificatePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction];
 					
@@ -575,7 +575,7 @@
 		
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult==NSFileHandlingPanelOKButton)
+			if (bResult==WBFileHandlingPanelOKButton)
 			{
 				NSString * tPath=tOpenPanel.URL.path;
 				
@@ -608,7 +608,7 @@
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation=tOpenPanel.URL.path;

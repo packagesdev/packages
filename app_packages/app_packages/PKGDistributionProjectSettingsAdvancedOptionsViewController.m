@@ -342,7 +342,7 @@ NSString * const  PKGDistributionProjectSettingsAdvancedOptionsDisclosedStatesKe
 		
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
-		//tView.backgroundStyle=NSBackgroundStyleDark;
+		//tView.backgroundStyle=WBBackgroundStyleEmphasized;
 		if ([tTableColumnIdentifier isEqualToString:@"advanced.value"]==YES)
 		{
 			tView.textField.stringValue=@"";

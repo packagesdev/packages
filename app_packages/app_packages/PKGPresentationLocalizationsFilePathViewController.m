@@ -278,7 +278,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 		
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult!=NSFileHandlingPanelOKButton)
+			if (bResult!=WBFileHandlingPanelOKButton)
 			{
 				dispatch_async(dispatch_get_main_queue(), ^{
 					

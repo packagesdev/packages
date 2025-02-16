@@ -36,9 +36,9 @@
 	
 	if (handler!=nil)
 	{
-		if (inReturnCode!=NSOKButton)
+		if (inReturnCode!=WBModalResponseOK)
 		{
-			handler(NSCancelButton);
+			handler(WBModalResponseCancel);
 			return;
 		}
 		
@@ -89,7 +89,7 @@
 		
 		self.identity=(__bridge_transfer NSString *)tCertificateNameRef;
 		
-		handler(NSOKButton);
+		handler(WBModalResponseOK);
 		
 		// Release Memory
 		
@@ -242,7 +242,7 @@
 	
 	NSInteger tResult=[_chooseIdentityPanel runModalForIdentities:tIdentitiesArray message:self.messageText];
 	
-	if (tResult!=NSOKButton)
+	if (tResult!=WBModalResponseOK)
 		return tResult;
 	
 	SecIdentityRef tIdentityRef=[_chooseIdentityPanel identity];
@@ -290,7 +290,7 @@
 	
 	CFRelease(tCertificateRef);
 	
-	return NSOKButton;
+	return WBModalResponseOK;
 }
 
 @end

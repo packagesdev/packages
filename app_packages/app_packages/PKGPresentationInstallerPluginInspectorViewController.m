@@ -303,7 +303,7 @@
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		PKGFilePath * tFilePath=[self.filePathConverter filePathForAbsolutePath:tOpenPanel.URL.path type:_presentationSection.pluginPath.type];

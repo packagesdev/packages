@@ -103,7 +103,7 @@
 	if ([self WB_doesReallyConformToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
 		_locationSectionView.delegate=(id<PKGLocationDropViewDelegate>)self;
 	
-	[_locationSectionView registerForDraggedTypes:@[NSFilenamesPboardType,NSStringPboardType]];
+	[_locationSectionView registerForDraggedTypes:@[NSFilenamesPboardType,WBPasteboardTypeString]];
     
     PKGReplaceableStringFormatter * tFormatter=[PKGReplaceableStringFormatter new];
     tFormatter.keysReplacer=self;
@@ -820,9 +820,9 @@
 	
 	if (tString==nil)
 	{
-		if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+		if ([tPasteBoard availableTypeFromArray:@[WBPasteboardTypeString]]!=nil)
 		{
-			tString=[tPasteBoard stringForType:NSStringPboardType];
+			tString=[tPasteBoard stringForType:WBPasteboardTypeString];
 		}
 		else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 		{
@@ -918,9 +918,9 @@
 	
 	if (tString==nil)
 	{
-		if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+		if ([tPasteBoard availableTypeFromArray:@[WBPasteboardTypeString]]!=nil)
 		{
-			tString=[tPasteBoard stringForType:NSStringPboardType];
+			tString=[tPasteBoard stringForType:WBPasteboardTypeString];
 		}
 		else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 		{

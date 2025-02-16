@@ -85,7 +85,7 @@
 
 	NSRect tWindowFrame=[PKGInstallationSurgeryWindow windowFrameForView:inView];
 		
-	self=[super initWithContentRect:tWindowFrame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+	self=[super initWithContentRect:tWindowFrame styleMask:WBWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:YES];
 	
 	if (self!=nil)
 	{

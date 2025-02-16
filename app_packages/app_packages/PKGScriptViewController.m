@@ -305,7 +305,7 @@
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		if (tShowOwnershipAndReferenceStyleCustomizationDialog==YES)

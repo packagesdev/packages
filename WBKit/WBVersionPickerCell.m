@@ -1059,7 +1059,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 		tTrackingArea=WBVersionPickerCellTrackingAreaText;
 	
 
-	if (tType==NSLeftMouseDragged && _trackingArea!=tTrackingArea)
+	if (tType==WBEventTypeLeftMouseDragged && _trackingArea!=tTrackingArea)
 		return NO;
 	
 	if (tType==WBEventTypeLeftMouseDown)

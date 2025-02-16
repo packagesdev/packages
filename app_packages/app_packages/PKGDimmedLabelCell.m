@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2018, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,7 @@
 
 - (void)setBackgroundStyle:(NSBackgroundStyle)inBackgroundStyle
 {
-	[self setTextColor:(inBackgroundStyle==NSBackgroundStyleDark ? [NSColor whiteColor] : [NSColor colorWithDeviceWhite:0.66 alpha:1.0])];
+	[self setTextColor:(inBackgroundStyle==WBBackgroundStyleEmphasized ? [NSColor whiteColor] : [NSColor colorWithDeviceWhite:0.66 alpha:1.0])];
 }
 
 @end

@@ -576,7 +576,7 @@ NSString * const PKGFilesHierarchyDidRenameItemNotification=@"PKGFilesHierarchyD
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 	
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)

@@ -257,7 +257,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	
 	[tExportPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		PKGDistributionProjectExporter * tDistributionProjectExporter=[PKGDistributionProjectExporter new];
@@ -426,7 +426,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
 		tView.textField.objectValue=tSourceListItem.label;
-		((NSTextFieldCell *)tView.textField.cell).controlSize=NSMiniControlSize;
+		((NSTextFieldCell *)tView.textField.cell).controlSize=WBControlSizeMini;
 		
 		return tView;
 	}

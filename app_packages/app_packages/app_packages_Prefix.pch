@@ -58,12 +58,29 @@
 
 #define DEBUG_DARK_AQUA_PKG 0
 
+// Forward and backward compatibility defines
+
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
+
+    #define WBModalResponseOK NSModalResponseOK
+    #define WBModalResponseCancel NSModalResponseCancel
+
+#else
+
+    #define WBModalResponseOK NSOKButton
+    #define WBModalResponseCancel NSCancelButton
+
+#endif
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
+
+    #define WBWindowStyleMaskBorderless NSWindowStyleMaskBorderless
 
     #define WBTextAlignmentCenter NSTextAlignmentCenter
 
     #define WBControlSizeRegular NSControlSizeRegular
     #define WBControlSizeSmall NSControlSizeSmall
+    #define WBControlSizeMini NSControlSizeMini
 
     #define WBEventModifierFlagCommand NSEventModifierFlagCommand
     #define WBEventModifierFlagOption NSEventModifierFlagOption
@@ -72,16 +89,20 @@
     #define WBEventTypeKeyDown NSEventTypeKeyDown
     #define WBEventTypeLeftMouseDown NSEventTypeLeftMouseDown
     #define WBEventTypeLeftMouseUp NSEventTypeLeftMouseUp
+    #define WBEventTypeLeftMouseDragged NSEventTypeLeftMouseDragged
     #define WBEventTypeRightMouseDown NSEventTypeRightMouseDown
 
     #define WBCompositingOperationSourceOver NSCompositingOperationSourceOver
     #define WBCompositingOperationSourceIn NSCompositingOperationSourceIn
 #else
 
+    #define WBWindowStyleMaskBorderless NSBorderlessWindowMask
+
     #define WBTextAlignmentCenter NSCenterTextAlignment
 
     #define WBControlSizeRegular NSRegularControlSize
     #define WBControlSizeSmall NSSmallControlSize
+    #define WBControlSizeMini NSMiniControlSize
 
     #define WBEventModifierFlagCommand NSCommandKeyMask
     #define WBEventModifierFlagOption NSAlternateKeyMask
@@ -90,6 +111,7 @@
     #define WBEventTypeKeyDown NSKeyDown
     #define WBEventTypeLeftMouseDown NSLeftMouseDown
     #define WBEventTypeLeftMouseUp NSLeftMouseUp
+    #define WBEventTypeLeftMouseDragged NSLeftMouseDragged
     #define WBEventTypeRightMouseDown NSRightMouseDown
 
     #define WBCompositingOperationSourceOver NSCompositeSourceOver
@@ -107,6 +129,7 @@
     #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
 
     #define WBPasteboardTypeString NSPasteboardTypeString
+
 #else
 
     #define WBControlStateValueMixed NSMixedState
@@ -121,6 +144,38 @@
 
     @protocol NSMenuItemValidation <NSObject>
     @end
+#endif
+
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+
+    #define WBFileHandlingPanelOKButton NSModalResponseOK
+
+#else
+
+    #define WBFileHandlingPanelOKButton NSFileHandlingPanelOKButton
+
+#endif
+
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+
+    #define WBBackgroundStyleEmphasized NSBackgroundStyleEmphasized
+
+#else
+
+    #define WBBackgroundStyleEmphasized NSBackgroundStyleDark
+
+#endif
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 150000
+
+    #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
+
+#else
+
+    #define WBBezelStyleAccessoryBarAction NSRoundRectBezelStyle
+
 #endif
 
 

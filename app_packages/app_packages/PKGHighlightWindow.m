@@ -55,7 +55,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	inFrame=[inView convertRect:inFrame toView:nil];
 	inFrame=[inView.window convertRectToScreen:inFrame];
 	
-	self=[super initWithContentRect:inFrame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+	self=[super initWithContentRect:inFrame styleMask:WBWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:YES];
 	
 	if (self!=nil)
 	{

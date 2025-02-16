@@ -280,7 +280,7 @@
 	
 	NSRect tComputeRect=NSMakeRect(0,0,NSWidth(tCurrentViewBounds)-NSWidth(tBounds),NSHeight(tCurrentViewBounds)-NSHeight(tBounds));
 	
-	tComputeRect=[NSWindow frameRectForContentRect:tComputeRect styleMask:NSBorderlessWindowMask];
+	tComputeRect=[NSWindow frameRectForContentRect:tComputeRect styleMask:WBWindowStyleMaskBorderless];
 	
 	NSRect tNewWindowFrame;
 	

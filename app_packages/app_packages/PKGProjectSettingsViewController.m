@@ -302,7 +302,7 @@
 	[tChooseIdentityPanel beginSheetModalForWindow:self.view.window
 								 completionHandler:^(NSInteger bReturnCode) {
 									 
-									 if (bReturnCode==NSCancelButton)
+									 if (bReturnCode==WBModalResponseCancel)
 										 return;
 									 
 									 self.projectSettings.certificateName=tChooseIdentityPanel.identity;
@@ -375,7 +375,7 @@
 	dispatch_async(dispatch_get_main_queue(), ^{	// Dispatched to avoid the lack of animation for the sheet because of the dumb popupbutton animation
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult==NSFileHandlingPanelOKButton)
+			if (bResult==WBFileHandlingPanelOKButton)
 			{
 				NSString * tNewBuildPath=tOpenPanel.URL.path;
 				
@@ -424,7 +424,7 @@
 	dispatch_async(dispatch_get_main_queue(), ^{	// Dispatched to avoid the lack of animation for the sheet because of the dumb popupbutton animation
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult==NSFileHandlingPanelOKButton)
+			if (bResult==WBFileHandlingPanelOKButton)
 			{
 				NSString * tReferenceFolderPath=tOpenPanel.URL.path;
 				

@@ -66,8 +66,8 @@
 		[tMutableString appendFormat:@"\n%@",tBuildEventItem.subTitle];
 	
 	
-	[tPasteboard declareTypes:@[NSStringPboardType] owner:nil];
-	[tPasteboard setString:[NSString stringWithString:tMutableString] forType:NSStringPboardType];
+	[tPasteboard declareTypes:@[WBPasteboardTypeString] owner:nil];
+	[tPasteboard setString:[NSString stringWithString:tMutableString] forType:WBPasteboardTypeString];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem

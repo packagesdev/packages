@@ -506,7 +506,7 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 	
 	[tImportPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		PKGFilePathType tFileType=tOwnershipAndReferenceStyleViewController.referenceStyle;

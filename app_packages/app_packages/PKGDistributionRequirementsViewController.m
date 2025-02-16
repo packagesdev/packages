@@ -325,7 +325,7 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	{
 		NSTableCellView * tView=[inTableView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
-		tView.backgroundStyle=NSBackgroundStyleDark;
+		tView.backgroundStyle=WBBackgroundStyleEmphasized;
 		tView.textField.stringValue=tSourceListItem.label;
 		
 		return tView;

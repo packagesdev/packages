@@ -156,7 +156,7 @@
 		
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult==NSFileHandlingPanelOKButton)
+			if (bResult==WBFileHandlingPanelOKButton)
 			{
 				NSString * tPath=tOpenPanel.URL.path;
 				
