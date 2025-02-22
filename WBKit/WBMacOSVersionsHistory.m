@@ -539,7 +539,11 @@
                         
                     case 6:
                         
-                        return NSMakeRange(0, 9);
+                        return NSMakeRange(0, 10);
+                        
+                    case 7:
+                        
+                        return NSMakeRange(0, 7);
                 }
                         
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
