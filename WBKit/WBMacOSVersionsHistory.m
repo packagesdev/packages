@@ -541,9 +541,9 @@
                         
                         return NSMakeRange(0, 10);
                         
-                    case 7:
+                    /*case 7:
                         
-                        return NSMakeRange(0, 7);
+                        return NSMakeRange(0, 7);*/
                 }
                         
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
@@ -581,9 +581,9 @@
                         
                         return NSMakeRange(0, 10);
                         
-                    case 7:
+                    /*case 7:
                         
-                        return NSMakeRange(0, 5);
+                        return NSMakeRange(0, 5);*/
                 }
                 
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
@@ -621,9 +621,9 @@
                         
                         return NSMakeRange(0, 2);
                         
-                    case 7:
+                    /*case 7:
                         
-                        return NSMakeRange(0, 5);
+                        return NSMakeRange(0, 5);*/
                 }
                 
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
