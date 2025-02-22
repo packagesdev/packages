@@ -153,42 +153,48 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 
 - (instancetype)init
 {
-	return [self initTextCell:@""];
+	self=[super initTextCell:@""];
+    
+    [self commonInit];
+    
+    return self;
 }
 
 - (instancetype)initTextCell:(NSString *)inString
 {
     self=[super initTextCell:inString];
     
-    if (self!=nil)
-    {
-		_trackingArea=WBVersionPickerCellTrackingAreaNone;
-		
-		_versionPickerStyle=WBTextFieldAndStepperVersionPickerStyle;
-		
-		_backgroundColor=[[NSColor controlBackgroundColor] copy];
-		_textColor=[[NSColor controlTextColor] copy];
-		
-		[super setFont:[NSFont systemFontOfSize:[self controlSize]]];
-		
-		_numberFormatter=[NSNumberFormatter new];
-		_numberFormatter.formatterBehavior=NSNumberFormatterBehavior10_4;
-		_numberFormatter.locale=[NSLocale currentLocale];
-		
-		_versionsHistory=[WBVersionsHistory versionsHistory];
-		
-		_minVersion=nil;
-		_maxVersion=nil;
-		
-		_didEditElement=NO;
-		_didEnableEditionTimer=NO;
-		
-		[self setVersionValue:[WBVersion new]];
-		
-		[self updateElements];
-    }
+    [self commonInit];
     
     return self;
+}
+
+- (void)commonInit
+{
+    _trackingArea=WBVersionPickerCellTrackingAreaNone;
+    
+    _versionPickerStyle=WBTextFieldAndStepperVersionPickerStyle;
+    
+    _backgroundColor=[[NSColor controlBackgroundColor] copy];
+    _textColor=[[NSColor controlTextColor] copy];
+    
+    [super setFont:[NSFont systemFontOfSize:[self controlSize]]];
+    
+    _numberFormatter=[NSNumberFormatter new];
+    _numberFormatter.formatterBehavior=NSNumberFormatterBehavior10_4;
+    _numberFormatter.locale=[NSLocale currentLocale];
+    
+    _versionsHistory=[WBVersionsHistory versionsHistory];
+    
+    _minVersion=nil;
+    _maxVersion=nil;
+    
+    _didEditElement=NO;
+    _didEnableEditionTimer=NO;
+    
+    [self setVersionValue:[WBVersion new]];
+    
+    [self updateElements];
 }
 
 #pragma mark - Layout computations
