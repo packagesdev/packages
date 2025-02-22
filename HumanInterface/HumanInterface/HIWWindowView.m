@@ -245,8 +245,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 			}
 #endif
 #endif
-
-			
 		});
 		
 		tResolvedOperatingSystemVersion=sSystemVersion;
@@ -523,8 +521,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		
 		NSRect tBezelFrame=NSInsetRect(tWindowFrame, -1.0, -1.0);
 		
-		
-		
 		// Title Bar frame
 		
 		switch(tDisplayedAppearance)
@@ -685,8 +681,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	{
 		tTooBig=YES;
 		tTitleFrame.size.width=tAvailableWidth;
-		
-		
 	}
 	else
 	{
@@ -718,8 +712,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		else
 			tTitleFrame.origin.x=round(tMiddleTitleBar-tTitleFrame.size.width*0.5);
 	}
-	
-	
 	
 	/*NSFrameRect(tTitleFrame);*/
 	
