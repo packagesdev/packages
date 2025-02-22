@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2024, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -51,6 +51,7 @@
 #define WBMacOSMontereyMajorVersion         12
 #define WBMacOSVenturaMajorVersion          13
 #define WBMacOSSonomaMajorVersion           14
+#define WBMacOSSequoiaMajorVersion           15
 
 #define WBMacOSReasonableMaxUnitValue          100
 
@@ -248,6 +249,15 @@
     WBVersion * tNewVersion=[WBVersion new];
     
     tNewVersion.majorVersion=WBMacOSSonomaMajorVersion;
+    
+    return tNewVersion;
+}
+
++ (WBVersion *)macOSSequoiaVersion;
+{
+    WBVersion * tNewVersion=[WBVersion new];
+    
+    tNewVersion.majorVersion=WBMacOSSequoiaMajorVersion;
     
     return tNewVersion;
 }
@@ -561,7 +571,15 @@
                         
                     case 5:
                         
-                        return NSMakeRange(0, 1);
+                        return NSMakeRange(0, 3);
+                        
+                    case 6:
+                        
+                        return NSMakeRange(0, 10);
+                        
+                    case 7:
+                        
+                        return NSMakeRange(0, 5);
                 }
                 
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
@@ -569,9 +587,49 @@
             
             if (inVersion.majorVersion==WBMacOSSonomaMajorVersion)
             {
+                switch(inVersion.minorVersion)
+                {
+                    case 0:
+                        
+                        return NSMakeRange(0, 1);
+                        
+                    case 1:
+                        
+                        return NSMakeRange(0, 3);
+                        
+                    case 2:
+                        
+                        return NSMakeRange(0, 2);
+                        
+                    case 3:
+                        
+                        return NSMakeRange(0, 2);
+                        
+                    case 4:
+                        
+                        return NSMakeRange(0, 2);
+                        
+                    case 5:
+                        
+                        return NSMakeRange(0, 1);
+                        
+                    case 6:
+                        
+                        return NSMakeRange(0, 2);
+                        
+                    case 7:
+                        
+                        return NSMakeRange(0, 5);
+                }
+                
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
             }
 			
+            if (inVersion.majorVersion==WBMacOSSequoiaMajorVersion)
+            {
+                return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+            }
+            
 			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 	}
 	
