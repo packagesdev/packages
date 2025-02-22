@@ -57,7 +57,7 @@
                                 <textField verticalHuggingPriority="750" id="31">
                                     <rect key="frame" x="297" y="121" width="265" height="13"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="© 2009-2023 Stéphane Sudre. All rights reserved." id="39">
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="© 2009-2025 Stéphane Sudre. All rights reserved." id="39">
                                         <font key="font" metaFont="system" size="10"/>
                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
