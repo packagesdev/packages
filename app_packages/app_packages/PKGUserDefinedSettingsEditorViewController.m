@@ -121,7 +121,7 @@
     }].count>0)
     {
         NSAlert * tAlert=[NSAlert new];
-        tAlert.alertStyle=NSCriticalAlertStyle;
+        tAlert.alertStyle=WBAlertStyleCritical;
         tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" is already taken.",@""),tNewKey];
         tAlert.informativeText=NSLocalizedString(@"Please choose a different name.",@"");
         

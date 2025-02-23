@@ -76,6 +76,9 @@
 
     #define WBWindowStyleMaskBorderless NSWindowStyleMaskBorderless
 
+    #define WBAlertStyleCritical NSAlertStyleCritical
+
+    #define WBTextAlignmentLeft NSTextAlignmentLeft
     #define WBTextAlignmentCenter NSTextAlignmentCenter
 
     #define WBControlSizeRegular NSControlSizeRegular
@@ -98,6 +101,9 @@
 
     #define WBWindowStyleMaskBorderless NSBorderlessWindowMask
 
+    #define WBAlertStyleCritical NSCriticalAlertStyle
+
+    #define WBTextAlignmentLeft NSLeftTextAlignment
     #define WBTextAlignmentCenter NSCenterTextAlignment
 
     #define WBControlSizeRegular NSRegularControlSize

@@ -636,7 +636,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		void (^renameAlertBailOut)(NSString *,NSString *) = ^(NSString *bMessageText,NSString *bInformativeText)
 		{
 			NSAlert * tAlert=[NSAlert new];
-			tAlert.alertStyle=NSCriticalAlertStyle;
+			tAlert.alertStyle=WBAlertStyleCritical;
 			tAlert.messageText=bMessageText;
 			tAlert.informativeText=bInformativeText;
 			

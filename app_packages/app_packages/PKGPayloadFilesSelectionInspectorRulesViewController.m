@@ -144,7 +144,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 		NSBeep();
 		
 		NSAlert * tAlert=[NSAlert new];
-		tAlert.alertStyle=NSCriticalAlertStyle;
+		tAlert.alertStyle=WBAlertStyleCritical;
 		tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),tNewName];
 		tAlert.informativeText=NSLocalizedString(@"Please choose a different name.",@"");
 		

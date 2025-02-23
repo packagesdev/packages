@@ -587,7 +587,7 @@
 		
 		tDependencyPopupButton.bezelStyle=WBBezelStyleAccessoryBarAction;
 		tDependencyPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
-		tDependencyPopupButton.alignment=NSLeftTextAlignment;
+		tDependencyPopupButton.alignment=WBTextAlignmentLeft;
 		[[tDependencyPopupButton cell] setControlSize:WBControlSizeSmall];
 		
 		if (inView==_choiceEnabledDependencyView)
@@ -633,7 +633,7 @@
 		tPopupButton.menu=[self _comparatorsMenu];
 		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
 		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
-		tPopupButton.alignment=NSLeftTextAlignment;
+		tPopupButton.alignment=WBTextAlignmentLeft;
 		tPopupButton.action=@selector(switchComparator:);
 		tPopupButton.target=self;
 		
@@ -651,7 +651,7 @@
 		tPopupButton.menu=[self _stateObjectsMenu];
 		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
 		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
-		tPopupButton.alignment=NSLeftTextAlignment;
+		tPopupButton.alignment=WBTextAlignmentLeft;
 		
 		if (inView==_choiceEnabledDependencyView)
 			tPopupButton.action=@selector(switchEnabledStateObject:);
@@ -818,7 +818,7 @@
 		tPopupButton.bezelStyle=WBBezelStyleAccessoryBarAction;
 		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
 		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
-		tPopupButton.alignment=NSLeftTextAlignment;
+		tPopupButton.alignment=WBTextAlignmentLeft;
 		tPopupButton.menu=[self _operatorsMenu];
 		tPopupButton.action=@selector(switchOperator:);
 		tPopupButton.target=self;
