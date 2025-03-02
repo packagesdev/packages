@@ -954,7 +954,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 			
 			tElementFrame=NSOffsetRect(tElementFrame,tOffset,(-1.0+(1.0+WBVersionPickerCell_Padding_Bottom)));
 			
-			[[NSColor alternateSelectedControlColor] setFill];
+			[NSColor.selectedContentBackgroundColor setFill];
 
 #define WBVersionPickerCellSelectedElementRadius	3.0
 			

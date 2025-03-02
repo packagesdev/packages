@@ -371,7 +371,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	[super mouseDown:inEvent];
 	
-	if (([inEvent clickCount] == 2) && (([inEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask) == WBEventModifierFlagOption))
+	if (([inEvent clickCount] == 2) && (([inEvent modifierFlags] & WBEventModifierFlagDeviceIndependentFlagsMask) == WBEventModifierFlagOption))
 	{
 		NSRange tSelectionRange=[self selectedRange];
 		

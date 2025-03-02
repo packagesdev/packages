@@ -76,8 +76,9 @@
 
     #define WBWindowStyleMaskBorderless NSWindowStyleMaskBorderless
 
+    #define WBAlertStyleWarning NSAlertStyleWarning
     #define WBAlertStyleCritical NSAlertStyleCritical
-
+    
     #define WBTextAlignmentLeft NSTextAlignmentLeft
     #define WBTextAlignmentCenter NSTextAlignmentCenter
 
@@ -88,6 +89,7 @@
     #define WBEventModifierFlagCommand NSEventModifierFlagCommand
     #define WBEventModifierFlagOption NSEventModifierFlagOption
     #define WBEventModifierFlagShift NSEventModifierFlagShift
+    #define WBEventModifierFlagDeviceIndependentFlagsMask NSEventModifierFlagDeviceIndependentFlagsMask
 
     #define WBEventTypeKeyDown NSEventTypeKeyDown
     #define WBEventTypeLeftMouseDown NSEventTypeLeftMouseDown
@@ -101,8 +103,9 @@
 
     #define WBWindowStyleMaskBorderless NSBorderlessWindowMask
 
+    #define WBAlertStyleWarning NSWarningAlertStyle
     #define WBAlertStyleCritical NSCriticalAlertStyle
-
+    
     #define WBTextAlignmentLeft NSLeftTextAlignment
     #define WBTextAlignmentCenter NSCenterTextAlignment
 
@@ -113,6 +116,7 @@
     #define WBEventModifierFlagCommand NSCommandKeyMask
     #define WBEventModifierFlagOption NSAlternateKeyMask
     #define WBEventModifierFlagShift NSShiftKeyMask
+    #define WBEventModifierFlagDeviceIndependentFlagsMask NSDeviceIndependentModifierFlagsMask
 
     #define WBEventTypeKeyDown NSKeyDown
     #define WBEventTypeLeftMouseDown NSLeftMouseDown
@@ -171,6 +175,10 @@
 #else
 
     #define WBBackgroundStyleEmphasized NSBackgroundStyleDark
+
+    // Methods
+
+    #define selectedContentBackgroundColor alternateSelectedControlColor
 
 #endif
 

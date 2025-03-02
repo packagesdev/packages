@@ -23,7 +23,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		tPath.lineWidth=3.0;
 			
-		[[NSColor alternateSelectedControlColor] set];
+		[NSColor.selectedContentBackgroundColor set];
 			
 		[tPath stroke];
 	}

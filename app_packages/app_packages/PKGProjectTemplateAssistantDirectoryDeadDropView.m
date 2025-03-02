@@ -27,7 +27,7 @@
 		
 		tPath.lineWidth=3.0;
 			
-		[[NSColor alternateSelectedControlColor] set];
+		[NSColor.selectedContentBackgroundColor set];
 			
 		[tPath stroke];
 	}

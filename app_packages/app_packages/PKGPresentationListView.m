@@ -844,7 +844,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
     
     void (^drawDropLine)(NSRect) = ^(NSRect bRect)
     {
-        [[NSColor alternateSelectedControlColor] set];
+        [NSColor.selectedContentBackgroundColor set];
         
         NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(PKGPresentationListViewDropLinePaddingX,NSMinY(bRect)-1.0,PKGPresentationListViewDropLineCircleRadius*2.0,PKGPresentationListViewDropLineCircleRadius*2.0)];
         

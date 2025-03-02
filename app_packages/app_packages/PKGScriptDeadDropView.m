@@ -121,7 +121,7 @@
 	{
 		NSBezierPath * tPath=[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(tBounds,2.0,2.0) xRadius:8.0 yRadius:8.0];
 		
-		[[NSColor alternateSelectedControlColor] setStroke];
+		[NSColor.selectedContentBackgroundColor setStroke];
 			
 		[tPath setLineWidth:2.0];
 			

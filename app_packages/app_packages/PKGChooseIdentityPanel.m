@@ -75,7 +75,7 @@
 			
 			NSAlert * tAlert=[NSAlert new];
 			
-			tAlert.alertStyle=NSWarningAlertStyle;
+			tAlert.alertStyle=WBAlertStyleWarning;
 			
 			tAlert.messageText=NSLocalizedString(@"The Identity of the certificate could not be retrieved.",@"No comment");
 			tAlert.informativeText=NSLocalizedString(@"Packages will keep using the previous certificate set.",@"No comment");
@@ -274,7 +274,7 @@
 		
 		NSAlert * tAlert=[NSAlert new];
 		
-		tAlert.alertStyle=NSWarningAlertStyle;
+		tAlert.alertStyle=WBAlertStyleWarning;
 		
 		tAlert.messageText=NSLocalizedString(@"The Identity of the certificate could not be retrieved.",@"No comment");
 		tAlert.informativeText=NSLocalizedString(@"Packages will keep using the previous certificate set.",@"No comment");

@@ -103,7 +103,7 @@
 		
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tRoundRect xRadius:tRadius yRadius:tRadius];
 		
-		[[NSColor alternateSelectedControlColor] setFill];
+		[NSColor.selectedContentBackgroundColor setFill];
 		
 		[tBezierPath fill];
 	}
