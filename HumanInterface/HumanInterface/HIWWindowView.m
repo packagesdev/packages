@@ -377,7 +377,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	NSMutableParagraphStyle * tParagraphStyle=[[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 	
 	tParagraphStyle.lineBreakMode=NSLineBreakByTruncatingTail;
-	tParagraphStyle.alignment=NSNaturalTextAlignment;
+	tParagraphStyle.alignment=WBTextAlignmentNatural;
 	
 	NSFont * tFont=nil;
 	
@@ -634,7 +634,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 							_cachedParts[HIWPartTopLeftCorner],_cachedParts[HIWPartTopEdge], _cachedParts[HIWPartTopRightCorner],
 							_cachedParts[HIWPartLeftEdge], _cachedParts[HIWPartCenter], _cachedParts[HIWPartRightEdge],
 							_cachedParts[HIWPartBottomLeftCorner], _cachedParts[HIWPartBottomEdge], _cachedParts[HIWPartBottomRight],
-							NSCompositeSourceOver,
+                            WBCompositingOperationSourceOver,
 							1.0,
 							NO);
 	}
@@ -725,7 +725,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		tIconFrame.origin.y=round(NSMaxY(tWindowFrame)-(HIWWindowViewTitleBarHeight+HIWWindowViewProxyIconHeight)*0.5)-1.0;
 		tIconFrame.size=NSMakeSize(HIWWindowViewProxyIconWidth, HIWWindowViewProxyIconHeight);
 		
-		[tIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 1.0 : 0.5];
+		[tIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.window.isMainWindow==YES) ? 1.0 : 0.5];
 	}
 	
 	// Draw Locks Button
@@ -748,7 +748,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 			[_cachedLockButtonIcon _drawMappingAlignmentRectToRect:tIconFrame
 														 withState:1
 												   backgroundStyle:7
-														 operation:NSCompositeSourceOver
+														 operation:WBCompositingOperationSourceOver
 														  fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3
 															  flip:NO hints:nil];
 			
@@ -756,7 +756,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		}
 		else
 		{
-			[_cachedLockButtonIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3];
+			[_cachedLockButtonIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3];
 		}
 	}
 }

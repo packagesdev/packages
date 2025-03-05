@@ -60,6 +60,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D08D09732D79055C0000770F /* HumanInterface_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HumanInterface_Prefix.pch; sourceTree = "<group>"; };
+		D0A194162D7900CE00B7E75F /* HumanInterface_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HumanInterface_Prefix.pch; sourceTree = "<group>"; };
 		F43C66A321217B1E00FD8D80 /* Mojave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Mojave.xcodeproj; sourceTree = "<group>"; };
 		F49740BD21204F5E00BC1AD3 /* HumanInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HumanInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F49740C121204F5E00BC1AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D08D09722D7905270000770F /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D08D09732D79055C0000770F /* HumanInterface_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
 		F43C66A421217B1E00FD8D80 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,10 +121,12 @@
 		F49740BF21204F5E00BC1AD3 /* HumanInterface */ = {
 			isa = PBXGroup;
 			children = (
+				D0A194162D7900CE00B7E75F /* HumanInterface_Prefix.pch */,
 				F49740C221204F5E00BC1AD3 /* HumanInterface.h */,
 				F49740D921204FAE00BC1AD3 /* HIWWindowView.h */,
 				F49740DA21204FAE00BC1AD3 /* HIWWindowView.m */,
 				F49740C021204F5E00BC1AD3 /* Supporting Files */,
+				D08D09722D7905270000770F /* Other Sources */,
 			);
 			path = HumanInterface;
 			sourceTree = "<group>";
@@ -349,6 +361,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HumanInterface/HumanInterface_Prefix.pch;
 				INFOPLIST_FILE = HumanInterface/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -366,6 +380,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HumanInterface/HumanInterface_Prefix.pch;
 				INFOPLIST_FILE = HumanInterface/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";

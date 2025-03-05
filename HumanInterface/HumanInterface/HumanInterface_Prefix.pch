@@ -1,0 +1,185 @@
+//
+// Prefix header for all source files of the 'Packages' target in the 'Packages' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+
+	#ifndef NSAppKitVersionNumber10_9
+	#define NSAppKitVersionNumber10_9 1265
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_10
+	#define NSAppKitVersionNumber10_10 1343
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_11
+	#define NSAppKitVersionNumber10_11 1404
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_12
+	#define NSAppKitVersionNumber10_12 1504
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_13
+	#define NSAppKitVersionNumber10_13 1561
+	#endif
+
+	#ifndef NSAppKitVersionNumber10_14
+	#define NSAppKitVersionNumber10_14 1641
+	#endif
+
+	#ifndef NSAppKitVersionNumber11
+	#define NSAppKitVersionNumber11 2022
+	#endif
+
+	#define PKGAppkitMinimumPushButtonWidth	82.0
+
+#endif
+
+#ifndef MAC_OS_X_VERSION_10_10
+#define MAC_OS_X_VERSION_10_10	101000
+#endif
+
+// Debug
+
+#define DEBUG_DARK_AQUA_PKG 0
+
+// Forward and backward compatibility defines
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
+
+    #define WBModalResponseOK NSModalResponseOK
+    #define WBModalResponseCancel NSModalResponseCancel
+
+#else
+
+    #define WBModalResponseOK NSOKButton
+    #define WBModalResponseCancel NSCancelButton
+
+#endif
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
+
+    #define WBWindowStyleMaskBorderless NSWindowStyleMaskBorderless
+
+    #define WBAlertStyleWarning NSAlertStyleWarning
+    #define WBAlertStyleCritical NSAlertStyleCritical
+    
+    #define WBTextAlignmentLeft NSTextAlignmentLeft
+    #define WBTextAlignmentCenter NSTextAlignmentCenter
+    #define WBTextAlignmentNatural NSTextAlignmentNatural
+
+    #define WBControlSizeRegular NSControlSizeRegular
+    #define WBControlSizeSmall NSControlSizeSmall
+    #define WBControlSizeMini NSControlSizeMini
+
+    #define WBEventModifierFlagCommand NSEventModifierFlagCommand
+    #define WBEventModifierFlagOption NSEventModifierFlagOption
+    #define WBEventModifierFlagShift NSEventModifierFlagShift
+    #define WBEventModifierFlagDeviceIndependentFlagsMask NSEventModifierFlagDeviceIndependentFlagsMask
+
+    #define WBEventTypeKeyDown NSEventTypeKeyDown
+    #define WBEventTypeLeftMouseDown NSEventTypeLeftMouseDown
+    #define WBEventTypeLeftMouseUp NSEventTypeLeftMouseUp
+    #define WBEventTypeLeftMouseDragged NSEventTypeLeftMouseDragged
+    #define WBEventTypeRightMouseDown NSEventTypeRightMouseDown
+
+    #define WBCompositingOperationSourceOver NSCompositingOperationSourceOver
+    #define WBCompositingOperationSourceIn NSCompositingOperationSourceIn
+#else
+
+    #define WBWindowStyleMaskBorderless NSBorderlessWindowMask
+
+    #define WBAlertStyleWarning NSWarningAlertStyle
+    #define WBAlertStyleCritical NSCriticalAlertStyle
+    
+    #define WBTextAlignmentLeft NSLeftTextAlignment
+    #define WBTextAlignmentCenter NSCenterTextAlignment
+    #define WBTextAlignmentNatural NSNaturalTextAlignment
+
+    #define WBControlSizeRegular NSRegularControlSize
+    #define WBControlSizeSmall NSSmallControlSize
+    #define WBControlSizeMini NSMiniControlSize
+
+    #define WBEventModifierFlagCommand NSCommandKeyMask
+    #define WBEventModifierFlagOption NSAlternateKeyMask
+    #define WBEventModifierFlagShift NSShiftKeyMask
+    #define WBEventModifierFlagDeviceIndependentFlagsMask NSDeviceIndependentModifierFlagsMask
+
+    #define WBEventTypeKeyDown NSKeyDown
+    #define WBEventTypeLeftMouseDown NSLeftMouseDown
+    #define WBEventTypeLeftMouseUp NSLeftMouseUp
+    #define WBEventTypeLeftMouseDragged NSLeftMouseDragged
+    #define WBEventTypeRightMouseDown NSRightMouseDown
+
+    #define WBCompositingOperationSourceOver NSCompositeSourceOver
+    #define WBCompositingOperationSourceIn NSCompositeSourceIn
+#endif
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+
+    #define WBControlStateValueMixed NSControlStateValueMixed
+    #define WBControlStateValueOff NSControlStateValueOff
+    #define WBControlStateValueOn NSControlStateValueOn
+
+    #define WBButtonTypeRadio NSButtonTypeRadio
+
+    #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
+
+    #define WBPasteboardTypeString NSPasteboardTypeString
+
+#else
+
+    #define WBControlStateValueMixed NSMixedState
+    #define WBControlStateValueOff NSOffState
+    #define WBControlStateValueOn NSOnState
+
+    #define WBButtonTypeRadio NSRadioButton
+
+    #define WBBezelStyleAccessoryBarAction NSRoundRectBezelStyle
+
+    #define WBPasteboardTypeString NSStringPboardType
+
+    @protocol NSMenuItemValidation <NSObject>
+    @end
+#endif
+
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+
+    #define WBFileHandlingPanelOKButton NSModalResponseOK
+
+#else
+
+    #define WBFileHandlingPanelOKButton NSFileHandlingPanelOKButton
+
+#endif
+
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+
+    #define WBBackgroundStyleEmphasized NSBackgroundStyleEmphasized
+
+#else
+
+    #define WBBackgroundStyleEmphasized NSBackgroundStyleDark
+
+    // Methods
+
+    #define selectedContentBackgroundColor alternateSelectedControlColor
+
+#endif
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 150000
+
+    #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
+
+#else
+
+    #define WBBezelStyleAccessoryBarAction NSRoundRectBezelStyle
+
+#endif
+
+
+
