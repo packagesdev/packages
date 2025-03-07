@@ -231,7 +231,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 		case PKGLocalizationFilePathMenuActionTypeOpenWithFinder:
 		{
 			if (tAbsolutePath!=nil)
-				[[NSWorkspace sharedWorkspace] openFile:tAbsolutePath];
+				[[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:tAbsolutePath]];
 			
 			dispatch_async(dispatch_get_main_queue(), ^{
 				

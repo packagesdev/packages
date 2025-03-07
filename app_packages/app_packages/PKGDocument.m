@@ -1026,7 +1026,7 @@
 				return;
 			}
 			
-			if ([[NSWorkspace sharedWorkspace] openFile:_productPath]==YES)
+			if ([[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:_productPath]]==YES)
 				return;
 			
 			// A COMPLETER

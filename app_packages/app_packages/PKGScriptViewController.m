@@ -234,7 +234,7 @@
 	if (tAbsolutePath==nil)
 		return;
 	
-	[[NSWorkspace sharedWorkspace] openFile:tAbsolutePath];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:tAbsolutePath]];
 }
 
 - (IBAction)switchPathType:(NSPopUpButton *)sender
