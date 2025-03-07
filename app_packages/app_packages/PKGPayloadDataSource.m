@@ -1352,9 +1352,9 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		tPanel.keepOwnerAndGroup=[PKGApplicationPreferences sharedPreferences].keepOwnership;
 		tPanel.referenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 		
-		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
+		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSModalResponse response){
 			
-			if (bReturnCode==PKGPanelCancelButton)
+			if (response==PKGPanelCancelButton)
 				return;
 			
 			PKGPayloadAddOptions tOptions=0;

@@ -25,7 +25,6 @@
 
 #import "PKGChoiceItemOptionsDependencies+UI.h"
 
-#import "NSAlert+Block.h"
 
 @interface PKGDistributionProjectViewController ()
 {

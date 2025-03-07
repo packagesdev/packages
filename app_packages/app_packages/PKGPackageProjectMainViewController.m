@@ -28,8 +28,6 @@
 
 #import "PKGDistributionProject+Edition.h"
 
-#import "NSAlert+Block.h"
-
 @interface PKGPackageProjectMainViewController ()
 {
 	IBOutlet NSSegmentedControl * _segmentedControl;
@@ -185,7 +183,7 @@
 					tAlert.messageText=@"Description forthcoming";		// A COMPLETER
 					tAlert.informativeText=@"Description forthcoming";	// A COMPLETER
 					
-					[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:nil];
+					[tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
 					
 					return;
 				}

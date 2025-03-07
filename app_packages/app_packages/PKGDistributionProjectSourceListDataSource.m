@@ -27,7 +27,6 @@
 #import "PKGDistributionProjectSourceListPackageComponentItem.h"
 
 #import "NSOutlineView+Selection.h"
-#import "NSAlert+block.h"
 
 #import "NSArray+UniqueName.h"
 #import "NSString+BaseName.h"
@@ -307,9 +306,9 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 		tPanel.canChooseOwnerAndGroupOptions=NO;
 		tPanel.referenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 		
-		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
+		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSModalResponse bResponse){
 			
-			if (bReturnCode==PKGPanelCancelButton)
+			if (bResponse==PKGPanelCancelButton)
 				return;
 			
 			PKGFilePathType tFileType=tPanel.referenceStyle;
@@ -645,7 +644,7 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 			tAlert.messageText=bMessageText;
 			tAlert.informativeText=bInformativeText;
 			
-			[tAlert WB_beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSModalResponse bResponse){
+			[tAlert beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSModalResponse bResponse){
 				
 			}];
 		};

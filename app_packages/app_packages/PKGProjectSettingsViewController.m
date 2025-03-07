@@ -25,8 +25,6 @@
 
 #import "PKGCertificatesUtilities.h"
 
-#import "NSAlert+block.h"
-
 #import "PKGProjectNameFormatter.h"
 #import "PKGElasticFolderNameFormatter.h"
 
@@ -326,7 +324,7 @@
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove_Certificate",@"No Comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No Comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
 		
 		if (bReturnCode==NSAlertSecondButtonReturn)
 			return;

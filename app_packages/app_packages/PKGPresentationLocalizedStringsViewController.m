@@ -19,8 +19,6 @@
 
 #import "NSTableView+Selection.h"
 
-#import "NSAlert+block.h"
-
 #import "PKGReplaceableStringFormatter.h"
 
 @interface PKGPresentationLocalizedStringsViewController () <NSTableViewDelegate>
@@ -173,7 +171,7 @@
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;

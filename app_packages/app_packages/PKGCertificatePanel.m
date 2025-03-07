@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2017, Stephane Sudre
+Copyright (c) 2007-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -181,8 +181,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	PKGCertificateWindowController * retainedWindowController;
 }
 
-- (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
-
 @end
 
 @implementation PKGCertificatePanel
@@ -221,25 +219,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (void)_sheetDidEndSelector:(PKGCertificatePanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
-{
-	void(^handler)(void) = (__bridge_transfer void(^)(void)) contextInfo;
-	
-	if (handler!=nil)
-		handler();
-	
-	inPanel->retainedWindowController=nil;
-	
-	[inPanel orderOut:self];
-}
-
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(void))handler
 {
-	[NSApp beginSheet:self
-	   modalForWindow:inWindow
-		modalDelegate:self
-	   didEndSelector:@selector(_sheetDidEndSelector:returnCode:contextInfo:)
-		  contextInfo:(__bridge_retained void*)[handler copy]];
+	[inWindow beginSheet:self completionHandler:^(NSModalResponse bResponse) {
+
+		if (handler!=nil)
+			handler();
+
+		self->retainedWindowController=nil;
+	}];
 }
 
 @end

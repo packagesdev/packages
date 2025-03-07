@@ -50,8 +50,6 @@
 
 #import "PKGLanguageConverter.h"
 
-#import "NSAlert+block.h"
-
 #import "NSIndexSet+Analysis.h"
 
 #import "NSFileManager+FileTypes.h"
@@ -899,7 +897,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;

@@ -9,8 +9,6 @@
 
 #import "PKGPackageComponent+Safe.h"
 
-#import "NSAlert+Block.h"
-
 #import "PKGPackageComponent+UI.h"
 
 @interface PKGDistributionPackageComponentViewController ()
@@ -206,7 +204,7 @@
 					tAlert.messageText=@"Description forthcoming";		// A COMPLETER
 					tAlert.informativeText=@"Description forthcoming";	// A COMPLETER
 					
-					[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:nil];
+					[tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
 					
 					return;
 				}

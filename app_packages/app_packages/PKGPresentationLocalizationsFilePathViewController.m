@@ -24,8 +24,6 @@
 
 #import "NSTableView+Selection.h"
 
-#import "NSAlert+block.h"
-
 #import "NSFileManager+FileTypes.h"
 
 typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
@@ -326,7 +324,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;

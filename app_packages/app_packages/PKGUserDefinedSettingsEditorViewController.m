@@ -13,7 +13,6 @@
 
 #import "NSArray+UniqueName.h"
 
-#import "NSAlert+Block.h"
 #import "NSTableView+Selection.h"
 
 @interface PKGUserDefinedSettingsEditorViewController () <NSTableViewDelegate,NSTableViewDataSource>
@@ -125,7 +124,7 @@
         tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" is already taken.",@""),tNewKey];
         tAlert.informativeText=NSLocalizedString(@"Please choose a different name.",@"");
         
-        [tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:nil];
+        [tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
         
         return;
     }

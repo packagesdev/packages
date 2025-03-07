@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2021, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -51,18 +51,20 @@
 
 #pragma mark -
 
-- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
+- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSModalResponse response))handler
 {
     self.document=((NSWindowController *) inWindow.windowController).document;
 	self.project=(PKGDistributionProject *)((PKGDocumentWindowController *) inWindow.windowController).project;
 	
 	[self.retainedWindowController refreshUI];
 	
-	[NSApp beginSheet:self
-	   modalForWindow:inWindow
-		modalDelegate:self
-	   didEndSelector:@selector(_sheetDidEndSelector:returnCode:contextInfo:)
-		  contextInfo:(__bridge_retained void*)[handler copy]];
+	[inWindow beginSheet:self completionHandler:^(NSModalResponse bReturnCode) {
+		
+		if (handler!=nil)
+			handler(bReturnCode);
+		
+		self.retainedWindowController=nil;
+	}];
 }
 
 - (void)_sheetDidEndSelector:(PKGRequirementPanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -194,8 +194,6 @@
 	PKGAdvancedOptionWindowController * _retainedWindowController;
 }
 
-- (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
-
 @end
 
 @implementation PKGAdvancedOptionPanel
@@ -240,27 +238,15 @@
 
 #pragma mark -
 
-- (void)_sheetDidEndSelector:(PKGAdvancedOptionPanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
+- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSModalResponse))handler
 {
-	void(^handler)(NSInteger) = (__bridge_transfer void(^)(NSInteger)) contextInfo;
-	
-	if (handler!=nil)
-		handler(inReturnCode);
-	
-	inPanel->_retainedWindowController=nil;
-	
-	[inPanel orderOut:self];
-}
-
-- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
-{
-	//[_retainedWindowController refreshUI];
-	
-	[NSApp beginSheet:self
-	   modalForWindow:inWindow
-		modalDelegate:self
-	   didEndSelector:@selector(_sheetDidEndSelector:returnCode:contextInfo:)
-		  contextInfo:(__bridge_retained void*)[handler copy]];
+	[inWindow beginSheet:self completionHandler:^(NSModalResponse bResponse) {
+		
+		if (handler!=nil)
+			handler(bResponse);
+		
+		self->_retainedWindowController=nil;
+	}];
 }
 
 @end

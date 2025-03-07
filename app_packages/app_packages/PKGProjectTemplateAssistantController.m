@@ -155,7 +155,7 @@
 				break;
 		}
 		
-		[tAlert beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:NULL];
+		[tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
 	};
 	
 	[tTransformer transform];

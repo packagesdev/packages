@@ -15,8 +15,6 @@
 
 #import "PKGCertificatesUtilities.h"
 
-#import "NSAlert+Block.h"
-
 #import <SecurityInterface/SFChooseIdentityPanel.h>
 
 @interface PKGChooseIdentityPanel ()
@@ -150,9 +148,9 @@
 			}
 		}
 		
-		[tAlert WB_beginSheetModalForWindow:sheetWindow completionHandler:^(NSModalResponse bReturnCode){
+		[tAlert beginSheetModalForWindow:sheetWindow completionHandler:^(NSModalResponse bResponse){
 			
-			if (bReturnCode==NSAlertSecondButtonReturn)
+			if (bResponse==NSAlertSecondButtonReturn)
 				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:NSLocalizedString(@"url.apple.developer.website.certificates",@"")]];
 		}];
 		

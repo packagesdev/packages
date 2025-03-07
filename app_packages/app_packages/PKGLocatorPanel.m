@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -500,7 +500,7 @@
 	[inPanel orderOut:self];
 }
 
-- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSInteger result))handler
+- (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSModalResponse))handler
 {
     self.document=((NSWindowController *) inWindow.windowController).document;
     
@@ -508,11 +508,13 @@
 	
 	[retainedWindowController refreshUI];
 	
-	[NSApp beginSheet:self
-	   modalForWindow:inWindow
-		modalDelegate:self
-	   didEndSelector:@selector(_sheetDidEndSelector:returnCode:contextInfo:)
-		  contextInfo:(__bridge_retained void*)[handler copy]];
+	[inWindow beginSheet:self completionHandler:^(NSModalResponse bResponse) {
+
+		if (handler!=nil)
+			handler(bResponse);
+
+		self->retainedWindowController=nil;
+	}];
 }
 
 @end

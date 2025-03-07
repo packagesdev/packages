@@ -27,8 +27,6 @@
 
 #import "PKGApplicationPreferences.h"
 
-#import "NSAlert+block.h"
-
 #define PKGDocumentWindowPackageProjectMinWidth				1026.0
 #define PKGDocumentWindowDistributionProjectMinWidth		1200.0
 #define PKGDocumentWindowMinHeight							613.0
@@ -125,7 +123,7 @@
 				
 				tAlert.informativeText=tInformativeText;
 				
-				[tAlert WB_beginSheetModalForWindow:self.window completionHandler:nil];
+				[tAlert beginSheetModalForWindow:self.window completionHandler:nil];
 			});
 		}
 	}];
