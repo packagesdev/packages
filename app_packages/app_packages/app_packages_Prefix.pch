@@ -128,6 +128,16 @@
     #define WBCompositingOperationSourceIn NSCompositeSourceIn
 #endif
 
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+
+    #define WBFileHandlingPanelOKButton NSModalResponseOK
+
+#else
+
+    #define WBFileHandlingPanelOKButton NSFileHandlingPanelOKButton
+
+#endif
+
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
 
     #define WBControlStateValueMixed NSControlStateValueMixed
@@ -136,7 +146,7 @@
 
     #define WBButtonTypeRadio NSButtonTypeRadio
 
-    #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
+    #define WBBezelStyleRoundRect NSBezelStyleRoundRect
 
     #define WBPasteboardTypeString NSPasteboardTypeString
 
@@ -148,23 +158,12 @@
 
     #define WBButtonTypeRadio NSRadioButton
 
-    #define WBBezelStyleAccessoryBarAction NSRoundRectBezelStyle
+    #define WBSBezelStyleRoundRect NSRoundRectBezelStyle
 
     #define WBPasteboardTypeString NSStringPboardType
 
     @protocol NSMenuItemValidation <NSObject>
     @end
-#endif
-
-
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-
-    #define WBFileHandlingPanelOKButton NSModalResponseOK
-
-#else
-
-    #define WBFileHandlingPanelOKButton NSFileHandlingPanelOKButton
-
 #endif
 
 
@@ -182,15 +181,6 @@
 
 #endif
 
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 150000
-
-    #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
-
-#else
-
-    #define WBBezelStyleAccessoryBarAction NSRoundRectBezelStyle
-
-#endif
 
 
 

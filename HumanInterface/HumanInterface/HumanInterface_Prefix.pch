@@ -125,8 +125,6 @@
 
     #define WBButtonTypeRadio NSButtonTypeRadio
 
-    #define WBBezelStyleAccessoryBarAction NSBezelStyleAccessoryBarAction
-
     #define WBPasteboardTypeString NSPasteboardTypeString
 
 #else
@@ -136,8 +134,6 @@
     #define WBControlStateValueOn NSOnState
 
     #define WBButtonTypeRadio NSRadioButton
-
-    #define WBBezelStyleAccessoryBarAction NSRoundRectBezelStyle
 
     #define WBPasteboardTypeString NSStringPboardType
 

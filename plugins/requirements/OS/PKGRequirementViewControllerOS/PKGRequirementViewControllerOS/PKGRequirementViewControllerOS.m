@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2022, Stephane Sudre
+Copyright (c) 2008-2023, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -85,24 +85,25 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		static NSArray * sKnownMacOS10Names=nil;
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
-			sKnownMacOS10Names=@[@"Cheetah",
-							   @"Puma",
-							   @"Jaguar",
-							   @"Panther",
-							   @"Tiger",
-							   @"Leopard",
-							   @"Snow Leopard",
-							   @"Lion",
-							   @"Mountain Lion",
-							   @"Mavericks",
-							   @"Yosemite",
-							   @"El Capitan",
-							   @"Sierra",
-							   @"High Sierra",
-							   @"Mojave",
-							   @"Catalina"];
+			sKnownMacOS10Names=@[
+                                @"Cheetah",
+                                @"Puma",
+                                @"Jaguar",
+                                @"Panther",
+                                @"Tiger",
+                                @"Leopard",
+                                @"Snow Leopard",
+                                @"Lion",
+                                @"Mountain Lion",
+                                @"Mavericks",
+                                @"Yosemite",
+                                @"El Capitan",
+                                @"Sierra",
+                                @"High Sierra",
+                                @"Mojave",
+                                @"Catalina"];
 		});
-		
+        
 		tNames=sKnownMacOS10Names;
 	}
 	else if (tVersionComponents.majorVersion==11)
@@ -116,6 +117,14 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
     else if (tVersionComponents.majorVersion==13)
     {
         return @"Ventura";
+    }
+    else if (tVersionComponents.majorVersion==14)
+    {
+        return @"Sonoma";
+    }
+    else if (tVersionComponents.majorVersion==15)
+    {
+        return @"Sequoia";
     }
 	
 	NSInteger tMinorComponent=tVersionComponents.minorVersion;

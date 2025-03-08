@@ -368,7 +368,7 @@
 	
 	tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
 	tPopupButton.alignment=WBTextAlignmentCenter;
-	tPopupButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+	tPopupButton.bezelStyle=WBBezelStyleRoundRect;
 	
 	// Available choices
 	
@@ -585,7 +585,7 @@
 		
 		PKGChoiceDependencyPopUpButton * tDependencyPopupButton=[[PKGChoiceDependencyPopUpButton alloc] initWithFrame:NSMakeRect(NSMinX(tContainerBounds),NSMinY(tContainerBounds),_availableChoicesPopUpButtonSize.width,_availableChoicesPopUpButtonSize.height) pullsDown:NO];
 		
-		tDependencyPopupButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tDependencyPopupButton.bezelStyle=WBBezelStyleRoundRect;
 		tDependencyPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
 		tDependencyPopupButton.alignment=WBTextAlignmentLeft;
 		[[tDependencyPopupButton cell] setControlSize:WBControlSizeSmall];
@@ -629,7 +629,7 @@
 		
 		NSPopUpButton * tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds),_comparatorPopUpButtonSize.width,_comparatorPopUpButtonSize.height) pullsDown:NO];
 		
-		tPopupButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tPopupButton.bezelStyle=WBBezelStyleRoundRect;
 		tPopupButton.menu=[self _comparatorsMenu];
 		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
 		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
@@ -647,7 +647,7 @@
 		// State
 		
 		tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds),_stateObjectPopUpButtonSize.width,_stateObjectPopUpButtonSize.height) pullsDown:NO];
-		tPopupButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+        tPopupButton.bezelStyle=WBBezelStyleRoundRect;;
 		tPopupButton.menu=[self _stateObjectsMenu];
 		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
 		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
@@ -673,7 +673,7 @@
 		
 		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds)-1,16.0,19.0)];
 		
-		tButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_minus"];
 		[[tButton cell] setControlSize:WBControlSizeSmall];
@@ -694,7 +694,7 @@
 		
 		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
-		tButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_plus"];
 		[[tButton cell] setControlSize:WBControlSizeSmall];
@@ -815,7 +815,7 @@
 		
 		NSPopUpButton * tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMinX(tContainerBounds),NSMinY(tContainerBounds),_operatorPopUpButtonSize.width,_operatorPopUpButtonSize.height) pullsDown:NO];
 		
-		tPopupButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tPopupButton.bezelStyle=WBBezelStyleRoundRect;
 		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
 		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
 		tPopupButton.alignment=WBTextAlignmentLeft;
@@ -833,7 +833,7 @@
 		
 		NSButton * tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds)-1,16.0,19.0)];
 		
-		tButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_switch"];
 		[[tButton cell] setControlSize:WBControlSizeSmall];
@@ -849,7 +849,7 @@
 		
 		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
-		tButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_minus"];
 		[[tButton cell] setControlSize:WBControlSizeSmall];
@@ -869,7 +869,7 @@
 		
 		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
-		tButton.bezelStyle=WBBezelStyleAccessoryBarAction;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_plus"];
 		[[tButton cell] setControlSize:WBControlSizeSmall];
