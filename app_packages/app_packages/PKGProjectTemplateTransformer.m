@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -88,11 +88,15 @@ NSString * const PKGProjectTemplateTransformerYearKey=@"YEAR";
 	
 	NSMutableDictionary * tMutableKeywordsDictionary=[NSMutableDictionary dictionary];
 	
-	tMutableKeywordsDictionary[PKGProjectTemplateTransformerUUIDKey]=[[NSUUID UUID] UUIDString];
+	tMutableKeywordsDictionary[PKGProjectTemplateTransformerUUIDKey]=[NSUUID UUID].UUIDString;
 	tMutableKeywordsDictionary[PKGProjectTemplateTransformerProjectNameKey]=self.outputDocumentName;
 	tMutableKeywordsDictionary[PKGProjectTemplateTransformerProjectNameDNRKey]=[PKGProjectTemplateTransformer _filteredProjectName:self.outputDocumentName];
-	tMutableKeywordsDictionary[PKGProjectTemplateTransformerProjectPathKey]=[self.outputDirectory stringByExpandingTildeInPath];
-	tMutableKeywordsDictionary[PKGProjectTemplateTransformerYearKey]=[NSString stringWithFormat:@"%d",(int)[[NSCalendarDate calendarDate] yearOfCommonEra]];
+	tMutableKeywordsDictionary[PKGProjectTemplateTransformerProjectPathKey]=self.outputDirectory.stringByExpandingTildeInPath;
+	
+	NSCalendar * gregorianCalendar=[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+	NSDateComponents * dateComponents = [gregorianCalendar components:NSCalendarUnitYear fromDate:[NSDate date]];
+	
+	tMutableKeywordsDictionary[PKGProjectTemplateTransformerYearKey]=[NSString stringWithFormat:@"%d",(int)dateComponents.year];
 	
 	PKGProjectTemplateDefaultValuesSettings * tDefaultValueSettings=[PKGProjectTemplateDefaultValuesSettings sharedSettings];
 	

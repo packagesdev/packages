@@ -178,7 +178,7 @@
 	
 	tComputeRect=NSMakeRect(0,0,0,NSHeight(tCurrentViewBounds)-NSHeight(tBounds));
 	
-	tComputeRect=[NSWindow frameRectForContentRect:tComputeRect styleMask:NSBorderlessWindowMask];
+	tComputeRect=[NSWindow frameRectForContentRect:tComputeRect styleMask:WBWindowStyleMaskBorderless];
 	
 	tNewWindowFrame.size=NSMakeSize(tOldWindowFrame.size.width,NSHeight(tOldWindowFrame)+NSHeight(tComputeRect));
 	

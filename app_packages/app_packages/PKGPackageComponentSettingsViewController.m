@@ -993,10 +993,10 @@
 	}
 	
 	if (tPrefix!=nil)
-		tString=[tString substringFromIndex:[tPrefix length]];
+		tString=[tString substringFromIndex:tPrefix.length];
 	
 	if (tHTTPURL==YES)
-		tString=[tString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		tString=[tString stringByRemovingPercentEncoding];
 	
 	NSString * tLastComponent=tString.lastPathComponent;
 		
@@ -1009,11 +1009,11 @@
 		(isLocalFlatPackage==YES ||
 		([tLastComponent length]>0 && [tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)))
 	{
-		tName=[tLastComponent stringByDeletingPathExtension];
+		tName=tLastComponent.stringByDeletingPathExtension;
 	}
 	
 	if (tName!=nil)
-		tString=[tString stringByDeletingLastPathComponent];
+		tString=tString.stringByDeletingLastPathComponent;
 	
 	if (tPrefix!=nil && tOldURLHasPrefix==YES)
 		tString=[tPrefix stringByAppendingString:tString];
