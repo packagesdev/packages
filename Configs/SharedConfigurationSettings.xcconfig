@@ -4,7 +4,7 @@
 
 // Intel 64-bit + ARM (when supported by Xcode)
 
-ARCHS = $(ARCHS_STANDARD_64_BIT)
+ARCHS = $(ARCHS_STANDARD)
 
 // Hardened Runtime
 
@@ -16,12 +16,11 @@ SDKROOT = macosx
 
 // Deployment Target
 
-MACOSX_DEPLOYMENT_TARGET = 10.9
+MACOSX_DEPLOYMENT_TARGET = 10.12
 MACOSX_DEPLOYMENT_TARGET[arch=arm64] = 11.0
 
 //
 
 COPY_PHASE_STRIP[config=Debug] = NO
 COPY_PHASE_STRIP = YES
-
-
+ALWAYS_SEARCH_USER_PATHS = NO

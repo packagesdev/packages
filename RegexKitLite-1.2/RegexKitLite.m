@@ -41,7 +41,7 @@
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSError.h>
 #import <Foundation/NSException.h>
-#import <libkern/OSAtomic.h>
+#import <os/lock.h>
 #import <string.h>
 #import <stdlib.h>
 #import "RegexKitLite.h"
@@ -133,7 +133,7 @@ static RKLCacheSlot *getCachedRegex     (NSString *regexString, RKLRegexOptions 
 static NSError      *RKLNSErrorForRegex (NSString *regexString, RKLRegexOptions regexOptions, UParseError *parseError, int status);
 
 // Compile unit local global variables
-static OSSpinLock    cacheSpinLock = OS_SPINLOCK_INIT;
+static os_unfair_lock cacheSpinLock = OS_UNFAIR_LOCK_INIT;
 static RKLCacheSlot  RKLCache[RKL_CACHE_SIZE];
 static RKLCacheSlot *lastCacheSlot;
 static void         *lastRegexString;
@@ -203,12 +203,12 @@ static NSError *RKLNSErrorForRegex(NSString *regexString, RKLRegexOptions regexO
 
 + (void)clearStringCache
 {
-  OSSpinLockLock(&cacheSpinLock);
+  os_unfair_lock_lock(&cacheSpinLock);
   fixedString   = RKLMakeString(NULL, 0, 0, fixedString.uniChar);
   dynamicString = RKLMakeString(NULL, 0, 0, reallocf(dynamicString.uniChar, 0));
   NSUInteger x = 0;
   for(x = 0; x < RKL_CACHE_SIZE; x++) { RKLClearCacheSlotLastString((&RKLCache[x])); }
-  OSSpinLockUnlock(&cacheSpinLock);
+  os_unfair_lock_unlock(&cacheSpinLock);
 }
 
 + (NSInteger)captureCountForRegex:(NSString *)regexString
@@ -224,9 +224,9 @@ static NSError *RKLNSErrorForRegex(NSString *regexString, RKLRegexOptions regexO
   RKLCacheSlot *cacheSlot    = NULL;
   NSInteger     captureCount = -1;
 
-  OSSpinLockLock(&cacheSpinLock);
+  os_unfair_lock_lock(&cacheSpinLock);
   if((cacheSlot = getCachedRegex(regexString, options, error)) != NULL) { captureCount = cacheSlot->captureCount; }
-  OSSpinLockUnlock(&cacheSpinLock);
+  os_unfair_lock_unlock(&cacheSpinLock);
 
   return(captureCount);
 }
@@ -297,7 +297,7 @@ static NSError *RKLNSErrorForRegex(NSString *regexString, RKLRegexOptions regexO
 
   // IMPORTANT!   Once we have obtained the lock, code MUST exit via 'goto exitNow;' to unlock the lock!  NO EXCEPTIONS!
 
-  OSSpinLockLock(&cacheSpinLock); // Grab the lock and get cache entry.
+  os_unfair_lock_lock(&cacheSpinLock); // Grab the lock and get cache entry.
   // Fast path the common case where this regex is the same one used last time.
   // On a miss, do full lookup with getCachedRegex(), which compiles the regex if it's not in the cache.
   if((lastCacheSlot != NULL) && (options == lastCacheSlot->regexOptions) && (CFEqual(regexString, lastCacheSlot->regexString) == YES)) { cacheSlot = lastCacheSlot; }
@@ -345,7 +345,7 @@ static NSError *RKLNSErrorForRegex(NSString *regexString, RKLRegexOptions regexO
   if(capture == 0) { captureRange = cacheSlot->lastMatchRange; } else { RKLGetRangeForCapture(cacheSlot->icu_regex, status, capture, captureRange); }
 
  exitNow: // A bit of advice...
-  OSSpinLockUnlock(&cacheSpinLock); // Always... no, no... never... forget to unlock your locks.
+  os_unfair_lock_unlock(&cacheSpinLock); // Always... no, no... never... forget to unlock your locks.
   if(exception != NULL) { [exception raise]; } // I think the young people enjoy it when I "get down" verbally, don't you? 
   if(status > 0) { [NSException raise:NSInternalInconsistencyException format:@"ICU regular expression error #%d, %s", status, u_errorName(status)]; }
   return((status == 0) ? captureRange : NSNotFoundRange);
