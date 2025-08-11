@@ -48,7 +48,7 @@
 
 - (void)drawRect:(NSRect)inRect
 {
-	NSRect tBounds=[self bounds];
+	NSRect tBounds=self.bounds;
 	
 	void (^drawBackground)(void) = ^void(void){
 		
@@ -71,7 +71,7 @@
 		CGFloat tArray[2]={5.0,2.0};
 		[tBezierPath setLineDash:tArray count:2 phase:0.5];
 		
-		[tBezierPath setLineWidth:2.0];
+		tBezierPath.lineWidth=2.0;
 		
 		[tBezierPath stroke];
 	};
@@ -123,7 +123,7 @@
 		
 		[NSColor.selectedContentBackgroundColor setStroke];
 			
-		[tPath setLineWidth:2.0];
+		tPath.lineWidth=2.0;
 			
 		[tPath stroke];
 	}

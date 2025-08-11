@@ -410,7 +410,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	
 	if (tFont==nil)
 	{
-		if ([[NSFont class] respondsToSelector:@selector(titleBarFontOfSize:)]==YES)
+		if ([NSFont.class respondsToSelector:@selector(titleBarFontOfSize:)]==YES)
 			tFont=[NSFont titleBarFontOfSize:13.0];
 		
 		if (tFont==nil)

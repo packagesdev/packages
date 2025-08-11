@@ -101,14 +101,14 @@
 {
 	[self drawBorderAndBackgroundWithFrame:inFrame inView:inControlView];
 	
-	NSMenuItem * tMenuItem=[self selectedItem];
+	NSMenuItem * tMenuItem=self.selectedItem;
 	
 	if (tMenuItem==nil)
 		return;
 	
 	// Draw the Path Type icon
 
-	NSImage * tReferenceIcon=[PKGReferencePopupButtonCell leftCapForReferenceStyle:[tMenuItem tag] controlSize:self.controlSize];
+	NSImage * tReferenceIcon=[PKGReferencePopupButtonCell leftCapForReferenceStyle:tMenuItem.tag controlSize:self.controlSize];
 	NSRect tRect;
 	tRect.origin=NSMakePoint(NSMinX(inFrame)+2.0,NSMinY(inFrame)+((self.controlSize==WBControlSizeRegular) ? 2.0 : 1.0));   // A VOIR (Big Sur issue)
 	tRect.size=tReferenceIcon.size;
@@ -124,7 +124,7 @@
 	tRect.origin.x=tOffset;
 	
 	[tMenuItem.title drawInRect:tRect withAttributes:@{NSFontAttributeName:self.font,
-													   NSForegroundColorAttributeName:([tMenuItem isEnabled]==YES) ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]}];
+													   NSForegroundColorAttributeName:(tMenuItem.isEnabled==YES) ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]}];
 }
 
 @end

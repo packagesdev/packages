@@ -54,7 +54,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)sizeToFit
 {
-	if ([self indexOfSelectedItem]==-1)
+	if (self.indexOfSelectedItem==-1)
 	{
 		[self addItemWithTitle:NSLocalizedString(@"<No selected function>",@"")];
 		
@@ -84,13 +84,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 	tBounds.size.width-=5.0;
 	
-	if ([self indexOfSelectedItem]==-1)
+	if (self.indexOfSelectedItem==-1)
 	{
 		[self addItemWithTitle:NSLocalizedString(@"<No selected function>",@"")];
 		
 		[self selectItemAtIndex:self.numberOfItems-1];
 		
-		[[self cell] drawWithFrame:tBounds inView:self];
+		[self.cell drawWithFrame:tBounds inView:self];
 		
 		[self removeItemAtIndex:(self.numberOfItems-1)];
 		
@@ -98,7 +98,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 	else
 	{
-		[[self cell] drawWithFrame:tBounds inView:self];
+		[self.cell drawWithFrame:tBounds inView:self];
 	}
 }
 

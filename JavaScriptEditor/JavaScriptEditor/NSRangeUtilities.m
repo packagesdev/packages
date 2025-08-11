@@ -19,8 +19,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	if (inValue!=nil)
 	{
-		NSRange tRange=[self rangeValue];
-		NSRange tOtherRange=[inValue rangeValue];
+		NSRange tRange=self.rangeValue;
+		NSRange tOtherRange=inValue.rangeValue;
 		
 		if (tRange.location<tOtherRange.location)
 			return NSOrderedAscending;
@@ -42,7 +42,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	[inArray enumerateObjectsUsingBlock:^(NSValue * bValue,NSUInteger bIndex,BOOL * bOutStop){
 	
-		NSRange tRange=[bValue rangeValue];
+		NSRange tRange=bValue.rangeValue;
 		
 		if (NSLocationInRange(inLocation,tRange)==YES)
 		{
@@ -58,7 +58,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	for(NSValue * tValue in inArray)
     {
-        NSRange tOtherRange=[tValue rangeValue];
+        NSRange tOtherRange=tValue.rangeValue;
         
         if (NSLocationInRange(inLocation,tOtherRange)==YES)
 			return YES;
@@ -71,7 +71,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	for(NSValue * tValue in inArray)
     {
-        NSRange tOtherRange=[tValue rangeValue];
+        NSRange tOtherRange=tValue.rangeValue;
         
         if (NSIntersectionRange(inRange,tOtherRange).length!=0)
 			return YES;
@@ -84,7 +84,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	for(NSValue * tValue in inArray)
     {
-        NSRange tOtherRange=[tValue rangeValue];
+        NSRange tOtherRange=tValue.rangeValue;
         
         if (tOtherRange.location>=NSMaxRange(inRange))
 			return NO;
@@ -115,7 +115,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			for(NSValue * tValue in tSortedRangesArray)
 			{
-				NSRange tExcludedRange=[tValue rangeValue];
+				NSRange tExcludedRange=tValue.rangeValue;
 				NSUInteger tMaxExcludedRange=NSMaxRange(tExcludedRange);
 				NSUInteger tMaxAvailableRange=NSMaxRange(tNextAvailableRange);
 				
@@ -176,7 +176,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		for(NSValue * tValue in inArray)
 		{
-			NSRange tRange=[tValue rangeValue];
+			NSRange tRange=tValue.rangeValue;
 			
 			if (tRange.location>=NSMaxRange(inRange))
 				break;

@@ -35,7 +35,7 @@
 {
 	NSPasteboard * tPasteBoard = [sender draggingPasteboard];
 	
-	if (self.deadDropDelegate!=nil && [[tPasteBoard types] containsObject:NSFilenamesPboardType]==YES)
+	if (self.deadDropDelegate!=nil && [tPasteBoard.types containsObject:NSFilenamesPboardType]==YES)
 	{
 		NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 		

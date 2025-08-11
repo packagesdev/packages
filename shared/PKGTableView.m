@@ -17,11 +17,11 @@
 
 - (void)keyDown:(NSEvent *)inEvent
 {
-	unichar key = [[inEvent charactersIgnoringModifiers] characterAtIndex:0];
+	unichar key=[inEvent.charactersIgnoringModifiers characterAtIndex:0];
 
 	// Handle Delete
 	
-	if (key == NSDeleteCharacter)
+	if (key==NSDeleteCharacter)
 	{
 		id tTarget=[NSApp targetForAction:@selector(delete:) to:nil from:self];
 		

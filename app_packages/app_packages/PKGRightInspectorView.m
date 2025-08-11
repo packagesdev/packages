@@ -42,10 +42,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[[NSColor grayColor] setStroke];
 	else
 		[[NSColor colorWithDeviceWhite:0.28 alpha:1.0] set];
-		
-	NSRect tBounds=[self bounds];
 	
-	[NSBezierPath strokeLineFromPoint:NSZeroPoint toPoint:NSMakePoint(0.0,NSMaxY(tBounds))];
+	[NSBezierPath strokeLineFromPoint:NSZeroPoint toPoint:NSMakePoint(0.0,NSMaxY(self.bounds))];
 }
 
 @end

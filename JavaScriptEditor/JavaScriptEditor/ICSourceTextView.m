@@ -106,9 +106,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	[_scrollView setHasHorizontalScroller:YES];
 	
-	[[self textContainer] setContainerSize:NSMakeSize(1.0e7, 1.0e7)];
-	[[self textContainer] setWidthTracksTextView:NO];
-    [[self textContainer] setHeightTracksTextView:NO];
+	[self.textContainer setContainerSize:NSMakeSize(1.0e7, 1.0e7)];
+	[self.textContainer setWidthTracksTextView:NO];
+    [self.textContainer setHeightTracksTextView:NO];
 	
 	[self setMinSize:[self frame].size];
 	
@@ -238,13 +238,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (void) getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart
 {
 	NSString * tString=[self string];
-	NSLayoutManager * tLayoutManager=[[self textContainer] layoutManager];
+	NSLayoutManager * tLayoutManager=self.textContainer.layoutManager;
 	
 	*outRects=nil;
 	
-	NSRect tBoundingRect = [[_scrollView contentView] documentVisibleRect];
+	NSRect tBoundingRect = _scrollView.contentView.documentVisibleRect;
 	
-    NSRange tVisibleGlyphRange = [tLayoutManager glyphRangeForBoundingRect:tBoundingRect inTextContainer:[self textContainer]];
+    NSRange tVisibleGlyphRange = [tLayoutManager glyphRangeForBoundingRect:tBoundingRect inTextContainer:self.textContainer];
 	
 	float tScrollY = NSMinY(tBoundingRect);
         
@@ -275,7 +275,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (NSUInteger) lineNumberForIndex:(NSUInteger) inIndex
 {
     NSString * tString=[self string];
-	NSUInteger tLength=[tString length];
+	NSUInteger tLength=tString.length;
 	
 	NSUInteger tNumberOfLines=0;
     
@@ -302,11 +302,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 		if (tString!=nil)
 		{
-			if ([tString length]>0)
+			if (tString.length>0)
 			{
 				for(NSValue * tValue in inRangesArray)
 				{
-					NSRange tRange=[tValue rangeValue];
+					NSRange tRange=tValue.rangeValue;
 					
 					NSUInteger tIndex=tRange.location+tRange.length;
 					
@@ -371,7 +371,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	[super mouseDown:inEvent];
 	
-	if (([inEvent clickCount] == 2) && (([inEvent modifierFlags] & WBEventModifierFlagDeviceIndependentFlagsMask) == WBEventModifierFlagOption))
+	if ((inEvent.clickCount == 2) && ((inEvent.modifierFlags & WBEventModifierFlagDeviceIndependentFlagsMask) == WBEventModifierFlagOption))
 	{
 		NSRange tSelectionRange=[self selectedRange];
 		
@@ -397,7 +397,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (tRange.location!=NSNotFound)
 	{
 		NSString * tString=[[self textStorage] string];
-		NSUInteger tLength=[tString length];
+		NSUInteger tLength=tString.length;
 		
 		if (tRange.location>0 && tLength>0)
 		{
@@ -425,7 +425,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				}
 			}
 			
-			NSRange tWhiteSpaceRange=[tString rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]
+			NSRange tWhiteSpaceRange=[tString rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet].invertedSet
 														  options:0
 														    range:NSMakeRange(tStartOfLine,tRange.location-tStartOfLine)];
 			
@@ -447,7 +447,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	unichar tChar=[[inEvent charactersIgnoringModifiers] characterAtIndex:0];
 	
-	if (WBEventModifierFlagCommand & [inEvent modifierFlags])
+	if (WBEventModifierFlagCommand & inEvent.modifierFlags)
 	{
 		if (tChar==']')
 		{
@@ -492,11 +492,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				NSMutableArray * tRangesList=[NSMutableArray array];
 				NSMutableArray * tStringsList=[NSMutableArray array];
 				
-				NSUInteger tIndex=[tIndexSet lastIndex];
+				NSUInteger tIndex=tIndexSet.lastIndex;
 				
 				NSMutableArray * tNewSelectionArray=[inSelectionRanges mutableCopy];
 				
-				NSUInteger tCount=[tNewSelectionArray count];
+				NSUInteger tCount=tNewSelectionArray.count;
 				
 				while (tIndex!=NSNotFound)
 				{
@@ -519,7 +519,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					{
 						NSValue * tValue=[tNewSelectionArray objectAtIndex:(i-1)];
 						
-						NSRange tRange=[tValue rangeValue];
+						NSRange tRange=tValue.rangeValue;
 						
 						if (tWorkIndex<=(tRange.location+tRange.length))
 						{
@@ -578,13 +578,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				NSMutableArray * tRangesList=[NSMutableArray array];
 				NSMutableArray * tStringsList=[NSMutableArray array];
 				
-				NSUInteger tIndex=[tIndexSet lastIndex];
+				NSUInteger tIndex=tIndexSet.lastIndex;
 				
 				NSMutableArray *tNewSelectionArray=[inSelectionRanges mutableCopy];
 				
-				NSUInteger tCount=[tNewSelectionArray count];
+				NSUInteger tCount=tNewSelectionArray.count;
 				
-				NSUInteger tLength=[tMutableString length];
+				NSUInteger tLength=tMutableString.length;
 				
 				while (tIndex!=NSNotFound)
 				{
@@ -655,7 +655,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						{
 							NSValue * tValue=[tNewSelectionArray objectAtIndex:i-1];
 							
-							NSRange tRange=[tValue rangeValue];
+							NSRange tRange=tValue.rangeValue;
 							
 							if (tSearchIndex<(tRange.location+tRange.length))
 							{
@@ -705,14 +705,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				{
 					if ([super shouldChangeTextInRanges:tRangesList replacementStrings:tStringsList]==YES)
 					{
-						NSUInteger tRangeCount=[tRangesList count];
+						NSUInteger tRangeCount=tRangesList.count;
 						
 						for(NSUInteger tRangeIndex=tRangeCount;tRangeIndex>0;tRangeIndex--)
 						{
 							[self replaceCharactersInRange:[[tRangesList objectAtIndex:tRangeIndex-1] rangeValue] withString:@""];
 						}
 						
-						if ([tNewSelectionArray count]>0)
+						if (tNewSelectionArray.count>0)
 							[self setSelectedRanges: tNewSelectionArray];
 						else
 							[self setSelectedRange:NSMakeRange(0,0)];

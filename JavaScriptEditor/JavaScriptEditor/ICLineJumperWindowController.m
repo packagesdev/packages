@@ -118,8 +118,6 @@
 {
     [super windowDidLoad];
 
-
-	
     self.window.movableByWindowBackground=YES;
 	
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_10)

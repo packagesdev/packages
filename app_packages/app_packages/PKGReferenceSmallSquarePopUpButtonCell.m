@@ -68,14 +68,14 @@
 
 - (void)drawWithFrame:(NSRect) inFrame inView:(NSView *) inControlView
 {
-	NSMenuItem * tMenuItem=[self selectedItem];
+	NSMenuItem * tMenuItem=self.selectedItem;
 	
 	if (tMenuItem==nil)
 		return;
 	
 	// Draw the Path Type icon
 	
-	NSImage * tReferenceIcon=[PKGReferenceSmallSquarePopUpButtonCell imageForReferenceStyle:[tMenuItem tag]];
+	NSImage * tReferenceIcon=[PKGReferenceSmallSquarePopUpButtonCell imageForReferenceStyle:tMenuItem.tag];
 	NSRect tRect={
 		.origin=NSZeroPoint,
 		.size=tReferenceIcon.size

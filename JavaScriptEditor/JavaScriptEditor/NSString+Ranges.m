@@ -26,7 +26,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
         for (NSValue * tValue in inExcludedRanges)
         {
-			NSRange tRange=[tValue rangeValue];
+			NSRange tRange=tValue.rangeValue;
 			
 			tRange.location-=tOffset;
 			
