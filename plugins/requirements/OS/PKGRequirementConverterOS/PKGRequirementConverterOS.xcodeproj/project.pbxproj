@@ -212,6 +212,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = PKGRequirementConverterOS/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.os.converter;
 				PRODUCT_NAME = converter;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -222,6 +223,7 @@
 			buildSettings = {
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = PKGRequirementConverterOS/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.os.converter;
 				PRODUCT_NAME = converter;
 				WRAPPER_EXTENSION = bundle;
 			};

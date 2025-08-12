@@ -26,7 +26,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		if (tNumber!=nil)
 		{
-			NSInteger tDiskType=[tNumber integerValue];
+			NSInteger tDiskType=tNumber.integerValue;
 			
 			if (tDiskType==PKGRequirementOSTargetStartupDisk)
 				return PKGRequirementTypeInstallation;
@@ -53,7 +53,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 	
-	NSInteger tMinimumVersion=[tNumber integerValue];
+	NSInteger tMinimumVersion=tNumber.integerValue;
 	
 	if (tMinimumVersion<0)
 	{
@@ -71,7 +71,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tNumber!=nil)
 	{
-		tMaximumVersion=[tNumber integerValue];
+		tMaximumVersion=tNumber.integerValue;
 		
 		if (tMinimumVersion<0)
 		{
@@ -100,7 +100,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 	
-	NSInteger tDiskType=[tNumber integerValue];
+	NSInteger tDiskType=tNumber.integerValue;
 	
 	if (tDiskType<PKGRequirementOSTargetDestinationDisk || tDiskType>PKGRequirementOSTargetStartupDisk)
 	{
@@ -152,7 +152,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 	
-	NSUInteger tDistributionType=[tNumber integerValue];
+	NSUInteger tDistributionType=tNumber.integerValue;
 
 	NSString * tDistributionTypeString=nil;
 	

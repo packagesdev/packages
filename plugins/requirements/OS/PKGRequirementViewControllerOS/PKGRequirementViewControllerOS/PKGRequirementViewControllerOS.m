@@ -234,7 +234,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	if (tNumber==nil)
 		tDiskTypeTag=PKGRequirementOSTargetDestinationDisk;
 	else
-		tDiskTypeTag=[tNumber integerValue];
+		tDiskTypeTag=tNumber.integerValue;
 	
 	[_diskTypePopupButton selectItemWithTag:tDiskTypeTag];
 	
@@ -248,7 +248,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	tNumber=_settings[PKGRequirementOSMinimumVersionKey];
 	
 	if (tNumber!=nil)
-		tMinimumOSVersion=[tNumber integerValue];
+		tMinimumOSVersion=tNumber.integerValue;
 	
 	if (tMinimumOSVersion==PKGRequirementOSMinimumVersionNotInstalled)
 	{
@@ -294,7 +294,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	tNumber=_settings[PKGRequirementOSMaximumVersionKey];
 	
 	if (tNumber!=nil)
-		tMaximumOSVersion=[tNumber integerValue];
+		tMaximumOSVersion=tNumber.integerValue;
 	
 	_maximumVersionCheckBox.state=(tMaximumOSVersion==PKGRequirementOSMaximumVersionNotDefined) ? NSOffState : NSOnState;
 	_maximumVersionPicker.enabled=(tMaximumOSVersion!=PKGRequirementOSMaximumVersionNotDefined);
@@ -328,7 +328,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		tNumber=_settings[PKGRequirementOSDistributionKey];
 		
 		if (tNumber!=nil)
-			tTag=[tNumber integerValue];
+			tTag=tNumber.integerValue;
 		
 		[_distributionPopupButton selectItemWithTag:tTag];
 	}
@@ -349,7 +349,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	
 	if (tNumber!=nil)
 	{
-		NSInteger tDiskType=[tNumber integerValue];
+		NSInteger tDiskType=tNumber.integerValue;
 		
 		if (tDiskType==PKGRequirementOSTargetStartupDisk)
 			return PKGRequirementTypeInstallation;
@@ -375,7 +375,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		
 		NSNumber * tNumber=_settings[PKGRequirementOSMinimumVersionKey];
 		
-		tTag=[tNumber integerValue];
+		tTag=tNumber.integerValue;
 		
 		if (tTag==PKGRequirementOSMinimumVersionNotInstalled)
 		{
@@ -488,7 +488,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	{
 		NSNumber * tNumber=_settings[PKGRequirementOSMaximumVersionKey];
 		
-		if (tNumber==nil || [tNumber integerValue]==PKGRequirementOSMaximumVersionNotDefined)
+		if (tNumber==nil || tNumber.integerValue==PKGRequirementOSMaximumVersionNotDefined)
 			return;
 		
 		[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
@@ -511,7 +511,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 - (IBAction)setMaximumVersion:(WBVersionPicker *)sender
 {
-	WBVersion * tVersion=[sender versionValue];
+	WBVersion * tVersion=sender.versionValue;
 	
 	NSInteger tMaxInteger=[PKGRequirementViewControllerOS integerFromVersion:tVersion];
 	

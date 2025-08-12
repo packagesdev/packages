@@ -275,6 +275,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = PKGRequirementViewControllerOS/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.os.ui;
 				PRODUCT_NAME = ui;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -285,6 +286,7 @@
 			buildSettings = {
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = PKGRequirementViewControllerOS/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.os.ui;
 				PRODUCT_NAME = ui;
 				WRAPPER_EXTENSION = bundle;
 			};
