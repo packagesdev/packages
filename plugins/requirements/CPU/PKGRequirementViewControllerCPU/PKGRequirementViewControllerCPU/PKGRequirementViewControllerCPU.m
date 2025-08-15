@@ -84,19 +84,19 @@
 	
 	tNumber=_settings[PKGRequirementCPUArchitectureFamilyKey];
 	
-	tTag=(tNumber==nil) ? 1 : [tNumber integerValue];
+	tTag=(tNumber==nil) ? 1 : tNumber.integerValue;
 	
 	[_CPUArchitectureSegmentedControl selectSegmentWithTag:tTag];
 	
     tNumber=_settings[PKGRequirementCPUPowerPCArchitectureTypeKey];
     
-    tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
+    tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : tNumber.integerValue;
     
     [_PowerPCArchitectureSegmentedControl selectSegmentWithTag:tSubTag];
     
     tNumber=_settings[PKGRequirementCPUIntelArchitectureTypeKey];
     
-    tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : [tNumber integerValue];
+    tSubTag=(tNumber==nil) ? PKGRequirementCPUGenerationAny : tNumber.integerValue;
     
     [_IntelArchitectureSegmentedControl selectSegmentWithTag:tSubTag];
     
@@ -143,7 +143,7 @@
 	
 	tNumber=_settings[PKGRequirementCPUMinimumFrequencyKey];
 	
-	tTag=(tNumber==nil) ? CPU_MINIMUM_FREQUENCY : [tNumber integerValue];
+	tTag=(tNumber==nil) ? CPU_MINIMUM_FREQUENCY : tNumber.integerValue;
 	
 	[_minimumCPUFrequencyPopupButton selectItemWithTag:tTag];
 }

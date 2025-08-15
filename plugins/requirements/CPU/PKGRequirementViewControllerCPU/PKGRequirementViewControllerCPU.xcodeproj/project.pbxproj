@@ -264,6 +264,7 @@
 					"-undefined",
 					dynamic_lookup,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.cpu.ui;
 				PRODUCT_NAME = ui;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -279,6 +280,7 @@
 					"-undefined",
 					dynamic_lookup,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.cpu.ui;
 				PRODUCT_NAME = ui;
 				WRAPPER_EXTENSION = bundle;
 			};

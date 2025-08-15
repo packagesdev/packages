@@ -38,7 +38,7 @@
 		return nil;
 	}
 	
-	NSInteger tMinimumCoresCount=[tNumber integerValue];
+	NSInteger tMinimumCoresCount=tNumber.integerValue;
 	
 	if (tMinimumCoresCount<0)
 	{
@@ -62,7 +62,7 @@
 		return nil;
 	}
 	
-	PKGRequirementCPUFamilyType tFamily=[tNumber integerValue];
+	PKGRequirementCPUFamilyType tFamily=tNumber.integerValue;
 		
 	if (tFamily<PKGRequirementCPUFamilyAny || tFamily>PKGRequirementCPUFamilyAppleSilicon)
 	{
@@ -119,7 +119,7 @@
 			return nil;
 		}
 		
-		PKGRequirementCPUGenerationType tPowerPCGeneration=[tNumber integerValue];
+		PKGRequirementCPUGenerationType tPowerPCGeneration=tNumber.integerValue;
 			
 		if (tPowerPCGeneration==PKGRequirementCPUGeneration32bit)
 		{
@@ -147,7 +147,7 @@
 			return nil;
 		}
 		
-		PKGRequirementCPUGenerationType tIntelGeneration=[tNumber integerValue];
+		PKGRequirementCPUGenerationType tIntelGeneration=tNumber.integerValue;
 		
 		if (tIntelGeneration==PKGRequirementCPUGeneration32bit)
 		{
@@ -171,7 +171,7 @@
 		return nil;
 	}
 	
-	unsigned long long tMinimumFrequency=[tNumber unsignedLongLongValue];
+	unsigned long long tMinimumFrequency=tNumber.unsignedLongLongValue;
 		
 	return [NSString stringWithFormat:inFormat,tMinimumCoresCount,tFamilyString,tPowerPCTypeString,tIntelTypeString,tMinimumFrequency];
 }
