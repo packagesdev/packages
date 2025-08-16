@@ -94,7 +94,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 	
 	NSArray * tBundlesArray=[tPluginsList WB_arrayByMappingObjectsLenientlyUsingBlock:^NSBundle *(NSString *bPathComponent,NSUInteger bIndex){
 		
-		if ([[bPathComponent pathExtension] isEqualToString:@"plugin"]==YES)
+		if ([bPathComponent.pathExtension isEqualToString:@"plugin"]==YES)
 			return [NSBundle bundleWithPath:[tFolderPath stringByAppendingPathComponent:bPathComponent]];
 		
 		return nil;
@@ -106,7 +106,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 	
 	[tBundlesArray enumerateObjectsUsingBlock:^(NSBundle * bBundle,NSUInteger bIndex,BOOL * bOutStop){
 		
-		NSDictionary * tInfoDictionary=[bBundle infoDictionary];
+		NSDictionary * tInfoDictionary=bBundle.infoDictionary;
 		
 		if (tInfoDictionary==nil)
 			return;
@@ -199,7 +199,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 
 - (NSArray *)allPluginsIdentifier
 {
-	return [[self dictionary] allKeys];
+	return [self dictionary].allKeys;
 }
 
 - (NSArray *)allPluginsNameSorted
@@ -267,7 +267,7 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 		
 	if (tBundle!=nil)
 	{
-		Class tPrincipalClass=[tBundle principalClass];
+		Class tPrincipalClass=tBundle.principalClass;
 		
 		if (tPrincipalClass==nil)
 		{

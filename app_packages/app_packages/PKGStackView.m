@@ -95,7 +95,7 @@
 
 - (void)_updatelayout
 {
-	NSSet * tSubviewsSet=[NSSet setWithArray:[self subviews]];
+	NSSet * tSubviewsSet=[NSSet setWithArray:self.subviews];
 	NSMutableSet * tRemovedSet=[tSubviewsSet mutableCopy];
 	
 	NSMutableSet * tFutureSet=[NSMutableSet setWithArray:_mutableViews];

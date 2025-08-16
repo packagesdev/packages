@@ -33,7 +33,7 @@
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
-	NSPasteboard * tPasteBoard = [sender draggingPasteboard];
+	NSPasteboard * tPasteBoard = sender.draggingPasteboard;
 	
 	if (self.deadDropDelegate!=nil && [tPasteBoard.types containsObject:NSFilenamesPboardType]==YES)
 	{
@@ -53,9 +53,9 @@
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
-	NSPasteboard * tPasteBoard= [sender draggingPasteboard];
+	NSPasteboard * tPasteBoard= sender.draggingPasteboard;
 	
-	if (self.deadDropDelegate!=nil && [[tPasteBoard types] containsObject:NSFilenamesPboardType]==YES)
+	if (self.deadDropDelegate!=nil && [tPasteBoard.types containsObject:NSFilenamesPboardType]==YES)
 	{
 		NSArray * tFiles = [tPasteBoard propertyListForType:NSFilenamesPboardType];
 		
