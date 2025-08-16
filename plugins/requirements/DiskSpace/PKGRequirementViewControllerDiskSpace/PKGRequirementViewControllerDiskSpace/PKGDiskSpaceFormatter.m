@@ -4,7 +4,7 @@
 
 - (NSString *) stringForObjectValue:(id) inObject
 {
-    if ([inObject isKindOfClass:[NSString class]]==NO)
+    if ([inObject isKindOfClass:NSString.class]==NO)
 		return inObject;
     
     return inObject;
@@ -23,7 +23,7 @@
 {
     if (inPartialString!=nil)
 	{
-		NSUInteger tLength=[inPartialString length];
+		NSUInteger tLength=inPartialString.length;
 		
 		if (tLength>5)
 		{

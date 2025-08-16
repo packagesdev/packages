@@ -310,6 +310,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/Requirements;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.diskspace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = plugin;
@@ -322,6 +323,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /Library/PrivilegedHelperTools/fr.whitebox.packages/Requirements;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.whitebox.Packages.requirement.diskspace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = plugin;
