@@ -19,14 +19,14 @@
 		
 		if (sJavaScript_UUID==nil)
 		{
-			sJavaScript_UUID=[[NSUUID UUID] UUIDString];
+			sJavaScript_UUID=[NSUUID UUID].UUIDString;
 			
 			if (sJavaScript_UUID==nil)
 				return nil;
 			
 			id tObject=tSharedSourceCode;
 			
-			NSUInteger tLength=[tSharedSourceCode length];
+			NSUInteger tLength=tSharedSourceCode.length;
 				
 			// Add a tab at the beginning of each line
 			
@@ -56,7 +56,7 @@
 	NSNumber * tNumber=inParameters[PKGRequirementJavaScriptReturnValueKey];
 	
 	if (tNumber!=nil)
-		tReturnValue=[tNumber integerValue];
+		tReturnValue=tNumber.integerValue;
 	
 	NSString * tFunctionName=inParameters[PKGRequirementJavaScriptFunctionKey];
 		
@@ -70,7 +70,7 @@
 		return nil;
 	}
 	
-	if ([tFunctionName length]==0)
+	if (tFunctionName.length==0)
 	{
 		if (outError!=NULL)
 			*outError=[NSError errorWithDomain:PKGConverterErrorDomain
@@ -84,13 +84,15 @@
 	
 	NSMutableArray * tMutableArray=[inParameters[PKGRequirementJavaScriptParametersKey] mutableCopy];
 	
-	for(NSUInteger tIndex=[tMutableArray count];tIndex>0;tIndex--)
+	for(NSUInteger tIndex=tMutableArray.count;tIndex>0;tIndex--)
 	{
 		NSMutableString * tMutableString=[tMutableArray[(tIndex-1)] mutableCopy];
 		
 		CFStringTrimWhitespace((CFMutableStringRef) tMutableString);
 		
-		if ([tMutableString length]==0)
+		NSUInteger tTrimmedLength=tMutableString.length;
+		
+		if (tTrimmedLength==0)
 		{
 			if (nonEmptyParameterFound==YES)
 			{
@@ -107,7 +109,7 @@
 			nonEmptyParameterFound=YES;
 		}
 		
-		if ([tMutableString length]==0)
+		if (tTrimmedLength==0)
 			[tMutableArray removeObjectAtIndex:(tIndex-1)];
 		else
 			[tMutableArray replaceObjectAtIndex:(tIndex-1) withObject:tMutableString];
@@ -115,7 +117,7 @@
 	
 	NSString * tStringParameters=@"";
 	
-	if ([tMutableArray count]>0)
+	if (tMutableArray.count>0)
 		tStringParameters=[tMutableArray componentsJoinedByString:@","];
 	
 	return [NSString stringWithFormat:@"(%@(%@)==%@)",tFunctionName,tStringParameters,(tReturnValue==PKGJavaScriptReturnTrue) ? @"true" : @"false"];
