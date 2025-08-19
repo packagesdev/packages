@@ -30,7 +30,6 @@
 {
 	NSString * _filePath;
 	
-	
 	PKGProject * _project;
 	PKGProjectType _projectType;
 	
@@ -234,7 +233,7 @@
 	if (inFilePath==nil)
 		return NO;
 	
-	NSUInteger tCount=[inArguments count];
+	NSUInteger tCount=inArguments.count;
 	
 	if (tCount!=1 && tCount!=2)
 	{
@@ -251,9 +250,9 @@
 	{
 		// The path should be absolute (we do not change the path type)
 		
-		NSString * tNewPath=[inArguments objectAtIndex:0];
+		NSString * tNewPath=inArguments[0];
 		
-		if ([tNewPath length]==0)
+		if (tNewPath.length==0)
 		{
 			(void)fprintf(stderr, "%s: Empty path not allowed\n",__PACKAGESUTIL_NAME__);
 			return NO;
@@ -274,7 +273,7 @@
 	
 	if (tCount==2)
 	{
-		NSString * tCommand=[inArguments objectAtIndex:0];
+		NSString * tCommand=inArguments[0];
 		
 		if ([tCommand isEqualToString:@"path-type"]==NO && [tCommand isEqualToString:@"path"]==NO)
 		{
@@ -284,7 +283,7 @@
 		
 		if ([tCommand isEqualToString:@"path-type"]==YES)
 		{
-			NSString * tPathTypeString=[inArguments objectAtIndex:1];
+			NSString * tPathTypeString=inArguments[1];
 			
 			PKGFilePathType tNewPathType;
 			
@@ -320,9 +319,9 @@
 			
 		if ([tCommand isEqualToString:@"path"]==YES)
 		{
-			NSString * tNewPath=[inArguments objectAtIndex:1];
+			NSString * tNewPath=inArguments[1];
 			
-			if ([tNewPath length]==0)
+			if (tNewPath.length==0)
 			{
 				(void)fprintf(stderr, "%s: Empty path not allowed\n",__PACKAGESUTIL_NAME__);
 				return NO;
@@ -2062,7 +2061,7 @@
 
 - (BOOL)getPackageUse_Hfs_Compression:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
-	if ([inArguments count]!=0)
+	if (inArguments.count!=0)
 	{
 		// Invalid number of arguments
 		
@@ -2094,7 +2093,7 @@
 
 - (BOOL)getPackagePre_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
-	if ([inArguments count]>=2)
+	if (inArguments.count>=2)
 	{
 		// Too many arguments
 		
@@ -2132,7 +2131,7 @@
 
 - (BOOL)getPackagePost_Installation_Script:(NSArray *) inArguments type:(PKGPackageComponentType) inPackageType
 {
-	if ([inArguments count]>=2)
+	if (inArguments.count>=2)
 	{
 		// Too many arguments
 		
@@ -2171,7 +2170,7 @@
 
 - (BOOL)getPackageValue:(NSMutableArray *) inArguments
 {
-	if ([inArguments count]>0)
+	if (inArguments.count>0)
 	{
 		PKGPackageComponentType tPackageType=PKGPackageComponentTypeProject;
 		NSString * tObject;
@@ -2181,7 +2180,7 @@
 		if (_projectType==PKGProjectTypeDistribution)
 			tPackageType=((PKGPackageComponent *) _currentObject).type;
 		
-		tObject=[inArguments objectAtIndex:0];
+		tObject=inArguments[0];
 		
 		// Build the method suffix
 		
@@ -2194,7 +2193,7 @@
 			if (tMutableComponents!=nil)
 			{
 				for(NSString * tComponent in tComponents)
-					[tMutableComponents addObject:[tComponent capitalizedString]];
+					[tMutableComponents addObject:tComponent.capitalizedString];
 				
 				tObject=[tMutableComponents componentsJoinedByString:@"_"];
 			}
@@ -2261,7 +2260,7 @@
 
 - (BOOL)getProjectName:(NSMutableArray *) inArguments
 {
-	if ([inArguments count]!=0)
+	if (inArguments.count!=0)
 	{
 		// Invalid number of arguments
 		
@@ -2295,7 +2294,7 @@
 	
 - (BOOL)getProjectBuild_Format:(NSMutableArray *) inArguments
 {
-	if ([inArguments count]!=0)
+	if (inArguments.count!=0)
 	{
 		// Too many arguments
 		
@@ -2343,7 +2342,7 @@
 
 - (BOOL)getProjectBuild_Folder:(NSMutableArray *) inArguments
 {
-	if ([inArguments count]>=2)
+	if (inArguments.count>=2)
 	{
 		// Too many arguments
 		
@@ -2373,7 +2372,7 @@
 
 - (BOOL)getProjectCertificate_Keychain:(NSMutableArray *) inArguments
 {
-	if ([inArguments count]!=0)
+	if (inArguments.count!=0)
 	{
 		// Too many arguments
 		
@@ -2412,7 +2411,7 @@
 		return NO;
 	}
 	
-	if ([tProjectSettings.certificateKeychainPath length]==0)
+	if (tProjectSettings.certificateKeychainPath.length==0)
 	{
 		(void)fprintf(stderr, "No keychain path set for this project.\n");
 		return YES;
@@ -2425,7 +2424,7 @@
 
 - (BOOL)getProjectCertificate_Identity:(NSMutableArray *) inArguments
 {
-	if ([inArguments count]!=0)
+	if (inArguments.count!=0)
 	{
 		// Too many arguments
 		
@@ -2463,13 +2462,13 @@
 		return NO;
 	}
 	
-	if ([tProjectSettings.certificateName length]==0)
+	if (tProjectSettings.certificateName.length==0)
 	{
 		(void)fprintf(stderr, "No signing identity set for this project.\n");
 		return YES;
 	}
 	
-	(void)fprintf(stdout, "%s\n",[tProjectSettings.certificateName UTF8String]);
+	(void)fprintf(stdout, "%s\n",tProjectSettings.certificateName.UTF8String);
 	
 	return YES;
 }
@@ -2482,7 +2481,7 @@
 		return NO;
 	}
 	
-	if ([inArguments count]!=1)
+	if (inArguments.count!=1)
 	{
 		// Too many arguments
 		
@@ -2495,11 +2494,11 @@
 	
 	NSArray * tPackageComponents=((PKGDistributionProject *)_project).packageComponents;
 	
-	NSString * tArgument=[inArguments objectAtIndex:0];
+	NSString * tArgument=inArguments[0];
 	
 	if ([tArgument isEqualToString:@"count"]==YES)
 	{
-		(void)fprintf(stdout, "%lu\n",(unsigned long)[tPackageComponents count]);
+		(void)fprintf(stdout, "%lu\n",(unsigned long)tPackageComponents.count);
 	}
 	else if ([tArgument isEqualToString:@"list"]==YES)
 	{
@@ -2511,9 +2510,9 @@
 			if (tPackageSettings!=nil)
 				tPackageName=tPackageSettings.name;
 			
-			if ([tPackageName length]>0)
+			if (tPackageName.length>0)
 			{
-				(void)fprintf(stdout, "%s\n",[tPackageName UTF8String]);
+				(void)fprintf(stdout, "%s\n",tPackageName.UTF8String);
 			}
 			else
 			{
@@ -2531,7 +2530,7 @@
 
 - (BOOL)getProjectValue:(NSMutableArray *) inArguments
 {
-	if ([inArguments count]==0)
+	if (inArguments.count==0)
 	{
 		// Invalid number of arguments
 		
@@ -2542,20 +2541,20 @@
 		return NO;
 	}
 	
-	NSString * tObject=[inArguments objectAtIndex:0];
+	NSString * tObject=inArguments[0];
 	
 	// Build the method suffix
 	
 	NSArray * tComponents=[tObject componentsSeparatedByString:@"-"];
 	
-	if ([tComponents count]>1)
+	if (tComponents.count>1)
 	{
-		NSMutableArray * tMutableComponents=[NSMutableArray arrayWithCapacity:[tComponents count]];
+		NSMutableArray * tMutableComponents=[NSMutableArray arrayWithCapacity:tComponents.count];
 		
 		if (tMutableComponents!=nil)
 		{
 			for(NSString * tComponent in tComponents)
-				[tMutableComponents addObject:[tComponent capitalizedString]];
+				[tMutableComponents addObject:tComponent.capitalizedString];
 			
 			tObject=[tMutableComponents componentsJoinedByString:@"_"];
 		}
@@ -2649,7 +2648,7 @@
 	{
 		_currentObject=_project;
 		
-		if ([inArguments count]>0 && [[inArguments objectAtIndex:0] isEqualToString:@"project"]==YES)
+		if (inArguments.count>0 && [inArguments[0] isEqualToString:@"project"]==YES)
 		{
 			[inArguments removeObjectAtIndex:0];
 			
@@ -2666,7 +2665,7 @@
 		
 		if ([inArguments count]>0)
 		{
-			NSString * tComponent=[inArguments objectAtIndex:0];
+			NSString * tComponent=inArguments[0];
 			
 			if ([tComponent isEqualToString:@"project"]==YES)
 			{
@@ -2684,7 +2683,7 @@
 					
 					NSString * tIndexString=[tComponent substringFromIndex:8];
 					
-					NSUInteger tIndex=[tIndexString integerValue];
+					NSUInteger tIndex=tIndexString.integerValue;
 					
 					if (tIndex>0)
 					{
@@ -2738,14 +2737,14 @@
 	}
 	else if (_helpRequired==YES)
 	{
-		if ([inArguments count]==0)
+		if (inArguments.count==0)
 		{
 			usage_get();
 			
 			return YES;
 		}
 		
-		NSString * tComponent=[inArguments objectAtIndex:0];
+		NSString * tComponent=inArguments[0];
 		
 		if ([tComponent isEqualToString:@"project"]==YES)
 		{

@@ -262,7 +262,7 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
                if ([bKey isKindOfClass:[NSString class]]==NO ||
                    [bObject isKindOfClass:[NSString class]]==NO)
                {
-                   _userDefinedSettings=nil;
+                   self->_userDefinedSettings=nil;
                    *bOutStop=YES;
                    return;
                }

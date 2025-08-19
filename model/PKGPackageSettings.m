@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2018, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -109,15 +109,9 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 		return nil;
 	}
 
-	NSXMLElement * tElement=(NSXMLElement *) [tNodes objectAtIndex:0];
+	NSXMLElement * tElement=(NSXMLElement *) tNodes[0];
 	
-	if (tElement==nil)
-	{
-		
-		return nil;
-	}
-	
-	NSArray * tAttributes=[tElement attributes];
+	NSArray * tAttributes=tElement.attributes;
 		
 	if (tAttributes==nil)
 	{

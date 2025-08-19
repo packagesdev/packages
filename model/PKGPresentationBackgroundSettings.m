@@ -83,7 +83,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 	
 	NSNumber * tNumber=sAllAppearanceNameKeysToModesDictionary[inName];
 	
-	return (tNumber==nil) ? PKGPresentationAppearanceModeUnknown : [tNumber unsignedIntegerValue];
+	return (tNumber==nil) ? PKGPresentationAppearanceModeUnknown : tNumber.unsignedIntegerValue;
 }
 
 
@@ -535,7 +535,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 	{
 		nPresentationBackgroundSettings.sharedSettingsForAllAppearances=self.sharedSettingsForAllAppearances;
 		
-		nPresentationBackgroundSettings.appearancesSettings=[self->_appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^PKGPresentationBackgroundAppearanceSettings *(NSString * bAppearanceKey, PKGPresentationBackgroundAppearanceSettings * bBackgroundAppearanceSettings) {
+		nPresentationBackgroundSettings.appearancesSettings=[_appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^PKGPresentationBackgroundAppearanceSettings *(NSString * bAppearanceKey, PKGPresentationBackgroundAppearanceSettings * bBackgroundAppearanceSettings) {
 			
 			return [bBackgroundAppearanceSettings copy];
 		}];
