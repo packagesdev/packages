@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2021, Stephane Sudre
+Copyright (c) 2008-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -26,7 +26,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	NSNumber * tEmbedScript=inParameters[PKGRequirementScriptEmbeddedKey];
 		
-	if (tEmbedScript!=nil && [tEmbedScript boolValue]==YES)
+	if (tEmbedScript!=nil && tEmbedScript.boolValue==YES)
 	{
 		NSDictionary * tDictionary=inParameters[PKGRequirementScriptPathKey];
 		
@@ -76,7 +76,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		{
 			NSNumber * tNumber=tArgumentDictionary[PKGRequirementScriptArgumentEnabledKey];
 			
-			if ([tNumber boolValue]==YES)
+			if (tNumber.boolValue==YES)
 			{
 				NSString * tArgumentValue=tArgumentDictionary[PKGRequirementScriptArgumentValueKey];
 				
@@ -153,8 +153,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 	
-	if ([tEmbedScript boolValue]==YES)
-		tPath=[tPath lastPathComponent];
+	if (tEmbedScript.boolValue==YES)
+		tPath=tPath.lastPathComponent;
 	
 	NSNumber * tComparatorNumber=inParameters[PKGRequirementScriptReturnValueComparatorKey];
 	
@@ -168,7 +168,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 
-	PKGRequirementComparator tComparator=[tComparatorNumber integerValue];
+	PKGRequirementComparator tComparator=tComparatorNumber.integerValue;
 	NSString * tComparatorString=nil;
 	
 	if (tComparator==PKGRequirementComparatorIsLess)
@@ -209,7 +209,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 	
-	return [NSString stringWithFormat:inFormat,tPath,[NSString stringWithFormat:@"tScriptArguments%d",(int)inIndex],tComparatorString,[tReturnValueNumber integerValue]];
+	return [NSString stringWithFormat:inFormat,tPath,[NSString stringWithFormat:@"tScriptArguments%d",(int)inIndex],tComparatorString,tReturnValueNumber.integerValue];
 }
 
 @end

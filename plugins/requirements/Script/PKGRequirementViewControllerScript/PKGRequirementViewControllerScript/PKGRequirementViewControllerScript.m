@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2021, Stephane Sudre
+Copyright (c) 2008-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -76,7 +76,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		PKGClassCheckNumberValueForKey(tNumber,PKGRequirementScriptArgumentEnabledKey);
 		
-		_state=[tNumber boolValue];
+		_state=tNumber.boolValue;
 		
 		NSString * tString=inRepresentation[PKGRequirementScriptArgumentValueKey];
 		
@@ -279,13 +279,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSInteger tState=NSOnState;
 	
 	if (tNumber!=nil)
-		tState=([tNumber boolValue]==YES) ? NSOnState : NSOffState;
+		tState=(tNumber.boolValue==YES) ? NSOnState : NSOffState;
 	
 	_embedCheckBox.state=tState;
 	
 	if (tState==NSOnState)
 	{
-		if ([self.project isFlat]==YES)
+		if (self.project.isFlat==YES)
 			_embeddedWarningLabel.hidden=NO;
 	}
 	
@@ -339,7 +339,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	tNumber=_settings[PKGRequirementScriptReturnValueComparatorKey];
 	
 	if (tNumber!=nil)
-		tTag=[tNumber integerValue];
+		tTag=tNumber.integerValue;
 	
 	if ([_comparatorPopupButton selectItemWithTag:tTag]==NO)
 	{
@@ -353,7 +353,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (tNumber==nil)
 		_returnValueTextField.stringValue=@"0";
 	else
-		_returnValueTextField.stringValue=[tNumber stringValue];
+		_returnValueTextField.stringValue=tNumber.stringValue;
 }
 
 #pragma mark -
@@ -437,11 +437,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		
 		if (bResult==NSFileHandlingPanelOKButton)
 		{
-			PKGFilePath * tNewFilePath=[self.objectTransformer filePathForAbsolutePath:tOpenPanel.URL.path type:_scriptPathTextField.filePath.type];
+			PKGFilePath * tNewFilePath=[self.objectTransformer filePathForAbsolutePath:tOpenPanel.URL.path type:self->_scriptPathTextField.filePath.type];
 			
-			_scriptPathTextField.filePath=tNewFilePath;
+			self->_scriptPathTextField.filePath=tNewFilePath;
 			
-			[self updateScriptPath:_scriptPathTextField];
+			[self updateScriptPath:self->_scriptPathTextField];
 		}
 	}];
 	
@@ -449,7 +449,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (IBAction)showInFinder:(id) sender
 {
-    [[NSWorkspace sharedWorkspace] selectFile:[self.objectTransformer absolutePathForFilePath:[_scriptPathTextField filePath]] inFileViewerRootedAtPath:@""];
+    [[NSWorkspace sharedWorkspace] selectFile:[self.objectTransformer absolutePathForFilePath:_scriptPathTextField.filePath] inFileViewerRootedAtPath:@""];
 }
 
 - (IBAction)switchEmbed:(NSButton *) sender
@@ -462,7 +462,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (tState==NSOnState)
 	{
-		if ([self.project isFlat]==YES)
+		if (self.project.isFlat==YES)
 			_embeddedWarningLabel.hidden=NO;
 	}
 }
@@ -532,7 +532,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
 	NSString * tStringValue=_returnValueTextField.stringValue;
 	
-	NSNumber * tNumber=@([tStringValue integerValue]);
+	NSNumber * tNumber=@(tStringValue.integerValue);
 	
 	if (tNumber!=nil)
 		_settings[PKGRequirementScriptReturnValueKey]=tNumber;
