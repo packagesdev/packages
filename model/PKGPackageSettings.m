@@ -144,8 +144,8 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 		
 		for(NSXMLNode * tAttributeNode in tAttributes)
 		{
-			NSString * tAttributeName=[tAttributeNode name];
-			NSString * tStringValue=[tAttributeNode stringValue];
+			NSString * tAttributeName=tAttributeNode.name;
+			NSString * tStringValue=tAttributeNode.stringValue;
 			
 			if ([tAttributeName isEqualToString:@"identifier"]==YES)
 			{

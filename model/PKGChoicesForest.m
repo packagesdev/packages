@@ -54,7 +54,7 @@
 
 + (Class)nodeClass
 {
-	return [PKGChoiceTreeNode class];
+	return PKGChoiceTreeNode.class;
 }
 
 - (id)initWithPackagesComponents:(NSArray *)inArray

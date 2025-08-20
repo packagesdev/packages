@@ -245,7 +245,7 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
         
         if (tDictionary!=nil)
         {
-            if ([tDictionary isKindOfClass:[NSDictionary class]]==NO)
+            if ([tDictionary isKindOfClass:NSDictionary.class]==NO)
             {
                 if (outError!=NULL)
                     *outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -259,8 +259,8 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
             
             [_userDefinedSettings enumerateKeysAndObjectsUsingBlock:^(NSString * bKey, NSString * bObject, BOOL * bOutStop) {
                 
-               if ([bKey isKindOfClass:[NSString class]]==NO ||
-                   [bObject isKindOfClass:[NSString class]]==NO)
+               if ([bKey isKindOfClass:NSString.class]==NO ||
+                   [bObject isKindOfClass:NSString.class]==NO)
                {
                    self->_userDefinedSettings=nil;
                    *bOutStop=YES;

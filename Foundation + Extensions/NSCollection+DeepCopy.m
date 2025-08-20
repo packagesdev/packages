@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,16 +23,16 @@
 {
 	return [self WB_dictionaryByMappingObjectsUsingBlock:^id(id bKey, id bObject) {
 		
-		if ([bObject isKindOfClass:[NSArray class]]==YES)
+		if ([bObject isKindOfClass:NSArray.class]==YES)
 			return [(NSArray *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSDictionary class]]==YES)
+		if ([bObject isKindOfClass:NSDictionary.class]==YES)
 			return [(NSDictionary *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSSet class]]==YES)
+		if ([bObject isKindOfClass:NSSet.class]==YES)
 			return [(NSSet *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSOrderedSet class]]==YES)
+		if ([bObject isKindOfClass:NSOrderedSet.class]==YES)
 			return [(NSOrderedSet *)bObject deepCopy];
 		
 		return [bObject copy];
@@ -48,16 +48,16 @@
 {
 	return [self WB_arrayByMappingObjectsUsingBlock:^id(id bObject, NSUInteger bIndex) {
 		
-		if ([bObject isKindOfClass:[NSArray class]]==YES)
+		if ([bObject isKindOfClass:NSArray.class]==YES)
 			return [(NSArray *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSDictionary class]]==YES)
+		if ([bObject isKindOfClass:NSDictionary.class]==YES)
 			return [(NSDictionary *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSSet class]]==YES)
+		if ([bObject isKindOfClass:NSSet.class]==YES)
 			return [(NSSet *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSOrderedSet class]]==YES)
+		if ([bObject isKindOfClass:NSOrderedSet.class]==YES)
 			return [(NSOrderedSet *)bObject deepCopy];
 		
 		return [bObject copy];
@@ -72,16 +72,16 @@
 {
 	return [self WB_setByMappingObjectsUsingBlock:^id(id bObject) {
 		
-		if ([bObject isKindOfClass:[NSArray class]]==YES)
+		if ([bObject isKindOfClass:NSArray.class]==YES)
 			return [(NSArray *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSDictionary class]]==YES)
+		if ([bObject isKindOfClass:NSDictionary.class]==YES)
 			return [(NSDictionary *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSSet class]]==YES)
+		if ([bObject isKindOfClass:NSSet.class]==YES)
 			return [(NSSet *)bObject deepCopy];
 		
-		if ([bObject isKindOfClass:[NSOrderedSet class]]==YES)
+		if ([bObject isKindOfClass:NSOrderedSet.class]==YES)
 			return [(NSOrderedSet *)bObject deepCopy];
 		
 		return [bObject copy];
