@@ -124,7 +124,7 @@
 
 - (void)setNextKeyView:(NSView *) inView
 {
-	[_defaultPathTextField setNextKeyView:inView];
+	_defaultPathTextField.nextKeyView=inView;
 }
 
 #pragma mark -

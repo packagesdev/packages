@@ -6,19 +6,19 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>fr.whitebox.Packages.locator.standard.ui</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleVersion</key>
 	<string>3</string>
-	<key>NSPrincipalClass</key>
-	<string>PKGLocatorViewControllerStandard</string>
 	<key>NAME</key>
 	<string>Standard</string>
+	<key>NSPrincipalClass</key>
+	<string>PKGLocatorViewControllerStandard</string>
 </dict>
 </plist>
