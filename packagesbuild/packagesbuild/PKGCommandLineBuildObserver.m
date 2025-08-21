@@ -1230,7 +1230,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		}
 		else
 		{
-			PKGPackagesDispatcherErrorType tErrroType=[tNumber unsignedIntegerValue];
+			PKGPackagesDispatcherErrorType tErrroType=tNumber.unsignedIntegerValue;
 			
 			switch(tErrroType)
 			{

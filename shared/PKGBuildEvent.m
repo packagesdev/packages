@@ -19,7 +19,7 @@ NSString * const PKGBuildEventFilePath=@"FilePath";
 
 - (id)initWithRepresentation:(NSDictionary *)inRepresentation
 {
-	if (inRepresentation==nil || [inRepresentation isKindOfClass:[NSDictionary class]]==NO)
+	if (inRepresentation==nil || [inRepresentation isKindOfClass:NSDictionary.class]==NO)
 		return nil;
 	
 	self=[super init];
@@ -32,7 +32,7 @@ NSString * const PKGBuildEventFilePath=@"FilePath";
 		
 		if (tString!=nil)
 		{
-			if ([tString isKindOfClass:[NSString class]]==NO)
+			if ([tString isKindOfClass:NSString.class]==NO)
 				return nil;
 			
 			_filePath=[tString copy];
@@ -106,10 +106,10 @@ NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationSta
 		
 		NSNumber * tNumber=inRepresentation[PKGBuildErrorEventCodeKey];
 		
-		if (tNumber==nil || [tNumber isKindOfClass:[NSNumber class]]==NO)
+		if (tNumber==nil || [tNumber isKindOfClass:NSNumber.class]==NO)
 			return nil;
 			
-		_code=[tNumber unsignedIntegerValue];
+		_code=tNumber.unsignedIntegerValue;
 		
 		// subcode
 		
@@ -117,10 +117,10 @@ NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationSta
 		
 		if (tNumber!=nil)
 		{
-			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
 				return nil;
 			
-			_subcode=[tNumber unsignedIntegerValue];
+			_subcode=tNumber.unsignedIntegerValue;
 		}
 		
 		// fileKind
@@ -129,10 +129,10 @@ NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationSta
 		
 		if (tNumber!=nil)
 		{
-			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
 				return nil;
 			
-			_fileKind=[tNumber unsignedIntegerValue];
+			_fileKind=tNumber.unsignedIntegerValue;
 		}
 		
 		
@@ -142,7 +142,7 @@ NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationSta
 		
 		if (tString!=nil)
 		{
-			if ([tString isKindOfClass:[NSString class]]==NO)
+			if ([tString isKindOfClass:NSString.class]==NO)
 				return nil;
 			
 			_tag=[tString copy];
@@ -154,10 +154,10 @@ NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationSta
 		
 		if (tNumber!=nil)
 		{
-			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
 				return nil;
 			
-			_toolTerminationStatus=[tNumber intValue];
+			_toolTerminationStatus=tNumber.intValue;
 		}
 		
 		// otherFilePath
@@ -166,7 +166,7 @@ NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationSta
 		
 		if (tString!=nil)
 		{
-			if ([tString isKindOfClass:[NSString class]]==NO)
+			if ([tString isKindOfClass:NSString.class]==NO)
 				return nil;
 			
 			_otherFilePath=[tString copy];
@@ -269,7 +269,7 @@ NSString * const PKGBuildInfoEventPackagesCountKey=@"PackagesCount";
 		
 		if (tString!=nil)
 		{
-			if ([tString isKindOfClass:[NSString class]]==NO)
+			if ([tString isKindOfClass:NSString.class]==NO)
 				return nil;
 			
 			_packageUUID=[tString copy];
@@ -281,7 +281,7 @@ NSString * const PKGBuildInfoEventPackagesCountKey=@"PackagesCount";
 		
 		if (tString!=nil)
 		{
-			if ([tString isKindOfClass:[NSString class]]==NO)
+			if ([tString isKindOfClass:NSString.class]==NO)
 				return nil;
 			
 			_packageName=[tString copy];
@@ -293,10 +293,10 @@ NSString * const PKGBuildInfoEventPackagesCountKey=@"PackagesCount";
 		
 		if (tNumber!=nil)
 		{
-			if ([tNumber isKindOfClass:[NSNumber class]]==NO)
+			if ([tNumber isKindOfClass:NSNumber.class]==NO)
 				return nil;
 			
-			_packagesCount=[tNumber unsignedIntegerValue];
+			_packagesCount=tNumber.unsignedIntegerValue;
 		}
 	}
 	
