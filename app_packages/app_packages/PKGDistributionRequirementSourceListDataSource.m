@@ -389,7 +389,7 @@ NSString * const PKGDistributionRequirementTransferTargetPboardType=@"fr.whitebo
     PKGDistributionRequirementSourceListNode * tTreeNode=[_flatTree nodeAtIndex:tIndex];
 	PKGDistributionRequirementSourceListItem * tSourceItem=(PKGDistributionRequirementSourceListRequirementItem *)tTreeNode.representedObject;
 	
-    if ([tSourceItem isKindOfClass:[PKGDistributionRequirementSourceListRequirementItem class]]==NO)    // Double-click on a group item should do nothing.
+    if ([tSourceItem isKindOfClass:PKGDistributionRequirementSourceListRequirementItem.class]==NO)    // Double-click on a group item should do nothing.
         return;
     
     PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)tSourceItem;

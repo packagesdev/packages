@@ -253,7 +253,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 		return [bPackageComponent representation];
 	}];
 	
-	if ([self.sharedProjectData count]>0)
+	if (self.sharedProjectData.count>0)
 		tRepresentation[PKGDistributionProjectSharedProjectDataKey]=[self.sharedProjectData copy];
 	
 	return tRepresentation;

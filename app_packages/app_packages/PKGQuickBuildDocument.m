@@ -465,25 +465,6 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 	[self performSelector:@selector(delayedBuild:) withObject:nil afterDelay:1.0];
 	
 	return YES;
-	
-	NSBeep();
-	
-	[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
-	
-/*worseBail:
-
-	NSBeep();
-
-	if ([[NSApp delegate] launchedNormally]==NO)
-	{
-		if ([[[NSDocumentController sharedDocumentController] documents] count]==1)
-		{
-			[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:1.0];
-		}
-		
-	}*/
-
-	return YES;
 }
 
 - (void)delayedBuild:(id)inObject

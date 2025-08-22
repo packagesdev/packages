@@ -306,7 +306,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 
 - (void)updateBackgroundView
 {
-	void (^displayDefaultImage)() = ^{
+	void (^displayDefaultImage)(void) = ^{
 		
 		PKGPresentationThemeVersion tThemeVersion=_currentTheme;
 		
@@ -345,7 +345,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 		}
 	};
 	
-	void (^displayImageNotFound)() = ^{
+	void (^displayImageNotFound)(void) = ^{
 		
 		self->_backgroundView.image=[NSImage imageNamed:@"MissingFile"];
 		
@@ -1436,7 +1436,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 			
 			[self noteDocumentHasChanged];
 			
-			/*if ([tArray count]==1)
+			/*if (tArray.count==1)
 			{
 				[IBinstallationStepsView_ selectStepAtIndex:inStep];
 				

@@ -483,7 +483,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		NSIndexSet * tIndexSet=[self indexesOfLineStartsForRanges:inSelectionRanges];
 		
-		if ([tIndexSet count]>0)
+		if (tIndexSet.count>0)
 		{
 			NSMutableString * tMutableString=[[self textStorage] mutableString];
 			
@@ -517,7 +517,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					for(NSUInteger i=tCount;i>0;i--)
 					{
-						NSValue * tValue=[tNewSelectionArray objectAtIndex:(i-1)];
+						NSValue * tValue=tNewSelectionArray[(i-1)];
 						
 						NSRange tRange=tValue.rangeValue;
 						
@@ -537,11 +537,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					tIndex=[tIndexSet indexLessThanIndex:tIndex];
 				}
 				
-				if ([tRangesList count]>0)
+				if (tRangesList.count>0)
 				{
 					if ([self shouldChangeTextInRanges:tRangesList replacementStrings:tStringsList]==YES)
 					{
-						NSUInteger tRangeCount=[tRangesList count];
+						NSUInteger tRangeCount=tRangesList.count;
 						
 						for(NSUInteger tRangeIndex=tRangeCount;tRangeIndex>0;tRangeIndex--)
 							[self replaceCharactersInRange:[[tRangesList objectAtIndex:(tRangeIndex-1)] rangeValue] withString:@"\t"];
@@ -567,7 +567,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		NSIndexSet * tIndexSet=[self indexesOfLineStartsForRanges:inSelectionRanges];
 		
-		if (tIndexSet!=nil && [tIndexSet count]>0)
+		if (tIndexSet!=nil && tIndexSet.count>0)
 		{
 			NSMutableString * tMutableString=[[self textStorage] mutableString];
 			
@@ -701,7 +701,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					tIndex=[tIndexSet indexLessThanIndex:tIndex];
 				}
 				
-				if ([tRangesList count]>0)
+				if (tRangesList.count>0)
 				{
 					if ([super shouldChangeTextInRanges:tRangesList replacementStrings:tStringsList]==YES)
 					{

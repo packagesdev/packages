@@ -314,7 +314,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if (NSAppKitVersionNumber>=NSAppKitVersionNumber10_12)
 	{
-		Class tWindowClass=[NSWindow class];
+		Class tWindowClass=NSWindow.class;
 		SEL tSelector=@selector(setAllowsAutomaticWindowTabbing:);
 		
 		if ([tWindowClass respondsToSelector:tSelector]==YES)

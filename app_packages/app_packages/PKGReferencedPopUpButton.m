@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2017, Stephane Sudre
+Copyright (c) 2007-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,7 @@ NSString * const PKGReferencedPopUpButtonReferenceStyleDidChangeNotification=@"P
 
 + (Class) cellClass
 {
-    return [PKGReferencedPopUpButtonCell class];
+    return PKGReferencedPopUpButtonCell.class;
 }
 
 + (void)setCellClass:(Class) inClass
@@ -96,11 +96,11 @@ NSString * const PKGReferencedPopUpButtonReferenceStyleDidChangeNotification=@"P
 {
 	NSPoint tMouseLoc=[self convertPoint:[inEvent locationInWindow] fromView:nil];
 	
-	NSRect tBounds=[self bounds];
+	NSRect tBounds=self.bounds;
 	
 	tBounds.size.width=PKGReferencedPopUpButtonCellLeftOffset+4.0;
 	
-	if (NSMouseInRect(tMouseLoc,tBounds,[self isFlipped])==YES)
+	if (NSMouseInRect(tMouseLoc,tBounds,self.isFlipped)==YES)
 	{
 		tBounds.origin.x-=6.0;
 		

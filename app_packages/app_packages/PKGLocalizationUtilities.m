@@ -140,7 +140,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		tPreferedLocalizations=(__bridge_transfer NSArray *) CFBundleCopyPreferredLocalizationsFromArray((__bridge CFArrayRef) tEnglishLanguageNames);
 		
-		if (tPreferedLocalizations!=nil && [tPreferedLocalizations count]>0)
+		if (tPreferedLocalizations!=nil && tPreferedLocalizations.count>0)
 			return [[PKGLanguageConverter sharedConverter] englishFromISO:[tPreferedLocalizations objectAtIndex:0]];
 		
 		return nil;

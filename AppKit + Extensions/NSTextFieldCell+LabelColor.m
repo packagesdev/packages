@@ -49,7 +49,7 @@
 {
 	NSColor * tColor=[self LABELCOLOR_textColor];
 	
-	if ([self isMemberOfClass:[NSTextFieldCell class]]==NO)
+	if ([self isMemberOfClass:NSTextFieldCell.class]==NO)
 		return tColor;
 	
 	if (self.isEditable==YES || self.drawsBackground==YES)
@@ -60,7 +60,7 @@
 	if (tSuperview==nil)
 		return tColor;
 	
-	if ([tSuperview isKindOfClass:[NSTableCellView class]]==YES)
+	if ([tSuperview isKindOfClass:NSTableCellView.class]==YES)
 		return tColor;
 	
 	

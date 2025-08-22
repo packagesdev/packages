@@ -23,7 +23,7 @@
 
 + (Class)nodeClass
 {
-	return [PKGBuildEventTreeNode class];
+	return PKGBuildEventTreeNode.class;
 }
 
 + (PKGBuildEventsForest *)buildEventsTreeForDocumentNamed:(NSString *)inDocumentName

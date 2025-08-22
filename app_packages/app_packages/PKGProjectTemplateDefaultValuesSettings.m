@@ -135,7 +135,7 @@ NSString * const PKGProjectTemplateCompanyIdentifierPrefixKey=@"company.identifi
 	if (tMailProperty==nil)
 		return PKGProjectTemplateCompanyIdentifierPrefixDefaultValue;
 	
-	NSUInteger tCount=[tMailProperty count];
+	NSUInteger tCount=tMailProperty.count;
 	
 	for(NSUInteger i=0;i<tCount;i++)
 	{

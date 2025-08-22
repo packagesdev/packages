@@ -53,7 +53,7 @@ NSString * const WBCollectionViewSelectionDidChangeNotification=@"WBCollectionVi
 	
 	inIndexSet=[tMutableIndexSet copy];
 	
-	if ([inIndexSet count]==0)
+	if (inIndexSet.count==0)
 		return;
 	
 	[super setSelectionIndexes:inIndexSet];

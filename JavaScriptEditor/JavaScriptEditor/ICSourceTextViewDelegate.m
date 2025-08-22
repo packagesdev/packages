@@ -242,14 +242,14 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	{
 		NSArray * tArray=[tString componentsSeparatedByString:@" - "];
 		
-		if (tArray!=nil && [tArray count]==2)
+		if (tArray!=nil && tArray.count==2)
 		{
 			tFontName=tArray.firstObject;
 			
 			if (tFontName.length<3)
 				tFontName=tDefaultFontName;
 			
-			tFontSize=[[tArray objectAtIndex:1] floatValue];
+			tFontSize=[tArray[1] floatValue];
 			
 			if (tFontSize<2.0f || tFontSize>200.0f)
 				tFontSize=tDefaultFontSize;
@@ -286,7 +286,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	
 	if (inString!=nil)
 	{
-		NSUInteger tLength=[inString length];
+		NSUInteger tLength=inString.length;
 		
 		NSRange tFunctionRange=[inString rangeOfString:@"function" options:0 range:NSMakeRange(0,tLength)];
 		
@@ -406,7 +406,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 														{
 															NSString * tSubString=[tParametersString substringWithRange:NSMakeRange(1,tParametersLength-2)];
 														
-															if ([tSubString length]>0)
+															if (tSubString.length>0)
 															{
 																NSArray * tParametersArray=[tSubString componentsSeparatedByString:@","];
 																
@@ -414,7 +414,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 																{
 																	NSUInteger tParametersCount,tParametersIndex;
 																	
-																	tParametersCount=[tParametersArray count];
+																	tParametersCount=tParametersArray.count;
 																	
 																	for(tParametersIndex=0;tParametersIndex<tParametersCount;tParametersIndex++)
 																	{
@@ -426,7 +426,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 																			
 																			CFStringTrimWhitespace((CFMutableStringRef) tSingleParameterString);
 																			
-																			tSingleParameterLength=[tSingleParameterString length];
+																			tSingleParameterLength=tSingleParameterString.length;
 																			
 																			if (tSingleParameterLength==0)
 																			{
@@ -584,7 +584,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		}
 		while (1);
 		
-		tRootBlocksCount=[tRootBlocksArray count];
+		tRootBlocksCount=tRootBlocksArray.count;
 		
 		if (tRootBlocksCount>0)
 		{
@@ -595,7 +595,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 			{
 				tValue=[tRootBlocksArray objectAtIndex:tRootBlockIndex];
 			
-				NSRange tBlockRange=[tValue rangeValue];
+				NSRange tBlockRange=tValue.rangeValue;
 				
 				if (tBlockRange.location>=(tPreviousBlockRange.location+12))	// Minimum distance required for function X()
 				{
@@ -686,32 +686,32 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	
 	NSArray * tSelectedRanges=[_textView selectedRanges];
 	
-	if (tSelectedRanges!=nil && [tSelectedRanges count]>0)
+	if (tSelectedRanges!=nil && tSelectedRanges.count>0)
 	{
-		NSValue * tValue=[tSelectedRanges objectAtIndex:0];
+		NSValue * tValue=tSelectedRanges[0];
 		
-		NSUInteger tLocation=[tValue rangeValue].location;
+		NSUInteger tLocation=tValue.rangeValue.location;
 		
 		tSelectedFunctionIndex=[NSRangeUtilities indexOfRangeIncludingLocation:tLocation withinRanges:[self functionsRanges]];
 	}
 	
 	[_functionsPopupButton selectItemAtIndex:(tSelectedFunctionIndex!=NSNotFound)? tSelectedFunctionIndex : -1];
 	
-	NSRect tFrame=[_functionsPopupButton frame];
+	NSRect tFrame=_functionsPopupButton.frame;
 			
 	[_functionsPopupButton sizeToFit];
 	
-	tFrame.size.width=NSWidth([_functionsPopupButton frame])+5.0f;
+	tFrame.size.width=NSWidth(_functionsPopupButton.frame)+5.0f;
 	
-	[_functionsPopupButton setFrame:tFrame];
+	_functionsPopupButton.frame=tFrame;
 
-	[[_functionsPopupButton superview] setNeedsDisplay:YES];
+	[_functionsPopupButton.superview setNeedsDisplay:YES];
 }
 
 - (void)parseSourceCode
 {
 	NSString * tSourceCode=[_textView string];
-	NSUInteger tLength=[tSourceCode length];
+	NSUInteger tLength=tSourceCode.length;
 	
 	[_commentsRangesArray removeAllObjects];
 	[_stringsRangesArray removeAllObjects];

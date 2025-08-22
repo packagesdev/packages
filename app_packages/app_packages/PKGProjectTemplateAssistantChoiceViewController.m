@@ -78,7 +78,7 @@
 
 - (BOOL)shouldShowNextStepViewController
 {
-	if ([_collectionView.selectionIndexes count]!=1)
+	if (_collectionView.selectionIndexes.count!=1)
 		return NO;
 	
 	PKGProjectTemplate * tSelectedTemplate=self.selectedProjectTemplate;
