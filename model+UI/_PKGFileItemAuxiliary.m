@@ -320,9 +320,9 @@
 	
 	NSImage * tIcon=nil;
 	
-	NSString * tPathExtension=[inPath pathExtension];
+	NSString * tPathExtension=inPath.pathExtension;
 	
-	if ([tPathExtension length]>0)
+	if (tPathExtension.length>0)
 		tIcon=[_PKGFileItemAuxiliary cachedIconForFileType:tPathExtension directory:((tStat.st_mode & S_IFMT)==S_IFDIR)];
 	
 	if (tIcon==nil)

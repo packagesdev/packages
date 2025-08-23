@@ -53,7 +53,7 @@ NSString * const PKGProjectTemplateCompanyIdentifierPrefixKey=@"company.identifi
 	{
 		NSString * tCompanyProperty=(NSString *) [tMe valueForProperty:kABOrganizationProperty];
 		
-		if ([tCompanyProperty length]>0)
+		if (tCompanyProperty.length>0)
 			return tCompanyProperty;
 	}
 	

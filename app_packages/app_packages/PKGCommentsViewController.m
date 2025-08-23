@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2018, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -70,7 +70,7 @@
 	NSTextStorage * tTextStorage=[_textView textStorage];
 	
 	NSError * tError;
-	NSData * tData=[tTextStorage dataFromRange:NSMakeRange(0,[tTextStorage length])
+	NSData * tData=[tTextStorage dataFromRange:NSMakeRange(0,tTextStorage.length)
 							documentAttributes:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType}
 										 error:&tError];
 	

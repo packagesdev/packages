@@ -57,7 +57,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSRect tRect=[tMutableString boundingRectWithSize:NSMakeSize(NSWidth(tBounds),1.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:tAttributesDictionary];
 	
-	NSUInteger tLength=[tMutableString length];
+	NSUInteger tLength=tMutableString.length;
 	
 	NSUInteger tMiddle=tLength/2;
 	
@@ -83,9 +83,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	_boundingRect.origin.y=floor(NSMidY(tBounds)-NSHeight(_boundingRect)*0.5);
 	
 	if (tShortened==YES)
-		[self setToolTip:[self stringValue]];
+		self.toolTip=[self stringValue];
 	else
-		[self setToolTip:@""];
+		self.toolTip=@"";
 	
 	[super setStringValue:tMutableString];
 }

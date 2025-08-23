@@ -163,7 +163,7 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 		case PKGPreferencesQuickBuildSigningAskForEachBuild:
 		{
 			NSString * tSigningIdentity=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
-			BOOL tIsSigningIdentityDefined=([tSigningIdentity length]>0);
+			BOOL tIsSigningIdentityDefined=(tSigningIdentity.length>0);
 			
 			NSAlert * tAlert=[NSAlert new];
 			

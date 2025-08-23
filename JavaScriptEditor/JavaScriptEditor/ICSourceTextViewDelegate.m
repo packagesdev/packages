@@ -392,7 +392,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 											{
 												CFStringTrimWhitespace((CFMutableStringRef) tParametersString);
 												
-												NSUInteger tParametersLength=[tParametersString length];
+												NSUInteger tParametersLength=tParametersString.length;
 												
 												if (tParametersLength>=2)
 												{

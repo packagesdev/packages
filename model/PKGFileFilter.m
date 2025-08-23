@@ -166,7 +166,7 @@ NSString * const PKGFilePredicatePatternKey=@"STRING";
 	if (self.fileType!=PKGFileSystemTypeFileOrFolder && self.fileType!=inType)
 		return NO;
 	
-	if ([self.pattern length]==0)
+	if (self.pattern.length==0)
 		return NO;
 	
 	if (self.regularExpression==YES)

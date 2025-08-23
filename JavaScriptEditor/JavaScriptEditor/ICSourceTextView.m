@@ -104,22 +104,21 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	_scrollView=[self enclosingScrollView];
 	
-	[_scrollView setHasHorizontalScroller:YES];
+	_scrollView.hasHorizontalScroller=YES;
 	
 	[self.textContainer setContainerSize:NSMakeSize(1.0e7, 1.0e7)];
 	[self.textContainer setWidthTracksTextView:NO];
     [self.textContainer setHeightTracksTextView:NO];
 	
-	[self setMinSize:[self frame].size];
+	self.minSize=self.frame.size;
 	
-	[self setMaxSize:NSMakeSize(1.0e7, 1.0e7)];
+	self.maxSize=NSMakeSize(1.0e7, 1.0e7);
 	
-	[self setHorizontallyResizable:YES];
-	[self setHorizontallyResizable:YES];
-    [self setVerticallyResizable:YES];
-    [self setAutoresizingMask:NSViewNotSizable];
+	self.horizontallyResizable=YES;
+    self.verticallyResizable=YES;
+    self.autoresizingMask=NSViewNotSizable;
 	
-	[self setTextContainerInset:NSMakeSize(5.0f,0.0f)];
+	self.textContainerInset=NSMakeSize(5.0f,0.0f);
 	
 	self.automaticQuoteSubstitutionEnabled=NO;	// To avoid getting the very annoying typographic quotes
 	
@@ -167,7 +166,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		double tColumnWidth=0.;
 		NSParagraphStyle * tParagraphStyle;
 		
-		NSDictionary * tAttributesDictionary=[NSDictionary dictionaryWithObjectsAndKeys:[self font],NSFontAttributeName,nil];
+		NSDictionary * tAttributesDictionary=[NSDictionary dictionaryWithObjectsAndKeys:self.font,NSFontAttributeName,nil];
 		
 		NSMutableString * tMutableString=[NSMutableString stringWithCapacity:_numberOfSpaceForTab];
 		
@@ -179,7 +178,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			tColumnWidth=[tMutableString sizeWithAttributes:tAttributesDictionary].width;
 		}
 		
-		if ([tMutableAttributedString length]>0)
+		if (tMutableAttributedString.length>0)
 		{
 			tParagraphStyle=[tMutableAttributedString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:&tRange];
 		}
@@ -211,9 +210,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 					[self setDefaultParagraphStyle:tMutableParagraphStyle];
 					
-					if ([tMutableAttributedString length]>0)
-						[tMutableAttributedString addAttribute:NSParagraphStyleAttributeName value:tMutableParagraphStyle
-														 range:NSMakeRange(0,[tMutableString length])];
+					if (tMutableAttributedString.length>0)
+						[tMutableAttributedString addAttribute:NSParagraphStyleAttributeName
+														 value:tMutableParagraphStyle
+														 range:NSMakeRange(0,tMutableString.length)];
 				}
 			}
 		}
@@ -373,11 +373,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if ((inEvent.clickCount == 2) && ((inEvent.modifierFlags & WBEventModifierFlagDeviceIndependentFlagsMask) == WBEventModifierFlagOption))
 	{
-		NSRange tSelectionRange=[self selectedRange];
+		NSRange tSelectionRange=self.selectedRange;
 		
 		if (tSelectionRange.length>1)
 		{
-			NSString * tSelectedText=[[self string] substringWithRange:tSelectionRange];
+			NSString * tSelectedText=[self.string substringWithRange:tSelectionRange];
 			
 			// Post Notification
 			
@@ -426,8 +426,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			}
 			
 			NSRange tWhiteSpaceRange=[tString rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet].invertedSet
-														  options:0
-														    range:NSMakeRange(tStartOfLine,tRange.location-tStartOfLine)];
+															  options:0
+																range:NSMakeRange(tStartOfLine,tRange.location-tStartOfLine)];
 			
 			NSUInteger tFirstNonWhiteSpaceCharacter=(tWhiteSpaceRange.location==NSNotFound) ? tRange.location : tWhiteSpaceRange.location;
 

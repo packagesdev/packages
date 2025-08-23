@@ -64,7 +64,7 @@ NSString * const PKGValueKey=@"VALUE";
 			return;
 		}
 		
-		if ([tLanguageName length]==0)		// Language can not be empty
+		if (tLanguageName.length==0)		// Language can not be empty
 		{
 			tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 									   code:PKGRepresentationInvalidValueError

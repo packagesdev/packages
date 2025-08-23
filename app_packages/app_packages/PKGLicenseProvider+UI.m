@@ -124,7 +124,7 @@
 	
 	while (1)
 	{
-		tFoundRange=[tString rangeFromString:@"%%" toString:@"%%" options:0 range:NSMakeRange(NSMaxRange(tFoundRange),[tString length]-NSMaxRange(tFoundRange))];
+		tFoundRange=[tString rangeFromString:@"%%" toString:@"%%" options:0 range:NSMakeRange(NSMaxRange(tFoundRange),tString.length-NSMaxRange(tFoundRange))];
 		
 		if (tFoundRange.location==NSNotFound)
 			return;

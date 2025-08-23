@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2018, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -567,7 +567,7 @@
 		{
 			if ([tLocationPath rangeOfString:tPrefix options:NSCaseInsensitiveSearch].location==0)
 			{
-				tLocationPath=[tLocationPath substringFromIndex:[tPrefix length]];
+				tLocationPath=[tLocationPath substringFromIndex:tPrefix.length];
 				
 				self.packageComponent.packageSettings.locationURL=tLocationPath;
 				
@@ -807,7 +807,7 @@
 	if (inView==nil || inInfo==nil)
 		return NO;
 	
-	NSPasteboard * tPasteBoard=[inInfo draggingPasteboard];
+	NSPasteboard * tPasteBoard=inInfo.draggingPasteboard;
 	
 	NSString * tString=nil;
 	
@@ -851,8 +851,8 @@
 	NSString * tLastComponent=tString.lastPathComponent;
 	NSString * tName=nil;
 	
-	if ([tLastComponent length]>0 && [tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)
-		tName=[tLastComponent stringByDeletingPathExtension];
+	if (tLastComponent.length>0 && [tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)
+		tName=tLastComponent.stringByDeletingPathExtension;
 	
 	if (tName==nil)
 		return YES;
@@ -871,7 +871,7 @@
 			
 			// Check whether the name is not already being used by another component
 		
-			NSUInteger tLength=[tName length];
+			NSUInteger tLength=tName.length;
 			
 			if (tLength>=256)
 				return NO;
@@ -1007,7 +1007,7 @@
 	
 	if (isDirectory==NO &&
 		(isLocalFlatPackage==YES ||
-		([tLastComponent length]>0 && [tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)))
+		(tLastComponent.length>0 && [tLastComponent.pathExtension caseInsensitiveCompare:@"pkg"]==NSOrderedSame)))
 	{
 		tName=tLastComponent.stringByDeletingPathExtension;
 	}
