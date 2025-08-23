@@ -45,7 +45,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 
 #pragma mark -
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -59,7 +59,7 @@ NSString * const PKGPresentationLicenseTemplateKeywordsKey=@"KEYWORDS";
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	

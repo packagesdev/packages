@@ -55,7 +55,7 @@ NSString * const PKGQuickBuildStatusViewKey=@"StatusView";
 	return sQuickBuildFeedbackController;
 }
 
-- (id)initWithWindow:(NSWindow *)inWindow
+- (instancetype)initWithWindow:(NSWindow *)inWindow
 {
 	self=[super initWithWindow:inWindow];
 	

@@ -15,7 +15,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGPatternFormatter
 
-- (BOOL)getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(NSString **)error
+- (BOOL)getObjectValue:(id *)outObject forString:(NSString *)inString errorDescription:(NSString **)error
 {
 	*outObject=inString;
 	
@@ -41,7 +41,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return inObject;
 }
 
-- (NSAttributedString *)attributedStringForObjectValue:(id) inObject withDefaultAttributes:(NSDictionary *) inAttributes
+- (NSAttributedString *)attributedStringForObjectValue:(id)inObject withDefaultAttributes:(NSDictionary *)inAttributes
 {
 	NSAttributedString * tAttributedString=nil;
 

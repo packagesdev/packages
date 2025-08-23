@@ -27,7 +27,7 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 
 @implementation PKGLocator
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -45,7 +45,7 @@ NSString * const PKGLocatorSettingsRepresentationKey=@"DICTIONARY";
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{

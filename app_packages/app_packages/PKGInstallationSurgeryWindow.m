@@ -78,7 +78,7 @@
 	return tWindowFrame;
 }
 
-- (id)initForView:(NSView *) inView
+- (instancetype)initForView:(NSView *) inView
 {
 	if (inView==nil)
 		return nil;

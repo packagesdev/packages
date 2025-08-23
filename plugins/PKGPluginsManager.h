@@ -33,14 +33,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSArray *)allPluginsNameSorted;
 
-- (NSString *)localizedPluginNameForIdentifier:(NSString *) inIdentifier;
+- (NSString *)localizedPluginNameForIdentifier:(NSString *)inIdentifier;
 
-- (NSString *)identifierForLocalizedPluginName:(NSString *) inLocalizedName;
+- (NSString *)identifierForLocalizedPluginName:(NSString *)inLocalizedName;
 
 - (PKGPlugin *)pluginForIdentifier:(NSString *)inIdentifier;
 
-- (PKGConverter *)createConverterForIdentifier:(NSString *) inIdentifier;
+- (PKGConverter *)createConverterForIdentifier:(NSString *)inIdentifier;
 
-- (PKGConverter *)createConverterForIdentifier:(NSString *) inIdentifier project:(PKGDistributionProject *) inProject;
+- (PKGConverter *)createConverterForIdentifier:(NSString *)inIdentifier project:(PKGDistributionProject *)inProject;
 
 @end

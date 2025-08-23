@@ -17,7 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGLanguagesPopupButtonCell
 
-- (id)initWithCoder:(NSCoder *)inCoder
+- (instancetype)initWithCoder:(NSCoder *)inCoder
 {
 	self=[super initWithCoder:inCoder];
 	

@@ -17,7 +17,7 @@ NSString * const PKGBuildEventFilePath=@"FilePath";
 
 @implementation PKGBuildEvent
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation
 {
 	if (inRepresentation==nil || [inRepresentation isKindOfClass:NSDictionary.class]==NO)
 		return nil;
@@ -96,7 +96,7 @@ NSString * const PKGBuildErrorEventToolTerminationStatusKey=@"ToolTerminationSta
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation
 {
 	self=[super initWithRepresentation:inRepresentation];
 	
@@ -257,7 +257,7 @@ NSString * const PKGBuildInfoEventPackagesCountKey=@"PackagesCount";
 
 @implementation PKGBuildInfoEvent
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation
 {
 	self=[super initWithRepresentation:inRepresentation];
 	

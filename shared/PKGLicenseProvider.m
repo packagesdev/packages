@@ -41,7 +41,7 @@ NSString * const ICLicenseTemplatesRelativeFolderPath=@"Application Support/fr.w
 	return sLicenseProvider;
 }
 
-- (id)init
+- (instancetype)init
 {
     self=[super init];
     

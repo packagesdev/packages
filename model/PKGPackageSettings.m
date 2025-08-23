@@ -232,7 +232,7 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -441,7 +441,7 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 
 #pragma mark -
 
-- (NSString *) description
+- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	

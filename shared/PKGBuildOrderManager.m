@@ -47,7 +47,7 @@ NSString * const PKGBuildOrderErrorDomain=@"PKGBuildOrderErrorDomain";
 	return sDefaultBuildOrderManager;
 }
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
 	

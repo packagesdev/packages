@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -42,8 +42,8 @@ typedef NS_ENUM(NSUInteger, PKGProjectType)
 + (id)projectWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError;
 + (id)projectWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError;
 
-- (id)initWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError;
-- (id)initWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError;
+- (instancetype)initWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError;
+- (instancetype)initWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError;
 
 - (BOOL)writeToFile:(NSString *)inPath atomically:(BOOL)inAtomically;
 - (BOOL)writeToURL:(NSURL *)inURL atomically:(BOOL)inAtomically;

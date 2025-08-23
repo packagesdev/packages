@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -157,7 +157,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	return self;
 }
 
-- (id)initWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError
+- (instancetype)initWithContentsOfFile:(NSString *)inPath error:(out NSError **)outError
 {
 	if (inPath==nil)
 	{
@@ -170,7 +170,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 	return [self initWithContentsOfURL:[NSURL fileURLWithPath:inPath] error:outError];
 }
 
-- (id)initWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError
+- (instancetype)initWithContentsOfURL:(NSURL *)inURL error:(out NSError **)outError
 {
 	if (inURL==nil)
 	{
@@ -277,7 +277,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 
 #pragma mark -
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{

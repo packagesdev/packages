@@ -31,7 +31,7 @@ NSString * const PKGPackageProjectPackageScriptsAndResources=@"PACKAGE_SCRIPTS";
 
 @synthesize packageSettings=_packageSettings,payload=_payload,scriptsAndResources=_scriptsAndResources;
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
 	
@@ -51,7 +51,7 @@ NSString * const PKGPackageProjectPackageScriptsAndResources=@"PACKAGE_SCRIPTS";
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	

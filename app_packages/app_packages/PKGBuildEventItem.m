@@ -15,7 +15,7 @@
 
 @implementation PKGBuildEventItem
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	return nil;
 }

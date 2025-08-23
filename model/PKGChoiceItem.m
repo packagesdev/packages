@@ -62,7 +62,7 @@ NSString * const PKGChoiceItemRequirementsKey=@"REQUIREMENTS";
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -324,7 +324,7 @@ NSString * const PKGChoicePackageItemPackageUUIDKey=@"PACKAGE_UUID";
 
 @implementation PKGChoicePackageItem
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	

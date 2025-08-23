@@ -28,7 +28,7 @@ extern NSString * const PKGDistributionProjectSettingsAdvancedOptionsAdvancedEdi
 
 @implementation PKGDistributionProjectSettingsAdvancedOptionList
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	

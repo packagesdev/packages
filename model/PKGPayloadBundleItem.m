@@ -100,7 +100,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 #pragma mark -
 
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	__block NSError * tError=nil;
 	
@@ -208,7 +208,7 @@ NSString * const PKGPayloadBundleItemLocatorsKey=@"LOCATORS";
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[super representation];
 	

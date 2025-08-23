@@ -25,7 +25,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsItemIDKey=@"ID";
 
 @implementation PKGDistributionProjectSettingsAdvancedOptionsItem
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{

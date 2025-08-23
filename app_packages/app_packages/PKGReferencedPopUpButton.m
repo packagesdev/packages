@@ -32,7 +32,7 @@ NSString * const PKGReferencedPopUpButtonReferenceStyleDidChangeNotification=@"P
 
 @implementation PKGReferencedPopUpButton
 
-+ (Class) cellClass
++ (Class)cellClass
 {
     return PKGReferencedPopUpButtonCell.class;
 }
@@ -43,7 +43,7 @@ NSString * const PKGReferencedPopUpButtonReferenceStyleDidChangeNotification=@"P
 
 #pragma mark -
 
-- (void)setDelegate:(id) inDelegate
+- (void)setDelegate:(id)inDelegate
 {
 	if (_delegate==inDelegate)
 		return;

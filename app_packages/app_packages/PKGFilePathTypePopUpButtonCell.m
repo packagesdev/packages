@@ -5,7 +5,7 @@
 
 @implementation PKGFilePathTypePopUpButtonCell
 
-- (id)initWithCoder:(NSCoder *)inCoder
+- (instancetype)initWithCoder:(NSCoder *)inCoder
 {
 	self=[super initWithCoder:inCoder];
 	

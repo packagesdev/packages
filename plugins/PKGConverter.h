@@ -32,6 +32,6 @@ extern NSString * const PKGConverterErrorParameterKey;
 
 	@property (weak,readonly)PKGDistributionProject * project;
 
-- (id)initWithProject:(PKGDistributionProject *)inProject;
+- (instancetype)initWithProject:(PKGDistributionProject *)inProject;
 
 @end

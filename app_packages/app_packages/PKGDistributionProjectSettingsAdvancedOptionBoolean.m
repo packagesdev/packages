@@ -23,7 +23,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsBooleanDontSetNoKe
 
 @implementation PKGDistributionProjectSettingsAdvancedOptionBoolean
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	

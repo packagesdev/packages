@@ -45,7 +45,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 	return nil;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -157,7 +157,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 
 @implementation PKGChoiceDependencyTreeLogicNode
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -265,7 +265,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 
 @implementation PKGChoiceDependencyTreePredicateNode
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -297,7 +297,6 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 			
 			return nil;
 		}
-		
 		
 		tNumber=inRepresentation[PKGChoiceDependencyTreePredicateNodeStateKey];
 		

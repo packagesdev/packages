@@ -39,7 +39,7 @@ NSString * const PKGChoiceItemOptionsSelectedDependenciesTreeKey=@"SELECTED_DEPE
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
