@@ -83,7 +83,7 @@
 {
 	[super WB_viewWillAppear];
 	
-	PKGPreferencesGeneralPackageProjectPaneTag tTag;
+	PKGPreferencesGeneralDistributionPackageComponentPaneTag tTag;
 	
 	// Show the tab that was saved
 	
