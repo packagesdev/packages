@@ -1133,7 +1133,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
     if (tNumber==nil)
     	return -1;
     
-    return [tNumber integerValue];
+    return tNumber.integerValue;
 }
 
 - (void)_insertDigit:(NSInteger)inDigit
@@ -1225,7 +1225,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
     WBVersionComponents * tVersionComponents=[self.versionsHistory components:WBMajorVersionUnit|WBMinorVersionUnit|WBPatchVersionUnit fromVersion:self.versionValue];
     WBVersionPickerCellElement * tElement=_elements[_selectedElementIndex];
     
-    NSInteger tValue=[tElement.stringValue integerValue];
+    NSInteger tValue=tElement.stringValue.integerValue;
     
     NSRange tAllowedRange;
     

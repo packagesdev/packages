@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -77,13 +77,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSUInteger _numberOfSpaceForTab;
 }
 
-- (void) updateTabStyle;
+- (void)updateTabStyle;
 
-- (void) renderGutter;
+- (void)renderGutter;
 
-- (void) getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart;
+- (void)getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart;
 
-- (NSUInteger) lineNumberForIndex:(NSUInteger) inIndex;
+- (NSUInteger)lineNumberForIndex:(NSUInteger) inIndex;
 
 // Notification
 
@@ -106,9 +106,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	_scrollView.hasHorizontalScroller=YES;
 	
-	[self.textContainer setContainerSize:NSMakeSize(1.0e7, 1.0e7)];
-	[self.textContainer setWidthTracksTextView:NO];
-    [self.textContainer setHeightTracksTextView:NO];
+	NSTextContainer * tTextContainer=self.textContainer;
+	
+	tTextContainer.containerSize=NSMakeSize(1.0e7, 1.0e7);
+	tTextContainer.widthTracksTextView=NO;
+    tTextContainer.heightTracksTextView=NO;
 	
 	self.minSize=self.frame.size;
 	
@@ -222,7 +224,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[self didChangeText];
 }
 
-- (void) renderGutter
+- (void)renderGutter
 {
     NSArray * tArray;
 	NSUInteger tStart;
@@ -235,7 +237,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[_gutterView setNeedsDisplay:YES];
 }
 
-- (void) getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart
+- (void)getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart
 {
 	NSString * tString=[self string];
 	NSLayoutManager * tLayoutManager=self.textContainer.layoutManager;
@@ -272,7 +274,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 }
 
 
-- (NSUInteger) lineNumberForIndex:(NSUInteger) inIndex
+- (NSUInteger)lineNumberForIndex:(NSUInteger) inIndex
 {
     NSString * tString=[self string];
 	NSUInteger tLength=tString.length;
@@ -292,7 +294,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     return tNumberOfLines;
 }
 
-- (NSIndexSet *) indexesOfLineStartsForRanges:(NSArray *) inRangesArray
+- (NSIndexSet *)indexesOfLineStartsForRanges:(NSArray *) inRangesArray
 {
 	NSMutableIndexSet * tIndexSet=[NSMutableIndexSet indexSet];
 	

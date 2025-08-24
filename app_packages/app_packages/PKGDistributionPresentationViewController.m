@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2018, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -584,7 +584,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 		
 		[_listView reloadData];
 		
-		[_listView selectStep:(tNumber!=nil) ? [tNumber integerValue] : 0];
+		[_listView selectStep:(tNumber!=nil) ? tNumber.integerValue : 0];
 		
 		// Inspector
 		
@@ -592,7 +592,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 		
 		if (tNumber!=nil)
 		{
-			PKGPresentationInspectorItemTag * tItemTag=[tNumber integerValue];
+			NSInteger tItemTag=tNumber.integerValue;
 		
 			[_inspectorPopUpButton selectItemWithTag:tItemTag];
 		

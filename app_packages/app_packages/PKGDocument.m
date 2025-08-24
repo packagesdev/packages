@@ -431,7 +431,7 @@
 				{
 					// A COMPLETER
 					
-					return nil;
+					return NO;
 				}
 				
 				tProjectPath=_temporaryProjectURL.path;

@@ -487,7 +487,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	//return NO;
 	
 	if (inOutlineView!=self.outlineView)
-		return nil;
+		return NO;
 	
 	return ([inSourceListTreeNode.representedObject isKindOfClass:PKGDistributionProjectSourceListGroupItem.class]==YES);
 }
