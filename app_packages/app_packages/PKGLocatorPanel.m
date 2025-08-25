@@ -426,7 +426,7 @@
 	if (tNumber==nil)
 		return;
 	
-	[_currentLocatorViewController optionKeyStateDidChange:[tNumber boolValue]];
+	[_currentLocatorViewController optionKeyStateDidChange:tNumber.boolValue];
 }
 
 @end

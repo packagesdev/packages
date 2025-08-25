@@ -74,7 +74,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 		return nil;
 	}
 	
-	PKGProjectType tProjectType=[tNumber unsignedIntegerValue];
+	PKGProjectType tProjectType=tNumber.unsignedIntegerValue;
 	
 	NSError * tError=nil;
 	
@@ -234,7 +234,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 		return nil;
 	}
 	
-	PKGProjectType tProjectType=[tNumber unsignedIntegerValue];
+	PKGProjectType tProjectType=tNumber.unsignedIntegerValue;
 	
 	NSError * tError=nil;
 	
@@ -302,7 +302,7 @@ const NSUInteger PKGPackagesVersioNumber=PKGPackagesVersion_2;
 		NSNumber * tNumber=inRepresentation[PKGFormatVersionKey];
 		
 		if (tNumber!=nil)
-			_formatVersion=[tNumber unsignedIntegerValue];
+			_formatVersion=tNumber.unsignedIntegerValue;
 	}
 	
 	return self;

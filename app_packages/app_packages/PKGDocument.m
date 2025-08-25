@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2018, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -898,7 +898,7 @@
 	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
-	PKGBuildStep tStep=[tNumber unsignedIntegerValue];
+	PKGBuildStep tStep=tNumber.unsignedIntegerValue;
 	
 	NSIndexPath * tStepPath=tUserInfo[PKGBuildStepPathKey];
 	
@@ -911,7 +911,7 @@
 	if ([tNumber isKindOfClass:NSNumber.class]==NO)
 		return;
 	
-	PKGBuildStepState tState=[tNumber unsignedIntegerValue];
+	PKGBuildStepState tState=tNumber.unsignedIntegerValue;
 	
 	
 	NSDictionary * tRepresentation=tUserInfo[PKGBuildStepEventRepresentationKey];

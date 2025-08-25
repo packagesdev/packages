@@ -633,7 +633,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	
 	if (tNumber!=nil)
 	{
-		_currentTheme=[tNumber unsignedIntegerValue];
+		_currentTheme=tNumber.unsignedIntegerValue;
 	}
 	else
 	{

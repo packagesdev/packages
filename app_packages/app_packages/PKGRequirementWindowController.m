@@ -410,7 +410,7 @@
 	if (tNumber==nil)
 		return;
 	
-	[_currentRequirementViewController optionKeyStateDidChange:[tNumber boolValue]];
+	[_currentRequirementViewController optionKeyStateDidChange:tNumber.boolValue];
 }
 
 @end

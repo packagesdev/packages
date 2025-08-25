@@ -114,7 +114,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 		
 		PKGClassCheckNumberValueForKey(tNumber,PKGFilePathTypeKey);
 		
-		_type=[tNumber unsignedIntegerValue];
+		_type=tNumber.unsignedIntegerValue;
 		
 		if (_type>PKGFilePathTypeMixed)
 		{

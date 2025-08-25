@@ -179,7 +179,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 			}
 			else
 			{
-				_themeVersion=[tNumber unsignedIntegerValue];
+				_themeVersion=tNumber.unsignedIntegerValue;
 			}
 		}
 		else

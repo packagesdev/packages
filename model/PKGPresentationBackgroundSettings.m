@@ -147,7 +147,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_showCustomImage=[tNumber boolValue];
+			_showCustomImage=tNumber.boolValue;
 		}
 		
 		_imagePath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPresentationBackgroundImagePathKey] error:&tError];	// can be nil
@@ -190,7 +190,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_imageAlignment=[tNumber unsignedIntegerValue];
+			_imageAlignment=tNumber.unsignedIntegerValue;
 			
 			if (_imageAlignment>PKGImageAlignmentRight)
 			{
@@ -221,7 +221,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_imageScaling=[tNumber unsignedIntegerValue];
+			_imageScaling=tNumber.unsignedIntegerValue;
 			
 			if (_imageScaling>PKGImageScalingNone)
 			{
@@ -252,7 +252,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_imageLayoutDirection=[tNumber unsignedIntegerValue];
+			_imageLayoutDirection=tNumber.unsignedIntegerValue;
 			
 			if (_imageLayoutDirection>PKGImageLayoutDirectionNatural)
 			{
@@ -395,7 +395,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_sharedSettingsForAllAppearances=[tNumber boolValue];
+			_sharedSettingsForAllAppearances=tNumber.boolValue;
 		}
 		
 		NSDictionary * tAppearancesSettingsDictionary=inRepresentation[PKGPresentationBackgroundAppearancesSettingsKey];

@@ -48,7 +48,7 @@ NSString * const PKGChoiceItemRequirementsKey=@"REQUIREMENTS";
 	
 	if (self!=nil)
 	{
-		_UUID=[[NSUUID UUID] UUIDString];
+		_UUID=[NSUUID UUID].UUIDString;
 		
 		_localizedTitles=[NSMutableDictionary dictionary];
 		

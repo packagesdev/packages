@@ -54,7 +54,7 @@
 	if (tNumber==nil || [tNumber isKindOfClass:NSNumber.class]==NO)
 		return NO;
 	
-	return [tNumber boolValue];
+	return tNumber.boolValue;
 }
 
 - (NSInteger)integerForKey:(NSString *)inKey

@@ -237,7 +237,7 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
 		
 		//PKGFullCheckNumberValueForKey(tNumber,PKGProjectSettingsFilterPayloadOnlyKey);	// A VOIR
 		
-		_filterPayloadOnly=[tNumber boolValue];
+		_filterPayloadOnly=tNumber.boolValue;
         
         // User Defined Settings
         

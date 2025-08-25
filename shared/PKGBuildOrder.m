@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -43,7 +43,7 @@ NSString * const PKGBuildOrderExternalSettingsUserDefinedSettingsKey=@"UserDefin
 	
 	if (self!=nil)
 	{
-		_UUID=[[[NSUUID UUID] UUIDString] copy];
+		_UUID=[[NSUUID UUID].UUIDString copy];
 	}
 	
 	return self;
