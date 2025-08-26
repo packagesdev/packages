@@ -50,7 +50,7 @@
 	NSString * tStringValue=@"100";
 	
 	if (tNumber!=nil)
-		tStringValue=[tNumber stringValue];
+		tStringValue=tNumber.stringValue;
 	
 	_minimumValueTextField.stringValue=tStringValue;
 	
@@ -103,7 +103,7 @@
 {
 	NSString * tStringValue=_minimumValueTextField.stringValue;
 	
-	_settings[PKGRequirementDiskSpaceMinimumSizeValueKey]=@([tStringValue intValue]);
+	_settings[PKGRequirementDiskSpaceMinimumSizeValueKey]=@(tStringValue.intValue);
 }
 
 - (IBAction)switchUnit:(NSPopUpButton *) sender

@@ -94,11 +94,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	CGFloat tWidth = NSWidth(tBounds);
 	
-	if ([_lineNumberRects count]>0)
+	if (_lineNumberRects.count>0)
 	{
 		NSSize tMaxSize=NSMakeSize(800,400);
 		
-		NSUInteger tCount = _startLineNumber + [_lineNumberRects count];
+		NSUInteger tCount = _startLineNumber + _lineNumberRects.count;
 		
 		for (NSUInteger tIndex=_startLineNumber ; tIndex < tCount; tIndex++)
 		{

@@ -622,7 +622,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		CGFloat tArray[2]={5.0,4.0};
 		[tBezierPath setLineDash:tArray count:2 phase:0.5];
 		
-		[tBezierPath setLineWidth:3.0];
+		tBezierPath.lineWidth=3.0;
 		
 		[tBezierPath stroke];
 	}

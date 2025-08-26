@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -54,7 +54,7 @@
 	if (tNumber==nil || [tNumber isKindOfClass:NSNumber.class]==NO)
 		return NO;
 	
-	return [tNumber boolValue];
+	return tNumber.boolValue;
 }
 
 - (NSInteger)integerForKey:(NSString *)inKey
@@ -67,7 +67,7 @@
 	if (tNumber==nil || [tNumber isKindOfClass:NSNumber.class]==NO)
 		return 0;
 	
-	return [tNumber integerValue];
+	return tNumber.integerValue;
 }
 
 #pragma mark -

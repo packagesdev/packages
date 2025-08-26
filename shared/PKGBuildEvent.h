@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, PKGBuildErrorFileKind)
 
 + (instancetype)eventWithFilePath:(NSString *)inFilePath;
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation;
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation;
 
 - (NSDictionary *)representation;
 

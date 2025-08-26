@@ -97,7 +97,7 @@
 	
 	[tAttributedString addAttribute:NSForegroundColorAttributeName
 							  value:tColor
-							  range:NSMakeRange(0,[tAttributedString length])];
+							  range:NSMakeRange(0,tAttributedString.length)];
 	
 	[self setAttributedTitle:tAttributedString];
 	

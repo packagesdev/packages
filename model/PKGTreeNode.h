@@ -31,7 +31,7 @@
 
 - (Class)representedObjectClassForRepresentation:(NSDictionary *)inRepresentation;
 
-- (NSUInteger)height;
+@property (nonatomic, readonly) NSUInteger height;
 
 - (NSUInteger)numberOfNodes;
 

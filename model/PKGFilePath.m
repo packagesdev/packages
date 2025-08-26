@@ -88,7 +88,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -114,7 +114,7 @@ NSString * const PKGFilePathStringKey=@"PATH";
 		
 		PKGClassCheckNumberValueForKey(tNumber,PKGFilePathTypeKey);
 		
-		_type=[tNumber unsignedIntegerValue];
+		_type=tNumber.unsignedIntegerValue;
 		
 		if (_type>PKGFilePathTypeMixed)
 		{

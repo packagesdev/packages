@@ -124,7 +124,7 @@ NSString * const PKGPreferencesWindowSelectedPaneIdentifierKey=@"preferences.ui.
 	{
 		NSArray * tArray=[inIdentifier componentsSeparatedByString:@"."];
 		
-		if ([tArray count]!=2)
+		if (tArray.count!=2)
 			return;
 		
 		Class tClass=NSClassFromString([NSString stringWithFormat:@"PKGPreferencePane%@ViewController",[tArray[1] capitalizedString]]);

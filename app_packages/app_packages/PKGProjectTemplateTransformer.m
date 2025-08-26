@@ -129,7 +129,7 @@ NSString * const PKGProjectTemplateTransformerYearKey=@"YEAR";
 
 + (BOOL)_preprocessArray:(NSMutableArray *)inMutableArray withKeywordsDictionary:(NSDictionary *)inKeywordsDictionary
 {
-	NSUInteger tCount=[inMutableArray count];
+	NSUInteger tCount=inMutableArray.count;
 	
 	for(NSUInteger tIndex=0;tIndex<tCount;tIndex++)
 	{

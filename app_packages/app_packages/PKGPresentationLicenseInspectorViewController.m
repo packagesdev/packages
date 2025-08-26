@@ -291,7 +291,7 @@
 {
     NSInteger tTag=0;
     
-    if ([sender isKindOfClass:[NSMenuItem class]]==NO)
+    if ([sender isKindOfClass:NSMenuItem.class]==NO)
     {
         tTag=[sender selectedItem].tag;
     }

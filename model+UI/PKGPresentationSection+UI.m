@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@ NSString * const PKGPresentationSectionPluginPathDidChangeNotification=@"PKGPres
 	if (tNumber==nil)
 		return -1;
 	
-	return [tNumber integerValue];
+	return tNumber.integerValue;
 }
 
 #pragma mark -

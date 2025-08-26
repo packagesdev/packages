@@ -83,7 +83,7 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 	
 	// Internal Drag
 	
-	if ([tPasteBoard availableTypeFromArray:@[PPKGTableViewDataSourceInternalPboardType]]!=nil && [info draggingSource]==inTableView)
+	if ([tPasteBoard availableTypeFromArray:@[PPKGTableViewDataSourceInternalPboardType]]!=nil && info.draggingSource==inTableView)
 	{
 		if ([_internalDragData WB_containsOnlyOneRange]==YES)
 		{
@@ -115,7 +115,7 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 	
 	// Internal drag and drop
 	
-	NSPasteboard * tPasteBoard=[info draggingPasteboard];
+	NSPasteboard * tPasteBoard=info.draggingPasteboard;
 	
 	if ([tPasteBoard availableTypeFromArray:@[PPKGTableViewDataSourceInternalPboardType]]!=nil && [info draggingSource]==inTableView)
 	{
@@ -123,7 +123,7 @@ NSString * const PPKGTableViewDataSourceInternalPboardType=@"fr.whitebox.package
 		
 		[self.items removeObjectsAtIndexes:_internalDragData];
 		
-		NSUInteger tIndex=[_internalDragData firstIndex];
+		NSUInteger tIndex=_internalDragData.firstIndex;
 		
 		while (tIndex!=NSNotFound)
 		{

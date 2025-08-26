@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -31,27 +31,27 @@ NSString * const PKGPackageProjectPackageScriptsAndResources=@"PACKAGE_SCRIPTS";
 
 @synthesize packageSettings=_packageSettings,payload=_payload,scriptsAndResources=_scriptsAndResources;
 
-- (id)init
+- (instancetype)init
 {
 	self=[super init];
 	
 	if (self!=nil)
 	{
-		self.settings=[[PKGPackageProjectSettings alloc] init];
+		self.settings=[PKGPackageProjectSettings new];
 		
-		_packageSettings=[[PKGPackageSettings alloc] init];
+		_packageSettings=[PKGPackageSettings new];
 		
-		_payload=[[PKGPackagePayload alloc] init];
+		_payload=[PKGPackagePayload new];
 		
-		_scriptsAndResources=[[PKGPackageScriptsAndResources alloc] init];
+		_scriptsAndResources=[PKGPackageScriptsAndResources new];
 		
-		self.comments=[[PKGProjectComments alloc] init];
+		self.comments=[PKGProjectComments new];
 	}
 	
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	

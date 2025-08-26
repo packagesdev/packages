@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018, Stephane Sudre
+ Copyright (c) 2018-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,7 +19,7 @@
 {
 	NSMutableAttributedString * tMutableTitle=[title mutableCopy];
 	
-	[tMutableTitle addAttribute:NSForegroundColorAttributeName value:[NSColor labelColor] range:NSMakeRange(0,[title length])];
+	[tMutableTitle addAttribute:NSForegroundColorAttributeName value:[NSColor labelColor] range:NSMakeRange(0,title.length)];
 	
 	return [super drawTitle:tMutableTitle withFrame:frame inView:controlView];
 }

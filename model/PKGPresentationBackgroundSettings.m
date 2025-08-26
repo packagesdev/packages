@@ -83,7 +83,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 	
 	NSNumber * tNumber=sAllAppearanceNameKeysToModesDictionary[inName];
 	
-	return (tNumber==nil) ? PKGPresentationAppearanceModeUnknown : [tNumber unsignedIntegerValue];
+	return (tNumber==nil) ? PKGPresentationAppearanceModeUnknown : tNumber.unsignedIntegerValue;
 }
 
 
@@ -105,7 +105,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -147,7 +147,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_showCustomImage=[tNumber boolValue];
+			_showCustomImage=tNumber.boolValue;
 		}
 		
 		_imagePath=[[PKGFilePath alloc] initWithRepresentation:inRepresentation[PKGPresentationBackgroundImagePathKey] error:&tError];	// can be nil
@@ -190,7 +190,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_imageAlignment=[tNumber unsignedIntegerValue];
+			_imageAlignment=tNumber.unsignedIntegerValue;
 			
 			if (_imageAlignment>PKGImageAlignmentRight)
 			{
@@ -221,7 +221,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_imageScaling=[tNumber unsignedIntegerValue];
+			_imageScaling=tNumber.unsignedIntegerValue;
 			
 			if (_imageScaling>PKGImageScalingNone)
 			{
@@ -252,7 +252,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_imageLayoutDirection=[tNumber unsignedIntegerValue];
+			_imageLayoutDirection=tNumber.unsignedIntegerValue;
 			
 			if (_imageLayoutDirection>PKGImageLayoutDirectionNatural)
 			{
@@ -369,7 +369,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -395,7 +395,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 				return nil;
 			}
 			
-			_sharedSettingsForAllAppearances=[tNumber boolValue];
+			_sharedSettingsForAllAppearances=tNumber.boolValue;
 		}
 		
 		NSDictionary * tAppearancesSettingsDictionary=inRepresentation[PKGPresentationBackgroundAppearancesSettingsKey];
@@ -535,7 +535,7 @@ NSString * const PKGPresentationBackgroundImageAppearanceDarkAquaNameKey=@"DARK_
 	{
 		nPresentationBackgroundSettings.sharedSettingsForAllAppearances=self.sharedSettingsForAllAppearances;
 		
-		nPresentationBackgroundSettings.appearancesSettings=[self->_appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^PKGPresentationBackgroundAppearanceSettings *(NSString * bAppearanceKey, PKGPresentationBackgroundAppearanceSettings * bBackgroundAppearanceSettings) {
+		nPresentationBackgroundSettings.appearancesSettings=[_appearancesSettings WB_dictionaryByMappingObjectsUsingBlock:^PKGPresentationBackgroundAppearanceSettings *(NSString * bAppearanceKey, PKGPresentationBackgroundAppearanceSettings * bBackgroundAppearanceSettings) {
 			
 			return [bBackgroundAppearanceSettings copy];
 		}];

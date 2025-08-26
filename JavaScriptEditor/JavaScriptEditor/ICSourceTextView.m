@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -77,13 +77,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSUInteger _numberOfSpaceForTab;
 }
 
-- (void) updateTabStyle;
+- (void)updateTabStyle;
 
-- (void) renderGutter;
+- (void)renderGutter;
 
-- (void) getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart;
+- (void)getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart;
 
-- (NSUInteger) lineNumberForIndex:(NSUInteger) inIndex;
+- (NSUInteger)lineNumberForIndex:(NSUInteger) inIndex;
 
 // Notification
 
@@ -104,22 +104,23 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	_scrollView=[self enclosingScrollView];
 	
-	[_scrollView setHasHorizontalScroller:YES];
+	_scrollView.hasHorizontalScroller=YES;
 	
-	[self.textContainer setContainerSize:NSMakeSize(1.0e7, 1.0e7)];
-	[self.textContainer setWidthTracksTextView:NO];
-    [self.textContainer setHeightTracksTextView:NO];
+	NSTextContainer * tTextContainer=self.textContainer;
 	
-	[self setMinSize:[self frame].size];
+	tTextContainer.containerSize=NSMakeSize(1.0e7, 1.0e7);
+	tTextContainer.widthTracksTextView=NO;
+    tTextContainer.heightTracksTextView=NO;
 	
-	[self setMaxSize:NSMakeSize(1.0e7, 1.0e7)];
+	self.minSize=self.frame.size;
 	
-	[self setHorizontallyResizable:YES];
-	[self setHorizontallyResizable:YES];
-    [self setVerticallyResizable:YES];
-    [self setAutoresizingMask:NSViewNotSizable];
+	self.maxSize=NSMakeSize(1.0e7, 1.0e7);
 	
-	[self setTextContainerInset:NSMakeSize(5.0f,0.0f)];
+	self.horizontallyResizable=YES;
+    self.verticallyResizable=YES;
+    self.autoresizingMask=NSViewNotSizable;
+	
+	self.textContainerInset=NSMakeSize(5.0f,0.0f);
 	
 	self.automaticQuoteSubstitutionEnabled=NO;	// To avoid getting the very annoying typographic quotes
 	
@@ -167,7 +168,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		double tColumnWidth=0.;
 		NSParagraphStyle * tParagraphStyle;
 		
-		NSDictionary * tAttributesDictionary=[NSDictionary dictionaryWithObjectsAndKeys:[self font],NSFontAttributeName,nil];
+		NSDictionary * tAttributesDictionary=[NSDictionary dictionaryWithObjectsAndKeys:self.font,NSFontAttributeName,nil];
 		
 		NSMutableString * tMutableString=[NSMutableString stringWithCapacity:_numberOfSpaceForTab];
 		
@@ -179,7 +180,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			tColumnWidth=[tMutableString sizeWithAttributes:tAttributesDictionary].width;
 		}
 		
-		if ([tMutableAttributedString length]>0)
+		if (tMutableAttributedString.length>0)
 		{
 			tParagraphStyle=[tMutableAttributedString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:&tRange];
 		}
@@ -211,9 +212,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				
 					[self setDefaultParagraphStyle:tMutableParagraphStyle];
 					
-					if ([tMutableAttributedString length]>0)
-						[tMutableAttributedString addAttribute:NSParagraphStyleAttributeName value:tMutableParagraphStyle
-														 range:NSMakeRange(0,[tMutableString length])];
+					if (tMutableAttributedString.length>0)
+						[tMutableAttributedString addAttribute:NSParagraphStyleAttributeName
+														 value:tMutableParagraphStyle
+														 range:NSMakeRange(0,tMutableString.length)];
 				}
 			}
 		}
@@ -222,7 +224,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[self didChangeText];
 }
 
-- (void) renderGutter
+- (void)renderGutter
 {
     NSArray * tArray;
 	NSUInteger tStart;
@@ -235,7 +237,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	[_gutterView setNeedsDisplay:YES];
 }
 
-- (void) getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart
+- (void)getRectsOfVisibleLines:(out NSArray **) outRects startingLineNumber:(out NSUInteger *) outStart
 {
 	NSString * tString=[self string];
 	NSLayoutManager * tLayoutManager=self.textContainer.layoutManager;
@@ -272,7 +274,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 }
 
 
-- (NSUInteger) lineNumberForIndex:(NSUInteger) inIndex
+- (NSUInteger)lineNumberForIndex:(NSUInteger) inIndex
 {
     NSString * tString=[self string];
 	NSUInteger tLength=tString.length;
@@ -292,7 +294,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     return tNumberOfLines;
 }
 
-- (NSIndexSet *) indexesOfLineStartsForRanges:(NSArray *) inRangesArray
+- (NSIndexSet *)indexesOfLineStartsForRanges:(NSArray *) inRangesArray
 {
 	NSMutableIndexSet * tIndexSet=[NSMutableIndexSet indexSet];
 	
@@ -373,11 +375,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	if ((inEvent.clickCount == 2) && ((inEvent.modifierFlags & WBEventModifierFlagDeviceIndependentFlagsMask) == WBEventModifierFlagOption))
 	{
-		NSRange tSelectionRange=[self selectedRange];
+		NSRange tSelectionRange=self.selectedRange;
 		
 		if (tSelectionRange.length>1)
 		{
-			NSString * tSelectedText=[[self string] substringWithRange:tSelectionRange];
+			NSString * tSelectedText=[self.string substringWithRange:tSelectionRange];
 			
 			// Post Notification
 			
@@ -426,8 +428,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			}
 			
 			NSRange tWhiteSpaceRange=[tString rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet].invertedSet
-														  options:0
-														    range:NSMakeRange(tStartOfLine,tRange.location-tStartOfLine)];
+															  options:0
+																range:NSMakeRange(tStartOfLine,tRange.location-tStartOfLine)];
 			
 			NSUInteger tFirstNonWhiteSpaceCharacter=(tWhiteSpaceRange.location==NSNotFound) ? tRange.location : tWhiteSpaceRange.location;
 
@@ -483,7 +485,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		NSIndexSet * tIndexSet=[self indexesOfLineStartsForRanges:inSelectionRanges];
 		
-		if ([tIndexSet count]>0)
+		if (tIndexSet.count>0)
 		{
 			NSMutableString * tMutableString=[[self textStorage] mutableString];
 			
@@ -517,7 +519,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					
 					for(NSUInteger i=tCount;i>0;i--)
 					{
-						NSValue * tValue=[tNewSelectionArray objectAtIndex:(i-1)];
+						NSValue * tValue=tNewSelectionArray[(i-1)];
 						
 						NSRange tRange=tValue.rangeValue;
 						
@@ -537,11 +539,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					tIndex=[tIndexSet indexLessThanIndex:tIndex];
 				}
 				
-				if ([tRangesList count]>0)
+				if (tRangesList.count>0)
 				{
 					if ([self shouldChangeTextInRanges:tRangesList replacementStrings:tStringsList]==YES)
 					{
-						NSUInteger tRangeCount=[tRangesList count];
+						NSUInteger tRangeCount=tRangesList.count;
 						
 						for(NSUInteger tRangeIndex=tRangeCount;tRangeIndex>0;tRangeIndex--)
 							[self replaceCharactersInRange:[[tRangesList objectAtIndex:(tRangeIndex-1)] rangeValue] withString:@"\t"];
@@ -567,7 +569,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	{
 		NSIndexSet * tIndexSet=[self indexesOfLineStartsForRanges:inSelectionRanges];
 		
-		if (tIndexSet!=nil && [tIndexSet count]>0)
+		if (tIndexSet!=nil && tIndexSet.count>0)
 		{
 			NSMutableString * tMutableString=[[self textStorage] mutableString];
 			
@@ -701,7 +703,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					tIndex=[tIndexSet indexLessThanIndex:tIndex];
 				}
 				
-				if ([tRangesList count]>0)
+				if (tRangesList.count>0)
 				{
 					if ([super shouldChangeTextInRanges:tRangesList replacementStrings:tStringsList]==YES)
 					{

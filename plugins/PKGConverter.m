@@ -25,7 +25,7 @@ NSString * const PKGConverterErrorParameterKey=@"PKGConverterErrorParameter";
 
 @implementation PKGConverter
 
-- (id)initWithProject:(PKGDistributionProject *)inProject
+- (instancetype)initWithProject:(PKGDistributionProject *)inProject
 {
 	self=[self init];
 	

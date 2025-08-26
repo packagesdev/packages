@@ -105,8 +105,8 @@
 
 + (NSColor *)WB_containerBorderColor
 {
-	if ([[NSColor class] respondsToSelector:@selector(tertiaryLabelColor)]==YES)
-		return [[NSColor class] performSelector:@selector(tertiaryLabelColor) withObject:nil];
+	if ([NSColor.class respondsToSelector:@selector(tertiaryLabelColor)]==YES)
+		return [NSColor.class performSelector:@selector(tertiaryLabelColor) withObject:nil];
 	
 	return [NSColor colorWithDeviceWhite:0.0 alpha:0.25];
 }

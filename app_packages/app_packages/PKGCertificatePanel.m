@@ -185,7 +185,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGCertificatePanel
 
-+ (PKGCertificatePanel *) certificatePanel
++ (PKGCertificatePanel *)certificatePanel
 {
 	PKGCertificateWindowController * tWindowController=[PKGCertificateWindowController new];
 	

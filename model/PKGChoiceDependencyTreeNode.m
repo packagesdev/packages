@@ -45,7 +45,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 	return nil;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -157,7 +157,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 
 @implementation PKGChoiceDependencyTreeLogicNode
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -195,7 +195,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGChoiceDependencyTreeLogicNodeOperatorKey);
 		
-		_operatorType=[tNumber unsignedIntegerValue];
+		_operatorType=tNumber.unsignedIntegerValue;
 		
 		if (_operatorType>PKGLogicOperatorTypeDisjunction)
 		{
@@ -265,7 +265,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 
 @implementation PKGChoiceDependencyTreePredicateNode
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	NSError * tError=nil;
 	
@@ -284,7 +284,7 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGChoiceDependencyTreePredicateNodeOperatorKey);
 		
-		_operatorType=[tNumber unsignedIntegerValue];
+		_operatorType=tNumber.unsignedIntegerValue;
 		
 		if (_operatorType>PKGPredicateOperatorTypeNotEqualTo)
 		{
@@ -298,12 +298,11 @@ NSString * const PKGChoiceDependencyTreePredicateNodeStateKey=@"OBJECT";
 			return nil;
 		}
 		
-		
 		tNumber=inRepresentation[PKGChoiceDependencyTreePredicateNodeStateKey];
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGChoiceDependencyTreePredicateNodeStateKey);
 		
-		_referenceState=[tNumber unsignedIntegerValue];
+		_referenceState=tNumber.unsignedIntegerValue;
 		
 		if (_referenceState>PKGPredicateReferenceStateSelected)
 		{

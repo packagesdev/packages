@@ -148,7 +148,7 @@ NSString * const PKGDistributionProjectSettingsAdvancedOptionsAdvancedEditorDesc
 
 #pragma mark -
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	self=[super init];
 	

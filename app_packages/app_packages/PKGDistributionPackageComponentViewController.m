@@ -83,7 +83,7 @@
 {
 	[super WB_viewWillAppear];
 	
-	PKGPreferencesGeneralPackageProjectPaneTag tTag;
+	PKGPreferencesGeneralDistributionPackageComponentPaneTag tTag;
 	
 	// Show the tab that was saved
 	
@@ -344,14 +344,14 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
 {
-	SEL tAction=[inMenuItem action];
+	SEL tAction=inMenuItem.action;
 	
 	// View Menu
 	
 	if (tAction==@selector(showProjectSettingsTab:) ||
 		tAction==@selector(showDistributionPresentationTab:) ||
 		tAction==@selector(showDistributionRequirementsAndResourcesTab:) ||
-		tAction==@selector(showProjectCommentsTab:))
+		tAction==NSSelectorFromString(@"showProjectCommentsTab:"))
 	{
 		inMenuItem.hidden=YES;
 		

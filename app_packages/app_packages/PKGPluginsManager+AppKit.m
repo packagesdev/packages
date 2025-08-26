@@ -34,7 +34,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (tPlugin==nil)
 		return nil;
 	
-	return [tPlugin.UIBundle principalClass];
+	return tPlugin.UIBundle.principalClass;
 }
 
 - (id)createPluginUIControllerForIdentifier:(NSString *) inIdentifier
@@ -44,7 +44,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	if (tPlugin==nil)
 		return nil;
 	
-	Class tPrincipalClass=[tPlugin.UIBundle principalClass];
+	Class tPrincipalClass=tPlugin.UIBundle.principalClass;
 	
 	if (tPrincipalClass==nil)
 	{
@@ -52,7 +52,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return nil;
 	}
 		
-	PKGViewController * tController=[[tPrincipalClass alloc] init];
+	PKGViewController * tController=[tPrincipalClass new];
 		
 	if (tController==nil)
 	{

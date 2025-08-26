@@ -28,7 +28,7 @@
 	BOOL tPreferDefaultPath=NO;
 	
 	if (tNumber!=nil)
-		tPreferDefaultPath=[tNumber boolValue];
+		tPreferDefaultPath=tNumber.boolValue;
 	
 	// type
 	
@@ -100,7 +100,7 @@
 	
 	tDefaultPath=[tDefaultPath stringByStandardizingPath];
 	
-	if ([tDefaultPath length]>0)
+	if (tDefaultPath.length>0)
 	{
 		// path
 	
@@ -116,7 +116,11 @@
 	[tSearchElement addChild:tBundleElement];
 	
 	
-	if (tPreferDefaultPath==YES)
+	if (tPreferDefaultPath==NO)
+	{
+		return [NSArray arrayWithObject:tSearchElement]
+	}
+	else
 	{
 		NSXMLElement * tSearchSortElement=(NSXMLElement *) [NSXMLNode elementWithName:@"search"];
 		
@@ -172,7 +176,7 @@
 }",tSubID,tDefaultPath];
 
 
-		NSUInteger tLength=[tMutableSourceCode length];
+		NSUInteger tLength=tMutableSourceCode.length;
 		
 		// Add tabs at the beginning of each line
 			
@@ -190,8 +194,6 @@
 
 		return [NSArray arrayWithObjects:tSearchElement,tSearchSortElement,nil];
 	}
-	
-	return [NSArray arrayWithObject:tSearchElement];
 }
 
 @end

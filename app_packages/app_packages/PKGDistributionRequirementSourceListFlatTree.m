@@ -112,7 +112,7 @@
         
         PKGDistributionRequirementSourceListRequirementItem * tRequirementItem=(PKGDistributionRequirementSourceListRequirementItem *)bNode.representedObject;
         
-        if ([tRequirementItem isKindOfClass:[PKGDistributionRequirementSourceListRequirementItem class]]==NO)
+        if ([tRequirementItem isKindOfClass:PKGDistributionRequirementSourceListRequirementItem.class]==NO)
             return nil;
         
         return tRequirementItem.requirement;

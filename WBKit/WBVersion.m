@@ -158,7 +158,7 @@
 	
 	NSString * tBundleVersion=[inBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
 	
-	if (tBundleVersion==nil || [tBundleVersion isKindOfClass:[NSString class]]==NO)
+	if (tBundleVersion==nil || [tBundleVersion isKindOfClass:NSString.class]==NO)
 		return nil;
 	
 	WBVersionFormatter * tVersionFormatter=[WBVersionFormatter new];

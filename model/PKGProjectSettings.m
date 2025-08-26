@@ -96,7 +96,7 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -237,7 +237,7 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
 		
 		//PKGFullCheckNumberValueForKey(tNumber,PKGProjectSettingsFilterPayloadOnlyKey);	// A VOIR
 		
-		_filterPayloadOnly=[tNumber boolValue];
+		_filterPayloadOnly=tNumber.boolValue;
         
         // User Defined Settings
         
@@ -245,7 +245,7 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
         
         if (tDictionary!=nil)
         {
-            if ([tDictionary isKindOfClass:[NSDictionary class]]==NO)
+            if ([tDictionary isKindOfClass:NSDictionary.class]==NO)
             {
                 if (outError!=NULL)
                     *outError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
@@ -259,10 +259,10 @@ NSString * const PKGProjectSettingsUserSettingsDidChangeNotification=@"PKGProjec
             
             [_userDefinedSettings enumerateKeysAndObjectsUsingBlock:^(NSString * bKey, NSString * bObject, BOOL * bOutStop) {
                 
-               if ([bKey isKindOfClass:[NSString class]]==NO ||
-                   [bObject isKindOfClass:[NSString class]]==NO)
+               if ([bKey isKindOfClass:NSString.class]==NO ||
+                   [bObject isKindOfClass:NSString.class]==NO)
                {
-                   _userDefinedSettings=nil;
+                   self->_userDefinedSettings=nil;
                    *bOutStop=YES;
                    return;
                }

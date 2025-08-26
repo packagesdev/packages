@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -54,10 +54,10 @@
 
 + (Class)nodeClass
 {
-	return [PKGChoiceTreeNode class];
+	return PKGChoiceTreeNode.class;
 }
 
-- (id)initWithPackagesComponents:(NSArray *)inArray
+- (instancetype)initWithPackagesComponents:(NSArray *)inArray
 {
 	if (inArray==nil)
 		return nil;
@@ -67,7 +67,6 @@
 		PKGChoicePackageItem * tChoicePackageItem=[[PKGChoicePackageItem alloc] initWithPackageComponent:bComponent];
 		
 		return [[PKGChoiceTreeNode alloc] initWithRepresentedObject:tChoicePackageItem children:nil];
-		
 	}];
 	
 	self=[super initWithRootNodes:tRootNodes];

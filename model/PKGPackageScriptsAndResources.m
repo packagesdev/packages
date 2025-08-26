@@ -33,11 +33,11 @@ NSString * const PKGPackageScriptsAndResourcesResourcesHierarchyKey=@"RESOURCES"
 	
 	if (self!=nil)
 	{
-		_preInstallationScriptPath=[[PKGFilePath alloc] init];
+		_preInstallationScriptPath=[PKGFilePath new];
 		
-		_postInstallationScriptPath=[[PKGFilePath alloc] init];
+		_postInstallationScriptPath=[PKGFilePath new];
 		
-		_resourcesForest=[[PKGResourcesForest alloc] init];
+		_resourcesForest=[PKGResourcesForest new];
 	}
 	
 	return self;

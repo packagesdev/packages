@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -32,10 +32,10 @@
 	
 	for(NSString * tIndexString in tIndexComponents)
 	{
-		if ([tIndexString length]==0)
+		if (tIndexString.length==0)
 			break;
 		
-		tIndexes[tPosition]=[tIndexString integerValue];
+		tIndexes[tPosition]=tIndexString.integerValue;
 		tPosition++;
 	}
 	

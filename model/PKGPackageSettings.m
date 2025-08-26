@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2018, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -109,15 +109,9 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 		return nil;
 	}
 
-	NSXMLElement * tElement=(NSXMLElement *) [tNodes objectAtIndex:0];
+	NSXMLElement * tElement=(NSXMLElement *) tNodes[0];
 	
-	if (tElement==nil)
-	{
-		
-		return nil;
-	}
-	
-	NSArray * tAttributes=[tElement attributes];
+	NSArray * tAttributes=tElement.attributes;
 		
 	if (tAttributes==nil)
 	{
@@ -150,8 +144,8 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 		
 		for(NSXMLNode * tAttributeNode in tAttributes)
 		{
-			NSString * tAttributeName=[tAttributeNode name];
-			NSString * tStringValue=[tAttributeNode stringValue];
+			NSString * tAttributeName=tAttributeNode.name;
+			NSString * tStringValue=tAttributeNode.stringValue;
 			
 			if ([tAttributeName isEqualToString:@"identifier"]==YES)
 			{
@@ -238,7 +232,7 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 	return self;
 }
 
-- (id) initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -429,7 +423,7 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 	NSString * tURLPrefix=[self locationScheme];
 	
 	if ([tLocationPath rangeOfString:tURLPrefix options:NSCaseInsensitiveSearch].location==0)
-		tLocationPath=[tLocationPath substringFromIndex:[tURLPrefix length]];
+		tLocationPath=[tLocationPath substringFromIndex:tURLPrefix.length];
 	
 	if (self.locationType==PKGPackageLocationHTTPURL ||
 		self.locationType==PKGPackageLocationHTTPSURL ||
@@ -447,7 +441,7 @@ NSString * const PKGLocationURLPrefixRemovableMedia=@"x-disc://";
 
 #pragma mark -
 
-- (NSString *) description
+- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	

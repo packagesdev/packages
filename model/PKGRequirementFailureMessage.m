@@ -35,7 +35,7 @@ NSString * const PKGRequirementFailureMessageSecondaryValueKey=@"SECONDARY_VALUE
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -84,7 +84,7 @@ NSString * const PKGRequirementFailureMessageSecondaryValueKey=@"SECONDARY_VALUE
 	return self;
 }
 
-- (NSMutableDictionary *) representation
+- (NSMutableDictionary *)representation
 {
 	NSMutableDictionary * tRepresentation=[NSMutableDictionary dictionary];
 	

@@ -31,4 +31,6 @@
 
 	@property (readonly) PKGProject * project;
 
+- (IBAction)build:(id)sender;
+
 @end

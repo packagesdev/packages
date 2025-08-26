@@ -59,7 +59,7 @@
 }
 
 - (IBAction)selectCertificate:(id)sender;
-- (IBAction)removeCertificate:(id) sender;
+- (IBAction)removeCertificate:(id)sender;
 
 // Notifications
 

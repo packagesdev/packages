@@ -264,7 +264,7 @@
 
 - (void) controlTextDidEndEditing:(NSNotification *) inNotification
 {
-	if ([inNotification object]==_projectDirectoryTextField)
+	if (inNotification.object==_projectDirectoryTextField)
 	{
 		NSString * tProjectDirectory=_projectDirectoryTextField.stringValue;
 		
@@ -302,7 +302,7 @@
 
 - (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView validateDropFiles:(NSArray *) inFilenames
 {
-	if ([inFilenames count]!=1)
+	if (inFilenames.count!=1)
 		return NO;
 	
 	NSString * tPath=inFilenames[0];
@@ -317,7 +317,7 @@
 
 - (BOOL)fileDeadDropView:(PKGFileDeadDropView *)inView acceptDropFiles:(NSArray *) inFilenames
 {
-	if ([inFilenames count]!=1)
+	if (inFilenames.count!=1)
 		return NO;
 	
 	NSString * tDirectoryPath=inFilenames[0];
@@ -343,7 +343,7 @@
 
 - (BOOL)fileDeadDropTextField:(PKGFileDeadDropTextField *)inView validateDropFiles:(NSArray *) inFilenames
 {
-	if ([inFilenames count]!=1)
+	if (inFilenames.count!=1)
 		return NO;
 	
 	NSString * tPath=inFilenames[0];
@@ -358,7 +358,7 @@
 
 - (BOOL)fileDeadDropTextField:(PKGFileDeadDropTextField *)inView acceptDropFiles:(NSArray *) inFilenames
 {
-	if ([inFilenames count]!=1)
+	if (inFilenames.count!=1)
 		return NO;
 	
 	_projectDirectoryTextField.stringValue=inFilenames[0];

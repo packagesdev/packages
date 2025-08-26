@@ -163,7 +163,7 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 		case PKGPreferencesQuickBuildSigningAskForEachBuild:
 		{
 			NSString * tSigningIdentity=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
-			BOOL tIsSigningIdentityDefined=([tSigningIdentity length]>0);
+			BOOL tIsSigningIdentityDefined=(tSigningIdentity.length>0);
 			
 			NSAlert * tAlert=[NSAlert new];
 			
@@ -464,25 +464,6 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 	
 	[self performSelector:@selector(delayedBuild:) withObject:nil afterDelay:1.0];
 	
-	return YES;
-	
-	NSBeep();
-	
-	[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
-	
-/*worseBail:
-
-	NSBeep();
-
-	if ([[NSApp delegate] launchedNormally]==NO)
-	{
-		if ([[[NSDocumentController sharedDocumentController] documents] count]==1)
-		{
-			[NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:1.0];
-		}
-		
-	}*/
-
 	return YES;
 }
 

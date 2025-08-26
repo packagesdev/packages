@@ -245,7 +245,7 @@
 	
 	NSString * tSigningIdentity=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
 	
-	if ([tSigningIdentity length]==0)
+	if (tSigningIdentity.length==0)
 		tSigningIdentity=@"-";
 	else
 		tMenuItem.enabled=YES;
@@ -627,7 +627,7 @@
 		{
 			NSString * tString=[PKGApplicationPreferences sharedPreferences].quickBuildSigningIdentity;
 		
-			if ([tString length]==0)
+			if (tString.length==0)
 				return NO;
 		}
 	}

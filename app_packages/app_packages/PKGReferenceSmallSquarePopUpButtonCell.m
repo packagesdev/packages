@@ -52,7 +52,7 @@
 	return nil;
 }
 
-- (id)initWithCoder:(NSCoder *)inCoder
+- (instancetype)initWithCoder:(NSCoder *)inCoder
 {
 	self=[super initWithCoder:inCoder];
 	

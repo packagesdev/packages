@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2019, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,6 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 {
 	if (inData==nil)
 	{
-		
 		return nil;
 	}
 	
@@ -57,7 +56,6 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 	
 	if (tXMLDocument==nil)
 	{
-		
 		return nil;
 	}
 	
@@ -65,23 +63,16 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 	
 	if (tNodes.count==0)
 	{
-		
+
 		return nil;
 	}
 	
-	NSXMLElement * tElement=(NSXMLElement *) [tNodes objectAtIndex:0];
+	NSXMLElement * tElement=(NSXMLElement *)tNodes[0];
 	
-	if (tElement==nil)
-	{
-		
-		return nil;
-	}
-	
-	NSArray * tAttributes=[tElement attributes];
+	NSArray * tAttributes=tElement.attributes;
 	
 	if (tAttributes==nil)
 	{
-		
 		return nil;
 	}
 	
@@ -156,7 +147,7 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGPackagePayloadHierarchyBaseVersion);
 		
-		_templateVersion=[tNumber unsignedIntegerValue];
+		_templateVersion=tNumber.unsignedIntegerValue;
 		
 		NSError * tError=nil;
 		_filesTree=[[PKGPayloadTree alloc] initWithRepresentation:inDefaultHierarchy[PKGPackagePayloadHierarchyKey] error:&tError];
@@ -215,7 +206,7 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGPackagePayloadTypeKey);
 		
-		_type=[tNumber unsignedIntegerValue];
+		_type=tNumber.unsignedIntegerValue;
 		
 		if (_type>PKGPayloadExternal)
 		{
@@ -261,13 +252,13 @@ NSString * const PKGPackagePayloadTreatMissingFilesAsWarningsKey=@"TREAT_MISSING
 		
 		PKGFullCheckNumberValueForKey(tNumber,PKGPackagePayloadHierarchyBaseVersion);
 		
-		_templateVersion=[tNumber unsignedIntegerValue];
+		_templateVersion=tNumber.unsignedIntegerValue;
 		
 		tNumber=inRepresentation[PKGPackagePayloadHierarchyShowInvisibleFilesKey];	// can be nil
 		
 		PKGClassCheckNumberValueForKey(tNumber,PKGPackagePayloadHierarchyShowInvisibleFilesKey);
 		
-		_hiddenFolderTemplatesIncluded=[tNumber boolValue];
+		_hiddenFolderTemplatesIncluded=tNumber.boolValue;
 		
 		NSError * tError=nil;
 		

@@ -84,7 +84,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -283,7 +283,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	
 	for(PKGTreeNode * tChild in _children)
 	{
-		NSUInteger tChildHeight=[tChild height];
+		NSUInteger tChildHeight=tChild.height;
 		
 		if (tChildHeight>tMaxChildHeight)
 			tMaxChildHeight=tChildHeight;
@@ -380,7 +380,7 @@ NSString * const PKGTreeNodeChildrenKey=@"CHILDREN";
 	if (inIndex>=_children.count)
 		return nil;
 	
-	return [_children objectAtIndex:inIndex];
+	return _children[inIndex];
 }
 
 - (PKGTreeNode *)childNodeMatching:(BOOL (^)(id bTreeNode))inBlock

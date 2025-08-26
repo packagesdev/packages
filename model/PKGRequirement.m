@@ -69,7 +69,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	if (inRepresentation==nil)
 	{
@@ -199,7 +199,7 @@ NSString * const PKGRequirementFailureMessageLanguageKey=@"LANGUAGE";
 					return;
 				}
 				
-				if ([tLanguageName length]==0)		// Language can not be empty
+				if (tLanguageName.length==0)		// Language can not be empty
 				{
 					tError=[NSError errorWithDomain:PKGPackagesModelErrorDomain
 											   code:PKGRepresentationInvalidValueError

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2010, Stephane Sudre
+Copyright (c) 2008-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,7 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSString *) stringForObjectValue:(id) inObject
 {
-    if ([inObject isKindOfClass:[NSString class]]==NO)
+    if ([inObject isKindOfClass:NSString.class]==NO)
 	{
 		return inObject;	// A VOIR
     }
@@ -38,7 +38,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 {
     if (inPartialString!=nil)
 	{
-		NSUInteger tLength=[inPartialString length];
+		NSUInteger tLength=inPartialString.length;
 		
 		if (tLength>0)
 		{

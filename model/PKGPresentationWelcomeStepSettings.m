@@ -17,7 +17,7 @@
 
 @implementation PKGPresentationWelcomeStepSettings
 
-+ (Class) valueClass
++ (Class)valueClass
 {
 	return PKGFilePath.class;
 }
@@ -29,7 +29,7 @@
 
 #pragma mark -
 
-- (NSString *) description
+- (NSString *)description
 {
 	NSMutableString * tDescription=[NSMutableString string];
 	

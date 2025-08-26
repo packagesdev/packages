@@ -133,7 +133,7 @@
 	{
 		[tParentNode removeChildAtIndex:tIndex];
 		
-		[tParentNode insertChildren:tChildren atIndex:tChildren];
+		[tParentNode insertChildren:tChildren atIndex:tIndex];
 	}
 	
 	// Remove dependencies to group

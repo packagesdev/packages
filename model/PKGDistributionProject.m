@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2016-2017, Stephane Sudre
+ Copyright (c) 2016-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 	return self;
 }
 
-- (id)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
+- (instancetype)initWithRepresentation:(NSDictionary *)inRepresentation error:(out NSError **)outError
 {
 	__block NSError * tError=nil;
 	
@@ -253,7 +253,7 @@ NSString * const PKGDistributionProjectSharedProjectDataKey=@"SHARED_GLOBAL_DATA
 		return [bPackageComponent representation];
 	}];
 	
-	if ([self.sharedProjectData count]>0)
+	if (self.sharedProjectData.count>0)
 		tRepresentation[PKGDistributionProjectSharedProjectDataKey]=[self.sharedProjectData copy];
 	
 	return tRepresentation;

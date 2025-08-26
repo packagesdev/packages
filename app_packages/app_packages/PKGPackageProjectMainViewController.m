@@ -325,8 +325,8 @@
 	
 	// View Menu
 	
-	if (tAction==@selector(showDistributionPresentationTab:) ||
-		tAction==@selector(showDistributionRequirementsAndResourcesTab:))
+	if (tAction==NSSelectorFromString(@"showDistributionPresentationTab:") ||
+		tAction==NSSelectorFromString(@"showDistributionRequirementsAndResourcesTab:"))
 	{
 		inMenuItem.hidden=YES;
 		inMenuItem.keyEquivalentModifierMask=0;

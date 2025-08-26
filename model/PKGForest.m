@@ -30,7 +30,7 @@
 
 + (Class)nodeClass
 {
-	return [PKGTreeNode class];
+	return PKGTreeNode.class;
 }
 
 #pragma mark -
