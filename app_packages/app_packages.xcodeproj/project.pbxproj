@@ -324,7 +324,6 @@
 		F47FBF4C1E225AFA00C7CAE0 /* PKGPackageComponentScriptsAndResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47FBF481E225AFA00C7CAE0 /* PKGPackageComponentScriptsAndResourcesViewController.m */; };
 		F47FBF501E225B7F00C7CAE0 /* PKGScriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47FBF4D1E225B7F00C7CAE0 /* PKGScriptViewController.m */; };
 		F47FBF541E225B9900C7CAE0 /* PKGScriptDeadDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = F47FBF521E225B9900C7CAE0 /* PKGScriptDeadDropView.m */; };
-		F47FF6FB1E11CC7B00E99313 /* NSAlert+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = F47FF6FA1E11CC7B00E99313 /* NSAlert+Block.m */; };
 		F4801C5920FF1D1400461746 /* PKGContentBox.m in Sources */ = {isa = PBXBuildFile; fileRef = F4801C5820FF1D1400461746 /* PKGContentBox.m */; };
 		F48059421EC665670095963B /* PKGReferencedPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F48059411EC665670095963B /* PKGReferencedPopUpButtonCell.m */; };
 		F48059461EC668170095963B /* PKGReferencedPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F48059451EC668170095963B /* PKGReferencedPopUpButton.m */; };
@@ -1503,8 +1502,6 @@
 		F47FBF4F1E225B7F00C7CAE0 /* PKGScriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGScriptViewController.h; path = app_packages/PKGScriptViewController.h; sourceTree = "<group>"; };
 		F47FBF521E225B9900C7CAE0 /* PKGScriptDeadDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGScriptDeadDropView.m; path = app_packages/PKGScriptDeadDropView.m; sourceTree = "<group>"; };
 		F47FBF531E225B9900C7CAE0 /* PKGScriptDeadDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGScriptDeadDropView.h; path = app_packages/PKGScriptDeadDropView.h; sourceTree = "<group>"; };
-		F47FF6F91E11CC7B00E99313 /* NSAlert+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert+Block.h"; path = "../AppKit + Extensions/NSAlert+Block.h"; sourceTree = "<group>"; };
-		F47FF6FA1E11CC7B00E99313 /* NSAlert+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAlert+Block.m"; path = "../AppKit + Extensions/NSAlert+Block.m"; sourceTree = "<group>"; };
 		F4801C5720FF1D1400461746 /* PKGContentBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGContentBox.h; path = app_packages/PKGContentBox.h; sourceTree = "<group>"; };
 		F4801C5820FF1D1400461746 /* PKGContentBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGContentBox.m; path = app_packages/PKGContentBox.m; sourceTree = "<group>"; };
 		F48059401EC665670095963B /* PKGReferencedPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGReferencedPopUpButtonCell.h; path = app_packages/PKGReferencedPopUpButtonCell.h; sourceTree = "<group>"; };
@@ -2525,8 +2522,6 @@
 		F40E6F390CADA41D0009073E /* AppKit Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F47FF6F91E11CC7B00E99313 /* NSAlert+Block.h */,
-				F47FF6FA1E11CC7B00E99313 /* NSAlert+Block.m */,
 				F459122E2107DF9100567641 /* NSColor+LabelColor.h */,
 				F459122F2107DF9100567641 /* NSColor+LabelColor.m */,
 				F47C02D021714422000C9AA3 /* NSTextFieldCell+LabelColor.h */,
@@ -5177,7 +5172,6 @@
 				F4C2918E1EB63913004DDBE3 /* PKGChoiceDependencyTree+Edition.m in Sources */,
 				F424D34B1DCE3E4900F95165 /* PKGFileItem.m in Sources */,
 				F452C9771DCFAAD8002B7CBC /* PKGPreferencePaneAdvancedViewController.m in Sources */,
-				F47FF6FB1E11CC7B00E99313 /* NSAlert+Block.m in Sources */,
 				F4C291931EB651F4004DDBE3 /* PKGChoiceDependencyTreeLogicNode+Edition.m in Sources */,
 				F4CD44251EF9CDFB0087D75B /* PKGResourcesForest+Transformation.m in Sources */,
 				F42C3BB61E24525C0039A46E /* PKGOutlineView.m in Sources */,
@@ -6523,7 +6517,6 @@
 					/usr/local/include,
 					"$(inherited)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 			};
 			name = Debug;
 		};
@@ -6542,7 +6535,6 @@
 					/usr/local/include,
 					"$(inherited)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 			};
 			name = Release;
 		};
