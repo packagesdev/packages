@@ -82,7 +82,11 @@ enum
 				long tSize = ftell(tFile);
 				
 				if (tSize==0)
+				{
+					fclose(tFile);
+					
 					return @[];
+				}
 			}
 			
 			default:
@@ -201,6 +205,10 @@ enum
 						break;
 				}
 			}
+			else
+			{
+				break;
+			}
 		}
 		
 		fclose(tFile);
@@ -278,6 +286,10 @@ enum
                         break;
                 }
             }
+			else
+			{
+				break;
+			}
         }
         
         fclose(tFile);

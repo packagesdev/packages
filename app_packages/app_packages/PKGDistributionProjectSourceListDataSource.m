@@ -374,6 +374,8 @@ NSString * PKGPackageComponentPromisedPboardTypeSourceFilePathConverterReference
 				}
 				
 				*bOutStop=YES;
+				
+				return;
 			}
 			
 			NSString * tPackageComponentName=tPackageComponent.packageSettings.name;

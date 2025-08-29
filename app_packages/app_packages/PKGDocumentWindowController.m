@@ -368,7 +368,6 @@
     NSRect tStartProjectMainFrame=NSZeroRect;
     NSRect tEndProjectMainFrame=NSZeroRect;
     NSView * tProjectMainView=_projectMainViewController.view;
-    CGFloat tProjectMainAlphaValue=0.0;
     
     if (_currentController!=_userDefinedSettingsEditorViewController)
     {
@@ -383,7 +382,6 @@
         
         tStartProjectMainFrame=tBounds;
         tEndProjectMainFrame=NSOffsetRect(tBounds,0,NSHeight(tBounds));
-        tProjectMainAlphaValue=0.5;
     }
     else
     {
@@ -397,9 +395,6 @@
         [_contentsView addSubview:_projectMainViewController.view];
         
         newCurrentViewController=_projectMainViewController;
-        
-        
-        tProjectMainAlphaValue=1.0;
     }
     
     [newCurrentViewController WB_viewWillAppear];
