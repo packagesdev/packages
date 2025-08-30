@@ -23,8 +23,6 @@
 
 	@property (nonatomic,readwrite) PKGDistributionProject * project;
 
-- (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
-
 @end
 
 @implementation PKGRequirementPanel
@@ -65,18 +63,6 @@
 		
 		self.retainedWindowController=nil;
 	}];
-}
-
-- (void)_sheetDidEndSelector:(PKGRequirementPanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
-{
-	void(^handler)(NSInteger) = (__bridge_transfer void(^)(NSInteger)) contextInfo;
-	
-	if (handler!=nil)
-		handler(inReturnCode);
-	
-	inPanel.retainedWindowController=nil;
-	
-	[inPanel orderOut:self];
 }
 
 @end

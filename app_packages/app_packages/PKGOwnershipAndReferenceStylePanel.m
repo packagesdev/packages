@@ -199,8 +199,6 @@
 	PKGOwnershipAndReferenceStyleWindowController * retainedWindowController;
 }
 
-- (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
-
 @end
 
 @implementation PKGOwnershipAndReferenceStylePanel
@@ -258,18 +256,6 @@
 }
 
 #pragma mark -
-
-- (void)_sheetDidEndSelector:(PKGOwnershipAndReferenceStylePanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
-{
-	void(^handler)(NSInteger) = (__bridge_transfer void(^)(NSInteger)) contextInfo;
-	
-	if (handler!=nil)
-		handler(inReturnCode);
-	
-	inPanel->retainedWindowController=nil;
-	
-	[inPanel orderOut:self];
-}
 
 - (void)beginSheetModalForWindow:(NSWindow *)inWindow completionHandler:(void (^)(NSModalResponse bResponse))handler
 {

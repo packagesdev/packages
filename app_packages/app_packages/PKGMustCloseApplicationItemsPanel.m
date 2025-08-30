@@ -240,9 +240,6 @@
 
 	@property PKGMustCloseApplicationItemsWindowController * retainedWindowController;
 
-
-- (void)_sheetDidEndSelector:(NSWindow *)inWindow returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo;
-
 @end
 	
 @implementation PKGMustCloseApplicationItemsPanel
@@ -296,18 +293,6 @@
 		
 		self.retainedWindowController=nil;
 	}];
-}
-
-- (void)_sheetDidEndSelector:(PKGMustCloseApplicationItemsPanel *)inPanel returnCode:(NSInteger)inReturnCode contextInfo:(void *)contextInfo
-{
-	void(^handler)(NSInteger result) = (__bridge_transfer void(^)(NSInteger result)) contextInfo;
-	
-	if (handler!=nil)
-		handler(inReturnCode);
-	
-	inPanel.retainedWindowController=nil;
-	
-	[inPanel orderOut:self];
 }
 
 @end
