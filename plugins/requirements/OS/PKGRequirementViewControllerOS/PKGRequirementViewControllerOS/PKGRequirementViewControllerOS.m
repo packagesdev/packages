@@ -27,6 +27,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 @interface PKGRequirementViewControllerOS () <WBVersionPickerCellDelegate>
 {
+	IBOutlet NSButton * _dontUseJavaScriptCheckBox;
+	
 	IBOutlet NSPopUpButton * _diskTypePopupButton;
 	
 	IBOutlet NSPopUpButton * _installationStatusPopupButton;
@@ -57,6 +59,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 + (WBVersion *)versionFromInteger:(NSInteger)inInteger;
 
 + (NSInteger)integerFromVersion:(WBVersion *)inVersion;
+
+- (IBAction)switchDontUseJavaScript:(id)sender;
 
 - (IBAction)switchDiskType:(id)sender;
 
@@ -225,6 +229,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 - (void)refreshUI
 {
+	// DontUseJavaScript
+	
 	// Disk Type
 	
 	NSNumber * tNumber=_settings[PKGRequirementOSTargetDiskKey];
@@ -338,9 +344,12 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 - (NSDictionary *)defaultSettings
 {
-	return @{PKGRequirementOSTargetDiskKey:@(PKGRequirementOSTargetDestinationDisk),
-			 PKGRequirementOSMinimumVersionKey:@(PKGRequirementOSMinimumVersionLeopard),
-			 PKGRequirementOSDistributionKey:@(PKGRequirementOSDistributionAny)};
+	return @{
+		PKGRequirementOSDontUseJavaScriptKey:@(NO),
+		PKGRequirementOSTargetDiskKey:@(PKGRequirementOSTargetDestinationDisk),
+		PKGRequirementOSMinimumVersionKey:@(PKGRequirementOSMinimumVersionLeopard),
+		PKGRequirementOSDistributionKey:@(PKGRequirementOSDistributionAny)
+	};
 }
 
 - (PKGRequirementType)requirementType
@@ -362,6 +371,10 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 }
 
 #pragma mark -
+
+- (IBAction)switchDontUseJavaScript:(id)sender
+{
+}
 
 - (IBAction)switchDiskType:(NSPopUpButton *)sender
 {

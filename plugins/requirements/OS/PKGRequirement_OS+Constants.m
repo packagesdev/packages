@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2017, Stephane Sudre
+ Copyright (c) 2008-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -12,6 +12,8 @@
  */
 
 #import "PKGRequirement_OS+Constants.h"
+
+NSString * const PKGRequirementOSDontUseJavaScriptKey=@"IC_REQUIREMENT_OS_DONT_USE_JAVASCRIPT";
 
 NSString * const PKGRequirementOSTargetDiskKey=@"IC_REQUIREMENT_OS_DISK_TYPE";
 
