@@ -34,7 +34,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface PKGRequirementConverter : PKGConverter
 
-	@property (readonly) PKGRequirementDomain requirementDomain;
+	@property (readonly) PKGRequirementDomains requirementDomains;
 
 	@property (readonly) PKGRequirementOutputFormat requirementOutputFormat;
 
@@ -45,6 +45,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (NSDictionary *)requiredOptionsValuesWithParameters:(NSDictionary *) inParameters;
 
 - (NSArray *)requiredAdditionalResourcesWithParameters:(NSDictionary *) inParameters;
+
+// JavaScript requirement
 
 - (NSString *)variablesWithIndex:(NSInteger) inIndex tabulationDepth:(NSString *) inTabulationDepth parameters:(NSDictionary *) inParameters error:(NSError **) outError;
 
@@ -60,5 +62,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (NSDictionary *)sharedFunctionsImplementation;
 
 - (NSString *)invocationWithFormat:(NSString *) inFormat parameters:(NSDictionary *) inParameters index:(NSInteger)inIndex error:(out NSError **) outError;
+
+// XML requirement
+
+- (NSXMLElement *)requirementElementWithParameters:(NSDictionary *)inParameters;
 
 @end

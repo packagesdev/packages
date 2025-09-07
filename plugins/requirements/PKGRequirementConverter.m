@@ -74,7 +74,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #pragma mark -
 
-- (PKGRequirementDomain)requirementDomain
+// Kept for backward compatibility (just in case).
+- (PKGRequirementDomains)requirementDomain
+{
+	return (PKGRequirementDomainDistribution|PKGRequirementDomainChoice);
+}
+
+- (PKGRequirementDomains)requirementDomains
 {
 	return (PKGRequirementDomainDistribution|PKGRequirementDomainChoice);
 }
@@ -204,6 +210,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		return [self invocationWithFormat:tString parameters:inParameters index:inIndex error:outError];
 	
 	return tString;
+}
+
+#pragma mark -
+
+- (NSXMLElement *)requirementElementWithParameters:(NSDictionary *)inParameters
+{
+	return nil;
 }
 
 @end

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2017, Stephane Sudre
+Copyright (c) 2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -11,44 +11,44 @@ Redistribution and use in source and binary forms, with or without modification,
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import "PKGViewController.h"
+#import "PKGRequirementConverterOSRanges.h"
 
-#import "NSViewController+WBExtensions.h"
-
-#import "PKGPackages.h"
-
-#import "PKGStringReplacer.h"
-
-extern NSString * const PKGRequirementTypeDidChangeNotification;
-
-@interface PKGRequirementViewController : PKGViewController
-
-	@property (nonatomic) NSDictionary * settings;
-
-	@property (nonatomic,readonly,getter=isResizableWindow) BOOL resizableWindow;
-
-	@property (nonatomic,readonly) CGFloat minHeight;
-
-	@property (nonatomic,readonly) NSView * previousKeyView;
-
-	@property (nonatomic,readonly) PKGRequirementDomains requirementDomains;
-
-	@property (nonatomic,readonly) PKGRequirementType requirementType;
-
-	@property (readonly) PKGDistributionProject * project;
-
-	@property (readonly) id<PKGFilePathConverter,PKGStringReplacer> objectTransformer;
-
-+ (NSDictionary *)pasteboardDictionaryFromDictionary:(NSDictionary *)inDictionary converter:(id<PKGFilePathConverter>)inConverter;
-+ (NSDictionary *)dictionaryFromPasteboardDictionary:(NSDictionary *)inPasteboardDictionary converter:(id<PKGFilePathConverter>)inConverter;
+#import "PKGRequirement_OSRanges+Constants.h"
 
 
-- (NSDictionary *)defaultSettings;
+@implementation PKGRequirementConverterOSRanges
 
-- (void)setNextKeyView:(NSView *)inView;
+- (PKGRequirementDomains)requirementDomains
+{
+	return PKGRequirementDomainDistribution;
+}
 
-- (void)optionKeyStateDidChange:(BOOL)isOptionKeyPressed;
+- (PKGRequirementOutputFormat)requirementOutputFormat
+{
+	return PKGRequirementOutputFormatXML;
+}
 
-- (void)noteCheckTypeChange;
+- (NSXMLElement *)requirementElementWithParameters:(NSDictionary *)inParameters
+{
+	NSMutableArray<NSXMLElement *> * tOSVersionElements=[NSMutableArray array];
+	
+	if (tOSVersionElements.count==0)
+	{
+		NSXMLElement * tFallBackElement=(NSXMLElement *) [NSXMLNode elementWithName:@"os-version"];
+		id tAttribute=[NSXMLNode attributeWithName:@"min" stringValue:@"10.6.6"];
+		
+		[tFallBackElement addAttribute:tAttribute];
+		
+		[tOSVersionElements addObject:tFallBackElement];
+	}
+	
+	NSXMLElement * tAllowedOSVersionsElement=[NSXMLNode elementWithName:@"allowed-os-versions"];
+	
+	for(NSXMLElement * tElement in tOSVersionElements)
+		
+		[tAllowedOSVersionsElement addChild:tElement];
+	
+	return tAllowedOSVersionsElement;
+}
 
 @end

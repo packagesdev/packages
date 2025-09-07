@@ -210,6 +210,27 @@ NSString * const PKGPluginsParentFolderPath=@"/Library/PrivilegedHelperTools/fr.
 	}];
 }
 
+- (NSArray<NSDictionary *> *)sortedPlugins
+{
+	NSDictionary *reverseDictionary=[self reverseDictionary];
+	NSArray<NSString *> * tSortedPluginNames=[reverseDictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *bString1,NSString *bString2){
+		
+		return [bString1 caseInsensitiveCompare:bString2];
+	}];
+	
+	NSMutableArray<NSDictionary *>* tMutableSortedPlugins=[NSMutableArray array];
+	
+	for(NSString * tPluginName in tSortedPluginNames)
+	{
+		[tMutableSortedPlugins addObject:@{
+										   @"Name":tPluginName,
+										   @"Identifier":reverseDictionary[tPluginName]
+										   }];
+	}
+	
+	return [tMutableSortedPlugins copy];
+}
+
 - (NSString *)localizedPluginNameForIdentifier:(NSString *)inIdentifier
 {
 	if (inIdentifier!=nil)

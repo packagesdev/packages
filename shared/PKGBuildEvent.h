@@ -67,6 +67,7 @@ typedef NS_ENUM(NSUInteger, PKGBuildError)
 	
 	PKGBuildErrorRequirementMissingConverter=420,
 	PKGBuildErrorRequirementConversionError=421,
+	PKGBuildErrorRequirementConvertedUnsupportedDomainError=422,
 	
 	
 	PKGBuildErrorLocatorMissingConverter=422,

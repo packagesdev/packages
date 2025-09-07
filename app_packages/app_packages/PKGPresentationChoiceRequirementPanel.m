@@ -49,6 +49,11 @@
 
 #pragma mark -
 
+- (PKGRequirementDomains)requirementDomains
+{
+	return PKGRequirementDomainChoice;
+}
+
 - (void)setRequirement:(PKGRequirement *)inRequirement
 {
 	[super setRequirement:inRequirement];

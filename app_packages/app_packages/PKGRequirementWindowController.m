@@ -75,16 +75,46 @@
 	
 	[_requirementTypePopUpButton removeAllItems];
 	
+	NSMenu * tMenu = [[NSMenu alloc] initWithTitle:@""];
 	
-	NSArray * tPluginsNames=[[PKGRequirementPluginsManager defaultManager] allPluginsNameSorted];
+	PKGRequirementPluginsManager *tPluginsManager=[PKGRequirementPluginsManager defaultManager];
 	
-	if (tPluginsNames==nil)
+	NSArray<NSDictionary *> * tPlugins=[tPluginsManager sortedPlugins];
+	
+	if (tPlugins==nil)
 	{
 		NSLog(@"Unable to retrieve the list of plugins names");
 	}
 	else
 	{
-		[_requirementTypePopUpButton addItemsWithTitles:tPluginsNames];
+		// Filter the plugins that do not match the domain(s).
+		
+		for(NSDictionary *tPlugin in tPlugins)
+		{
+			NSString *tPluginIdentifier=tPlugin[@"Identifier"];
+			
+			PKGRequirementViewController * tPlugInUI = [tPluginsManager createPluginUIControllerForIdentifier:tPluginIdentifier];
+			
+			if (tPlugInUI==nil)
+			{
+				
+			}
+			else
+			{
+				if ((tPlugInUI.requirementDomains & self.requirementDomains) != 0)
+				{
+					NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:tPlugin[@"Name"]
+																	  action:nil
+															   keyEquivalent:@""];
+					
+					tMenuItem.representedObject=tPluginIdentifier;
+					
+					[tMenu addItem:tMenuItem];
+				}
+			}
+		}
+		
+		_requirementTypePopUpButton.menu=tMenu;
 	}
 	
 	// OK button
@@ -124,6 +154,11 @@
 }
 
 #pragma mark -
+
+- (PKGRequirementDomains)requirementDomains
+{
+	return 0;
+}
 
 - (void)setRequirement:(PKGRequirement *)inRequirement
 {
@@ -368,7 +403,7 @@
 
 - (IBAction)switchRequirementType:(NSPopUpButton *)sender
 {
-	NSString * tRequirementIdentifier=[[PKGRequirementPluginsManager defaultManager] identifierForLocalizedPluginName:sender.titleOfSelectedItem];
+	NSString * tRequirementIdentifier=sender.selectedItem.representedObject;
 	
 	if ([tRequirementIdentifier isEqualToString:self.requirement.identifier]==NO)
 	{

@@ -65,6 +65,11 @@
 
 #pragma mark -
 
+- (PKGRequirementDomains)requirementDomains
+{
+	return PKGRequirementDomainDistribution;
+}
+
 #pragma mark -
 
 - (void)showRequirementViewControllerWithIdentifier:(NSString *)inIdentifier

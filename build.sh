@@ -78,7 +78,7 @@ pushd
 
 pushd plugins/requirements
 
-requirements_plugins_list=("CPU" "DiskSpace" "Files" "JavaScript" "OS" "RAM" "Script")
+requirements_plugins_list=("CPU" "DiskSpace" "Files" "JavaScript" "OS" "OSRanges" "RAM" "Script")
 
 for requirement_plugin in "${requirements_plugins_list[@]}"
 do

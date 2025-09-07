@@ -72,6 +72,11 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 	return 100.0;
 }
 
+- (PKGRequirementDomains)requirementDomains
+{
+	return (PKGRequirementDomainDistribution|PKGRequirementDomainChoice);
+}
+
 - (PKGRequirementType)requirementType
 {
 	return PKGRequirementTypeUndefined;

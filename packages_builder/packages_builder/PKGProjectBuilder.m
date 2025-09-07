@@ -2452,14 +2452,45 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 			return NO;
 		}
 		
+		if ((tRequirementConverter.requirementDomains & PKGRequirementDomainDistribution) != PKGRequirementDomainDistribution)
+		{
+			// This converter does not support the distribution domain
+			
+			[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConvertedUnsupportedDomainError tag:tRequirementIdentifier]];
+			
+			// A COMPLETER
+			
+			return NO;
+		}
+		
         tRequirementConverter.keysReplacer=self;
         
 		NSDictionary * tRequirementSettingsRepresentation=tRequirement.settingsRepresentation;
 		
+		if (tRequirementConverter.requirementOutputFormat==PKGRequirementOutputFormatXML)
+		{
+			NSXMLElement *tRequirementElement = [tRequirementConverter requirementElementWithParameters:tRequirementSettingsRepresentation];
+			
+			if (tRequirementElement==nil)
+			{
+				// Conversion failed.
+				
+				[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirementIdentifier]];
+				
+				// A COMPLETER
+				
+				return NO;
+			}
+			
+			[_installerScriptElement addChild:tRequirementElement];
+			
+			continue;
+		}
+		
 		// Find whether it's an installation or volumeCheck requirements
-				
+		
 		PKGRequirementType tRequirementType=[tRequirementConverter requirementTypeWithParameters:tRequirementSettingsRepresentation];
-				
+		
 		if (tRequirementType==PKGRequirementTypeUndefined)
 			tRequirementType=tRequirement.type;
 		

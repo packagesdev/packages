@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PKGRequirementViewControllerOS">
+            <connections>
+                <outlet property="_diskTypePopupButton" destination="B9L-O4-ioy" id="o9n-g8-OBZ"/>
+                <outlet property="_distributionPopupButton" destination="4I3-CR-bph" id="68f-w0-pb4"/>
+                <outlet property="_installationStatusPopupButton" destination="Tlm-nj-mk3" id="GUe-XV-9A0"/>
+                <outlet property="_maximumVersionCheckBox" destination="L87-BC-0bw" id="iOG-qz-Yyz"/>
+                <outlet property="_maximumVersionOSNameLabel" destination="Imf-CX-704" id="nU4-Cu-qmf"/>
+                <outlet property="_maximumVersionPicker" destination="LrA-3L-xqK" id="E9I-dN-urB"/>
+                <outlet property="_minimumVersionOSNameLabel" destination="lO3-kg-OWt" id="ITn-ic-9xj"/>
+                <outlet property="_minimumVersionPicker" destination="uGx-Sd-k3e" id="Oh5-pL-evZ"/>
+                <outlet property="view" destination="LNg-uq-QuW" id="SNQ-st-618"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="LNg-uq-QuW" userLabel="View">
+            <rect key="frame" x="0.0" y="0.0" width="644" height="169"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="veq-4u-hvz">
+                    <rect key="frame" x="379" y="132" width="9" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title=":" id="Ur4-hq-bih">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="ei6-aN-6Jn">
+                    <rect key="frame" x="246" y="93" width="142" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Type de distribution :" id="U3v-FZ-Fgm">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="MY8-8n-pSe">
+                    <rect key="frame" x="258" y="55" width="130" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Version minimum :" id="fAB-bR-aFb">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="4D1-AO-zc1">
+                    <rect key="frame" x="258" y="23" width="130" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Version maximum :" id="YgR-e7-cj6">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="B8i-te-3A0">
+                    <rect key="frame" x="10" y="132" width="194" height="17"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Système d'exploitation sur la" id="AJw-jg-dda">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="L87-BC-0bw">
+                    <rect key="frame" x="387" y="22" width="22" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="left" inset="2" id="uyB-Ev-y4U" customClass="PKGMaximumVersionButtonCell">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="switchMaximumVersionStatus:" target="-2" id="8Wz-3z-Zy8"/>
+                    </connections>
+                </button>
+                <customView id="uGx-Sd-k3e" customClass="WBVersionPicker">
+                    <rect key="frame" x="409" y="52" width="85" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <action selector="setMinimumVersion:" target="-2" id="goH-ee-9iU"/>
+                        <outlet property="nextKeyView" destination="LrA-3L-xqK" id="iUj-s3-JOF"/>
+                    </connections>
+                </customView>
+                <customView id="LrA-3L-xqK" customClass="WBVersionPicker">
+                    <rect key="frame" x="409" y="20" width="85" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <action selector="setMaximumVersion:" target="-2" id="fNg-6O-8WP"/>
+                        <outlet property="nextKeyView" destination="uGx-Sd-k3e" id="AMN-eE-tdF"/>
+                    </connections>
+                </customView>
+                <button id="fN8-XK-efa">
+                    <rect key="frame" x="387" y="54" width="22" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="left" enabled="NO" state="on" inset="2" id="Dtj-Z5-uKg" customClass="PKGMaximumVersionButtonCell">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <textField verticalHuggingPriority="750" id="lO3-kg-OWt">
+                    <rect key="frame" x="497" y="56" width="94" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="0fy-gQ-9yv">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="Imf-CX-704">
+                    <rect key="frame" x="497" y="24" width="94" height="14"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="c53-0H-6ep">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="B9L-O4-ioy">
+                    <rect key="frame" x="206" y="126" width="175" height="26"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <popUpButtonCell key="cell" type="push" title="partition de démarrage" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="PJj-c9-rrv" id="tPA-dv-Dhy">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="Uzb-LS-E7C">
+                            <items>
+                                <menuItem title="destination" id="Ho5-Sn-Yco"/>
+                                <menuItem title="partition de démarrage" state="on" tag="1" id="PJj-c9-rrv"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchDiskType:" target="-2" id="MO6-iZ-C8Z"/>
+                    </connections>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" id="Tlm-nj-mk3">
+                    <rect key="frame" x="387" y="125" width="123" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="13L-eV-eP9">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="Qn4-jp-xJa">
+                            <items>
+                                <menuItem title="Installé" id="ypm-X2-b12"/>
+                                <menuItem title="Non installé" tag="1" id="h4e-34-sfv"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchInstallationStatus:" target="-2" id="0lU-lf-Nyx"/>
+                    </connections>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" id="4I3-CR-bph">
+                    <rect key="frame" x="387" y="87" width="123" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Indifférent" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="9hP-II-c3x" id="pVc-C8-62I">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="nA8-Sa-ncd">
+                            <items>
+                                <menuItem title="Indifférent" state="on" id="9hP-II-c3x"/>
+                                <menuItem title="Client" tag="1" id="Qlb-1C-fMS"/>
+                                <menuItem title="Serveur" tag="2" id="NSq-Nf-n7Y"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="switchDistribution:" target="-2" id="ji5-Do-6mq"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="174" y="199.5"/>
+        </customView>
+    </objects>
+</document>

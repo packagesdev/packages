@@ -17,7 +17,7 @@
 
 #import "PKGRequirementFailureMessage.h"
 
-typedef NS_OPTIONS(NSUInteger, PKGRequirementDomain)
+typedef NS_OPTIONS(NSUInteger, PKGRequirementDomains)
 {
 	PKGRequirementDomainDistribution	= 1 << 0,
 	PKGRequirementDomainChoice			= 1 << 1,

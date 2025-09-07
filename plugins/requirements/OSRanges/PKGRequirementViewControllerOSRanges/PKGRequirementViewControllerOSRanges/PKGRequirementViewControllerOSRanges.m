@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2023, Stephane Sudre
+Copyright (c) 2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -11,9 +11,9 @@ Redistribution and use in source and binary forms, with or without modification,
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import "PKGRequirementViewControllerOS.h"
+#import "PKGRequirementViewControllerOSRanges.h"
 
-#import "PKGRequirement_OS+Constants.h"
+#import "PKGRequirement_OSRanges+Constants.h"
 
 #import "WBVersionPicker.h"
 
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	PKGRequirementOSInstallationStatusNotInstalled
 };
 
-@interface PKGRequirementViewControllerOS () <WBVersionPickerCellDelegate>
+@interface PKGRequirementViewControllerOSRanges () <WBVersionPickerCellDelegate>
 {
 	IBOutlet NSButton * _dontUseJavaScriptCheckBox;
 	
@@ -76,13 +76,13 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 @end
 
-@implementation PKGRequirementViewControllerOS
+@implementation PKGRequirementViewControllerOSRanges
 
 + (NSString *)operatingSystemNameOfVersion:(WBVersion *)inVersion
 {
 	NSArray * tNames=nil;
 	
-	WBVersionComponents * tVersionComponents=[[PKGRequirementViewControllerOS macOSVersionsHistory] components:WBMajorVersionUnit|WBMinorVersionUnit fromVersion:inVersion];
+	WBVersionComponents * tVersionComponents=[[PKGRequirementViewControllerOSRanges macOSVersionsHistory] components:WBMajorVersionUnit|WBMinorVersionUnit fromVersion:inVersion];
 	
 	if (tVersionComponents.majorVersion==10)
 	{
@@ -188,14 +188,14 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 {
 	[super WB_viewDidLoad];
 	
-	_minimumVersionPicker.versionsHistory=[PKGRequirementViewControllerOS macOSVersionsHistory];
+	_minimumVersionPicker.versionsHistory=[PKGRequirementViewControllerOSRanges macOSVersionsHistory];
 	_minimumVersionPicker.minVersion=[WBVersion macOSLeopardVersion];
 	
 	[_minimumVersionPicker sizeToFit];
 	
 	_minimumVersionPicker.delegate=self;
 	
-	_maximumVersionPicker.versionsHistory=[PKGRequirementViewControllerOS macOSVersionsHistory];
+	_maximumVersionPicker.versionsHistory=[PKGRequirementViewControllerOSRanges macOSVersionsHistory];
 	_maximumVersionPicker.minVersion=[WBVersion macOSLeopardVersion];
 	
 	[_maximumVersionPicker sizeToFit];
@@ -293,9 +293,9 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	[_installationStatusPopupButton selectItemWithTag:tInstallationStatusTag];
 	
 	
-	_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:tMinimumOSVersion];
+	_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:tMinimumOSVersion];
 	
-	_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
+	_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
 	
 	tNumber=_settings[PKGRequirementOSMaximumVersionKey];
 	
@@ -316,9 +316,9 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		_maximumVersionOSNameLabel.textColor=[NSColor labelColor];
 	}
 	
-	_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:tMaximumOSVersion];
+	_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:tMaximumOSVersion];
 	
-	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
+	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
 	
 	// Distribution Type
 	
@@ -351,21 +351,13 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	};
 }
 
+- (PKGRequirementDomains)requirementDomains
+{
+	return PKGRequirementDomainDistribution;
+}
+
 - (PKGRequirementType)requirementType
 {
-	NSNumber * tNumber=_settings[PKGRequirementOSTargetDiskKey];
-	
-	if (tNumber!=nil)
-	{
-		NSInteger tDiskType=tNumber.integerValue;
-		
-		if (tDiskType==PKGRequirementOSTargetStartupDisk)
-			return PKGRequirementTypeInstallation;
-		
-		if (tDiskType==PKGRequirementOSTargetDestinationDisk)
-			return PKGRequirementTypeTarget;
-	}
-	
 	return PKGRequirementTypeUndefined;
 }
 
@@ -394,8 +386,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 			_settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionLeopard);
 			
 			
-			_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
-			_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
+			_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+			_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
 			_minimumVersionOSNameLabel.textColor=[NSColor labelColor];
 			
 			[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
@@ -403,8 +395,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 			_maximumVersionCheckBox.state=NSOffState;
 			_maximumVersionPicker.enabled=NO;
 			
-			_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
-			_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
+			_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+			_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
 		}
 		
 		_maximumVersionCheckBox.enabled=YES;
@@ -431,8 +423,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		_settings[PKGRequirementOSMinimumVersionKey]=@(PKGRequirementOSMinimumVersionNotInstalled);
 		
 		_minimumVersionPicker.enabled=NO;
-		_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
-		_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
+		_minimumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+		_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:_minimumVersionPicker.versionValue];
 		_minimumVersionOSNameLabel.textColor=[NSColor secondaryLabelColor];
 		
 		[_settings removeObjectForKey:PKGRequirementOSMaximumVersionKey];
@@ -442,8 +434,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		
 		_maximumVersionPicker.enabled=NO;
 		_maximumVersionPicker.minVersion=_minimumVersionPicker.versionValue;
-		_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOS versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
-		_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
+		_maximumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:PKGRequirementOSMinimumVersionLeopard];
+		_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
 		_maximumVersionOSNameLabel.textColor=[NSColor secondaryLabelColor];
 	}
 	else
@@ -470,11 +462,11 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 {
 	WBVersion * tVersion=[sender versionValue];
 	
-	NSInteger tMinInteger=[PKGRequirementViewControllerOS integerFromVersion:tVersion];
+	NSInteger tMinInteger=[PKGRequirementViewControllerOSRanges integerFromVersion:tVersion];
 	
 	_settings[PKGRequirementOSMinimumVersionKey]=@(tMinInteger);
 	
-	_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:tVersion];
+	_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
 	
 	_maximumVersionPicker.minVersion=tVersion;
 	
@@ -488,7 +480,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		
 		_maximumVersionPicker.versionValue=tVersion;
 		
-		_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:tVersion];
+		_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
 	}
 }
 
@@ -518,18 +510,18 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	
 	_maximumVersionPicker.minVersion=_minimumVersionPicker.versionValue;
 	_maximumVersionPicker.versionValue=_minimumVersionPicker.versionValue;
-	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
+	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:_maximumVersionPicker.versionValue];
 }
 
 - (IBAction)setMaximumVersion:(WBVersionPicker *)sender
 {
 	WBVersion * tVersion=sender.versionValue;
 	
-	NSInteger tMaxInteger=[PKGRequirementViewControllerOS integerFromVersion:tVersion];
+	NSInteger tMaxInteger=[PKGRequirementViewControllerOSRanges integerFromVersion:tVersion];
 	
 	_settings[PKGRequirementOSMaximumVersionKey]=@(tMaxInteger);
 	
-	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOS operatingSystemNameOfVersion:tVersion];
+	_maximumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
