@@ -13,10 +13,9 @@
 
 #import "PKGRequirement_OSRanges+Constants.h"
 
-NSString * const PKGRequirementOSTargetDiskKey=@"IC_REQUIREMENT_OS_DISK_TYPE";
+NSString * const PKGRequirementOSRangesListKey=@"IC_REQUIREMENT_OSRANGES_LIST";
 
-NSString * const PKGRequirementOSDistributionKey=@"IC_REQUIREMENT_OS_DISTRIBUTION_TYPE";
+NSString * const PKGRequirementOSRangesMinimumVersionKey=@"IC_REQUIREMENT_OSRANGES_MINIMUM_VERSION";
 
-NSString * const PKGRequirementOSMinimumVersionKey=@"IC_REQUIREMENT_OS_MINIMUM_VERSION";
+NSString * const PKGRequirementOSRangesMaximumVersionKey=@"IC_REQUIREMENT_OSRANGES_MAXIMUM_VERSION";
 
-NSString * const PKGRequirementOSMaximumVersionKey=@"IC_REQUIREMENT_OS_MAXIMUM_VERSION";

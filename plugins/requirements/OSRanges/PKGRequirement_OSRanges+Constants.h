@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2008-2025, Stephane Sudre
+ Copyright (c) 2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,29 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, PKGRequirementOSDiskType)
-{
-	PKGRequirementOSTargetDestinationDisk=0,
-	PKGRequirementOSTargetStartupDisk
-};
+extern NSString * const PKGRequirementOSRangesListKey;
 
-#define PKGRequirementOSMinimumVersionNotInstalled		0
+extern NSString * const PKGRequirementOSRangesMinimumVersionKey;
 
-#define PKGRequirementOSMinimumVersionLeopard			100500
-
-#define PKGRequirementOSMaximumVersionNotDefined		0
-
-typedef NS_ENUM(NSUInteger, PKGRequirementOSDistributionType)
-{
-	PKGRequirementOSDistributionAny=0,
-	PKGRequirementOSDistributionClient,
-	PKGRequirementOSDistributionServer
-};
-
-extern NSString * const PKGRequirementOSTargetDiskKey;
-
-extern NSString * const PKGRequirementOSDistributionKey;
-
-extern NSString * const PKGRequirementOSMinimumVersionKey;
-
-extern NSString * const PKGRequirementOSMaximumVersionKey;
+extern NSString * const PKGRequirementOSRangesMaximumVersionKey;

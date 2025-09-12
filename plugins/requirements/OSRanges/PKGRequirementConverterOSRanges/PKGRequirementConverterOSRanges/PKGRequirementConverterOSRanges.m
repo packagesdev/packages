@@ -30,7 +30,26 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSXMLElement *)requirementElementWithParameters:(NSDictionary *)inParameters
 {
+	NSArray<NSDictionary <NSString *, NSString *> *> * tOSRangeRequirements=inParameters[PKGRequirementOSRangesListKey];
 	NSMutableArray<NSXMLElement *> * tOSVersionElements=[NSMutableArray array];
+	
+	for(NSDictionary <NSString *, NSString *> * tOSRangeRequirement in tOSRangeRequirements)
+	{
+		NSXMLElement * tElement=(NSXMLElement *) [NSXMLNode elementWithName:@"os-version"];
+		
+		// Minimum version (Required)
+		NSString * tMinimumOSVersion=tOSRangeRequirement[PKGRequirementOSRangesMinimumVersionKey];
+		
+		[tElement addAttribute:[NSXMLNode attributeWithName:@"min" stringValue:tMinimumOSVersion]];
+		
+		// Maximum version (Optional)
+		NSString * tMaximumOSVersion=tOSRangeRequirement[PKGRequirementOSRangesMaximumVersionKey];
+		
+		if (tMaximumOSVersion!=nil)
+			[tElement addAttribute:[NSXMLNode attributeWithName:@"before" stringValue:tMaximumOSVersion]];
+		
+		[tOSVersionElements addObject:tElement];
+	}
 	
 	if (tOSVersionElements.count==0)
 	{
