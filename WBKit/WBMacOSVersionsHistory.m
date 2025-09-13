@@ -51,7 +51,7 @@
 #define WBMacOSMontereyMajorVersion         12
 #define WBMacOSVenturaMajorVersion          13
 #define WBMacOSSonomaMajorVersion           14
-#define WBMacOSSequoiaMajorVersion           15
+#define WBMacOSSequoiaMajorVersion          15
 
 #define WBMacOSReasonableMaxUnitValue          100
 
@@ -387,7 +387,12 @@
                     return NSMakeRange(0, 8);
                     
                 case WBMacOSMontereyMajorVersion:
+					
+					return NSMakeRange(0, 8);
+					
                 case WBMacOSVenturaMajorVersion:
+				case WBMacOSSonomaMajorVersion:
+				case WBMacOSSequoiaMajorVersion:
                 default:
                     
                     break;
@@ -541,9 +546,9 @@
                         
                         return NSMakeRange(0, 10);
                         
-                    /*case 7:
+                    case 7:
                         
-                        return NSMakeRange(0, 7);*/
+                        return NSMakeRange(0, 7);
                 }
                         
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
@@ -631,7 +636,38 @@
 			
             if (inVersion.majorVersion==WBMacOSSequoiaMajorVersion)
             {
-                return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+				switch(inVersion.minorVersion)
+				{
+					case 0:
+						
+						return NSMakeRange(0, 2);
+						
+					case 1:
+						
+						return NSMakeRange(0, 2);
+						
+					case 2:
+						
+						return NSMakeRange(0, 1);
+						
+					case 3:
+						
+						return NSMakeRange(0, 3);
+						
+					case 4:
+						
+						return NSMakeRange(0, 2);
+						
+					case 5:
+						
+						return NSMakeRange(0, 1);
+						
+					/*case 6:
+						
+						return NSMakeRange(0, 2);*/
+				}
+				
+				return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
             }
             
 			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
