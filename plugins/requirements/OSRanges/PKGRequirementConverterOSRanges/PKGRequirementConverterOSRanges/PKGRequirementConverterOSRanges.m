@@ -18,6 +18,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGRequirementConverterOSRanges
 
++ (NSString *)versionStringFromIntegerVersion:(NSInteger)integerVersion
+{
+	if ((integerVersion%100)==0)
+		return [NSString stringWithFormat:@"'%d.%d'",(int)integerVersion/10000,(int)((integerVersion/100)%100)];
+	else
+		return [NSString stringWithFormat:@"'%d.%d.%d'",(int)integerVersion/10000,(int)((integerVersion/100)%100),(int)(integerVersion%100)];
+}
+
 - (PKGRequirementDomains)requirementDomains
 {
 	return PKGRequirementDomainDistribution;
@@ -38,12 +46,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		NSXMLElement * tElement=(NSXMLElement *) [NSXMLNode elementWithName:@"os-version"];
 		
 		// Minimum version (Required)
-		NSString * tMinimumOSVersion=tOSRangeRequirement[PKGRequirementOSRangesMinimumVersionKey];
+		NSString * tMinimumOSVersion=[self.class versionStringFromIntegerVersion:[tOSRangeRequirement[PKGRequirementOSRangesMinimumVersionKey] integerValue]];
 		
 		[tElement addAttribute:[NSXMLNode attributeWithName:@"min" stringValue:tMinimumOSVersion]];
 		
 		// Maximum version (Optional)
-		NSString * tMaximumOSVersion=tOSRangeRequirement[PKGRequirementOSRangesMaximumVersionKey];
+		NSString * tMaximumOSVersion=[self.class versionStringFromIntegerVersion:[tOSRangeRequirement[PKGRequirementOSRangesMaximumVersionKey] integerValue]];
 		
 		if (tMaximumOSVersion!=nil)
 			[tElement addAttribute:[NSXMLNode attributeWithName:@"before" stringValue:tMaximumOSVersion]];
