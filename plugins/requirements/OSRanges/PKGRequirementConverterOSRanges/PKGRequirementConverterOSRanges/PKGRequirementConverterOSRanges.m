@@ -38,10 +38,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (NSXMLElement *)requirementElementWithParameters:(NSDictionary *)inParameters
 {
-	NSArray<NSDictionary <NSString *, NSString *> *> * tOSRangeRequirements=inParameters[PKGRequirementOSRangesListKey];
+	NSArray<NSDictionary<NSString *, NSNumber *> *> * tOSRangeRequirements=inParameters[PKGRequirementOSRangesListKey];
 	NSMutableArray<NSXMLElement *> * tOSVersionElements=[NSMutableArray array];
 	
-	for(NSDictionary <NSString *, NSString *> * tOSRangeRequirement in tOSRangeRequirements)
+	for(NSDictionary<NSString *, NSNumber *> * tOSRangeRequirement in tOSRangeRequirements)
 	{
 		NSXMLElement * tElement=(NSXMLElement *) [NSXMLNode elementWithName:@"os-version"];
 		
@@ -51,10 +51,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[tElement addAttribute:[NSXMLNode attributeWithName:@"min" stringValue:tMinimumOSVersion]];
 		
 		// Maximum version (Optional)
-		NSString * tMaximumOSVersion=[self.class versionStringFromIntegerVersion:[tOSRangeRequirement[PKGRequirementOSRangesMaximumVersionKey] integerValue]];
+		NSNumber * tNumber = tOSRangeRequirement[PKGRequirementOSRangesMaximumVersionKey];
 		
-		if (tMaximumOSVersion!=nil)
-			[tElement addAttribute:[NSXMLNode attributeWithName:@"before" stringValue:tMaximumOSVersion]];
+		if (tNumber!=nil)
+			[tElement addAttribute:[NSXMLNode attributeWithName:@"before" stringValue:[self.class versionStringFromIntegerVersion:tNumber.integerValue]]];
 		
 		[tOSVersionElements addObject:tElement];
 	}

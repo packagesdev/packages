@@ -7,30 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F42147612E7716DB0013FAF7 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F421475F2E7716DB0013FAF7 /* MainView.xib */; };
+		F42147642E7716E20013FAF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F42147622E7716E20013FAF7 /* InfoPlist.strings */; };
 		F4451B3D1C7BBC0100516075 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B3C1C7BBC0100516075 /* AppKit.framework */; };
 		F4451B3F1C7BBC0800516075 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4451B3E1C7BBC0800516075 /* Foundation.framework */; };
-		F486D5C11F58B4EF00495D33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F486D5BF1F58B4EF00495D33 /* InfoPlist.strings */; };
 		F4B1AAD01C8A504B006EE235 /* Icon_32.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACE1C8A504B006EE235 /* Icon_32.png */; };
 		F4B1AAD11C8A504B006EE235 /* Icon_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */; };
 		F4B1AAD41C8A5054006EE235 /* PKGRequirementViewControllerOSRanges.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOSRanges.m */; };
 		F4F5D0B01CC97A9C0075C2EF /* PKGRequirement_OSRanges+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OSRanges+Constants.m */; };
-		F4F5D0B61CC97D470075C2EF /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F5D0B41CC97D470075C2EF /* MainView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8D5B49B6048680CD000E48DA /* ui.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ui.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41F61D2214EDDC200E10C4C /* NSColor+LabelColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSColor+LabelColor.h"; path = "../../../../AppKit + Extensions/NSColor+LabelColor.h"; sourceTree = "<group>"; };
+		F42147602E7716DB0013FAF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGRequirementViewControllerOSRanges/en.lproj/MainView.xib; sourceTree = "<group>"; };
+		F42147632E7716E20013FAF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerOSRanges/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F43A6ACC1FD9EC0700B02509 /* WBVersionPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionPicker.h; path = ../../../../WBKit/WBVersionPicker.h; sourceTree = "<group>"; };
 		F43A6ACD1FD9EC0700B02509 /* WBVersionPickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionPickerCell.h; path = ../../../../WBKit/WBVersionPickerCell.h; sourceTree = "<group>"; };
 		F4451B3C1C7BBC0100516075 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F4451B3E1C7BBC0800516075 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4451B401C7BBC1300516075 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		F446AE6E229FCDF40018A844 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = PKGRequirementViewControllerOSRanges/es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F463EB961FF3041A0097533F /* WBMacOSVersionsHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBMacOSVersionsHistory.h; path = ../../../../WBKit/WBMacOSVersionsHistory.h; sourceTree = "<group>"; };
 		F463EB971FF3041F0097533F /* WBVersionsHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersionsHistory.h; path = ../../../../WBKit/WBVersionsHistory.h; sourceTree = "<group>"; };
 		F464B0A72E760D8400F56E19 /* WBVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WBVersion.h; path = ../../../../WBKit/WBVersion.h; sourceTree = "<group>"; };
-		F486D5C01F58B4EF00495D33 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = PKGRequirementViewControllerOSRanges/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F486D5C21F58B4F300495D33 /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerOSRanges/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F48DDE2B1CE3D9FB004B9A29 /* PKGPackages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGPackages.h; path = ../../../../model/PKGPackages.h; sourceTree = "<group>"; };
 		F4AC69382717932A0014FA2D /* PKGStringReplacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGStringReplacer.h; path = ../../../../shared/PKGStringReplacer.h; sourceTree = "<group>"; };
 		F4B1AACD1C8A5044006EE235 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PKGRequirementViewControllerOSRanges/Info.plist; sourceTree = "<group>"; };
@@ -44,7 +43,6 @@
 		F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
 		F4F5D0B21CC97AB60075C2EF /* PKGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGViewController.h; path = ../../../../shared/PKGViewController.h; sourceTree = "<group>"; };
 		F4F5D0B31CC97CB00075C2EF /* PKGRequirementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewController.h; path = ../../PKGRequirementViewController.h; sourceTree = "<group>"; };
-		F4F5D0B51CC97D470075C2EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = PKGRequirementViewControllerOSRanges/en.lproj/MainView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +84,11 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F421475F2E7716DB0013FAF7 /* MainView.xib */,
+				F42147622E7716E20013FAF7 /* InfoPlist.strings */,
 				F4B1AACE1C8A504B006EE235 /* Icon_32.png */,
 				F4B1AACF1C8A504B006EE235 /* Icon_32@2x.png */,
-				F4F5D0B41CC97D470075C2EF /* MainView.xib */,
 				F4B1AACD1C8A5044006EE235 /* Info.plist */,
-				F486D5BF1F58B4EF00495D33 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -200,8 +198,6 @@
 			knownRegions = (
 				English,
 				en,
-				fr,
-				es,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerOSRanges */;
 			projectDirPath = "";
@@ -217,8 +213,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4F5D0B61CC97D470075C2EF /* MainView.xib in Resources */,
-				F486D5C11F58B4EF00495D33 /* InfoPlist.strings in Resources */,
+				F42147612E7716DB0013FAF7 /* MainView.xib in Resources */,
+				F42147642E7716E20013FAF7 /* InfoPlist.strings in Resources */,
 				F4B1AAD11C8A504B006EE235 /* Icon_32@2x.png in Resources */,
 				F4B1AAD01C8A504B006EE235 /* Icon_32.png in Resources */,
 			);
@@ -239,22 +235,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F486D5BF1F58B4EF00495D33 /* InfoPlist.strings */ = {
+		F421475F2E7716DB0013FAF7 /* MainView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F486D5C01F58B4EF00495D33 /* en */,
-				F486D5C21F58B4F300495D33 /* fr */,
-				F446AE6E229FCDF40018A844 /* es */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		F4F5D0B41CC97D470075C2EF /* MainView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4F5D0B51CC97D470075C2EF /* en */,
+				F42147602E7716DB0013FAF7 /* en */,
 			);
 			name = MainView.xib;
+			sourceTree = "<group>";
+		};
+		F42147622E7716E20013FAF7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F42147632E7716E20013FAF7 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

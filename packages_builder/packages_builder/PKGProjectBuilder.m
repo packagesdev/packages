@@ -2546,7 +2546,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tInvocationCode==nil)
 		{
-			PKGBuildErrorEvent * tErrorEvent=nil;
+			PKGBuildErrorEvent * tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirement.name];
 			
 			// Code not generated
 			
@@ -2556,7 +2556,6 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				{
 					case PKGConverterErrorMissingParameter:
 						
-						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirement.name];
 						tErrorEvent.subcode=PKGBuildErrorConverterMissingParameter;
 						tErrorEvent.otherFilePath=tError.userInfo[PKGConverterErrorParameterKey];
 						
@@ -2564,7 +2563,6 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 						
 					case PKGConverterErrorInvalidParameter:
 						
-						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirement.name];
 						tErrorEvent.subcode=PKGBuildErrorConverterInvalidParameter;
 						tErrorEvent.otherFilePath=tError.userInfo[PKGConverterErrorParameterKey];
 						
@@ -2572,15 +2570,10 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 						
 					case PKConverterErrorLowMemory:
 						
-						tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirement.name];
 						tErrorEvent.subcode=PKGBuildErrorOutOfMemory;
 						
 						break;
 				}
-			}
-			else
-			{
-				tErrorEvent=[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError];
 			}
 			
 			[self postCurrentStepFailureEvent:tErrorEvent];
