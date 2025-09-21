@@ -346,7 +346,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 - (PKGRequirementType)requirementType
 {
-	return PKGRequirementTypeUndefined;
+	return PKGRequirementTypeTarget;
 }
 
 #pragma mark -

@@ -2420,6 +2420,8 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 	int tInstallationCheckIndex=0,tVolumeCheckIndex=0;
 	int tRequirementIndex=0;
 	NSString * tVolumeCheckPreTest=@"", * tInstallationCheckPreTest=@"";
+	NSMutableArray<NSXMLElement *> * tInstallationCheckChildrenElements=[NSMutableArray array];
+	NSMutableArray<NSXMLElement *> * tVolumeCheckChildrenElements=[NSMutableArray array];
 	
 	NSMutableString * tVolumeCheckFunctionCode=[NSMutableString stringWithString:@"\tfunction volume_check()\n\
 \t{\n\
@@ -2469,7 +2471,7 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		if (tRequirementConverter.requirementOutputFormat==PKGRequirementOutputFormatXML)
 		{
-			NSXMLElement *tRequirementElement = [tRequirementConverter requirementElementWithParameters:tRequirementSettingsRepresentation];
+			NSXMLElement *tRequirementElement=[tRequirementConverter requirementElementWithParameters:tRequirementSettingsRepresentation];
 			
 			if (tRequirementElement==nil)
 			{
@@ -2482,7 +2484,31 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 				return NO;
 			}
 			
-			[_installerScriptElement addChild:tRequirementElement];
+			PKGRequirementType requirementType=[tRequirementConverter requirementTypeWithParameters:tRequirementSettingsRepresentation];
+			
+			switch(requirementType)
+			{
+				case PKGRequirementTypeInstallation:
+					[tInstallationCheckChildrenElements addObject:tRequirementElement];
+					
+					break;
+					
+				case PKGRequirementTypeTarget:
+					[tVolumeCheckChildrenElements addObject:tRequirementElement];
+					
+					break;
+				
+				default:
+				{
+					// Conversion failed.
+					
+					[self postCurrentStepFailureEvent:[PKGBuildErrorEvent errorEventWithCode:PKGBuildErrorRequirementConversionError tag:tRequirementIdentifier]];
+					
+					// A COMPLETER
+					
+					return NO;
+				}
+			}
 			
 			continue;
 		}
@@ -2824,49 +2850,70 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		}
 	}
 
-	if (tInstallationCheckDepth!=-1)
+	if (tInstallationCheckDepth!=-1 || tInstallationCheckChildrenElements.count>0)
 	{
-		for(int i=0;i<tInstallationCheckDepth;i++)
+		NSXMLElement * tInstallationCheckElement=(NSXMLElement *) [NSXMLNode elementWithName:@"installation-check"];
+		id tScriptAttribute;
+		
+		if (tInstallationCheckDepth!=-1)
 		{
-			tInstallationCheckTabulationDepth=[tInstallationCheckTabulationDepth substringToIndex:[tInstallationCheckTabulationDepth length]-1];
+			for(int i=0;i<tInstallationCheckDepth;i++)
+			{
+				tInstallationCheckTabulationDepth=[tInstallationCheckTabulationDepth substringToIndex:[tInstallationCheckTabulationDepth length]-1];
+				
+				[tInstallationCheckFunctionCode appendString:[NSString stringWithFormat:@"%@}\n",tInstallationCheckTabulationDepth]];
+			}
 			
-			[tInstallationCheckFunctionCode appendString:[NSString stringWithFormat:@"%@}\n",tInstallationCheckTabulationDepth]];
+			[tInstallationCheckFunctionCode appendString:@"\n\t\treturn tResult;\n\t}"];
+			
+			[tJavaScriptInformation addFunctionName:@"installation_check" implementation:tInstallationCheckFunctionCode];
+
+			tScriptAttribute=[NSXMLNode attributeWithName:@"script" stringValue:@"installation_check()"];
+		}
+		else
+		{
+			tScriptAttribute=[NSXMLNode attributeWithName:@"script" stringValue:@"true"];
 		}
 		
-		[tInstallationCheckFunctionCode appendString:@"\n\t\treturn tResult;\n\t}"];
-		
-		[tJavaScriptInformation addFunctionName:@"installation_check" implementation:tInstallationCheckFunctionCode];
-
-		
-		NSXMLElement * tElement=(NSXMLElement *) [NSXMLNode elementWithName:@"installation-check"];
-		
-		id tAttribute=[NSXMLNode attributeWithName:@"script" stringValue:@"installation_check()"];
-								
-		[tElement addAttribute:tAttribute];
+		[tInstallationCheckElement addAttribute:tScriptAttribute];
 			
-		[_installerScriptElement addChild:tElement];
+		for(NSXMLElement *tElement in tInstallationCheckChildrenElements)
+			[tInstallationCheckElement addChild:tElement];
+		
+		[_installerScriptElement addChild:tInstallationCheckElement];
 	}
 
-	if (tVolumeCheckDepth!=-1)
+	if (tVolumeCheckDepth!=-1 || tVolumeCheckChildrenElements.count>0)
 	{
-		for(int i=0;i<tVolumeCheckDepth;i++)
+		NSXMLElement * tVolumeCheckElement=(NSXMLElement *) [NSXMLNode elementWithName:@"volume-check"];
+		id tScriptAttribute;
+		
+		if (tVolumeCheckDepth!=-1)
 		{
-			tVolumeCheckTabulationDepth=[tVolumeCheckTabulationDepth substringToIndex:[tVolumeCheckTabulationDepth length]-1];
+			for(int i=0;i<tVolumeCheckDepth;i++)
+			{
+				tVolumeCheckTabulationDepth=[tVolumeCheckTabulationDepth substringToIndex:[tVolumeCheckTabulationDepth length]-1];
+				
+				[tVolumeCheckFunctionCode appendString:[NSString stringWithFormat:@"%@}\n",tVolumeCheckTabulationDepth]];
+			}
 			
-			[tVolumeCheckFunctionCode appendString:[NSString stringWithFormat:@"%@}\n",tVolumeCheckTabulationDepth]];
+			[tVolumeCheckFunctionCode appendString:@"\n\t\treturn tResult;\n\t}"];
+			
+			[tJavaScriptInformation addFunctionName:@"volume_check" implementation:tVolumeCheckFunctionCode];
+			
+			tScriptAttribute=[NSXMLNode attributeWithName:@"script" stringValue:@"volume_check()"];
 		}
-		
-		[tVolumeCheckFunctionCode appendString:@"\n\t\treturn tResult;\n\t}"];
-		
-		[tJavaScriptInformation addFunctionName:@"volume_check" implementation:tVolumeCheckFunctionCode];
+		else
+		{
+			tScriptAttribute=[NSXMLNode attributeWithName:@"script" stringValue:@"true"];
+		}
 
+		[tVolumeCheckElement addAttribute:tScriptAttribute];
 		
-		NSXMLElement * tElement=(NSXMLElement *) [NSXMLNode elementWithName:@"volume-check"];
+		for(NSXMLElement *tElement in tVolumeCheckChildrenElements)
+			[tVolumeCheckElement addChild:tElement];
 		
-		id tAttribute=[NSXMLNode attributeWithName:@"script" stringValue:@"volume_check()"];
-		[tElement addAttribute:tAttribute];
-			
-		[_installerScriptElement addChild:tElement];
+		[_installerScriptElement addChild:tVolumeCheckElement];
 	}
 
 	[self postCurrentStepSuccessEvent:nil];

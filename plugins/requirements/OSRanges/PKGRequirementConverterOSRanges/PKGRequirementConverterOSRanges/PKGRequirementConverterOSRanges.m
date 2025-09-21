@@ -21,9 +21,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 + (NSString *)versionStringFromIntegerVersion:(NSInteger)integerVersion
 {
 	if ((integerVersion%100)==0)
-		return [NSString stringWithFormat:@"'%d.%d'",(int)integerVersion/10000,(int)((integerVersion/100)%100)];
+		return [NSString stringWithFormat:@"%d.%d",(int)integerVersion/10000,(int)((integerVersion/100)%100)];
 	else
-		return [NSString stringWithFormat:@"'%d.%d.%d'",(int)integerVersion/10000,(int)((integerVersion/100)%100),(int)(integerVersion%100)];
+		return [NSString stringWithFormat:@"%d.%d.%d",(int)integerVersion/10000,(int)((integerVersion/100)%100),(int)(integerVersion%100)];
+}
+
+- (PKGRequirementType)requirementTypeWithParameters:(NSDictionary *) inParameters
+{
+	return PKGRequirementTypeTarget;
 }
 
 - (PKGRequirementDomains)requirementDomains
