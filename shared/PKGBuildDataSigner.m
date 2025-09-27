@@ -88,7 +88,10 @@ extern void CmsMessageSetTSAContext(CMSEncoderRef cmsEncoder, CFTypeRef tsaConte
     
     if (inKeychainPath!=nil)
     {
-        tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:inKeychainPath options:0 error:&tIdentityError];
+        tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName
+															atPath:inKeychainPath
+														   options:PKGCertificateSearchNonExpired
+															 error:&tIdentityError];
         
         if (tSecIdentityRef==NULL)
             NSLog(@"No identity named %@ found for in keychain at path %@. Will try the login keychain as a fallback.",inIdentityName,inKeychainPath);
@@ -98,7 +101,10 @@ extern void CmsMessageSetTSAContext(CMSEncoderRef cmsEncoder, CFTypeRef tsaConte
     {
         tIdentityError=0;
         
-        tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName atPath:[PKGLoginKeychainPath stringByExpandingTildeInPath] options:0 error:&tIdentityError];
+        tSecIdentityRef=[PKGCertificatesUtilities identityWithName:inIdentityName
+															atPath:PKGLoginKeychainPath.stringByExpandingTildeInPath
+														   options:PKGCertificateSearchNonExpired
+															 error:&tIdentityError];
     }
 	
 	if (tSecIdentityRef==NULL)
