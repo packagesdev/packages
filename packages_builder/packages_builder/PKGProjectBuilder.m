@@ -2877,8 +2877,8 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 		
 		[tInstallationCheckElement addAttribute:tScriptAttribute];
 			
-		for(NSXMLElement *tElement in tInstallationCheckChildrenElements)
-			[tInstallationCheckElement addChild:tElement];
+		for(NSXMLElement *tChildElement in tInstallationCheckChildrenElements)
+			[tInstallationCheckElement addChild:tChildElement];
 		
 		[_installerScriptElement addChild:tInstallationCheckElement];
 	}
@@ -2910,8 +2910,8 @@ NSString * const PKGProjectBuilderDefaultScratchFolder=@"/private/tmp";
 
 		[tVolumeCheckElement addAttribute:tScriptAttribute];
 		
-		for(NSXMLElement *tElement in tVolumeCheckChildrenElements)
-			[tVolumeCheckElement addChild:tElement];
+		for(NSXMLElement *tChildElement in tVolumeCheckChildrenElements)
+			[tVolumeCheckElement addChild:tChildElement];
 		
 		[_installerScriptElement addChild:tVolumeCheckElement];
 	}
