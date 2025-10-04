@@ -136,7 +136,7 @@ DISKIMAGE_NAME="Packages"
 ## Convert disk image template to read-write disk image
 
 if [ -f build/"$DISKIMAGE_NAME"_rw.dmg ]
-then 
+then
 	/bin/rm build/"$DISKIMAGE_NAME"_rw.dmg
 fi
 
@@ -151,7 +151,7 @@ fi
 if [ -f Version ];
 then
 
-	/usr/sbin/diskutil rename "$DISKIMAGE_NAME" "$DISKIMAGE_NAME $VERSION" 
+	/usr/sbin/diskutil rename "$DISKIMAGE_NAME" "$DISKIMAGE_NAME $VERSION"
 fi
 
 ## Copy the Read Before You Install Packages to the disk image and prevent edition
@@ -195,7 +195,8 @@ fi
 if [ -f build/Packages.pkg ]
 then
 
-	/bin/cp build/Packages.pkg build/diskimage_rw/packages/Packages.pkg
+	/bin/cp build/Packages.pkg build/diskimage_rw/
+	/bin/mv build/diskimage_rw/Packages.pkg build/diskimage_rw/Install\ Packages.pkg
 
 else
 
@@ -215,7 +216,7 @@ fi
 ## Convert disk image to read-only
 
 if [ -f artifacts/"$DISKIMAGE_NAME".dmg ]
-then 
+then
 	/bin/rm artifacts/"$DISKIMAGE_NAME".dmg
 fi
 
@@ -224,7 +225,7 @@ fi
 ## Remove the temporary disk image
 
 if [ -f build/"$DISKIMAGE_NAME"_rw.dmg ]
-then 
+then
 	/bin/rm build/"$DISKIMAGE_NAME"_rw.dmg
 fi
 
