@@ -15,7 +15,7 @@
 
 NSString * const PKGRequirementOSRangesListKey=@"IC_REQUIREMENT_OSRANGES_LIST";
 
-NSString * const PKGRequirementOSRangesMinimumVersionKey=@"IC_REQUIREMENT_OSRANGES_MINIMUM_VERSION";
+NSString * const PKGRequirementOSRangeMinimumVersionKey=@"IC_REQUIREMENT_OSRANGE_MINIMUM_VERSION";
 
-NSString * const PKGRequirementOSRangesMaximumVersionKey=@"IC_REQUIREMENT_OSRANGES_MAXIMUM_VERSION";
+NSString * const PKGRequirementOSRangeBeforeVersionKey=@"IC_REQUIREMENT_OSRANGE_BEFORE_VERSION";
 

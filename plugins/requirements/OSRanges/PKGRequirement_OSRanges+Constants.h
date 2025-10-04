@@ -15,6 +15,6 @@
 
 extern NSString * const PKGRequirementOSRangesListKey;
 
-extern NSString * const PKGRequirementOSRangesMinimumVersionKey;
+extern NSString * const PKGRequirementOSRangeMinimumVersionKey;
 
-extern NSString * const PKGRequirementOSRangesMaximumVersionKey;
+extern NSString * const PKGRequirementOSRangeBeforeVersionKey;

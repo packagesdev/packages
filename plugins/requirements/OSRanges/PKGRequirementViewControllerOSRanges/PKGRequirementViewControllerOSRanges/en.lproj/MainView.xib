@@ -47,16 +47,19 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="03a-xG-tq7" customClass="PKGMinimumVersionTableCellView">
+                                            <tableCellView id="03a-xG-tq7" customClass="PKGVersionTableCellView">
                                                 <rect key="frame" x="1" y="1" width="269" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <customView id="4qe-F1-MaV" customClass="WBVersionPicker">
-                                                        <rect key="frame" x="92" y="3" width="85" height="23"/>
+                                                        <rect key="frame" x="52" y="3" width="85" height="23"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <connections>
+                                                            <action selector="switchBeforeVersionStatus:" target="-2" id="Vtn-N7-qdF"/>
+                                                        </connections>
                                                     </customView>
                                                     <textField verticalHuggingPriority="750" id="Sbn-LG-ez8">
-                                                        <rect key="frame" x="183" y="8" width="78" height="14"/>
+                                                        <rect key="frame" x="143" y="7" width="118" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="gNl-WB-NqV">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -72,8 +75,8 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="version.maximum" width="269" minWidth="40" maxWidth="1000" id="N1q-ZD-ejj">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Maximum Version">
+                                    <tableColumn identifier="version.before" width="269" minWidth="40" maxWidth="1000" id="N1q-ZD-ejj">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Before Version">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -85,28 +88,31 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="OYM-nP-Kam">
+                                            <tableCellView id="OYM-nP-Kam" customClass="PKGBeforeVersionTableCellView">
                                                 <rect key="frame" x="273" y="1" width="269" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <customView id="SsG-dH-uY7" customClass="WBVersionPicker">
-                                                        <rect key="frame" x="92" y="3" width="85" height="23"/>
+                                                        <rect key="frame" x="53" y="3" width="85" height="23"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <connections>
-                                                            <action selector="setMinimumVersion:" target="-2" id="xUE-zb-Jkn"/>
+                                                            <action selector="setBeforeVersion:" target="-2" id="tKv-AL-LRX"/>
                                                         </connections>
                                                     </customView>
                                                     <button id="bUH-bA-XI6">
-                                                        <rect key="frame" x="64" y="6" width="22" height="18"/>
+                                                        <rect key="frame" x="25" y="6" width="22" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="left" state="on" inset="2" id="I2f-Kr-1QW">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="switchBeforeVersionStatus:" target="-2" id="0p9-05-VmO"/>
+                                                        </connections>
                                                     </button>
                                                     <textField verticalHuggingPriority="750" id="Yww-rE-q4Q">
-                                                        <rect key="frame" x="183" y="8" width="85" height="14"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <rect key="frame" x="144" y="7" width="121" height="14"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="BcO-OA-U7R">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -114,6 +120,11 @@
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="enabledCheckbox" destination="bUH-bA-XI6" id="dh5-ee-h6P"/>
+                                                    <outlet property="versionOSNameLabel" destination="Yww-rE-q4Q" id="e4K-nj-8Kn"/>
+                                                    <outlet property="versionPicker" destination="SsG-dH-uY7" id="oPk-1U-BtB"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -146,7 +157,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="delete:" target="-2" id="3Dm-ES-CDq"/>
+                        <action selector="switchBeforeVersionStatus:" target="-2" id="3Dm-ES-CDq"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" id="wL7-OO-wSt">
@@ -157,13 +168,13 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="addOSRange:" target="-2" id="Ood-Zy-tYK"/>
+                        <action selector="switchBeforeVersionStatus:" target="-2" id="Ood-Zy-tYK"/>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="345">
                     <rect key="frame" x="18" y="318" width="550" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Distribution:" id="350">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Operating system installed on destination must be within one of the following ranges:" id="350">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

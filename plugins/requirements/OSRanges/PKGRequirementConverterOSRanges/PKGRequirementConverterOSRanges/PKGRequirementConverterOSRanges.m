@@ -51,12 +51,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		NSXMLElement * tElement=(NSXMLElement *) [NSXMLNode elementWithName:@"os-version"];
 		
 		// Minimum version (Required)
-		NSString * tMinimumOSVersion=[self.class versionStringFromIntegerVersion:[tOSRangeRequirement[PKGRequirementOSRangesMinimumVersionKey] integerValue]];
+		NSString * tMinimumOSVersion=[self.class versionStringFromIntegerVersion:[tOSRangeRequirement[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
 		
 		[tElement addAttribute:[NSXMLNode attributeWithName:@"min" stringValue:tMinimumOSVersion]];
 		
-		// Maximum version (Optional)
-		NSNumber * tNumber = tOSRangeRequirement[PKGRequirementOSRangesMaximumVersionKey];
+		// Before version (Optional)
+		NSNumber * tNumber = tOSRangeRequirement[PKGRequirementOSRangeBeforeVersionKey];
 		
 		if (tNumber!=nil)
 			[tElement addAttribute:[NSXMLNode attributeWithName:@"before" stringValue:[self.class versionStringFromIntegerVersion:tNumber.integerValue]]];
