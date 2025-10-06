@@ -26,15 +26,21 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 };
 
 
-@interface PKGVersionTableCellView : NSTableCellView
+@interface PKGOSRangeTableCellView : NSTableCellView
 
-@property (assign) IBOutlet WBVersionPicker * versionPicker;
+@property (assign) IBOutlet WBVersionPicker * minimumVersionPicker;
 
-@property (assign) IBOutlet NSTextField * versionOSNameLabel;
+@property (assign) IBOutlet NSTextField * minimumVersionOSNameLabel;
+
+@property (assign) IBOutlet NSButton *beforeCheckbox;
+
+@property (assign) IBOutlet WBVersionPicker * beforeVersionPicker;
+
+@property (assign) IBOutlet NSTextField * beforeVersionOSNameLabel;
 
 @end
 
-@implementation PKGVersionTableCellView
+@implementation PKGOSRangeTableCellView
 
 - (void)setFrame:(NSRect)frame
 {
@@ -48,31 +54,6 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 }
 
 @end
-
-@interface PKGBeforeVersionTableCellView : PKGVersionTableCellView
-
-@property (assign) IBOutlet NSButton *enabledCheckbox;
-
-@end
-
-
-
-@implementation PKGBeforeVersionTableCellView
-
-- (void)setFrame:(NSRect)frame
-{
-	[super setFrame:frame];
-	
-	/*NSRect tBounds=self.bounds;
-	 NSRect tPopUpFrame=self.popUpButton.frame;
-	 
-	 tPopUpFrame.origin.y=round(NSMidY(tBounds)-NSHeight(tPopUpFrame)*0.5);
-	 self.popUpButton.frame=tPopUpFrame;*/
-}
-
-@end
-
-
 
 @interface PKGRequirementViewControllerOSRanges () <NSTableViewDataSource, NSTableViewDelegate, WBVersionPickerCellDelegate>
 {
@@ -328,66 +309,54 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	
 	NSString * tTableColumnIdentifier=inTableColumn.identifier;
 	
-	if ([tTableColumnIdentifier isEqualToString:@"version.minimum"]==YES)
+	if ([tTableColumnIdentifier isEqualToString:@"range"]==YES)
 	{
-		PKGVersionTableCellView * tVersionMinimumView=(PKGVersionTableCellView *)[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
-		WBVersionPicker * tVersionPicker=tVersionMinimumView.versionPicker;
+		PKGOSRangeTableCellView * tOSRangeView=(PKGOSRangeTableCellView *)[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
+		WBVersionPicker * tMinimumVersionPicker=tOSRangeView.minimumVersionPicker;
 		
 		NSDictionary<NSString *, NSString *> *osRangeDictionary=_cachedOSRanges[inRow];
 		
-		tVersionPicker.drawsBackground = YES;
-		tVersionPicker.versionsHistory=[self.class macOSVersionsHistory];
-		tVersionPicker.minVersion=[WBVersion macOSSnowLeopardVersion];
+		tMinimumVersionPicker.drawsBackground = YES;
+		tMinimumVersionPicker.versionsHistory=[self.class macOSVersionsHistory];
+		tMinimumVersionPicker.minVersion=[WBVersion macOSSnowLeopardVersion];
 		
 		//[tVersionPicker sizeToFit];
 		
-		tVersionPicker.delegate=self;
+		tMinimumVersionPicker.delegate=self;
 		
-		tVersionMinimumView.versionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[osRangeDictionary[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
+		tMinimumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[osRangeDictionary[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
 		
-		tVersionMinimumView.versionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersionMinimumView.versionPicker.versionValue];
+		tOSRangeView.minimumVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tMinimumVersionPicker.versionValue];
 		
-		return tVersionMinimumView;
-	}
-	else if ([tTableColumnIdentifier isEqualToString:@"version.before"]==YES)
-	{
-		PKGBeforeVersionTableCellView *tVersionBeforeView=(PKGBeforeVersionTableCellView *)[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
-		WBVersionPicker * tVersionPicker=tVersionBeforeView.versionPicker;
+		WBVersionPicker * tBeforeVersionPicker=tOSRangeView.beforeVersionPicker;
 		
-		NSDictionary<NSString *, NSString *> *osRangeDictionary=_cachedOSRanges[inRow];
-		
-		tVersionPicker.drawsBackground = YES;
-		tVersionPicker.versionsHistory=[self.class macOSVersionsHistory];
-		tVersionPicker.minVersion=[PKGRequirementViewControllerOSRanges versionFromInteger:[osRangeDictionary[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
-		
-		//[tVersionPicker sizeToFit];
-		
-		tVersionPicker.delegate=self;
+		tBeforeVersionPicker.drawsBackground = YES;
+		tBeforeVersionPicker.versionsHistory=[self.class macOSVersionsHistory];
 		
 		NSString *beforeVersionString = osRangeDictionary[PKGRequirementOSRangeBeforeVersionKey];
 		
 		if (beforeVersionString==nil)
 		{
-			tVersionBeforeView.enabledCheckbox.state = NSOffState;
+			tOSRangeView.beforeCheckbox.state = NSOffState;
 			
-			tVersionPicker.enabled = NO;
+			tBeforeVersionPicker.enabled = NO;
 			
-			tVersionBeforeView.versionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[beforeVersionString integerValue]];
+			tBeforeVersionPicker.versionValue=tMinimumVersionPicker.versionValue;
 			
-			tVersionBeforeView.versionOSNameLabel.stringValue = @"-";
+			tOSRangeView.beforeVersionOSNameLabel.stringValue = @"-";
 		}
 		else
 		{
-			tVersionBeforeView.enabledCheckbox.state = NSOnState;
+			tOSRangeView.beforeCheckbox.state = NSOnState;
 			
-			tVersionPicker.enabled = YES;
+			tBeforeVersionPicker.enabled = YES;
 			
-			tVersionBeforeView.versionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[beforeVersionString integerValue]];
+			tBeforeVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[beforeVersionString integerValue]];
 			
-			tVersionBeforeView.versionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersionBeforeView.versionPicker.versionValue];
+			tOSRangeView.minimumVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tBeforeVersionPicker.versionValue];
 		}
 		
-		return tVersionBeforeView;
+		return tOSRangeView;
 	}
 	
 	return nil;
@@ -410,7 +379,13 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	
 	_cachedOSRanges[tRow]=range;
 	
-	[_tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+	PKGOSRangeTableCellView * tOSRangeTableCellView=(PKGOSRangeTableCellView *)sender.superview;
+	
+	tOSRangeTableCellView.minimumVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
+	
+	
+	
+	//[_tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
 	
 	/*_minimumVersionOSNameLabel.stringValue=[PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
 	
@@ -453,7 +428,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 								  };
 	}
 	
-	[_tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow] columnIndexes:[NSIndexSet indexSetWithIndex:1]];
+	[_tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
 }
 
 - (IBAction)setBeforeVersion:(WBVersionPicker *)sender
@@ -473,7 +448,9 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	
 	_cachedOSRanges[tRow]=range;
 	
-	[_tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:tRow] columnIndexes:[NSIndexSet indexSetWithIndex:1]];
+	PKGOSRangeTableCellView * tVersionTableCellView=(PKGOSRangeTableCellView *)sender.superview;
+	
+	tVersionTableCellView.beforeVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
 }
 
 #pragma mark -
