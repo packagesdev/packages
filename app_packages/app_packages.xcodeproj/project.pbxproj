@@ -182,6 +182,8 @@
 		F443DF1F1ECBC107009940D2 /* PKGFilePathTypePopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F443DF1E1ECBC107009940D2 /* PKGFilePathTypePopUpButtonCell.m */; };
 		F4445C6E1EA0F475001BD8ED /* PKGPresentationSectionLicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4445C6C1EA0F475001BD8ED /* PKGPresentationSectionLicenseViewController.m */; };
 		F4445C6F1EA0F475001BD8ED /* PKGPresentationSectionLicenseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4445C6D1EA0F475001BD8ED /* PKGPresentationSectionLicenseViewController.xib */; };
+		F44475F92E9CE36A00800AB4 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = F44475EF2E9CE36A00800AB4 /* about.png */; };
+		F44475FA2E9CE36A00800AB4 /* about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44475F82E9CE36A00800AB4 /* about@2x.png */; };
 		F444CFC51EB78C4700BE0031 /* PKGDistributionProject+Edition.m in Sources */ = {isa = PBXBuildFile; fileRef = F444CFC41EB78C4700BE0031 /* PKGDistributionProject+Edition.m */; };
 		F44711A61F3A60760084307E /* NSString+BaseName.m in Sources */ = {isa = PBXBuildFile; fileRef = F44711A51F3A60760084307E /* NSString+BaseName.m */; };
 		F44731B31F0AF2A3007B3369 /* PKGChoiceTreeNode+Edition.m in Sources */ = {isa = PBXBuildFile; fileRef = F44731B21F0AF2A3007B3369 /* PKGChoiceTreeNode+Edition.m */; };
@@ -1166,6 +1168,8 @@
 		F4445C6B1EA0F475001BD8ED /* PKGPresentationSectionLicenseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationSectionLicenseViewController.h; path = app_packages/PKGPresentationSectionLicenseViewController.h; sourceTree = "<group>"; };
 		F4445C6C1EA0F475001BD8ED /* PKGPresentationSectionLicenseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationSectionLicenseViewController.m; path = app_packages/PKGPresentationSectionLicenseViewController.m; sourceTree = "<group>"; };
 		F4445C6D1EA0F475001BD8ED /* PKGPresentationSectionLicenseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PKGPresentationSectionLicenseViewController.xib; path = app_packages/PKGPresentationSectionLicenseViewController.xib; sourceTree = "<group>"; };
+		F44475EF2E9CE36A00800AB4 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = about.png; path = app_packages/Images/about.png; sourceTree = "<group>"; };
+		F44475F82E9CE36A00800AB4 /* about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "about@2x.png"; path = "app_packages/Images/about@2x.png"; sourceTree = "<group>"; };
 		F444CFC31EB78C4700BE0031 /* PKGDistributionProject+Edition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGDistributionProject+Edition.h"; path = "../model+Edition/PKGDistributionProject+Edition.h"; sourceTree = "<group>"; };
 		F444CFC41EB78C4700BE0031 /* PKGDistributionProject+Edition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGDistributionProject+Edition.m"; path = "../model+Edition/PKGDistributionProject+Edition.m"; sourceTree = "<group>"; };
 		F44711A41F3A60760084307E /* NSString+BaseName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+BaseName.h"; path = "../Foundation + Extensions/NSString+BaseName.h"; sourceTree = "<group>"; };
@@ -2575,6 +2579,8 @@
 		F40E73F70CFE135500C961AF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F44475EF2E9CE36A00800AB4 /* about.png */,
+				F44475F82E9CE36A00800AB4 /* about@2x.png */,
 				F424D38E1DCE437100F95165 /* Packages_Acknowledgments.pdf */,
 				F424D38F1DCE437100F95165 /* Packages_License.pdf */,
 				F45E7E591F101F54005641CD /* PKGAboutBoxWindowController.xib */,
@@ -4791,6 +4797,7 @@
 				F40A8AB01E92FBF2000BE811 /* Strip32Composite@2x.png in Resources */,
 				F4FC4B841ED75F8C00AE3042 /* PKGPresentationInstallationTypeNonSingleSelectionViewController.xib in Resources */,
 				F408B1EC1F4062BA00331CFA /* Plugin@2x.png in Resources */,
+				F44475FA2E9CE36A00800AB4 /* about@2x.png in Resources */,
 				F458C01120E435D3005CEFD8 /* Strip32CompositeDark@2x.png in Resources */,
 				F47FBF4B1E225AFA00C7CAE0 /* PKGPackageScriptsAndResourcesViewController.xib in Resources */,
 				F4AB91E11F46F7B000BEB1E5 /* ReferenceFolderRegularUbuntu@2x.png in Resources */,
@@ -4842,6 +4849,7 @@
 				F4AFD32A1EC4F88200F9E18D /* iconTopLeft_nib@2x.png in Resources */,
 				F4AB91CF1F46F78C00BEB1E5 /* RelativeRegularUbuntu@2x.png in Resources */,
 				F4983D141EDB73D20002F625 /* checkboxgroupUbuntu.png in Resources */,
+				F44475F92E9CE36A00800AB4 /* about.png in Resources */,
 				F4E4B01E1F4C2AB10086427E /* flag_fr.png in Resources */,
 				F435CEDF1ED0EF57005F7E35 /* PKGPresentationCustomLocalizationsInspectorViewController.xib in Resources */,
 				F49F489A1E5272D100CBAB2E /* package16@2x.png in Resources */,
@@ -6455,7 +6463,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 737;
+				CURRENT_PROJECT_VERSION = 749;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
@@ -6481,7 +6489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 737;
+				CURRENT_PROJECT_VERSION = 749;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
