@@ -38,6 +38,8 @@
 		F4B1AAD21C8A5054006EE235 /* PKGRequirementViewControllerOSRanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGRequirementViewControllerOSRanges.h; path = PKGRequirementViewControllerOSRanges/PKGRequirementViewControllerOSRanges.h; sourceTree = "<group>"; };
 		F4B1AAD31C8A5054006EE235 /* PKGRequirementViewControllerOSRanges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGRequirementViewControllerOSRanges.m; path = PKGRequirementViewControllerOSRanges/PKGRequirementViewControllerOSRanges.m; sourceTree = "<group>"; };
 		F4DDA9A61E59B5790080EFAD /* NSViewController+WBExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSViewController+WBExtensions.h"; path = "../../../../WBKit/NSViewController+WBExtensions.h"; sourceTree = "<group>"; };
+		F4E1A10A2EA54958003F3A7F /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = PKGRequirementViewControllerOSRanges/fr.lproj/MainView.xib; sourceTree = "<group>"; };
+		F4E1A10B2EA54958003F3A7F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = PKGRequirementViewControllerOSRanges/fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F4F5D0AE1CC97A9C0075C2EF /* PKGRequirement_OSRanges+Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKGRequirement_OSRanges+Constants.h"; path = "../PKGRequirement_OSRanges+Constants.h"; sourceTree = "<group>"; };
 		F4F5D0AF1CC97A9C0075C2EF /* PKGRequirement_OSRanges+Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKGRequirement_OSRanges+Constants.m"; path = "../PKGRequirement_OSRanges+Constants.m"; sourceTree = "<group>"; };
 		F4F5D0B11CC97AA80075C2EF /* SharedConfigurationSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SharedConfigurationSettings.xcconfig; path = ../../../../Configs/SharedConfigurationSettings.xcconfig; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			knownRegions = (
 				English,
 				en,
+				fr,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* PKGRequirementViewControllerOSRanges */;
 			projectDirPath = "";
@@ -239,6 +242,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F42147602E7716DB0013FAF7 /* en */,
+				F4E1A10A2EA54958003F3A7F /* fr */,
 			);
 			name = MainView.xib;
 			sourceTree = "<group>";
@@ -247,6 +251,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F42147632E7716E20013FAF7 /* en */,
+				F4E1A10B2EA54958003F3A7F /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

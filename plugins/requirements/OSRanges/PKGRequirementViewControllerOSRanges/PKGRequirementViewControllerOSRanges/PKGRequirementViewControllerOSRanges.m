@@ -40,18 +40,8 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 
 @end
 
-@implementation PKGOSRangeTableCellView
 
-- (void)setFrame:(NSRect)frame
-{
-	[super setFrame:frame];
-	
-	/*NSRect tBounds=self.bounds;
-	NSRect tPopUpFrame=self.popUpButton.frame;
-	
-	tPopUpFrame.origin.y=round(NSMidY(tBounds)-NSHeight(tPopUpFrame)*0.5);
-	self.popUpButton.frame=tPopUpFrame;*/
-}
+@implementation PKGOSRangeTableCellView
 
 @end
 
@@ -265,12 +255,22 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	[_tableView reloadData];
 	
 	[_tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tRowIndex] byExtendingSelection:NO];
-	
-	//[_tableView editColumn:0 row:tRowIndex withEvent:nil select:YES];
 }
 
 - (IBAction)delete:(id)sender
 {
+	NSIndexSet * tIndexSet=[_tableView selectedRowIndexes];
+	
+	[_tableView deselectAll:self];
+	
+	if (tIndexSet!=nil)
+	{
+		[_cachedOSRanges removeObjectsAtIndexes:tIndexSet];
+		
+		[_tableView reloadData];
+		
+		[_removeButton setEnabled:NO];
+	}
 }
 
 #pragma mark -
@@ -312,7 +312,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		PKGOSRangeTableCellView * tOSRangeView=(PKGOSRangeTableCellView *)[inTableView makeViewWithIdentifier:tTableColumnIdentifier owner:self];
 		WBVersionPicker * tMinimumVersionPicker=tOSRangeView.minimumVersionPicker;
 		
-		NSDictionary<NSString *, NSNumber *> *osRangeDictionary=_cachedOSRanges[inRow];
+		NSDictionary<NSString *, NSNumber *> * tOSRangeDictionary=_cachedOSRanges[inRow];
 		
 		tMinimumVersionPicker.drawsBackground = YES;
 		tMinimumVersionPicker.versionsHistory=[self.class macOSVersionsHistory];
@@ -322,7 +322,7 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		
 		tMinimumVersionPicker.delegate=self;
 		
-		tMinimumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[osRangeDictionary[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
+		tMinimumVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[tOSRangeDictionary[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
 		
 		tOSRangeView.minimumVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tMinimumVersionPicker.versionValue];
 		
@@ -334,9 +334,9 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 		
 		tBeforeVersionPicker.delegate=self;
 		
-		NSNumber *beforeVersionNumber = osRangeDictionary[PKGRequirementOSRangeBeforeVersionKey];
+		NSNumber * tBeforeVersionNumber = tOSRangeDictionary[PKGRequirementOSRangeBeforeVersionKey];
 		
-		if (beforeVersionNumber==nil)
+		if (tBeforeVersionNumber==nil)
 		{
 			tOSRangeView.beforeCheckbox.state = NSOffState;
 			
@@ -352,9 +352,9 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 			
 			tBeforeVersionPicker.enabled = YES;
 			
-			tBeforeVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:[beforeVersionNumber integerValue]];
+			tBeforeVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:tBeforeVersionNumber.integerValue];
 			
-			tOSRangeView.minimumVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tBeforeVersionPicker.versionValue];
+			tOSRangeView.beforeVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tBeforeVersionPicker.versionValue];
 		}
 		
 		return tOSRangeView;
@@ -374,25 +374,27 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	
 	NSInteger tMinInteger=[PKGRequirementViewControllerOSRanges integerFromVersion:tVersion];
 	
-	NSMutableDictionary<NSString *,NSNumber *> *range=[_cachedOSRanges[tRow] mutableCopy];
+	NSMutableDictionary<NSString *,NSNumber *> * tOSRangeDictionary=[_cachedOSRanges[tRow] mutableCopy];
 	
-	range[PKGRequirementOSRangeMinimumVersionKey]=@(tMinInteger);
+	tOSRangeDictionary[PKGRequirementOSRangeMinimumVersionKey]=@(tMinInteger);
 	
-	_cachedOSRanges[tRow]=range;
+	_cachedOSRanges[tRow]=tOSRangeDictionary;
 	
 	PKGOSRangeTableCellView * tOSRangeTableCellView=(PKGOSRangeTableCellView *)sender.superview;
 	
 	tOSRangeTableCellView.minimumVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
 	
-	NSNumber *beforeVersionNumber=range[PKGRequirementOSRangeBeforeVersionKey];
+	NSNumber *beforeVersionNumber=tOSRangeDictionary[PKGRequirementOSRangeBeforeVersionKey];
 	
 	if (beforeVersionNumber!=nil)
 	{
 		if (beforeVersionNumber.integerValue<=tMinInteger)
 		{
-			range[PKGRequirementOSRangeBeforeVersionKey]=@(tMinInteger+1);
+			WBVersion * tBeforeVersion=[[PKGRequirementViewControllerOSRanges macOSVersionsHistory] nextMinorVersionOfVersion:tVersion];
 			
-			tOSRangeTableCellView.beforeVersionPicker.versionValue=[PKGRequirementViewControllerOSRanges versionFromInteger:tMinInteger+1];
+			tOSRangeDictionary[PKGRequirementOSRangeBeforeVersionKey]=@([PKGRequirementViewControllerOSRanges integerFromVersion:tBeforeVersion]);
+			
+			tOSRangeTableCellView.beforeVersionPicker.versionValue=tBeforeVersion;
 		}
 		
 		tOSRangeTableCellView.beforeVersionPicker.minVersion=tVersion;
@@ -406,32 +408,24 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	if (tRow==-1)
 		return;
 	
-	NSDictionary<NSString *, NSNumber *> *osRangeDictionary=_cachedOSRanges[tRow];
+	NSDictionary<NSString *, NSNumber *> * tOSRangeDictionary=_cachedOSRanges[tRow];
 	
 	if (sender.state==NSOnState)
 	{
-		WBMacOSVersionsHistory *history=[PKGRequirementViewControllerOSRanges macOSVersionsHistory];
+		WBVersion * tMinimumVersion=[PKGRequirementViewControllerOSRanges versionFromInteger:[tOSRangeDictionary[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
 		
-		WBVersion *minimumVersion=[PKGRequirementViewControllerOSRanges versionFromInteger:[osRangeDictionary[PKGRequirementOSRangeMinimumVersionKey] integerValue]];
-		WBVersionComponents *components=[history components:WBMajorVersionUnit fromVersion:minimumVersion];
-		
-		components.majorVersion=components.majorVersion + 1;
-		components.minorVersion=0;
-		components.patchVersion=0;
-		
-		WBVersion *beforeVersion=[history versionFromComponents:components];
-		
-		NSNumber *beforeVersionNumber=@([PKGRequirementViewControllerOSRanges integerFromVersion:beforeVersion]);
+		WBVersion * tBeforeVersion=[[PKGRequirementViewControllerOSRanges macOSVersionsHistory] nextMajorVersionOfVersion:tMinimumVersion];
+		NSNumber * tBeforeVersionNumber=@([PKGRequirementViewControllerOSRanges integerFromVersion:tBeforeVersion]);
 		
 		_cachedOSRanges[tRow]=@{
-								  PKGRequirementOSRangeMinimumVersionKey: osRangeDictionary[PKGRequirementOSRangeMinimumVersionKey],
-								  PKGRequirementOSRangeBeforeVersionKey: beforeVersionNumber
+								  PKGRequirementOSRangeMinimumVersionKey: tOSRangeDictionary[PKGRequirementOSRangeMinimumVersionKey],
+								  PKGRequirementOSRangeBeforeVersionKey: tBeforeVersionNumber
 								  };
 	}
 	else
 	{
 		_cachedOSRanges[tRow]=@{
-								  PKGRequirementOSRangeMinimumVersionKey: osRangeDictionary[PKGRequirementOSRangeMinimumVersionKey]
+								  PKGRequirementOSRangeMinimumVersionKey: tOSRangeDictionary[PKGRequirementOSRangeMinimumVersionKey]
 								  };
 	}
 	
@@ -449,18 +443,26 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 	
 	NSInteger tMaxInteger=[PKGRequirementViewControllerOSRanges integerFromVersion:tVersion];
 	
-	NSMutableDictionary<NSString *,NSNumber *> *range=[_cachedOSRanges[tRow] mutableCopy];
+	NSMutableDictionary<NSString *,NSNumber *> * tRange=[_cachedOSRanges[tRow] mutableCopy];
 	
-	range[PKGRequirementOSRangeBeforeVersionKey]=@(tMaxInteger);
+	tRange[PKGRequirementOSRangeBeforeVersionKey]=@(tMaxInteger);
 	
-	_cachedOSRanges[tRow]=range;
+	_cachedOSRanges[tRow]=tRange;
 	
 	PKGOSRangeTableCellView * tVersionTableCellView=(PKGOSRangeTableCellView *)sender.superview;
 	
 	tVersionTableCellView.beforeVersionOSNameLabel.stringValue = [PKGRequirementViewControllerOSRanges operatingSystemNameOfVersion:tVersion];
 }
 
-#pragma mark -
+#pragma mark - Notifications
+
+- (void)tableViewSelectionDidChange:(NSNotification *)inNotification
+{
+	if (inNotification.object==_tableView)
+		_removeButton.enabled=(_tableView.numberOfSelectedRows!=0);
+}
+
+#pragma mark - WBVersionPickerCellDelegate
 
 - (BOOL)versionPickerCell:(WBVersionPickerCell *)inVersionPickerCell shouldSelectElementType:(WBVersionPickerCellElementType)inElementType
 {	

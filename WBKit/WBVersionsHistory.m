@@ -203,6 +203,68 @@
 	return tNewVersion;
 }
 
+#pragma mark -
+
+- (WBVersion *)previousMajorVersionOfVersion:(WBVersion *)inVersion
+{
+	WBVersionComponents *components=[self components:WBMajorVersionUnit fromVersion:inVersion];
+	
+	components.majorVersion--;
+	components.minorVersion=0;
+	components.patchVersion=0;
+	
+	return [self versionFromComponents:components];
+}
+
+- (WBVersion *)nextMajorVersionOfVersion:(WBVersion *)inVersion
+{
+	WBVersionComponents *components=[self components:WBMajorVersionUnit fromVersion:inVersion];
+	
+	components.majorVersion++;
+	components.minorVersion=0;
+	components.patchVersion=0;
+	
+	return [self versionFromComponents:components];
+}
+
+- (WBVersion *)previousMinorVersionOfVersion:(WBVersion *)inVersion
+{
+	WBVersionComponents *components=[self components:WBMajorVersionUnit|WBMinorVersionUnit fromVersion:inVersion];
+	
+	components.minorVersion--;
+	components.patchVersion=0;
+	
+	return [self versionFromComponents:components];
+}
+
+- (WBVersion *)nextMinorVersionOfVersion:(WBVersion *)inVersion
+{
+	WBVersionComponents *components=[self components:WBMajorVersionUnit|WBMinorVersionUnit fromVersion:inVersion];
+	
+	components.minorVersion++;
+	components.patchVersion=0;
+	
+	return [self versionFromComponents:components];
+}
+
+- (WBVersion *)previousPatchVersionOfVersion:(WBVersion *)inVersion
+{
+	WBVersionComponents *components=[WBVersionComponents new];
+	
+	components.patchVersion=-1;
+	
+	return [self versionByAddingComponents:components toVersion:inVersion];
+}
+
+- (WBVersion *)nextPatchVersionOfVersion:(WBVersion *)inVersion
+{
+	WBVersionComponents *components=[WBVersionComponents new];
+	
+	components.patchVersion=1;
+	
+	return [self versionByAddingComponents:components toVersion:inVersion];
+}
+
 @end
 
 @implementation WBVersionComponents

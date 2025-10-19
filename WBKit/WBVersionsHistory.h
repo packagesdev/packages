@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -40,6 +40,17 @@ typedef NS_ENUM(NSUInteger,WBVersionUnit)
 
 - (WBVersion *)versionByAddingComponents:(WBVersionComponents *)comps toVersion:(WBVersion *)inVersion;
 
+// Calculations
+
+- (WBVersion *)previousMajorVersionOfVersion:(WBVersion *)inVersion;
+- (WBVersion *)nextMajorVersionOfVersion:(WBVersion *)inVersion;
+
+- (WBVersion *)previousMinorVersionOfVersion:(WBVersion *)inVersion;
+- (WBVersion *)nextMinorVersionOfVersion:(WBVersion *)inVersion;
+
+- (WBVersion *)previousPatchVersionOfVersion:(WBVersion *)inVersion;
+- (WBVersion *)nextPatchVersionOfVersion:(WBVersion *)inVersion;
+
 @end
 
 
@@ -55,3 +66,4 @@ enum
 	@property NSInteger patchVersion;
 
 @end
+
