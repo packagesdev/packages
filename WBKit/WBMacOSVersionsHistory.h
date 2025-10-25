@@ -36,6 +36,7 @@
 + (WBVersion *)macOSVenturaVersion;
 + (WBVersion *)macOSSonomaVersion;
 + (WBVersion *)macOSSequoiaVersion;
++ (WBVersion *)macOSTahoeVersion;
 
 + (WBVersion *)systemVersion;
 

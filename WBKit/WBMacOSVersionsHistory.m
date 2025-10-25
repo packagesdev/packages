@@ -52,6 +52,7 @@
 #define WBMacOSVenturaMajorVersion          13
 #define WBMacOSSonomaMajorVersion           14
 #define WBMacOSSequoiaMajorVersion          15
+#define WBMacOSTahoeMajorVersion			26
 
 #define WBMacOSReasonableMaxUnitValue          100
 
@@ -253,13 +254,22 @@
     return tNewVersion;
 }
 
-+ (WBVersion *)macOSSequoiaVersion;
++ (WBVersion *)macOSSequoiaVersion
 {
     WBVersion * tNewVersion=[WBVersion new];
     
     tNewVersion.majorVersion=WBMacOSSequoiaMajorVersion;
     
     return tNewVersion;
+}
+
++ (WBVersion *)macOSTahoeVersion
+{
+	WBVersion * tNewVersion=[WBVersion new];
+	
+	tNewVersion.majorVersion=WBMacOSTahoeMajorVersion;
+	
+	return tNewVersion;
 }
 
 #pragma mark -
@@ -316,7 +326,42 @@
 
 + (id)versionsHistory
 {
-	return [WBMacOSVersionsHistory new];
+	static WBMacOSVersionsHistory * sMacOSVersionsHistory=nil;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		sMacOSVersionsHistory=[WBMacOSVersionsHistory new];
+	});
+	
+	return sMacOSVersionsHistory;
+}
+
++ (NSIndexSet *)macOSMajorVersionsSet
+{
+	static NSIndexSet * sMacOSMajorVersionsSet=nil;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		NSMutableIndexSet *tMutableIndexSet=[NSMutableIndexSet indexSet];
+		
+		[tMutableIndexSet addIndex:WBMacOSXMajorVersion];
+		
+		[tMutableIndexSet addIndex:WBMacOSBigSurMajorVersion];
+		[tMutableIndexSet addIndex:WBMacOSMontereyMajorVersion];
+		[tMutableIndexSet addIndex:WBMacOSVenturaMajorVersion];
+		[tMutableIndexSet addIndex:WBMacOSSonomaMajorVersion];
+		[tMutableIndexSet addIndex:WBMacOSSequoiaMajorVersion];
+		[tMutableIndexSet addIndex:WBMacOSTahoeMajorVersion];
+		[tMutableIndexSet addIndex:WBMacOSTahoeMajorVersion+1];		// Upper margin
+		[tMutableIndexSet addIndex:WBMacOSTahoeMajorVersion+2];
+		[tMutableIndexSet addIndex:WBMacOSTahoeMajorVersion+3];
+		[tMutableIndexSet addIndex:WBMacOSTahoeMajorVersion+4];
+		[tMutableIndexSet addIndex:WBMacOSTahoeMajorVersion+5];
+		
+		sMacOSMajorVersionsSet=[tMutableIndexSet copy];
+	});
+	
+	return sMacOSMajorVersionsSet;
 }
 
 #pragma mark -
@@ -347,7 +392,7 @@
 	{
 		case WBMajorVersionUnit:
 			
-			return NSMakeRange(WBMacOSXMajorVersion, 10);
+			return NSMakeRange(WBMacOSXMajorVersion, 20);
 			
 		case WBMinorVersionUnit:
 			
@@ -372,7 +417,7 @@
 	switch (smaller)
 	{
 		case WBMajorVersionUnit:
-			return NSMakeRange(WBMacOSXMajorVersion, 10);
+			return NSMakeRange(WBMacOSXMajorVersion, 20);
 		
 		case WBMinorVersionUnit:
 		
@@ -380,7 +425,7 @@
             {
                 case WBMacOSXMajorVersion:
                     
-                    return NSMakeRange(0, 16);
+                    return NSMakeRange(0, 27);
                     
                 case WBMacOSBigSurMajorVersion:
                     
@@ -628,7 +673,7 @@
                         
                     /*case 7:
                         
-                        return NSMakeRange(0, 5);*/
+                        return NSMakeRange(0, 9);*/
                 }
                 
                 return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
@@ -662,13 +707,25 @@
 						
 						return NSMakeRange(0, 1);
 						
-					/*case 6:
+					case 6:
 						
-						return NSMakeRange(0, 2);*/
+						return NSMakeRange(0, 2);
 				}
 				
 				return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
             }
+			
+			if (inVersion.majorVersion==WBMacOSTahoeMajorVersion)
+			{
+				switch(inVersion.minorVersion)
+				{
+					case 0:
+						
+						return NSMakeRange(0, 2);
+				}
+				
+				return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
+			}
             
 			return NSMakeRange(0, WBMacOSReasonableMaxUnitValue);
 	}
@@ -681,7 +738,9 @@
 	if (comps==nil)
 		return nil;
 	
-	if (comps.majorVersion<0 || comps.minorVersion<0 || comps.patchVersion<0)
+	NSInteger majorVersion=comps.majorVersion;
+	
+	if (majorVersion<0 || comps.minorVersion<0 || comps.patchVersion<0)
 		return nil;
 	
 	if (comps.minorVersion==WBUndefinedVersionComponent || comps.patchVersion==WBUndefinedVersionComponent)
@@ -693,16 +752,22 @@
 	
 	NSRange tAllowedRange=[self maximumRangeOfUnit:WBMajorVersionUnit];
 	
-	if (comps.majorVersion==WBUndefinedVersionComponent)
+	
+	if (majorVersion==WBUndefinedVersionComponent)
 	{
 		tVersion.majorVersion=tAllowedRange.location;
 	}
 	else
 	{
-		if (comps.majorVersion<tAllowedRange.location || comps.majorVersion>=NSMaxRange(tAllowedRange))
+		if (majorVersion<tAllowedRange.location || majorVersion>=NSMaxRange(tAllowedRange))
 			return nil;
 		
-		tVersion.majorVersion=comps.majorVersion;
+		NSIndexSet * tMacOSMajorVersionsSet=[WBMacOSVersionsHistory macOSMajorVersionsSet];
+		
+		if ([tMacOSMajorVersionsSet containsIndex:majorVersion]==YES)
+			tVersion.majorVersion=majorVersion;
+		else
+			tVersion.majorVersion=[tMacOSMajorVersionsSet indexLessThanIndex:majorVersion];
 	}
 	
 	// Minor
@@ -790,6 +855,21 @@
 			}
 		}
 		
+		NSIndexSet * tMacOSMajorVersionsSet=[WBMacOSVersionsHistory macOSMajorVersionsSet];
+		
+		if ([tMacOSMajorVersionsSet containsIndex:tNewVersion.majorVersion]==NO)
+		{
+			NSInteger tCorrectedMajorVersion=NSNotFound;
+			
+			if (tComponents.majorVersion>0)
+				tCorrectedMajorVersion=[tMacOSMajorVersionsSet indexGreaterThanIndex:tNewVersion.majorVersion];
+			else if (tComponents.majorVersion<0)
+				tCorrectedMajorVersion=[tMacOSMajorVersionsSet indexLessThanIndex:tNewVersion.majorVersion];
+			
+			if (tCorrectedMajorVersion!=NSNotFound)
+				tNewVersion.majorVersion=tCorrectedMajorVersion;
+		}
+		
 		if (tNewVersion.majorVersion!=inVersion.majorVersion)
 		{
 			NSRange tMinorAllowedRange=[self rangeOfUnit:WBMinorVersionUnit inUnit:WBMajorVersionUnit forVersion:tNewVersion];
@@ -824,6 +904,16 @@
 				{
 					tNewVersion.majorVersion++;
 					
+					NSIndexSet * tMacOSMajorVersionsSet=[WBMacOSVersionsHistory macOSMajorVersionsSet];
+					
+					if ([tMacOSMajorVersionsSet containsIndex:tNewVersion.majorVersion]==NO)
+					{
+						NSInteger tCorrectedMajorVersion=[tMacOSMajorVersionsSet indexGreaterThanIndex:tNewVersion.majorVersion];
+						
+						if (tCorrectedMajorVersion!=NSNotFound)
+							tNewVersion.majorVersion=tCorrectedMajorVersion;
+					}
+					
 					tComponents.minorVersion-=(NSMaxRange(tMinorAllowedRange)-tNewVersion.minorVersion);
 					
 					tMinorAllowedRange=[self rangeOfUnit:WBMinorVersionUnit inUnit:WBMajorVersionUnit forVersion:tNewVersion];
@@ -854,6 +944,16 @@
 				if (tNewVersion.majorVersion>=(tMajorAllowedRange.location+1))
 				{
 					tNewVersion.majorVersion--;
+					
+					NSIndexSet * tMacOSMajorVersionsSet=[WBMacOSVersionsHistory macOSMajorVersionsSet];
+					
+					if ([tMacOSMajorVersionsSet containsIndex:tNewVersion.majorVersion]==NO)
+					{
+						NSInteger tCorrectedMajorVersion=[tMacOSMajorVersionsSet indexLessThanIndex:tNewVersion.majorVersion];
+						
+						if (tCorrectedMajorVersion!=NSNotFound)
+							tNewVersion.majorVersion=tCorrectedMajorVersion;
+					}
 					
 					tDelta-=(tNewVersion.minorVersion-tMinorAllowedRange.location+1);
 					
@@ -911,6 +1011,16 @@
 					{
 						tNewVersion.majorVersion++;
 						
+						NSIndexSet * tMacOSMajorVersionsSet=[WBMacOSVersionsHistory macOSMajorVersionsSet];
+						
+						if ([tMacOSMajorVersionsSet containsIndex:tNewVersion.majorVersion]==NO)
+						{
+							NSInteger tCorrectedMajorVersion=[tMacOSMajorVersionsSet indexGreaterThanIndex:tNewVersion.majorVersion];
+							
+							if (tCorrectedMajorVersion!=NSNotFound)
+								tNewVersion.majorVersion=tCorrectedMajorVersion;
+						}
+						
 						tMinorAllowedRange=[self rangeOfUnit:WBMinorVersionUnit inUnit:WBMajorVersionUnit forVersion:tNewVersion];
 						
 						tNewVersion.minorVersion=tMinorAllowedRange.location;
@@ -959,6 +1069,16 @@
 					if (tNewVersion.majorVersion>=(tMajorAllowedRange.location+1))
 					{
 						tNewVersion.majorVersion--;
+						
+						NSIndexSet * tMacOSMajorVersionsSet=[WBMacOSVersionsHistory macOSMajorVersionsSet];
+						
+						if ([tMacOSMajorVersionsSet containsIndex:tNewVersion.majorVersion]==NO)
+						{
+							NSInteger tCorrectedMajorVersion=[tMacOSMajorVersionsSet indexLessThanIndex:tNewVersion.majorVersion];
+							
+							if (tCorrectedMajorVersion!=NSNotFound)
+								tNewVersion.majorVersion=tCorrectedMajorVersion;
+						}
 						
 						tMinorAllowedRange=[self rangeOfUnit:WBMinorVersionUnit inUnit:WBMajorVersionUnit forVersion:tNewVersion];
 						
