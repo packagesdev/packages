@@ -17,18 +17,18 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="341" userLabel="View">
-            <rect key="frame" x="0.0" y="0.0" width="586" height="355"/>
+            <rect key="frame" x="0.0" y="0.0" width="586" height="261"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="xyO-Z5-ZDs">
-                    <rect key="frame" x="20" y="48" width="546" height="254"/>
+                    <rect key="frame" x="20" y="48" width="546" height="160"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="TQR-0q-TXZ">
-                        <rect key="frame" x="1" y="1" width="544" height="252"/>
+                        <rect key="frame" x="1" y="1" width="544" height="158"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="29" viewBased="YES" floatsGroupRows="NO" id="d3V-b8-yRH">
-                                <rect key="frame" x="0.0" y="0.0" width="544" height="252"/>
+                                <rect key="frame" x="0.0" y="0.0" width="544" height="158"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -61,7 +61,7 @@
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="3pz-0U-nBA">
                                                         <rect key="frame" x="9" y="6" width="63" height="17"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Minimum:" id="9I5-SN-v0j">
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Minimum:" id="9I5-SN-v0j">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -154,7 +154,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="345">
-                    <rect key="frame" x="18" y="318" width="550" height="17"/>
+                    <rect key="frame" x="18" y="224" width="550" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="The version of macOS installed on destination must be within one of the following ranges:" id="350">
                         <font key="font" metaFont="system"/>
@@ -163,7 +163,7 @@
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="38" y="3.5"/>
+            <point key="canvasLocation" x="38" y="-43.5"/>
         </customView>
         <datePicker verticalHuggingPriority="750" id="860">
             <rect key="frame" x="0.0" y="0.0" width="299" height="27"/>

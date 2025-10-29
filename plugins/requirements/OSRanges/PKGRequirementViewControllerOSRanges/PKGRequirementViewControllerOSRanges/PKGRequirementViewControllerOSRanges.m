@@ -126,6 +126,10 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
     {
         return @"Sequoia";
     }
+	else if (tVersionComponents.majorVersion==26)
+	{
+		return @"Tahoe";
+	}
 	
 	NSInteger tMinorComponent=tVersionComponents.minorVersion;
 	
@@ -238,6 +242,11 @@ typedef NS_ENUM(NSUInteger, PKGRequirementOSInstallationStatus)
 - (PKGRequirementType)requirementType
 {
 	return PKGRequirementTypeTarget;
+}
+
+- (BOOL)canCustomizeErrorMessage
+{
+	return NO;
 }
 
 #pragma mark -

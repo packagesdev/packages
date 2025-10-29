@@ -17,18 +17,18 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="341" userLabel="View">
-            <rect key="frame" x="0.0" y="0.0" width="586" height="261"/>
+            <rect key="frame" x="0.0" y="0.0" width="586" height="300"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="xyO-Z5-ZDs">
-                    <rect key="frame" x="20" y="48" width="546" height="160"/>
+                    <rect key="frame" x="20" y="48" width="546" height="182"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="TQR-0q-TXZ">
-                        <rect key="frame" x="1" y="1" width="544" height="158"/>
+                        <rect key="frame" x="1" y="1" width="544" height="180"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="29" viewBased="YES" floatsGroupRows="NO" id="d3V-b8-yRH">
-                                <rect key="frame" x="0.0" y="0.0" width="544" height="158"/>
+                                <rect key="frame" x="0.0" y="0.0" width="544" height="180"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -52,23 +52,23 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <customView id="4qe-F1-MaV" customClass="WBVersionPicker">
-                                                        <rect key="frame" x="82" y="3" width="85" height="23"/>
+                                                        <rect key="frame" x="78" y="3" width="85" height="23"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <connections>
                                                             <action selector="setMinimumVersion:" target="-2" id="qmH-p4-fu1"/>
                                                         </connections>
                                                     </customView>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="3pz-0U-nBA">
-                                                        <rect key="frame" x="9" y="6" width="67" height="17"/>
+                                                        <rect key="frame" x="20" y="6" width="52" height="17"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Minimum :" id="9I5-SN-v0j">
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Mínima:" id="9I5-SN-v0j">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" id="Sbn-LG-ez8">
-                                                        <rect key="frame" x="173" y="7" width="94" height="14"/>
+                                                        <rect key="frame" x="169" y="7" width="98" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="gNl-WB-NqV">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -77,7 +77,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" id="i9L-Rk-9qc">
-                                                        <rect key="frame" x="439" y="7" width="98" height="14"/>
+                                                        <rect key="frame" x="430" y="7" width="104" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="label" id="5pL-jC-jbw">
                                                             <font key="font" metaFont="smallSystem"/>
@@ -86,9 +86,9 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <button id="7Sl-Vi-N50">
-                                                        <rect key="frame" x="272" y="6" width="70" height="18"/>
+                                                        <rect key="frame" x="272" y="6" width="61" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" title="Before :" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="KXp-V6-6ZT">
+                                                        <buttonCell key="cell" type="check" title="Antes:" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="KXp-V6-6ZT">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -97,7 +97,7 @@
                                                         </connections>
                                                     </button>
                                                     <customView id="R7M-lc-ZLw" customClass="WBVersionPicker">
-                                                        <rect key="frame" x="348" y="3" width="85" height="23"/>
+                                                        <rect key="frame" x="339" y="3" width="85" height="23"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <connections>
                                                             <action selector="setBeforeVersion:" target="-2" id="dRZ-7X-tQy"/>
@@ -154,16 +154,16 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" id="345">
-                    <rect key="frame" x="18" y="224" width="558" height="17"/>
+                    <rect key="frame" x="18" y="246" width="550" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="La version de macOS installée sur la destination doit être dans l'un des intervalles suivants :" id="350">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="La versión de macOS instalada en el destino debe estar dentro de uno de los siguientes rangos:" id="350">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="38" y="-43.5"/>
+            <point key="canvasLocation" x="324" y="-4"/>
         </customView>
         <datePicker verticalHuggingPriority="750" id="860">
             <rect key="frame" x="0.0" y="0.0" width="299" height="27"/>
