@@ -13,7 +13,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "PKGControlledView.h"
 
-@interface PKGPresentationSectionContentsView : NSBox <PKGControlledView>
-
+@interface PKGPresentationSectionContentsView : NSBox
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_10)
+<PKGControlledView>
+#endif
 
 @end
