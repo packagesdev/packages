@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, Stephane Sudre
+ Copyright (c) 2017-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -18,6 +18,7 @@
 #import "PKGRequirementBehaviorViewController.h"
 #import "PKGDistributionInstallationRequirementBehaviorViewController.h"
 #import "PKGDistributionVolumeRequirementBehaviorViewController.h"
+#import "PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.h"
 
 #import "PKGRequirementMessagesDataSource.h"
 
@@ -32,6 +33,7 @@
 	PKGRequirementBehaviorViewController * _currentBehaviorController;
 	
 	PKGRequirementType _cachedRequirementCheckType;
+	int _cachedCustomizableErrorMessages;
 }
 
 - (IBAction)switchRequirementCheckType:(id)sender;
@@ -53,6 +55,8 @@
 	if (self!=nil)
 	{
 		_cachedRequirementCheckType=PKGRequirementTypeUndefined;
+		
+		_cachedCustomizableErrorMessages=-1;
 	}
 	
 	return self;
@@ -139,25 +143,32 @@
 		_currentBehaviorController=nil;
 	}
 	
-	PKGRequirementMessagesDataSource * tDataSource=[PKGRequirementMessagesDataSource new];
-	tDataSource.messages=self.requirement.messages;
+	PKGRequirementPanel * tRequirementPanel=(PKGRequirementPanel *)self.window;
 	
-    PKGRequirementPanel * tRequirementPanel=(PKGRequirementPanel *)self.window;
-    
-	if (inRequirementCheckType==PKGRequirementTypeTarget)
+	if (_cachedCustomizableErrorMessages==YES)
 	{
-		_currentBehaviorController=[[PKGDistributionVolumeRequirementBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
-	}
-	else if (inRequirementCheckType==PKGRequirementTypeInstallation)
-	{
-		_currentBehaviorController=[[PKGDistributionInstallationRequirementBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
+		PKGRequirementMessagesDataSource * tDataSource=[PKGRequirementMessagesDataSource new];
+		tDataSource.messages=self.requirement.messages;
+		
+		if (inRequirementCheckType==PKGRequirementTypeTarget)
+		{
+			_currentBehaviorController=[[PKGDistributionVolumeRequirementBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
+		}
+		else if (inRequirementCheckType==PKGRequirementTypeInstallation)
+		{
+			_currentBehaviorController=[[PKGDistributionInstallationRequirementBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
+		}
+		else
+		{
+			// A COMPLETER
+		}
+		
+		_currentBehaviorController.dataSource=tDataSource;
 	}
 	else
 	{
-		// A COMPLETER
+		_currentBehaviorController=[[PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController alloc] initWithDocument:tRequirementPanel.document];
 	}
-	
-	_currentBehaviorController.dataSource=tDataSource;
 	
 	if (_currentBehaviorController==nil)
 	{
@@ -230,6 +241,7 @@
 - (void)requirementCheckTypeDidChange:(NSNotification *)inNotification
 {
 	PKGRequirementType tRequirementCheckType=self.currentRequirementViewController.requirementType;
+	int tCustomizableErrorMessages=self.currentRequirementViewController.canCustomizeErrorMessage;
 	
 	if (tRequirementCheckType==PKGRequirementTypeUndefined)
 	{
@@ -259,11 +271,22 @@
 		}
 	}
 	
+	BOOL shouldUpdateBehaviorView=NO;
+	
+	if (_cachedCustomizableErrorMessages!=tCustomizableErrorMessages)
+	{
+		_cachedCustomizableErrorMessages=tCustomizableErrorMessages;
+		shouldUpdateBehaviorView=YES;
+	}
 	
 	if (_cachedRequirementCheckType!=tRequirementCheckType)
 	{
 		_cachedRequirementCheckType=tRequirementCheckType;
-		
+		shouldUpdateBehaviorView=YES;
+	}
+	
+	if (shouldUpdateBehaviorView==YES)
+	{
 		// Update Behavior View
 		
 		[self showBehaviorViewForCheckType:_cachedRequirementCheckType];

@@ -35,6 +35,8 @@ extern NSString * const PKGRequirementTypeDidChangeNotification;
 
 	@property (nonatomic,readonly) PKGRequirementType requirementType;
 
+	@property (nonatomic,readonly) BOOL canCustomizeErrorMessage;
+
 	@property (readonly) PKGDistributionProject * project;
 
 	@property (readonly) id<PKGFilePathConverter,PKGStringReplacer> objectTransformer;

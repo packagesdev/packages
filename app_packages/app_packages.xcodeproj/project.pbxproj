@@ -343,6 +343,8 @@
 		F485884F1DD7DDDD00A1D892 /* PKGProjectTemplateCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F485884E1DD7DDDD00A1D892 /* PKGProjectTemplateCollectionViewItem.xib */; };
 		F485A0631E3011B00078F79A /* PKGUsersAndGroupsMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = F485A0611E3011B00078F79A /* PKGUsersAndGroupsMonitor.m */; };
 		F485A06E1E3011D00078F79A /* OpenDirectory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F485A06D1E3011D00078F79A /* OpenDirectory.framework */; };
+		F485E1442EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F485E1422EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.m */; };
+		F485E1452EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F485E1432EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.xib */; };
 		F48649A71FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = F48649A61FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.m */; };
 		F4880F391DE2644600A9EAC7 /* NSString+Karelia.m in Sources */ = {isa = PBXBuildFile; fileRef = F4880F381DE2644600A9EAC7 /* NSString+Karelia.m */; };
 		F4880F561DE26C3300A9EAC7 /* PKGDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F4880F541DE26C3300A9EAC7 /* PKGDocument.m */; };
@@ -1533,6 +1535,9 @@
 		F485A0611E3011B00078F79A /* PKGUsersAndGroupsMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGUsersAndGroupsMonitor.m; path = app_packages/PKGUsersAndGroupsMonitor.m; sourceTree = "<group>"; };
 		F485A0621E3011B00078F79A /* PKGUsersAndGroupsMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGUsersAndGroupsMonitor.h; path = app_packages/PKGUsersAndGroupsMonitor.h; sourceTree = "<group>"; };
 		F485A06D1E3011D00078F79A /* OpenDirectory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenDirectory.framework; path = System/Library/Frameworks/OpenDirectory.framework; sourceTree = SDKROOT; };
+		F485E1412EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.h; path = app_packages/PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.h; sourceTree = "<group>"; };
+		F485E1422EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.m; path = app_packages/PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.m; sourceTree = "<group>"; };
+		F485E1432EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.xib; path = app_packages/PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.xib; sourceTree = "<group>"; };
 		F48649A51FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGMustCloseApplicationItemCellView.h; path = app_packages/PKGMustCloseApplicationItemCellView.h; sourceTree = "<group>"; };
 		F48649A61FAF86C700161F19 /* PKGMustCloseApplicationItemCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGMustCloseApplicationItemCellView.m; path = app_packages/PKGMustCloseApplicationItemCellView.m; sourceTree = "<group>"; };
 		F4880F371DE2644600A9EAC7 /* NSString+Karelia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Karelia.h"; path = "../external/NSString+Karelia.h"; sourceTree = "<group>"; };
@@ -3313,6 +3318,7 @@
 				F402BAAD1F54CFF40028B43D /* PKGDistributionRequirementsAndResourcesViewController.xib */,
 				F4D8CBD41E75734F00C90896 /* PKGDistributionInstallationRequirementBehaviorViewController.xib */,
 				F48ACCF51E7A04B300749142 /* PKGDistributionVolumeRequirementBehaviorViewController.xib */,
+				F485E1432EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3671,6 +3677,8 @@
 				F4D8CBCA1E75733400C90896 /* PKGDistributionInstallationRequirementBehaviorViewController.m */,
 				F48ACCF81E7A04DB00749142 /* PKGDistributionVolumeRequirementBehaviorViewController.h */,
 				F48ACCF91E7A04DB00749142 /* PKGDistributionVolumeRequirementBehaviorViewController.m */,
+				F485E1412EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.h */,
+				F485E1422EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.m */,
 				F474AFB01E5904C200483129 /* PKGDistributionRequirementPanel.h */,
 				F474AFB11E5904C200483129 /* PKGDistributionRequirementPanel.m */,
 				F4C5B12D1E6C511700AF5E4B /* model */,
@@ -4914,6 +4922,7 @@
 				F4E4B0121F4C2AB10086427E /* flag_cs.png in Resources */,
 				F49F489B1E5272D100CBAB2E /* packageImported16.png in Resources */,
 				F440C23C1EAD605C0069BA05 /* TemplatesPreferences@2x.png in Resources */,
+				F485E1452EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.xib in Resources */,
 				F4FE99B81F293D1800BCB60F /* Conclusion_Failure_32@2x.png in Resources */,
 				F4DD55711DD7597800C9750F /* PKGProjectTemplateAssistantChoiceViewController.xib in Resources */,
 				F44125A11F0EB6B200BD587C /* dependency_switch@2x.png in Resources */,
@@ -5215,6 +5224,7 @@
 				F4ABA89A1EB15DBD00629C37 /* NSMutableDictionary+Localizations.m in Sources */,
 				F4E13E741DD918F800E63E24 /* PKGAssistantController.m in Sources */,
 				F49F48901E526C0500CBAB2E /* PKGDistributionProjectSourceListItem.m in Sources */,
+				F485E1442EAD72AD00967969 /* PKGDistributionNoUserDefinedErrorMessagesBehaviorViewController.m in Sources */,
 				F424D3771DCE3ED600F95165 /* PKGRequirementViewController.m in Sources */,
 				F49CB8081E43F7B10044DE93 /* PKGFilesSelectionInspectorTabViewItemViewController.m in Sources */,
 				F4C5B1301E6C513E00AF5E4B /* PKGDistributionRequirementSourceListNode.m in Sources */,
@@ -6463,7 +6473,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 749;
+				CURRENT_PROJECT_VERSION = 755;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
@@ -6489,7 +6499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
-				CURRENT_PROJECT_VERSION = 749;
+				CURRENT_PROJECT_VERSION = 755;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = app_packages/app_packages_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;

@@ -82,6 +82,11 @@ NSString * const PKGRequirementTypeDidChangeNotification=@"PKGRequirementTypeDid
 	return PKGRequirementTypeUndefined;
 }
 
+- (BOOL)canCustomizeErrorMessage
+{
+	return YES;
+}
+
 - (PKGDistributionProject *)project
 {
 	return ((PKGRequirementPanel *)self.view.window).project;
