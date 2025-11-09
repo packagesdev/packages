@@ -15,16 +15,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation NSString (Ranges)
 
-- (NSString *) substringWithRange:(NSRange) inRange excludingSortedRanges:(NSArray *) inExcludedRanges
+- (NSString *)substringWithRange:(NSRange)inRange excludingSortedRanges:(NSArray *)inExcludedRanges
 {
-	NSMutableString * tMutableString=[NSMutableString stringWithString:[self substringWithRange:inRange]];
+	NSMutableString *tMutableString=[NSMutableString stringWithString:[self substringWithRange:inRange]];
 	
 	if (inExcludedRanges!=nil)
 	{
 		NSUInteger tOffset=inRange.location;
 		NSUInteger tLength=inRange.length;
 		
-        for (NSValue * tValue in inExcludedRanges)
+        for (NSValue *tValue in inExcludedRanges)
         {
 			NSRange tRange=tValue.rangeValue;
 			

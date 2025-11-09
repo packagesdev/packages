@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,7 +15,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation NSValue (SortRange)
 
-- (NSComparisonResult) compareRangeLocation:(NSValue *) inValue
+- (NSComparisonResult)compareRangeLocation:(NSValue *)inValue
 {
 	if (inValue!=nil)
 	{
@@ -36,11 +36,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation NSRangeUtilities
 
-+ (NSUInteger) indexOfRangeIncludingLocation:(NSUInteger) inLocation withinRanges:(NSArray *) inArray
++ (NSUInteger)indexOfRangeIncludingLocation:(NSUInteger) inLocation withinRanges:(NSArray *)inArray
 {
 	__block NSUInteger tFoundIndex=NSNotFound;
 	
-	[inArray enumerateObjectsUsingBlock:^(NSValue * bValue,NSUInteger bIndex,BOOL * bOutStop){
+	[inArray enumerateObjectsUsingBlock:^(NSValue *bValue,NSUInteger bIndex,BOOL *bOutStop){
 	
 		NSRange tRange=bValue.rangeValue;
 		
@@ -54,9 +54,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return tFoundIndex;
 }
 
-+ (BOOL) location:(NSUInteger) inLocation isInsideRanges:(NSArray *) inArray
++ (BOOL)location:(NSUInteger)inLocation isInsideRanges:(NSArray *)inArray
 {
-	for(NSValue * tValue in inArray)
+	for(NSValue *tValue in inArray)
     {
         NSRange tOtherRange=tValue.rangeValue;
         
@@ -67,9 +67,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return NO;
 }
 
-+ (BOOL) range:(NSRange) inRange intersectsRanges:(NSArray *) inArray
++ (BOOL) range:(NSRange)inRange intersectsRanges:(NSArray *)inArray
 {
-	for(NSValue * tValue in inArray)
+	for(NSValue *tValue in inArray)
     {
         NSRange tOtherRange=tValue.rangeValue;
         
@@ -80,9 +80,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return NO;
 }
 
-+ (BOOL) range:(NSRange) inRange intersectsSortedRanges:(NSArray *) inArray
++ (BOOL)range:(NSRange) inRange intersectsSortedRanges:(NSArray *)inArray
 {
-	for(NSValue * tValue in inArray)
+	for(NSValue *tValue in inArray)
     {
         NSRange tOtherRange=tValue.rangeValue;
         
@@ -96,14 +96,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return NO;
 }
 
-+ (NSArray *) rangesFromRange:(NSRange) inRange excludingRanges:(NSArray *) inRanges
++ (NSArray *)rangesFromRange:(NSRange)inRange excludingRanges:(NSArray *)inRanges
 {
 	if (inRanges==nil)
 		return [NSArray arrayWithObject:[NSValue valueWithRange:inRange]];
 	
-	NSMutableArray * tAvailableRanges=[NSMutableArray array];
+	NSMutableArray *tAvailableRanges=[NSMutableArray array];
 	
-	NSMutableArray * tSortedRangesArray=[NSMutableArray arrayWithArray:inRanges];
+	NSMutableArray *tSortedRangesArray=[NSMutableArray arrayWithArray:inRanges];
 		
 	if (tSortedRangesArray!=nil)
 	{
@@ -113,7 +113,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		{
 			NSRange tNextAvailableRange=inRange;
 			
-			for(NSValue * tValue in tSortedRangesArray)
+			for(NSValue *tValue in tSortedRangesArray)
 			{
 				NSRange tExcludedRange=tValue.rangeValue;
 				NSUInteger tMaxExcludedRange=NSMaxRange(tExcludedRange);
@@ -123,7 +123,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				{
 					if (tExcludedRange.location>tNextAvailableRange.location)
 					{
-						NSValue * tAvailableValue=[NSValue valueWithRange:NSMakeRange(tNextAvailableRange.location,tExcludedRange.location-tNextAvailableRange.location)];
+						NSValue *tAvailableValue=[NSValue valueWithRange:NSMakeRange(tNextAvailableRange.location,tExcludedRange.location-tNextAvailableRange.location)];
 						
 						[tAvailableRanges addObject:tAvailableValue];
 						
@@ -158,7 +158,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			
 			if (tNextAvailableRange.length>0)
 			{
-				NSValue * tAvailableValue=[NSValue valueWithRange:tNextAvailableRange];
+				NSValue *tAvailableValue=[NSValue valueWithRange:tNextAvailableRange];
 						
 				[tAvailableRanges addObject:tAvailableValue];
 			}
@@ -168,13 +168,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	return [tAvailableRanges copy];
 }
 
-+ (NSArray *) sortedRanges:(NSArray *) inArray intersectingRange:(NSRange) inRange
++ (NSArray *)sortedRanges:(NSArray *)inArray intersectingRange:(NSRange)inRange
 {
-	NSMutableArray * tMutableArray=[NSMutableArray array];
+	NSMutableArray *tMutableArray=[NSMutableArray array];
 	
 	if (inArray!=nil && (inRange.length>0))
 	{
-		for(NSValue * tValue in inArray)
+		for(NSValue *tValue in inArray)
 		{
 			NSRange tRange=tValue.rangeValue;
 			

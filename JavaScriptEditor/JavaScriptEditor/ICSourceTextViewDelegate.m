@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2018, Stephane Sudre
+Copyright (c) 2009-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,7 +23,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import "NSResponder+Appearance.h"
 
-NSString * ICJavaScriptFunctionsListDidChangeNotification=@"ICJavaScriptFunctionsListDidChangeNotification";
+NSString * const ICJavaScriptFunctionsListDidChangeNotification=@"ICJavaScriptFunctionsListDidChangeNotification";
 
 NSString * const ICJavaScriptFunctionNameKey=@"Name";
 NSString * const ICJavaScriptFunctionParametersKey=@"Parameters";
@@ -37,41 +37,41 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 @interface ICSourceTextViewDelegate ()
 {
-	IBOutlet NSTextView * _textView;
+	IBOutlet NSTextView *_textView;
 	
-	IBOutlet ICJavaScriptFunctionPopUpButton * _functionsPopupButton;
+	IBOutlet ICJavaScriptFunctionPopUpButton *_functionsPopupButton;
 	
 	// Data
 	
-	NSCharacterSet * _nonSeparatorsSet;
-	NSCharacterSet * _numberPrecedingSeparatorSet;
+	NSCharacterSet *_nonSeparatorsSet;
+	NSCharacterSet *_numberPrecedingSeparatorSet;
 	
-	NSArray * _distributionKeywords;
-	NSArray * _keywords;
-	
-	
-	NSMutableArray * _commentsRangesArray;
-	NSMutableArray * _stringsRangesArray;
-	NSMutableArray * _searchableRangesArray;
-	
-	NSMutableDictionary * _syntaxLightAttributesDictionary;
-	NSMutableDictionary * _syntaxDarkAttributesDictionary;
+	NSArray *_distributionKeywords;
+	NSArray *_keywords;
 	
 	
-	NSMutableArray * _functions;
+	NSMutableArray *_commentsRangesArray;
+	NSMutableArray *_stringsRangesArray;
+	NSMutableArray *_searchableRangesArray;
+	
+	NSMutableDictionary *_syntaxLightAttributesDictionary;
+	NSMutableDictionary *_syntaxDarkAttributesDictionary;
+	
+	
+	NSMutableArray *_functions;
 }
 
-+ (NSMutableDictionary *)functionDictionaryForString:(NSString *) inString;
++ (NSMutableDictionary *)functionDictionaryForString:(NSString *)inString;
 
 - (void)delayedParseFunctions;
 - (void)updateFunctionsMenuSelectedItem;
 - (void)parseSourceCode;
 
-- (void)highlightKeywords:(NSArray *) inKeywordsArray inRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes;
-- (void)highlightNumbersInRange:(NSRange) inRange withAttributes:(NSDictionary *) inAttributes;
+- (void)highlightKeywords:(NSArray *)inKeywordsArray inRange:(NSRange)inRange withAttributes:(NSDictionary *)inAttributes;
+- (void)highlightNumbersInRange:(NSRange)inRange withAttributes:(NSDictionary *)inAttributes;
 
-- (NSUInteger)findForwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex;
-- (NSUInteger)findBackwardMatchingCharacter:(unichar) inCharacter inRanges:(NSArray *) inRangesArray startingAt:(NSUInteger) inStartingIndex;
+- (NSUInteger)findForwardMatchingCharacter:(unichar)inCharacter inRanges:(NSArray *)inRangesArray startingAt:(NSUInteger)inStartingIndex;
+- (NSUInteger)findBackwardMatchingCharacter:(unichar)inCharacter inRanges:(NSArray *)inRangesArray startingAt:(NSUInteger)inStartingIndex;
 
 - (NSArray *)functionsRanges;
 
@@ -213,10 +213,10 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 - (void)awakeFromNib
 {
-	NSString * tDefaultFontName;
+	NSString *tDefaultFontName;
 	CGFloat tDefaultFontSize;
 	
-	NSFont * tFont=[NSFont fontWithName:@"Menlo" size:11.f];
+	NSFont *tFont=[NSFont fontWithName:@"Menlo" size:11.f];
 	
 	if (tFont!=nil)
 	{
@@ -229,18 +229,18 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		tDefaultFontSize=10.0f;
 	}
 	
-	NSString * tFontName=tDefaultFontName;
+	NSString *tFontName=tDefaultFontName;
 	CGFloat tFontSize=tDefaultFontSize;
 	
-	NSUserDefaults * tUserDefaults=[NSUserDefaults standardUserDefaults];
+	NSUserDefaults *tUserDefaults=[NSUserDefaults standardUserDefaults];
 	
 	// Text Font
 	
-	NSString * tString=[tUserDefaults stringForKey:IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT];
+	NSString *tString=[tUserDefaults stringForKey:IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT];
 	
 	if (tString!=nil)
 	{
-		NSArray * tArray=[tString componentsSeparatedByString:@" - "];
+		NSArray *tArray=[tString componentsSeparatedByString:@" - "];
 		
 		if (tArray!=nil && tArray.count==2)
 		{
@@ -280,9 +280,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 #pragma mark -
 
-+ (NSMutableDictionary *)functionDictionaryForString:(NSString *) inString
++ (NSMutableDictionary *)functionDictionaryForString:(NSString *)inString
 {
-	NSMutableDictionary * tFunctionDictionary=nil;
+	NSMutableDictionary *tFunctionDictionary=nil;
 	
 	if (inString!=nil)
 	{
@@ -368,7 +368,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 						
 						if (notAFunction==NO && tFunctionNameIndex<(tLength-2))
 						{
-							NSMutableString * tFunctionName=[NSMutableString stringWithString:[inString substringWithRange:NSMakeRange(NSMaxRange(tFunctionRange),tFunctionNameIndex-NSMaxRange(tFunctionRange)+1)]];
+							NSMutableString *tFunctionName=[NSMutableString stringWithString:[inString substringWithRange:NSMakeRange(NSMaxRange(tFunctionRange),tFunctionNameIndex-NSMaxRange(tFunctionRange)+1)]];
 							
 							if (tFunctionName!=nil)
 							{
@@ -386,7 +386,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 									
 										if ([tFunctionName rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@" \t\r\n"]].location==NSNotFound)
 										{
-											NSMutableString * tParametersString=[NSMutableString stringWithString:[inString substringWithRange:NSMakeRange(tFunctionNameIndex+1,tLength-tFunctionNameIndex-1)]];
+											NSMutableString *tParametersString=[NSMutableString stringWithString:[inString substringWithRange:NSMakeRange(tFunctionNameIndex+1,tLength-tFunctionNameIndex-1)]];
 											
 											if (tParametersString!=nil)
 											{
@@ -400,15 +400,15 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 													
 													if (tChar==')')
 													{
-														NSMutableArray * tParameters=[NSMutableArray array];
+														NSMutableArray *tParameters=[NSMutableArray array];
 														
 														if ((tParametersLength-2)>0)
 														{
-															NSString * tSubString=[tParametersString substringWithRange:NSMakeRange(1,tParametersLength-2)];
+															NSString *tSubString=[tParametersString substringWithRange:NSMakeRange(1,tParametersLength-2)];
 														
 															if (tSubString.length>0)
 															{
-																NSArray * tParametersArray=[tSubString componentsSeparatedByString:@","];
+																NSArray *tParametersArray=[tSubString componentsSeparatedByString:@","];
 																
 																if (tParametersArray!=nil)
 																{
@@ -418,7 +418,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 																	
 																	for(tParametersIndex=0;tParametersIndex<tParametersCount;tParametersIndex++)
 																	{
-																		NSMutableString * tSingleParameterString=[NSMutableString stringWithString:[tParametersArray objectAtIndex:tParametersIndex]];
+																		NSMutableString *tSingleParameterString=[NSMutableString stringWithString:[tParametersArray objectAtIndex:tParametersIndex]];
 																		
 																		if (tSingleParameterString!=nil)
 																		{
@@ -503,12 +503,12 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		NSUInteger tRangeIndex=0;
 		NSUInteger tRootBlocksCount;
 		
-		NSString * tSourceCode=[_textView string];
+		NSString *tSourceCode=[_textView string];
 		NSUInteger tLength=tSourceCode.length;
 	
-		NSMutableArray * tRootBlocksArray=[NSMutableArray array];
+		NSMutableArray *tRootBlocksArray=[NSMutableArray array];
 		
-		NSValue * tValue=_searchableRangesArray.firstObject;
+		NSValue *tValue=_searchableRangesArray.firstObject;
 			
 		NSRange tSearchRange=tValue.rangeValue;
 		
@@ -543,7 +543,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 				{
 					tBlockRange.length=tLength-tBlockRange.location;
 					
-					NSValue * tBlockValue=[NSValue valueWithRange:tBlockRange];
+					NSValue *tBlockValue=[NSValue valueWithRange:tBlockRange];
 					
 					if (tBlockValue!=nil)
 						[tRootBlocksArray addObject:tBlockValue];
@@ -554,7 +554,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 				{
 					tBlockRange.length=tMatchLocation-tBlockRange.location+1;
 					
-					NSValue * tBlockValue=[NSValue valueWithRange:tBlockRange];
+					NSValue *tBlockValue=[NSValue valueWithRange:tBlockRange];
 					
 					if (tBlockValue!=nil)
 						[tRootBlocksArray addObject:tBlockValue];
@@ -625,15 +625,15 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 						
 						if ([NSRangeUtilities range:tRestrictedRange intersectsSortedRanges:_stringsRangesArray]==NO)
 						{
-							NSArray * tIntersectedCommentsRange=[NSRangeUtilities sortedRanges:_commentsRangesArray intersectingRange:tRestrictedRange];
+							NSArray *tIntersectedCommentsRange=[NSRangeUtilities sortedRanges:_commentsRangesArray intersectingRange:tRestrictedRange];
 							
 							// Take the excerpt and remove the comments
 							
-							NSString * tExcerptString=[tSourceCode substringWithRange:tRestrictedRange excludingSortedRanges:tIntersectedCommentsRange];
+							NSString *tExcerptString=[tSourceCode substringWithRange:tRestrictedRange excludingSortedRanges:tIntersectedCommentsRange];
 							
 							if (tExcerptString!=nil)
 							{
-								NSMutableDictionary * tFunctionDictionary=[ICSourceTextViewDelegate functionDictionaryForString:tExcerptString];
+								NSMutableDictionary *tFunctionDictionary=[ICSourceTextViewDelegate functionDictionaryForString:tExcerptString];
 								
 								if (tFunctionDictionary!=nil)
 								{
@@ -656,17 +656,17 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	
 	// Update the functions menu
 	
-	NSMenu * tMenu=[_functionsPopupButton menu];
+	NSMenu *tMenu=[_functionsPopupButton menu];
 	
 	[tMenu removeAllItems];
 	
-	for(NSDictionary * tFunctionDictionary in _functions)
+	for(NSDictionary *tFunctionDictionary in _functions)
 	{
-		NSString * tTitle=tFunctionDictionary[ICJavaScriptFunctionNameKey];
+		NSString *tTitle=tFunctionDictionary[ICJavaScriptFunctionNameKey];
 		
 		if (tTitle!=nil)
 		{
-			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:tTitle action:nil keyEquivalent:@""];
+			NSMenuItem *tMenuItem=[[NSMenuItem alloc] initWithTitle:tTitle action:nil keyEquivalent:@""];
 		
 			if (tMenuItem!=nil)
 				[tMenu addItem:tMenuItem];
@@ -684,11 +684,11 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 {
 	NSUInteger tSelectedFunctionIndex=NSNotFound;
 	
-	NSArray * tSelectedRanges=[_textView selectedRanges];
+	NSArray *tSelectedRanges=[_textView selectedRanges];
 	
 	if (tSelectedRanges!=nil && tSelectedRanges.count>0)
 	{
-		NSValue * tValue=tSelectedRanges[0];
+		NSValue *tValue=tSelectedRanges[0];
 		
 		NSUInteger tLocation=tValue.rangeValue.location;
 		
@@ -710,7 +710,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 - (void)parseSourceCode
 {
-	NSString * tSourceCode=[_textView string];
+	NSString *tSourceCode=[_textView string];
 	NSUInteger tLength=tSourceCode.length;
 	
 	[_commentsRangesArray removeAllObjects];
@@ -721,7 +721,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	if (tLength>0 && _commentsRangesArray!=nil && _stringsRangesArray!=nil)
 	{
 		NSUInteger tIndex=0;
-		NSValue * tValue;
+		NSValue *tValue;
 	
 		while (tIndex<tLength)
 		{
@@ -956,11 +956,11 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	
 	// Colorize code
 	
-	NSTextStorage * tTextStorage=[_textView textStorage];
+	NSTextStorage *tTextStorage=[_textView textStorage];
 	
-	NSLayoutManager * tLayoutManager = [[tTextStorage layoutManagers] objectAtIndex: 0];
+	NSLayoutManager *tLayoutManager = [[tTextStorage layoutManagers] objectAtIndex: 0];
 	
-	NSDictionary * tSyntaxAttributesDictionary=([_textView WB_isEffectiveAppearanceDarkAqua]==NO) ? _syntaxLightAttributesDictionary : _syntaxDarkAttributesDictionary;
+	NSDictionary *tSyntaxAttributesDictionary=([_textView WB_isEffectiveAppearanceDarkAqua]==NO) ? _syntaxLightAttributesDictionary : _syntaxDarkAttributesDictionary;
 	
 	// Remove all attributes
 	
@@ -970,27 +970,27 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	{
 		// Comments
 		
-		NSDictionary * tAttributeDictionary=tSyntaxAttributesDictionary[@"COMMENTS"];
+		NSDictionary *tAttributeDictionary=tSyntaxAttributesDictionary[@"COMMENTS"];
 		
-		for(NSValue * tValue in _commentsRangesArray)
+		for(NSValue *tValue in _commentsRangesArray)
 			[tLayoutManager addTemporaryAttributes: tAttributeDictionary forCharacterRange:[tValue rangeValue]];
 	
 		// Strings
 		
 		tAttributeDictionary=tSyntaxAttributesDictionary[@"STRINGS"];
 		
-		for(NSValue * tValue in _stringsRangesArray)
+		for(NSValue *tValue in _stringsRangesArray)
 			[tLayoutManager addTemporaryAttributes: tAttributeDictionary forCharacterRange:[tValue rangeValue]];
 		
 		
-		NSMutableArray * tExcludedRangesArray=[NSMutableArray arrayWithArray:_commentsRangesArray];
+		NSMutableArray *tExcludedRangesArray=[NSMutableArray arrayWithArray:_commentsRangesArray];
 		
 		[tExcludedRangesArray addObjectsFromArray:_stringsRangesArray];
 		
 		
 		_searchableRangesArray=[[NSRangeUtilities rangesFromRange:NSMakeRange(0,tLength) excludingRanges:tExcludedRangesArray] mutableCopy];
 		
-		for(NSValue * tValue in _searchableRangesArray)
+		for(NSValue *tValue in _searchableRangesArray)
 		{
 			NSRange tRange=tValue.rangeValue;
 				
@@ -1019,14 +1019,14 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 {
 	if (inAttributes!=nil)
 	{
-		NSTextStorage * tTextStorage=[_textView textStorage];
-		NSLayoutManager * tLayoutManager=tTextStorage.layoutManagers.firstObject;
+		NSTextStorage *tTextStorage=[_textView textStorage];
+		NSLayoutManager *tLayoutManager=tTextStorage.layoutManagers.firstObject;
 		
 		NSUInteger tFirstDigitIndex=inRange.location;
 		
 		NSUInteger tMaxIndex=NSMaxRange(inRange);
 		
-		NSString * tSourceCode=[_textView string];
+		NSString *tSourceCode=[_textView string];
 		
 		while (tFirstDigitIndex<tMaxIndex)
 		{
@@ -1135,17 +1135,17 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 {
 	if (inKeywordsArray!=nil && inRange.length>0)
 	{
-		NSEnumerator * tEnumerator=[inKeywordsArray objectEnumerator];
+		NSEnumerator *tEnumerator=[inKeywordsArray objectEnumerator];
 			
 		if (tEnumerator!=nil)
 		{
-			NSString * tKeyword;
+			NSString *tKeyword;
 			
-			NSTextStorage * tTextStorage=[_textView textStorage];
-			NSLayoutManager * tLayoutManager = tTextStorage.layoutManagers.firstObject;
+			NSTextStorage *tTextStorage=[_textView textStorage];
+			NSLayoutManager *tLayoutManager = tTextStorage.layoutManagers.firstObject;
 			
 			
-			NSString * tSourceCode=[_textView string];
+			NSString *tSourceCode=[_textView string];
 			
 			while (tKeyword=[tEnumerator nextObject])
 			{
@@ -1208,9 +1208,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 			return NSNotFound;
 		}
 		
-		NSString * tSourceCode=[_textView string];
+		NSString *tSourceCode=[_textView string];
 		
-		NSCharacterSet * tLookingForSet=[NSCharacterSet characterSetWithCharactersInString:@"(){}"];
+		NSCharacterSet *tLookingForSet=[NSCharacterSet characterSetWithCharactersInString:@"(){}"];
 		
 		NSInteger tRangesCount=inRangesArray.count;
 		
@@ -1218,7 +1218,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		{
 			BOOL tContinue=YES;
 			
-			NSValue * tValue=inRangesArray[tRangeIndex];
+			NSValue *tValue=inRangesArray[tRangeIndex];
 			
 			NSRange tPartialLookRange=tValue.rangeValue;
 			
@@ -1314,9 +1314,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 	
 	if (tRangeIndex!=NSNotFound)
 	{
-		NSValue * tValue;
-		NSCharacterSet * tLookingForSet;
-		NSString * tSourceCode;
+		NSValue *tValue;
+		NSCharacterSet *tLookingForSet;
+		NSString *tSourceCode;
 		NSUInteger tBracesDepth=0;
 		NSUInteger tParenthesisDepth=0;
 		
@@ -1437,9 +1437,9 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 {
 	if ([inNotification object]==_textView)
 	{
-		NSUserDefaults * tUserDefaults=[NSUserDefaults standardUserDefaults];
+		NSUserDefaults *tUserDefaults=[NSUserDefaults standardUserDefaults];
 		
-		NSFont * tFont=[_textView font];
+		NSFont *tFont=[_textView font];
 		
 		[tUserDefaults setObject:[NSString stringWithFormat:@"%@ - %f",[tFont fontName],[tFont pointSize]]
 						  forKey:IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT];
@@ -1459,7 +1459,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 {
 	if ([inNotification object]==_textView)
 	{
-		NSEvent * tCurrentEvent=[NSApp currentEvent];
+		NSEvent *tCurrentEvent=[NSApp currentEvent];
 		
 		NSRange tSelectionRange  = [_textView selectedRange];
 		
@@ -1469,7 +1469,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		
 		if (tCurrentEvent.type == WBEventTypeLeftMouseUp && tCurrentEvent.clickCount == 2 && tSelectionRange.length == 1)
 		{
-			NSString * tString=[_textView string];
+			NSString *tString=[_textView string];
 			NSUInteger tLength=tString.length;
 			
 			NSUInteger tLocation=tSelectionRange.location;
@@ -1560,11 +1560,11 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 {
 	NSInteger tIndex=[sender indexOfSelectedItem];
 	
-	NSString * tFunctionName=[sender titleOfSelectedItem];
+	NSString *tFunctionName=[sender titleOfSelectedItem];
 	
 	if (_functions!=nil && tIndex<_functions.count)
 	{
-		NSDictionary * tFunctionDictionary=_functions[tIndex];
+		NSDictionary *tFunctionDictionary=_functions[tIndex];
 		
 		if ([tFunctionDictionary[ICJavaScriptFunctionNameKey] isEqualToString:tFunctionName]==NO)
 		{
@@ -1577,7 +1577,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 		
 		if (tFunctionDictionary!=nil)
 		{
-			NSValue * tValue=tFunctionDictionary[ICJavaScriptFunctionPrototypeRangeKey];
+			NSValue *tValue=tFunctionDictionary[ICJavaScriptFunctionPrototypeRangeKey];
 			
 			if (tValue!=nil)
 			{
@@ -1603,7 +1603,7 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 - (NSArray *)parametersForFunctionNamed:(NSString *) inFunctionName
 {
-	for (NSDictionary * tFunctionDictionary in _functions)
+	for (NSDictionary *tFunctionDictionary in _functions)
 	{
 		if ([tFunctionDictionary[ICJavaScriptFunctionNameKey] isEqualToString:inFunctionName]==YES)
 			return tFunctionDictionary[ICJavaScriptFunctionParametersKey];
@@ -1614,11 +1614,11 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 - (NSArray *)functionsRanges
 {
-	NSMutableArray * tMutableArray=[NSMutableArray array];
+	NSMutableArray *tMutableArray=[NSMutableArray array];
 	
 	if (tMutableArray!=nil)
 	{
-		for (NSDictionary * tFunctionDictionary in _functions)
+		for (NSDictionary *tFunctionDictionary in _functions)
 			[tMutableArray addObject:tFunctionDictionary[ICJavaScriptFunctionBlockRangeKey]];
 	}
 	
@@ -1627,11 +1627,11 @@ NSString * const IC_SOURCETEXTVIEW_DELEGATE_EDITOR_FONT=@"javascript.editor.font
 
 - (NSArray *)sortedFunctionsList
 {
-	NSMutableArray * tMutableArray=[NSMutableArray array];
+	NSMutableArray *tMutableArray=[NSMutableArray array];
 	
 	if (tMutableArray!=nil)
 	{
-		for (NSDictionary * tFunctionDictionary in _functions)
+		for (NSDictionary *tFunctionDictionary in _functions)
 			[tMutableArray addObject:tFunctionDictionary[ICJavaScriptFunctionNameKey]];
 	}
 	

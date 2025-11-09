@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2021, Stephane Sudre
+ Copyright (c) 2020-2025, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -27,7 +27,7 @@
     return inObject;
 }
 
-- (BOOL)getObjectValue:(id *) outObject forString:(NSString *) inString errorDescription:(NSString **) outError
+- (BOOL)getObjectValue:(id *)outObject forString:(NSString *)inString errorDescription:(NSString **)outError
 {
     *outObject=[inString copy];
     
@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-- (BOOL)isPartialStringValid:(NSString *) inPartialString newEditingString:(NSString **) outNewString errorDescription:(NSString **) outError
+- (BOOL)isPartialStringValid:(NSString *)inPartialString newEditingString:(NSString **)outNewString errorDescription:(NSString **)outError
 {
     if (inPartialString==nil)
         return YES;

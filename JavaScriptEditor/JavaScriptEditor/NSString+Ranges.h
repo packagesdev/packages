@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,6 +15,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface NSString (Ranges)
 
-- (NSString *) substringWithRange:(NSRange) inRange excludingSortedRanges:(NSArray *) inExcludedRanges;
+- (NSString *)substringWithRange:(NSRange) inRange excludingSortedRanges:(NSArray *)inExcludedRanges;
 
 @end

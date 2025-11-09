@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -13,11 +13,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString * ICJavaScriptFunctionsListDidChangeNotification;
+extern NSString * const ICJavaScriptFunctionsListDidChangeNotification;
 
 @interface ICSourceTextViewDelegate : NSObject <NSTextDelegate>
 
-- (NSArray *)parametersForFunctionNamed:(NSString *) inFunctionName;
+- (NSArray *)parametersForFunctionNamed:(NSString *)inFunctionName;
 
 - (NSArray *)sortedFunctionsList;
 

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2009-2016, Stephane Sudre
+Copyright (c) 2009-2025, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -15,22 +15,22 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @interface NSValue (SortRange)
 
-- (NSComparisonResult) compareRangeLocation:(NSValue *) inValue;
+- (NSComparisonResult)compareRangeLocation:(NSValue *)inValue;
 
 @end
 
 @interface NSRangeUtilities : NSObject
 
-+ (NSUInteger) indexOfRangeIncludingLocation:(NSUInteger) inLocation withinRanges:(NSArray *) inArray;
++ (NSUInteger)indexOfRangeIncludingLocation:(NSUInteger)inLocation withinRanges:(NSArray *)inArray;
 
-+ (BOOL) location:(NSUInteger) inLocation isInsideRanges:(NSArray *) inArray;
++ (BOOL)location:(NSUInteger)inLocation isInsideRanges:(NSArray *)inArray;
 
-+ (BOOL) range:(NSRange) inRange intersectsRanges:(NSArray *) inArray;
++ (BOOL)range:(NSRange)inRange intersectsRanges:(NSArray *) inArray;
 
-+ (BOOL) range:(NSRange) inRange intersectsSortedRanges:(NSArray *) inArray;
++ (BOOL)range:(NSRange)inRange intersectsSortedRanges:(NSArray *)inArray;
 
-+ (NSArray *) rangesFromRange:(NSRange) inRange excludingRanges:(NSArray *) inRanges;
++ (NSArray *)rangesFromRange:(NSRange)inRange excludingRanges:(NSArray *)inRanges;
 
-+ (NSArray *) sortedRanges:(NSArray *) inArray intersectingRange:(NSRange) inRange;
++ (NSArray *)sortedRanges:(NSArray *)inArray intersectingRange:(NSRange)inRange;
 
 @end
