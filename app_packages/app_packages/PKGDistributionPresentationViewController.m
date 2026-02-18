@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2025, Stephane Sudre
+ Copyright (c) 2017-2026, Stephane Sudre
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -186,6 +186,8 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification;
 
+- (void)stepDocumentSettingsDidChange:(NSNotification *)inNotification;
+
 - (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification;
 - (void)choiceDependenciesEditionDidEnd:(NSNotification *)inNotification;
 
@@ -289,6 +291,8 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 		{
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings titleSettings_safe]];
 			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings readMeSettings_safe]];
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings licenseSettings_safe]];
 		}
 		
 		_presentationSettings=inPresentationSettings;
@@ -299,6 +303,9 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(titleSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings titleSettings_safe]];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundImageSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings backgroundSettings_safe]];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stepDocumentSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings readMeSettings_safe]];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stepDocumentSettingsDidChange:) name:PKGPresentationStepSettingsDidChangeNotification object:[_presentationSettings licenseSettings_safe]];
+
 	}
 }
 
@@ -387,14 +394,14 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	{
 		// A COMPLETER (Alignment should match script)
 		
-		_backgroundView.imageAlignment=tBackgroundAppearanceSettings.imageAlignment;
+		_backgroundView.imageAlignment=(NSImageAlignment)tBackgroundAppearanceSettings.imageAlignment;
 	}
 	else
 	{
-		_backgroundView.imageAlignment=tBackgroundAppearanceSettings.imageAlignment;
+		_backgroundView.imageAlignment=(NSImageAlignment)tBackgroundAppearanceSettings.imageAlignment;
 	}
 	
-	_backgroundView.imageScaling=tBackgroundAppearanceSettings.imageScaling;
+	_backgroundView.imageScaling=(NSImageScaling)tBackgroundAppearanceSettings.imageScaling;
 	
 	PKGFilePath * tFilePath=tBackgroundAppearanceSettings.imagePath;
 	
@@ -1766,6 +1773,11 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 - (void)backgroundImageSettingsDidChange:(NSNotification *)inNotification
 {
 	[self updateBackgroundView];
+}
+
+- (void)stepDocumentSettingsDidChange:(NSNotification *)inNotification
+{
+	[_listView reloadData];
 }
 
 - (void)choiceDependenciesEditionWillBegin:(NSNotification *)inNotification
