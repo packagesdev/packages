@@ -19,6 +19,7 @@
 		F402BAAB1F54CFF40028B43D /* PKGDistributionRequirementsAndResourcesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F402BAAD1F54CFF40028B43D /* PKGDistributionRequirementsAndResourcesViewController.xib */; };
 		F402BAAF1F54D02C0028B43D /* PKGDistributionRequirementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F402BAB11F54D02C0028B43D /* PKGDistributionRequirementsViewController.xib */; };
 		F404C9F31DCEB5AF00017CC8 /* PKGPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F404C9F11DCEB5AF00017CC8 /* PKGPreferencesWindowController.m */; };
+		F405397B2F41C37F00ECFD27 /* NSMenuItem+RSCore.m in Sources */ = {isa = PBXBuildFile; fileRef = F405397A2F41C37F00ECFD27 /* NSMenuItem+RSCore.m */; };
 		F40556071EDD96560022394B /* PKGPresentationChoiceRequirementPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F40556061EDD96560022394B /* PKGPresentationChoiceRequirementPanel.m */; };
 		F405AA4D1DCFB458006A9B11 /* PKGPreferencePaneTemplatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F405AA4C1DCFB458006A9B11 /* PKGPreferencePaneTemplatesViewController.m */; };
 		F405AA501DCFB4DF006A9B11 /* PKGPreferencePaneTemplatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F405AA4E1DCFB4DF006A9B11 /* PKGPreferencePaneTemplatesViewController.xib */; };
@@ -873,6 +874,8 @@
 		F40399311F0EF93600BEBE06 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = app_packages/Info.plist; sourceTree = "<group>"; };
 		F404C9F01DCEB5AF00017CC8 /* PKGPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPreferencesWindowController.h; path = app_packages/PKGPreferencesWindowController.h; sourceTree = "<group>"; };
 		F404C9F11DCEB5AF00017CC8 /* PKGPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPreferencesWindowController.m; path = app_packages/PKGPreferencesWindowController.m; sourceTree = "<group>"; };
+		F40539792F41C37F00ECFD27 /* NSMenuItem+RSCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMenuItem+RSCore.h"; path = "../RSCore/NSMenuItem+RSCore.h"; sourceTree = "<group>"; };
+		F405397A2F41C37F00ECFD27 /* NSMenuItem+RSCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMenuItem+RSCore.m"; path = "../RSCore/NSMenuItem+RSCore.m"; sourceTree = "<group>"; };
 		F40556051EDD96560022394B /* PKGPresentationChoiceRequirementPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPresentationChoiceRequirementPanel.h; path = app_packages/PKGPresentationChoiceRequirementPanel.h; sourceTree = "<group>"; };
 		F40556061EDD96560022394B /* PKGPresentationChoiceRequirementPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKGPresentationChoiceRequirementPanel.m; path = app_packages/PKGPresentationChoiceRequirementPanel.m; sourceTree = "<group>"; };
 		F405AA4B1DCFB458006A9B11 /* PKGPreferencePaneTemplatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKGPreferencePaneTemplatesViewController.h; path = app_packages/PKGPreferencePaneTemplatesViewController.h; sourceTree = "<group>"; };
@@ -2291,6 +2294,7 @@
 				F4A8A4A81C7E6BE800DC77C2 /* SharedConfigurationSettings.xcconfig */,
 				F46DCE9F1E5D1A7400794DF9 /* JavaScript Editor */,
 				F4DE7A770DFF9C8B00E6A4FB /* RegexKitLite */,
+				F40539702F41C36400ECFD27 /* RSCore */,
 				F46CCE7A0CB0454A00F7C6A5 /* WBKit */,
 				F407C2050CA59D3800D4D480 /* Foundation Extensions */,
 				F40E6F390CADA41D0009073E /* AppKit Extensions */,
@@ -2373,6 +2377,15 @@
 				F424D3951DCE43B100F95165 /* PKGAboutBoxFooterView.m */,
 			);
 			name = views;
+			sourceTree = "<group>";
+		};
+		F40539702F41C36400ECFD27 /* RSCore */ = {
+			isa = PBXGroup;
+			children = (
+				F40539792F41C37F00ECFD27 /* NSMenuItem+RSCore.h */,
+				F405397A2F41C37F00ECFD27 /* NSMenuItem+RSCore.m */,
+			);
+			name = RSCore;
 			sourceTree = "<group>";
 		};
 		F405CA96113AB04D0020AEAC /* Quick Build Document */ = {
@@ -5027,6 +5040,7 @@
 				F481F63D1E18394000DBD566 /* PKGFilePathTextFieldCell.m in Sources */,
 				F49A897B1FB8AEB9002173C0 /* PKGPreferencesTabBox.m in Sources */,
 				F424D3451DCE3E4900F95165 /* PKGChoicesForest.m in Sources */,
+				F405397B2F41C37F00ECFD27 /* NSMenuItem+RSCore.m in Sources */,
 				F4BE51521F33BA2200073294 /* PKGPresentationFileNamePopUpButtonCell.m in Sources */,
 				F4EC281C1DDA7C07006D8304 /* PKGProjectTemplateAssistantSettingsKeys.m in Sources */,
 				F4D6A5BD1E9E29170061F342 /* PKGPresentationStepSettings+UI.m in Sources */,

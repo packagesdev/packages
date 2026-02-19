@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007-2025, Stephane Sudre
+Copyright (c) 2007-2026, Stephane Sudre
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -27,6 +27,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import "PKGQuickBuildDocument.h"
 
 #import "PKGDocumentController.h"
+
+#import "NSMenuItem+RSCore.h"
 
 @interface PKGApplicationController ()
 
@@ -69,14 +71,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation PKGApplicationController
 
-- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
++ (void)initialize
 {
-    self.launchedNormally=YES;
-		
-	if ([PKGApplicationPreferences sharedPreferences].dontShowProjectAssistantOnLaunch==NO)
-		[NSApp runModalForWindow:[PKGProjectTemplateAssistantWindowController new].window];
-	
-	return NO;
+	[NSMenuItem rs_disableIcons];
 }
 
 #pragma mark - Application Menu
@@ -229,6 +226,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 }
 
 #pragma mark -
+
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
+{
+	self.launchedNormally=YES;
+	
+	if ([PKGApplicationPreferences sharedPreferences].dontShowProjectAssistantOnLaunch==NO)
+		[NSApp runModalForWindow:[PKGProjectTemplateAssistantWindowController new].window];
+	
+	return NO;
+}
 
 - (NSError *)application:(NSApplication *)inApplication willPresentError:(NSError *)inError
 {
